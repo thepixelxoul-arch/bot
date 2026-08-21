@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Send bKash</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root { --main-pink: #e2005a; --main-white: #ffffff; --text-grey: #888888; --bg-light: #f4f6f9; }
+        body { margin: 0; padding: 0; background-color: #e9ecef; font-family: 'Segoe UI', Tahoma, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .login-container { width: 100%; max-width: 400px; background-color: var(--main-white); border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); padding: 30px 25px; box-sizing: border-box; text-align: center; }
+        .logo-area { color: var(--main-pink); font-size: 40px; margin-bottom: 10px; }
+        h2 { margin: 0 0 25px 0; color: #2c3e50; }
+        .input-group { margin-bottom: 15px; text-align: left; }
+        .input-group input { width: 100%; padding: 14px; border: 1px solid #dcdde1; border-radius: 8px; font-size: 15px; box-sizing: border-box; outline: none; transition: border-color 0.2s; }
+        .input-group input:focus { border-color: var(--main-pink); }
+        .login-btn { width: 100%; padding: 14px; background-color: var(--main-pink); color: var(--main-white); border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; margin-bottom: 20px; transition: background 0.3s; }
+        .login-btn:hover { background-color: #c4004e; }
+        .switch-page { margin-top: 20px; font-size: 14px; color: var(--text-grey); }
+        .switch-page a { color: var(--main-pink); font-weight: bold; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <div class="logo-area">
+            <i class="fas fa-user-plus"></i>
+        </div>
+        <h2>নতুন অ্যাকাউন্ট তৈরি করুন</h2>
+
+        <!-- রেজিস্ট্রেশন ফর্ম -->
+        <div class="input-group">
+            <input type="text" id="name" placeholder="আপনার পুরো নাম" required>
+        </div>
+        <div class="input-group">
+            <input type="email" id="email" placeholder="ইমেইল অ্যাড্রেস" required>
+        </div>
+        <div class="input-group">
+            <input type="password" id="password" placeholder="পাসওয়ার্ড দিন (অন্তত ৬ অক্ষর)" required>
+        </div>
+        
+        <button class="login-btn" id="registerBtn">অ্যাকাউন্ট খুলুন</button>
+
+        <div class="switch-page">
+            আগে থেকেই অ্যাকাউন্ট আছে? <a href="login.html">লগইন করুন</a>
+        </div>
+    </div>
+
+    <!-- Firebase SDK & Registration Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+        // আপনার ফায়ারবেস কনফিগারেশন
+        const firebaseConfig = {
+            apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
+            authDomain: "send-bkash.firebaseapp.com",
+            projectId: "send-bkash",
+            storageBucket: "send-bkash.firebasestorage.app",
+            messagingSenderId: "306247423891",
+            appId: "1:306247423891:web:bb4fb6634043e6755afa66",
+            measurementId: "G-ZSRNS5RPV5"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Registration Function
+        document.getElementById("registerBtn").addEventListener("click", () => {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const name = document.getElementById("name").value;
+            
+            if(email && password && name) {
+                if(password.length < 6) {
+                    alert("পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে!");
+                    return;
+                }
+                
+                createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    alert("সফলভাবে অ্যাকাউন্ট তৈরি হয়েছে!");
+                    window.location.href = "index.html"; // সফল হলে হোমে নিয়ে যাবে
+                })
+                .catch((error) => {
+                    alert("অ্যাকাউন্ট তৈরি করা যায়নি: " + error.message);
+                    console.error(error);
+                });
+            } else {
+                alert("দয়া করে সবগুলো ঘর পূরণ করুন!");
+            }
+        });
+    </script>
+</body>
+</html>
