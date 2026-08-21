@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile - Send bKash</title>
+    <!-- প্রফেশনাল আইকনের জন্য FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -33,8 +34,10 @@
             display: flex; 
             flex-direction: column; 
             position: relative; 
+            box-sizing: border-box;
         }
 
+        /* হেডার ও ব্যাক বাটন */
         .header { 
             background-color: var(--main-pink); 
             padding: 15px 20px; 
@@ -58,48 +61,60 @@
             text-decoration: none; 
             margin-right: 15px; 
             font-size: 22px; 
+            transition: transform 0.2s; 
+        }
+
+        .back-btn:active { 
+            transform: scale(0.9); 
+        }
+
+        .header-icon {
+            font-size: 20px;
+            cursor: pointer;
         }
 
         .content { 
             flex-grow: 1; 
             padding: 20px; 
             overflow-y: auto; 
+            padding-bottom: 30px;
         }
 
+        /* প্রোফাইল ব্যানার (অ্যাভাটার সহ) */
         .profile-card { 
             background-color: var(--main-white); 
             border-radius: 15px; 
-            padding: 30px 20px; 
+            padding: 25px 20px; 
             text-align: center; 
             border: 1px solid #eaeaea; 
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-            margin-bottom: 20px; 
+            margin-bottom: 15px; 
         }
 
         .avatar { 
-            width: 80px; 
-            height: 80px; 
+            width: 70px; 
+            height: 70px; 
             background-color: rgba(226, 0, 90, 0.1); 
             color: var(--main-pink); 
             border-radius: 50%; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
-            font-size: 35px; 
-            margin: 0 auto 15px auto; 
+            font-size: 30px; 
+            margin: 0 auto 10px auto; 
             border: 2px solid var(--main-pink); 
         }
 
         .profile-card h2 { 
             margin: 0 0 5px 0; 
             color: #2c3e50; 
-            font-size: 22px; 
+            font-size: 20px; 
         }
 
         .profile-card p { 
             margin: 0; 
             color: var(--text-grey); 
-            font-size: 14px; 
+            font-size: 13px; 
         }
 
         .profile-card .uid { 
@@ -109,17 +124,19 @@
             font-weight: bold; 
             color: #2f3640; 
             display: inline-block; 
-            margin-top: 8px; 
-            font-size: 13px; 
+            margin-top: 6px; 
+            font-size: 12px; 
         }
 
+        /* প্রোফাইল স্ট্যাটাস */
         .profile-stats { 
             display: flex; 
             background-color: var(--main-white); 
             border-radius: 12px; 
-            padding: 20px; 
-            margin-bottom: 20px; 
+            padding: 15px; 
+            margin-bottom: 15px; 
             border: 1px solid #eaeaea; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
         }
 
         .stat-item { 
@@ -134,32 +151,41 @@
         .stat-item h3 { 
             margin: 0 0 5px 0; 
             color: var(--main-pink); 
-            font-size: 20px; 
+            font-size: 18px; 
         }
 
         .stat-item p { 
             margin: 0; 
             color: var(--text-grey); 
-            font-size: 13px; 
+            font-size: 12px; 
+            font-weight: 500;
         }
 
+        /* সেটিংস মেনু */
         .menu-list { 
             background-color: var(--main-white); 
             border-radius: 12px; 
             overflow: hidden; 
             border: 1px solid #eaeaea; 
-            margin-bottom: 20px; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            margin-bottom: 15px; 
         }
 
         .menu-item { 
             display: flex; 
             align-items: center; 
             justify-content: space-between; 
-            padding: 16px 20px; 
+            padding: 14px 18px; 
             border-bottom: 1px solid #eaeaea; 
             color: #2c3e50; 
             text-decoration: none; 
+            transition: background 0.2s; 
             font-weight: 500; 
+            font-size: 14px;
+        }
+
+        .menu-item:last-child { 
+            border-bottom: none; 
         }
 
         .menu-item:hover { 
@@ -169,21 +195,27 @@
         .menu-left { 
             display: flex; 
             align-items: center; 
-            gap: 15px; 
+            gap: 12px; 
         }
 
         .menu-left i { 
+            font-size: 16px; 
             color: var(--main-pink); 
             width: 20px; 
             text-align: center; 
         }
 
-        /* অ্যাডমিন বাটনের আলাদা স্টাইল */
+        .menu-item .fa-chevron-right { 
+            font-size: 12px; 
+            color: #b2bec3; 
+        }
+
+        /* অ্যাডমিন প্যানেল বাটন (লুকানো থাকবে, শুধু অ্যাডমিন দেখতে পাবে) */
         .menu-item.admin-btn {
-            background-color: #e2005a;
+            background-color: var(--main-pink);
             color: white;
             font-weight: bold;
-            display: none; /* ডিফল্টভাবে লুকিয়ে থাকবে */
+            display: none; 
         }
         .menu-item.admin-btn:hover {
             background-color: #c4004e;
@@ -192,103 +224,168 @@
             color: white;
         }
 
+        /* লগআউট বাটন */
         .logout-btn { 
             display: flex; 
             align-items: center; 
             justify-content: center; 
             gap: 10px; 
             width: 100%; 
-            padding: 15px; 
+            padding: 14px; 
             background-color: #ffeaa7; 
             color: #d63031; 
             border: none; 
             border-radius: 12px; 
-            font-size: 16px; 
+            font-size: 15px; 
             font-weight: bold; 
             cursor: pointer; 
-            margin-bottom: 10px; 
+            transition: background 0.3s; 
+            margin-bottom: 10px;
         }
 
+        .logout-btn:hover { 
+            background-color: #fdcb6e; 
+        }
+
+        /* বটম মেনু (নিচে ফিক্সড) */
         .bottom-nav { 
             background-color: var(--main-white); 
             display: flex; 
             justify-content: space-around; 
-            padding: 12px 0 15px 0; 
+            padding: 10px 0; 
             border-top: 1px solid #eaeaea; 
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.04); 
+            position: sticky;
+            bottom: 0;
+            width: 100%;
             z-index: 10; 
         }
 
         .nav-item { 
             text-align: center; 
-            font-size: 12px; 
+            font-size: 11px; 
             color: var(--text-grey); 
             cursor: pointer; 
             flex: 1; 
             text-decoration: none; 
+            transition: all 0.3s; 
         }
 
         .nav-item i { 
-            font-size: 20px; 
-            margin-bottom: 6px; 
+            font-size: 18px; 
+            margin-bottom: 4px; 
             display: block; 
+            transition: transform 0.2s;
         }
 
         .nav-item.active { 
             color: var(--main-pink); 
             font-weight: bold; 
         }
+
+        .nav-item.active i { 
+            transform: scale(1.15); 
+        }
     </style>
 </head>
 <body>
 
     <div class="app-container">
+        <!-- Header with Back Button & Notification Icon -->
         <div class="header">
             <div class="header-title">
                 <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
                 Profile
             </div>
-            <div><i class="fas fa-bell"></i></div>
+            <div class="header-icon">
+                <i class="fas fa-bell"></i>
+            </div>
         </div>
 
+        <!-- Main Content -->
         <div class="content">
+            
+            <!-- Profile Info Card -->
             <div class="profile-card">
-                <div class="avatar"><i class="fas fa-user-tie"></i></div>
-                <h2 id="userName">প্রিয় গ্রাহক</h2>
+                <div class="avatar">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <h2>প্রিয় গ্রাহক</h2>
                 <p id="userEmail">Loading...</p>
                 <div class="uid" id="userId">User ID: --</div>
             </div>
 
+            <!-- Mini Stats -->
             <div class="profile-stats">
-                <div class="stat-item"><h3>৳৩৫০.০০</h3><p>মোট আয়</p></div>
-                <div class="stat-item"><h3>৳৩০০.০০</h3><p>মোট উইথড্র</p></div>
+                <div class="stat-item">
+                    <h3>৳৩৫০.০০</h3>
+                    <p>মোট আয়</p>
+                </div>
+                <div class="stat-item">
+                    <h3>৳৩০০.০০</h3>
+                    <p>মোট উইথড্র</p>
+                </div>
             </div>
 
+            <!-- Settings Menu -->
             <div class="menu-list">
                 <!-- অ্যাডমিন প্যানেল বাটন (শুধুমাত্র অ্যাডমিনের জন্য দৃশ্যমান হবে) -->
                 <a href="admin.html" class="menu-item admin-btn" id="adminPanelBtn">
                     <div class="menu-left">
                         <i class="fas fa-user-shield"></i> অ্যাডমিন প্যানেল
                     </div>
-                    <i class="fas fa-chevron-right" style="color: white; font-size: 12px;"></i>
+                    <i class="fas fa-chevron-right" style="color: white;"></i>
                 </a>
 
-                <a href="#" class="menu-item"><div class="menu-left"><i class="fas fa-lock"></i> পাসওয়ার্ড পরিবর্তন</div><i class="fas fa-chevron-right" style="color:#b2bec3; font-size:12px;"></i></a>
-                <a href="#" class="menu-item"><div class="menu-left"><i class="fas fa-headset"></i> হেল্পলাইন ও সাপোর্ট</div><i class="fas fa-chevron-right" style="color:#b2bec3; font-size:12px;"></i></a>
-                <a href="#" class="menu-item"><div class="menu-left"><i class="fas fa-file-contract"></i> কাজের নিয়মাবলী</div><i class="fas fa-chevron-right" style="color:#b2bec3; font-size:12px;"></i></a>
+                <a href="#" class="menu-item">
+                    <div class="menu-left">
+                        <i class="fas fa-lock"></i> পাসওয়ার্ড পরিবর্তন
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+                <a href="#" class="menu-item">
+                    <div class="menu-left">
+                        <i class="fas fa-headset"></i> হেল্পলাইন ও সাপোর্ট
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+                <a href="#" class="menu-item">
+                    <div class="menu-left">
+                        <i class="fas fa-file-contract"></i> কাজের নিয়মাবলী
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </a>
             </div>
 
-            <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> লগআউট করুন</button>
+            <!-- Logout Button -->
+            <button class="logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> লগআউট করুন
+            </button>
+
         </div>
 
+        <!-- Bottom Navigation -->
         <div class="bottom-nav">
-            <a href="index.html" class="nav-item"><i class="fas fa-home"></i>Home</a>
-            <a href="withdraw.html" class="nav-item"><i class="fas fa-wallet"></i>Withdraw</a>
-            <a href="refer.html" class="nav-item"><i class="fas fa-users"></i>Refer</a>
-            <a href="profile.html" class="nav-item active"><i class="fas fa-user"></i>Profile</a>
+            <a href="index.html" class="nav-item">
+                <i class="fas fa-home"></i>
+                Home
+            </a>
+            <a href="withdraw.html" class="nav-item">
+                <i class="fas fa-wallet"></i>
+                Withdraw
+            </a>
+            <a href="refer.html" class="nav-item">
+                <i class="fas fa-users"></i>
+                Refer
+            </a>
+            <a href="profile.html" class="nav-item active">
+                <i class="fas fa-user"></i>
+                Profile
+            </a>
         </div>
     </div>
 
-    <!-- Firebase Script & Admin Control -->
+    <!-- Firebase SDK & Profile Control -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
@@ -308,20 +405,19 @@
 
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                // ইউজারের ইমেইল ও আইডি দেখানো
                 document.getElementById("userEmail").innerText = user.email;
                 document.getElementById("userId").innerText = "User ID: " + user.uid.slice(0, 10);
 
-                // চেক করা ইউজারটি অ্যাডমিন কি না
+                // অ্যাডমিন চেক
                 if (user.email === "sakibbinsalam.admin@gmail.com") {
-                    document.getElementById("adminPanelBtn").style.display = "flex"; // শুধুমাত্র অ্যাডমিনের জন্য দেখাবে
+                    document.getElementById("adminPanelBtn").style.display = "flex";
                 }
             } else {
-                window.location.href = "login.html"; // লগইন করা না থাকলে প্রোফাইলে ঢুকতে দিবে না
+                window.location.href = "login.html";
             }
         });
 
-        // লগআউট ফাংশন
+        // লগআউট
         document.getElementById("logoutBtn").addEventListener("click", () => {
             signOut(auth).then(() => {
                 window.location.href = "login.html";
