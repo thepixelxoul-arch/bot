@@ -100,33 +100,29 @@
         .refer-link-box {
             display: flex;
             background-color: #f1f2f6;
-            border-radius: 6px;
+            border-radius: 8px;
             overflow: hidden;
             border: 1px solid #dcdde1;
         }
 
         .refer-link-box input {
             flex-grow: 1;
-            padding: 10px;
+            padding: 12px;
             border: none;
             background: transparent;
             outline: none;
-            font-size: 12px;
+            font-size: 13px;
             color: #2c3e50;
             text-align: center;
         }
 
-        /* ছোট এবং সুন্দর চারকোনা কপি বাটন */
         .copy-btn {
             background-color: var(--main-pink);
             color: white;
             border: none;
-            padding: 8px 16px;
+            padding: 0 20px;
             font-weight: bold;
             cursor: pointer;
-            border-radius: 4px;
-            font-size: 13px;
-            margin: 3px;
             transition: background 0.2s;
         }
 
@@ -164,6 +160,7 @@
             font-size: 12px;
         }
 
+        /* প্রোফাইল পেজের মতো ছোট এবং নিখুঁত বটম নেভবার */
         .bottom-nav { 
             background-color: var(--main-white); 
             display: flex; 
@@ -263,6 +260,7 @@
 
         onAuthStateChanged(auth, (user) => {
             if (user) {
+                // ইউজারের UID দিয়ে রেফার লিংক তৈরি করা
                 const refLink = `https://send-bkash.web.app/register.html?ref=${user.uid}`;
                 document.getElementById("referLink").value = refLink;
             } else {
@@ -270,10 +268,11 @@
             }
         });
 
+        // কপি বাটন ফাংশন
         document.getElementById("copyBtn").addEventListener("click", () => {
             const copyText = document.getElementById("referLink");
             copyText.select();
-            copyText.setSelectionRange(0, 99999);
+            copyText.setSelectionRange(0, 99999); // মোবাইল ডিভাইসের জন্য
             navigator.clipboard.writeText(copyText.value);
             alert("রেফার লিংক কপি সফল হয়েছে!");
         });
