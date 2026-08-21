@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile - Send bKash</title>
-    <!-- প্রফেশনাল আইকনের জন্য FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -37,7 +36,6 @@
             box-sizing: border-box;
         }
 
-        /* হেডার ও ব্যাক বাটন */
         .header { 
             background-color: var(--main-pink); 
             padding: 15px 20px; 
@@ -61,16 +59,6 @@
             text-decoration: none; 
             margin-right: 15px; 
             font-size: 22px; 
-            transition: transform 0.2s; 
-        }
-
-        .back-btn:active { 
-            transform: scale(0.9); 
-        }
-
-        .header-icon {
-            font-size: 20px;
-            cursor: pointer;
         }
 
         .content { 
@@ -80,41 +68,40 @@
             padding-bottom: 30px;
         }
 
-        /* প্রোফাইল ব্যানার (অ্যাভাটার সহ) */
         .profile-card { 
             background-color: var(--main-white); 
             border-radius: 15px; 
-            padding: 30px 20px; 
+            padding: 25px 20px; 
             text-align: center; 
             border: 1px solid #eaeaea; 
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-            margin-bottom: 20px; 
+            margin-bottom: 15px; 
         }
 
         .avatar { 
-            width: 80px; 
-            height: 80px; 
+            width: 70px; 
+            height: 70px; 
             background-color: rgba(226, 0, 90, 0.1); 
             color: var(--main-pink); 
             border-radius: 50%; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
-            font-size: 35px; 
-            margin: 0 auto 15px auto; 
+            font-size: 30px; 
+            margin: 0 auto 10px auto; 
             border: 2px solid var(--main-pink); 
         }
 
         .profile-card h2 { 
             margin: 0 0 5px 0; 
             color: #2c3e50; 
-            font-size: 22px; 
+            font-size: 20px; 
         }
 
         .profile-card p { 
             margin: 0; 
             color: var(--text-grey); 
-            font-size: 14px; 
+            font-size: 13px; 
         }
 
         .profile-card .uid { 
@@ -124,19 +111,30 @@
             font-weight: bold; 
             color: #2f3640; 
             display: inline-block; 
-            margin-top: 8px; 
-            font-size: 13px; 
+            margin-top: 6px; 
+            font-size: 12px; 
         }
 
-        /* প্রোফাইল স্ট্যাটাস */
+        /* ভিআইপি ব্যাজ স্টাইল */
+        .vip-badge {
+            background: linear-gradient(135deg, #f39c12, #f1c40f);
+            color: white;
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 8px;
+            box-shadow: 0 2px 5px rgba(243, 156, 18, 0.3);
+        }
+
         .profile-stats { 
             display: flex; 
             background-color: var(--main-white); 
             border-radius: 12px; 
-            padding: 20px; 
-            margin-bottom: 20px; 
+            padding: 15px; 
+            margin-bottom: 15px; 
             border: 1px solid #eaeaea; 
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
         }
 
         .stat-item { 
@@ -151,36 +149,34 @@
         .stat-item h3 { 
             margin: 0 0 5px 0; 
             color: var(--main-pink); 
-            font-size: 20px; 
+            font-size: 18px; 
         }
 
         .stat-item p { 
             margin: 0; 
             color: var(--text-grey); 
-            font-size: 13px; 
-            font-weight: 500;
+            font-size: 12px; 
         }
 
-        /* সেটিংস মেনু */
         .menu-list { 
             background-color: var(--main-white); 
             border-radius: 12px; 
             overflow: hidden; 
             border: 1px solid #eaeaea; 
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-            margin-bottom: 20px; 
+            margin-bottom: 15px; 
         }
 
         .menu-item { 
             display: flex; 
             align-items: center; 
             justify-content: space-between; 
-            padding: 16px 20px; 
+            padding: 14px 18px; 
             border-bottom: 1px solid #eaeaea; 
             color: #2c3e50; 
             text-decoration: none; 
-            transition: background 0.2s; 
             font-weight: 500; 
+            font-size: 14px;
+            cursor: pointer;
         }
 
         .menu-item:last-child { 
@@ -194,58 +190,74 @@
         .menu-left { 
             display: flex; 
             align-items: center; 
-            gap: 15px; 
+            gap: 12px; 
         }
 
         .menu-left i { 
-            font-size: 18px; 
+            font-size: 16px; 
             color: var(--main-pink); 
             width: 20px; 
             text-align: center; 
         }
 
-        .menu-item .fa-chevron-right { 
-            font-size: 14px; 
-            color: #b2bec3; 
-        }
-
-        /* অ্যাডমিন প্যানেল বাটন (অন্যান্য মেনুর মতো সাধারণ সাইজ ও স্টাইল) */
         .menu-item.admin-btn {
-            display: none; /* ডিফল্টভাবে লুকিয়ে থাকবে */
-            border-left: 4px solid var(--main-pink);
+            background-color: var(--main-pink);
+            color: white;
+            font-weight: bold;
+            display: none; 
+        }
+        .menu-item.admin-btn:hover {
+            background-color: #c4004e;
+        }
+        .menu-item.admin-btn .menu-left i {
+            color: white;
         }
 
-        /* লগআউট বাটন */
         .logout-btn { 
             display: flex; 
             align-items: center; 
             justify-content: center; 
             gap: 10px; 
             width: 100%; 
-            padding: 15px; 
+            padding: 14px; 
             background-color: #ffeaa7; 
             color: #d63031; 
             border: none; 
             border-radius: 12px; 
-            font-size: 16px; 
+            font-size: 15px; 
             font-weight: bold; 
             cursor: pointer; 
-            transition: background 0.3s; 
-            margin-bottom: 10px;
+            margin-bottom: 10px; 
         }
 
-        .logout-btn:hover { 
-            background-color: #fdcb6e; 
+        /* ভিআইপি মোডাল পপআপ */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
         }
+        .modal-content {
+            background: white;
+            width: 90%; max-width: 350px;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            text-align: left;
+        }
+        .modal-content h3 { margin-top: 0; color: var(--main-pink); text-align: center; font-size: 18px; }
+        .vip-rule { font-size: 13px; color: #333; margin-bottom: 8px; border-bottom: 1px solid #f1f2f6; padding-bottom: 6px; }
+        .close-modal { background: var(--main-pink); color: white; border: none; padding: 8px 15px; width: 100%; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 15px; }
 
-        /* বটম মেনু */
         .bottom-nav { 
             background-color: var(--main-white); 
             display: flex; 
             justify-content: space-around; 
-            padding: 12px 0 15px 0; 
+            padding: 10px 0; 
             border-top: 1px solid #eaeaea; 
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.04); 
             position: sticky;
             bottom: 0;
             width: 100%;
@@ -254,129 +266,95 @@
 
         .nav-item { 
             text-align: center; 
-            font-size: 12px; 
+            font-size: 11px; 
             color: var(--text-grey); 
             cursor: pointer; 
             flex: 1; 
             text-decoration: none; 
-            transition: all 0.3s; 
         }
 
         .nav-item i { 
-            font-size: 20px; 
-            margin-bottom: 6px; 
+            font-size: 18px; 
+            margin-bottom: 4px; 
             display: block; 
-            transition: transform 0.2s;
         }
 
         .nav-item.active { 
             color: var(--main-pink); 
             font-weight: bold; 
         }
-
-        .nav-item.active i { 
-            transform: scale(1.15); 
-        }
     </style>
 </head>
 <body>
 
     <div class="app-container">
-        <!-- Header with Back Button & Notification Icon -->
         <div class="header">
             <div class="header-title">
                 <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
                 Profile
             </div>
-            <div class="header-icon">
-                <i class="fas fa-bell"></i>
-            </div>
+            <div><i class="fas fa-bell"></i></div>
         </div>
 
-        <!-- Main Content -->
         <div class="content">
             
-            <!-- Profile Info Card -->
             <div class="profile-card">
-                <div class="avatar">
-                    <i class="fas fa-user-tie"></i>
-                </div>
-                <h2>প্রিয় গ্রাহক</h2>
+                <div class="avatar"><i class="fas fa-user-tie"></i></div>
+                <h2 id="userName">প্রিয় গ্রাহক</h2>
                 <p id="userEmail">Loading...</p>
                 <div class="uid" id="userId">User ID: --</div>
+                <div><span class="vip-badge" id="vipBadge">VIP 0</span></div>
             </div>
 
-            <!-- Mini Stats -->
             <div class="profile-stats">
-                <div class="stat-item">
-                    <h3>৳৩৫০.০০</h3>
-                    <p>মোট আয়</p>
-                </div>
-                <div class="stat-item">
-                    <h3>৳৩০০.০০</h3>
-                    <p>মোট উইথড্র</p>
-                </div>
+                <div class="stat-item"><h3>৳৩৫০.০০</h3><p>মোট আয়</p></div>
+                <div class="stat-item"><h3>৳৩০০.০০</h3><p>মোট উইথড্র</p></div>
             </div>
 
-            <!-- Settings Menu -->
             <div class="menu-list">
-                <!-- অ্যাডমিন প্যানেল বাটন (অন্যান্য মেনুর মতোই সাধারণ স্টাইল) -->
+                <!-- অ্যাডমিন প্যানেল বাটন -->
                 <a href="admin.html" class="menu-item admin-btn" id="adminPanelBtn">
-                    <div class="menu-left">
-                        <i class="fas fa-user-shield"></i> অ্যাডমিন প্যানেল
-                    </div>
+                    <div class="menu-left"><i class="fas fa-user-shield"></i> অ্যাডমিন প্যানেল</div>
                     <i class="fas fa-chevron-right"></i>
                 </a>
 
-                <a href="#" class="menu-item">
-                    <div class="menu-left">
-                        <i class="fas fa-lock"></i> পাসওয়ার্ড পরিবর্তন
-                    </div>
+                <!-- ভিআইপি লেভেল অপশন -->
+                <div class="menu-item" id="vipBtn">
+                    <div class="menu-left"><i class="fas fa-crown" style="color: #f39c12;"></i> ভিআইপি লেভেল (VIP Status)</div>
                     <i class="fas fa-chevron-right"></i>
-                </a>
-                <a href="#" class="menu-item">
-                    <div class="menu-left">
-                        <i class="fas fa-headset"></i> হেল্পলাইন ও সাপোর্ট
-                    </div>
-                    <i class="fas fa-chevron-right"></i>
-                </a>
-                <a href="#" class="menu-item">
-                    <div class="menu-left">
-                        <i class="fas fa-file-contract"></i> কাজের নিয়মাবলী
-                    </div>
-                    <i class="fas fa-chevron-right"></i>
-                </a>
+                </div>
+
+                <a href="#" class="menu-item"><div class="menu-left"><i class="fas fa-lock"></i> পাসওয়ার্ড পরিবর্তন</div><i class="fas fa-chevron-right"></i></a>
+                <a href="#" class="menu-item"><div class="menu-left"><i class="fas fa-headset"></i> হেল্পলাইন ও সাপোর্ট</div><i class="fas fa-chevron-right"></i></a>
+                <a href="#" class="menu-item"><div class="menu-left"><i class="fas fa-file-contract"></i> কাজের নিয়মাবলী</div><i class="fas fa-chevron-right"></i></a>
             </div>
 
-            <!-- Logout Button -->
-            <button class="logout-btn" id="logoutBtn">
-                <i class="fas fa-sign-out-alt"></i> লগআউট করুন
-            </button>
-
+            <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> লগআউট করুন</button>
         </div>
 
-        <!-- Bottom Navigation -->
+        <!-- VIP Rules Modal -->
+        <div class="modal" id="vipModal">
+            <div class="modal-content">
+                <h3><i class="fas fa-crown"></i> ভিআইপি লেভেল শর্তসমূহ</h3>
+                <div class="vip-rule"><b>VIP 0:</b> কোনো কাজ জমা না দিলে (ডিফল্ট)</div>
+                <div class="vip-rule"><b>VIP 1:</b> ১০০ জিমেইল, ৫ টেলিগ্রাম, ৫ হোয়াটসঅ্যাপ</div>
+                <div class="vip-rule"><b>VIP 2:</b> ২০০ জিমেইল, ১০ টেলিগ্রাম, ১০ হোয়াটসঅ্যাপ</div>
+                <div class="vip-rule"><b>VIP 3:</b> ৩০০ জিমেইল, ১৫ টেলিগ্রাম, ১৫ হোয়াটসঅ্যাপ</div>
+                <div class="vip-rule"><b>VIP 4:</b> ৪০০ জিমেইল, ২০ টেলিগ্রাম, ২০ হোয়াটসঅ্যাপ</div>
+                <div class="vip-rule"><b>VIP 5:</b> ৫০০ জিমেইল, ৩০ টেলিগ্রাম, ২৫ হোয়াটসঅ্যাপ</div>
+                <button class="close-modal" id="closeModal">বুঝেছি</button>
+            </div>
+        </div>
+
         <div class="bottom-nav">
-            <a href="index.html" class="nav-item">
-                <i class="fas fa-home"></i>
-                Home
-            </a>
-            <a href="withdraw.html" class="nav-item">
-                <i class="fas fa-wallet"></i>
-                Withdraw
-            </a>
-            <a href="refer.html" class="nav-item">
-                <i class="fas fa-users"></i>
-                Refer
-            </a>
-            <a href="profile.html" class="nav-item active">
-                <i class="fas fa-user"></i>
-                Profile
-            </a>
+            <a href="index.html" class="nav-item"><i class="fas fa-home"></i>Home</a>
+            <a href="withdraw.html" class="nav-item"><i class="fas fa-wallet"></i>Withdraw</a>
+            <a href="refer.html" class="nav-item"><i class="fas fa-users"></i>Refer</a>
+            <a href="profile.html" class="nav-item active"><i class="fas fa-user"></i>Profile</a>
         </div>
     </div>
 
-    <!-- Firebase SDK & Profile Control -->
+    <!-- Firebase SDK & Script -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
@@ -399,16 +377,23 @@
                 document.getElementById("userEmail").innerText = user.email;
                 document.getElementById("userId").innerText = "User ID: " + user.uid.slice(0, 10);
 
-                // অ্যাডমিন চেক
                 if (user.email === "sakibbinsalam.admin@gmail.com") {
                     document.getElementById("adminPanelBtn").style.display = "flex";
+                    document.getElementById("vipBadge").innerText = "VIP Admin";
                 }
             } else {
                 window.location.href = "login.html";
             }
         });
 
-        // লগআউট
+        const modal = document.getElementById("vipModal");
+        document.getElementById("vipBtn").addEventListener("click", () => {
+            modal.style.display = "flex";
+        });
+        document.getElementById("closeModal").addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+
         document.getElementById("logoutBtn").addEventListener("click", () => {
             signOut(auth).then(() => {
                 window.location.href = "login.html";
