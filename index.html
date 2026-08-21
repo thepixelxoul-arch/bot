@@ -106,7 +106,7 @@
         .service-btn { background-color: rgba(226, 0, 90, 0.1); color: var(--main-pink); border: none; padding: 8px 15px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: all 0.2s; }
         .service-btn:hover { background-color: var(--main-pink); color: white; }
 
-        .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 12px 0 15px 0; border-top: 1px solid #eaeaea; box-shadow: 0 -4px 20px rgba(0,0,0,0.04); z-index: 10; }
+        .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 12px 0 15px 0; border-top: 1px solid #eaeaea; box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.04); z-index: 10; }
         .nav-item { text-align: center; font-size: 12px; color: var(--text-grey); cursor: pointer; flex: 1; text-decoration: none; transition: all 0.3s; }
         .nav-item i { font-size: 20px; margin-bottom: 6px; display: block; }
         .nav-item.active { color: var(--main-pink); font-weight: bold; }
@@ -167,7 +167,7 @@
         </div>
     </div>
 
-    <!-- Firebase Script & Protection Logic -->
+    <!-- Firebase Script & Direct Redirect Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
@@ -191,36 +191,26 @@
             const taskBtns = document.querySelectorAll(".task-btn");
             
             if (user) {
-                // ১. ইউজার লগইন করা থাকলে ব্যালেন্স দেখাবে
                 authSection.innerHTML = `
                     <div class="header-balance">
                         <i class="fas fa-wallet"></i> ৳৫০.০০
                     </div>`;
-                
-                // ২. লগইন করা থাকলে সব পেজে যেতে পারবে
-                protectedLinks.forEach(link => {
-                    // লিংকগুলো অ্যাক্টিভ থাকবে (যেমন ছিল)
-                });
-
             } else {
-                // ১. ইউজার লগইন না থাকলে Login/Sign Up বাটন দেখাবে
                 authSection.innerHTML = `
                     <a href="login.html" class="auth-btn">Login</a>
                     <a href="register.html" class="auth-btn register">Sign Up</a>
                 `;
                 
-                // ২. Withdraw, Refer, Profile বা কাজের বাটনে ক্লিক করলে আটকে দিবে
+                // সরাসরি লগইন পেজে পাঠিয়ে দেবে (কোনো পপআপ দেখাবে না)
                 protectedLinks.forEach(link => {
                     link.addEventListener("click", (e) => {
                         e.preventDefault();
-                        alert("দয়া করে আগে লগইন বা সাইন আপ করুন!");
                         window.location.href = "login.html";
                     });
                 });
 
                 taskBtns.forEach(btn => {
                     btn.addEventListener("click", () => {
-                        alert("কাজ করতে চাইলে প্রথমে লগইন বা সাইন আপ করুন!");
                         window.location.href = "login.html";
                     });
                 });
