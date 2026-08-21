@@ -70,53 +70,54 @@
 
         .balance-card {
             background-color: var(--main-white);
-            border-radius: 15px;
-            padding: 25px 20px;
+            border-radius: 6px;
+            padding: 15px;
             text-align: center;
             border: 1px solid #eaeaea;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            margin-bottom: 15px;
         }
 
         .balance-card h3 {
             margin: 0 0 5px 0;
             color: var(--text-grey);
-            font-size: 14px;
+            font-size: 13px;
         }
 
         .balance-card h1 {
             margin: 0;
             color: var(--main-pink);
-            font-size: 28px;
+            font-size: 24px;
         }
 
         .withdraw-form {
             background-color: var(--main-white);
-            border-radius: 15px;
-            padding: 20px;
+            border-radius: 6px;
+            padding: 15px;
             border: 1px solid #eaeaea;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            margin-bottom: 15px;
         }
 
         .input-group {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             text-align: left;
         }
 
         .input-group label {
             display: block;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
             color: #2c3e50;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: bold;
         }
 
         .input-group select, .input-group input {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             border: 1px solid #dcdde1;
-            border-radius: 8px;
-            font-size: 14px;
+            border-radius: 4px;
+            font-size: 13px;
             box-sizing: border-box;
             outline: none;
         }
@@ -127,12 +128,12 @@
 
         .withdraw-btn {
             width: 100%;
-            padding: 14px;
+            padding: 12px;
             background-color: var(--main-pink);
             color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 16px;
+            border-radius: 4px;
+            font-size: 14px;
             font-weight: bold;
             cursor: pointer;
             transition: background 0.3s;
@@ -142,7 +143,49 @@
             background-color: #c4004e;
         }
 
-        /* প্রোফাইল পেজের মতো ছোট এবং নিখুঁত বটম নেভবার */
+        /* উইথড্র হিস্ট্রি সেকশন */
+        .history-section {
+            background-color: var(--main-white);
+            border-radius: 6px;
+            padding: 15px;
+            border: 1px solid #eaeaea;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+
+        .history-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #eaeaea;
+            padding-bottom: 6px;
+        }
+
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #f1f2f6;
+            font-size: 12px;
+            color: #2c3e50;
+        }
+
+        .history-item:last-child {
+            border-bottom: none;
+        }
+
+        .status-pending {
+            color: #f39c12;
+            font-weight: bold;
+        }
+
+        .status-success {
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        /* বটম নেভবার */
         .bottom-nav { 
             background-color: var(--main-white); 
             display: flex; 
@@ -215,6 +258,19 @@
                 </div>
 
                 <button class="withdraw-btn" id="withdrawBtn">উইথড্র রিকোয়েস্ট পাঠান</button>
+            </div>
+
+            <!-- উইথড্র হিস্ট্রি সেকশন -->
+            <div class="history-section">
+                <div class="history-title">উইথড্র হিস্ট্রি</div>
+                <div class="history-item">
+                    <span>৳২০০ - bKash</span>
+                    <span class="status-pending">Pending</span>
+                </div>
+                <div class="history-item">
+                    <span>৳১৫০ - Nagad</span>
+                    <span class="status-success">Successful</span>
+                </div>
             </div>
 
         </div>
