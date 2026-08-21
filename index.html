@@ -13,14 +13,14 @@
             --main-pink: #e2005a; 
             --main-white: #ffffff;
             --text-grey: #888888;
-            --bg-light: #f9f9f9;
+            --bg-light: #f4f6f9; /* পেছনের ব্যাকগ্রাউন্ড কালার */
         }
 
         /* কম্পিউটারের ফুল স্ক্রিনের ব্যাকগ্রাউন্ড */
         body {
             margin: 0;
             padding: 0;
-            background-color: var(--bg-light); /* বাইরের ব্যাকগ্রাউন্ড হালকা গ্রে */
+            background-color: #e9ecef;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             justify-content: center;
@@ -31,9 +31,9 @@
             width: 100%;
             max-width: 450px;
             min-height: 100vh;
-            background-color: var(--main-white);
+            background-color: var(--bg-light); /* ভেতরের কালার একটু অফ-হোয়াইট */
             color: var(--main-pink);
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.08); /* প্রফেশনাল শ্যাডো */
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.1); 
             display: flex;
             flex-direction: column;
             position: relative;
@@ -47,7 +47,8 @@
             font-size: 20px;
             font-weight: bold;
             color: var(--main-white);
-            box-shadow: 0 2px 10px rgba(226, 0, 90, 0.2);
+            box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2);
+            z-index: 10;
         }
         
         .header i {
@@ -59,45 +60,87 @@
             flex-grow: 1;
             padding: 20px;
             overflow-y: auto;
-            background-color: var(--main-white);
         }
 
-        /* কাজের বক্স */
-        .task-box {
-            background-color: var(--main-white);
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            border: 1.5px solid rgba(226, 0, 90, 0.2);
-            box-shadow: 0 4px 12px rgba(226, 0, 90, 0.05);
-        }
-
-        .task-box h3 {
-            margin-top: 0;
+        /* নোটিশ ব্যানার (নতুন) */
+        .notice-banner {
+            background-color: rgba(226, 0, 90, 0.08);
             color: var(--main-pink);
-            border-bottom: 1px dashed rgba(226, 0, 90, 0.3);
-            padding-bottom: 10px;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            border-left: 4px solid var(--main-pink);
+            display: flex;
+            align-items: center;
+        }
+        .notice-banner i {
+            margin-right: 10px;
             font-size: 18px;
         }
-        
-        .task-box h3 i {
-            margin-right: 8px;
+
+        /* ড্যাশবোর্ড গ্রিড (নতুন) */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background-color: var(--main-white);
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid #eaeaea;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.03);
+            transition: transform 0.2s;
         }
         
-        .task-box p {
-            color: #333; /* ভেতরের টেক্সট ডার্ক গ্রে */
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(226, 0, 90, 0.08);
+        }
+
+        .stat-card h4 {
+            margin: 10px 0 5px 0;
+            font-size: 22px;
+            color: #2c3e50;
+        }
+
+        .stat-card p {
+            margin: 0;
+            font-size: 13px;
+            color: var(--text-grey);
             font-weight: 500;
-            font-size: 15px;
-            margin: 10px 0;
         }
-        
-        .task-box p strong {
-            color: var(--main-pink);
+
+        /* কাজের বক্স (নতুন ডিজাইন) */
+        .action-box {
+            background-color: var(--main-white);
+            padding: 25px 20px;
+            border-radius: 12px;
+            border: 2px dashed rgba(226, 0, 90, 0.4);
+            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.05);
+            text-align: center;
+        }
+
+        .action-box h3 {
+            margin: 0 0 10px 0;
+            color: #2c3e50;
+            font-size: 18px;
+        }
+
+        .action-box p {
+            color: var(--text-grey);
+            font-size: 14px;
+            margin: 0 0 20px 0;
+            line-height: 1.5;
         }
 
         /* বাটন ডিজাইন */
         .btn {
-            display: block;
+            display: inline-block;
             width: 100%;
             padding: 14px;
             background-color: var(--main-pink);
@@ -107,8 +150,11 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            margin-top: 15px;
             transition: background 0.3s, transform 0.1s;
+        }
+        
+        .btn i {
+            margin-right: 8px;
         }
         
         .btn:hover {
@@ -116,7 +162,7 @@
         }
         
         .btn:active {
-            transform: scale(0.98); /* ক্লিক করলে হালকা চাপবে */
+            transform: scale(0.98);
         }
 
         /* একদম নিচের মেনু (Bottom Nav) */
@@ -125,14 +171,15 @@
             display: flex;
             justify-content: space-around;
             padding: 12px 0 15px 0;
-            border-top: 1px solid #eeeeee;
-            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.03); /* উপরের দিকে হালকা শ্যাডো */
+            border-top: 1px solid #eaeaea;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.04);
+            z-index: 10;
         }
 
         .nav-item {
             text-align: center;
             font-size: 12px;
-            color: var(--text-grey); /* সাধারণ অবস্থায় গ্রে কালার */
+            color: var(--text-grey);
             cursor: pointer;
             flex: 1;
             transition: all 0.3s ease;
@@ -145,18 +192,17 @@
             transition: transform 0.2s;
         }
         
-        /* সিলেক্ট করা বাটনটির ডিজাইন */
         .nav-item.active {
             color: var(--main-pink);
             font-weight: bold;
         }
         
         .nav-item.active i {
-            transform: scale(1.1); /* আইকন একটু বড় হবে */
+            transform: scale(1.15);
         }
         
-        .nav-item:hover {
-            color: var(--main-pink);
+        .nav-item:hover:not(.active) {
+            color: #b3b3b3;
         }
     </style>
 </head>
@@ -171,19 +217,43 @@
         <!-- Main Content -->
         <div class="content">
             
-            <!-- Balance Card -->
-            <div class="task-box" style="text-align: center; border: 2px solid var(--main-pink);">
-                <p style="margin: 0; color: var(--text-grey); font-weight: normal; font-size: 14px;">আপনার বর্তমান ব্যালেন্স</p>
-                <h1 style="margin: 10px 0; font-size: 38px; color: var(--main-pink);">৳৫০.০০</h1>
+            <!-- Notice Banner -->
+            <div class="notice-banner">
+                <i class="fas fa-bullhorn"></i>
+                <div>
+                    <strong>আপডেট:</strong> এখন প্রতিটি জিমেইলের জন্য ৭.৫০ টাকা দেওয়া হচ্ছে!
+                </div>
             </div>
 
-            <!-- Task Card -->
-            <div class="task-box">
-                <h3><i class="fas fa-plus-circle"></i> নতুন জিমেইল খুলুন</h3>
-                <p><strong>নাম:</strong> John</p>
-                <p><strong>পাসওয়ার্ড:</strong> Jony@@##</p>
-                <p><strong>রেট:</strong> ৳৭.১৪</p>
-                <button class="btn">কাজ জমা দিন</button>
+            <!-- Dashboard Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-wallet" style="color: var(--main-pink); font-size: 28px;"></i>
+                    <h4>৳৫০.০০</h4>
+                    <p>বর্তমান ব্যালেন্স</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-check-circle" style="color: #27ae60; font-size: 28px;"></i>
+                    <h4>৭ টি</h4>
+                    <p>অ্যাপ্রুভ হয়েছে</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-clock" style="color: #f39c12; font-size: 28px;"></i>
+                    <h4>২ টি</h4>
+                    <p>পেন্ডিং আছে</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-users" style="color: #2980b9; font-size: 28px;"></i>
+                    <h4>৳১৫.০০</h4>
+                    <p>রেফার ইনকাম</p>
+                </div>
+            </div>
+
+            <!-- Action Card for New Task -->
+            <div class="action-box">
+                <h3>নতুন জিমেইল জমা দিন</h3>
+                <p>কাজ শুরু করতে নিচের বাটনে ক্লিক করে নতুন নাম ও পাসওয়ার্ড সংগ্রহ করুন।</p>
+                <button class="btn"><i class="fas fa-plus-circle"></i> নতুন কাজ নিন</button>
             </div>
 
         </div>
