@@ -131,7 +131,6 @@
         }
         .service-info { display: flex; align-items: center; gap: 15px; }
         
-        /* বড় এবং বর্গাকার আইকন */
         .service-icon { 
             width: 55px; 
             height: 55px; 
@@ -164,10 +163,35 @@
         }
         .service-btn:hover { background-color: var(--main-pink); color: white; }
 
-        .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 12px 0 15px 0; border-top: 1px solid #eaeaea; box-shadow: 0 -4px 20px rgba(0,0,0,0.04); z-index: 10; }
-        .nav-item { text-align: center; font-size: 12px; color: var(--text-grey); cursor: pointer; flex: 1; text-decoration: none; }
-        .nav-item i { font-size: 20px; margin-bottom: 6px; display: block; }
-        .nav-item.active { color: var(--main-pink); font-weight: bold; }
+        /* প্রোফাইল পেজের মতো ছোট এবং নিখুঁত বটম নেভবার */
+        .bottom-nav { 
+            background-color: var(--main-white); 
+            display: flex; 
+            justify-content: space-around; 
+            padding: 10px 0; 
+            border-top: 1px solid #eaeaea; 
+            position: sticky;
+            bottom: 0;
+            width: 100%;
+            z-index: 10; 
+        }
+        .nav-item { 
+            text-align: center; 
+            font-size: 11px; 
+            color: var(--text-grey); 
+            cursor: pointer; 
+            flex: 1; 
+            text-decoration: none; 
+        }
+        .nav-item i { 
+            font-size: 18px; 
+            margin-bottom: 4px; 
+            display: block; 
+        }
+        .nav-item.active { 
+            color: var(--main-pink); 
+            font-weight: bold; 
+        }
     </style>
 </head>
 <body>
