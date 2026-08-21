@@ -131,7 +131,7 @@
         }
         .service-info { display: flex; align-items: center; gap: 15px; }
         
-        /* আইকনগুলো বড় এবং বর্গাকার (Square) করা হলো */
+        /* বড় এবং বর্গাকার আইকন */
         .service-icon { 
             width: 55px; 
             height: 55px; 
@@ -146,7 +146,7 @@
         .icon-gmail { background-color: #ea4335; } 
         .icon-wa { background-color: #25d366; } 
         .icon-tg { background-color: #0088cc; }
-        .icon-ig { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); } /* ইন্সটাগ্রাম গ্রেডিয়েন্ট কালার */
+        .icon-ig { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
         
         .service-details h4 { margin: 0 0 4px 0; color: #2c3e50; font-size: 15px; }
         .service-details p { margin: 0; color: var(--main-pink); font-size: 13px; font-weight: bold; }
@@ -204,9 +204,9 @@
                 <div class="service-card">
                     <div class="service-info">
                         <div class="service-icon icon-gmail"><i class="fa-brands fa-google"></i></div>
-                        <div class="service-details"><h4>Gmail Account</h4><p>রেট: ৳৭.৫০</p></div>
+                        <div class="service-details"><h4>Gmail Account</h4><p>জিমেইল তৈরি করুন (রেট: ৳৭.৫০)</p></div>
                     </div>
-                    <button class="service-btn task-btn">কাজ নিন</button>
+                    <button class="service-btn task-btn">জমা দিন</button>
                 </div>
 
                 <div class="service-card">
@@ -214,7 +214,7 @@
                         <div class="service-icon icon-wa"><i class="fa-brands fa-whatsapp"></i></div>
                         <div class="service-details"><h4>WhatsApp Account</h4><p>রেট: ৳১৫.০০</p></div>
                     </div>
-                    <button class="service-btn task-btn">কাজ নিন</button>
+                    <button class="service-btn task-btn">জমা দিন</button>
                 </div>
 
                 <div class="service-card">
@@ -222,16 +222,15 @@
                         <div class="service-icon icon-tg"><i class="fa-brands fa-telegram"></i></div>
                         <div class="service-details"><h4>Telegram Account</h4><p>রেট: ৳১২.০০</p></div>
                     </div>
-                    <button class="service-btn task-btn">কাজ নিন</button>
+                    <button class="service-btn task-btn">জমা দিন</button>
                 </div>
 
-                <!-- নতুন যোগ করা Instagram অ্যাকাউন্ট অপশন -->
                 <div class="service-card">
                     <div class="service-info">
                         <div class="service-icon icon-ig"><i class="fa-brands fa-instagram"></i></div>
                         <div class="service-details"><h4>Instagram Account</h4><p>রেট: ৳১০.০০</p></div>
                     </div>
-                    <button class="service-btn task-btn">কাজ নিন</button>
+                    <button class="service-btn task-btn">জমা দিন</button>
                 </div>
             </div>
         </div>
@@ -286,7 +285,6 @@
                     });
                 });
 
-                TaskBtns = document.querySelectorAll(".task-btn");
                 taskBtns.forEach(btn => {
                     btn.addEventListener("click", () => {
                         window.location.href = "login.html";
