@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdraw - Send bKash</title>
+    <!-- প্রফেশনাল আইকনের জন্য FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* কালার ভেরিয়েবল */
+        :root {
+            --main-pink: #e2005a; 
+            --main-white: #ffffff;
+            --text-grey: #888888;
+            --bg-light: #f4f6f9;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #e9ecef;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 450px;
+            min-height: 100vh;
+            background-color: var(--bg-light);
+            color: var(--main-pink);
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.1); 
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* হেডার (ডানপাশে ব্যালেন্স সহ) */
+        .header {
+            background-color: var(--main-pink);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--main-white);
+            box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2);
+            z-index: 10;
+        }
+
+        .header-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        .header-title i {
+            margin-right: 8px;
+        }
+
+        .header-balance {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 15px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* কন্টেন্ট এরিয়া */
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .section-title {
+            color: #2c3e50;
+            font-size: 18px;
+            margin: 5px 0 20px 0;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* উইথড্র মেথড সিলেকশন (Grid) */
+        .payment-methods {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        /* রেডিও বাটন লুকানো হয়েছে */
+        .payment-methods input[type="radio"] {
+            display: none;
+        }
+
+        /* কাস্টম রেডিও লেবেল (বক্স ডিজাইন) */
+        .method-label {
+            background-color: var(--main-white);
+            border: 2px solid #eaeaea;
+            border-radius: 10px;
+            padding: 15px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: bold;
+            font-size: 16px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .method-label i {
+            font-size: 24px;
+        }
+
+        /* সিলেক্ট করার পর বক্সের ডিজাইন */
+        .payment-methods input[type="radio"]:checked + .method-label {
+            border-color: var(--main-pink);
+            background-color: rgba(226, 0, 90, 0.05);
+            box-shadow: 0 4px 10px rgba(226, 0, 90, 0.1);
+        }
+
+        /* ব্র্যান্ড কালার */
+        .bkash-text { color: #e2136e; }
+        .nagad-text { color: #f7931e; }
+        .rocket-text { color: #8c1590; }
+        .upay-text { color: #006eb8; }
+
+        /* ইনপুট ফর্ম ডিজাইন */
+        .input-group {
+            margin-bottom: 18px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #dcdde1;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .input-group input:focus {
+            border-color: var(--main-pink);
+            box-shadow: 0 0 0 3px rgba(226, 0, 90, 0.1);
+        }
+        
+        .input-group input::placeholder {
+            color: #b2bec3;
+        }
+
+        /* সাবমিট বাটন */
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--main-pink);
+            color: var(--main-white);
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.3s, transform 0.1s;
+        }
+
+        .submit-btn:hover {
+            background-color: #c4004e;
+        }
+        
+        .submit-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* নোট টেক্সট */
+        .note-text {
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-grey);
+            margin-top: 15px;
+        }
+
+        /* বটম মেনু */
+        .bottom-nav {
+            background-color: var(--main-white);
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0 15px 0;
+            border-top: 1px solid #eaeaea;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.04);
+            z-index: 10;
+        }
+
+        .nav-item {
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-grey);
+            cursor: pointer;
+            flex: 1;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-item i {
+            font-size: 20px;
+            margin-bottom: 6px;
+            display: block;
+            transition: transform 0.2s;
+        }
+        
+        .nav-item.active {
+            color: var(--main-pink);
+            font-weight: bold;
+        }
+        
+        .nav-item.active i {
+            transform: scale(1.15);
+        }
+        
+        .nav-item:hover:not(.active) {
+            color: #b3b3b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Header with Balance -->
+        <div class="header">
+            <div class="header-title">
+                <i class="fas fa-paper-plane"></i> Send bKash
+            </div>
+            <div class="header-balance">
+                <i class="fas fa-wallet"></i> ৳৫০.০০
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            
+            <h3 class="section-title">পেমেন্ট মেথড নির্বাচন করুন</h3>
+            
+            <!-- Payment Methods Grid -->
+            <div class="payment-methods">
+                
+                <label>
+                    <input type="radio" name="payment_method" value="bkash" checked>
+                    <div class="method-label">
+                        <i class="fas fa-mobile-screen bkash-text"></i>
+                        <span class="bkash-text">bKash</span>
+                    </div>
+                </label>
+
+                <label>
+                    <input type="radio" name="payment_method" value="nagad">
+                    <div class="method-label">
+                        <i class="fas fa-mobile-screen nagad-text"></i>
+                        <span class="nagad-text">Nagad</span>
+                    </div>
+                </label>
+
+                <label>
+                    <input type="radio" name="payment_method" value="rocket">
+                    <div class="method-label">
+                        <i class="fas fa-mobile-screen rocket-text"></i>
+                        <span class="rocket-text">Rocket</span>
+                    </div>
+                </label>
+
+                <label>
+                    <input type="radio" name="payment_method" value="upay">
+                    <div class="method-label">
+                        <i class="fas fa-mobile-screen upay-text"></i>
+                        <span class="upay-text">Upay</span>
+                    </div>
+                </label>
+
+            </div>
+
+            <!-- Withdraw Form -->
+            <div class="input-group">
+                <label for="account_number">অ্যাকাউন্ট নম্বর (Personal)</label>
+                <input type="number" id="account_number" placeholder="01XXXXXXXXX" required>
+            </div>
+
+            <div class="input-group">
+                <label for="amount">টাকার পরিমাণ (সর্বনিম্ন ৳৫০)</label>
+                <input type="number" id="amount" placeholder="৳ পরিমাণ লিখুন" required>
+            </div>
+
+            <button class="submit-btn">উইথড্র রিকোয়েস্ট পাঠান</button>
+            
+            <p class="note-text">
+                <i class="fas fa-info-circle"></i> উইথড্র রিকোয়েস্ট দেওয়ার ২৪ ঘণ্টার মধ্যে পেমেন্ট সম্পন্ন করা হবে।
+            </p>
+
+        </div>
+
+        <!-- Bottom Navigation (Withdraw Active) -->
+        <div class="bottom-nav">
+            <div class="nav-item">
+                <i class="fas fa-home"></i>
+                Home
+            </div>
+            <!-- Withdraw অপশনটি অ্যাক্টিভ করা হয়েছে -->
+            <div class="nav-item active">
+                <i class="fas fa-wallet"></i>
+                Withdraw
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-users"></i>
+                Refer
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-user"></i>
+                Profile
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
