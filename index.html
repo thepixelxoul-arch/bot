@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Send bKash Web</title>
-    <!-- প্রফেশনাল আইকনের জন্য FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* কালার ভেরিয়েবল */
         :root {
             --main-pink: #e2005a; 
             --main-white: #ffffff;
@@ -37,7 +35,6 @@
             position: relative;
         }
 
-        /* আপডেটেড হেডার (ডানপাশে ব্যালেন্স সহ) */
         .header {
             background-color: var(--main-pink);
             padding: 15px 20px;
@@ -58,7 +55,6 @@
             margin-right: 8px;
         }
 
-        /* হেডারের ভেতরের ব্যালেন্স ব্যাজ */
         .header-balance {
             background-color: rgba(255, 255, 255, 0.2);
             padding: 6px 12px;
@@ -70,14 +66,12 @@
             gap: 6px;
         }
 
-        /* কন্টেন্ট এরিয়া */
         .content {
             flex-grow: 1;
             padding: 20px;
             overflow-y: auto;
         }
 
-        /* সার্ভিস লিস্ট (Gmail, WhatsApp, Telegram) */
         .section-title {
             color: #2c3e50;
             font-size: 16px;
@@ -125,7 +119,6 @@
             color: white;
         }
         
-        /* অরিজিনাল ব্র্যান্ড কালার */
         .icon-gmail { background-color: #ea4335; }
         .icon-wa { background-color: #25d366; }
         .icon-tg { background-color: #0088cc; }
@@ -159,7 +152,6 @@
             color: white;
         }
 
-        /* বটম মেনু */
         .bottom-nav {
             background-color: var(--main-white);
             display: flex;
@@ -177,6 +169,7 @@
             cursor: pointer;
             flex: 1;
             transition: all 0.3s ease;
+            text-decoration: none; /* আন্ডারলাইন বন্ধ করার জন্য */
         }
         
         .nav-item i {
@@ -203,7 +196,7 @@
 <body>
 
     <div class="app-container">
-        <!-- Header with Balance -->
+        <!-- Header -->
         <div class="header">
             <div class="header-title">
                 <i class="fas fa-paper-plane"></i> Send bKash
@@ -215,13 +208,9 @@
 
         <!-- Main Content -->
         <div class="content">
-            
-            <!-- Service Selection Area -->
             <h3 class="section-title">কাজ নির্বাচন করুন</h3>
             
             <div class="service-list">
-                
-                <!-- Gmail Task -->
                 <div class="service-card">
                     <div class="service-info">
                         <div class="service-icon icon-gmail">
@@ -235,7 +224,6 @@
                     <button class="service-btn">কাজ নিন</button>
                 </div>
 
-                <!-- WhatsApp Task -->
                 <div class="service-card">
                     <div class="service-info">
                         <div class="service-icon icon-wa">
@@ -249,7 +237,6 @@
                     <button class="service-btn">কাজ নিন</button>
                 </div>
 
-                <!-- Telegram Task -->
                 <div class="service-card">
                     <div class="service-info">
                         <div class="service-icon icon-tg">
@@ -262,29 +249,27 @@
                     </div>
                     <button class="service-btn">কাজ নিন</button>
                 </div>
-
             </div>
-
         </div>
 
-        <!-- Bottom Navigation -->
+        <!-- Bottom Navigation (লিংক যুক্ত করা হয়েছে) -->
         <div class="bottom-nav">
-            <div class="nav-item active">
+            <a href="index.html" class="nav-item active">
                 <i class="fas fa-home"></i>
                 Home
-            </div>
-            <div class="nav-item">
+            </a>
+            <a href="withdraw.html" class="nav-item">
                 <i class="fas fa-wallet"></i>
                 Withdraw
-            </div>
-            <div class="nav-item">
+            </a>
+            <a href="#" class="nav-item">
                 <i class="fas fa-users"></i>
                 Refer
-            </div>
-            <div class="nav-item">
+            </a>
+            <a href="#" class="nav-item">
                 <i class="fas fa-user"></i>
                 Profile
-            </div>
+            </a>
         </div>
     </div>
 
