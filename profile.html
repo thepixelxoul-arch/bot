@@ -84,37 +84,37 @@
         .profile-card { 
             background-color: var(--main-white); 
             border-radius: 15px; 
-            padding: 25px 20px; 
+            padding: 30px 20px; 
             text-align: center; 
             border: 1px solid #eaeaea; 
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-            margin-bottom: 15px; 
+            margin-bottom: 20px; 
         }
 
         .avatar { 
-            width: 70px; 
-            height: 70px; 
+            width: 80px; 
+            height: 80px; 
             background-color: rgba(226, 0, 90, 0.1); 
             color: var(--main-pink); 
             border-radius: 50%; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
-            font-size: 30px; 
-            margin: 0 auto 10px auto; 
+            font-size: 35px; 
+            margin: 0 auto 15px auto; 
             border: 2px solid var(--main-pink); 
         }
 
         .profile-card h2 { 
             margin: 0 0 5px 0; 
             color: #2c3e50; 
-            font-size: 20px; 
+            font-size: 22px; 
         }
 
         .profile-card p { 
             margin: 0; 
             color: var(--text-grey); 
-            font-size: 13px; 
+            font-size: 14px; 
         }
 
         .profile-card .uid { 
@@ -124,8 +124,8 @@
             font-weight: bold; 
             color: #2f3640; 
             display: inline-block; 
-            margin-top: 6px; 
-            font-size: 12px; 
+            margin-top: 8px; 
+            font-size: 13px; 
         }
 
         /* প্রোফাইল স্ট্যাটাস */
@@ -133,8 +133,8 @@
             display: flex; 
             background-color: var(--main-white); 
             border-radius: 12px; 
-            padding: 15px; 
-            margin-bottom: 15px; 
+            padding: 20px; 
+            margin-bottom: 20px; 
             border: 1px solid #eaeaea; 
             box-shadow: 0 2px 8px rgba(0,0,0,0.02);
         }
@@ -151,13 +151,13 @@
         .stat-item h3 { 
             margin: 0 0 5px 0; 
             color: var(--main-pink); 
-            font-size: 18px; 
+            font-size: 20px; 
         }
 
         .stat-item p { 
             margin: 0; 
             color: var(--text-grey); 
-            font-size: 12px; 
+            font-size: 13px; 
             font-weight: 500;
         }
 
@@ -168,20 +168,19 @@
             overflow: hidden; 
             border: 1px solid #eaeaea; 
             box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-            margin-bottom: 15px; 
+            margin-bottom: 20px; 
         }
 
         .menu-item { 
             display: flex; 
             align-items: center; 
             justify-content: space-between; 
-            padding: 14px 18px; 
+            padding: 16px 20px; 
             border-bottom: 1px solid #eaeaea; 
             color: #2c3e50; 
             text-decoration: none; 
             transition: background 0.2s; 
             font-weight: 500; 
-            font-size: 14px;
         }
 
         .menu-item:last-child { 
@@ -195,33 +194,25 @@
         .menu-left { 
             display: flex; 
             align-items: center; 
-            gap: 12px; 
+            gap: 15px; 
         }
 
         .menu-left i { 
-            font-size: 16px; 
+            font-size: 18px; 
             color: var(--main-pink); 
             width: 20px; 
             text-align: center; 
         }
 
         .menu-item .fa-chevron-right { 
-            font-size: 12px; 
+            font-size: 14px; 
             color: #b2bec3; 
         }
 
-        /* অ্যাডমিন প্যানেল বাটন (লুকানো থাকবে, শুধু অ্যাডমিন দেখতে পাবে) */
+        /* অ্যাডমিন প্যানেল বাটন (অন্যান্য মেনুর মতো সাধারণ সাইজ ও স্টাইল) */
         .menu-item.admin-btn {
-            background-color: var(--main-pink);
-            color: white;
-            font-weight: bold;
-            display: none; 
-        }
-        .menu-item.admin-btn:hover {
-            background-color: #c4004e;
-        }
-        .menu-item.admin-btn .menu-left i {
-            color: white;
+            display: none; /* ডিফল্টভাবে লুকিয়ে থাকবে */
+            border-left: 4px solid var(--main-pink);
         }
 
         /* লগআউট বাটন */
@@ -231,12 +222,12 @@
             justify-content: center; 
             gap: 10px; 
             width: 100%; 
-            padding: 14px; 
+            padding: 15px; 
             background-color: #ffeaa7; 
             color: #d63031; 
             border: none; 
             border-radius: 12px; 
-            font-size: 15px; 
+            font-size: 16px; 
             font-weight: bold; 
             cursor: pointer; 
             transition: background 0.3s; 
@@ -247,12 +238,12 @@
             background-color: #fdcb6e; 
         }
 
-        /* বটম মেনু (নিচে ফিক্সড) */
+        /* বটম মেনু */
         .bottom-nav { 
             background-color: var(--main-white); 
             display: flex; 
             justify-content: space-around; 
-            padding: 10px 0; 
+            padding: 12px 0 15px 0; 
             border-top: 1px solid #eaeaea; 
             box-shadow: 0 -4px 20px rgba(0,0,0,0.04); 
             position: sticky;
@@ -263,7 +254,7 @@
 
         .nav-item { 
             text-align: center; 
-            font-size: 11px; 
+            font-size: 12px; 
             color: var(--text-grey); 
             cursor: pointer; 
             flex: 1; 
@@ -272,8 +263,8 @@
         }
 
         .nav-item i { 
-            font-size: 18px; 
-            margin-bottom: 4px; 
+            font-size: 20px; 
+            margin-bottom: 6px; 
             display: block; 
             transition: transform 0.2s;
         }
@@ -329,12 +320,12 @@
 
             <!-- Settings Menu -->
             <div class="menu-list">
-                <!-- অ্যাডমিন প্যানেল বাটন (শুধুমাত্র অ্যাডমিনের জন্য দৃশ্যমান হবে) -->
+                <!-- অ্যাডমিন প্যানেল বাটন (অন্যান্য মেনুর মতোই সাধারণ স্টাইল) -->
                 <a href="admin.html" class="menu-item admin-btn" id="adminPanelBtn">
                     <div class="menu-left">
                         <i class="fas fa-user-shield"></i> অ্যাডমিন প্যানেল
                     </div>
-                    <i class="fas fa-chevron-right" style="color: white;"></i>
+                    <i class="fas fa-chevron-right"></i>
                 </a>
 
                 <a href="#" class="menu-item">
