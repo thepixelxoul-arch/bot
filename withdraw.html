@@ -4,41 +4,237 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Withdraw - Send bKash</title>
+    <!-- প্রফেশনাল আইকনের জন্য FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        :root { --main-pink: #e2005a; --main-white: #ffffff; --text-grey: #888888; --bg-light: #f4f6f9; }
-        body { margin: 0; padding: 0; background-color: #e9ecef; font-family: 'Segoe UI', Tahoma, sans-serif; display: flex; justify-content: center; }
-        .app-container { width: 100%; max-width: 450px; min-height: 100vh; background-color: var(--bg-light); color: var(--main-pink); box-shadow: 0 0 25px rgba(0,0,0,0.1); display: flex; flex-direction: column; position: relative; }
-        
-        .header { background-color: var(--main-pink); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; color: var(--main-white); box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); z-index: 10; }
-        .header-title { font-size: 20px; font-weight: bold; display: flex; align-items: center; }
-        /* ব্যাক বাটনের ডিজাইন */
-        .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 22px; transition: transform 0.2s; }
-        .back-btn:active { transform: scale(0.9); }
-        
-        .header-balance { background-color: rgba(255, 255, 255, 0.2); padding: 6px 12px; border-radius: 20px; font-size: 15px; font-weight: bold; display: flex; align-items: center; gap: 6px; }
-        .content { flex-grow: 1; padding: 20px; overflow-y: auto; }
-        .section-title { color: #2c3e50; font-size: 18px; margin: 5px 0 20px 0; font-weight: bold; text-align: center; }
-        .payment-methods { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 25px; }
-        .payment-methods input[type="radio"] { display: none; }
-        .method-label { background-color: var(--main-white); border: 2px solid #eaeaea; border-radius: 10px; padding: 15px 10px; text-align: center; cursor: pointer; transition: all 0.2s; font-weight: bold; font-size: 16px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
-        .method-label i { font-size: 24px; }
-        .payment-methods input[type="radio"]:checked + .method-label { border-color: var(--main-pink); background-color: rgba(226, 0, 90, 0.05); }
-        .bkash-text { color: #e2136e; } .nagad-text { color: #f7931e; } .rocket-text { color: #8c1590; } .upay-text { color: #006eb8; }
-        .input-group { margin-bottom: 18px; }
-        .input-group label { display: block; margin-bottom: 8px; color: #2c3e50; font-weight: 600; font-size: 14px; }
-        .input-group input { width: 100%; padding: 14px; border: 1px solid #dcdde1; border-radius: 8px; font-size: 16px; box-sizing: border-box; outline: none; }
-        .input-group input:focus { border-color: var(--main-pink); box-shadow: 0 0 0 3px rgba(226, 0, 90, 0.1); }
-        .submit-btn { display: block; width: 100%; padding: 15px; background-color: var(--main-pink); color: var(--main-white); border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; }
-        .note-text { text-align: center; font-size: 13px; color: var(--text-grey); margin-top: 15px; }
-        .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 12px 0 15px 0; border-top: 1px solid #eaeaea; box-shadow: 0 -4px 20px rgba(0,0,0,0.04); z-index: 10; }
-        .nav-item { text-align: center; font-size: 12px; color: var(--text-grey); cursor: pointer; flex: 1; text-decoration: none; transition: all 0.3s; }
-        .nav-item i { font-size: 20px; margin-bottom: 6px; display: block; transition: transform 0.2s; }
-        .nav-item.active { color: var(--main-pink); font-weight: bold; }
-        .nav-item.active i { transform: scale(1.15); }
+        :root { 
+            --main-pink: #e2005a; 
+            --main-white: #ffffff; 
+            --text-grey: #888888; 
+            --bg-light: #f4f6f9; 
+        }
+
+        body { 
+            margin: 0; 
+            padding: 0; 
+            background-color: #e9ecef; 
+            font-family: 'Segoe UI', Tahoma, sans-serif; 
+            display: flex; 
+            justify-content: center; 
+        }
+
+        .app-container { 
+            width: 100%; 
+            max-width: 450px; 
+            min-height: 100vh; 
+            background-color: var(--bg-light); 
+            color: var(--main-pink); 
+            box-shadow: 0 0 25px rgba(0,0,0,0.1); 
+            display: flex; 
+            flex-direction: column; 
+            position: relative; 
+        }
+
+        /* হেডার ও ব্যাক বাটন */
+        .header { 
+            background-color: var(--main-pink); 
+            padding: 15px 20px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            color: var(--main-white); 
+            box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); 
+            z-index: 10; 
+        }
+
+        .header-title { 
+            font-size: 20px; 
+            font-weight: bold; 
+            display: flex; 
+            align-items: center; 
+        }
+
+        .back-btn { 
+            color: white; 
+            text-decoration: none; 
+            margin-right: 15px; 
+            font-size: 22px; 
+            transition: transform 0.2s; 
+        }
+
+        .back-btn:active { 
+            transform: scale(0.9); 
+        }
+
+        .header-balance { 
+            background-color: rgba(255, 255, 255, 0.2); 
+            padding: 6px 12px; 
+            border-radius: 20px; 
+            font-size: 15px; 
+            font-weight: bold; 
+            display: flex; 
+            align-items: center; 
+            gap: 6px; 
+        }
+
+        .content { 
+            flex-grow: 1; 
+            padding: 20px; 
+            overflow-y: auto; 
+        }
+
+        .section-title { 
+            color: #2c3e50; 
+            font-size: 18px; 
+            margin: 5px 0 20px 0; 
+            font-weight: bold; 
+            text-align: center; 
+        }
+
+        /* পেমেন্ট মেথড গ্রিড */
+        .payment-methods { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 12px; 
+            margin-bottom: 25px; 
+        }
+
+        .payment-methods input[type="radio"] { 
+            display: none; 
+        }
+
+        .method-label { 
+            background-color: var(--main-white); 
+            border: 2px solid #eaeaea; 
+            border-radius: 10px; 
+            padding: 15px 10px; 
+            text-align: center; 
+            cursor: pointer; 
+            transition: all 0.2s; 
+            font-weight: bold; 
+            font-size: 16px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            gap: 8px; 
+        }
+
+        .method-label i { 
+            font-size: 24px; 
+        }
+
+        .payment-methods input[type="radio"]:checked + .method-label { 
+            border-color: var(--main-pink); 
+            background-color: rgba(226, 0, 90, 0.05); 
+            box-shadow: 0 4px 10px rgba(226, 0, 90, 0.1); 
+        }
+
+        /* ব্র্যান্ড কালার */
+        .bkash-text { color: #e2136e; } 
+        .nagad-text { color: #f7931e; } 
+        .rocket-text { color: #8c1590; } 
+        .upay-text { color: #006eb8; }
+
+        /* ইনপুট ফিল্ড */
+        .input-group { 
+            margin-bottom: 18px; 
+        }
+
+        .input-group label { 
+            display: block; 
+            margin-bottom: 8px; 
+            color: #2c3e50; 
+            font-weight: 600; 
+            font-size: 14px; 
+        }
+
+        .input-group input { 
+            width: 100%; 
+            padding: 14px; 
+            border: 1px solid #dcdde1; 
+            border-radius: 8px; 
+            font-size: 16px; 
+            box-sizing: border-box; 
+            outline: none; 
+            transition: border-color 0.2s; 
+        }
+
+        .input-group input:focus { 
+            border-color: var(--main-pink); 
+            box-shadow: 0 0 0 3px rgba(226, 0, 90, 0.1); 
+        }
+
+        .submit-btn { 
+            display: block; 
+            width: 100%; 
+            padding: 15px; 
+            background-color: var(--main-pink); 
+            color: var(--main-white); 
+            border: none; 
+            border-radius: 8px; 
+            font-size: 16px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            margin-top: 10px; 
+            transition: background 0.3s; 
+        }
+
+        .submit-btn:hover { 
+            background-color: #c4004e; 
+        }
+
+        .note-text { 
+            text-align: center; 
+            font-size: 13px; 
+            color: var(--text-grey); 
+            margin-top: 15px; 
+        }
+
+        /* বটম মেনু */
+        .bottom-nav { 
+            background-color: var(--main-white); 
+            display: flex; 
+            justify-content: space-around; 
+            padding: 12px 0 15px 0; 
+            border-top: 1px solid #eaeaea; 
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.04); 
+            z-index: 10; 
+        }
+
+        .nav-item { 
+            text-align: center; 
+            font-size: 12px; 
+            color: var(--text-grey); 
+            cursor: pointer; 
+            flex: 1; 
+            text-decoration: none; 
+            transition: all 0.3s; 
+        }
+
+        .nav-item i { 
+            font-size: 20px; 
+            margin-bottom: 6px; 
+            display: block; 
+            transition: transform 0.2s; 
+        }
+
+        .nav-item.active { 
+            color: var(--main-pink); 
+            font-weight: bold; 
+        }
+
+        .nav-item.active i { 
+            transform: scale(1.15); 
+        }
+
+        .nav-item:hover:not(.active) { 
+            color: #b3b3b3; 
+        }
     </style>
 </head>
 <body>
+
     <div class="app-container">
         <!-- Header with Back Button -->
         <div class="header">
@@ -46,29 +242,86 @@
                 <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
                 Withdraw
             </div>
-            <div class="header-balance"><i class="fas fa-wallet"></i> ৳৫০.০০</div>
+            <div class="header-balance">
+                <i class="fas fa-wallet"></i> ৳৫০.০০
+            </div>
         </div>
 
+        <!-- Main Content -->
         <div class="content">
             <h3 class="section-title">পেমেন্ট মেথড নির্বাচন করুন</h3>
+            
             <div class="payment-methods">
-                <label><input type="radio" name="payment_method" value="bkash" checked><div class="method-label"><i class="fas fa-mobile-screen bkash-text"></i><span class="bkash-text">bKash</span></div></label>
-                <label><input type="radio" name="payment_method" value="nagad"><div class="method-label"><i class="fas fa-mobile-screen nagad-text"></i><span class="nagad-text">Nagad</span></div></label>
-                <label><input type="radio" name="payment_method" value="rocket"><div class="method-label"><i class="fas fa-mobile-screen rocket-text"></i><span class="rocket-text">Rocket</span></div></label>
-                <label><input type="radio" name="payment_method" value="upay"><div class="method-label"><i class="fas fa-mobile-screen upay-text"></i><span class="upay-text">Upay</span></div></label>
+                <label>
+                    <input type="radio" name="payment_method" value="bkash" checked>
+                    <div class="method-label">
+                        <i class="fas fa-mobile-screen bkash-text"></i>
+                        <span class="bkash-text">bKash</span>
+                    </div>
+                </label>
+
+                <label>
+                    <input type="radio" name="payment_method" value="nagad">
+                    <div class="method-label">
+                        <i class="fas fa-mobile-screen nagad-text"></i>
+                        <span class="nagad-text">Nagad</span>
+                    </div>
+                </label>
+
+                <label>
+                    <input type="radio" name="payment_method" value="rocket">
+                    <div class="method-label">
+                        <i class="fas fa-mobile-screen rocket-text"></i>
+                        <span class="rocket-text">Rocket</span>
+                    </div>
+                </label>
+
+                <label>
+                    <input type="radio" name="payment_method" value="upay">
+                    <div class="method-label">
+                        <i class="fas fa-mobile-screen upay-text"></i>
+                        <span class="upay-text">Upay</span>
+                    </div>
+                </label>
             </div>
-            <div class="input-group"><label>অ্যাকাউন্ট নম্বর (Personal)</label><input type="number" placeholder="01XXXXXXXXX" required></div>
-            <div class="input-group"><label>টাকার পরিমাণ (সর্বনিম্ন ৳৫০)</label><input type="number" placeholder="৳ পরিমাণ লিখুন" required></div>
+
+            <div class="input-group">
+                <label for="account_number">অ্যাকাউন্ট নম্বর (Personal)</label>
+                <input type="number" id="account_number" placeholder="01XXXXXXXXX" required>
+            </div>
+
+            <div class="input-group">
+                <label for="amount">টাকার পরিমাণ (সর্বনিম্ন ৳৫০)</label>
+                <input type="number" id="amount" placeholder="৳ পরিমাণ লিখুন" required>
+            </div>
+
             <button class="submit-btn">উইথড্র রিকোয়েস্ট পাঠান</button>
-            <p class="note-text"><i class="fas fa-info-circle"></i> ২৪ ঘণ্টার মধ্যে পেমেন্ট সম্পন্ন করা হবে।</p>
+            
+            <p class="note-text">
+                <i class="fas fa-info-circle"></i> ২৪ ঘণ্টার মধ্যে পেমেন্ট সম্পন্ন করা হবে।
+            </p>
         </div>
 
+        <!-- Bottom Navigation -->
         <div class="bottom-nav">
-            <a href="index.html" class="nav-item"><i class="fas fa-home"></i>Home</a>
-            <a href="withdraw.html" class="nav-item active"><i class="fas fa-wallet"></i>Withdraw</a>
-            <a href="refer.html" class="nav-item"><i class="fas fa-users"></i>Refer</a>
-            <a href="profile.html" class="nav-item"><i class="fas fa-user"></i>Profile</a>
+            <a href="index.html" class="nav-item">
+                <i class="fas fa-home"></i>
+                Home
+            </a>
+            <a href="withdraw.html" class="nav-item active">
+                <i class="fas fa-wallet"></i>
+                Withdraw
+            </a>
+            <a href="refer.html" class="nav-item">
+                <i class="fas fa-users"></i>
+                Refer
+            </a>
+            <a href="profile.html" class="nav-item">
+                <i class="fas fa-user"></i>
+                Profile
+            </a>
         </div>
     </div>
+
 </body>
 </html>
