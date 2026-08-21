@@ -35,7 +35,6 @@
             position: relative; 
         }
 
-        /* হেডার ডিজাইন */
         .header { 
             background-color: var(--main-pink); 
             padding: 15px 20px; 
@@ -55,7 +54,6 @@
             gap: 8px; 
         }
 
-        /* লগইন/সাইনআপ বাটনের এরিয়া */
         .header-auth { 
             display: flex; 
             gap: 8px; 
@@ -79,11 +77,6 @@
             color: #333; 
         }
 
-        .auth-btn:active {
-            transform: scale(0.95);
-        }
-        
-        /* ব্যালেন্স ডিজাইন */
         .header-balance { 
             background-color: rgba(255, 255, 255, 0.2); 
             padding: 6px 12px; 
@@ -100,7 +93,6 @@
         .service-list { display: flex; flex-direction: column; gap: 12px; }
         
         .service-card { background-color: var(--main-white); border: 1px solid #eaeaea; border-radius: 10px; padding: 15px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 8px rgba(0,0,0,0.03); transition: all 0.2s; }
-        .service-card:hover { border-color: var(--main-pink); box-shadow: 0 4px 12px rgba(226, 0, 90, 0.08); }
         .service-info { display: flex; align-items: center; gap: 15px; }
         .service-icon { width: 45px; height: 45px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 24px; color: white; }
         
@@ -116,10 +108,8 @@
 
         .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 12px 0 15px 0; border-top: 1px solid #eaeaea; box-shadow: 0 -4px 20px rgba(0,0,0,0.04); z-index: 10; }
         .nav-item { text-align: center; font-size: 12px; color: var(--text-grey); cursor: pointer; flex: 1; text-decoration: none; transition: all 0.3s; }
-        .nav-item i { font-size: 20px; margin-bottom: 6px; display: block; transition: transform 0.2s; }
+        .nav-item i { font-size: 20px; margin-bottom: 6px; display: block; }
         .nav-item.active { color: var(--main-pink); font-weight: bold; }
-        .nav-item.active i { transform: scale(1.15); }
-        .nav-item:hover:not(.active) { color: #b3b3b3; }
     </style>
 </head>
 <body>
@@ -131,9 +121,7 @@
                 <i class="fas fa-paper-plane"></i> Send bKash
             </div>
             
-            <!-- Auth Section (লগইন থাকলে ব্যালেন্স, না থাকলে বাটন দেখাবে) -->
             <div class="header-auth" id="authSection">
-                <!-- পেজ লোড হওয়ার সময় ডিফল্ট বাটন -->
                 <a href="login.html" class="auth-btn">Login</a>
                 <a href="register.html" class="auth-btn register">Sign Up</a>
             </div>
@@ -149,7 +137,7 @@
                         <div class="service-icon icon-gmail"><i class="fa-brands fa-google"></i></div>
                         <div class="service-details"><h4>Gmail Account</h4><p>রেট: ৳৭.৫০</p></div>
                     </div>
-                    <button class="service-btn">কাজ নিন</button>
+                    <button class="service-btn task-btn">কাজ নিন</button>
                 </div>
 
                 <div class="service-card">
@@ -157,7 +145,7 @@
                         <div class="service-icon icon-wa"><i class="fa-brands fa-whatsapp"></i></div>
                         <div class="service-details"><h4>WhatsApp Account</h4><p>রেট: ৳১৫.০০</p></div>
                     </div>
-                    <button class="service-btn">কাজ নিন</button>
+                    <button class="service-btn task-btn">কাজ নিন</button>
                 </div>
 
                 <div class="service-card">
@@ -165,7 +153,7 @@
                         <div class="service-icon icon-tg"><i class="fa-brands fa-telegram"></i></div>
                         <div class="service-details"><h4>Telegram Account</h4><p>রেট: ৳১২.০০</p></div>
                     </div>
-                    <button class="service-btn">কাজ নিন</button>
+                    <button class="service-btn task-btn">কাজ নিন</button>
                 </div>
             </div>
         </div>
@@ -173,13 +161,13 @@
         <!-- Bottom Navigation -->
         <div class="bottom-nav">
             <a href="index.html" class="nav-item active"><i class="fas fa-home"></i>Home</a>
-            <a href="withdraw.html" class="nav-item"><i class="fas fa-wallet"></i>Withdraw</a>
-            <a href="refer.html" class="nav-item"><i class="fas fa-users"></i>Refer</a>
-            <a href="profile.html" class="nav-item"><i class="fas fa-user"></i>Profile</a>
+            <a href="withdraw.html" class="nav-item protected-link"><i class="fas fa-wallet"></i>Withdraw</a>
+            <a href="refer.html" class="nav-item protected-link"><i class="fas fa-users"></i>Refer</a>
+            <a href="profile.html" class="nav-item protected-link"><i class="fas fa-user"></i>Profile</a>
         </div>
     </div>
 
-    <!-- Firebase Connection for checking Login Status -->
+    <!-- Firebase Script & Protection Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
@@ -197,22 +185,45 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // লগইন চেক করার ফাংশন
         onAuthStateChanged(auth, (user) => {
             const authSection = document.getElementById("authSection");
+            const protectedLinks = document.querySelectorAll(".protected-link");
+            const taskBtns = document.querySelectorAll(".task-btn");
             
             if (user) {
-                // ইউজার লগইন করা থাকলে ব্যালেন্স দেখাবে
+                // ১. ইউজার লগইন করা থাকলে ব্যালেন্স দেখাবে
                 authSection.innerHTML = `
                     <div class="header-balance">
                         <i class="fas fa-wallet"></i> ৳৫০.০০
                     </div>`;
+                
+                // ২. লগইন করা থাকলে সব পেজে যেতে পারবে
+                protectedLinks.forEach(link => {
+                    // লিংকগুলো অ্যাক্টিভ থাকবে (যেমন ছিল)
+                });
+
             } else {
-                // ইউজার লগইন না থাকলে বাটন দেখাবে
+                // ১. ইউজার লগইন না থাকলে Login/Sign Up বাটন দেখাবে
                 authSection.innerHTML = `
                     <a href="login.html" class="auth-btn">Login</a>
                     <a href="register.html" class="auth-btn register">Sign Up</a>
                 `;
+                
+                // ২. Withdraw, Refer, Profile বা কাজের বাটনে ক্লিক করলে আটকে দিবে
+                protectedLinks.forEach(link => {
+                    link.addEventListener("click", (e) => {
+                        e.preventDefault();
+                        alert("দয়া করে আগে লগইন বা সাইন আপ করুন!");
+                        window.location.href = "login.html";
+                    });
+                });
+
+                taskBtns.forEach(btn => {
+                    btn.addEventListener("click", () => {
+                        alert("কাজ করতে চাইলে প্রথমে লগইন বা সাইন আপ করুন!");
+                        window.location.href = "login.html";
+                    });
+                });
             }
         });
     </script>
