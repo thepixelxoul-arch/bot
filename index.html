@@ -37,20 +37,37 @@
             position: relative;
         }
 
-        /* হেডার */
+        /* আপডেটেড হেডার (ডানপাশে ব্যালেন্স সহ) */
         .header {
             background-color: var(--main-pink);
-            padding: 20px;
-            text-align: center;
-            font-size: 20px;
-            font-weight: bold;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             color: var(--main-white);
             box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2);
             z-index: 10;
         }
+
+        .header-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
         
-        .header i {
+        .header-title i {
             margin-right: 8px;
+        }
+
+        /* হেডারের ভেতরের ব্যালেন্স ব্যাজ */
+        .header-balance {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 15px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         /* কন্টেন্ট এরিয়া */
@@ -60,60 +77,7 @@
             overflow-y: auto;
         }
 
-        /* নোটিশ ব্যানার */
-        .notice-banner {
-            background-color: rgba(226, 0, 90, 0.08);
-            color: var(--main-pink);
-            padding: 12px 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-size: 14px;
-            border-left: 4px solid var(--main-pink);
-            display: flex;
-            align-items: center;
-        }
-        .notice-banner i {
-            margin-right: 10px;
-            font-size: 18px;
-        }
-
-        /* ড্যাশবোর্ড গ্রিড */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .stat-card {
-            background-color: var(--main-white);
-            padding: 15px;
-            border-radius: 12px;
-            text-align: center;
-            border: 1px solid #eaeaea;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.03);
-            transition: transform 0.2s;
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(226, 0, 90, 0.08);
-        }
-
-        .stat-card h4 {
-            margin: 10px 0 5px 0;
-            font-size: 22px;
-            color: #2c3e50;
-        }
-
-        .stat-card p {
-            margin: 0;
-            font-size: 13px;
-            color: var(--text-grey);
-            font-weight: 500;
-        }
-
-        /* নতুন সার্ভিস লিস্ট (Gmail, WhatsApp, Telegram) */
+        /* সার্ভিস লিস্ট (Gmail, WhatsApp, Telegram) */
         .section-title {
             color: #2c3e50;
             font-size: 16px;
@@ -239,36 +203,19 @@
 <body>
 
     <div class="app-container">
-        <!-- Header -->
+        <!-- Header with Balance -->
         <div class="header">
-            <i class="fas fa-paper-plane"></i> Send bKash
+            <div class="header-title">
+                <i class="fas fa-paper-plane"></i> Send bKash
+            </div>
+            <div class="header-balance">
+                <i class="fas fa-wallet"></i> ৳৫০.০০
+            </div>
         </div>
 
         <!-- Main Content -->
         <div class="content">
             
-            <!-- Notice Banner -->
-            <div class="notice-banner">
-                <i class="fas fa-bullhorn"></i>
-                <div>
-                    <strong>আপডেট:</strong> এখন জিমেইলের পাশাপাশি হোয়াটসঅ্যাপ ও টেলিগ্রাম অ্যাকাউন্ট জমা দিয়েও টাকা ইনকাম করুন!
-                </div>
-            </div>
-
-            <!-- Dashboard Stats Grid -->
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <i class="fas fa-wallet" style="color: var(--main-pink); font-size: 28px;"></i>
-                    <h4>৳৫০.০০</h4>
-                    <p>বর্তমান ব্যালেন্স</p>
-                </div>
-                <div class="stat-card">
-                    <i class="fas fa-check-circle" style="color: #27ae60; font-size: 28px;"></i>
-                    <h4>৭ টি</h4>
-                    <p>অ্যাপ্রুভ হয়েছে</p>
-                </div>
-            </div>
-
             <!-- Service Selection Area -->
             <h3 class="section-title">কাজ নির্বাচন করুন</h3>
             
