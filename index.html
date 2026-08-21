@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gmail Farmer Web</title>
+    <style>
+        /* কম্পিউটারের ফুল স্ক্রিনের ব্যাকগ্রাউন্ড */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1e222d; /* স্ক্রিনশটের মত চারপাশের ডার্ক কালার */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center; /* অ্যাপটিকে মাঝখানে রাখার জন্য */
+        }
+
+        /* মূল ওয়েবসাইটের সাইজ (ঠিক মোবাইলের মত) */
+        .app-container {
+            width: 100%;
+            max-width: 450px; /* কম্পিউটারেও এর চেয়ে বড় হবে না */
+            min-height: 100vh;
+            background-color: #232833; /* অ্যাপের ভেতরের কালার */
+            color: #ffffff;
+            box-shadow: 0 0 20px rgba(0,0,0,0.8); /* দুপাশে সুন্দর শ্যাডো */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* উপরের হেডার */
+        .header {
+            background-color: #1a1d24;
+            padding: 20px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            border-bottom: 1px solid #383f4f;
+            color: #ffcc00;
+        }
+
+        /* মাঝখানের কন্টেন্ট এরিয়া */
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto; /* কন্টেন্ট বেশি হলে স্ক্রল হবে */
+        }
+
+        /* কাজের বক্স */
+        .task-box {
+            background-color: #2c323f;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #383f4f;
+        }
+
+        .task-box h3 {
+            margin-top: 0;
+            color: #4CAF50;
+        }
+
+        /* বাটন ডিজাইন */
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        /* একদম নিচের মেনু (Bottom Nav) */
+        .bottom-nav {
+            background-color: #1a1d24;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            border-top: 1px solid #383f4f;
+        }
+
+        .nav-item {
+            text-align: center;
+            font-size: 14px;
+            color: #a0a5b5;
+            cursor: pointer;
+        }
+        
+        .nav-item.active {
+            color: #ffcc00;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Header -->
+        <div class="header">
+            📧 Gmail Buy Panel
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            
+            <!-- Balance Card -->
+            <div class="task-box" style="text-align: center;">
+                <p style="margin: 0; color: #a0a5b5;">আপনার বর্তমান ব্যালেন্স</p>
+                <h1 style="margin: 10px 0; font-size: 36px;">৳৫০.০০</h1>
+            </div>
+
+            <!-- Task Card -->
+            <div class="task-box">
+                <h3>➕ নতুন জিমেইল খুলুন</h3>
+                <p><strong>নাম:</strong> John</p>
+                <p><strong>পাসওয়ার্ড:</strong> Jony@@##</p>
+                <p><strong>রেট:</strong> ৳৭.১৪</p>
+                <button class="btn">কাজ জমা দিন</button>
+            </div>
+
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <div class="nav-item active">🏠<br>Home</div>
+            <div class="nav-item">💸<br>Withdraw</div>
+            <div class="nav-item">👥<br>Refer</div>
+            <div class="nav-item">👤<br>Profile</div>
+        </div>
+    </div>
+
+</body>
+</html>
