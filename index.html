@@ -3,200 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Send bKash Web</title>
+    <title>Home - Send bKash</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        :root {
+        /* কালার ভেরিয়েবল */
+        :root { 
             --main-pink: #e2005a; 
-            --main-white: #ffffff;
-            --text-grey: #888888;
-            --bg-light: #f4f6f9;
+            --main-white: #ffffff; 
+            --text-grey: #888888; 
+            --bg-light: #f4f6f9; 
         }
 
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #e9ecef;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            justify-content: center;
+        body { 
+            margin: 0; 
+            padding: 0; 
+            background-color: #e9ecef; 
+            font-family: 'Segoe UI', Tahoma, sans-serif; 
+            display: flex; 
+            justify-content: center; 
         }
 
-        .app-container {
-            width: 100%;
-            max-width: 450px;
-            min-height: 100vh;
-            background-color: var(--bg-light);
-            color: var(--main-pink);
-            box-shadow: 0 0 25px rgba(0, 0, 0, 0.1); 
-            display: flex;
-            flex-direction: column;
-            position: relative;
+        .app-container { 
+            width: 100%; 
+            max-width: 450px; 
+            min-height: 100vh; 
+            background-color: var(--bg-light); 
+            color: var(--main-pink); 
+            box-shadow: 0 0 25px rgba(0,0,0,0.1); 
+            display: flex; 
+            flex-direction: column; 
+            position: relative; 
         }
 
-        .header {
-            background-color: var(--main-pink);
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: var(--main-white);
-            box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2);
-            z-index: 10;
-        }
-
-        .header-title {
-            font-size: 20px;
-            font-weight: bold;
+        /* হেডার ও ব্যালেন্স */
+        .header { 
+            background-color: var(--main-pink); 
+            padding: 15px 20px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            color: var(--main-white); 
+            box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); 
+            z-index: 10; 
         }
         
-        .header-title i {
-            margin-right: 8px;
-        }
-
-        .header-balance {
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 15px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .content {
-            flex-grow: 1;
-            padding: 20px;
-            overflow-y: auto;
-        }
-
-        .section-title {
-            color: #2c3e50;
-            font-size: 16px;
-            margin: 5px 0 15px 0;
-            font-weight: bold;
-        }
-
-        .service-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .service-card {
-            background-color: var(--main-white);
-            border: 1px solid #eaeaea;
-            border-radius: 10px;
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-            transition: all 0.2s;
-        }
-
-        .service-card:hover {
-            border-color: var(--main-pink);
-            box-shadow: 0 4px 12px rgba(226, 0, 90, 0.08);
-        }
-
-        .service-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .service-icon {
-            width: 45px;
-            height: 45px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: white;
+        .header-title { 
+            font-size: 20px; 
+            font-weight: bold; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
         }
         
-        .icon-gmail { background-color: #ea4335; }
-        .icon-wa { background-color: #25d366; }
+        .header-balance { 
+            background-color: rgba(255, 255, 255, 0.2); 
+            padding: 6px 12px; 
+            border-radius: 20px; 
+            font-size: 15px; 
+            font-weight: bold; 
+            display: flex; 
+            align-items: center; 
+            gap: 6px; 
+        }
+
+        .content { 
+            flex-grow: 1; 
+            padding: 20px; 
+            overflow-y: auto; 
+        }
+        
+        .section-title { 
+            color: #2c3e50; 
+            font-size: 16px; 
+            margin: 5px 0 15px 0; 
+            font-weight: bold; 
+        }
+
+        /* সার্ভিস লিস্ট */
+        .service-list { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 12px; 
+        }
+        
+        .service-card { 
+            background-color: var(--main-white); 
+            border: 1px solid #eaeaea; 
+            border-radius: 10px; 
+            padding: 15px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03); 
+            transition: all 0.2s; 
+        }
+        
+        .service-card:hover { 
+            border-color: var(--main-pink); 
+            box-shadow: 0 4px 12px rgba(226, 0, 90, 0.08); 
+        }
+        
+        .service-info { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+        }
+        
+        .service-icon { 
+            width: 45px; 
+            height: 45px; 
+            border-radius: 10px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 24px; 
+            color: white; 
+        }
+        
+        .icon-gmail { background-color: #ea4335; } 
+        .icon-wa { background-color: #25d366; } 
         .icon-tg { background-color: #0088cc; }
-
-        .service-details h4 {
-            margin: 0 0 5px 0;
-            color: #2c3e50;
-            font-size: 16px;
-        }
-
-        .service-details p {
-            margin: 0;
-            color: var(--main-pink);
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        .service-btn {
-            background-color: rgba(226, 0, 90, 0.1);
-            color: var(--main-pink);
-            border: none;
-            padding: 8px 15px;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .service-btn:hover {
-            background-color: var(--main-pink);
-            color: white;
-        }
-
-        .bottom-nav {
-            background-color: var(--main-white);
-            display: flex;
-            justify-content: space-around;
-            padding: 12px 0 15px 0;
-            border-top: 1px solid #eaeaea;
-            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.04);
-            z-index: 10;
-        }
-
-        .nav-item {
-            text-align: center;
-            font-size: 12px;
-            color: var(--text-grey);
-            cursor: pointer;
-            flex: 1;
-            transition: all 0.3s ease;
-            text-decoration: none; /* আন্ডারলাইন বন্ধ করার জন্য */
+        
+        .service-details h4 { 
+            margin: 0 0 5px 0; 
+            color: #2c3e50; 
+            font-size: 16px; 
         }
         
-        .nav-item i {
-            font-size: 20px;
-            margin-bottom: 6px;
-            display: block;
-            transition: transform 0.2s;
+        .service-details p { 
+            margin: 0; 
+            color: var(--main-pink); 
+            font-size: 14px; 
+            font-weight: bold; 
+        }
+
+        /* কাজ নিন বাটন */
+        .service-btn { 
+            background-color: rgba(226, 0, 90, 0.1); 
+            color: var(--main-pink); 
+            border: none; 
+            padding: 8px 15px; 
+            border-radius: 6px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            transition: all 0.2s; 
         }
         
-        .nav-item.active {
-            color: var(--main-pink);
-            font-weight: bold;
+        .service-btn:hover { 
+            background-color: var(--main-pink); 
+            color: white; 
+        }
+
+        /* নিচের মেনু */
+        .bottom-nav { 
+            background-color: var(--main-white); 
+            display: flex; 
+            justify-content: space-around; 
+            padding: 12px 0 15px 0; 
+            border-top: 1px solid #eaeaea; 
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.04); 
+            z-index: 10; 
         }
         
-        .nav-item.active i {
-            transform: scale(1.15);
+        .nav-item { 
+            text-align: center; 
+            font-size: 12px; 
+            color: var(--text-grey); 
+            cursor: pointer; 
+            flex: 1; 
+            text-decoration: none; 
+            transition: all 0.3s; 
         }
         
-        .nav-item:hover:not(.active) {
-            color: #b3b3b3;
+        .nav-item i { 
+            font-size: 20px; 
+            margin-bottom: 6px; 
+            display: block; 
+            transition: transform 0.2s; 
+        }
+        
+        .nav-item.active { 
+            color: var(--main-pink); 
+            font-weight: bold; 
+        }
+        
+        .nav-item.active i { 
+            transform: scale(1.15); 
+        }
+        
+        .nav-item:hover:not(.active) { 
+            color: #b3b3b3; 
         }
     </style>
 </head>
 <body>
 
     <div class="app-container">
-        <!-- Header -->
+        <!-- Header with Balance -->
         <div class="header">
             <div class="header-title">
                 <i class="fas fa-paper-plane"></i> Send bKash
@@ -211,6 +215,7 @@
             <h3 class="section-title">কাজ নির্বাচন করুন</h3>
             
             <div class="service-list">
+                
                 <div class="service-card">
                     <div class="service-info">
                         <div class="service-icon icon-gmail">
@@ -249,10 +254,11 @@
                     </div>
                     <button class="service-btn">কাজ নিন</button>
                 </div>
+
             </div>
         </div>
 
-        <!-- Bottom Navigation (লিংক যুক্ত করা হয়েছে) -->
+        <!-- Bottom Navigation -->
         <div class="bottom-nav">
             <a href="index.html" class="nav-item active">
                 <i class="fas fa-home"></i>
@@ -262,11 +268,11 @@
                 <i class="fas fa-wallet"></i>
                 Withdraw
             </a>
-            <a href="#" class="nav-item">
+            <a href="refer.html" class="nav-item">
                 <i class="fas fa-users"></i>
                 Refer
             </a>
-            <a href="#" class="nav-item">
+            <a href="profile.html" class="nav-item">
                 <i class="fas fa-user"></i>
                 Profile
             </a>
