@@ -8,277 +8,281 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* কালার ভেরিয়েবল */
-        :root {
+        :root { 
             --main-pink: #e2005a; 
-            --main-white: #ffffff;
-            --text-grey: #888888;
-            --bg-light: #f4f6f9;
+            --main-white: #ffffff; 
+            --text-grey: #888888; 
+            --bg-light: #f4f6f9; 
         }
 
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #e9ecef;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            justify-content: center;
+        body { 
+            margin: 0; 
+            padding: 0; 
+            background-color: #e9ecef; 
+            font-family: 'Segoe UI', Tahoma, sans-serif; 
+            display: flex; 
+            justify-content: center; 
         }
 
-        .app-container {
-            width: 100%;
-            max-width: 450px;
-            min-height: 100vh;
-            background-color: var(--bg-light);
-            color: var(--main-pink);
-            box-shadow: 0 0 25px rgba(0, 0, 0, 0.1); 
-            display: flex;
-            flex-direction: column;
-            position: relative;
+        .app-container { 
+            width: 100%; 
+            max-width: 450px; 
+            min-height: 100vh; 
+            background-color: var(--bg-light); 
+            color: var(--main-pink); 
+            box-shadow: 0 0 25px rgba(0,0,0,0.1); 
+            display: flex; 
+            flex-direction: column; 
+            position: relative; 
         }
 
-        /* হেডার */
-        .header {
-            background-color: var(--main-pink);
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: var(--main-white);
-            box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2);
-            z-index: 10;
+        /* হেডার ও ব্যাক বাটন */
+        .header { 
+            background-color: var(--main-pink); 
+            padding: 15px 20px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            color: var(--main-white); 
+            box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); 
+            z-index: 10; 
         }
 
-        .header-title {
+        .header-title { 
+            font-size: 20px; 
+            font-weight: bold; 
+            display: flex; 
+            align-items: center; 
+        }
+
+        .back-btn { 
+            color: white; 
+            text-decoration: none; 
+            margin-right: 15px; 
+            font-size: 22px; 
+            transition: transform 0.2s; 
+        }
+
+        .back-btn:active { 
+            transform: scale(0.9); 
+        }
+
+        .header-icon {
             font-size: 20px;
-            font-weight: bold;
-        }
-        
-        .header-title i {
-            margin-right: 8px;
+            cursor: pointer;
         }
 
-        .header-balance {
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 15px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        /* কন্টেন্ট এরিয়া */
-        .content {
-            flex-grow: 1;
-            padding: 20px;
-            overflow-y: auto;
+        .content { 
+            flex-grow: 1; 
+            padding: 20px; 
+            overflow-y: auto; 
         }
 
         /* প্রোফাইল ব্যানার (অ্যাভাটার সহ) */
-        .profile-card {
-            background-color: var(--main-white);
-            border-radius: 15px;
-            padding: 30px 20px;
-            text-align: center;
+        .profile-card { 
+            background-color: var(--main-white); 
+            border-radius: 15px; 
+            padding: 30px 20px; 
+            text-align: center; 
+            border: 1px solid #eaeaea; 
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-            margin-bottom: 20px;
-            border: 1px solid #eaeaea;
+            margin-bottom: 20px; 
         }
 
-        .avatar {
-            width: 80px;
-            height: 80px;
-            background-color: rgba(226, 0, 90, 0.1);
-            color: var(--main-pink);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 35px;
-            margin: 0 auto 15px auto;
-            border: 2px solid var(--main-pink);
+        .avatar { 
+            width: 80px; 
+            height: 80px; 
+            background-color: rgba(226, 0, 90, 0.1); 
+            color: var(--main-pink); 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 35px; 
+            margin: 0 auto 15px auto; 
+            border: 2px solid var(--main-pink); 
         }
 
-        .profile-card h2 {
-            margin: 0 0 5px 0;
-            color: #2c3e50;
-            font-size: 22px;
+        .profile-card h2 { 
+            margin: 0 0 5px 0; 
+            color: #2c3e50; 
+            font-size: 22px; 
         }
 
-        .profile-card p {
-            margin: 0;
-            color: var(--text-grey);
-            font-size: 14px;
+        .profile-card p { 
+            margin: 0; 
+            color: var(--text-grey); 
+            font-size: 14px; 
         }
 
-        .profile-card .uid {
-            background-color: #f1f2f6;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-weight: bold;
-            color: #2f3640;
-            display: inline-block;
-            margin-top: 8px;
-            font-size: 13px;
+        .profile-card .uid { 
+            background-color: #f1f2f6; 
+            padding: 4px 10px; 
+            border-radius: 6px; 
+            font-weight: bold; 
+            color: #2f3640; 
+            display: inline-block; 
+            margin-top: 8px; 
+            font-size: 13px; 
         }
 
         /* প্রোফাইল স্ট্যাটাস */
-        .profile-stats {
-            display: flex;
-            justify-content: space-between;
-            background-color: var(--main-white);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            border: 1px solid #eaeaea;
+        .profile-stats { 
+            display: flex; 
+            background-color: var(--main-white); 
+            border-radius: 12px; 
+            padding: 20px; 
+            margin-bottom: 20px; 
+            border: 1px solid #eaeaea; 
             box-shadow: 0 2px 8px rgba(0,0,0,0.02);
         }
 
-        .stat-item {
-            text-align: center;
-            flex: 1;
+        .stat-item { 
+            text-align: center; 
+            flex: 1; 
         }
 
-        .stat-item:first-child {
-            border-right: 1px solid #eaeaea;
+        .stat-item:first-child { 
+            border-right: 1px solid #eaeaea; 
         }
 
-        .stat-item h3 {
-            margin: 0 0 5px 0;
-            color: var(--main-pink);
-            font-size: 20px;
+        .stat-item h3 { 
+            margin: 0 0 5px 0; 
+            color: var(--main-pink); 
+            font-size: 20px; 
         }
 
-        .stat-item p {
-            margin: 0;
-            color: var(--text-grey);
-            font-size: 12px;
-        }
-
-        /* সেটিংস মেনু */
-        .menu-list {
-            background-color: var(--main-white);
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid #eaeaea;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-            margin-bottom: 20px;
-        }
-
-        .menu-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px 20px;
-            border-bottom: 1px solid #eaeaea;
-            color: #2c3e50;
-            text-decoration: none;
-            transition: background 0.2s;
+        .stat-item p { 
+            margin: 0; 
+            color: var(--text-grey); 
+            font-size: 13px; 
             font-weight: 500;
         }
 
-        .menu-item:last-child {
-            border-bottom: none;
+        /* সেটিংস মেনু */
+        .menu-list { 
+            background-color: var(--main-white); 
+            border-radius: 12px; 
+            overflow: hidden; 
+            border: 1px solid #eaeaea; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            margin-bottom: 20px; 
         }
 
-        .menu-item:hover {
-            background-color: #f8f9fa;
+        .menu-item { 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            padding: 16px 20px; 
+            border-bottom: 1px solid #eaeaea; 
+            color: #2c3e50; 
+            text-decoration: none; 
+            transition: background 0.2s; 
+            font-weight: 500; 
         }
 
-        .menu-left {
-            display: flex;
-            align-items: center;
-            gap: 15px;
+        .menu-item:last-child { 
+            border-bottom: none; 
         }
 
-        .menu-left i {
-            font-size: 18px;
-            color: var(--main-pink);
-            width: 20px;
-            text-align: center;
+        .menu-item:hover { 
+            background-color: #f8f9fa; 
         }
 
-        .menu-item .fa-chevron-right {
-            font-size: 14px;
-            color: #b2bec3;
+        .menu-left { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+        }
+
+        .menu-left i { 
+            font-size: 18px; 
+            color: var(--main-pink); 
+            width: 20px; 
+            text-align: center; 
+        }
+
+        .menu-item .fa-chevron-right { 
+            font-size: 14px; 
+            color: #b2bec3; 
         }
 
         /* লগআউট বাটন */
-        .logout-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            width: 100%;
-            padding: 15px;
-            background-color: #ffeaa7;
-            color: #d63031;
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s;
+        .logout-btn { 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 10px; 
+            width: 100%; 
+            padding: 15px; 
+            background-color: #ffeaa7; 
+            color: #d63031; 
+            border: none; 
+            border-radius: 12px; 
+            font-size: 16px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            transition: background 0.3s; 
+            margin-bottom: 10px;
         }
 
-        .logout-btn:hover {
-            background-color: #fdcb6e;
+        .logout-btn:hover { 
+            background-color: #fdcb6e; 
         }
 
         /* বটম মেনু */
-        .bottom-nav {
-            background-color: var(--main-white);
-            display: flex;
-            justify-content: space-around;
-            padding: 12px 0 15px 0;
-            border-top: 1px solid #eaeaea;
-            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.04);
-            z-index: 10;
+        .bottom-nav { 
+            background-color: var(--main-white); 
+            display: flex; 
+            justify-content: space-around; 
+            padding: 12px 0 15px 0; 
+            border-top: 1px solid #eaeaea; 
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.04); 
+            z-index: 10; 
         }
 
-        .nav-item {
-            text-align: center;
-            font-size: 12px;
-            color: var(--text-grey);
-            cursor: pointer;
-            flex: 1;
-            transition: all 0.3s ease;
-            text-decoration: none;
+        .nav-item { 
+            text-align: center; 
+            font-size: 12px; 
+            color: var(--text-grey); 
+            cursor: pointer; 
+            flex: 1; 
+            text-decoration: none; 
+            transition: all 0.3s; 
         }
-        
-        .nav-item i {
-            font-size: 20px;
-            margin-bottom: 6px;
-            display: block;
+
+        .nav-item i { 
+            font-size: 20px; 
+            margin-bottom: 6px; 
+            display: block; 
             transition: transform 0.2s;
         }
-        
-        .nav-item.active {
-            color: var(--main-pink);
-            font-weight: bold;
+
+        .nav-item.active { 
+            color: var(--main-pink); 
+            font-weight: bold; 
         }
-        
-        .nav-item.active i {
-            transform: scale(1.15);
+
+        .nav-item.active i { 
+            transform: scale(1.15); 
         }
-        
-        .nav-item:hover:not(.active) {
-            color: #b3b3b3;
+
+        .nav-item:hover:not(.active) { 
+            color: #b3b3b3; 
         }
     </style>
 </head>
 <body>
 
     <div class="app-container">
-        <!-- Header with Balance -->
+        <!-- Header with Back Button & Notification Icon -->
         <div class="header">
             <div class="header-title">
-                <i class="fas fa-paper-plane"></i> Send bKash
+                <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+                Profile
             </div>
-            <div class="header-balance">
-                <i class="fas fa-wallet"></i> ৳৫০.০০
+            <div class="header-icon">
+                <i class="fas fa-bell"></i>
             </div>
         </div>
 
@@ -292,6 +296,7 @@
                 </div>
                 <h2>প্রিয় গ্রাহক</h2>
                 <p>আমাদের সাথে যুক্ত থাকার জন্য ধন্যবাদ</p>
+                <!-- ডাইনামিক ইউজার আইডি বসবে এখানে -->
                 <div class="uid">User ID: 7472909305</div>
             </div>
 
@@ -327,12 +332,6 @@
                     </div>
                     <i class="fas fa-chevron-right"></i>
                 </a>
-                <a href="#" class="menu-item">
-                    <div class="menu-left">
-                        <i class="fas fa-bell"></i> নোটিফিকেশন
-                    </div>
-                    <i class="fas fa-chevron-right"></i>
-                </a>
             </div>
 
             <!-- Logout Button -->
@@ -356,6 +355,7 @@
                 <i class="fas fa-users"></i>
                 Refer
             </a>
+            <!-- Profile অপশনটি অ্যাক্টিভ করা হয়েছে -->
             <a href="profile.html" class="nav-item active">
                 <i class="fas fa-user"></i>
                 Profile
