@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile - Send bKash</title>
-    <!-- প্রফেশনাল আইকনের জন্য FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -36,7 +35,6 @@
             position: relative; 
         }
 
-        /* হেডার ও ব্যাক বাটন */
         .header { 
             background-color: var(--main-pink); 
             padding: 15px 20px; 
@@ -60,16 +58,6 @@
             text-decoration: none; 
             margin-right: 15px; 
             font-size: 22px; 
-            transition: transform 0.2s; 
-        }
-
-        .back-btn:active { 
-            transform: scale(0.9); 
-        }
-
-        .header-icon {
-            font-size: 20px;
-            cursor: pointer;
         }
 
         .content { 
@@ -78,7 +66,6 @@
             overflow-y: auto; 
         }
 
-        /* প্রোফাইল ব্যানার (অ্যাভাটার সহ) */
         .profile-card { 
             background-color: var(--main-white); 
             border-radius: 15px; 
@@ -126,7 +113,6 @@
             font-size: 13px; 
         }
 
-        /* প্রোফাইল স্ট্যাটাস */
         .profile-stats { 
             display: flex; 
             background-color: var(--main-white); 
@@ -134,7 +120,6 @@
             padding: 20px; 
             margin-bottom: 20px; 
             border: 1px solid #eaeaea; 
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
         }
 
         .stat-item { 
@@ -156,16 +141,13 @@
             margin: 0; 
             color: var(--text-grey); 
             font-size: 13px; 
-            font-weight: 500;
         }
 
-        /* সেটিংস মেনু */
         .menu-list { 
             background-color: var(--main-white); 
             border-radius: 12px; 
             overflow: hidden; 
             border: 1px solid #eaeaea; 
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
             margin-bottom: 20px; 
         }
 
@@ -177,12 +159,7 @@
             border-bottom: 1px solid #eaeaea; 
             color: #2c3e50; 
             text-decoration: none; 
-            transition: background 0.2s; 
             font-weight: 500; 
-        }
-
-        .menu-item:last-child { 
-            border-bottom: none; 
         }
 
         .menu-item:hover { 
@@ -196,18 +173,25 @@
         }
 
         .menu-left i { 
-            font-size: 18px; 
             color: var(--main-pink); 
             width: 20px; 
             text-align: center; 
         }
 
-        .menu-item .fa-chevron-right { 
-            font-size: 14px; 
-            color: #b2bec3; 
+        /* অ্যাডমিন বাটনের আলাদা স্টাইল */
+        .menu-item.admin-btn {
+            background-color: #e2005a;
+            color: white;
+            font-weight: bold;
+            display: none; /* ডিফল্টভাবে লুকিয়ে থাকবে */
+        }
+        .menu-item.admin-btn:hover {
+            background-color: #c4004e;
+        }
+        .menu-item.admin-btn .menu-left i {
+            color: white;
         }
 
-        /* লগআউট বাটন */
         .logout-btn { 
             display: flex; 
             align-items: center; 
@@ -222,22 +206,15 @@
             font-size: 16px; 
             font-weight: bold; 
             cursor: pointer; 
-            transition: background 0.3s; 
-            margin-bottom: 10px;
+            margin-bottom: 10px; 
         }
 
-        .logout-btn:hover { 
-            background-color: #fdcb6e; 
-        }
-
-        /* বটম মেনু */
         .bottom-nav { 
             background-color: var(--main-white); 
             display: flex; 
             justify-content: space-around; 
             padding: 12px 0 15px 0; 
             border-top: 1px solid #eaeaea; 
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.04); 
             z-index: 10; 
         }
 
@@ -248,120 +225,108 @@
             cursor: pointer; 
             flex: 1; 
             text-decoration: none; 
-            transition: all 0.3s; 
         }
 
         .nav-item i { 
             font-size: 20px; 
             margin-bottom: 6px; 
             display: block; 
-            transition: transform 0.2s;
         }
 
         .nav-item.active { 
             color: var(--main-pink); 
             font-weight: bold; 
         }
-
-        .nav-item.active i { 
-            transform: scale(1.15); 
-        }
-
-        .nav-item:hover:not(.active) { 
-            color: #b3b3b3; 
-        }
     </style>
 </head>
 <body>
 
     <div class="app-container">
-        <!-- Header with Back Button & Notification Icon -->
         <div class="header">
             <div class="header-title">
                 <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
                 Profile
             </div>
-            <div class="header-icon">
-                <i class="fas fa-bell"></i>
-            </div>
+            <div><i class="fas fa-bell"></i></div>
         </div>
 
-        <!-- Main Content -->
         <div class="content">
-            
-            <!-- Profile Info Card -->
             <div class="profile-card">
-                <div class="avatar">
-                    <i class="fas fa-user-tie"></i>
-                </div>
-                <h2>প্রিয় গ্রাহক</h2>
-                <p>আমাদের সাথে যুক্ত থাকার জন্য ধন্যবাদ</p>
-                <!-- ডাইনামিক ইউজার আইডি বসবে এখানে -->
-                <div class="uid">User ID: 7472909305</div>
+                <div class="avatar"><i class="fas fa-user-tie"></i></div>
+                <h2 id="userName">প্রিয় গ্রাহক</h2>
+                <p id="userEmail">Loading...</p>
+                <div class="uid" id="userId">User ID: --</div>
             </div>
 
-            <!-- Mini Stats -->
             <div class="profile-stats">
-                <div class="stat-item">
-                    <h3>৳৩৫০.০০</h3>
-                    <p>মোট আয়</p>
-                </div>
-                <div class="stat-item">
-                    <h3>৳৩০০.০০</h3>
-                    <p>মোট উইথড্র</p>
-                </div>
+                <div class="stat-item"><h3>৳৩৫০.০০</h3><p>মোট আয়</p></div>
+                <div class="stat-item"><h3>৳৩০০.০০</h3><p>মোট উইথড্র</p></div>
             </div>
 
-            <!-- Settings Menu -->
             <div class="menu-list">
-                <a href="#" class="menu-item">
+                <!-- অ্যাডমিন প্যানেল বাটন (শুধুমাত্র অ্যাডমিনের জন্য দৃশ্যমান হবে) -->
+                <a href="admin.html" class="menu-item admin-btn" id="adminPanelBtn">
                     <div class="menu-left">
-                        <i class="fas fa-lock"></i> পাসওয়ার্ড পরিবর্তন
+                        <i class="fas fa-user-shield"></i> অ্যাডমিন প্যানেল
                     </div>
-                    <i class="fas fa-chevron-right"></i>
+                    <i class="fas fa-chevron-right" style="color: white; font-size: 12px;"></i>
                 </a>
-                <a href="#" class="menu-item">
-                    <div class="menu-left">
-                        <i class="fas fa-headset"></i> হেল্পলাইন ও সাপোর্ট
-                    </div>
-                    <i class="fas fa-chevron-right"></i>
-                </a>
-                <a href="#" class="menu-item">
-                    <div class="menu-left">
-                        <i class="fas fa-file-contract"></i> কাজের নিয়মাবলী
-                    </div>
-                    <i class="fas fa-chevron-right"></i>
-                </a>
+
+                <a href="#" class="menu-item"><div class="menu-left"><i class="fas fa-lock"></i> পাসওয়ার্ড পরিবর্তন</div><i class="fas fa-chevron-right" style="color:#b2bec3; font-size:12px;"></i></a>
+                <a href="#" class="menu-item"><div class="menu-left"><i class="fas fa-headset"></i> হেল্পলাইন ও সাপোর্ট</div><i class="fas fa-chevron-right" style="color:#b2bec3; font-size:12px;"></i></a>
+                <a href="#" class="menu-item"><div class="menu-left"><i class="fas fa-file-contract"></i> কাজের নিয়মাবলী</div><i class="fas fa-chevron-right" style="color:#b2bec3; font-size:12px;"></i></a>
             </div>
 
-            <!-- Logout Button -->
-            <button class="logout-btn">
-                <i class="fas fa-sign-out-alt"></i> লগআউট করুন
-            </button>
-
+            <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> লগআউট করুন</button>
         </div>
 
-        <!-- Bottom Navigation -->
         <div class="bottom-nav">
-            <a href="index.html" class="nav-item">
-                <i class="fas fa-home"></i>
-                Home
-            </a>
-            <a href="withdraw.html" class="nav-item">
-                <i class="fas fa-wallet"></i>
-                Withdraw
-            </a>
-            <a href="refer.html" class="nav-item">
-                <i class="fas fa-users"></i>
-                Refer
-            </a>
-            <!-- Profile অপশনটি অ্যাক্টিভ করা হয়েছে -->
-            <a href="profile.html" class="nav-item active">
-                <i class="fas fa-user"></i>
-                Profile
-            </a>
+            <a href="index.html" class="nav-item"><i class="fas fa-home"></i>Home</a>
+            <a href="withdraw.html" class="nav-item"><i class="fas fa-wallet"></i>Withdraw</a>
+            <a href="refer.html" class="nav-item"><i class="fas fa-users"></i>Refer</a>
+            <a href="profile.html" class="nav-item active"><i class="fas fa-user"></i>Profile</a>
         </div>
     </div>
 
+    <!-- Firebase Script & Admin Control -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
+            authDomain: "send-bkash.firebaseapp.com",
+            projectId: "send-bkash",
+            storageBucket: "send-bkash.firebasestorage.app",
+            messagingSenderId: "306247423891",
+            appId: "1:306247423891:web:bb4fb6634043e6755afa66",
+            measurementId: "G-ZSRNS5RPV5"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // ইউজারের ইমেইল ও আইডি দেখানো
+                document.getElementById("userEmail").innerText = user.email;
+                document.getElementById("userId").innerText = "User ID: " + user.uid.slice(0, 10);
+
+                // চেক করা ইউজারটি অ্যাডমিন কি না
+                if (user.email === "sakibbinsalam.admin@gmail.com") {
+                    document.getElementById("adminPanelBtn").style.display = "flex"; // শুধুমাত্র অ্যাডমিনের জন্য দেখাবে
+                }
+            } else {
+                window.location.href = "login.html"; // লগইন করা না থাকলে প্রোফাইলে ঢুকতে দিবে না
+            }
+        });
+
+        // লগআউট ফাংশন
+        document.getElementById("logoutBtn").addEventListener("click", () => {
+            signOut(auth).then(() => {
+                window.location.href = "login.html";
+            });
+        });
+    </script>
 </body>
 </html>
