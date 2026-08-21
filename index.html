@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Send bKash Web</title>
-    <!-- প্রফেশনাল আইকনের জন্য FontAwesome যুক্ত করা হলো -->
+    <!-- প্রফেশনাল আইকনের জন্য FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -13,10 +13,9 @@
             --main-pink: #e2005a; 
             --main-white: #ffffff;
             --text-grey: #888888;
-            --bg-light: #f4f6f9; /* পেছনের ব্যাকগ্রাউন্ড কালার */
+            --bg-light: #f4f6f9;
         }
 
-        /* কম্পিউটারের ফুল স্ক্রিনের ব্যাকগ্রাউন্ড */
         body {
             margin: 0;
             padding: 0;
@@ -26,12 +25,11 @@
             justify-content: center;
         }
 
-        /* মূল ওয়েবসাইটের সাইজ (মোবাইলের লেআউট) */
         .app-container {
             width: 100%;
             max-width: 450px;
             min-height: 100vh;
-            background-color: var(--bg-light); /* ভেতরের কালার একটু অফ-হোয়াইট */
+            background-color: var(--bg-light);
             color: var(--main-pink);
             box-shadow: 0 0 25px rgba(0, 0, 0, 0.1); 
             display: flex;
@@ -39,7 +37,7 @@
             position: relative;
         }
 
-        /* উপরের হেডার */
+        /* হেডার */
         .header {
             background-color: var(--main-pink);
             padding: 20px;
@@ -55,14 +53,14 @@
             margin-right: 8px;
         }
 
-        /* মাঝখানের কন্টেন্ট এরিয়া */
+        /* কন্টেন্ট এরিয়া */
         .content {
             flex-grow: 1;
             padding: 20px;
             overflow-y: auto;
         }
 
-        /* নোটিশ ব্যানার (নতুন) */
+        /* নোটিশ ব্যানার */
         .notice-banner {
             background-color: rgba(226, 0, 90, 0.08);
             color: var(--main-pink);
@@ -79,7 +77,7 @@
             font-size: 18px;
         }
 
-        /* ড্যাশবোর্ড গ্রিড (নতুন) */
+        /* ড্যাশবোর্ড গ্রিড */
         .stats-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -115,57 +113,89 @@
             font-weight: 500;
         }
 
-        /* কাজের বক্স (নতুন ডিজাইন) */
-        .action-box {
-            background-color: var(--main-white);
-            padding: 25px 20px;
-            border-radius: 12px;
-            border: 2px dashed rgba(226, 0, 90, 0.4);
-            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.05);
-            text-align: center;
-        }
-
-        .action-box h3 {
-            margin: 0 0 10px 0;
+        /* নতুন সার্ভিস লিস্ট (Gmail, WhatsApp, Telegram) */
+        .section-title {
             color: #2c3e50;
-            font-size: 18px;
-        }
-
-        .action-box p {
-            color: var(--text-grey);
-            font-size: 14px;
-            margin: 0 0 20px 0;
-            line-height: 1.5;
-        }
-
-        /* বাটন ডিজাইন */
-        .btn {
-            display: inline-block;
-            width: 100%;
-            padding: 14px;
-            background-color: var(--main-pink);
-            color: var(--main-white);
-            border: none;
-            border-radius: 8px;
             font-size: 16px;
+            margin: 5px 0 15px 0;
+            font-weight: bold;
+        }
+
+        .service-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .service-card {
+            background-color: var(--main-white);
+            border: 1px solid #eaeaea;
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            transition: all 0.2s;
+        }
+
+        .service-card:hover {
+            border-color: var(--main-pink);
+            box-shadow: 0 4px 12px rgba(226, 0, 90, 0.08);
+        }
+
+        .service-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .service-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+        
+        /* অরিজিনাল ব্র্যান্ড কালার */
+        .icon-gmail { background-color: #ea4335; }
+        .icon-wa { background-color: #25d366; }
+        .icon-tg { background-color: #0088cc; }
+
+        .service-details h4 {
+            margin: 0 0 5px 0;
+            color: #2c3e50;
+            font-size: 16px;
+        }
+
+        .service-details p {
+            margin: 0;
+            color: var(--main-pink);
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .service-btn {
+            background-color: rgba(226, 0, 90, 0.1);
+            color: var(--main-pink);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
             font-weight: bold;
             cursor: pointer;
-            transition: background 0.3s, transform 0.1s;
-        }
-        
-        .btn i {
-            margin-right: 8px;
-        }
-        
-        .btn:hover {
-            background-color: #c4004e;
-        }
-        
-        .btn:active {
-            transform: scale(0.98);
+            transition: all 0.2s;
         }
 
-        /* একদম নিচের মেনু (Bottom Nav) */
+        .service-btn:hover {
+            background-color: var(--main-pink);
+            color: white;
+        }
+
+        /* বটম মেনু */
         .bottom-nav {
             background-color: var(--main-white);
             display: flex;
@@ -221,7 +251,7 @@
             <div class="notice-banner">
                 <i class="fas fa-bullhorn"></i>
                 <div>
-                    <strong>আপডেট:</strong> এখন প্রতিটি জিমেইলের জন্য ৭.৫০ টাকা দেওয়া হচ্ছে!
+                    <strong>আপডেট:</strong> এখন জিমেইলের পাশাপাশি হোয়াটসঅ্যাপ ও টেলিগ্রাম অ্যাকাউন্ট জমা দিয়েও টাকা ইনকাম করুন!
                 </div>
             </div>
 
@@ -237,23 +267,55 @@
                     <h4>৭ টি</h4>
                     <p>অ্যাপ্রুভ হয়েছে</p>
                 </div>
-                <div class="stat-card">
-                    <i class="fas fa-clock" style="color: #f39c12; font-size: 28px;"></i>
-                    <h4>২ টি</h4>
-                    <p>পেন্ডিং আছে</p>
-                </div>
-                <div class="stat-card">
-                    <i class="fas fa-users" style="color: #2980b9; font-size: 28px;"></i>
-                    <h4>৳১৫.০০</h4>
-                    <p>রেফার ইনকাম</p>
-                </div>
             </div>
 
-            <!-- Action Card for New Task -->
-            <div class="action-box">
-                <h3>নতুন জিমেইল জমা দিন</h3>
-                <p>কাজ শুরু করতে নিচের বাটনে ক্লিক করে নতুন নাম ও পাসওয়ার্ড সংগ্রহ করুন।</p>
-                <button class="btn"><i class="fas fa-plus-circle"></i> নতুন কাজ নিন</button>
+            <!-- Service Selection Area -->
+            <h3 class="section-title">কাজ নির্বাচন করুন</h3>
+            
+            <div class="service-list">
+                
+                <!-- Gmail Task -->
+                <div class="service-card">
+                    <div class="service-info">
+                        <div class="service-icon icon-gmail">
+                            <i class="fa-brands fa-google"></i>
+                        </div>
+                        <div class="service-details">
+                            <h4>Gmail Account</h4>
+                            <p>রেট: ৳৭.৫০</p>
+                        </div>
+                    </div>
+                    <button class="service-btn">কাজ নিন</button>
+                </div>
+
+                <!-- WhatsApp Task -->
+                <div class="service-card">
+                    <div class="service-info">
+                        <div class="service-icon icon-wa">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </div>
+                        <div class="service-details">
+                            <h4>WhatsApp Account</h4>
+                            <p>রেট: ৳১৫.০০</p>
+                        </div>
+                    </div>
+                    <button class="service-btn">কাজ নিন</button>
+                </div>
+
+                <!-- Telegram Task -->
+                <div class="service-card">
+                    <div class="service-info">
+                        <div class="service-icon icon-tg">
+                            <i class="fa-brands fa-telegram"></i>
+                        </div>
+                        <div class="service-details">
+                            <h4>Telegram Account</h4>
+                            <p>রেট: ৳১২.০০</p>
+                        </div>
+                    </div>
+                    <button class="service-btn">কাজ নিন</button>
+                </div>
+
             </div>
 
         </div>
