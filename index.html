@@ -122,8 +122,8 @@
         .service-card { 
             background-color: var(--main-white); 
             border: 1px solid #eaeaea; 
-            border-radius: 4px; 
-            padding: 15px; 
+            border-radius: 6px; 
+            padding: 12px 15px; 
             display: flex; 
             align-items: center; 
             justify-content: space-between; 
@@ -131,32 +131,33 @@
         }
         .service-info { display: flex; align-items: center; gap: 15px; }
         
-        /* লোগো আইকনগুলো এখন নিখুঁত বর্গাকার (Square) করা হয়েছে */
+        /* আইকনগুলো বড় এবং বর্গাকার (Square) করা হলো */
         .service-icon { 
-            width: 50px; 
-            height: 50px; 
-            border-radius: 4px; 
+            width: 55px; 
+            height: 55px; 
+            border-radius: 6px; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
-            font-size: 26px; 
+            font-size: 30px; 
             color: white; 
         }
         
         .icon-gmail { background-color: #ea4335; } 
         .icon-wa { background-color: #25d366; } 
         .icon-tg { background-color: #0088cc; }
+        .icon-ig { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); } /* ইন্সটাগ্রাম গ্রেডিয়েন্ট কালার */
         
-        .service-details h4 { margin: 0 0 5px 0; color: #2c3e50; font-size: 16px; }
-        .service-details p { margin: 0; color: var(--main-pink); font-size: 14px; font-weight: bold; }
+        .service-details h4 { margin: 0 0 4px 0; color: #2c3e50; font-size: 15px; }
+        .service-details p { margin: 0; color: var(--main-pink); font-size: 13px; font-weight: bold; }
 
         .service-btn { 
             background-color: rgba(226, 0, 90, 0.1); 
             color: var(--main-pink); 
             border: none; 
-            padding: 8px 16px; 
+            padding: 8px 15px; 
             border-radius: 4px; 
-            font-size: 14px;
+            font-size: 13px;
             font-weight: bold; 
             cursor: pointer; 
             transition: all 0.2s; 
@@ -223,6 +224,15 @@
                     </div>
                     <button class="service-btn task-btn">কাজ নিন</button>
                 </div>
+
+                <!-- নতুন যোগ করা Instagram অ্যাকাউন্ট অপশন -->
+                <div class="service-card">
+                    <div class="service-info">
+                        <div class="service-icon icon-ig"><i class="fa-brands fa-instagram"></i></div>
+                        <div class="service-details"><h4>Instagram Account</h4><p>রেট: ৳১০.০০</p></div>
+                    </div>
+                    <button class="service-btn task-btn">কাজ নিন</button>
+                </div>
             </div>
         </div>
 
@@ -276,6 +286,7 @@
                     });
                 });
 
+                TaskBtns = document.querySelectorAll(".task-btn");
                 taskBtns.forEach(btn => {
                     btn.addEventListener("click", () => {
                         window.location.href = "login.html";
