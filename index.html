@@ -89,6 +89,34 @@
         }
 
         .content { flex-grow: 1; padding: 20px; overflow-y: auto; }
+        
+        /* নোটিশ বোর্ড স্টাইল */
+        .notice-box {
+            background: linear-gradient(135deg, #fff3cd, #ffeeba);
+            border: 1px solid #ffeeba;
+            border-left: 5px solid #ffc107;
+            padding: 12px 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            color: #856404;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+        
+        .notice-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .notice-text {
+            margin: 0;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
         .section-title { color: #2c3e50; font-size: 16px; margin: 5px 0 15px 0; font-weight: bold; }
         .service-list { display: flex; flex-direction: column; gap: 12px; }
         
@@ -106,7 +134,7 @@
         .service-btn { background-color: rgba(226, 0, 90, 0.1); color: var(--main-pink); border: none; padding: 8px 15px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: all 0.2s; }
         .service-btn:hover { background-color: var(--main-pink); color: white; }
 
-        .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 12px 0 15px 0; border-top: 1px solid #eaeaea; box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.04); z-index: 10; }
+        .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 12px 0 15px 0; border-top: 1px solid #eaeaea; box-shadow: 0 -4px 20px rgba(0,0,0,0.04); z-index: 10; }
         .nav-item { text-align: center; font-size: 12px; color: var(--text-grey); cursor: pointer; flex: 1; text-decoration: none; transition: all 0.3s; }
         .nav-item i { font-size: 20px; margin-bottom: 6px; display: block; }
         .nav-item.active { color: var(--main-pink); font-weight: bold; }
@@ -129,6 +157,17 @@
 
         <!-- Main Content -->
         <div class="content">
+            
+            <!-- নোটিশ বোর্ড -->
+            <div class="notice-box">
+                <div class="notice-header">
+                    <i class="fas fa-bullhorn"></i> জরুরি নোটিশ:
+                </div>
+                <p class="notice-text">
+                    সঠিক নিয়মে কাজ করুন। কোনো প্রকার ফেক কাজ জমা দিলে অ্যাকাউন্ট স্থায়ীভাবে ব্যান করা হবে। পেমেন্ট সংক্রান্ত যেকোনো সমস্যায় সাপোর্টে যোগাযোগ করুন।
+                </p>
+            </div>
+
             <h3 class="section-title">কাজ নির্বাচন করুন</h3>
             
             <div class="service-list">
@@ -201,7 +240,6 @@
                     <a href="register.html" class="auth-btn register">Sign Up</a>
                 `;
                 
-                // সরাসরি লগইন পেজে পাঠিয়ে দেবে (কোনো পপআপ দেখাবে না)
                 protectedLinks.forEach(link => {
                     link.addEventListener("click", (e) => {
                         e.preventDefault();
