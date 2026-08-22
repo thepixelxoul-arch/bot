@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spin & Win - Send bKash</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root { 
+            --main-pink: #e2005a; 
+            --main-white: #ffffff; 
+            --text-grey: #888888; 
+            --bg-light: #f4f6f9; 
+        }
+
+        body { 
+            margin: 0; padding: 0; 
+            background-color: #e9ecef; 
+            font-family: 'Segoe UI', Tahoma, sans-serif; 
+            display: flex; justify-content: center; 
+        }
+
+        .app-container { 
+            width: 100%; max-width: 450px; min-height: 100vh; 
+            background-color: var(--bg-light); color: var(--main-pink); 
+            box-shadow: 0 0 25px rgba(0,0,0,0.1); 
+            display: flex; flex-direction: column; position: relative; 
+            box-sizing: border-box;
+        }
+
+        .header { 
+            background-color: var(--main-pink); padding: 15px 20px; 
+            display: flex; justify-content: space-between; align-items: center; 
+            color: var(--main-white); box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); z-index: 10; 
+        }
+
+        .header-title { font-size: 20px; font-weight: bold; display: flex; align-items: center; }
+        .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 22px; }
+
+        .content { flex-grow: 1; padding: 20px; overflow-y: auto; text-align: center; }
+
+        .balance-box {
+            background-color: var(--main-white);
+            border-radius: 12px;
+            padding: 15px;
+            border: 1px solid #eaeaea;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            margin-bottom: 25px;
+        }
+        .balance-box p { margin: 0 0 5px 0; color: var(--text-grey); font-size: 14px; }
+        .balance-box h2 { margin: 0; color: var(--main-pink); font-size: 24px; }
+
+        /* স্পিন হুইল এরিয়া */
+        .wheel-wrapper {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            margin: 0 auto 30px auto;
+        }
+
+        /* পয়েন্টার (তীর চিহ্ন) */
+        .pointer {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 25px solid #2c3e50;
+            z-index: 10;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+
+        /* মূল স্পিন হুইল */
+        .wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 5px solid white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+            transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99); /* স্মুথ ঘোরার অ্যানিমেশন */
+            background: conic-gradient(
+                #f1c40f 0deg 36deg,
+                #e67e22 36deg 72deg,
+                #e74c3c 72deg 108deg,
+                #9b59b6 108deg 144deg,
+                #3498db 144deg 180deg,
+                #1abc9c 180deg 216deg,
+                #2ecc71 216deg 252deg,
+                #f39c12 252deg 288deg,
+                #d35400 288deg 324deg,
+                #c0392b 324deg 360deg
+            );
+        }
+
+        /* হুইলের ভেতরের লেখাগুলো বসানোর জায়গা */
+        .wheel-values {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .wheel-values li {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            top: 0; right: 0;
+            transform-origin: 0% 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            font-size: 16px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        /* হুইলের মাঝখানের গোল বিন্দূ */
+        .wheel-center {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px; height: 50px;
+            background-color: white;
+            border-radius: 50%;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--main-pink);
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+
+        /* অ্যাকশন বাটন */
+        .action-btn {
+            background-color: var(--main-pink);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);
+            transition: all 0.3s;
+            margin-bottom: 10px;
+        }
+
+        .action-btn:hover { background-color: #c4004e; }
+        .action-btn:disabled { background-color: #b2bec3; cursor: not-allowed; box-shadow: none; }
+        
+        .unlock-btn { background-color: #f39c12; }
+        .unlock-btn:hover { background-color: #e67e22; }
+
+        .info-text { font-size: 12px; color: var(--text-grey); margin-top: 10px; line-height: 1.5; }
+
+        /* বটম নেভবার */
+        .bottom-nav { 
+            background-color: var(--main-white); display: flex; justify-content: space-around; 
+            padding: 10px 0; border-top: 1px solid #eaeaea; position: sticky; bottom: 0; width: 100%; z-index: 10; 
+        }
+        .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); cursor: pointer; flex: 1; text-decoration: none; }
+        .nav-item i { font-size: 18px; margin-bottom: 4px; display: block; }
+        .nav-item.active { color: var(--main-pink); font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-title">
+                <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+                Spin & Win
+            </div>
+            <div><i class="fas fa-gift"></i></div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            
+            <div class="balance-card balance-box">
+                <p>আপনার বর্তমান ব্যালেন্স</p>
+                <h2 id="currentBalance">৳০.০০</h2>
+            </div>
+
+            <div class="wheel-wrapper">
+                <div class="pointer"></div>
+                <div class="wheel" id="spinWheel">
+                    <ul class="wheel-values" id="wheelValues">
+                        <!-- জাভাস্ক্রিপ্ট দিয়ে এখানে মানগুলো বসানো হবে -->
+                    </ul>
+                </div>
+                <div class="wheel-center">৳</div>
+            </div>
+
+            <!-- ডাইনামিক বাটন -->
+            <button class="action-btn" id="mainBtn">লোড হচ্ছে...</button>
+            <p class="info-text" id="infoText">প্রতিদিন একবার ফ্রিতে স্পিন করে জিতে নিন আকর্ষণীয় ক্যাশ রিওয়ার্ড!</p>
+
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <a href="index.html" class="nav-item"><i class="fas fa-home"></i>Home</a>
+            <a href="withdraw.html" class="nav-item"><i class="fas fa-wallet"></i>Withdraw</a>
+            <a href="refer.html" class="nav-item"><i class="fas fa-users"></i>Refer</a>
+            <a href="profile.html" class="nav-item"><i class="fas fa-user"></i>Profile</a>
+        </div>
+    </div>
+
+    <!-- Firebase ও স্পিন লজিক -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
+            authDomain: "send-bkash.firebaseapp.com",
+            projectId: "send-bkash",
+            storageBucket: "send-bkash.firebasestorage.app",
+            messagingSenderId: "306247423891",
+            appId: "1:306247423891:web:bb4fb6634043e6755afa66"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // হুইলের মানসমূহ
+        const prizes = [1, 11, 22, 33, 44, 55, 66, 77, 88, 99];
+        
+        // হুইলে টেক্সট বসানো (৩৬ ডিগ্রি পর পর)
+        const wheelValues = document.getElementById('wheelValues');
+        prizes.forEach((prize, index) => {
+            const li = document.createElement('li');
+            // পজিশনিং ও রোটেশন হিসাব
+            li.style.transform = `rotate(${index * 36}deg) skewY(-54deg)`;
+            li.innerHTML = `<span style="transform: skewY(54deg) rotate(18deg); position: absolute; left: 30px; top: 15px;">৳${prize}</span>`;
+            wheelValues.appendChild(li);
+        });
+
+        // গ্লোবাল ভেরিয়েবল
+        let currentUserUid = null;
+        let userData = {};
+        let currentRotation = 0;
+
+        const mainBtn = document.getElementById("mainBtn");
+        const balanceDisplay = document.getElementById("currentBalance");
+        const infoText = document.getElementById("infoText");
+        const wheel = document.getElementById("spinWheel");
+
+        // আজকের তারিখ বের করা
+        const getTodayDate = () => {
+            const date = new Date();
+            return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
+        };
+
+        // UI আপডেট ফাংশন
+        const updateUI = () => {
+            balanceDisplay.innerText = `৳${userData.balance.toFixed(2)}`;
+
+            if (!userData.spinUnlocked) {
+                // স্পিন লক অবস্থায় আছে
+                mainBtn.innerText = "৫০ টাকা দিয়ে স্পিন আনলক করুন";
+                mainBtn.className = "action-btn unlock-btn";
+                mainBtn.disabled = false;
+                infoText.innerText = "একবার ৫০ টাকা ফি দিয়ে আনলক করলে স্পিন অপশনটি লাইফটাইম ফ্রি হয়ে যাবে!";
+                mainBtn.onclick = unlockSpin;
+            } else if (userData.lastSpinDate === getTodayDate()) {
+                // আজকে স্পিন করা হয়ে গেছে
+                mainBtn.innerText = "আজকের স্পিন শেষ";
+                mainBtn.className = "action-btn";
+                mainBtn.disabled = true;
+                infoText.innerText = "আপনি আজকের স্পিন করে ফেলেছেন। আগামীকাল আবার চেষ্টা করুন!";
+                mainBtn.onclick = null;
+            } else {
+                // স্পিন করার জন্য রেডি
+                mainBtn.innerText = "স্পিন করুন";
+                mainBtn.className = "action-btn";
+                mainBtn.disabled = false;
+                infoText.innerText = "স্পিন করে আপনার ভাগ্য পরীক্ষা করুন!";
+                mainBtn.onclick = startSpin;
+            }
+        };
+
+        // আনলক লজিক
+        const unlockSpin = () => {
+            if (userData.balance >= 50) {
+                const confirmUnlock = confirm("স্পিন আনলক করতে আপনার ব্যালেন্স থেকে ৫০ টাকা কাটা হবে। আপনি কি একমত?");
+                if (confirmUnlock) {
+                    userData.balance -= 50;
+                    userData.spinUnlocked = true;
+                    localStorage.setItem(`userData_${currentUserUid}`, JSON.stringify(userData));
+                    alert("অভিনন্দন! আপনার স্পিন অপশনটি আনলক হয়েছে।");
+                    updateUI();
+                }
+            } else {
+                alert("আপনার অ্যাকাউন্টে পর্যাপ্ত ব্যালেন্স নেই! স্পিন আনলক করতে ৫০ টাকা প্রয়োজন।");
+            }
+        };
+
+        // স্পিন ঘোরানোর লজিক
+        const startSpin = () => {
+            mainBtn.disabled = true;
+            mainBtn.innerText = "ঘুরছে...";
+            
+            // দৈবচয়ন বা র‍্যান্ডম হিসাব (অন্তত ৫ বার ঘুরবে + অতিরিক্ত কিছু ডিগ্রি)
+            const randomDegree = Math.floor(Math.random() * 360);
+            const totalRotation = currentRotation + 1800 + randomDegree; // 1800 = 360 * 5 (৫ বার পূর্ণ ঘূর্ণন)
+            currentRotation = totalRotation;
+
+            // সিএসএস ট্রান্সফর্ম অ্যাপ্লাই
+            wheel.style.transform = `rotate(${totalRotation}deg)`;
+
+            // ৪ সেকেন্ড পর ফলাফল বের করা
+            setTimeout(() => {
+                // কোন ঘরে এসে থেমেছে তার হিসাব
+                const normalizedDegree = (360 - (totalRotation % 360)) % 360;
+                // ৩৬ ডিগ্রি করে এক একটি ঘর
+                const prizeIndex = Math.floor(normalizedDegree / 36);
+                const wonAmount = prizes[prizeIndex];
+
+                alert(`অভিনন্দন! আপনি জিতেছেন ৳${wonAmount}`);
+
+                // ব্যালেন্স ও তারিখ আপডেট
+                userData.balance += wonAmount;
+                userData.lastSpinDate = getTodayDate();
+                localStorage.setItem(`userData_${currentUserUid}`, JSON.stringify(userData));
+
+                updateUI();
+            }, 4000); // 4000ms = 4 seconds
+        };
+
+        // অথেন্টিকেশন চেক
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                currentUserUid = user.uid;
+                
+                // লোকাল স্টোরেজ থেকে ইউজারের ডেটা পড়া (ডেমো পারপাস)
+                const savedData = localStorage.getItem(`userData_${currentUserUid}`);
+                if (savedData) {
+                    userData = JSON.parse(savedData);
+                } else {
+                    // প্রথমবার হলে ১০০ টাকা ডেমো ব্যালেন্স দিয়ে দিলাম আনলক টেস্ট করার জন্য
+                    userData = {
+                        balance: 100, 
+                        spinUnlocked: false,
+                        lastSpinDate: null
+                    };
+                }
+                updateUI();
+            } else {
+                window.location.href = "login.html";
+            }
+        });
+    </script>
+</body>
+</html>
