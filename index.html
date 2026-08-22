@@ -100,16 +100,16 @@
         }
         .service-btn:hover { background-color: var(--main-pink); color: white; }
 
-        /* VIP ও স্পিন এরিয়ার লেআউট */
+        /* VIP ও স্পিন এরিয়ার লেআউট (একদম নিচে থাকবে) */
         .action-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 15px;
-            margin-bottom: 5px; /* নিচের কার্ডের সাথে একটু গ্যাপ */
+            margin-top: 5px; 
         }
 
-        /* অন্যান্য কার্ডের সাথে মেলানো VIP অপশন (উচ্চতা বড় করা হয়েছে) */
+        /* VIP অপশন (উচ্চতা বড় করা হয়েছে) */
         .vip-compact-card {
             flex: 1; 
             background-color: var(--main-white); 
@@ -119,12 +119,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 70px; /* উচ্চতা ৫৫ থেকে ৭০ পিক্সেল করা হয়েছে */
+            height: 70px; /* উচ্চতা বড় করা হয়েছে */
             box-sizing: border-box;
             box-shadow: 0 2px 8px rgba(0,0,0,0.03); 
         }
         .vip-left { color: #2c3e50; font-weight: bold; font-size: 15px; display: flex; align-items: center; gap: 8px; }
-        .vip-left i { color: #f39c12; font-size: 20px; } /* সোনালী মুকুট একটু বড় করা হলো */
+        .vip-left i { color: #f39c12; font-size: 20px; } 
         
         .vip-btn { 
             background-color: rgba(226, 0, 90, 0.1); 
@@ -143,7 +143,7 @@
         .inline-spin-btn {
             position: relative;
             display: flex; align-items: center; justify-content: center; text-decoration: none;
-            width: 70px; height: 70px; /* সাইজ ৫৫ থেকে ৭০ পিক্সেল করা হয়েছে */
+            width: 70px; height: 70px; /* সাইজ বড় করা হয়েছে */
             filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2)); transition: transform 0.2s;
         }
         .inline-spin-btn:active { transform: scale(0.9); }
@@ -203,22 +203,7 @@
             <h3 class="section-title">কাজ নির্বাচন করুন</h3>
             
             <div class="service-list">
-                <!-- VIP এবং স্পিন অপশন (সবার উপরে এবং বড় সাইজে) -->
-                <div class="action-row">
-                    <div class="vip-compact-card">
-                        <div class="vip-left"><i class="fas fa-crown"></i> VIP আপগ্রেড</div>
-                        <button class="vip-btn" onclick="window.location.href='profile.html'">চেক করুন</button>
-                    </div>
-
-                    <a href="spin.html" class="inline-spin-btn">
-                        <div class="spin-pointer"></div>
-                        <div class="spin-wheel-container">
-                            <div class="spin-wheel"></div>
-                            <div class="spin-inner">৳</div>
-                        </div>
-                    </a>
-                </div>
-
+                
                 <!-- অন্যান্য সাধারণ কার্ড -->
                 <div class="service-card">
                     <div class="service-info">
@@ -250,6 +235,22 @@
                         <div class="service-details"><h4>Instagram Account</h4><p>রেট: ৳১০.০০</p></div>
                     </div>
                     <button class="service-btn task-btn">জমা দিন</button>
+                </div>
+
+                <!-- VIP এবং স্পিন অপশন (সবার নিচে এবং বড় সাইজে) -->
+                <div class="action-row">
+                    <div class="vip-compact-card">
+                        <div class="vip-left"><i class="fas fa-crown"></i> VIP আপগ্রেড</div>
+                        <button class="vip-btn" onclick="window.location.href='profile.html'">চেক করুন</button>
+                    </div>
+
+                    <a href="spin.html" class="inline-spin-btn">
+                        <div class="spin-pointer"></div>
+                        <div class="spin-wheel-container">
+                            <div class="spin-wheel"></div>
+                            <div class="spin-inner">৳</div>
+                        </div>
+                    </a>
                 </div>
 
             </div>
