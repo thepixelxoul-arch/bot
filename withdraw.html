@@ -65,8 +65,43 @@
         }
 
         .data-group { margin-bottom: 15px; }
-        .data-group label { display: block; font-size: 13px; font-weight: bold; color: var(--text-grey); margin-bottom: 5px; }
+        .data-group label { display: block; font-size: 13px; font-weight: bold; color: var(--text-grey); margin-bottom: 8px; }
         
+        /* পেমেন্ট মেথড ছোট ছোট বক্স গ্রিড */
+        .method-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        .method-box {
+            background: var(--main-white);
+            border: 1.5px solid #dcdde1;
+            border-radius: 8px;
+            padding: 10px 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .method-box img {
+            width: 100%;
+            height: 30px;
+            object-fit: contain;
+            margin-bottom: 4px;
+        }
+        .method-box span {
+            font-size: 11px;
+            font-weight: bold;
+            color: #2c3e50;
+            display: block;
+        }
+        /* সিলেক্ট হলে এই স্টাইল হবে */
+        .method-box.selected {
+            border-color: var(--main-pink);
+            background-color: rgba(226, 0, 90, 0.05);
+            box-shadow: 0 2px 6px rgba(226, 0, 90, 0.15);
+        }
+
         .whatsapp-input {
             width: 100%; padding: 12px; border: 1.5px solid #a4b0be;
             border-radius: 6px; box-sizing: border-box; font-size: 14px; outline: none;
@@ -138,13 +173,26 @@
             <!-- উইথড্র ফর্ম কার্ড -->
             <div class="task-card">
                 <div class="data-group">
-                    <label>পেমেন্ট মেথড (Payment Method)</label>
-                    <select id="paymentMethod" class="whatsapp-input">
-                        <option value="bKash">bKash</option>
-                        <option value="Nagad">Nagad</option>
-                        <option value="Rocket">Rocket</option>
-                        <option value="Upay">Upay</option>
-                    </select>
+                    <label>পেমেন্ট মেথড সিলেক্ট করুন</label>
+                    <!-- ছোট ছোট লোগো বক্সগুলো -->
+                    <div class="method-grid">
+                        <div class="method-box selected" onclick="selectMethod(this, 'bKash')">
+                            <img src="https://i.ibb.co.com/84102w1/bkash-logo.png" alt="bKash" onerror="this.style.display='none'">
+                            <span>bKash</span>
+                        </div>
+                        <div class="method-box" onclick="selectMethod(this, 'Nagad')">
+                            <img src="https://i.ibb.co.com/8D7k3c0/nagad-logo.png" alt="Nagad" onerror="this.style.display='none'">
+                            <span>Nagad</span>
+                        </div>
+                        <div class="method-box" onclick="selectMethod(this, 'Rocket')">
+                            <img src="https://i.ibb.co.com/9v1839C/rocket-logo.png" alt="Rocket" onerror="this.style.display='none'">
+                            <span>Rocket</span>
+                        </div>
+                        <div class="method-box" onclick="selectMethod(this, 'Upay')">
+                            <img src="https://i.ibb.co.com/3s1c83D/upay-logo.png" alt="Upay" onerror="this.style.display='none'">
+                            <span>Upay</span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="data-group">
@@ -202,6 +250,18 @@
     </script>
 
     <script>
+        let selectedPaymentMethod = "bKash"; // ডিফল্ট সিলেক্ট করা থাকবে
+
+        function selectMethod(element, methodName) {
+            // সব বক্স থেকে 'selected' ক্লাস রিমুভ করা
+            document.querySelectorAll('.method-box').forEach(box => {
+                box.classList.remove('selected');
+            });
+            // ক্লিক করা বক্সে 'selected' ক্লাস যোগ করা
+            element.classList.add('selected');
+            selectedPaymentMethod = methodName;
+        }
+
         function showToast(message, isError = false) {
             const toast = document.getElementById("toastBox");
             toast.innerText = message;
@@ -215,7 +275,6 @@
         }
 
         function submitWithdraw() {
-            const method = document.getElementById('paymentMethod').value;
             const number = document.getElementById('accNumber').value.trim();
             const amount = document.getElementById('withdrawAmount').value.trim();
 
@@ -232,7 +291,7 @@
             let history = JSON.parse(localStorage.getItem('withdrawHistory')) || [];
             
             const newEntry = {
-                details: `${method}: ${number} (৳${amount})`,
+                details: `${selectedPaymentMethod}: ${number} (৳${amount})`,
                 date: new Date().toLocaleDateString('bn-BD'),
                 status: 'pending' 
             };
