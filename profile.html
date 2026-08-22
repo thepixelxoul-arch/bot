@@ -44,12 +44,16 @@
             border: 1px solid #eaeaea; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center;
             margin-bottom: 15px;
         }
+        
+        /* গোল লোগো বক্স স্টাইল */
         .profile-avatar {
-            width: 70px; height: 70px; background-color: rgba(226, 0, 90, 0.1);
+            width: 75px; height: 75px; background-color: rgba(226, 0, 90, 0.05);
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 12px auto; color: var(--main-pink); font-size: 30px;
-            border: 2px solid var(--main-pink);
+            margin: 0 auto 12px auto; color: var(--main-pink); font-size: 14px; font-weight: bold;
+            border: 2px solid var(--main-pink); text-align: center; padding: 5px; line-height: 1.2;
+            box-sizing: border-box;
         }
+
         .profile-name { font-size: 18px; font-weight: bold; color: #2c3e50; margin: 0 0 4px 0; }
         .profile-email { font-size: 13px; color: var(--text-grey); margin: 0 0 10px 0; }
         
@@ -116,11 +120,13 @@
 
         <div class="content">
             <div class="profile-card">
+                <!-- গোল লোগো বক্স যেখানে Send bKash লেখা থাকবে -->
                 <div class="profile-avatar">
-                    <i class="fas fa-user"></i>
+                    Send bKash
                 </div>
-                <h3 class="profile-name">প্রিয় গ্রাহক</h3>
-                <p class="profile-email" id="userEmail"></p>
+                <!-- ইউজারের জিমেইল থেকে নাম বা এডমিন নাম শো করবে -->
+                <h3 class="profile-name" id="userName">গ্রাহক</h3>
+                <p class="profile-email" id="userEmail">sakibbinsalam.admin@gmail.com</p>
                 <div class="user-id-badge">User ID: t9kZbTUBR1</div>
             </div>
 
@@ -185,7 +191,12 @@
 
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                document.getElementById("userEmail").innerText = user.email || "sakibbinsalam.admin@gmail.com";
+                const email = user.email || "sakibbinsalam.admin@gmail.com";
+                document.getElementById("userEmail").innerText = email;
+                
+                // ইমেইলের @ এর আগের অংশ দিয়ে নাম সেট করা (অথবা এডমিন হলে এডমিন নাম)
+                const namePart = email.split('@')[0];
+                document.getElementById("userName").innerText = namePart.charAt(0).toUpperCase() + namePart.slice(1);
             } else {
                 window.location.href = "login.html";
             }
