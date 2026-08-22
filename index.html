@@ -65,6 +65,7 @@
             flex: 1; 
             padding: 20px; 
             overflow-y: auto; 
+            padding-bottom: 100px; /* স্পিন আইকনের জন্য নিচে জায়গা রাখা হলো */
         }
         
         .notice-box {
@@ -76,7 +77,7 @@
         .notice-text { margin: 0; font-size: 13px; line-height: 1.4; }
 
         .section-title { color: #2c3e50; font-size: 16px; margin: 5px 0 15px 0; font-weight: bold; }
-        .service-list { display: flex; flex-direction: column; gap: 12px; padding-bottom: 20px; }
+        .service-list { display: flex; flex-direction: column; gap: 12px; }
         
         /* VIP অপশন (সবার ওপরে, ফুল সাইজ) */
         .vip-card {
@@ -131,6 +132,33 @@
         }
         .service-btn:hover { background-color: var(--main-pink); color: white; }
 
+        /* স্পিন হুইল আইকন (ফ্লোটিং ডানদিকের নিচে) */
+        .floating-spin-btn {
+            position: absolute;
+            bottom: 80px; 
+            right: 20px;
+            display: flex; align-items: center; justify-content: center; text-decoration: none;
+            width: 70px; height: 70px; 
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.25)); transition: transform 0.2s;
+            z-index: 50;
+        }
+        .floating-spin-btn:active { transform: scale(0.9); }
+        
+        .spin-pointer { 
+            position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+            width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 14px solid #333; z-index: 10; 
+        }
+        
+        .spin-wheel-container { position: relative; width: 70px; height: 70px; display: flex; align-items: center; justify-content: center; }
+        .spin-wheel {
+            position: absolute; width: 100%; height: 100%; border-radius: 50%;
+            background: conic-gradient(#2ecc71 0 60deg, #3498db 60deg 120deg, #9b59b6 120deg 180deg, #e67e22 180deg 240deg, #e74c3c 240deg 300deg, #f1c40f 300deg 360deg);
+            border: 3px solid white; box-sizing: border-box; animation: rotateWheel 2.5s linear infinite;
+        }
+        .spin-inner { position: absolute; width: 28px; height: 28px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #e74c3c; font-size: 15px; z-index: 2; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+
+        @keyframes rotateWheel { 100% { transform: rotate(360deg); } }
+
         /* বটম নেভবার */
         .bottom-nav { 
             background-color: var(--main-white); display: flex; justify-content: space-around; 
@@ -171,46 +199,63 @@
             <h3 class="section-title">কাজ নির্বাচন করুন</h3>
             
             <div class="service-list">
-                <!-- VIP অপশন (সবার উপরে) -->
+                <!-- VIP অপশন -->
                 <div class="vip-card">
                     <div class="vip-left"><i class="fas fa-crown"></i> VIP আপগ্রেড</div>
-                    <button class="vip-btn" onclick="window.location.href='profile.html'">চেক করুন</button>
+                    <!-- vip.html লিংক যুক্ত করা হলো -->
+                    <button class="vip-btn task-btn" onclick="window.location.href='vip.html'">চেক করুন</button>
                 </div>
 
-                <!-- অন্যান্য কার্ড -->
+                <!-- Gmail কার্ড -->
                 <div class="service-card">
                     <div class="service-info">
                         <div class="service-icon icon-gmail"><i class="fa-brands fa-google"></i></div>
                         <div class="service-details"><h4>Gmail Account</h4><p>জিমেইল তৈরি করুন (রেট: ৳৭.৫০)</p></div>
                     </div>
-                    <button class="service-btn task-btn">তৈরি করুন</button>
+                    <!-- gmail.html লিংক যুক্ত করা হলো -->
+                    <button class="service-btn task-btn" onclick="window.location.href='gmail.html'">তৈরি করুন</button>
                 </div>
 
+                <!-- WhatsApp কার্ড -->
                 <div class="service-card">
                     <div class="service-info">
                         <div class="service-icon icon-wa"><i class="fa-brands fa-whatsapp"></i></div>
                         <div class="service-details"><h4>WhatsApp Account</h4><p>রেট: ৳১৫.০০</p></div>
                     </div>
-                    <button class="service-btn task-btn">জমা দিন</button>
+                    <!-- whatsapp.html লিংক যুক্ত করা হলো -->
+                    <button class="service-btn task-btn" onclick="window.location.href='whatsapp.html'">জমা দিন</button>
                 </div>
 
+                <!-- Telegram কার্ড -->
                 <div class="service-card">
                     <div class="service-info">
                         <div class="service-icon icon-tg"><i class="fa-brands fa-telegram"></i></div>
                         <div class="service-details"><h4>Telegram Account</h4><p>রেট: ৳১২.০০</p></div>
                     </div>
-                    <button class="service-btn task-btn">জমা দিন</button>
+                    <!-- telegram.html লিংক যুক্ত করা হলো -->
+                    <button class="service-btn task-btn" onclick="window.location.href='telegram.html'">জমা দিন</button>
                 </div>
 
+                <!-- Instagram কার্ড -->
                 <div class="service-card">
                     <div class="service-info">
                         <div class="service-icon icon-ig"><i class="fa-brands fa-instagram"></i></div>
                         <div class="service-details"><h4>Instagram Account</h4><p>রেট: ৳১০.০০</p></div>
                     </div>
-                    <button class="service-btn task-btn">জমা দিন</button>
+                    <!-- instagram.html লিংক যুক্ত করা হলো -->
+                    <button class="service-btn task-btn" onclick="window.location.href='instagram.html'">জমা দিন</button>
                 </div>
             </div>
         </div>
+
+        <!-- সবসময় ঘোরা স্পিন হুইল আইকন (ভাসমান) -->
+        <a href="spin.html" class="floating-spin-btn">
+            <div class="spin-pointer"></div>
+            <div class="spin-wheel-container">
+                <div class="spin-wheel"></div>
+                <div class="spin-inner">৳</div>
+            </div>
+        </a>
 
         <!-- Bottom Navigation -->
         <div class="bottom-nav">
@@ -244,8 +289,10 @@
             const taskBtns = document.querySelectorAll(".task-btn");
             
             if (user) {
+                // ইউজার লগইন থাকলে ব্যালেন্স দেখাবে এবং বাটনগুলো কাজ করবে
                 authSection.innerHTML = `<div class="header-balance"><i class="fas fa-wallet"></i> ৳৫০.০০</div>`;
             } else {
+                // লগইন করা না থাকলে Login পেজে নিয়ে যাবে
                 authSection.innerHTML = `<a href="login.html" class="auth-btn">Login</a><a href="register.html" class="auth-btn register">Sign Up</a>`;
                 
                 protectedLinks.forEach(link => {
@@ -256,7 +303,12 @@
                 });
 
                 taskBtns.forEach(btn => {
-                    btn.addEventListener("click", () => { window.location.href = "login.html"; });
+                    // লগইন না থাকলে বাটনের লিংক ডিলিট করে লগইন পেজে পাঠাবে
+                    btn.removeAttribute("onclick");
+                    btn.addEventListener("click", (e) => { 
+                        e.preventDefault();
+                        window.location.href = "login.html"; 
+                    });
                 });
             }
         });
