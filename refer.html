@@ -38,6 +38,14 @@
 
         .content { flex-grow: 1; padding: 20px; overflow-y: auto; padding-bottom: 80px; }
         
+        /* নোটিশ বক্স */
+        .notice-box {
+            background: linear-gradient(135deg, #fff3cd, #ffeeba); 
+            border: 1px solid #ffeeba; border-left: 5px solid #ffc107;
+            padding: 12px 15px; border-radius: 4px; margin-bottom: 15px; color: #856404;
+            font-size: 13px; line-height: 1.5; box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+
         /* রেফার কার্ড ডিজাইন */
         .refer-card {
             background-color: var(--main-white); border-radius: 12px; padding: 25px 20px;
@@ -96,7 +104,6 @@
     <div id="toastBox" class="toast-msg">কপি করা হয়েছে!</div>
 
     <div class="app-container">
-        <!-- হেডার (আইকন পুরোপুরি রিমুভ করা হয়েছে) -->
         <div class="header">
             <div class="header-title">
                 <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
@@ -105,6 +112,11 @@
         </div>
 
         <div class="content">
+            <!-- রেফার নোটিশ বক্স -->
+            <div class="notice-box">
+                <i class="fas fa-info-circle"></i> প্রতি রেফারে পাবেন <b>৳২.০০</b> টাকা বোনাস। এছাড়া আপনার রেফারের বন্ধুরা কাজ করলে তাদের প্রতি কাজের আয় থেকে পাবেন <b>৫% কমিশন</b>!
+            </div>
+
             <!-- রেফার কার্ড -->
             <div class="refer-card">
                 <i class="fas fa-user-plus main-icon"></i>
