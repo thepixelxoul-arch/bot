@@ -23,7 +23,6 @@
             justify-content: center; 
         }
 
-        /* হোমপেজের মতো অ্যাপ কন্টেইনার */
         .app-container { 
             width: 100%; 
             max-width: 450px; 
@@ -36,7 +35,6 @@
             position: relative; 
         }
 
-        /* হেডার ডিজাইন */
         .header { 
             background-color: var(--main-pink); 
             padding: 15px 20px; 
@@ -61,7 +59,6 @@
             font-size: 22px; 
         }
 
-        /* কন্টেন্ট এরিয়া */
         .content { 
             flex-grow: 1; 
             padding: 20px; 
@@ -169,7 +166,7 @@
                     <input type="email" id="email" placeholder="ইমেইল অ্যাড্রেস" required>
                 </div>
                 <div class="input-group">
-                    <input type="password" id="password" placeholder="পাসওয়ার্ড দিন (অন্তত ৬ অক্ষর)" required>
+                    <input type="password" id="password" placeholder="পাসওয়ার্ড দিন (অন্তত ৬ অক্ষর)" required>
                 </div>
                 
                 <button class="login-btn" id="registerBtn">অ্যাকাউন্ট খুলুন</button>
@@ -184,7 +181,7 @@
     <!-- Firebase SDK & Registration Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+        import { getAuth, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
@@ -206,21 +203,29 @@
             
             if(email && password && name) {
                 if(password.length < 6) {
-                    alert("পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে!");
+                    alert("পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে!");
                     return;
                 }
                 
                 createUserWithEmailAndPassword(auth, email, password)
-                .then(() => {
-                    alert("সফলভাবে অ্যাকাউন্ট তৈরি হয়েছে!");
-                    window.location.href = "index.html";
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    
+                    // ফায়ারবেস প্রোফাইলে এবং ব্রাউজারের লোকালস্টোরেজে নামটি সেভ করা হচ্ছে
+                    updateProfile(user, {
+                        displayName: name
+                    }).then(() => {
+                        localStorage.setItem('userName', name);
+                        alert("সফলভাবে অ্যাকাউন্ট তৈরি হয়েছে!");
+                        window.location.href = "index.html";
+                    });
                 })
                 .catch((error) => {
-                    alert("অ্যাকাউন্ট তৈরি করা যায়নি: " + error.message);
+                    alert("অ্যাকাউন্ট তৈরি করা যায়নি: " + error.message);
                     console.error(error);
                 });
             } else {
-                alert("দয়া করে সবগুলো ঘর পূরণ করুন!");
+                alert("দয়া করে সবগুলো ঘর পূরণ করুন!");
             }
         });
     </script>
