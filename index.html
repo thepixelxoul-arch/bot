@@ -96,9 +96,11 @@
         .service-btn { 
             background-color: rgba(226, 0, 90, 0.1); color: var(--main-pink); border: none; 
             padding: 8px 15px; border-radius: 4px; font-size: 13px; font-weight: bold; cursor: pointer; 
+            transition: all 0.2s;
         }
+        .service-btn:hover { background-color: var(--main-pink); color: white; }
 
-        /* VIP ও স্পিন এরিয়ার লেআউট (পাশাপাশি একদম পারফেক্ট) */
+        /* VIP ও স্পিন এরিয়ার লেআউট */
         .action-row {
             display: flex;
             align-items: center;
@@ -107,11 +109,11 @@
             margin-top: 5px;
         }
 
-        /* অর্ধেক সাইজের পিংক VIP অপশন */
+        /* অন্যান্য কার্ডের সাথে মেলানো VIP অপশন */
         .vip-compact-card {
             flex: 1; 
-            background-color: rgba(226, 0, 90, 0.05); /* হালকা পিংক ব্যাকগ্রাউন্ড */
-            border: 1px solid rgba(226, 0, 90, 0.2); /* হালকা পিংক বর্ডার */
+            background-color: var(--main-white); /* সাদা ব্যাকগ্রাউন্ড */
+            border: 1px solid #eaeaea; /* অন্য কার্ডের মতো বর্ডার */
             border-radius: 6px;
             padding: 0 15px;
             display: flex;
@@ -119,21 +121,34 @@
             align-items: center;
             height: 55px; /* স্পিন হুইলের সমান উচ্চতা */
             box-sizing: border-box;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03); 
         }
-        .vip-left { color: var(--main-pink); font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 8px; }
-        .vip-btn { background-color: var(--main-pink); color: white; border: none; padding: 6px 15px; border-radius: 4px; font-size: 12px; font-weight: bold; cursor: pointer; transition: 0.2s; }
-        .vip-btn:hover { background-color: #c4004e; }
+        .vip-left { color: #2c3e50; font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+        .vip-left i { color: #f39c12; font-size: 18px; } /* সোনালী মুকুট */
+        
+        /* অন্যান্য বাটনের মতো VIP বাটন */
+        .vip-btn { 
+            background-color: rgba(226, 0, 90, 0.1); 
+            color: var(--main-pink); 
+            border: none; 
+            padding: 8px 15px; 
+            border-radius: 4px; 
+            font-size: 13px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            transition: 0.2s; 
+        }
+        .vip-btn:hover { background-color: var(--main-pink); color: white; }
 
         /* স্পিন হুইল আইকন (VIP এর পাশে) */
         .inline-spin-btn {
             position: relative;
             display: flex; align-items: center; justify-content: center; text-decoration: none;
-            width: 55px; height: 55px; /* VIP এর সমান উচ্চতা */
+            width: 55px; height: 55px; 
             filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2)); transition: transform 0.2s;
         }
         .inline-spin-btn:active { transform: scale(0.9); }
         
-        /* তীর চিহ্নটি এখন ফ্লোটিং, তাই উচ্চতায় প্রভাব ফেলবে না */
         .spin-pointer { 
             position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
             width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 12px solid #333; z-index: 10; 
@@ -221,9 +236,8 @@
                     <button class="service-btn task-btn">জমা দিন</button>
                 </div>
 
-                <!-- VIP এবং স্পিন অপশন (পাশাপাশি একদম সমান) -->
+                <!-- অন্যান্য কার্ডের কালারের সাথে ম্যাচ করা VIP কার্ড -->
                 <div class="action-row">
-                    <!-- অর্ধেক সাইজের পিংক VIP অপশন -->
                     <div class="vip-compact-card">
                         <div class="vip-left"><i class="fas fa-crown"></i> VIP আপগ্রেড</div>
                         <button class="vip-btn" onclick="window.location.href='profile.html'">চেক করুন</button>
