@@ -69,16 +69,29 @@
         }
         .copy-btn:hover { background-color: #c4004e; }
 
-        /* ৩টি কলাম বিশিষ্ট স্ট্যাটাস কার্ড */
+        /* স্ট্যাটাস কার্ড */
         .stats-card {
             background-color: var(--main-white); border-radius: 12px; padding: 15px 10px;
             border: 1px solid #eaeaea; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            display: flex; justify-content: space-around; text-align: center;
+            display: flex; justify-content: space-around; text-align: center; margin-bottom: 25px;
         }
         .stat-item { flex: 1; border-right: 1px solid #eaeaea; padding: 0 5px; }
         .stat-item:last-child { border-right: none; }
         .stat-num { font-size: 17px; font-weight: bold; color: var(--main-pink); margin-bottom: 5px; white-space: nowrap; }
         .stat-label { font-size: 11px; color: var(--text-grey); font-weight: bold; }
+
+        /* হিস্ট্রি সেকশন */
+        .history-section { margin-top: 15px; }
+        .history-title { font-size: 15px; font-weight: bold; color: #2c3e50; margin-bottom: 12px; border-bottom: 2px solid #eaeaea; padding-bottom: 5px; }
+        
+        .history-card {
+            background: var(--main-white); border: 1px solid #eaeaea; border-radius: 6px;
+            padding: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;
+        }
+        .history-info p { margin: 0; font-size: 13px; color: #2c3e50; font-weight: bold; }
+        .history-info small { color: var(--text-grey); font-size: 11px; }
+
+        .history-amount { font-size: 14px; font-weight: bold; color: #27ae60; }
 
         .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: sticky; bottom: 0; z-index: 100; }
         .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); text-decoration: none; flex: 1; }
@@ -123,19 +136,28 @@
                 </div>
             </div>
 
-            <!-- ৩টি কলামের স্ট্যাটাস কার্ড (মোট রেফার, রেফার বোনাস এবং রেফার কমিশন) -->
+            <!-- স্ট্যাটাস কার্ড -->
             <div class="stats-card">
                 <div class="stat-item">
-                    <div class="stat-num">০ জন</div>
+                    <div class="stat-num" id="totalRefersCount">০ জন</div>
                     <div class="stat-label">মোট রেফার</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-num">৳০.০০</div>
+                    <div class="stat-num" id="totalBonusAmount">৳০.০০</div>
                     <div class="stat-label">রেফার বোনাস</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-num">৳০.০০</div>
+                    <div class="stat-num" id="totalCommissionAmount">৳০.০০</div>
                     <div class="stat-label">রেফার কমিশন</div>
+                </div>
+            </div>
+
+            <!-- হিস্ট্রি সেকশন -->
+            <div class="history-section">
+                <div class="history-title">রেফার ও কমিশন হিস্ট্রি</div>
+                <div id="referHistoryList">
+                    <!-- ডেমো বা লোকালস্টোরেজ থেকে ডাটা এখানে আসবে -->
+                    <p style="text-align:center; color:#888; font-size:12px;">কোনো হিস্ট্রি পাওয়া যায়নি।</p>
                 </div>
             </div>
         </div>
@@ -159,6 +181,31 @@
             toast.classList.add("show");
             setTimeout(() => { toast.classList.remove("show"); }, 2500);
         }
+
+        // লোড করার ফাংশন (যদি লোকালস্টোরেজে রেফার হিস্ট্রি থাকে)
+        function loadReferHistory() {
+            const historyList = document.getElementById('referHistoryList');
+            const history = JSON.parse(localStorage.getItem('referHistory')) || [];
+
+            if(history.length === 0) return;
+
+            historyList.innerHTML = '';
+            history.forEach(item => {
+                historyList.innerHTML += `
+                    <div class="history-card">
+                        <div class="history-info">
+                            <p>${item.title}</p>
+                            <small>তারিখ: ${item.date}</small>
+                        </div>
+                        <div class="history-amount">+${item.amount}</div>
+                    </div>
+                `;
+            });
+        }
+
+        window.onload = () => {
+            loadReferHistory();
+        };
     </script>
 </body>
 </html>
