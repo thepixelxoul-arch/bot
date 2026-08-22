@@ -103,25 +103,29 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            border-radius: 50%;
             list-style: none;
             padding: 0;
             margin: 0;
+            z-index: 2;
         }
 
         .wheel-values li {
             position: absolute;
-            width: 50%;
-            height: 50%;
-            top: 0; right: 0;
-            transform-origin: 0% 100%;
+            top: 50%;
+            left: 50%;
+            width: 50%; /* কেন্দ্র থেকে শেষ পর্যন্ত */
+            height: 20px;
+            margin-top: -10px; /* ঠিক মাঝখানে রাখার জন্য */
+            transform-origin: left center; /* কেন্দ্র থেকে ঘুরবে */
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-end; /* লেখাটা চাকার শেষের দিকে থাকবে */
+            padding-right: 15px; /* বর্ডার থেকে একটু ভেতরে */
+            box-sizing: border-box;
             font-weight: bold;
             color: white;
             font-size: 16px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.7); /* লেখার নিচে হালকা ছায়া যাতে স্পষ্ট বোঝা যায় */
         }
 
         /* হুইলের মাঝখানের গোল বিন্দূ */
@@ -196,11 +200,12 @@
                 <h2 id="currentBalance">৳০.০০</h2>
             </div>
 
+            <!-- স্পিন হুইল -->
             <div class="wheel-wrapper">
                 <div class="pointer"></div>
                 <div class="wheel" id="spinWheel">
                     <ul class="wheel-values" id="wheelValues">
-                        <!-- জাভাস্ক্রিপ্ট দিয়ে এখানে মানগুলো বসানো হবে -->
+                        <!-- জাভাস্ক্রিপ্ট দিয়ে এখানে টাকাগুলো বসানো হবে -->
                     </ul>
                 </div>
                 <div class="wheel-center">৳</div>
@@ -238,16 +243,19 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // হুইলের মানসমূহ
-        const prizes = [1, 11, 22, 33, 44, 55, 66, 77, 88, 99];
+        // হুইলের মানসমূহ (বাংলায় দেখানোর জন্য)
+        const displayPrizes = ['১', '১১', '২২', '৩৩', '৪৪', '৫৫', '৬৬', '৭৭', '৮৮', '৯৯'];
+        // ক্যালকুলেশনের জন্য আসল মান
+        const actualPrizes = [1, 11, 22, 33, 44, 55, 66, 77, 88, 99];
         
-        // হুইলে টেক্সট বসানো (৩৬ ডিগ্রি পর পর)
+        // হুইলে লেখা বসানো
         const wheelValues = document.getElementById('wheelValues');
-        prizes.forEach((prize, index) => {
+        displayPrizes.forEach((prize, index) => {
             const li = document.createElement('li');
-            // পজিশনিং ও রোটেশন হিসাব
-            li.style.transform = `rotate(${index * 36}deg) skewY(-54deg)`;
-            li.innerHTML = `<span style="transform: skewY(54deg) rotate(18deg); position: absolute; left: 30px; top: 15px;">৳${prize}</span>`;
+            // ಪ್ರತಿটি স্লাইস ৩৬ ডিগ্রি। -৯০ ডিগ্রি করা হয়েছে কারণ সিএসএস ০ ডিগ্রি ডান দিক থেকে শুরু হয়।
+            const rotateAngle = (index * 36) + 18 - 90; 
+            li.style.transform = `rotate(${rotateAngle}deg)`;
+            li.innerHTML = `<span>৳${prize}</span>`;
             wheelValues.appendChild(li);
         });
 
@@ -272,21 +280,18 @@
             balanceDisplay.innerText = `৳${userData.balance.toFixed(2)}`;
 
             if (!userData.spinUnlocked) {
-                // স্পিন লক অবস্থায় আছে
                 mainBtn.innerText = "৫০ টাকা দিয়ে স্পিন আনলক করুন";
                 mainBtn.className = "action-btn unlock-btn";
                 mainBtn.disabled = false;
                 infoText.innerText = "একবার ৫০ টাকা ফি দিয়ে আনলক করলে স্পিন অপশনটি লাইফটাইম ফ্রি হয়ে যাবে!";
                 mainBtn.onclick = unlockSpin;
             } else if (userData.lastSpinDate === getTodayDate()) {
-                // আজকে স্পিন করা হয়ে গেছে
                 mainBtn.innerText = "আজকের স্পিন শেষ";
                 mainBtn.className = "action-btn";
                 mainBtn.disabled = true;
                 infoText.innerText = "আপনি আজকের স্পিন করে ফেলেছেন। আগামীকাল আবার চেষ্টা করুন!";
                 mainBtn.onclick = null;
             } else {
-                // স্পিন করার জন্য রেডি
                 mainBtn.innerText = "স্পিন করুন";
                 mainBtn.className = "action-btn";
                 mainBtn.disabled = false;
@@ -316,31 +321,30 @@
             mainBtn.disabled = true;
             mainBtn.innerText = "ঘুরছে...";
             
-            // দৈবচয়ন বা র‍্যান্ডম হিসাব (অন্তত ৫ বার ঘুরবে + অতিরিক্ত কিছু ডিগ্রি)
+            // র‍্যান্ডম ডিগ্রিতে থামানো (কমপক্ষে ৫ বার পূর্ণ ঘুরবে)
             const randomDegree = Math.floor(Math.random() * 360);
-            const totalRotation = currentRotation + 1800 + randomDegree; // 1800 = 360 * 5 (৫ বার পূর্ণ ঘূর্ণন)
+            const totalRotation = currentRotation + 1800 + randomDegree; 
             currentRotation = totalRotation;
 
-            // সিএসএস ট্রান্সফর্ম অ্যাপ্লাই
+            // চাকা ঘোরানো
             wheel.style.transform = `rotate(${totalRotation}deg)`;
 
-            // ৪ সেকেন্ড পর ফলাফল বের করা
+            // ৪ সেকেন্ড পর রেজাল্ট বের করা
             setTimeout(() => {
-                // কোন ঘরে এসে থেমেছে তার হিসাব
                 const normalizedDegree = (360 - (totalRotation % 360)) % 360;
-                // ৩৬ ডিগ্রি করে এক একটি ঘর
                 const prizeIndex = Math.floor(normalizedDegree / 36);
-                const wonAmount = prizes[prizeIndex];
+                
+                const wonAmount = actualPrizes[prizeIndex];
+                const wonAmountDisplay = displayPrizes[prizeIndex];
 
-                alert(`অভিনন্দন! আপনি জিতেছেন ৳${wonAmount}`);
+                alert(`অভিনন্দন! আপনি জিতেছেন ৳${wonAmountDisplay}`);
 
-                // ব্যালেন্স ও তারিখ আপডেট
                 userData.balance += wonAmount;
                 userData.lastSpinDate = getTodayDate();
                 localStorage.setItem(`userData_${currentUserUid}`, JSON.stringify(userData));
 
                 updateUI();
-            }, 4000); // 4000ms = 4 seconds
+            }, 4000);
         };
 
         // অথেন্টিকেশন চেক
@@ -348,7 +352,6 @@
             if (user) {
                 currentUserUid = user.uid;
                 
-                // লোকাল স্টোরেজ থেকে ইউজারের ডেটা পড়া (ডেমো পারপাস)
                 const savedData = localStorage.getItem(`userData_${currentUserUid}`);
                 if (savedData) {
                     userData = JSON.parse(savedData);
