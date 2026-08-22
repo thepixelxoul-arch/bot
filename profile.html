@@ -45,7 +45,6 @@
             margin-bottom: 15px;
         }
         
-        /* গোল লোগো বক্স স্টাইল */
         .profile-avatar {
             width: 75px; height: 75px; background-color: rgba(226, 0, 90, 0.05);
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
@@ -120,13 +119,12 @@
 
         <div class="content">
             <div class="profile-card">
-                <!-- গোল লোগো বক্স যেখানে Send bKash লেখা থাকবে -->
                 <div class="profile-avatar">
                     Send bKash
                 </div>
-                <!-- ইউজারের জিমেইল থেকে নাম বা এডমিন নাম শো করবে -->
+                <!-- এখানে রেজিস্ট্রেশনের সময় দেওয়া নামটি শো করবে -->
                 <h3 class="profile-name" id="userName">গ্রাহক</h3>
-                <p class="profile-email" id="userEmail">sakibbinsalam.admin@gmail.com</p>
+                <p class="profile-email" id="userEmail"></p>
                 <div class="user-id-badge">User ID: t9kZbTUBR1</div>
             </div>
 
@@ -194,9 +192,14 @@
                 const email = user.email || "sakibbinsalam.admin@gmail.com";
                 document.getElementById("userEmail").innerText = email;
                 
-                // ইমেইলের @ এর আগের অংশ দিয়ে নাম সেট করা (অথবা এডমিন হলে এডমিন নাম)
-                const namePart = email.split('@')[0];
-                document.getElementById("userName").innerText = namePart.charAt(0).toUpperCase() + namePart.slice(1);
+                // লোকালস্টোরেজ থেকে ইউজারের নাম বের করা, না থাকলে ইমেইলের অংশ দিয়ে নাম দেখানো
+                const savedName = localStorage.getItem('userName');
+                if (savedName) {
+                    document.getElementById("userName").innerText = savedName;
+                } else {
+                    const namePart = email.split('@')[0];
+                    document.getElementById("userName").innerText = namePart.charAt(0).toUpperCase() + namePart.slice(1);
+                }
             } else {
                 window.location.href = "login.html";
             }
@@ -204,6 +207,7 @@
 
         window.logoutUser = function() {
             signOut(auth).then(() => {
+                localStorage.removeItem('userName');
                 window.location.href = "login.html";
             }).catch((error) => {
                 console.log(error);
