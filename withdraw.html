@@ -67,7 +67,7 @@
         .data-group { margin-bottom: 15px; }
         .data-group label { display: block; font-size: 13px; font-weight: bold; color: var(--text-grey); margin-bottom: 8px; }
         
-        /* পেমেন্ট মেথড ছোট ছোট বক্স গ্রিড */
+        /* পেমেন্ট মেথড কার্ড ডিজাইন (কোনো ভাঙা ছবি বা নীল বক্স থাকবে না) */
         .method-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -78,24 +78,29 @@
             background: var(--main-white);
             border: 1.5px solid #dcdde1;
             border-radius: 8px;
-            padding: 10px 5px;
+            padding: 12px 5px;
             text-align: center;
             cursor: pointer;
             transition: all 0.2s;
         }
-        .method-box img {
-            width: 100%;
-            height: 30px;
-            object-fit: contain;
+        .method-box i {
+            font-size: 18px;
             margin-bottom: 4px;
+            display: block;
         }
         .method-box span {
-            font-size: 11px;
+            font-size: 12px;
             font-weight: bold;
             color: #2c3e50;
             display: block;
         }
-        /* সিলেক্ট হলে এই স্টাইল হবে */
+        /* আলাদা আলাদা কালার */
+        .method-box.bkash i { color: #e2136e; }
+        .method-box.nagad i { color: #ec1c24; }
+        .method-box.rocket i { color: #82318c; }
+        .method-box.upay i { color: #004c8f; }
+
+        /* সিলেক্ট হলে */
         .method-box.selected {
             border-color: var(--main-pink);
             background-color: rgba(226, 0, 90, 0.05);
@@ -174,22 +179,21 @@
             <div class="task-card">
                 <div class="data-group">
                     <label>পেমেন্ট মেথড সিলেক্ট করুন</label>
-                    <!-- ছোট ছোট লোগো বক্সগুলো -->
                     <div class="method-grid">
-                        <div class="method-box selected" onclick="selectMethod(this, 'bKash')">
-                            <img src="https://i.ibb.co.com/84102w1/bkash-logo.png" alt="bKash" onerror="this.style.display='none'">
+                        <div class="method-box bkash selected" onclick="selectMethod(this, 'bKash')">
+                            <i class="fas fa-wallet"></i>
                             <span>bKash</span>
                         </div>
-                        <div class="method-box" onclick="selectMethod(this, 'Nagad')">
-                            <img src="https://i.ibb.co.com/8D7k3c0/nagad-logo.png" alt="Nagad" onerror="this.style.display='none'">
+                        <div class="method-box nagad" onclick="selectMethod(this, 'Nagad')">
+                            <i class="fas fa-wallet"></i>
                             <span>Nagad</span>
                         </div>
-                        <div class="method-box" onclick="selectMethod(this, 'Rocket')">
-                            <img src="https://i.ibb.co.com/9v1839C/rocket-logo.png" alt="Rocket" onerror="this.style.display='none'">
+                        <div class="method-box rocket" onclick="selectMethod(this, 'Rocket')">
+                            <i class="fas fa-wallet"></i>
                             <span>Rocket</span>
                         </div>
-                        <div class="method-box" onclick="selectMethod(this, 'Upay')">
-                            <img src="https://i.ibb.co.com/3s1c83D/upay-logo.png" alt="Upay" onerror="this.style.display='none'">
+                        <div class="method-box upay" onclick="selectMethod(this, 'Upay')">
+                            <i class="fas fa-wallet"></i>
                             <span>Upay</span>
                         </div>
                     </div>
@@ -250,14 +254,12 @@
     </script>
 
     <script>
-        let selectedPaymentMethod = "bKash"; // ডিফল্ট সিলেক্ট করা থাকবে
+        let selectedPaymentMethod = "bKash";
 
         function selectMethod(element, methodName) {
-            // সব বক্স থেকে 'selected' ক্লাস রিমুভ করা
             document.querySelectorAll('.method-box').forEach(box => {
                 box.classList.remove('selected');
             });
-            // ক্লিক করা বক্সে 'selected' ক্লাস যোগ করা
             element.classList.add('selected');
             selectedPaymentMethod = methodName;
         }
