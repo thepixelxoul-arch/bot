@@ -38,7 +38,6 @@
 
         .content { flex-grow: 1; padding: 20px; overflow-y: auto; padding-bottom: 80px; }
         
-        /* হালকা হলুদ নোটিশ বোর্ড */
         .notice-box {
             background: linear-gradient(135deg, #fff3cd, #ffeeba); 
             border: 1px solid #ffeeba; border-left: 5px solid #ffc107;
@@ -46,13 +45,11 @@
             font-size: 13px; line-height: 1.5; box-shadow: 0 2px 8px rgba(0,0,0,0.03);
         }
 
-        /* টাস্ক কার্ড */
         .task-card {
             background-color: var(--main-white); border-radius: 8px; padding: 20px;
             border: 1px solid #eaeaea; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: relative;
         }
 
-        /* হালকা গোলাপি ম্যানুয়াল জমা বাটন */
         .manual-btn {
             position: absolute; top: 15px; right: 15px;
             background: rgba(226, 0, 90, 0.1); color: var(--main-pink); border: none;
@@ -70,7 +67,8 @@
             padding: 12px; border-radius: 6px;
         }
         .data-box span { font-size: 14px; color: #2c3e50; font-weight: 500; word-break: break-all; }
-        .copy-icon { color: var(--main-pink); cursor: pointer; font-size: 18px; padding-left: 10px; }
+        .copy-icon { color: var(--main-pink); cursor: pointer; font-size: 18px; padding-left: 10px; transition: transform 0.2s; }
+        .copy-icon:active { transform: scale(0.8); }
 
         .generate-btn {
             background-color: #f1f2f6; color: #2c3e50; border: 1px solid #dcdde1;
@@ -88,7 +86,6 @@
         }
         .submit-btn:hover { background-color: #c4004e; }
 
-        /* হিস্ট্রি সেকশন */
         .history-section { margin-top: 30px; }
         .history-title { font-size: 15px; font-weight: bold; color: #2c3e50; margin-bottom: 12px; border-bottom: 2px solid #eaeaea; padding-bottom: 5px; }
         
@@ -104,7 +101,6 @@
         .status-approved { background-color: #d4edda; color: #155724; }
         .status-rejected { background-color: #f8d7da; color: #721c24; }
 
-        /* ম্যানুয়াল জমার পপআপ (Modal) */
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.5); z-index: 200; justify-content: center; align-items: center;
@@ -124,14 +120,44 @@
         .btn-cancel { background: #e0e0e0; color: #333; }
         .btn-submit-modal { background: var(--main-pink); color: white; }
 
-        /* বটম নেভবার */
         .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: sticky; bottom: 0; z-index: 100; }
         .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); text-decoration: none; flex: 1; }
         .nav-item i { font-size: 18px; margin-bottom: 4px; display: block; }
         .nav-item.active { color: var(--main-pink); font-weight: bold; }
+
+        /* সুন্দর কাস্টম টোস্ট মেসেজ (Custom Alert) */
+        .toast-msg {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 30px;
+            padding: 12px 20px;
+            position: fixed;
+            z-index: 9999;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            opacity: 0;
+            transition: opacity 0.3s, top 0.3s;
+        }
+        .toast-msg.show {
+            visibility: visible;
+            opacity: 1;
+            top: 40px; /* অ্যানিমেশন করে একটু নিচে নামবে */
+        }
+        .toast-success { background-color: #2ecc71; }
+        .toast-error { background-color: #e74c3c; }
     </style>
 </head>
 <body>
+
+    <!-- কাস্টম টোস্ট মেসেজ বক্স -->
+    <div id="toastBox" class="toast-msg"></div>
 
     <div class="app-container">
         <div class="header">
@@ -148,7 +174,6 @@
 
             <!-- টাস্ক কার্ড -->
             <div class="task-card">
-                <!-- হালকা গোলাপি রঙের ম্যানুয়াল বাটন -->
                 <button class="manual-btn" onclick="openModal()"><i class="fas fa-plus"></i> ম্যানুয়াল জমা</button>
 
                 <div class="data-group" style="margin-top: 10px;">
@@ -217,6 +242,27 @@
         const firstNames = ["Rahim", "Karim", "Jamal", "Kamal", "Hasan", "Tariq", "Sadia", "Nusrat", "Farhana", "Ayesha"];
         let currentEmail = "";
 
+        // কাস্টম টোস্ট দেখানোর ফাংশন
+        function showToast(message, isError = false) {
+            const toast = document.getElementById("toastBox");
+            toast.innerText = message;
+            
+            if(isError) {
+                toast.classList.add("toast-error");
+                toast.classList.remove("toast-success");
+            } else {
+                toast.classList.add("toast-success");
+                toast.classList.remove("toast-error");
+            }
+
+            toast.classList.add("show");
+
+            // আড়াই সেকেন্ড পর হাইড হবে
+            setTimeout(function(){
+                toast.classList.remove("show");
+            }, 2500);
+        }
+
         function generateNewData() {
             const randomName = firstNames[Math.floor(Math.random() * firstNames.length)];
             const randomNum = Math.floor(10000 + Math.random() * 90000); 
@@ -231,40 +277,37 @@
         function copyText(elementId) {
             const text = document.getElementById(elementId).innerText;
             navigator.clipboard.writeText(text);
-            alert("কপি করা হয়েছে: " + text);
+            // বিরক্তিকর alert() এর বদলে সুন্দর টোস্ট
+            showToast("কপি করা হয়েছে: " + text);
         }
 
-        // অটো জেনারেট করা জিমেইল জমা দেওয়া
         function submitGmail() {
             if(!currentEmail) return;
             saveToHistory(currentEmail);
-            alert("সফলভাবে জমা দেওয়া হয়েছে! এডমিন চেক করার পর ব্যালেন্স যুক্ত হবে।");
+            showToast("সফলভাবে জমা দেওয়া হয়েছে!");
             generateNewData(); 
         }
 
-        // পপআপ ওপেন ও ক্লোজ ফাংশন
         function openModal() { document.getElementById('manualModal').style.display = 'flex'; }
         function closeModal() { document.getElementById('manualModal').style.display = 'none'; }
 
-        // ম্যানুয়াল জিমেইল জমা দেওয়া
         function submitCustomGmail() {
             const email = document.getElementById('customEmail').value.trim();
             const pass = document.getElementById('customPass').value.trim();
 
             if(!email || !pass) {
-                alert("দয়া করে জিমেইল এবং পাসওয়ার্ড দুটোই লিখুন!");
+                showToast("দয়া করে জিমেইল এবং পাসওয়ার্ড লিখুন!", true);
                 return;
             }
 
             saveToHistory(email);
-            alert("আপনার ম্যানুয়াল জিমেইল সফলভাবে জমা দেওয়া হয়েছে!");
+            showToast("ম্যানুয়াল জিমেইল সফলভাবে জমা হয়েছে!");
             
             document.getElementById('customEmail').value = '';
             document.getElementById('customPass').value = '';
             closeModal();
         }
 
-        // হিস্ট্রিতে সেভ করার কমন ফাংশন
         function saveToHistory(emailToSave) {
             let history = JSON.parse(localStorage.getItem('gmailHistory')) || [];
             
@@ -279,7 +322,6 @@
             loadHistory(); 
         }
 
-        // হিস্ট্রি লোড করার ফাংশন
         function loadHistory() {
             const historyList = document.getElementById('historyList');
             const history = JSON.parse(localStorage.getItem('gmailHistory')) || [];
