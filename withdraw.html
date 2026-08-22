@@ -36,6 +36,12 @@
         .header-title { font-size: 20px; font-weight: bold; display: flex; align-items: center; }
         .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 22px; }
 
+        /* ব্যালেন্স বক্স স্টাইল */
+        .header-balance { 
+            background-color: rgba(255, 255, 255, 0.2); padding: 6px 12px; border-radius: 4px; 
+            font-size: 15px; font-weight: bold; display: flex; align-items: center; gap: 6px; color: white; 
+        }
+
         .content { flex-grow: 1; padding: 20px; overflow-y: auto; padding-bottom: 80px; }
         
         .notice-box {
@@ -54,7 +60,6 @@
         .data-group { margin-bottom: 15px; }
         .data-group label { display: block; font-size: 13px; font-weight: bold; color: var(--text-grey); margin-bottom: 5px; }
         
-        /* বক্সগুলো স্পষ্ট করার জন্য বর্ডার গাঢ় ও একটু মোটা করা হয়েছে */
         .whatsapp-input {
             width: 100%; padding: 12px; border: 1.5px solid #a4b0be;
             border-radius: 6px; box-sizing: border-box; font-size: 14px; outline: none;
@@ -114,6 +119,10 @@
                 <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
                 Withdraw
             </div>
+            <!-- ব্যালেন্স দেখানোর সেকশন -->
+            <div id="authBalance">
+                <div class="header-balance"><i class="fas fa-wallet"></i> ৳৫০.০০</div>
+            </div>
         </div>
 
         <div class="content">
@@ -162,6 +171,30 @@
             <a href="profile.html" class="nav-item"><i class="fas fa-user"></i>Profile</a>
         </div>
     </div>
+
+    <!-- Firebase Script -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
+            authDomain: "send-bkash.firebaseapp.com",
+            projectId: "send-bkash",
+            storageBucket: "send-bkash.firebasestorage.app",
+            messagingSenderId: "306247423891",
+            appId: "1:306247423891:web:bb4fb6634043e6755afa66"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                window.location.href = "login.html";
+            }
+        });
+    </script>
 
     <script>
         function showToast(message, isError = false) {
