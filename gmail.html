@@ -38,10 +38,11 @@
 
         .content { flex-grow: 1; padding: 20px; overflow-y: auto; padding-bottom: 80px; }
         
+        /* নতুন সুন্দর নোটিশ বোর্ড */
         .notice-box {
-            background: #e8f4fd; border-left: 5px solid #3498db;
-            padding: 12px 15px; border-radius: 4px; margin-bottom: 20px; color: #2980b9;
-            font-size: 13px; line-height: 1.5;
+            background: #fff5f8; border-left: 5px solid var(--main-pink);
+            padding: 12px 15px; border-radius: 4px; margin-bottom: 20px; color: #c4004e;
+            font-size: 13px; line-height: 1.5; box-shadow: 0 2px 8px rgba(226, 0, 90, 0.05);
         }
 
         /* টাস্ক কার্ড */
@@ -50,15 +51,15 @@
             border: 1px solid #eaeaea; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: relative;
         }
 
-        /* কোণায় ছোট ম্যানুয়াল জমা বাটন */
+        /* সুন্দর ম্যানুয়াল জমা বাটন (থিমের সাথে ম্যাচ করা) */
         .manual-btn {
-            position: absolute; top: 12px; right: 15px;
-            background-color: #3498db; color: white; border: none;
-            padding: 5px 10px; border-radius: 4px; font-size: 11px;
+            position: absolute; top: 15px; right: 15px;
+            background: var(--main-pink); color: white; border: none;
+            padding: 6px 14px; border-radius: 20px; font-size: 11px;
             font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: background 0.2s;
+            box-shadow: 0 3px 8px rgba(226, 0, 90, 0.25); transition: background 0.2s, transform 0.2s;
         }
-        .manual-btn:hover { background-color: #2980b9; }
+        .manual-btn:hover { background: #c4004e; transform: translateY(-2px); }
 
         .data-group { margin-bottom: 15px; }
         .data-group label { display: block; font-size: 13px; font-weight: bold; color: var(--text-grey); margin-bottom: 5px; }
@@ -146,7 +147,7 @@
 
             <!-- টাস্ক কার্ড -->
             <div class="task-card">
-                <!-- কোণায় ম্যানুয়াল বাটন -->
+                <!-- সুন্দর থিমের সাথে মানানসই ম্যানুয়াল বাটন -->
                 <button class="manual-btn" onclick="openModal()"><i class="fas fa-plus"></i> ম্যানুয়াল জমা</button>
 
                 <div class="data-group" style="margin-top: 10px;">
