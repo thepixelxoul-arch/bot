@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gmail Task - Send bKash</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root { 
+            --main-pink: #e2005a; 
+            --main-white: #ffffff; 
+            --text-grey: #888888; 
+            --bg-light: #f4f6f9; 
+        }
+
+        body { 
+            margin: 0; padding: 0; 
+            background-color: #e9ecef; 
+            font-family: 'Segoe UI', Tahoma, sans-serif; 
+            display: flex; justify-content: center; 
+        }
+
+        .app-container { 
+            width: 100%; max-width: 450px; min-height: 100vh; 
+            background-color: var(--bg-light); color: var(--main-pink); 
+            box-shadow: 0 0 25px rgba(0,0,0,0.1); 
+            display: flex; flex-direction: column; position: relative; 
+        }
+
+        .header { 
+            background-color: var(--main-pink); padding: 15px 20px; 
+            display: flex; justify-content: space-between; align-items: center; 
+            color: var(--main-white); box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); z-index: 10; 
+        }
+        .header-title { font-size: 20px; font-weight: bold; display: flex; align-items: center; }
+        .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 22px; }
+
+        .content { flex-grow: 1; padding: 20px; overflow-y: auto; padding-bottom: 80px; }
+        
+        .notice-box {
+            background: #e8f4fd; border-left: 5px solid #3498db;
+            padding: 12px 15px; border-radius: 4px; margin-bottom: 20px; color: #2980b9;
+            font-size: 13px; line-height: 1.5;
+        }
+
+        /* টাস্ক কার্ড */
+        .task-card {
+            background-color: var(--main-white); border-radius: 8px; padding: 20px;
+            border: 1px solid #eaeaea; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: relative;
+        }
+
+        .refresh-btn {
+            position: absolute; top: 15px; right: 15px;
+            width: 35px; height: 35px; border-radius: 50%;
+            background-color: #f39c12; color: white; border: none;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
+        .refresh-btn:active { transform: rotate(180deg); }
+
+        .data-group { margin-bottom: 15px; }
+        .data-group label { display: block; font-size: 12px; font-weight: bold; color: var(--text-grey); margin-bottom: 5px; }
+        .data-box {
+            display: flex; justify-content: space-between; align-items: center;
+            background-color: #f8f9fa; border: 1px solid #dcdde1;
+            padding: 10px 12px; border-radius: 6px;
+        }
+        .data-box span { font-size: 14px; color: #2c3e50; font-weight: 500; word-break: break-all; }
+        .copy-icon { color: var(--main-pink); cursor: pointer; font-size: 16px; padding-left: 10px; }
+
+        .submit-btn {
+            background-color: var(--main-pink); color: white; border: none;
+            padding: 12px; border-radius: 6px; font-size: 15px; font-weight: bold;
+            width: 100%; cursor: pointer; box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);
+            margin-top: 10px;
+        }
+        .submit-btn:hover { background-color: #c4004e; }
+
+        /* হিস্ট্রি সেকশন */
+        .history-section { margin-top: 30px; }
+        .history-title { font-size: 15px; font-weight: bold; color: #2c3e50; margin-bottom: 12px; border-bottom: 2px solid #eaeaea; padding-bottom: 5px; }
+        
+        .history-card {
+            background: var(--main-white); border: 1px solid #eaeaea; border-radius: 6px;
+            padding: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;
+        }
+        .history-info p { margin: 0; font-size: 13px; color: #2c3e50; font-weight: 500; }
+        .history-info small { color: var(--text-grey); font-size: 11px; }
+
+        .status-badge { padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: bold; }
+        .status-pending { background-color: #fff3cd; color: #856404; }
+        .status-approved { background-color: #d4edda; color: #155724; }
+        .status-rejected { background-color: #f8d7da; color: #721c24; }
+
+        /* বটম নেভবার */
+        .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: sticky; bottom: 0; z-index: 100; }
+        .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); text-decoration: none; flex: 1; }
+        .nav-item i { font-size: 18px; margin-bottom: 4px; display: block; }
+        .nav-item.active { color: var(--main-pink); font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <div class="header">
+            <div class="header-title">
+                <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+                Gmail Account
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="notice-box">
+                <i class="fas fa-info-circle"></i> নিচের নাম এবং পাসওয়ার্ড ব্যবহার করে একটি নতুন জিমেইল খুলুন। খোলা হয়ে গেলে <b>'জমা দিন'</b> বাটনে ক্লিক করুন।
+            </div>
+
+            <!-- টাস্ক কার্ড -->
+            <div class="task-card">
+                <button class="refresh-btn" onclick="generateNewData()" title="নতুন জিমেইল নিন"><i class="fas fa-sync-alt"></i></button>
+                
+                <div class="data-group">
+                    <label>ফার্স্ট নেম (First Name)</label>
+                    <div class="data-box">
+                        <span id="fNameDisplay">Load হচ্ছে...</span>
+                        <i class="fas fa-copy copy-icon" onclick="copyText('fNameDisplay')"></i>
+                    </div>
+                </div>
+
+                <div class="data-group">
+                    <label>জিমেইল ইউজারনেম (Username)</label>
+                    <div class="data-box">
+                        <span id="emailDisplay">Load হচ্ছে...</span>
+                        <i class="fas fa-copy copy-icon" onclick="copyText('emailDisplay')"></i>
+                    </div>
+                </div>
+
+                <div class="data-group">
+                    <label>পাসওয়ার্ড (Password)</label>
+                    <div class="data-box">
+                        <span id="passDisplay">Send@@##</span>
+                        <i class="fas fa-copy copy-icon" onclick="copyText('passDisplay')"></i>
+                    </div>
+                </div>
+
+                <button class="submit-btn" onclick="submitGmail()">তৈরি করেছি, জমা দিন</button>
+            </div>
+
+            <!-- হিস্ট্রি সেকশন -->
+            <div class="history-section">
+                <div class="history-title">Gmail জমার হিস্ট্রি</div>
+                <div id="historyList">
+                    <!-- জাভাস্ক্রিপ্ট দিয়ে হিস্ট্রি এখানে লোড হবে -->
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-nav">
+            <a href="index.html" class="nav-item active"><i class="fas fa-home"></i>Home</a>
+            <a href="withdraw.html" class="nav-item"><i class="fas fa-wallet"></i>Withdraw</a>
+            <a href="refer.html" class="nav-item"><i class="fas fa-users"></i>Refer</a>
+            <a href="profile.html" class="nav-item"><i class="fas fa-user"></i>Profile</a>
+        </div>
+    </div>
+
+    <script>
+        // নামের তালিকা (এখান থেকে র‍্যান্ডম নাম নেওয়া হবে)
+        const firstNames = ["Rahim", "Karim", "Jamal", "Kamal", "Hasan", "Tariq", "Sadia", "Nusrat", "Farhana", "Ayesha"];
+        const staticPassword = "Send@@##";
+
+        let currentEmail = "";
+
+        // নতুন ডেটা জেনারেট করার ফাংশন
+        function generateNewData() {
+            const randomName = firstNames[Math.floor(Math.random() * firstNames.length)];
+            const randomNum = Math.floor(10000 + Math.random() * 90000); // ৫ ডিজিটের র‍্যান্ডম নাম্বার
+            
+            const generatedEmail = `${randomName.toLowerCase()}${randomNum}@gmail.com`;
+            currentEmail = generatedEmail;
+
+            document.getElementById('fNameDisplay').innerText = randomName;
+            document.getElementById('emailDisplay').innerText = generatedEmail;
+        }
+
+        // কপি করার ফাংশন
+        function copyText(elementId) {
+            const text = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(text);
+            alert("কপি করা হয়েছে: " + text);
+        }
+
+        // জিমেইল জমা দেওয়ার ফাংশন
+        function submitGmail() {
+            if(!currentEmail) return;
+
+            let history = JSON.parse(localStorage.getItem('gmailHistory')) || [];
+            
+            // নতুন জিমেইল হিস্ট্রিতে যোগ করা (ডিফল্ট স্ট্যাটাস Pending)
+            const newEntry = {
+                email: currentEmail,
+                date: new Date().toLocaleDateString('bn-BD'),
+                status: 'pending' // pending, approved, rejected
+            };
+            
+            history.unshift(newEntry); // শুরুতে যোগ করার জন্য
+            localStorage.setItem('gmailHistory', JSON.stringify(history));
+
+            alert("সফলভাবে জমা দেওয়া হয়েছে! এডমিন চেক করার পর ব্যালেন্স যুক্ত হবে।");
+            
+            loadHistory(); // হিস্ট্রি আপডেট
+            generateNewData(); // জমা দেওয়ার পর নতুন আরেকটি নাম দিয়ে দিবে
+        }
+
+        // হিস্ট্রি লোড করার ফাংশন
+        function loadHistory() {
+            const historyList = document.getElementById('historyList');
+            const history = JSON.parse(localStorage.getItem('gmailHistory')) || [];
+
+            historyList.innerHTML = ''; // ক্লিয়ার করা
+
+            if(history.length === 0) {
+                historyList.innerHTML = '<p style="text-align:center; color:#888; font-size:12px;">কোনো হিস্ট্রি পাওয়া যায়নি।</p>';
+                return;
+            }
+
+            history.forEach(item => {
+                let statusClass, statusText;
+                
+                // স্ট্যাটাস অনুযায়ী ব্যাজ সেট করা
+                if(item.status === 'pending') {
+                    statusClass = 'status-pending'; statusText = 'Pending';
+                } else if(item.status === 'approved') {
+                    statusClass = 'status-approved'; statusText = 'Approved';
+                } else {
+                    statusClass = 'status-rejected'; statusText = 'Rejected';
+                }
+
+                historyList.innerHTML += `
+                    <div class="history-card">
+                        <div class="history-info">
+                            <p>${item.email}</p>
+                            <small>তারিখ: ${item.date}</small>
+                        </div>
+                        <div class="status-badge ${statusClass}">${statusText}</div>
+                    </div>
+                `;
+            });
+        }
+
+        // পেজ লোড হওয়ার সাথে সাথে ফাংশনগুলো কল করা
+        window.onload = () => {
+            generateNewData();
+            loadHistory();
+        };
+    </script>
+</body>
+</html>
