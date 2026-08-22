@@ -106,27 +106,26 @@
             align-items: center;
             justify-content: space-between;
             gap: 15px;
-            margin-top: 5px;
+            margin-bottom: 5px; /* নিচের কার্ডের সাথে একটু গ্যাপ */
         }
 
-        /* অন্যান্য কার্ডের সাথে মেলানো VIP অপশন */
+        /* অন্যান্য কার্ডের সাথে মেলানো VIP অপশন (উচ্চতা বড় করা হয়েছে) */
         .vip-compact-card {
             flex: 1; 
-            background-color: var(--main-white); /* সাদা ব্যাকগ্রাউন্ড */
-            border: 1px solid #eaeaea; /* অন্য কার্ডের মতো বর্ডার */
+            background-color: var(--main-white); 
+            border: 1px solid #eaeaea; 
             border-radius: 6px;
             padding: 0 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 55px; /* স্পিন হুইলের সমান উচ্চতা */
+            height: 70px; /* উচ্চতা ৫৫ থেকে ৭০ পিক্সেল করা হয়েছে */
             box-sizing: border-box;
             box-shadow: 0 2px 8px rgba(0,0,0,0.03); 
         }
-        .vip-left { color: #2c3e50; font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 8px; }
-        .vip-left i { color: #f39c12; font-size: 18px; } /* সোনালী মুকুট */
+        .vip-left { color: #2c3e50; font-weight: bold; font-size: 15px; display: flex; align-items: center; gap: 8px; }
+        .vip-left i { color: #f39c12; font-size: 20px; } /* সোনালী মুকুট একটু বড় করা হলো */
         
-        /* অন্যান্য বাটনের মতো VIP বাটন */
         .vip-btn { 
             background-color: rgba(226, 0, 90, 0.1); 
             color: var(--main-pink); 
@@ -140,27 +139,27 @@
         }
         .vip-btn:hover { background-color: var(--main-pink); color: white; }
 
-        /* স্পিন হুইল আইকন (VIP এর পাশে) */
+        /* স্পিন হুইল আইকন (সাইজ বড় করা হয়েছে) */
         .inline-spin-btn {
             position: relative;
             display: flex; align-items: center; justify-content: center; text-decoration: none;
-            width: 55px; height: 55px; 
+            width: 70px; height: 70px; /* সাইজ ৫৫ থেকে ৭০ পিক্সেল করা হয়েছে */
             filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2)); transition: transform 0.2s;
         }
         .inline-spin-btn:active { transform: scale(0.9); }
         
         .spin-pointer { 
-            position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
-            width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 12px solid #333; z-index: 10; 
+            position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+            width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 14px solid #333; z-index: 10; 
         }
         
-        .spin-wheel-container { position: relative; width: 55px; height: 55px; display: flex; align-items: center; justify-content: center; }
+        .spin-wheel-container { position: relative; width: 70px; height: 70px; display: flex; align-items: center; justify-content: center; }
         .spin-wheel {
             position: absolute; width: 100%; height: 100%; border-radius: 50%;
             background: conic-gradient(#2ecc71 0 60deg, #3498db 60deg 120deg, #9b59b6 120deg 180deg, #e67e22 180deg 240deg, #e74c3c 240deg 300deg, #f1c40f 300deg 360deg);
             border: 3px solid white; box-sizing: border-box; animation: rotateWheel 2.5s linear infinite;
         }
-        .spin-inner { position: absolute; width: 24px; height: 24px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #e74c3c; font-size: 14px; z-index: 2; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+        .spin-inner { position: absolute; width: 28px; height: 28px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #e74c3c; font-size: 15px; z-index: 2; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
 
         @keyframes rotateWheel { 100% { transform: rotate(360deg); } }
 
@@ -204,6 +203,23 @@
             <h3 class="section-title">কাজ নির্বাচন করুন</h3>
             
             <div class="service-list">
+                <!-- VIP এবং স্পিন অপশন (সবার উপরে এবং বড় সাইজে) -->
+                <div class="action-row">
+                    <div class="vip-compact-card">
+                        <div class="vip-left"><i class="fas fa-crown"></i> VIP আপগ্রেড</div>
+                        <button class="vip-btn" onclick="window.location.href='profile.html'">চেক করুন</button>
+                    </div>
+
+                    <a href="spin.html" class="inline-spin-btn">
+                        <div class="spin-pointer"></div>
+                        <div class="spin-wheel-container">
+                            <div class="spin-wheel"></div>
+                            <div class="spin-inner">৳</div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- অন্যান্য সাধারণ কার্ড -->
                 <div class="service-card">
                     <div class="service-info">
                         <div class="service-icon icon-gmail"><i class="fa-brands fa-google"></i></div>
@@ -234,23 +250,6 @@
                         <div class="service-details"><h4>Instagram Account</h4><p>রেট: ৳১০.০০</p></div>
                     </div>
                     <button class="service-btn task-btn">জমা দিন</button>
-                </div>
-
-                <!-- অন্যান্য কার্ডের কালারের সাথে ম্যাচ করা VIP কার্ড -->
-                <div class="action-row">
-                    <div class="vip-compact-card">
-                        <div class="vip-left"><i class="fas fa-crown"></i> VIP আপগ্রেড</div>
-                        <button class="vip-btn" onclick="window.location.href='profile.html'">চেক করুন</button>
-                    </div>
-
-                    <!-- সোজাসুজি স্পিন হুইল আইকন -->
-                    <a href="spin.html" class="inline-spin-btn">
-                        <div class="spin-pointer"></div>
-                        <div class="spin-wheel-container">
-                            <div class="spin-wheel"></div>
-                            <div class="spin-inner">৳</div>
-                        </div>
-                    </a>
                 </div>
 
             </div>
