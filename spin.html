@@ -125,7 +125,7 @@
             font-weight: bold;
             color: white;
             font-size: 16px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.7); /* লেখার নিচে হালকা ছায়া যাতে স্পষ্ট বোঝা যায় */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
         }
 
         /* হুইলের মাঝখানের গোল বিন্দূ */
@@ -252,7 +252,6 @@
         const wheelValues = document.getElementById('wheelValues');
         displayPrizes.forEach((prize, index) => {
             const li = document.createElement('li');
-            // ಪ್ರತಿটি স্লাইস ৩৬ ডিগ্রি। -৯০ ডিগ্রি করা হয়েছে কারণ সিএসএস ০ ডিগ্রি ডান দিক থেকে শুরু হয়।
             const rotateAngle = (index * 36) + 18 - 90; 
             li.style.transform = `rotate(${rotateAngle}deg)`;
             li.innerHTML = `<span>৳${prize}</span>`;
@@ -316,14 +315,17 @@
             }
         };
 
-        // স্পিন ঘোরানোর লজিক
+        // স্পিন ঘোরানোর লজিক (সবসময় ১ টাকায় থামবে)
         const startSpin = () => {
             mainBtn.disabled = true;
             mainBtn.innerText = "ঘুরছে...";
             
-            // র‍্যান্ডম ডিগ্রিতে থামানো (কমপক্ষে ৫ বার পূর্ণ ঘুরবে)
-            const randomDegree = Math.floor(Math.random() * 360);
-            const totalRotation = currentRotation + 1800 + randomDegree; 
+            // ১ টাকা হলো ০ (শূন্য) নম্বর ইনডেক্সে
+            const targetPrizeIndex = 0; 
+            
+            // চাকা ঠিক ওই ঘরে থামানোর জন্য ডিগ্রির হিসাব (কমপক্ষে ৫ বার ঘুরবে)
+            const stopDegree = 360 - (targetPrizeIndex * 36) - 18; 
+            const totalRotation = currentRotation + 1800 + (360 - (currentRotation % 360)) + stopDegree; 
             currentRotation = totalRotation;
 
             // চাকা ঘোরানো
@@ -331,14 +333,12 @@
 
             // ৪ সেকেন্ড পর রেজাল্ট বের করা
             setTimeout(() => {
-                const normalizedDegree = (360 - (totalRotation % 360)) % 360;
-                const prizeIndex = Math.floor(normalizedDegree / 36);
-                
-                const wonAmount = actualPrizes[prizeIndex];
-                const wonAmountDisplay = displayPrizes[prizeIndex];
+                const wonAmount = actualPrizes[targetPrizeIndex];
+                const wonAmountDisplay = displayPrizes[targetPrizeIndex];
 
                 alert(`অভিনন্দন! আপনি জিতেছেন ৳${wonAmountDisplay}`);
 
+                // ব্যালেন্স যোগ ও তারিখ সেভ
                 userData.balance += wonAmount;
                 userData.lastSpinDate = getTodayDate();
                 localStorage.setItem(`userData_${currentUserUid}`, JSON.stringify(userData));
@@ -356,12 +356,7 @@
                 if (savedData) {
                     userData = JSON.parse(savedData);
                 } else {
-                    // প্রথমবার হলে ১০০ টাকা ডেমো ব্যালেন্স দিয়ে দিলাম আনলক টেস্ট করার জন্য
-                    userData = {
-                        balance: 100, 
-                        spinUnlocked: false,
-                        lastSpinDate: null
-                    };
+                    userData = { balance: 100, spinUnlocked: false, lastSpinDate: null };
                 }
                 updateUI();
             } else {
