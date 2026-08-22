@@ -62,6 +62,16 @@
         }
         .whatsapp-input:focus { border-color: var(--main-pink); }
 
+        /* গেট কোড বাটন স্টাইল */
+        .get-code-row { display: flex; gap: 10px; align-items: center; }
+        .get-code-btn {
+            background-color: #25d366; color: white; border: none;
+            padding: 12px 15px; border-radius: 6px; font-size: 13px; font-weight: bold;
+            cursor: pointer; white-space: nowrap; box-shadow: 0 2px 5px rgba(37, 211, 102, 0.2);
+            transition: background 0.2s;
+        }
+        .get-code-btn:hover { background-color: #1ebe57; }
+
         .submit-btn {
             background-color: var(--main-pink); color: white; border: none;
             padding: 12px; border-radius: 6px; font-size: 15px; font-weight: bold;
@@ -118,14 +128,22 @@
 
         <div class="content">
             <div class="notice-box">
-                <i class="fas fa-info-circle"></i> নতুন হোয়াটসঅ্যাপ অ্যাকাউন্ট খোলার পর আপনার নম্বরটি নিচে লিখে <b>'জমা দিন'</b> বাটনে ক্লিক করুন। (রেট: ৳১৫.০০)
+                <i class="fas fa-info-circle"></i> হোয়াটসঅ্যাপ নাম্বার লিখে <b>'Get Code'</b> এ ক্লিক করুন। কোড আসার পর তা লিখে জমা দিন। (রেট: ৳১৫.০০)
             </div>
 
             <!-- টাস্ক কার্ড -->
             <div class="task-card">
                 <div class="data-group">
                     <label>হোয়াটসঅ্যাপ নাম্বার (WhatsApp Number)</label>
-                    <input type="text" id="waNumber" class="whatsapp-input" placeholder="যেমন: 017xxxxxxxx বা +88017xxxxxxxx">
+                    <input type="text" id="waNumber" class="whatsapp-input" placeholder="যেমন: 017xxxxxxxx">
+                </div>
+
+                <div class="data-group">
+                    <label>ভেরিফিকেশন কোড (Get Code অপশন)</label>
+                    <div class="get-code-row">
+                        <input type="text" id="waCode" class="whatsapp-input" placeholder="কোড লিখুন">
+                        <button class="get-code-btn" onclick="fetchCode()"><i class="fas fa-paper-plane"></i> Get Code</button>
+                    </div>
                 </div>
 
                 <button class="submit-btn" onclick="submitWhatsApp()">জমা দিন</button>
@@ -161,18 +179,28 @@
             setTimeout(() => { toast.classList.remove("show"); }, 2500);
         }
 
+        function fetchCode() {
+            const waNumber = document.getElementById('waNumber').value.trim();
+            if(!waNumber) {
+                showToast("আগে হোয়াটসঅ্যাপ নাম্বারটি লিখুন!", true);
+                return;
+            }
+            showToast("কোডের জন্য রিকোয়েস্ট পাঠানো হয়েছে!");
+        }
+
         function submitWhatsApp() {
             const waNumber = document.getElementById('waNumber').value.trim();
+            const waCode = document.getElementById('waCode').value.trim();
 
             if(!waNumber) {
-                showToast("দয়া করে আপনার হোয়াটসঅ্যাপ নাম্বারটি লিখুন!", true);
+                showToast("দয়া করে হোয়াটসঅ্যাপ নাম্বারটি লিখুন!", true);
                 return;
             }
 
             let history = JSON.parse(localStorage.getItem('whatsappHistory')) || [];
             
             const newEntry = {
-                number: waNumber,
+                number: waNumber + (waCode ? ` (কোড: ${waCode})` : ''),
                 date: new Date().toLocaleDateString('bn-BD'),
                 status: 'pending' 
             };
@@ -182,6 +210,7 @@
 
             showToast("সফলভাবে জমা দেওয়া হয়েছে!");
             document.getElementById('waNumber').value = '';
+            document.getElementById('waCode').value = '';
             loadHistory(); 
         }
 
