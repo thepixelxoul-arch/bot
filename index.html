@@ -33,7 +33,7 @@
             display: flex; 
             flex-direction: column; 
             position: relative; 
-            overflow: hidden; /* স্পিন বাটন বাইরে যেন না যায় */
+            overflow: hidden; 
         }
 
         .header { 
@@ -148,6 +148,7 @@
         .icon-wa { background-color: #25d366; } 
         .icon-tg { background-color: #0088cc; }
         .icon-ig { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .icon-vip { background: linear-gradient(135deg, #f39c12, #f1c40f); } /* ভিআইপি আইকন কালার */
         
         .service-details h4 { margin: 0 0 4px 0; color: #2c3e50; font-size: 15px; }
         .service-details p { margin: 0; color: var(--main-pink); font-size: 13px; font-weight: bold; }
@@ -165,7 +166,7 @@
         }
         .service-btn:hover { background-color: var(--main-pink); color: white; }
 
-        /* --- স্পিন হুইল আইকন (ফ্লোটিং) --- */
+        /* স্পিন হুইল আইকন (ফ্লোটিং) */
         .floating-spin-btn {
             position: absolute;
             bottom: 70px;
@@ -178,75 +179,26 @@
             filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
             transition: transform 0.2s;
         }
-        .floating-spin-btn:active {
-            transform: scale(0.9);
-        }
+        .floating-spin-btn:active { transform: scale(0.9); }
         .spin-pointer {
-            width: 0; 
-            height: 0; 
-            border-left: 8px solid transparent;
-            border-right: 8px solid transparent;
-            border-top: 12px solid #333; /* পয়েন্টার কালার */
-            margin-bottom: -4px; /* হুইলের সাথে লাগানোর জন্য */
-            z-index: 2;
+            width: 0; height: 0; 
+            border-left: 8px solid transparent; border-right: 8px solid transparent;
+            border-top: 12px solid #333; margin-bottom: -4px; z-index: 2;
         }
-        .spin-wheel-container {
-            position: relative;
-            width: 55px;
-            height: 55px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        .spin-wheel-container { position: relative; width: 55px; height: 55px; display: flex; align-items: center; justify-content: center; }
         .spin-wheel {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: conic-gradient(
-                #2ecc71 0 60deg, 
-                #3498db 60deg 120deg, 
-                #9b59b6 120deg 180deg, 
-                #e67e22 180deg 240deg, 
-                #e74c3c 240deg 300deg, 
-                #f1c40f 300deg 360deg
-            );
-            border: 3px solid white;
-            box-sizing: border-box;
-            /* চাকা ঘোরানোর অ্যানিমেশন */
-            animation: rotateWheel 2.5s linear infinite;
+            position: absolute; width: 100%; height: 100%; border-radius: 50%;
+            background: conic-gradient(#2ecc71 0 60deg, #3498db 60deg 120deg, #9b59b6 120deg 180deg, #e67e22 180deg 240deg, #e74c3c 240deg 300deg, #f1c40f 300deg 360deg);
+            border: 3px solid white; box-sizing: border-box; animation: rotateWheel 2.5s linear infinite;
         }
-        .spin-inner {
-            position: absolute;
-            width: 24px;
-            height: 24px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: #e74c3c;
-            font-size: 14px;
-            z-index: 2;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-        }
+        .spin-inner { position: absolute; width: 24px; height: 24px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #e74c3c; font-size: 14px; z-index: 2; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
 
-        @keyframes rotateWheel {
-            100% { transform: rotate(360deg); }
-        }
+        @keyframes rotateWheel { 100% { transform: rotate(360deg); } }
 
         /* বটম নেভবার */
         .bottom-nav { 
-            background-color: var(--main-white); 
-            display: flex; 
-            justify-content: space-around; 
-            padding: 10px 0; 
-            border-top: 1px solid #eaeaea; 
-            position: sticky;
-            bottom: 0;
-            width: 100%;
-            z-index: 100; 
+            background-color: var(--main-white); display: flex; justify-content: space-around; 
+            padding: 10px 0; border-top: 1px solid #eaeaea; position: sticky; bottom: 0; width: 100%; z-index: 100; 
         }
         .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); cursor: pointer; flex: 1; text-decoration: none; }
         .nav-item i { font-size: 18px; margin-bottom: 4px; display: block; }
@@ -315,6 +267,21 @@
                     </div>
                     <button class="service-btn task-btn">জমা দিন</button>
                 </div>
+
+                <!-- নতুন যুক্ত করা VIP অপশন -->
+                <div class="service-card" style="border: 1px solid #f39c12; background-color: #fffaf0;">
+                    <div class="service-info">
+                        <div class="service-icon icon-vip"><i class="fas fa-crown"></i></div>
+                        <div class="service-details">
+                            <h4 style="color: #d35400;">VIP লেভেল আপগ্রেড</h4>
+                            <p style="color: #e67e22;">বেশি ইনকামের সুযোগ পান!</p>
+                        </div>
+                    </div>
+                    <a href="profile.html" style="text-decoration: none;">
+                        <button class="service-btn" style="background-color: #f39c12; color: white;">চেক করুন</button>
+                    </a>
+                </div>
+
             </div>
         </div>
 
