@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Task - Send bKash</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root { 
+            --main-pink: #e2005a; 
+            --main-white: #ffffff; 
+            --text-grey: #888888; 
+            --bg-light: #f4f6f9; 
+        }
+
+        body { 
+            margin: 0; padding: 0; 
+            background-color: #e9ecef; 
+            font-family: 'Segoe UI', Tahoma, sans-serif; 
+            display: flex; justify-content: center; 
+        }
+
+        .app-container { 
+            width: 100%; max-width: 450px; min-height: 100vh; 
+            background-color: var(--bg-light); color: var(--main-pink); 
+            box-shadow: 0 0 25px rgba(0,0,0,0.1); 
+            display: flex; flex-direction: column; position: relative; 
+        }
+
+        .header { 
+            background-color: var(--main-pink); padding: 15px 20px; 
+            display: flex; justify-content: space-between; align-items: center; 
+            color: var(--main-white); box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); z-index: 10; 
+        }
+        .header-title { font-size: 20px; font-weight: bold; display: flex; align-items: center; }
+        .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 22px; }
+
+        .content { 
+            flex-grow: 1; padding: 30px 20px; display: flex; 
+            flex-direction: column; align-items: center; justify-content: center; text-align: center; 
+        }
+
+        .off-box {
+            background-color: var(--main-white); border-radius: 12px; padding: 30px 20px;
+            border: 1px solid #eaeaea; box-shadow: 0 4px 15px rgba(0,0,0,0.05); width: 100%; box-sizing: border-box;
+        }
+
+        .off-box i { font-size: 50px; color: #e74c3c; margin-bottom: 15px; }
+        .off-box h3 { color: #2c3e50; margin: 0 0 10px 0; font-size: 20px; }
+        .off-box p { color: var(--text-grey); font-size: 14px; margin: 0; line-height: 1.5; }
+
+        /* বটম নেভবার */
+        .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: sticky; bottom: 0; z-index: 100; }
+        .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); text-decoration: none; flex: 1; }
+        .nav-item i { font-size: 18px; margin-bottom: 4px; display: block; }
+        .nav-item.active { color: var(--main-pink); font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <div class="header">
+            <div class="header-title">
+                <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+                Instagram Account
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="off-box">
+                <i class="fas fa-ban"></i>
+                <h3>কাজ সাময়িকভাবে বন্ধ আছে!</h3>
+                <p>বর্তমানে ইনস্টাগ্রাম টাস্ক বন্ধ রয়েছে। নতুন কাজ চালু হলে নোটিশ বোর্ডে জানিয়ে দেওয়া হবে। দয়া করে অন্য কাজগুলো করুন।</p>
+            </div>
+        </div>
+
+        <div class="bottom-nav">
+            <a href="index.html" class="nav-item active"><i class="fas fa-home"></i>Home</a>
+            <a href="withdraw.html" class="nav-item"><i class="fas fa-wallet"></i>Withdraw</a>
+            <a href="refer.html" class="nav-item"><i class="fas fa-users"></i>Refer</a>
+            <a href="profile.html" class="nav-item"><i class="fas fa-user"></i>Profile</a>
+        </div>
+    </div>
+
+</body>
+</html>
