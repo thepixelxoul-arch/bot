@@ -36,22 +36,31 @@
         .header-title { font-size: 20px; font-weight: bold; display: flex; align-items: center; }
         .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 22px; }
 
-        /* ব্যালেন্স বক্স স্টাইল */
-        .header-balance { 
-            background-color: rgba(255, 255, 255, 0.2); padding: 6px 12px; border-radius: 4px; 
-            font-size: 15px; font-weight: bold; display: flex; align-items: center; gap: 6px; color: white; 
-        }
-
         .content { flex-grow: 1; padding: 20px; overflow-y: auto; padding-bottom: 80px; }
         
         .notice-box {
             background: linear-gradient(135deg, #fff3cd, #ffeeba); 
             border: 1px solid #ffeeba; border-left: 5px solid #ffc107;
-            padding: 12px 15px; border-radius: 4px; margin-bottom: 20px; color: #856404;
+            padding: 12px 15px; border-radius: 4px; margin-bottom: 15px; color: #856404;
             font-size: 13px; line-height: 1.5; box-shadow: 0 2px 8px rgba(0,0,0,0.03);
         }
 
-        /* উইথড্র কার্ড */
+        /* নোটিশের নিচে ব্যালেন্স দেখানোর বক্স */
+        .balance-card {
+            background-color: var(--main-white);
+            border: 1px solid #eaeaea;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+        .balance-title { font-size: 14px; color: var(--text-grey); font-weight: bold; display: flex; align-items: center; gap: 8px; }
+        .balance-amount { font-size: 18px; color: var(--main-pink); font-weight: bold; }
+
+        /* উইথড্র ফর্ম কার্ড */
         .task-card {
             background-color: var(--main-white); border-radius: 8px; padding: 20px;
             border: 1px solid #eaeaea; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
@@ -119,15 +128,17 @@
                 <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
                 Withdraw
             </div>
-            <!-- ব্যালেন্স দেখানোর সেকশন -->
-            <div id="authBalance">
-                <div class="header-balance"><i class="fas fa-wallet"></i> ৳৫০.০০</div>
-            </div>
         </div>
 
         <div class="content">
             <div class="notice-box">
                 <i class="fas fa-info-circle"></i> ন্যূনতম উইথড্র পরিমাণ ৳১০০ টাকা। ২৪ ঘণ্টার মধ্যে পেমেন্ট কমপ্লিট করা হবে।
+            </div>
+
+            <!-- আপনি যেভাবে চেয়েছিলেন, নোটিশ বোর্ডের নিচে ব্যালেন্স বক্স -->
+            <div class="balance-card">
+                <div class="balance-title"><i class="fas fa-wallet"></i> আপনার মূল ব্যালেন্স:</div>
+                <div class="balance-amount">৳৫০.০০</div>
             </div>
 
             <!-- উইথড্র ফর্ম কার্ড -->
