@@ -53,8 +53,8 @@
             box-sizing: border-box;
         }
 
-        .profile-name { font-size: 18px; font-weight: bold; color: #2c3e50; margin: 0 0 4px 0; }
-        .profile-email { font-size: 13px; color: var(--text-grey); margin: 0 0 10px 0; }
+        /* জিমেইল অ্যাড্রেস বড় করে দেখানোর জন্য */
+        .profile-email { font-size: 17px; font-weight: bold; color: #2c3e50; margin: 0 0 10px 0; word-break: break-all; }
         
         .user-id-badge {
             background-color: #f1f2f6; padding: 5px 12px; border-radius: 20px;
@@ -122,9 +122,8 @@
                 <div class="profile-avatar">
                     Send bKash
                 </div>
-                <!-- এখানে রেজিস্ট্রেশনের সময় দেওয়া নামটি শো করবে -->
-                <h3 class="profile-name" id="userName">গ্রাহক</h3>
-                <p class="profile-email" id="userEmail"></p>
+                <!-- এখানে শুধু জিমেইল বড় করে শো করবে -->
+                <div class="profile-email" id="userEmail">sakibbinsalam.admin@gmail.com</div>
                 <div class="user-id-badge">User ID: t9kZbTUBR1</div>
             </div>
 
@@ -189,17 +188,7 @@
 
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                const email = user.email || "sakibbinsalam.admin@gmail.com";
-                document.getElementById("userEmail").innerText = email;
-                
-                // লোকালস্টোরেজ থেকে ইউজারের নাম বের করা, না থাকলে ইমেইলের অংশ দিয়ে নাম দেখানো
-                const savedName = localStorage.getItem('userName');
-                if (savedName) {
-                    document.getElementById("userName").innerText = savedName;
-                } else {
-                    const namePart = email.split('@')[0];
-                    document.getElementById("userName").innerText = namePart.charAt(0).toUpperCase() + namePart.slice(1);
-                }
+                document.getElementById("userEmail").innerText = user.email || "sakibbinsalam.admin@gmail.com";
             } else {
                 window.location.href = "login.html";
             }
@@ -207,7 +196,6 @@
 
         window.logoutUser = function() {
             signOut(auth).then(() => {
-                localStorage.removeItem('userName');
                 window.location.href = "login.html";
             }).catch((error) => {
                 console.log(error);
