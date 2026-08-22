@@ -50,6 +50,16 @@
             border: 1px solid #eaeaea; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: relative;
         }
 
+        /* কোণায় ছোট ম্যানুয়াল জমা বাটন */
+        .manual-btn {
+            position: absolute; top: 12px; right: 15px;
+            background-color: #3498db; color: white; border: none;
+            padding: 5px 10px; border-radius: 4px; font-size: 11px;
+            font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: background 0.2s;
+        }
+        .manual-btn:hover { background-color: #2980b9; }
+
         .data-group { margin-bottom: 15px; }
         .data-group label { display: block; font-size: 13px; font-weight: bold; color: var(--text-grey); margin-bottom: 5px; }
         .data-box {
@@ -60,7 +70,6 @@
         .data-box span { font-size: 14px; color: #2c3e50; font-weight: 500; word-break: break-all; }
         .copy-icon { color: var(--main-pink); cursor: pointer; font-size: 18px; padding-left: 10px; }
 
-        /* নতুন জেনারেট বাটন */
         .generate-btn {
             background-color: #f1f2f6; color: #2c3e50; border: 1px solid #dcdde1;
             padding: 12px; border-radius: 6px; font-size: 14px; font-weight: bold;
@@ -93,6 +102,26 @@
         .status-approved { background-color: #d4edda; color: #155724; }
         .status-rejected { background-color: #f8d7da; color: #721c24; }
 
+        /* ম্যানুয়াল জমার পপআপ (Modal) */
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 200; justify-content: center; align-items: center;
+        }
+        .modal-box {
+            background: white; width: 90%; max-width: 320px; border-radius: 8px;
+            padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .modal-title { margin-top: 0; color: #2c3e50; font-size: 16px; margin-bottom: 15px; text-align: center; }
+        .modal-input {
+            width: 100%; padding: 10px; margin-bottom: 12px; border: 1px solid #dcdde1;
+            border-radius: 4px; box-sizing: border-box; font-size: 13px; outline: none;
+        }
+        .modal-input:focus { border-color: var(--main-pink); }
+        .modal-actions { display: flex; gap: 10px; }
+        .modal-btn { flex: 1; padding: 10px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; }
+        .btn-cancel { background: #e0e0e0; color: #333; }
+        .btn-submit-modal { background: var(--main-pink); color: white; }
+
         /* বটম নেভবার */
         .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: sticky; bottom: 0; z-index: 100; }
         .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); text-decoration: none; flex: 1; }
@@ -117,7 +146,10 @@
 
             <!-- টাস্ক কার্ড -->
             <div class="task-card">
-                <div class="data-group">
+                <!-- কোণায় ম্যানুয়াল বাটন -->
+                <button class="manual-btn" onclick="openModal()"><i class="fas fa-plus"></i> ম্যানুয়াল জমা</button>
+
+                <div class="data-group" style="margin-top: 10px;">
                     <label>ফার্স্ট নেম (First Name)</label>
                     <div class="data-box">
                         <span id="fNameDisplay">Load হচ্ছে...</span>
@@ -141,7 +173,6 @@
                     </div>
                 </div>
 
-                <!-- নতুন ডিজাইনের রিফ্রেশ বাটন -->
                 <button class="generate-btn" onclick="generateNewData()">
                     <i class="fas fa-sync-alt"></i> নতুন নাম ও জিমেইল নিন
                 </button>
@@ -166,6 +197,20 @@
         </div>
     </div>
 
+    <!-- ম্যানুয়াল জমা পপআপ (Modal) -->
+    <div class="modal-overlay" id="manualModal">
+        <div class="modal-box">
+            <h3 class="modal-title">ম্যানুয়াল জিমেইল জমা দিন</h3>
+            <input type="email" id="customEmail" class="modal-input" placeholder="আপনার তৈরি জিমেইল (যেমন: info@gmail.com)">
+            <input type="text" id="customPass" class="modal-input" placeholder="পাসওয়ার্ড">
+            
+            <div class="modal-actions">
+                <button class="modal-btn btn-cancel" onclick="closeModal()">বাতিল</button>
+                <button class="modal-btn btn-submit-modal" onclick="submitCustomGmail()">জমা দিন</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         const firstNames = ["Rahim", "Karim", "Jamal", "Kamal", "Hasan", "Tariq", "Sadia", "Nusrat", "Farhana", "Ayesha"];
         let currentEmail = "";
@@ -187,26 +232,52 @@
             alert("কপি করা হয়েছে: " + text);
         }
 
+        // অটো জেনারেট করা জিমেইল জমা দেওয়া
         function submitGmail() {
             if(!currentEmail) return;
+            saveToHistory(currentEmail);
+            alert("সফলভাবে জমা দেওয়া হয়েছে! এডমিন চেক করার পর ব্যালেন্স যুক্ত হবে।");
+            generateNewData(); 
+        }
 
+        // পপআপ ওপেন ও ক্লোজ ফাংশন
+        function openModal() { document.getElementById('manualModal').style.display = 'flex'; }
+        function closeModal() { document.getElementById('manualModal').style.display = 'none'; }
+
+        // ম্যানুয়াল জিমেইল জমা দেওয়া
+        function submitCustomGmail() {
+            const email = document.getElementById('customEmail').value.trim();
+            const pass = document.getElementById('customPass').value.trim();
+
+            if(!email || !pass) {
+                alert("দয়া করে জিমেইল এবং পাসওয়ার্ড দুটোই লিখুন!");
+                return;
+            }
+
+            saveToHistory(email);
+            alert("আপনার ম্যানুয়াল জিমেইল সফলভাবে জমা দেওয়া হয়েছে!");
+            
+            document.getElementById('customEmail').value = '';
+            document.getElementById('customPass').value = '';
+            closeModal();
+        }
+
+        // হিস্ট্রিতে সেভ করার কমন ফাংশন
+        function saveToHistory(emailToSave) {
             let history = JSON.parse(localStorage.getItem('gmailHistory')) || [];
             
             const newEntry = {
-                email: currentEmail,
+                email: emailToSave,
                 date: new Date().toLocaleDateString('bn-BD'),
                 status: 'pending' 
             };
             
             history.unshift(newEntry); 
             localStorage.setItem('gmailHistory', JSON.stringify(history));
-
-            alert("সফলভাবে জমা দেওয়া হয়েছে! এডমিন চেক করার পর ব্যালেন্স যুক্ত হবে।");
-            
             loadHistory(); 
-            generateNewData(); 
         }
 
+        // হিস্ট্রি লোড করার ফাংশন
         function loadHistory() {
             const historyList = document.getElementById('historyList');
             const history = JSON.parse(localStorage.getItem('gmailHistory')) || [];
