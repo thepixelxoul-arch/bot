@@ -36,87 +36,28 @@
         .header-title { font-size: 20px; font-weight: bold; display: flex; align-items: center; }
         .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 22px; }
 
-        .content { flex-grow: 1; padding: 20px; overflow-y: auto; padding-bottom: 80px; }
-        
-        /* হালকা হলুদ নোটিশ বোর্ড */
-        .notice-box {
-            background: linear-gradient(135deg, #fff3cd, #ffeeba); 
-            border: 1px solid #ffeeba; border-left: 5px solid #ffc107;
-            padding: 12px 15px; border-radius: 4px; margin-bottom: 20px; color: #856404;
-            font-size: 13px; line-height: 1.5; box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        .content { 
+            flex-grow: 1; padding: 30px 20px; display: flex; 
+            flex-direction: column; align-items: center; justify-content: center; text-align: center; 
         }
 
-        /* টাস্ক কার্ড */
-        .task-card {
-            background-color: var(--main-white); border-radius: 8px; padding: 20px;
-            border: 1px solid #eaeaea; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        .off-box {
+            background-color: var(--main-white); border-radius: 12px; padding: 30px 20px;
+            border: 1px solid #eaeaea; box-shadow: 0 4px 15px rgba(0,0,0,0.05); width: 100%; box-sizing: border-box;
         }
 
-        .data-group { margin-bottom: 15px; }
-        .data-group label { display: block; font-size: 13px; font-weight: bold; color: var(--text-grey); margin-bottom: 5px; }
-        
-        .whatsapp-input {
-            width: 100%; padding: 12px; border: 1px solid #dcdde1;
-            border-radius: 6px; box-sizing: border-box; font-size: 14px; outline: none;
-            color: #2c3e50; background-color: var(--main-white);
-        }
-        .whatsapp-input:focus { border-color: var(--main-pink); }
-
-        /* গেট কোড বাটন স্টাইল */
-        .get-code-row { display: flex; gap: 10px; align-items: center; }
-        .get-code-btn {
-            background-color: #25d366; color: white; border: none;
-            padding: 12px 15px; border-radius: 6px; font-size: 13px; font-weight: bold;
-            cursor: pointer; white-space: nowrap; box-shadow: 0 2px 5px rgba(37, 211, 102, 0.2);
-            transition: background 0.2s;
-        }
-        .get-code-btn:hover { background-color: #1ebe57; }
-
-        .submit-btn {
-            background-color: var(--main-pink); color: white; border: none;
-            padding: 12px; border-radius: 6px; font-size: 15px; font-weight: bold;
-            width: 100%; cursor: pointer; box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);
-            margin-top: 5px;
-        }
-        .submit-btn:hover { background-color: #c4004e; }
-
-        /* হিস্ট্রি সেকশন */
-        .history-section { margin-top: 30px; }
-        .history-title { font-size: 15px; font-weight: bold; color: #2c3e50; margin-bottom: 12px; border-bottom: 2px solid #eaeaea; padding-bottom: 5px; }
-        
-        .history-card {
-            background: var(--main-white); border: 1px solid #eaeaea; border-radius: 6px;
-            padding: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;
-        }
-        .history-info p { margin: 0; font-size: 13px; color: #2c3e50; font-weight: bold; }
-        .history-info small { color: var(--text-grey); font-size: 11px; }
-
-        .status-badge { padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: bold; }
-        .status-pending { background-color: #fff3cd; color: #856404; }
-        .status-approved { background-color: #d4edda; color: #155724; }
-        .status-rejected { background-color: #f8d7da; color: #721c24; }
+        .off-box i { font-size: 50px; color: #e74c3c; margin-bottom: 15px; }
+        .off-box h3 { color: #2c3e50; margin: 0 0 10px 0; font-size: 20px; }
+        .off-box p { color: var(--text-grey); font-size: 14px; margin: 0; line-height: 1.5; }
 
         /* বটম নেভবার */
         .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: sticky; bottom: 0; z-index: 100; }
         .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); text-decoration: none; flex: 1; }
         .nav-item i { font-size: 18px; margin-bottom: 4px; display: block; }
         .nav-item.active { color: var(--main-pink); font-weight: bold; }
-
-        /* কাস্টম টোস্ট মেসেজ */
-        .toast-msg {
-            visibility: hidden; min-width: 200px; background-color: var(--main-pink);
-            color: #fff; text-align: center; border-radius: 30px; padding: 10px 20px;
-            position: fixed; z-index: 9999; left: 50%; transform: translateX(-50%);
-            top: 20px; font-size: 14px; font-weight: bold;
-            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.4); opacity: 0; transition: opacity 0.3s, top 0.3s;
-        }
-        .toast-msg.show { visibility: visible; opacity: 1; top: 40px; }
-        .toast-error { background-color: #e74c3c; box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4); }
     </style>
 </head>
 <body>
-
-    <div id="toastBox" class="toast-msg"></div>
 
     <div class="app-container">
         <div class="header">
@@ -127,34 +68,10 @@
         </div>
 
         <div class="content">
-            <div class="notice-box">
-                <i class="fas fa-info-circle"></i> হোয়াটসঅ্যাপ নাম্বার লিখে <b>'Get Code'</b> এ ক্লিক করুন। কোড আসার পর তা লিখে জমা দিন। (রেট: ৳১৫.০০)
-            </div>
-
-            <!-- টাস্ক কার্ড -->
-            <div class="task-card">
-                <div class="data-group">
-                    <label>হোয়াটসঅ্যাপ নাম্বার (WhatsApp Number)</label>
-                    <input type="text" id="waNumber" class="whatsapp-input" placeholder="যেমন: 017xxxxxxxx">
-                </div>
-
-                <div class="data-group">
-                    <label>ভেরিফিকেশন কোড (Get Code অপশন)</label>
-                    <div class="get-code-row">
-                        <input type="text" id="waCode" class="whatsapp-input" placeholder="কোড লিখুন">
-                        <button class="get-code-btn" onclick="fetchCode()"><i class="fas fa-paper-plane"></i> Get Code</button>
-                    </div>
-                </div>
-
-                <button class="submit-btn" onclick="submitWhatsApp()">জমা দিন</button>
-            </div>
-
-            <!-- হিস্ট্রি সেকশন -->
-            <div class="history-section">
-                <div class="history-title">WhatsApp জমার হিস্ট্রি</div>
-                <div id="historyList">
-                    <!-- হিস্ট্রি এখানে লোড হবে -->
-                </div>
+            <div class="off-box">
+                <i class="fas fa-ban"></i>
+                <h3>কাজ সাময়িকভাবে বন্ধ আছে!</h3>
+                <p>বর্তমানে হোয়াটসঅ্যাপ টাস্ক বন্ধ রয়েছে। নতুন কাজ চালু হলে নোটিশ বোর্ডে জানিয়ে দেওয়া হবে। দয়া করে অন্য কাজগুলো করুন।</p>
             </div>
         </div>
 
@@ -166,91 +83,5 @@
         </div>
     </div>
 
-    <script>
-        function showToast(message, isError = false) {
-            const toast = document.getElementById("toastBox");
-            toast.innerText = message;
-            if(isError) {
-                toast.classList.add("toast-error");
-            } else {
-                toast.classList.remove("toast-error");
-            }
-            toast.classList.add("show");
-            setTimeout(() => { toast.classList.remove("show"); }, 2500);
-        }
-
-        function fetchCode() {
-            const waNumber = document.getElementById('waNumber').value.trim();
-            if(!waNumber) {
-                showToast("আগে হোয়াটসঅ্যাপ নাম্বারটি লিখুন!", true);
-                return;
-            }
-            showToast("কোডের জন্য রিকোয়েস্ট পাঠানো হয়েছে!");
-        }
-
-        function submitWhatsApp() {
-            const waNumber = document.getElementById('waNumber').value.trim();
-            const waCode = document.getElementById('waCode').value.trim();
-
-            if(!waNumber) {
-                showToast("দয়া করে হোয়াটসঅ্যাপ নাম্বারটি লিখুন!", true);
-                return;
-            }
-
-            let history = JSON.parse(localStorage.getItem('whatsappHistory')) || [];
-            
-            const newEntry = {
-                number: waNumber + (waCode ? ` (কোড: ${waCode})` : ''),
-                date: new Date().toLocaleDateString('bn-BD'),
-                status: 'pending' 
-            };
-            
-            history.unshift(newEntry); 
-            localStorage.setItem('whatsappHistory', JSON.stringify(history));
-
-            showToast("সফলভাবে জমা দেওয়া হয়েছে!");
-            document.getElementById('waNumber').value = '';
-            document.getElementById('waCode').value = '';
-            loadHistory(); 
-        }
-
-        function loadHistory() {
-            const historyList = document.getElementById('historyList');
-            const history = JSON.parse(localStorage.getItem('whatsappHistory')) || [];
-
-            historyList.innerHTML = ''; 
-
-            if(history.length === 0) {
-                historyList.innerHTML = '<p style="text-align:center; color:#888; font-size:12px;">কোনো হিস্ট্রি পাওয়া যায়নি।</p>';
-                return;
-            }
-
-            history.forEach(item => {
-                let statusClass, statusText;
-                
-                if(item.status === 'pending') {
-                    statusClass = 'status-pending'; statusText = 'Pending';
-                } else if(item.status === 'approved') {
-                    statusClass = 'status-approved'; statusText = 'Approved';
-                } else {
-                    statusClass = 'status-rejected'; statusText = 'Rejected';
-                }
-
-                historyList.innerHTML += `
-                    <div class="history-card">
-                        <div class="history-info">
-                            <p>${item.number}</p>
-                            <small>তারিখ: ${item.date}</small>
-                        </div>
-                        <div class="status-badge ${statusClass}">${statusText}</div>
-                    </div>
-                `;
-            });
-        }
-
-        window.onload = () => {
-            loadHistory();
-        };
-    </script>
 </body>
 </html>
