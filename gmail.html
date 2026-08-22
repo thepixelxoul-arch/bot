@@ -50,31 +50,30 @@
             border: 1px solid #eaeaea; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: relative;
         }
 
-        .refresh-btn {
-            position: absolute; top: 15px; right: 15px;
-            width: 35px; height: 35px; border-radius: 50%;
-            background-color: #f39c12; color: white; border: none;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 16px; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            transition: transform 0.3s;
-        }
-        .refresh-btn:active { transform: rotate(180deg); }
-
         .data-group { margin-bottom: 15px; }
-        .data-group label { display: block; font-size: 12px; font-weight: bold; color: var(--text-grey); margin-bottom: 5px; }
+        .data-group label { display: block; font-size: 13px; font-weight: bold; color: var(--text-grey); margin-bottom: 5px; }
         .data-box {
             display: flex; justify-content: space-between; align-items: center;
-            background-color: #f8f9fa; border: 1px solid #dcdde1;
-            padding: 10px 12px; border-radius: 6px;
+            background-color: var(--main-white); border: 1px solid #dcdde1;
+            padding: 12px; border-radius: 6px;
         }
         .data-box span { font-size: 14px; color: #2c3e50; font-weight: 500; word-break: break-all; }
-        .copy-icon { color: var(--main-pink); cursor: pointer; font-size: 16px; padding-left: 10px; }
+        .copy-icon { color: var(--main-pink); cursor: pointer; font-size: 18px; padding-left: 10px; }
+
+        /* নতুন জেনারেট বাটন */
+        .generate-btn {
+            background-color: #f1f2f6; color: #2c3e50; border: 1px solid #dcdde1;
+            padding: 12px; border-radius: 6px; font-size: 14px; font-weight: bold;
+            width: 100%; cursor: pointer; margin-bottom: 10px;
+            display: flex; justify-content: center; align-items: center; gap: 8px;
+            transition: all 0.2s;
+        }
+        .generate-btn:hover { background-color: #e2e4e9; }
 
         .submit-btn {
             background-color: var(--main-pink); color: white; border: none;
             padding: 12px; border-radius: 6px; font-size: 15px; font-weight: bold;
             width: 100%; cursor: pointer; box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);
-            margin-top: 10px;
         }
         .submit-btn:hover { background-color: #c4004e; }
 
@@ -118,8 +117,6 @@
 
             <!-- টাস্ক কার্ড -->
             <div class="task-card">
-                <button class="refresh-btn" onclick="generateNewData()" title="নতুন জিমেইল নিন"><i class="fas fa-sync-alt"></i></button>
-                
                 <div class="data-group">
                     <label>ফার্স্ট নেম (First Name)</label>
                     <div class="data-box">
@@ -144,6 +141,11 @@
                     </div>
                 </div>
 
+                <!-- নতুন ডিজাইনের রিফ্রেশ বাটন -->
+                <button class="generate-btn" onclick="generateNewData()">
+                    <i class="fas fa-sync-alt"></i> নতুন নাম ও জিমেইল নিন
+                </button>
+
                 <button class="submit-btn" onclick="submitGmail()">তৈরি করেছি, জমা দিন</button>
             </div>
 
@@ -165,16 +167,12 @@
     </div>
 
     <script>
-        // নামের তালিকা (এখান থেকে র‍্যান্ডম নাম নেওয়া হবে)
         const firstNames = ["Rahim", "Karim", "Jamal", "Kamal", "Hasan", "Tariq", "Sadia", "Nusrat", "Farhana", "Ayesha"];
-        const staticPassword = "Send@@##";
-
         let currentEmail = "";
 
-        // নতুন ডেটা জেনারেট করার ফাংশন
         function generateNewData() {
             const randomName = firstNames[Math.floor(Math.random() * firstNames.length)];
-            const randomNum = Math.floor(10000 + Math.random() * 90000); // ৫ ডিজিটের র‍্যান্ডম নাম্বার
+            const randomNum = Math.floor(10000 + Math.random() * 90000); 
             
             const generatedEmail = `${randomName.toLowerCase()}${randomNum}@gmail.com`;
             currentEmail = generatedEmail;
@@ -183,41 +181,37 @@
             document.getElementById('emailDisplay').innerText = generatedEmail;
         }
 
-        // কপি করার ফাংশন
         function copyText(elementId) {
             const text = document.getElementById(elementId).innerText;
             navigator.clipboard.writeText(text);
             alert("কপি করা হয়েছে: " + text);
         }
 
-        // জিমেইল জমা দেওয়ার ফাংশন
         function submitGmail() {
             if(!currentEmail) return;
 
             let history = JSON.parse(localStorage.getItem('gmailHistory')) || [];
             
-            // নতুন জিমেইল হিস্ট্রিতে যোগ করা (ডিফল্ট স্ট্যাটাস Pending)
             const newEntry = {
                 email: currentEmail,
                 date: new Date().toLocaleDateString('bn-BD'),
-                status: 'pending' // pending, approved, rejected
+                status: 'pending' 
             };
             
-            history.unshift(newEntry); // শুরুতে যোগ করার জন্য
+            history.unshift(newEntry); 
             localStorage.setItem('gmailHistory', JSON.stringify(history));
 
             alert("সফলভাবে জমা দেওয়া হয়েছে! এডমিন চেক করার পর ব্যালেন্স যুক্ত হবে।");
             
-            loadHistory(); // হিস্ট্রি আপডেট
-            generateNewData(); // জমা দেওয়ার পর নতুন আরেকটি নাম দিয়ে দিবে
+            loadHistory(); 
+            generateNewData(); 
         }
 
-        // হিস্ট্রি লোড করার ফাংশন
         function loadHistory() {
             const historyList = document.getElementById('historyList');
             const history = JSON.parse(localStorage.getItem('gmailHistory')) || [];
 
-            historyList.innerHTML = ''; // ক্লিয়ার করা
+            historyList.innerHTML = ''; 
 
             if(history.length === 0) {
                 historyList.innerHTML = '<p style="text-align:center; color:#888; font-size:12px;">কোনো হিস্ট্রি পাওয়া যায়নি।</p>';
@@ -227,7 +221,6 @@
             history.forEach(item => {
                 let statusClass, statusText;
                 
-                // স্ট্যাটাস অনুযায়ী ব্যাজ সেট করা
                 if(item.status === 'pending') {
                     statusClass = 'status-pending'; statusText = 'Pending';
                 } else if(item.status === 'approved') {
@@ -248,7 +241,6 @@
             });
         }
 
-        // পেজ লোড হওয়ার সাথে সাথে ফাংশনগুলো কল করা
         window.onload = () => {
             generateNewData();
             loadHistory();
