@@ -26,7 +26,7 @@
         .app-container { 
             width: 100%; 
             max-width: 450px; 
-            height: 100vh; /* ফুল হাইট */
+            height: 100vh; 
             background-color: var(--bg-light); 
             color: var(--main-pink); 
             box-shadow: 0 0 25px rgba(0,0,0,0.1); 
@@ -60,14 +60,12 @@
             font-size: 15px; font-weight: bold; display: flex; align-items: center; gap: 6px; 
         }
 
-        /* কন্টেন্ট স্ক্রল হবে */
         .content { 
             flex: 1; 
             padding: 20px; 
             overflow-y: auto; 
         }
         
-        /* নোটিশ বোর্ড */
         .notice-box {
             background: linear-gradient(135deg, #fff3cd, #ffeeba);
             border: 1px solid #ffeeba; border-left: 5px solid #ffc107;
@@ -77,7 +75,7 @@
         .notice-text { margin: 0; font-size: 13px; line-height: 1.4; }
 
         .section-title { color: #2c3e50; font-size: 16px; margin: 5px 0 15px 0; font-weight: bold; }
-        .service-list { display: flex; flex-direction: column; gap: 12px; padding-bottom: 20px; }
+        .service-list { display: flex; flex-direction: column; gap: 12px; padding-bottom: 30px; }
         
         .service-card { 
             background-color: var(--main-white); border: 1px solid #eaeaea; border-radius: 6px; 
@@ -100,7 +98,7 @@
             padding: 8px 15px; border-radius: 4px; font-size: 13px; font-weight: bold; cursor: pointer; 
         }
 
-        /* VIP ও স্পিন এরিয়ার লেআউট (পাশাপাশি) */
+        /* VIP ও স্পিন এরিয়ার লেআউট (পাশাপাশি একদম পারফেক্ট) */
         .action-row {
             display: flex;
             align-items: center;
@@ -109,29 +107,38 @@
             margin-top: 5px;
         }
 
-        /* অর্ধেক সাইজের VIP অপশন */
+        /* অর্ধেক সাইজের পিংক VIP অপশন */
         .vip-compact-card {
-            flex: 1; /* বাকি অর্ধেক জায়গা নিবে */
-            background: linear-gradient(135deg, #fff3cd, #ffeeba);
-            border: 1px solid #f39c12;
+            flex: 1; 
+            background-color: rgba(226, 0, 90, 0.05); /* হালকা পিংক ব্যাকগ্রাউন্ড */
+            border: 1px solid rgba(226, 0, 90, 0.2); /* হালকা পিংক বর্ডার */
             border-radius: 6px;
-            padding: 10px 12px;
+            padding: 0 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03); 
+            height: 55px; /* স্পিন হুইলের সমান উচ্চতা */
+            box-sizing: border-box;
         }
-        .vip-left { color: #d35400; font-weight: bold; font-size: 13px; display: flex; align-items: center; gap: 6px; }
-        .vip-btn { background-color: #f39c12; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: bold; cursor: pointer; }
+        .vip-left { color: var(--main-pink); font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+        .vip-btn { background-color: var(--main-pink); color: white; border: none; padding: 6px 15px; border-radius: 4px; font-size: 12px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        .vip-btn:hover { background-color: #c4004e; }
 
         /* স্পিন হুইল আইকন (VIP এর পাশে) */
         .inline-spin-btn {
-            display: flex; flex-direction: column; align-items: center; text-decoration: none;
+            position: relative;
+            display: flex; align-items: center; justify-content: center; text-decoration: none;
+            width: 55px; height: 55px; /* VIP এর সমান উচ্চতা */
             filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2)); transition: transform 0.2s;
-            margin-top: 10px; /* পয়েন্টারের জন্য জায়গা */
         }
         .inline-spin-btn:active { transform: scale(0.9); }
-        .spin-pointer { width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 12px solid #333; margin-bottom: -4px; z-index: 2; }
+        
+        /* তীর চিহ্নটি এখন ফ্লোটিং, তাই উচ্চতায় প্রভাব ফেলবে না */
+        .spin-pointer { 
+            position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+            width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 12px solid #333; z-index: 10; 
+        }
+        
         .spin-wheel-container { position: relative; width: 55px; height: 55px; display: flex; align-items: center; justify-content: center; }
         .spin-wheel {
             position: absolute; width: 100%; height: 100%; border-radius: 50%;
@@ -214,9 +221,9 @@
                     <button class="service-btn task-btn">জমা দিন</button>
                 </div>
 
-                <!-- VIP এবং স্পিন অপশন (পাশাপাশি) -->
+                <!-- VIP এবং স্পিন অপশন (পাশাপাশি একদম সমান) -->
                 <div class="action-row">
-                    <!-- অর্ধেক সাইজের VIP অপশন -->
+                    <!-- অর্ধেক সাইজের পিংক VIP অপশন -->
                     <div class="vip-compact-card">
                         <div class="vip-left"><i class="fas fa-crown"></i> VIP আপগ্রেড</div>
                         <button class="vip-btn" onclick="window.location.href='profile.html'">চেক করুন</button>
