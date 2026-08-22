@@ -88,7 +88,13 @@
             gap: 6px; 
         }
 
-        .content { flex-grow: 1; padding: 20px; overflow-y: auto; padding-bottom: 80px; }
+        /* স্পিন আইকন যেন কার্ডের ওপর না ওঠে তাই নিচে ১২০ পিক্সেল প্যাডিং দেওয়া হয়েছে */
+        .content { 
+            flex-grow: 1; 
+            padding: 20px; 
+            overflow-y: auto; 
+            padding-bottom: 120px; 
+        }
         
         /* নোটিশ বোর্ড */
         .notice-box {
@@ -129,10 +135,10 @@
             align-items: center; 
             justify-content: space-between; 
             box-shadow: 0 2px 8px rgba(0,0,0,0.03); 
+            box-sizing: border-box;
         }
         .service-info { display: flex; align-items: center; gap: 15px; }
         
-        /* বড় এবং বর্গাকার আইকন */
         .service-icon { 
             width: 55px; 
             height: 55px; 
@@ -148,7 +154,7 @@
         .icon-wa { background-color: #25d366; } 
         .icon-tg { background-color: #0088cc; }
         .icon-ig { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
-        .icon-vip { background: linear-gradient(135deg, #f39c12, #f1c40f); } /* ভিআইপি আইকন কালার */
+        .icon-vip { background: linear-gradient(135deg, #f39c12, #f1c40f); } 
         
         .service-details h4 { margin: 0 0 4px 0; color: #2c3e50; font-size: 15px; }
         .service-details p { margin: 0; color: var(--main-pink); font-size: 13px; font-weight: bold; }
@@ -169,7 +175,7 @@
         /* স্পিন হুইল আইকন (ফ্লোটিং) */
         .floating-spin-btn {
             position: absolute;
-            bottom: 70px;
+            bottom: 75px;
             right: 15px;
             display: flex;
             flex-direction: column;
@@ -223,7 +229,6 @@
         <!-- Main Content -->
         <div class="content">
             
-            <!-- নোটিশ বোর্ড -->
             <div class="notice-box">
                 <div class="notice-header">
                     <i class="fas fa-bullhorn"></i> জরুরি নোটিশ:
@@ -268,18 +273,16 @@
                     <button class="service-btn task-btn">জমা দিন</button>
                 </div>
 
-                <!-- নতুন যুক্ত করা VIP অপশন -->
-                <div class="service-card" style="border: 1px solid #f39c12; background-color: #fffaf0;">
+                <!-- VIP কার্ডটি অন্য কার্ডের মতোই সেম সাইজ ও ডিজাইনে রাখা হলো -->
+                <div class="service-card">
                     <div class="service-info">
                         <div class="service-icon icon-vip"><i class="fas fa-crown"></i></div>
                         <div class="service-details">
-                            <h4 style="color: #d35400;">VIP লেভেল আপগ্রেড</h4>
-                            <p style="color: #e67e22;">বেশি ইনকামের সুযোগ পান!</p>
+                            <h4>VIP লেভেল</h4>
+                            <p style="color: #f39c12;">আপগ্রেড করে আয় বাড়ান</p>
                         </div>
                     </div>
-                    <a href="profile.html" style="text-decoration: none;">
-                        <button class="service-btn" style="background-color: #f39c12; color: white;">চেক করুন</button>
-                    </a>
+                    <button class="service-btn" style="background-color: #f39c12; color: white;" onclick="window.location.href='profile.html'">চেক করুন</button>
                 </div>
 
             </div>
@@ -314,8 +317,7 @@
             projectId: "send-bkash",
             storageBucket: "send-bkash.firebasestorage.app",
             messagingSenderId: "306247423891",
-            appId: "1:306247423891:web:bb4fb6634043e6755afa66",
-            measurementId: "G-ZSRNS5RPV5"
+            appId: "1:306247423891:web:bb4fb6634043e6755afa66"
         };
 
         const app = initializeApp(firebaseConfig);
