@@ -100,15 +100,13 @@
             width: 100%; cursor: default; 
         }
 
-        /* ------------------------------------- */
         /* সাপ্তাহিক বোনাস বাটন (ডিফল্ট: কালারলেস/অফ) */
-        /* ------------------------------------- */
         .bonus-btn {
             background-color: #f1f2f6; color: #a4b0be; border: 1px solid #dcdde1; 
             padding: 12px; border-radius: 6px; font-size: 14px; font-weight: bold; 
             width: 100%; cursor: not-allowed; margin-top: 12px; transition: 0.2s; 
             display: flex; align-items: center; justify-content: center; gap: 8px;
-            outline: none; /* নীল বর্ডার সরানোর জন্য */
+            outline: none;
         }
         .bonus-btn i { font-size: 16px; color: #a4b0be; }
 
@@ -126,6 +124,7 @@
         .nav-item i { font-size: 18px; margin-bottom: 4px; display: block; }
         .nav-item.active { color: var(--main-pink); font-weight: bold; }
 
+        /* সব টোস্ট মেসেজ এখন গোলাপি হবে */
         .toast-msg {
             visibility: hidden; min-width: 250px; background-color: var(--main-pink);
             color: #fff; text-align: center; border-radius: 30px; padding: 12px 20px;
@@ -134,8 +133,6 @@
             box-shadow: 0 4px 15px rgba(226, 0, 90, 0.4); opacity: 0; transition: opacity 0.3s, top 0.3s;
         }
         .toast-msg.show { visibility: visible; opacity: 1; top: 40px; }
-        .toast-msg.success { background-color: var(--free-green); box-shadow: 0 4px 15px rgba(39, 174, 96, 0.4); }
-        .toast-msg.error { background-color: #e74c3c; box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4); }
     </style>
 </head>
 <body>
@@ -306,7 +303,6 @@
                 const currentVip = localStorage.getItem('userVipLevel') || "VIP 0";
                 document.getElementById("currentVipDisplay").innerText = currentVip;
                 
-                // লগইন করার সাথে সাথে চেক করবে কোন বাটনটি কালারফুল হবে
                 checkBonusStatus(); 
             }
         });
@@ -319,13 +315,12 @@
 
         function requestFree(vipLevel) {
             const toast = document.getElementById("toastBox");
-            toast.className = "toast-msg success"; 
+            toast.className = "toast-msg"; 
             toast.innerText = `আপনি যদি ${vipLevel} এর শর্ত পূরণ করে থাকেন, তবে এডমিনকে মেসেজ দিন।`;
             toast.classList.add("show");
             setTimeout(() => { toast.classList.remove("show"); }, 3500);
         }
 
-        // বাটন কালারফুল নাকি কালারলেস হবে সেটা নির্ধারণ করা
         function checkBonusStatus() {
             const currentVip = localStorage.getItem('userVipLevel') || "VIP 0";
             
@@ -334,32 +329,27 @@
                 const btn = document.getElementById(`bonus-btn-${i}`);
                 
                 if (currentVip === vipName) {
-                    // যদি ইউজার এই ভিআইপি কিনে থাকে
                     const lastClaim = localStorage.getItem(`lastBonusClaim_${vipName}`);
                     const now = new Date().getTime();
                     const oneWeek = 7 * 24 * 60 * 60 * 1000;
                     
-                    // যদি আগে ক্লেইম না করে থাকে অথবা ৭ দিন পার হয়ে যায়
                     if (!lastClaim || (now - parseInt(lastClaim)) >= oneWeek) {
                         btn.classList.add('active-bonus');
                     } else {
-                        btn.classList.remove('active-bonus'); // ৭ দিন পার না হলে অফ থাকবে
+                        btn.classList.remove('active-bonus'); 
                     }
                 } else {
-                    // যদি ইউজার এই ভিআইপি না কিনে থাকে
                     btn.classList.remove('active-bonus');
                 }
             }
         }
 
-        // সাপ্তাহিক বোনাস সংগ্রহ করার ফাংশন
         function claimBonus(vipName, amount) {
             const currentVip = localStorage.getItem('userVipLevel') || "VIP 0";
             const toast = document.getElementById("toastBox");
+            toast.className = "toast-msg"; // সব মেসেজ গোলাপি হবে
 
-            // প্রথমে চেক করা ইউজার এই VIP এর মালিক কিনা
             if (currentVip !== vipName) {
-                toast.className = "toast-msg error"; 
                 toast.innerText = `এই বোনাসটি শুধুমাত্র ${vipName} মেম্বারদের জন্য!`;
                 toast.classList.add("show");
                 setTimeout(() => { toast.classList.remove("show"); }, 3500);
@@ -372,18 +362,14 @@
             const oneWeek = 7 * 24 * 60 * 60 * 1000;
 
             if (lastClaimTime && (currentTime - parseInt(lastClaimTime)) < oneWeek) {
-                toast.className = "toast-msg error"; 
                 toast.innerText = `আপনি ইতিমধ্যে এই সপ্তাহের বোনাস নিয়েছেন! আগামী সপ্তাহে আবার চেষ্টা করুন।`;
                 toast.classList.add("show");
             } else {
-                // সফলভাবে বোনাস যুক্ত করা
                 localStorage.setItem(lastClaimKey, currentTime.toString());
                 
-                toast.className = "toast-msg success"; 
                 toast.innerText = `অভিনন্দন! আপনার একাউন্টে ৳${amount} সাপ্তাহিক বোনাস যুক্ত হয়েছে।`;
                 toast.classList.add("show");
                 
-                // বাটনটি সাথে সাথে ডিজেবল/কালারলেস করে দেওয়া
                 checkBonusStatus();
             }
             
