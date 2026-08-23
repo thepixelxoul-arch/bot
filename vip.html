@@ -36,84 +36,81 @@
             color: var(--main-white); box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); z-index: 10; 
             position: sticky; top: 0;
         }
-        .header-title { font-size: 18px; font-weight: bold; display: flex; align-items: center; }
-        .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 20px; }
+        .header-title { font-size: 20px; font-weight: bold; display: flex; align-items: center; }
+        .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 22px; }
 
-        .content { flex-grow: 1; padding: 15px; overflow-y: auto; padding-bottom: 80px; }
+        .content { flex-grow: 1; padding: 20px; overflow-y: auto; padding-bottom: 80px; }
         
-        /* কারেন্ট VIP স্ট্যাটাস কার্ড */
         .current-vip-card {
             background: linear-gradient(135deg, #2c3e50, #34495e);
-            border-radius: 10px; padding: 20px;
-            color: white; text-align: center; margin-bottom: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-radius: 12px; padding: 25px 20px;
+            color: white; text-align: center; margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
-        .current-vip-card i { font-size: 30px; color: var(--vip-gold); margin-bottom: 8px; }
-        .current-vip-card h3 { margin: 0 0 5px 0; font-size: 14px; font-weight: normal; color: #dcdde1; }
-        .current-vip-card .level-name { font-size: 20px; font-weight: bold; color: var(--vip-gold); letter-spacing: 1px; }
+        .current-vip-card i { font-size: 40px; color: var(--vip-gold); margin-bottom: 10px; }
+        .current-vip-card h3 { margin: 0 0 5px 0; font-size: 16px; font-weight: normal; color: #dcdde1; }
+        .current-vip-card .level-name { font-size: 24px; font-weight: bold; color: var(--vip-gold); letter-spacing: 1px; }
 
-        /* VIP প্যাকেজ লিস্ট (আগের চেয়ে ছোট বা কম্প্যাক্ট) */
+        /* VIP প্যাকেজ লিস্ট (আকার বড় করা হয়েছে) */
         .vip-package {
-            background-color: var(--main-white); border-radius: 10px; padding: 15px;
-            border: 1px solid #eaeaea; box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-            margin-bottom: 15px;
+            background-color: var(--main-white); border-radius: 12px; padding: 25px 20px;
+            border: 1px solid #eaeaea; box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            margin-bottom: 20px;
         }
         
-        .vip-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f1f2f6; padding-bottom: 10px; margin-bottom: 10px; }
-        .vip-title { font-size: 16px; font-weight: bold; color: #2c3e50; display: flex; align-items: center; gap: 8px; }
-        .vip-title i { color: var(--vip-gold); font-size: 14px; }
-        .vip-price { font-size: 16px; font-weight: bold; color: var(--main-pink); }
+        .vip-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f1f2f6; padding-bottom: 15px; margin-bottom: 15px; }
+        .vip-title { font-size: 20px; font-weight: bold; color: #2c3e50; display: flex; align-items: center; gap: 10px; }
+        .vip-title i { color: var(--vip-gold); font-size: 18px; }
+        .vip-price { font-size: 20px; font-weight: bold; color: var(--main-pink); }
 
-        .vip-features { list-style: none; padding: 0; margin: 0 0 10px 0; }
-        .vip-features li { font-size: 12px; color: var(--text-grey); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
-        .vip-features li i { color: var(--free-green); font-size: 12px; }
+        .vip-features { list-style: none; padding: 0; margin: 0 0 15px 0; }
+        .vip-features li { font-size: 14px; color: var(--text-grey); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+        .vip-features li i { color: var(--free-green); font-size: 14px; }
 
-        /* ফ্রি নেওয়ার শর্তের বক্স */
+        /* ফ্রি নেওয়ার শর্তের বক্স (সাইজ বড় করা হয়েছে) */
         .condition-box {
             background-color: #fcf8e3;
             border: 1px dashed #faebcc;
-            border-radius: 6px;
-            padding: 10px;
-            font-size: 11px;
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 13px;
             color: #8a6d3b;
-            margin-bottom: 12px;
-            line-height: 1.4;
+            margin-bottom: 15px;
+            line-height: 1.5;
         }
-        .condition-box strong { color: #d35400; font-size: 12px; display: block; margin-bottom: 3px; }
+        .condition-box strong { color: #d35400; font-size: 14px; display: block; margin-bottom: 5px; }
 
-        /* বাটন গ্রুপ */
+        /* বাটন গ্রুপ (বাটনের আকার বড় করা হয়েছে) */
         .btn-group {
             display: flex;
-            gap: 10px;
+            gap: 15px;
         }
         .upgrade-btn {
             flex: 1; background-color: var(--main-pink); color: white; border: none;
-            padding: 10px; border-radius: 6px; font-size: 13px; font-weight: bold;
+            padding: 14px; border-radius: 8px; font-size: 15px; font-weight: bold;
             cursor: pointer; transition: background 0.2s; text-align: center;
         }
         .upgrade-btn:hover { background-color: #c4004e; }
         
         .free-btn {
             flex: 1; background-color: var(--free-green); color: white; border: none;
-            padding: 10px; border-radius: 6px; font-size: 13px; font-weight: bold;
+            padding: 14px; border-radius: 8px; font-size: 15px; font-weight: bold;
             cursor: pointer; transition: background 0.2s; text-align: center;
         }
         .free-btn:hover { background-color: #219653; }
 
         .upgrade-btn.current { background-color: #95a5a6; cursor: default; width: 100%; flex: none; }
 
-        /* বটম নেভবার */
         .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: sticky; bottom: 0; z-index: 100; }
         .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); text-decoration: none; flex: 1; }
         .nav-item i { font-size: 18px; margin-bottom: 4px; display: block; }
         .nav-item.active { color: var(--main-pink); font-weight: bold; }
 
-        /* টোস্ট মেসেজ */
         .toast-msg {
             visibility: hidden; min-width: 250px; background-color: var(--main-pink);
             color: #fff; text-align: center; border-radius: 30px; padding: 12px 20px;
             position: fixed; z-index: 9999; left: 50%; transform: translateX(-50%);
-            top: 20px; font-size: 13px; font-weight: bold; line-height: 1.4;
+            top: 20px; font-size: 14px; font-weight: bold; line-height: 1.4;
             box-shadow: 0 4px 15px rgba(226, 0, 90, 0.4); opacity: 0; transition: opacity 0.3s, top 0.3s;
         }
         .toast-msg.show { visibility: visible; opacity: 1; top: 40px; }
@@ -289,7 +286,7 @@
     <script>
         function requestUpgrade(vipLevel, price) {
             const toast = document.getElementById("toastBox");
-            toast.className = "toast-msg"; // রিসেট ক্লাস
+            toast.className = "toast-msg"; 
             toast.innerText = `${vipLevel} আপগ্রেড করতে এডমিনের নাম্বারে ৳${price} সেন্ড মানি করে যোগাযোগ করুন!`;
             toast.classList.add("show");
             
@@ -298,7 +295,7 @@
 
         function requestFree(vipLevel) {
             const toast = document.getElementById("toastBox");
-            toast.className = "toast-msg success"; // সবুজ রঙের মেসেজ
+            toast.className = "toast-msg success"; 
             toast.innerText = `আপনি যদি ${vipLevel} এর শর্ত পূরণ করে থাকেন, তবে এডমিনকে মেসেজ দিন।`;
             toast.classList.add("show");
             
