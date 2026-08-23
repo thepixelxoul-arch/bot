@@ -53,14 +53,31 @@
             box-sizing: border-box;
         }
 
-        /* জিমেইল অ্যাড্রেস বড় করে দেখানোর জন্য */
         .profile-email { font-size: 17px; font-weight: bold; color: #2c3e50; margin: 0 0 10px 0; word-break: break-all; }
         
+        /* ব্যাজ কন্টেইনার */
+        .badge-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
         .user-id-badge {
             background-color: #f1f2f6; padding: 5px 12px; border-radius: 20px;
-            font-size: 11px; font-weight: bold; color: #2c3e50; display: inline-block;
+            font-size: 11px; font-weight: bold; color: #2c3e50;
             border: 1px solid #dcdde1;
         }
+
+        /* VIP স্ট্যাটাস ব্যাজ */
+        .vip-badge {
+            background: linear-gradient(135deg, #718093, #2f3640);
+            color: white; padding: 5px 12px; border-radius: 20px;
+            font-size: 11px; font-weight: bold; display: inline-flex; align-items: center; gap: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+        }
+        .vip-badge i { font-size: 10px; color: #f39c12; }
 
         .stats-card {
             background-color: var(--main-white); border-radius: 12px; padding: 15px;
@@ -122,9 +139,12 @@
                 <div class="profile-avatar">
                     Send bKash
                 </div>
-                <!-- এখানে শুধু জিমেইল বড় করে শো করবে -->
-                <div class="profile-email" id="userEmail">sakibbinsalam.admin@gmail.com</div>
-                <div class="user-id-badge">User ID: t9kZbTUBR1</div>
+                <div class="profile-email" id="userEmail">Loading...</div>
+                
+                <div class="badge-container">
+                    <div class="user-id-badge">User ID: <span id="userIdDisplay">Loading...</span></div>
+                    <div class="vip-badge"><i class="fas fa-crown"></i> <span id="vipLevelText">VIP 0</span></div>
+                </div>
             </div>
 
             <div class="stats-card">
@@ -188,7 +208,18 @@
 
         onAuthStateChanged(auth, (user) => {
             if (user) {
+                // ১. ইউজারের জিমেইল সেট করা
                 document.getElementById("userEmail").innerText = user.email || "sakibbinsalam.admin@gmail.com";
+                
+                // ২. ইউজারের UID অনুযায়ী ডাইনামিক User ID তৈরি করা (প্রথম ১০ অক্ষর)
+                const shortUid = user.uid.substring(0, 10).toUpperCase();
+                document.getElementById("userIdDisplay").innerText = shortUid;
+
+                // ৩. ডাইনামিক VIP স্ট্যাটাস সেট করা (লোকালস্টোরেজ থেকে)
+                // যদি ইউজারের VIP কেনা থাকে তবে সেটি স্টোরেজ থেকে পাবে, না থাকলে ডিফল্ট "VIP 0" দেখাবে
+                const userVip = localStorage.getItem('userVipLevel') || "VIP 0";
+                document.getElementById("vipLevelText").innerText = userVip;
+
             } else {
                 window.location.href = "login.html";
             }
