@@ -35,7 +35,8 @@
         }
         .header-title { font-size: 20px; font-weight: bold; display: flex; align-items: center; }
         .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 22px; }
-        .header-action { color: white; font-size: 20px; text-decoration: none; }
+        .header-action { color: white; font-size: 20px; text-decoration: none; transition: 0.2s; }
+        .header-action:hover { color: #f1f2f6; transform: scale(1.1); }
 
         .content { flex-grow: 1; padding: 20px; overflow-y: auto; padding-bottom: 80px; }
         
@@ -45,7 +46,6 @@
             margin-bottom: 20px;
         }
         
-        /* লোগো সাইজ ও টেক্সট বড় করা হয়েছে */
         .profile-avatar {
             width: 85px; height: 85px; background-color: rgba(226, 0, 90, 0.05);
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
@@ -54,7 +54,6 @@
             box-sizing: border-box;
         }
         
-        /* ব্যাজ কন্টেইনার ও সাইজ বড় করা হয়েছে */
         .badge-container {
             display: flex; justify-content: center; align-items: center;
             gap: 10px; flex-wrap: wrap; margin-top: 15px;
@@ -74,7 +73,6 @@
         }
         .vip-badge i { font-size: 12px; color: #f39c12; }
 
-        /* স্ট্যাটাস কার্ডের ফন্ট সাইজ অন্যান্য পেজের মতো করা হয়েছে */
         .stats-card {
             background-color: var(--main-white); border-radius: 12px; padding: 20px 15px;
             border: 1px solid #eaeaea; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
@@ -85,7 +83,6 @@
         .stat-num { font-size: 20px; font-weight: bold; color: var(--main-pink); margin-bottom: 5px; }
         .stat-label { font-size: 13px; color: var(--text-grey); font-weight: bold; }
 
-        /* মেনু লিস্ট প্যাডিং ও ফন্ট বড় করা হয়েছে */
         .menu-list {
             background-color: var(--main-white); border-radius: 12px;
             border: 1px solid #eaeaea; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
@@ -102,10 +99,7 @@
         
         .menu-left { display: flex; align-items: center; gap: 15px; font-size: 15px; font-weight: bold; }
         .menu-left i { font-size: 18px; color: var(--main-pink); width: 20px; text-align: center; }
-        .menu-item.admin-menu { background-color: rgba(226, 0, 90, 0.05); color: var(--main-pink); }
-        .menu-item.admin-menu:hover { background-color: rgba(226, 0, 90, 0.12); }
 
-        /* লগআউট বাটন বড় করা হয়েছে */
         .logout-btn {
             background: linear-gradient(135deg, #fff3cd, #ffeeba); color: #856404;
             border: 1px solid #ffeeba; border-radius: 10px; padding: 16px;
@@ -115,7 +109,6 @@
         }
         .logout-btn:hover { background: linear-gradient(135deg, #ffeeba, #ffe8a1); }
 
-        /* বটম নেভবার */
         .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: sticky; bottom: 0; z-index: 100; }
         .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); text-decoration: none; flex: 1; }
         .nav-item i { font-size: 18px; margin-bottom: 4px; display: block; }
@@ -130,11 +123,11 @@
                 <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
                 Profile
             </div>
-            <a href="#" class="header-action"><i class="fas fa-bell"></i></a>
+            <!-- হেডারের ডান কোণায় এডমিন প্যানেলের বাটন -->
+            <a href="admin.html" class="header-action" title="এডমিন প্যানেল"><i class="fas fa-user-shield"></i></a>
         </div>
 
         <div class="content">
-            <!-- প্রোফাইল কার্ড -->
             <div class="profile-card">
                 <div class="profile-avatar">
                     Send<br>bKash
@@ -146,7 +139,6 @@
                 </div>
             </div>
 
-            <!-- স্ট্যাটাস কার্ড -->
             <div class="stats-card">
                 <div class="stat-item">
                     <div class="stat-num">৳৩৫০.০০</div>
@@ -158,12 +150,7 @@
                 </div>
             </div>
 
-            <!-- মেনু লিস্ট -->
             <div class="menu-list">
-                <a href="admin.html" class="menu-item admin-menu">
-                    <div class="menu-left"><i class="fas fa-user-shield"></i> এডমিন প্যানেল</div>
-                    <i class="fas fa-chevron-right" style="font-size: 13px; color: var(--main-pink);"></i>
-                </a>
                 <a href="security.html" class="menu-item">
                     <div class="menu-left"><i class="fas fa-user-lock"></i> প্রোফাইল সুরক্ষা</div>
                     <i class="fas fa-chevron-right" style="font-size: 13px; color: var(--text-grey);"></i>
@@ -178,13 +165,11 @@
                 </a>
             </div>
 
-            <!-- লগআউট বাটন -->
             <button class="logout-btn" onclick="logoutUser()">
                 <i class="fas fa-sign-out-alt"></i> লগআউট করুন
             </button>
         </div>
 
-        <!-- বটম নেভবার -->
         <div class="bottom-nav">
             <a href="index.html" class="nav-item"><i class="fas fa-home"></i>Home</a>
             <a href="withdraw.html" class="nav-item"><i class="fas fa-wallet"></i>Withdraw</a>
