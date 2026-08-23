@@ -145,7 +145,7 @@
         }
         .toast-msg.show { visibility: visible; opacity: 1; top: 40px; }
 
-        /* সুন্দর কাস্টম পপআপ (Modal) ডিজাইন */
+        /* কাস্টম পপআপ (Modal) ডিজাইন */
         .modal-overlay {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
             background-color: rgba(0, 0, 0, 0.5);
@@ -176,7 +176,6 @@
 </head>
 <body>
 
-    <!-- টোস্ট মেসেজ -->
     <div id="toastBox" class="toast-msg">নাম্বার কপি করা হয়েছে!</div>
 
     <!-- কাস্টম সাকসেস পপআপ -->
@@ -185,7 +184,8 @@
             <i class="fas fa-check-circle modal-icon"></i>
             <div class="modal-title">সফল হয়েছে!</div>
             <div class="modal-text" id="modalMessage">আপনার পেমেন্ট রিকোয়েস্ট জমা হয়েছে।</div>
-            <button class="modal-btn" onclick="goToHome()">ওকে</button>
+            <!-- ওকে বাটনে ক্লিক করলে এখন শুধু পপআপ বন্ধ হবে -->
+            <button class="modal-btn" onclick="closeModal()">ওকে</button>
         </div>
     </div>
 
@@ -252,7 +252,8 @@
             <div class="history-card">
                 <div class="section-title"><i class="fas fa-history"></i> পেমেন্ট হিস্ট্রি</div>
                 
-                <div class="history-list">
+                <div class="history-list" id="historyContainer">
+                    <!-- আগের স্ট্যাটিক হিস্ট্রিগুলো -->
                     <div class="history-item">
                         <div class="history-left">
                             <span class="h-title">VIP 1 আপগ্রেড (bKash)</span>
@@ -272,17 +273,6 @@
                         <div class="history-right">
                             <div class="h-amount">৳ ১০০০</div>
                             <div class="h-status status-success">Success</div>
-                        </div>
-                    </div>
-
-                    <div class="history-item">
-                        <div class="history-left">
-                            <span class="h-title">VIP 3 আপগ্রেড (Rocket)</span>
-                            <span class="h-date">15 Aug 2026, 05:45 PM</span>
-                        </div>
-                        <div class="history-right">
-                            <div class="h-amount">৳ ২০০০</div>
-                            <div class="h-status status-rejected">Rejected</div>
                         </div>
                     </div>
                 </div>
@@ -351,20 +341,52 @@
         function submitPayment() {
             const userNum = document.getElementById('userNumber').value;
             const trxId = document.getElementById('trxId').value;
+            const methodName = document.getElementById('methodName').innerText;
 
-            // যদি ইনপুট ফাঁকা থাকে, তবে লাল রঙের টোস্ট মেসেজ দেখাবে
             if(!userNum || !trxId) {
                 showToast("অনুগ্রহ করে আপনার নাম্বার এবং TrxID দিন!", true);
                 return;
             }
 
-            // সুন্দর কাস্টম পপআপ দেখানো
-            document.getElementById('modalMessage').innerText = `আপনার ${selectedVip || 'প্যাকেজ'} এর পেমেন্ট রিকোয়েস্ট সফলভাবে জমা হয়েছে। এডমিন চেক করে আপগ্রেড করে দিবে!`;
+            // বর্তমান তারিখ ও সময় বের করা
+            const now = new Date();
+            const options = { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute:'2-digit' };
+            const formattedDate = now.toLocaleDateString('en-GB', options).replace(',', ''); 
+
+            // নতুন হিস্ট্রি আইটেম তৈরি করা
+            const historyContainer = document.getElementById('historyContainer');
+            const newItem = document.createElement('div');
+            newItem.className = 'history-item';
+            
+            const displayVip = selectedVip || 'প্যাকেজ';
+            const displayAmount = payAmount ? `৳ ${payAmount}` : `৳ 0`;
+
+            newItem.innerHTML = `
+                <div class="history-left">
+                    <span class="h-title">${displayVip} আপগ্রেড (${methodName})</span>
+                    <span class="h-date">${formattedDate}</span>
+                </div>
+                <div class="history-right">
+                    <div class="h-amount">${displayAmount}</div>
+                    <div class="h-status status-pending">Pending</div>
+                </div>
+            `;
+
+            // হিস্ট্রির একদম উপরে নতুন আইটেমটি যুক্ত করা
+            historyContainer.insertBefore(newItem, historyContainer.firstChild);
+
+            // পপআপ দেখানো
+            document.getElementById('modalMessage').innerText = `আপনার ${displayVip} এর পেমেন্ট রিকোয়েস্ট সফলভাবে জমা হয়েছে। এডমিন চেক করে আপগ্রেড করে দিবে!`;
             document.getElementById('successModal').classList.add('show');
+
+            // ফর্ম ক্লিয়ার করে দেওয়া
+            document.getElementById('userNumber').value = '';
+            document.getElementById('trxId').value = '';
         }
 
-        function goToHome() {
-            window.location.href = "index.html"; 
+        // পপআপ বন্ধ করার ফাংশন
+        function closeModal() {
+            document.getElementById('successModal').classList.remove('show');
         }
     </script>
 </body>
