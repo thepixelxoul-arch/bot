@@ -15,129 +15,75 @@
         }
 
         body { 
-            margin: 0; 
-            padding: 0; 
+            margin: 0; padding: 0; 
             background-color: #e9ecef; 
             font-family: 'Segoe UI', Tahoma, sans-serif; 
-            display: flex; 
-            justify-content: center; 
+            display: flex; justify-content: center; 
         }
 
         .app-container { 
-            width: 100%; 
-            max-width: 450px; 
-            height: 100vh; 
-            background-color: var(--bg-light); 
-            color: var(--main-pink); 
+            width: 100%; max-width: 450px; min-height: 100vh; 
+            background-color: var(--bg-light); color: var(--main-pink); 
             box-shadow: 0 0 25px rgba(0,0,0,0.1); 
-            display: flex; 
-            flex-direction: column; 
-            position: relative; 
-            overflow: hidden; 
+            display: flex; flex-direction: column; position: relative; 
         }
 
         .header { 
-            background-color: var(--main-pink); 
-            padding: 15px 20px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            color: var(--main-white); 
-            box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); 
-            z-index: 10; 
+            background-color: var(--main-pink); padding: 15px 20px; 
+            display: flex; justify-content: space-between; align-items: center; 
+            color: var(--main-white); box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); z-index: 10; 
+            position: sticky; top: 0;
+        }
+        .header-title { font-size: 18px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
+        
+        .header-balance {
+            background-color: rgba(255, 255, 255, 0.2); padding: 6px 12px;
+            border-radius: 6px; font-size: 14px; font-weight: bold;
+            display: flex; align-items: center; gap: 6px;
+        }
+
+        .content { flex-grow: 1; padding: 15px; overflow-y: auto; padding-bottom: 80px; }
+        
+        .section-title {
+            font-size: 15px; font-weight: bold; color: #2c3e50; 
+            margin: 10px 0 15px 0;
+        }
+
+        /* টাস্ক কার্ড স্টাইল */
+        .task-card {
+            background: var(--main-white); border-radius: 10px; padding: 15px;
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            border: 1px solid #eaeaea; text-decoration: none; color: inherit;
         }
         
-        .header-title { font-size: 20px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
-        .header-auth { display: flex; gap: 8px; align-items: center; }
-
-        .auth-btn { 
-            background-color: var(--main-white); color: var(--main-pink); 
-            padding: 6px 12px; border-radius: 4px; font-size: 13px; font-weight: bold; text-decoration: none; 
-        }
-        .auth-btn.register { background-color: #ffcc00; color: #333; }
-
-        .header-balance { 
-            background-color: rgba(255, 255, 255, 0.2); padding: 6px 12px; border-radius: 4px; 
-            font-size: 15px; font-weight: bold; display: flex; align-items: center; gap: 6px; 
-        }
-
-        .content { 
-            flex: 1; 
-            padding: 20px; 
-            overflow-y: auto; 
-            padding-bottom: 30px; 
-        }
+        .task-left { display: flex; align-items: center; gap: 15px; }
         
-        .notice-box {
-            background: linear-gradient(135deg, #fff3cd, #ffeeba);
-            border: 1px solid #ffeeba; border-left: 5px solid #ffc107;
-            padding: 12px 15px; border-radius: 4px; margin-bottom: 20px; color: #856404;
+        .task-icon {
+            width: 45px; height: 45px; border-radius: 10px;
+            display: flex; justify-content: center; align-items: center;
+            color: white; font-size: 22px;
         }
-        .notice-header { display: flex; align-items: center; gap: 8px; font-weight: bold; font-size: 14px; margin-bottom: 5px; }
-        .notice-text { margin: 0; font-size: 13px; line-height: 1.4; }
+        .vip-icon { color: #f39c12; font-size: 24px; width: 45px; text-align: center; }
+        .bg-gmail { background-color: #e74c3c; }
+        .bg-whatsapp { background-color: #2ecc71; }
+        .bg-telegram { background-color: #3498db; }
+        .bg-instagram { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+        .bg-number { background-color: #8e44ad; } /* নাম্বার কেনার আইকনের জন্য বেগুনি কালার */
 
-        .section-title { color: #2c3e50; font-size: 16px; margin: 5px 0 15px 0; font-weight: bold; }
-        .service-list { display: flex; flex-direction: column; gap: 12px; }
+        .task-info h4 { margin: 0 0 5px 0; font-size: 15px; color: #2c3e50; }
+        .task-info p { margin: 0; font-size: 12px; font-weight: bold; color: var(--main-pink); }
         
-        /* VIP অপশন */
-        .vip-card {
-            background-color: var(--main-white); 
-            border: 1px solid #eaeaea; 
-            border-radius: 6px;
-            padding: 0 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 70px; 
-            box-sizing: border-box;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03); 
+        .task-btn {
+            background-color: #fce4ec; color: var(--main-pink);
+            border: none; padding: 8px 12px; border-radius: 6px;
+            font-weight: bold; font-size: 12px; cursor: pointer; transition: 0.2s;
         }
-        .vip-left { color: #2c3e50; font-weight: bold; font-size: 16px; display: flex; align-items: center; gap: 10px; }
-        .vip-left i { color: #f39c12; font-size: 22px; } 
-        
-        .vip-btn { 
-            background-color: rgba(226, 0, 90, 0.1); 
-            color: var(--main-pink); 
-            border: none; 
-            padding: 8px 16px; 
-            border-radius: 4px; 
-            font-size: 13px; 
-            font-weight: bold; 
-            cursor: pointer; 
-            transition: 0.2s; 
-        }
-        .vip-btn:hover { background-color: var(--main-pink); color: white; }
+        .task-btn:hover { background-color: var(--main-pink); color: white; }
 
-        /* সাধারণ কাজ কার্ড */
-        .service-card { 
-            background-color: var(--main-white); border: 1px solid #eaeaea; border-radius: 6px; 
-            padding: 12px 15px; display: flex; align-items: center; justify-content: space-between; 
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03); 
-        }
-        .service-info { display: flex; align-items: center; gap: 15px; }
-        
-        .service-icon { width: 55px; height: 55px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 30px; color: white; }
-        .icon-gmail { background-color: #ea4335; } 
-        .icon-wa { background-color: #25d366; } 
-        .icon-tg { background-color: #0088cc; }
-        .icon-ig { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
-        
-        .service-details h4 { margin: 0 0 4px 0; color: #2c3e50; font-size: 15px; }
-        .service-details p { margin: 0; color: var(--main-pink); font-size: 13px; font-weight: bold; }
-
-        .service-btn { 
-            background-color: rgba(226, 0, 90, 0.1); color: var(--main-pink); border: none; 
-            padding: 8px 15px; border-radius: 4px; font-size: 13px; font-weight: bold; cursor: pointer; 
-            transition: all 0.2s;
-        }
-        .service-btn:hover { background-color: var(--main-pink); color: white; }
-
-        /* বটম নেভবার */
-        .bottom-nav { 
-            background-color: var(--main-white); display: flex; justify-content: space-around; 
-            padding: 10px 0; border-top: 1px solid #eaeaea; z-index: 100; 
-        }
-        .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); cursor: pointer; flex: 1; text-decoration: none; }
+        /* বটম নেভিগেশন */
+        .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: sticky; bottom: 0; z-index: 100; }
+        .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); text-decoration: none; flex: 1; }
         .nav-item i { font-size: 18px; margin-bottom: 4px; display: block; }
         .nav-item.active { color: var(--main-pink); font-weight: bold; }
     </style>
@@ -145,83 +91,99 @@
 <body>
 
     <div class="app-container">
-        <!-- Header -->
+        <!-- হেডার -->
         <div class="header">
             <div class="header-title">
                 <i class="fas fa-paper-plane"></i> Send bKash
             </div>
-            
-            <div class="header-auth" id="authSection">
-                <a href="login.html" class="auth-btn">Login</a>
-                <a href="register.html" class="auth-btn register">Sign Up</a>
+            <div class="header-balance">
+                <i class="fas fa-wallet"></i> ৳৫০.০০
             </div>
         </div>
 
-        <!-- Main Content -->
         <div class="content">
-            
-            <div class="notice-box">
-                <div class="notice-header">
-                    <i class="fas fa-bullhorn"></i> জরুরি নোটিশ:
-                </div>
-                <p class="notice-text">
-                    সঠিক নিয়মে কাজ করুন। কোনো প্রকার ফেক কাজ জমা দিলে অ্যাকাউন্ট স্থায়ীভাবে ব্যান করা হবে। পেমেন্ট সংক্রান্ত যেকোনো সমস্যায় সাপোর্টে যোগাযোগ করুন।
-                </p>
-            </div>
 
-            <h3 class="section-title">কাজ নির্বাচন করুন</h3>
-            
-            <div class="service-list">
-                <!-- VIP অপশন -->
-                <div class="vip-card">
-                    <div class="vip-left"><i class="fas fa-crown"></i> VIP আপগ্রেড</div>
-                    <button class="vip-btn task-btn" onclick="window.location.href='vip.html'">চেক করুন</button>
-                </div>
+            <div class="section-title">কাজ নির্বাচন করুন</div>
 
-                <!-- Gmail কার্ড -->
-                <div class="service-card">
-                    <div class="service-info">
-                        <div class="service-icon icon-gmail"><i class="fa-brands fa-google"></i></div>
-                        <div class="service-details"><h4>Gmail Account</h4><p>জিমেইল তৈরি করুন (রেট: ৳৭.৫০)</p></div>
+            <!-- VIP Upgrade -->
+            <a href="vip.html" class="task-card">
+                <div class="task-left">
+                    <i class="fas fa-crown vip-icon"></i>
+                    <div class="task-info">
+                        <h4>VIP আপগ্রেড</h4>
                     </div>
-                    <button class="service-btn task-btn" onclick="window.location.href='gmail.html'">তৈরি করুন</button>
                 </div>
+                <button class="task-btn">চেক করুন</button>
+            </a>
 
-                <!-- WhatsApp কার্ড -->
-                <div class="service-card">
-                    <div class="service-info">
-                        <div class="service-icon icon-wa"><i class="fa-brands fa-whatsapp"></i></div>
-                        <div class="service-details"><h4>WhatsApp Account</h4><p>রেট: ৳১৫.০০</p></div>
+            <!-- Gmail Account -->
+            <a href="#" class="task-card">
+                <div class="task-left">
+                    <div class="task-icon bg-gmail"><i class="fab fa-google"></i></div>
+                    <div class="task-info">
+                        <h4>Gmail Account</h4>
+                        <p>জিমেইল তৈরি করুন (রেট: ৳৭.৫০)</p>
                     </div>
-                    <button class="service-btn task-btn" onclick="window.location.href='whatsapp.html'">জমা দিন</button>
                 </div>
+                <button class="task-btn">তৈরি করুন</button>
+            </a>
 
-                <!-- Telegram কার্ড -->
-                <div class="service-card">
-                    <div class="service-info">
-                        <div class="service-icon icon-tg"><i class="fa-brands fa-telegram"></i></div>
-                        <div class="service-details"><h4>Telegram Account</h4><p>রেট: ৳১২.০০</p></div>
+            <!-- WhatsApp Account -->
+            <a href="#" class="task-card">
+                <div class="task-left">
+                    <div class="task-icon bg-whatsapp"><i class="fab fa-whatsapp"></i></div>
+                    <div class="task-info">
+                        <h4>WhatsApp Account</h4>
+                        <p>রেট: ৳১৫.০০</p>
                     </div>
-                    <button class="service-btn task-btn" onclick="window.location.href='telegram.html'">জমা দিন</button>
                 </div>
+                <button class="task-btn">জমা দিন</button>
+            </a>
 
-                <!-- Instagram কার্ড -->
-                <div class="service-card">
-                    <div class="service-info">
-                        <div class="service-icon icon-ig"><i class="fa-brands fa-instagram"></i></div>
-                        <div class="service-details"><h4>Instagram Account</h4><p>রেট: ৳১০.০০</p></div>
+            <!-- Telegram Account -->
+            <a href="#" class="task-card">
+                <div class="task-left">
+                    <div class="task-icon bg-telegram"><i class="fab fa-telegram-plane"></i></div>
+                    <div class="task-info">
+                        <h4>Telegram Account</h4>
+                        <p>রেট: ৳১২.০০</p>
                     </div>
-                    <button class="service-btn task-btn" onclick="window.location.href='instagram.html'">জমা দিন</button>
                 </div>
-            </div>
+                <button class="task-btn">জমা দিন</button>
+            </a>
+
+            <!-- Instagram Account -->
+            <a href="#" class="task-card">
+                <div class="task-left">
+                    <div class="task-icon bg-instagram"><i class="fab fa-instagram"></i></div>
+                    <div class="task-info">
+                        <h4>Instagram Account</h4>
+                        <p>রেট: ৳১০.০০</p>
+                    </div>
+                </div>
+                <button class="task-btn">জমা দিন</button>
+            </a>
+
+            <!-- Number Buy (নতুন যোগ করা কার্ড) -->
+            <a href="number.html" class="task-card">
+                <div class="task-left">
+                    <div class="task-icon bg-number"><i class="fas fa-sim-card"></i></div>
+                    <div class="task-info">
+                        <h4>নাম্বার কিনুন</h4>
+                        <p>রেট: ৳৩.৮০</p>
+                    </div>
+                </div>
+                <button class="task-btn">কিনুন</button>
+            </a>
+
         </div>
 
-        <!-- Bottom Navigation -->
+        <!-- বটম মেনু -->
         <div class="bottom-nav">
             <a href="index.html" class="nav-item active"><i class="fas fa-home"></i>Home</a>
-            <a href="withdraw.html" class="nav-item protected-link"><i class="fas fa-wallet"></i>Withdraw</a>
-            <a href="refer.html" class="nav-item protected-link"><i class="fas fa-users"></i>Refer</a>
-            <a href="profile.html" class="nav-item protected-link"><i class="fas fa-user"></i>Profile</a>
+            <a href="withdraw.html" class="nav-item"><i class="fas fa-wallet"></i>Withdraw</a>
+            <a href="refer.html" class="nav-item"><i class="fas fa-users"></i>Refer</a>
+            <a href="profile.html" class="nav-item"><i class="fas fa-user"></i>Profile</a>
         </div>
     </div>
 
@@ -243,29 +205,8 @@
         const auth = getAuth(app);
 
         onAuthStateChanged(auth, (user) => {
-            const authSection = document.getElementById("authSection");
-            const protectedLinks = document.querySelectorAll(".protected-link");
-            const taskBtns = document.querySelectorAll(".task-btn");
-            
-            if (user) {
-                authSection.innerHTML = `<div class="header-balance"><i class="fas fa-wallet"></i> ৳৫০.০০</div>`;
-            } else {
-                authSection.innerHTML = `<a href="login.html" class="auth-btn">Login</a><a href="register.html" class="auth-btn register">Sign Up</a>`;
-                
-                protectedLinks.forEach(link => {
-                    link.addEventListener("click", (e) => {
-                        e.preventDefault();
-                        window.location.href = "login.html";
-                    });
-                });
-
-                taskBtns.forEach(btn => {
-                    btn.removeAttribute("onclick");
-                    btn.addEventListener("click", (e) => { 
-                        e.preventDefault();
-                        window.location.href = "login.html"; 
-                    });
-                });
+            if (!user) {
+                window.location.href = "login.html";
             }
         });
     </script>
