@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - Send bKash</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root { 
+            --main-pink: #e2005a; 
+            --main-white: #ffffff; 
+            --text-grey: #888888; 
+            --bg-light: #f4f6f9; 
+            --border-color: #dcdde1;
+        }
+
+        body { 
+            margin: 0; padding: 0; 
+            background-color: #e9ecef; 
+            font-family: 'Segoe UI', Tahoma, sans-serif; 
+            display: flex; justify-content: center; 
+        }
+
+        .app-container { 
+            width: 100%; max-width: 450px; min-height: 100vh; 
+            background-color: var(--bg-light); color: var(--main-pink); 
+            box-shadow: 0 0 25px rgba(0,0,0,0.1); 
+            display: flex; flex-direction: column; position: relative; 
+        }
+
+        .header { 
+            background-color: var(--main-pink); padding: 15px 20px; 
+            display: flex; justify-content: space-between; align-items: center; 
+            color: var(--main-white); box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); z-index: 10; 
+            position: sticky; top: 0;
+        }
+        .header-title { font-size: 18px; font-weight: bold; display: flex; align-items: center; }
+        .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 20px; }
+
+        .content { flex-grow: 1; padding: 15px; overflow-y: auto; padding-bottom: 30px; }
+        
+        .payment-card {
+            background-color: var(--main-white); border-radius: 12px; padding: 20px;
+            border: 1px solid #eaeaea; box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            margin-bottom: 20px;
+        }
+
+        .section-title { font-size: 14px; font-weight: bold; color: #2c3e50; margin-bottom: 12px; }
+
+        /* পেমেন্ট মেথড গ্রিড */
+        .method-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px;
+        }
+        .method-box {
+            border: 1px solid var(--border-color); border-radius: 8px; padding: 12px 5px;
+            text-align: center; cursor: pointer; transition: 0.2s; background-color: var(--main-white);
+        }
+        .method-box i { font-size: 22px; margin-bottom: 5px; display: block; }
+        .method-box span { font-size: 11px; font-weight: bold; color: #2c3e50; }
+        
+        /* মেথড এক্টিভ স্টাইল */
+        .method-box.active {
+            border: 2px solid var(--main-pink); background-color: rgba(226, 0, 90, 0.05);
+        }
+        .method-box.active span { color: var(--main-pink); }
+
+        /* মেথড কালার */
+        .c-bkash { color: #e2136e; }
+        .c-nagad { color: #f39c12; }
+        .c-rocket { color: #8e44ad; }
+        .c-upay { color: #2980b9; }
+
+        /* এডমিন নাম্বার বক্স */
+        .admin-number-box {
+            background-color: #f1f2f6; border: 1px dashed var(--main-pink); border-radius: 8px;
+            padding: 12px; display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 20px;
+        }
+        .admin-info { font-size: 13px; color: #2c3e50; }
+        .admin-info span { font-weight: bold; color: var(--main-pink); font-size: 15px; display: block; margin-top: 4px;}
+        .copy-btn {
+            background-color: var(--main-pink); color: white; border: none;
+            padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: bold; cursor: pointer;
+        }
+
+        /* ইনপুট গ্রুপ */
+        .input-group { margin-bottom: 18px; }
+        .input-label { display: block; font-size: 13px; font-weight: bold; color: #7f8c8d; margin-bottom: 8px; }
+        .input-box {
+            width: 100%; padding: 12px 15px; border: 1px solid var(--border-color); border-radius: 8px;
+            font-size: 14px; box-sizing: border-box; outline: none; transition: 0.2s;
+        }
+        .input-box:focus { border-color: var(--main-pink); box-shadow: 0 0 0 3px rgba(226, 0, 90, 0.1); }
+        
+        /* অটো অ্যামাউন্ট ফিল্ড ডিজাইন (যাতে এডিট করা না যায়) */
+        .input-box[readonly] { background-color: #f8f9fa; color: var(--main-pink); font-weight: bold; cursor: not-allowed; }
+
+        .submit-btn {
+            background-color: var(--main-pink); color: white; border: none;
+            padding: 14px; border-radius: 8px; font-size: 16px; font-weight: bold;
+            width: 100%; cursor: pointer; transition: background 0.2s; margin-top: 5px;
+        }
+        .submit-btn:hover { background-color: #c4004e; }
+
+        .toast-msg {
+            visibility: hidden; min-width: 200px; background-color: #27ae60;
+            color: #fff; text-align: center; border-radius: 30px; padding: 12px 20px;
+            position: fixed; z-index: 9999; left: 50%; transform: translateX(-50%);
+            top: 20px; font-size: 13px; font-weight: bold;
+            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.4); opacity: 0; transition: opacity 0.3s, top 0.3s;
+        }
+        .toast-msg.show { visibility: visible; opacity: 1; top: 40px; }
+    </style>
+</head>
+<body>
+
+    <div id="toastBox" class="toast-msg">কপি করা হয়েছে!</div>
+
+    <div class="app-container">
+        <div class="header">
+            <div class="header-title">
+                <a href="vip.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+                পেমেন্ট সম্পন্ন করুন
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="payment-card">
+                <div class="section-title">পেমেন্ট মেথড সিলেক্ট করুন</div>
+                <div class="method-grid">
+                    <div class="method-box active" onclick="selectMethod(this, 'bKash')">
+                        <i class="fas fa-wallet c-bkash"></i>
+                        <span>bKash</span>
+                    </div>
+                    <div class="method-box" onclick="selectMethod(this, 'Nagad')">
+                        <i class="fas fa-wallet c-nagad"></i>
+                        <span>Nagad</span>
+                    </div>
+                    <div class="method-box" onclick="selectMethod(this, 'Rocket')">
+                        <i class="fas fa-wallet c-rocket"></i>
+                        <span>Rocket</span>
+                    </div>
+                    <div class="method-box" onclick="selectMethod(this, 'Upay')">
+                        <i class="fas fa-wallet c-upay"></i>
+                        <span>Upay</span>
+                    </div>
+                </div>
+
+                <!-- এডমিনকে টাকা পাঠানোর নাম্বার -->
+                <div class="admin-number-box">
+                    <div class="admin-info">
+                        আমাদের <span id="methodName">bKash</span> (Personal) নাম্বার:
+                        <span id="adminNumber">01700000000</span>
+                    </div>
+                    <button class="copy-btn" onclick="copyNumber()">কপি</button>
+                </div>
+
+                <!-- ইউজার ইনপুট ফর্ম -->
+                <div class="input-group">
+                    <label class="input-label">একাউন্ট নাম্বার (Account Number)</label>
+                    <input type="number" id="userNumber" class="input-box" placeholder="যে নাম্বার থেকে টাকা পাঠিয়েছেন">
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">টাকার পরিমাণ (Amount)</label>
+                    <!-- Readonly ফিল্ড, এখানে অটোমেটিক টাকা বসে যাবে -->
+                    <input type="text" id="amountField" class="input-box" value="৳ লোড হচ্ছে..." readonly>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">ট্রানজেকশন আইডি (TrxID)</label>
+                    <input type="text" id="trxId" class="input-box" placeholder="TrxID দিন">
+                </div>
+
+                <button class="submit-btn" onclick="submitPayment()">পেমেন্ট সাবমিট করুন</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // পেজ লোড হওয়ার সাথে সাথে URL থেকে প্যাকেজ এবং এমাউন্ট নেওয়া
+        let selectedVip = "";
+        let payAmount = "";
+
+        window.onload = () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            selectedVip = urlParams.get('vip');
+            payAmount = urlParams.get('amount');
+
+            // যদি এমাউন্ট থাকে, তাহলে বক্সে অটোমেটিক বসিয়ে দেওয়া
+            if (payAmount) {
+                document.getElementById('amountField').value = "৳ " + payAmount;
+            } else {
+                document.getElementById('amountField').value = "৳ 0";
+            }
+        };
+
+        // পেমেন্ট মেথড সিলেক্ট করার ফাংশন
+        const adminNumbers = {
+            'bKash': '01700000000',
+            'Nagad': '01800000000',
+            'Rocket': '01900000000',
+            'Upay': '01600000000'
+        };
+
+        function selectMethod(element, methodName) {
+            // সবার থেকে active ক্লাস রিমুভ করা
+            document.querySelectorAll('.method-box').forEach(box => {
+                box.classList.remove('active');
+            });
+            // যেটাতে ক্লিক করেছে সেটায় active ক্লাস যোগ করা
+            element.classList.add('active');
+
+            // এডমিন নাম্বার চেঞ্জ করা
+            document.getElementById('methodName').innerText = methodName;
+            document.getElementById('adminNumber').innerText = adminNumbers[methodName];
+        }
+
+        function copyNumber() {
+            const number = document.getElementById('adminNumber').innerText;
+            navigator.clipboard.writeText(number);
+
+            const toast = document.getElementById("toastBox");
+            toast.innerText = "নাম্বার কপি করা হয়েছে!";
+            toast.classList.add("show");
+            setTimeout(() => { toast.classList.remove("show"); }, 2500);
+        }
+
+        function submitPayment() {
+            const userNum = document.getElementById('userNumber').value;
+            const trxId = document.getElementById('trxId').value;
+
+            if(!userNum || !trxId) {
+                alert("অনুগ্রহ করে আপনার নাম্বার এবং TrxID দিন!");
+                return;
+            }
+
+            // এখানে আপনি ফায়ারবেসে ডাটা সেভ করার কোড বসাতে পারবেন
+            alert(`আপনার ${selectedVip} এর পেমেন্ট রিকোয়েস্ট সফলভাবে জমা হয়েছে। এডমিন চেক করে আপগ্রেড করে দিবে!`);
+            window.location.href = "index.html"; // হোম পেজে ফেরত
+        }
+    </script>
+</body>
+</html>
