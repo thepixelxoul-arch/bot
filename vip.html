@@ -43,69 +43,63 @@
         
         .current-vip-card {
             background: linear-gradient(135deg, #2c3e50, #34495e);
-            border-radius: 8px; padding: 20px;
+            border-radius: 8px; padding: 15px;
             color: white; text-align: center; margin-bottom: 20px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-        .current-vip-card i { font-size: 30px; color: var(--vip-gold); margin-bottom: 8px; }
-        .current-vip-card h3 { margin: 0 0 5px 0; font-size: 14px; font-weight: normal; color: #dcdde1; }
-        .current-vip-card .level-name { font-size: 20px; font-weight: bold; color: var(--vip-gold); }
+        .current-vip-card i { font-size: 25px; color: var(--vip-gold); margin-bottom: 5px; }
+        .current-vip-card h3 { margin: 0 0 3px 0; font-size: 13px; font-weight: normal; color: #dcdde1; }
+        .current-vip-card .level-name { font-size: 18px; font-weight: bold; color: var(--vip-gold); }
 
-        /* বড় বক্স ডিজাইন */
-        .vip-package {
-            background-color: var(--main-white); border-radius: 10px; padding: 20px;
-            border: 1px solid #eaeaea; box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            margin-bottom: 20px;
-        }
-        
-        .vip-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f1f2f6; padding-bottom: 15px; margin-bottom: 15px; }
-        .vip-title { font-size: 18px; font-weight: bold; color: #2c3e50; display: flex; align-items: center; gap: 8px; }
-        .vip-title i { color: var(--vip-gold); font-size: 16px; }
-        .vip-price { font-size: 18px; font-weight: bold; color: var(--main-pink); }
-
-        .vip-features { list-style: none; padding: 0; margin: 0 0 15px 0; }
-        .vip-features li { font-size: 14px; color: var(--text-grey); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
-        .vip-features li i { color: var(--free-green); font-size: 14px; }
-
-        /* ফ্রি নেওয়ার শর্তের বক্স */
-        .condition-box {
-            background-color: #fcf8e3;
-            border: 1px dashed #faebcc;
-            border-radius: 6px;
-            padding: 12px;
-            font-size: 13px;
-            color: #8a6d3b;
-            margin-bottom: 15px;
-            line-height: 1.5;
-        }
-        .condition-box strong { color: #d35400; font-size: 13px; margin-right: 5px;}
-
-        /* বাটন গ্রুপ */
-        .btn-group {
-            display: flex;
+        /* পাশাপাশি দুটো বক্সের জন্য গ্রিড লেআউট */
+        .vip-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 10px;
+            margin-bottom: 15px;
         }
-        .upgrade-btn {
-            flex: 1; background-color: var(--main-pink); color: white; border: none;
-            padding: 12px; border-radius: 6px; font-size: 14px; font-weight: bold;
-            cursor: pointer; transition: background 0.2s; text-align: center;
-        }
-        .upgrade-btn:hover { background-color: #c4004e; }
-        
-        .free-btn {
-            flex: 1; background-color: var(--free-green); color: white; border: none;
-            padding: 12px; border-radius: 6px; font-size: 14px; font-weight: bold;
-            cursor: pointer; transition: background 0.2s; text-align: center;
-        }
-        .free-btn:hover { background-color: #219653; }
 
-        /* বর্তমান প্যাকেজ বাটনের সবুজ কালার */
-        .btn-current { 
-            background-color: var(--free-green); 
-            color: white; border: none; padding: 12px; 
-            border-radius: 6px; font-size: 14px; font-weight: bold; 
-            width: 100%; cursor: default; 
+        /* ছোট বক্স ডিজাইন */
+        .small-box {
+            background-color: var(--main-white); border-radius: 8px; padding: 12px;
+            border: 1px solid #eaeaea; box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+            display: flex; flex-direction: column; justify-content: space-between;
         }
+        .free-bg {
+            background-color: #fcf8e3; 
+            border: 1px solid #faebcc;
+        }
+        
+        .box-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; border-bottom: 1px solid #f1f2f6; padding-bottom: 5px;}
+        .free-bg .box-header { border-bottom: 1px solid #faebcc; }
+
+        .box-title { font-size: 12px; font-weight: bold; color: #2c3e50; display: flex; align-items: center; gap: 4px; }
+        .box-title i { color: var(--vip-gold); font-size: 11px; }
+        .free-bg .box-title i { color: var(--free-green); }
+
+        .box-price { font-size: 13px; font-weight: bold; color: var(--main-pink); }
+        .box-price.free-text { color: var(--free-green); }
+
+        .box-desc { font-size: 11px; color: var(--text-grey); margin-bottom: 10px; line-height: 1.4; flex-grow: 1; }
+        .free-bg .box-desc { color: #8a6d3b; }
+        .free-bg .box-desc strong { color: #d35400; display: block; margin-bottom: 3px; font-size: 11px;}
+
+        /* বাটন ডিজাইন */
+        .btn-buy {
+            background-color: var(--main-pink); color: white; border: none;
+            padding: 8px 5px; border-radius: 5px; font-size: 11px; font-weight: bold;
+            width: 100%; cursor: pointer; transition: 0.2s; text-align: center;
+        }
+        .btn-buy:hover { background-color: #c4004e; }
+
+        .btn-free {
+            background-color: var(--free-green); color: white; border: none;
+            padding: 8px 5px; border-radius: 5px; font-size: 11px; font-weight: bold;
+            width: 100%; cursor: pointer; transition: 0.2s; text-align: center;
+        }
+        .btn-free:hover { background-color: #219653; }
+
+        .btn-current { background-color: #95a5a6; color: white; border: none; padding: 8px 5px; border-radius: 5px; font-size: 11px; font-weight: bold; width: 100%; }
 
         .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: sticky; bottom: 0; z-index: 100; }
         .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); text-decoration: none; flex: 1; }
@@ -142,113 +136,114 @@
                 <div class="level-name" id="currentVipDisplay">VIP 0</div>
             </div>
 
-            <!-- VIP 0 (Free) -->
-            <div class="vip-package">
-                <div class="vip-header">
-                    <div class="vip-title"><i class="fas fa-medal"></i> VIP 0</div>
-                    <div class="vip-price">ফ্রি</div>
+            <!-- VIP 0 (সিঙ্গেল বক্স) -->
+            <div class="small-box" style="margin-bottom: 15px;">
+                <div class="box-header">
+                    <div class="box-title"><i class="fas fa-medal"></i> VIP 0</div>
+                    <div class="box-price">ফ্রি</div>
                 </div>
-                <ul class="vip-features">
-                    <li><i class="fas fa-check-circle"></i> দৈনিক কাজের লিমিট: ৫ টি</li>
-                    <li><i class="fas fa-check-circle"></i> কাজের রেট: সাধারণ</li>
-                </ul>
-                <div class="btn-group">
-                    <button class="btn-current">আপনার বর্তমান প্যাকেজ</button>
-                </div>
+                <div class="box-desc">লিমিট: ৫ টি | রেট: সাধারণ</div>
+                <button class="btn-current">আপনার বর্তমান প্যাকেজ</button>
             </div>
 
-            <!-- VIP 1 -->
-            <div class="vip-package">
-                <div class="vip-header">
-                    <div class="vip-title"><i class="fas fa-crown"></i> VIP 1</div>
-                    <div class="vip-price">৳৫০০</div>
+            <!-- VIP 1 (পাশাপাশি বক্স) -->
+            <div class="vip-row">
+                <div class="small-box">
+                    <div class="box-header">
+                        <div class="box-title"><i class="fas fa-crown"></i> VIP 1</div>
+                        <div class="box-price">৳৫০০</div>
+                    </div>
+                    <div class="box-desc">লিমিট: ১৫ টি<br>রেট: ৫% বেশি</div>
+                    <!-- পেমেন্ট পেজে রিডাইরেক্ট করবে -->
+                    <button class="btn-buy" onclick="requestUpgrade('VIP 1', 500)">৳৫০০ দিয়ে কিনুন</button>
                 </div>
-                <ul class="vip-features">
-                    <li><i class="fas fa-check-circle"></i> দৈনিক কাজের লিমিট: ১৫ টি</li>
-                    <li><i class="fas fa-check-circle"></i> কাজের রেট: ৫% বেশি</li>
-                </ul>
-                <div class="condition-box">
-                    <strong>ফ্রি নেওয়ার শর্ত:</strong> ১০০টি জিমেইল একাউন্ট জমা দিতে হবে।
-                </div>
-                <div class="btn-group">
-                    <button class="upgrade-btn" onclick="requestUpgrade('VIP 1', 500)">৳৫০০ দিয়ে কিনুন</button>
-                    <button class="free-btn" onclick="requestFree('VIP 1')">ফ্রি নিন</button>
+                <div class="small-box free-bg">
+                    <div class="box-header">
+                        <div class="box-title"><i class="fas fa-gift"></i> VIP 1</div>
+                        <div class="box-price free-text">ফ্রি</div>
+                    </div>
+                    <div class="box-desc"><strong>শর্ত:</strong> ১০০টি জিমেইল একাউন্ট জমা দিতে হবে।</div>
+                    <button class="btn-free" onclick="requestFree('VIP 1')">ফ্রি নিন</button>
                 </div>
             </div>
 
             <!-- VIP 2 -->
-            <div class="vip-package">
-                <div class="vip-header">
-                    <div class="vip-title"><i class="fas fa-crown"></i> VIP 2</div>
-                    <div class="vip-price">৳১০০০</div>
+            <div class="vip-row">
+                <div class="small-box">
+                    <div class="box-header">
+                        <div class="box-title"><i class="fas fa-crown"></i> VIP 2</div>
+                        <div class="box-price">৳১০০০</div>
+                    </div>
+                    <div class="box-desc">লিমিট: ৩০ টি<br>রেট: ১০% বেশি</div>
+                    <button class="btn-buy" onclick="requestUpgrade('VIP 2', 1000)">৳১০০০ দিয়ে কিনুন</button>
                 </div>
-                <ul class="vip-features">
-                    <li><i class="fas fa-check-circle"></i> দৈনিক কাজের লিমিট: ৩০ টি</li>
-                    <li><i class="fas fa-check-circle"></i> কাজের রেট: ১০% বেশি</li>
-                </ul>
-                <div class="condition-box">
-                    <strong>ফ্রি নেওয়ার শর্ত:</strong> ২০০টি জিমেইল, ২০টি হোয়াটসঅ্যাপ এবং ২০টি টেলিগ্রাম জমা দিতে হবে।
-                </div>
-                <div class="btn-group">
-                    <button class="upgrade-btn" onclick="requestUpgrade('VIP 2', 1000)">৳১০০০ দিয়ে কিনুন</button>
-                    <button class="free-btn" onclick="requestFree('VIP 2')">ফ্রি নিন</button>
+                <div class="small-box free-bg">
+                    <div class="box-header">
+                        <div class="box-title"><i class="fas fa-gift"></i> VIP 2</div>
+                        <div class="box-price free-text">ফ্রি</div>
+                    </div>
+                    <div class="box-desc"><strong>শর্ত:</strong> ২০০টি জিমেইল, ২০টি হোয়াটসঅ্যাপ, ২০টি টেলিগ্রাম।</div>
+                    <button class="btn-free" onclick="requestFree('VIP 2')">ফ্রি নিন</button>
                 </div>
             </div>
 
             <!-- VIP 3 -->
-            <div class="vip-package">
-                <div class="vip-header">
-                    <div class="vip-title"><i class="fas fa-crown"></i> VIP 3</div>
-                    <div class="vip-price">৳২০০০</div>
+            <div class="vip-row">
+                <div class="small-box">
+                    <div class="box-header">
+                        <div class="box-title"><i class="fas fa-crown"></i> VIP 3</div>
+                        <div class="box-price">৳২০০০</div>
+                    </div>
+                    <div class="box-desc">লিমিট: ৫০ টি<br>রেট: ১৫% বেশি</div>
+                    <button class="btn-buy" onclick="requestUpgrade('VIP 3', 2000)">৳২০০০ দিয়ে কিনুন</button>
                 </div>
-                <ul class="vip-features">
-                    <li><i class="fas fa-check-circle"></i> দৈনিক কাজের লিমিট: ৫০ টি</li>
-                    <li><i class="fas fa-check-circle"></i> কাজের রেট: ১৫% বেশি</li>
-                </ul>
-                <div class="condition-box">
-                    <strong>ফ্রি নেওয়ার শর্ত:</strong> ১০০০টি জিমেইল, ২০০টি হোয়াটসঅ্যাপ, ১০০টি ইনস্টাগ্রাম এবং ৫০টি টেলিগ্রাম জমা দিতে হবে।
-                </div>
-                <div class="btn-group">
-                    <button class="upgrade-btn" onclick="requestUpgrade('VIP 3', 2000)">৳২০০০ দিয়ে কিনুন</button>
-                    <button class="free-btn" onclick="requestFree('VIP 3')">ফ্রি নিন</button>
+                <div class="small-box free-bg">
+                    <div class="box-header">
+                        <div class="box-title"><i class="fas fa-gift"></i> VIP 3</div>
+                        <div class="box-price free-text">ফ্রি</div>
+                    </div>
+                    <div class="box-desc"><strong>শর্ত:</strong> ১০০০টি জিমেইল, ২০০টি WA, ১০০টি Insta, ৫০টি TG।</div>
+                    <button class="btn-free" onclick="requestFree('VIP 3')">ফ্রি নিন</button>
                 </div>
             </div>
 
             <!-- VIP 4 -->
-            <div class="vip-package">
-                <div class="vip-header">
-                    <div class="vip-title"><i class="fas fa-crown"></i> VIP 4</div>
-                    <div class="vip-price">৳৩০০০</div>
+            <div class="vip-row">
+                <div class="small-box">
+                    <div class="box-header">
+                        <div class="box-title"><i class="fas fa-crown"></i> VIP 4</div>
+                        <div class="box-price">৳৩০০০</div>
+                    </div>
+                    <div class="box-desc">লিমিট: ১০০ টি<br>রেট: ২০% বেশি</div>
+                    <button class="btn-buy" onclick="requestUpgrade('VIP 4', 3000)">৳৩০০০ দিয়ে কিনুন</button>
                 </div>
-                <ul class="vip-features">
-                    <li><i class="fas fa-check-circle"></i> দৈনিক কাজের লিমিট: ১০০ টি</li>
-                    <li><i class="fas fa-check-circle"></i> কাজের রেট: ২০% বেশি</li>
-                </ul>
-                <div class="condition-box">
-                    <strong>ফ্রি নেওয়ার শর্ত:</strong> ৫০০০টি জিমেইল, ৪০০টি হোয়াটসঅ্যাপ, ২০০টি টেলিগ্রাম এবং ৩০০টি ইনস্টাগ্রাম জমা দিতে হবে।
-                </div>
-                <div class="btn-group">
-                    <button class="upgrade-btn" onclick="requestUpgrade('VIP 4', 3000)">৳৩০০০ দিয়ে কিনুন</button>
-                    <button class="free-btn" onclick="requestFree('VIP 4')">ফ্রি নিন</button>
+                <div class="small-box free-bg">
+                    <div class="box-header">
+                        <div class="box-title"><i class="fas fa-gift"></i> VIP 4</div>
+                        <div class="box-price free-text">ফ্রি</div>
+                    </div>
+                    <div class="box-desc"><strong>শর্ত:</strong> ৫০০০টি জিমেইল, ৪০০টি WA, ৩০০টি Insta, ২০০টি TG।</div>
+                    <button class="btn-free" onclick="requestFree('VIP 4')">ফ্রি নিন</button>
                 </div>
             </div>
 
             <!-- VIP 5 -->
-            <div class="vip-package">
-                <div class="vip-header">
-                    <div class="vip-title"><i class="fas fa-crown" style="color: #e74c3c;"></i> VIP 5</div>
-                    <div class="vip-price">৳৫০০০</div>
+            <div class="vip-row">
+                <div class="small-box">
+                    <div class="box-header">
+                        <div class="box-title"><i class="fas fa-crown"></i> VIP 5</div>
+                        <div class="box-price">৳৫০০০</div>
+                    </div>
+                    <div class="box-desc">লিমিট: আনলিমিটেড<br>রেট: সর্বোচ্চ</div>
+                    <button class="btn-buy" onclick="requestUpgrade('VIP 5', 5000)">৳৫০০০ দিয়ে কিনুন</button>
                 </div>
-                <ul class="vip-features">
-                    <li><i class="fas fa-check-circle"></i> দৈনিক কাজের লিমিট: আনলিমিটেড</li>
-                    <li><i class="fas fa-check-circle"></i> কাজের রেট: সর্বোচ্চ</li>
-                </ul>
-                <div class="condition-box">
-                    <strong>ফ্রি নেওয়ার শর্ত:</strong> ১০০০০টি জিমেইল, ৮০০টি হোয়াটসঅ্যাপ, ৪০০টি টেলিগ্রাম এবং ৭০০টি ইনস্টাগ্রাম জমা দিতে হবে।
-                </div>
-                <div class="btn-group">
-                    <button class="upgrade-btn" onclick="requestUpgrade('VIP 5', 5000)">৳৫০০০ দিয়ে কিনুন</button>
-                    <button class="free-btn" onclick="requestFree('VIP 5')">ফ্রি নিন</button>
+                <div class="small-box free-bg">
+                    <div class="box-header">
+                        <div class="box-title"><i class="fas fa-gift"></i> VIP 5</div>
+                        <div class="box-price free-text">ফ্রি</div>
+                    </div>
+                    <div class="box-desc"><strong>শর্ত:</strong> ১০০০০টি জিমেইল, ৮০০টি WA, ৭০০টি Insta, ৪০০টি TG।</div>
+                    <button class="btn-free" onclick="requestFree('VIP 5')">ফ্রি নিন</button>
                 </div>
             </div>
 
@@ -290,19 +285,16 @@
     </script>
 
     <script>
+        // পেমেন্ট পেজে রিডাইরেক্ট করার ফাংশন
         function requestUpgrade(vipLevel, price) {
-            const toast = document.getElementById("toastBox");
-            toast.className = "toast-msg"; 
-            toast.innerText = `${vipLevel} আপগ্রেড করতে এডমিনের নাম্বারে ৳${price} সেন্ড মানি করে যোগাযোগ করুন!`;
-            toast.classList.add("show");
-            
-            setTimeout(() => { toast.classList.remove("show"); }, 3500);
+            window.location.href = `payment.html?vip=${encodeURIComponent(vipLevel)}&amount=${price}`;
         }
 
+        // ফ্রি নেওয়ার বাটনের ফাংশন
         function requestFree(vipLevel) {
             const toast = document.getElementById("toastBox");
             toast.className = "toast-msg success"; 
-            toast.innerText = `আপনি যদি ${vipLevel} এর শর্ত পূরণ করে থাকেন, তবে এডমিনকে মেসেজ দিন।`;
+            toast.innerText = `আপনি ${vipLevel} এর শর্ত পূরণ করলে এডমিনকে মেসেজ দিন।`;
             toast.classList.add("show");
             
             setTimeout(() => { toast.classList.remove("show"); }, 3500);
