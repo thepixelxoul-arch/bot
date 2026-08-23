@@ -99,7 +99,13 @@
         }
         .free-btn:hover { background-color: #219653; }
 
-        .upgrade-btn.current { background-color: #95a5a6; cursor: default; width: 100%; flex: none; }
+        /* বর্তমান প্যাকেজ বাটনের সবুজ কালার */
+        .btn-current { 
+            background-color: var(--free-green); 
+            color: white; border: none; padding: 12px; 
+            border-radius: 6px; font-size: 14px; font-weight: bold; 
+            width: 100%; cursor: default; 
+        }
 
         .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: sticky; bottom: 0; z-index: 100; }
         .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); text-decoration: none; flex: 1; }
@@ -147,7 +153,7 @@
                     <li><i class="fas fa-check-circle"></i> কাজের রেট: সাধারণ</li>
                 </ul>
                 <div class="btn-group">
-                    <button class="upgrade-btn current">আপনার বর্তমান প্যাকেজ</button>
+                    <button class="btn-current">আপনার বর্তমান প্যাকেজ</button>
                 </div>
             </div>
 
