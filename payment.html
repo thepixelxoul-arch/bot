@@ -40,7 +40,6 @@
 
         .content { flex-grow: 1; padding: 15px; overflow-y: auto; padding-bottom: 30px; }
         
-        /* সতর্কবার্তা বা নোটিশ বক্স */
         .warning-note {
             background-color: #fff3cd;
             border: 1px solid #ffeeba;
@@ -64,7 +63,6 @@
 
         .section-title { font-size: 14px; font-weight: bold; color: #2c3e50; margin-bottom: 12px; }
 
-        /* পেমেন্ট মেথড গ্রিড */
         .method-grid {
             display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px;
         }
@@ -75,7 +73,6 @@
         .method-box i { font-size: 22px; margin-bottom: 5px; display: block; }
         .method-box span { font-size: 11px; font-weight: bold; color: #2c3e50; }
         
-        /* মেথড এক্টিভ স্টাইল */
         .method-box.active {
             border: 2px solid var(--main-pink); background-color: rgba(226, 0, 90, 0.05);
         }
@@ -86,7 +83,6 @@
         .c-rocket { color: #8e44ad; }
         .c-upay { color: #2980b9; }
 
-        /* এডমিন নাম্বার বক্স */
         .admin-number-box {
             background-color: var(--main-white); border: 1px dashed var(--main-pink); border-radius: 8px;
             padding: 12px; display: flex; justify-content: space-between; align-items: center;
@@ -99,7 +95,6 @@
             padding: 8px 15px; border-radius: 6px; font-size: 13px; font-weight: bold; cursor: pointer;
         }
 
-        /* ইনপুট গ্রুপ */
         .input-group { margin-bottom: 18px; }
         .input-label { display: block; font-size: 13px; font-weight: bold; color: #7f8c8d; margin-bottom: 8px; }
         .input-box {
@@ -117,7 +112,6 @@
         }
         .submit-btn:hover { background-color: #c4004e; }
 
-        /* পেমেন্ট হিস্ট্রি স্টাইল */
         .history-card {
             background-color: var(--main-white); border-radius: 12px; padding: 20px;
             border: 1px solid #eaeaea; box-shadow: 0 4px 15px rgba(0,0,0,0.03);
@@ -141,21 +135,59 @@
         .status-success { background-color: #d4edda; color: #155724; }
         .status-rejected { background-color: #f8d7da; color: #721c24; }
 
-        /* টোস্ট মেসেজ (এখন গোলাপি রঙের) */
         .toast-msg {
             visibility: hidden; min-width: 200px; 
-            background-color: var(--main-pink); /* গোলাপি কালার */
+            background-color: var(--main-pink);
             color: #fff; text-align: center; border-radius: 30px; padding: 12px 20px;
             position: fixed; z-index: 9999; left: 50%; transform: translateX(-50%);
             top: 20px; font-size: 13px; font-weight: bold;
             box-shadow: 0 4px 15px rgba(226, 0, 90, 0.4); opacity: 0; transition: opacity 0.3s, top 0.3s;
         }
         .toast-msg.show { visibility: visible; opacity: 1; top: 40px; }
+
+        /* সুন্দর কাস্টম পপআপ (Modal) ডিজাইন */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 9999; visibility: hidden; opacity: 0; transition: 0.3s;
+        }
+        .modal-overlay.show { visibility: visible; opacity: 1; }
+        
+        .modal-content {
+            background-color: var(--main-white); width: 85%; max-width: 320px;
+            padding: 30px 20px; border-radius: 15px; text-align: center;
+            transform: translateY(20px); transition: 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .modal-overlay.show .modal-content { transform: translateY(0); }
+        
+        .modal-icon { font-size: 50px; color: #27ae60; margin-bottom: 15px; }
+        .modal-title { font-size: 18px; font-weight: bold; color: #2c3e50; margin-bottom: 10px; }
+        .modal-text { font-size: 13px; color: var(--text-grey); line-height: 1.5; margin-bottom: 20px; }
+        
+        .modal-btn {
+            background-color: var(--main-pink); color: white; border: none;
+            padding: 12px; border-radius: 8px; font-size: 15px; font-weight: bold;
+            width: 100%; cursor: pointer; transition: 0.2s;
+        }
+        .modal-btn:hover { background-color: #c4004e; }
+
     </style>
 </head>
 <body>
 
+    <!-- টোস্ট মেসেজ -->
     <div id="toastBox" class="toast-msg">নাম্বার কপি করা হয়েছে!</div>
+
+    <!-- কাস্টম সাকসেস পপআপ -->
+    <div id="successModal" class="modal-overlay">
+        <div class="modal-content">
+            <i class="fas fa-check-circle modal-icon"></i>
+            <div class="modal-title">সফল হয়েছে!</div>
+            <div class="modal-text" id="modalMessage">আপনার পেমেন্ট রিকোয়েস্ট জমা হয়েছে।</div>
+            <button class="modal-btn" onclick="goToHome()">ওকে</button>
+        </div>
+    </div>
 
     <div class="app-container">
         <div class="header">
@@ -166,7 +198,6 @@
         </div>
 
         <div class="content">
-            <!-- সতর্কবার্তা বা নোটিশ -->
             <div class="warning-note">
                 <i class="fas fa-exclamation-triangle"></i> <strong>জরুরি নোটিশ:</strong> শুধুমাত্র <b>Send Money</b> গ্রহণ করা হয়। Cash Out বা অন্য কোনো মাধ্যমে টাকা পাঠালে তা গ্রহণযোগ্য হবে না।
             </div>
@@ -192,7 +223,6 @@
                     </div>
                 </div>
 
-                <!-- এডমিনকে টাকা পাঠানোর নাম্বার -->
                 <div class="admin-number-box">
                     <div class="admin-info">
                         আমাদের <strong id="methodName" style="color: #e2136e;">bKash</strong> (Personal) নাম্বার:
@@ -201,7 +231,6 @@
                     <button class="copy-btn" onclick="copyNumber()">কপি</button>
                 </div>
 
-                <!-- ইউজার ইনপুট ফর্ম -->
                 <div class="input-group">
                     <label class="input-label">একাউন্ট নাম্বার (Account Number)</label>
                     <input type="number" id="userNumber" class="input-box" placeholder="যে নাম্বার থেকে টাকা পাঠিয়েছেন">
@@ -220,12 +249,10 @@
                 <button class="submit-btn" onclick="submitPayment()">পেমেন্ট সাবমিট করুন</button>
             </div>
 
-            <!-- পেমেন্ট হিস্ট্রি কার্ড -->
             <div class="history-card">
                 <div class="section-title"><i class="fas fa-history"></i> পেমেন্ট হিস্ট্রি</div>
                 
                 <div class="history-list">
-                    <!-- প্রথম হিস্ট্রি (পেন্ডিং) -->
                     <div class="history-item">
                         <div class="history-left">
                             <span class="h-title">VIP 1 আপগ্রেড (bKash)</span>
@@ -237,7 +264,6 @@
                         </div>
                     </div>
                     
-                    <!-- দ্বিতীয় হিস্ট্রি (সাকসেস) -->
                     <div class="history-item">
                         <div class="history-left">
                             <span class="h-title">VIP 2 আপগ্রেড (Nagad)</span>
@@ -249,7 +275,6 @@
                         </div>
                     </div>
 
-                    <!-- তৃতীয় হিস্ট্রি (বাতিল) -->
                     <div class="history-item">
                         <div class="history-left">
                             <span class="h-title">VIP 3 আপগ্রেড (Rocket)</span>
@@ -267,7 +292,6 @@
     </div>
 
     <script>
-        // পেজ লোড হওয়ার সাথে সাথে URL থেকে প্যাকেজ এবং এমাউন্ট নেওয়া
         let selectedVip = "";
         let payAmount = "";
 
@@ -283,7 +307,6 @@
             }
         };
 
-        // পেমেন্ট মেথড সিলেক্ট করার ফাংশন
         const adminNumbers = {
             'bKash': '01700000000',
             'Nagad': '01800000000',
@@ -306,31 +329,41 @@
 
             const nameElement = document.getElementById('methodName');
             nameElement.innerText = methodName;
-            nameElement.style.color = methodColors[methodName]; // নামের কালার পরিবর্তন
+            nameElement.style.color = methodColors[methodName]; 
             
             document.getElementById('adminNumber').innerText = adminNumbers[methodName];
+        }
+
+        function showToast(msg, isError = false) {
+            const toast = document.getElementById("toastBox");
+            toast.innerText = msg;
+            toast.style.backgroundColor = isError ? "#e74c3c" : "var(--main-pink)";
+            toast.classList.add("show");
+            setTimeout(() => { toast.classList.remove("show"); }, 2500);
         }
 
         function copyNumber() {
             const number = document.getElementById('adminNumber').innerText;
             navigator.clipboard.writeText(number);
-
-            const toast = document.getElementById("toastBox");
-            toast.innerText = "নাম্বার কপি করা হয়েছে!";
-            toast.classList.add("show");
-            setTimeout(() => { toast.classList.remove("show"); }, 2500);
+            showToast("নাম্বার কপি করা হয়েছে!");
         }
 
         function submitPayment() {
             const userNum = document.getElementById('userNumber').value;
             const trxId = document.getElementById('trxId').value;
 
+            // যদি ইনপুট ফাঁকা থাকে, তবে লাল রঙের টোস্ট মেসেজ দেখাবে
             if(!userNum || !trxId) {
-                alert("অনুগ্রহ করে আপনার নাম্বার এবং TrxID দিন!");
+                showToast("অনুগ্রহ করে আপনার নাম্বার এবং TrxID দিন!", true);
                 return;
             }
 
-            alert(`আপনার ${selectedVip || 'প্যাকেজ'} এর পেমেন্ট রিকোয়েস্ট সফলভাবে জমা হয়েছে। এডমিন চেক করে আপগ্রেড করে দিবে!`);
+            // সুন্দর কাস্টম পপআপ দেখানো
+            document.getElementById('modalMessage').innerText = `আপনার ${selectedVip || 'প্যাকেজ'} এর পেমেন্ট রিকোয়েস্ট সফলভাবে জমা হয়েছে। এডমিন চেক করে আপগ্রেড করে দিবে!`;
+            document.getElementById('successModal').classList.add('show');
+        }
+
+        function goToHome() {
             window.location.href = "index.html"; 
         }
     </script>
