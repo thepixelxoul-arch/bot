@@ -35,11 +35,27 @@
             color: var(--main-white); box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); z-index: 10; 
             position: sticky; top: 0;
         }
-        .header-title { font-size: 18px; font-weight: bold; display: flex; align-items: center; }
-        .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 20px; }
+        .header-title { font-size: 18px; font-weight: bold; display: flex; align-items: center; gap: 15px; }
+        .back-btn { color: white; text-decoration: none; font-size: 20px; }
 
         .content { flex-grow: 1; padding: 15px; overflow-y: auto; padding-bottom: 30px; }
         
+        /* সতর্কবার্তা বা নোটিশ বক্স */
+        .warning-note {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            border-left: 5px solid #ffc107;
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            color: #856404;
+            line-height: 1.5;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+        .warning-note i { margin-right: 5px; color: #e67e22; }
+        .warning-note b { color: #d35400; }
+
         .payment-card {
             background-color: var(--main-white); border-radius: 12px; padding: 20px;
             border: 1px solid #eaeaea; box-shadow: 0 4px 15px rgba(0,0,0,0.03);
@@ -73,15 +89,15 @@
 
         /* এডমিন নাম্বার বক্স */
         .admin-number-box {
-            background-color: #f1f2f6; border: 1px dashed var(--main-pink); border-radius: 8px;
+            background-color: var(--main-white); border: 1px dashed var(--main-pink); border-radius: 8px;
             padding: 12px; display: flex; justify-content: space-between; align-items: center;
             margin-bottom: 20px;
         }
         .admin-info { font-size: 13px; color: #2c3e50; }
-        .admin-info span { font-weight: bold; color: var(--main-pink); font-size: 15px; display: block; margin-top: 4px;}
+        .admin-info span { font-weight: bold; color: var(--main-pink); font-size: 16px; display: block; margin-top: 5px;}
         .copy-btn {
             background-color: var(--main-pink); color: white; border: none;
-            padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: bold; cursor: pointer;
+            padding: 8px 15px; border-radius: 6px; font-size: 13px; font-weight: bold; cursor: pointer;
         }
 
         /* ইনপুট গ্রুপ */
@@ -93,8 +109,8 @@
         }
         .input-box:focus { border-color: var(--main-pink); box-shadow: 0 0 0 3px rgba(226, 0, 90, 0.1); }
         
-        /* অটো অ্যামাউন্ট ফিল্ড ডিজাইন (যাতে এডিট করা না যায়) */
-        .input-box[readonly] { background-color: #f8f9fa; color: var(--main-pink); font-weight: bold; cursor: not-allowed; }
+        /* অটো অ্যামাউন্ট ফিল্ড ডিজাইন */
+        .input-box[readonly] { background-color: #fcf8e3; color: var(--main-pink); font-weight: bold; cursor: not-allowed; border-color: #faebcc; }
 
         .submit-btn {
             background-color: var(--main-pink); color: white; border: none;
@@ -126,6 +142,11 @@
         </div>
 
         <div class="content">
+            <!-- সতর্কবার্তা বা নোটিশ -->
+            <div class="warning-note">
+                <i class="fas fa-exclamation-triangle"></i> <strong>জরুরি নোটিশ:</strong> শুধুমাত্র <b>Send Money</b> গ্রহণ করা হয়। Cash Out বা অন্য কোনো মাধ্যমে টাকা পাঠালে তা গ্রহণযোগ্য হবে না।
+            </div>
+
             <div class="payment-card">
                 <div class="section-title">পেমেন্ট মেথড সিলেক্ট করুন</div>
                 <div class="method-grid">
@@ -150,7 +171,7 @@
                 <!-- এডমিনকে টাকা পাঠানোর নাম্বার -->
                 <div class="admin-number-box">
                     <div class="admin-info">
-                        আমাদের <span id="methodName">bKash</span> (Personal) নাম্বার:
+                        আমাদের <strong id="methodName" style="color: #e2136e;">bKash</strong> (Personal) নাম্বার:
                         <span id="adminNumber">01700000000</span>
                     </div>
                     <button class="copy-btn" onclick="copyNumber()">কপি</button>
@@ -164,7 +185,6 @@
 
                 <div class="input-group">
                     <label class="input-label">টাকার পরিমাণ (Amount)</label>
-                    <!-- Readonly ফিল্ড, এখানে অটোমেটিক টাকা বসে যাবে -->
                     <input type="text" id="amountField" class="input-box" value="৳ লোড হচ্ছে..." readonly>
                 </div>
 
@@ -188,7 +208,6 @@
             selectedVip = urlParams.get('vip');
             payAmount = urlParams.get('amount');
 
-            // যদি এমাউন্ট থাকে, তাহলে বক্সে অটোমেটিক বসিয়ে দেওয়া
             if (payAmount) {
                 document.getElementById('amountField').value = "৳ " + payAmount;
             } else {
@@ -204,16 +223,23 @@
             'Upay': '01600000000'
         };
 
+        const methodColors = {
+            'bKash': '#e2136e',
+            'Nagad': '#f39c12',
+            'Rocket': '#8e44ad',
+            'Upay': '#2980b9'
+        };
+
         function selectMethod(element, methodName) {
-            // সবার থেকে active ক্লাস রিমুভ করা
             document.querySelectorAll('.method-box').forEach(box => {
                 box.classList.remove('active');
             });
-            // যেটাতে ক্লিক করেছে সেটায় active ক্লাস যোগ করা
             element.classList.add('active');
 
-            // এডমিন নাম্বার চেঞ্জ করা
-            document.getElementById('methodName').innerText = methodName;
+            const nameElement = document.getElementById('methodName');
+            nameElement.innerText = methodName;
+            nameElement.style.color = methodColors[methodName]; // নামের কালার পরিবর্তন
+            
             document.getElementById('adminNumber').innerText = adminNumbers[methodName];
         }
 
@@ -236,9 +262,8 @@
                 return;
             }
 
-            // এখানে আপনি ফায়ারবেসে ডাটা সেভ করার কোড বসাতে পারবেন
-            alert(`আপনার ${selectedVip} এর পেমেন্ট রিকোয়েস্ট সফলভাবে জমা হয়েছে। এডমিন চেক করে আপগ্রেড করে দিবে!`);
-            window.location.href = "index.html"; // হোম পেজে ফেরত
+            alert(`আপনার ${selectedVip || 'প্যাকেজ'} এর পেমেন্ট রিকোয়েস্ট সফলভাবে জমা হয়েছে। এডমিন চেক করে আপগ্রেড করে দিবে!`);
+            window.location.href = "index.html"; 
         }
     </script>
 </body>
