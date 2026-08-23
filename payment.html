@@ -81,7 +81,6 @@
         }
         .method-box.active span { color: var(--main-pink); }
 
-        /* মেথড কালার */
         .c-bkash { color: #e2136e; }
         .c-nagad { color: #f39c12; }
         .c-rocket { color: #8e44ad; }
@@ -109,7 +108,6 @@
         }
         .input-box:focus { border-color: var(--main-pink); box-shadow: 0 0 0 3px rgba(226, 0, 90, 0.1); }
         
-        /* অটো অ্যামাউন্ট ফিল্ড ডিজাইন */
         .input-box[readonly] { background-color: #fcf8e3; color: var(--main-pink); font-weight: bold; cursor: not-allowed; border-color: #faebcc; }
 
         .submit-btn {
@@ -119,19 +117,45 @@
         }
         .submit-btn:hover { background-color: #c4004e; }
 
+        /* পেমেন্ট হিস্ট্রি স্টাইল */
+        .history-card {
+            background-color: var(--main-white); border-radius: 12px; padding: 20px;
+            border: 1px solid #eaeaea; box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            margin-bottom: 20px;
+        }
+        .history-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 0; border-bottom: 1px solid #f1f2f6;
+        }
+        .history-item:last-child { border-bottom: none; padding-bottom: 0; }
+        
+        .history-left { display: flex; flex-direction: column; gap: 5px; }
+        .h-title { font-size: 14px; font-weight: bold; color: #2c3e50; }
+        .h-date { font-size: 11px; color: var(--text-grey); }
+        
+        .history-right { text-align: right; }
+        .h-amount { font-size: 14px; font-weight: bold; color: var(--main-pink); }
+        .h-status { font-size: 10px; font-weight: bold; padding: 4px 8px; border-radius: 4px; margin-top: 5px; display: inline-block; }
+        
+        .status-pending { background-color: #fff3cd; color: #856404; }
+        .status-success { background-color: #d4edda; color: #155724; }
+        .status-rejected { background-color: #f8d7da; color: #721c24; }
+
+        /* টোস্ট মেসেজ (এখন গোলাপি রঙের) */
         .toast-msg {
-            visibility: hidden; min-width: 200px; background-color: #27ae60;
+            visibility: hidden; min-width: 200px; 
+            background-color: var(--main-pink); /* গোলাপি কালার */
             color: #fff; text-align: center; border-radius: 30px; padding: 12px 20px;
             position: fixed; z-index: 9999; left: 50%; transform: translateX(-50%);
             top: 20px; font-size: 13px; font-weight: bold;
-            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.4); opacity: 0; transition: opacity 0.3s, top 0.3s;
+            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.4); opacity: 0; transition: opacity 0.3s, top 0.3s;
         }
         .toast-msg.show { visibility: visible; opacity: 1; top: 40px; }
     </style>
 </head>
 <body>
 
-    <div id="toastBox" class="toast-msg">কপি করা হয়েছে!</div>
+    <div id="toastBox" class="toast-msg">নাম্বার কপি করা হয়েছে!</div>
 
     <div class="app-container">
         <div class="header">
@@ -195,6 +219,50 @@
 
                 <button class="submit-btn" onclick="submitPayment()">পেমেন্ট সাবমিট করুন</button>
             </div>
+
+            <!-- পেমেন্ট হিস্ট্রি কার্ড -->
+            <div class="history-card">
+                <div class="section-title"><i class="fas fa-history"></i> পেমেন্ট হিস্ট্রি</div>
+                
+                <div class="history-list">
+                    <!-- প্রথম হিস্ট্রি (পেন্ডিং) -->
+                    <div class="history-item">
+                        <div class="history-left">
+                            <span class="h-title">VIP 1 আপগ্রেড (bKash)</span>
+                            <span class="h-date">23 Aug 2026, 02:30 PM</span>
+                        </div>
+                        <div class="history-right">
+                            <div class="h-amount">৳ ৫০০</div>
+                            <div class="h-status status-pending">Pending</div>
+                        </div>
+                    </div>
+                    
+                    <!-- দ্বিতীয় হিস্ট্রি (সাকসেস) -->
+                    <div class="history-item">
+                        <div class="history-left">
+                            <span class="h-title">VIP 2 আপগ্রেড (Nagad)</span>
+                            <span class="h-date">20 Aug 2026, 11:15 AM</span>
+                        </div>
+                        <div class="history-right">
+                            <div class="h-amount">৳ ১০০০</div>
+                            <div class="h-status status-success">Success</div>
+                        </div>
+                    </div>
+
+                    <!-- তৃতীয় হিস্ট্রি (বাতিল) -->
+                    <div class="history-item">
+                        <div class="history-left">
+                            <span class="h-title">VIP 3 আপগ্রেড (Rocket)</span>
+                            <span class="h-date">15 Aug 2026, 05:45 PM</span>
+                        </div>
+                        <div class="history-right">
+                            <div class="h-amount">৳ ২০০০</div>
+                            <div class="h-status status-rejected">Rejected</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
