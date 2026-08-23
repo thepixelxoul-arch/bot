@@ -51,7 +51,6 @@
         .current-vip-card h3 { margin: 0 0 5px 0; font-size: 14px; font-weight: normal; color: #dcdde1; }
         .current-vip-card .level-name { font-size: 20px; font-weight: bold; color: var(--vip-gold); }
 
-        /* বড় বক্স ডিজাইন */
         .vip-package {
             background-color: var(--main-white); border-radius: 10px; padding: 20px;
             border: 1px solid #eaeaea; box-shadow: 0 4px 15px rgba(0,0,0,0.03);
@@ -67,7 +66,6 @@
         .vip-features li { font-size: 14px; color: var(--text-grey); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
         .vip-features li i { color: var(--free-green); font-size: 14px; }
 
-        /* ফ্রি নেওয়ার শর্তের বক্স */
         .condition-box {
             background-color: #fcf8e3;
             border: 1px dashed #faebcc;
@@ -80,11 +78,7 @@
         }
         .condition-box strong { color: #d35400; font-size: 13px; margin-right: 5px;}
 
-        /* বাটন গ্রুপ */
-        .btn-group {
-            display: flex;
-            gap: 10px;
-        }
+        .btn-group { display: flex; gap: 10px; }
         .upgrade-btn {
             flex: 1; background-color: var(--main-pink); color: white; border: none;
             padding: 12px; border-radius: 6px; font-size: 14px; font-weight: bold;
@@ -106,16 +100,26 @@
             width: 100%; cursor: default; 
         }
 
-        /* সাপ্তাহিক বোনাস বাটন */
+        /* ------------------------------------- */
+        /* সাপ্তাহিক বোনাস বাটন (ডিফল্ট: কালারলেস/অফ) */
+        /* ------------------------------------- */
         .bonus-btn {
+            background-color: #f1f2f6; color: #a4b0be; border: 1px solid #dcdde1; 
+            padding: 12px; border-radius: 6px; font-size: 14px; font-weight: bold; 
+            width: 100%; cursor: not-allowed; margin-top: 12px; transition: 0.2s; 
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            outline: none; /* নীল বর্ডার সরানোর জন্য */
+        }
+        .bonus-btn i { font-size: 16px; color: #a4b0be; }
+
+        /* যখন বোনাস নেওয়ার যোগ্য হবে তখন এই কালার দেখাবে */
+        .bonus-btn.active-bonus {
             background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
-            color: #d35400; border: none; padding: 12px; border-radius: 6px;
-            font-size: 14px; font-weight: bold; width: 100%; cursor: pointer;
-            margin-top: 10px; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
+            color: #d35400; border: none; cursor: pointer;
             box-shadow: 0 4px 10px rgba(253, 160, 133, 0.2);
         }
-        .bonus-btn:hover { background: linear-gradient(135deg, #fda085 0%, #f6d365 100%); }
-        .bonus-btn i { font-size: 16px; color: #e67e22; }
+        .bonus-btn.active-bonus:hover { background: linear-gradient(135deg, #fda085 0%, #f6d365 100%); }
+        .bonus-btn.active-bonus i { color: #e67e22; }
 
         .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: sticky; bottom: 0; z-index: 100; }
         .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); text-decoration: none; flex: 1; }
@@ -185,8 +189,7 @@
                     <button class="upgrade-btn" onclick="requestUpgrade('VIP 1', 500)">৳৫০০ দিয়ে কিনুন</button>
                     <button class="free-btn" onclick="requestFree('VIP 1')">ফ্রি নিন</button>
                 </div>
-                <!-- সাপ্তাহিক বোনাস -->
-                <button class="bonus-btn" onclick="claimBonus('VIP 1', 15)"><i class="fas fa-gift"></i> সাপ্তাহিক বোনাস: ৳১৫ সংগ্রহ করুন</button>
+                <button class="bonus-btn" id="bonus-btn-1" onclick="claimBonus('VIP 1', 15)"><i class="fas fa-gift"></i> সাপ্তাহিক বোনাস: ৳১৫</button>
             </div>
 
             <!-- VIP 2 -->
@@ -206,8 +209,7 @@
                     <button class="upgrade-btn" onclick="requestUpgrade('VIP 2', 1000)">৳১০০০ দিয়ে কিনুন</button>
                     <button class="free-btn" onclick="requestFree('VIP 2')">ফ্রি নিন</button>
                 </div>
-                <!-- সাপ্তাহিক বোনাস -->
-                <button class="bonus-btn" onclick="claimBonus('VIP 2', 40)"><i class="fas fa-gift"></i> সাপ্তাহিক বোনাস: ৳৪০ সংগ্রহ করুন</button>
+                <button class="bonus-btn" id="bonus-btn-2" onclick="claimBonus('VIP 2', 40)"><i class="fas fa-gift"></i> সাপ্তাহিক বোনাস: ৳৪০</button>
             </div>
 
             <!-- VIP 3 -->
@@ -227,8 +229,7 @@
                     <button class="upgrade-btn" onclick="requestUpgrade('VIP 3', 2000)">৳২০০০ দিয়ে কিনুন</button>
                     <button class="free-btn" onclick="requestFree('VIP 3')">ফ্রি নিন</button>
                 </div>
-                <!-- সাপ্তাহিক বোনাস -->
-                <button class="bonus-btn" onclick="claimBonus('VIP 3', 80)"><i class="fas fa-gift"></i> সাপ্তাহিক বোনাস: ৳৮০ সংগ্রহ করুন</button>
+                <button class="bonus-btn" id="bonus-btn-3" onclick="claimBonus('VIP 3', 80)"><i class="fas fa-gift"></i> সাপ্তাহিক বোনাস: ৳৮০</button>
             </div>
 
             <!-- VIP 4 -->
@@ -248,8 +249,7 @@
                     <button class="upgrade-btn" onclick="requestUpgrade('VIP 4', 3000)">৳৩০০০ দিয়ে কিনুন</button>
                     <button class="free-btn" onclick="requestFree('VIP 4')">ফ্রি নিন</button>
                 </div>
-                <!-- সাপ্তাহিক বোনাস -->
-                <button class="bonus-btn" onclick="claimBonus('VIP 4', 120)"><i class="fas fa-gift"></i> সাপ্তাহিক বোনাস: ৳১২০ সংগ্রহ করুন</button>
+                <button class="bonus-btn" id="bonus-btn-4" onclick="claimBonus('VIP 4', 120)"><i class="fas fa-gift"></i> সাপ্তাহিক বোনাস: ৳১২০</button>
             </div>
 
             <!-- VIP 5 -->
@@ -269,8 +269,7 @@
                     <button class="upgrade-btn" onclick="requestUpgrade('VIP 5', 5000)">৳৫০০০ দিয়ে কিনুন</button>
                     <button class="free-btn" onclick="requestFree('VIP 5')">ফ্রি নিন</button>
                 </div>
-                <!-- সাপ্তাহিক বোনাস -->
-                <button class="bonus-btn" onclick="claimBonus('VIP 5', 200)"><i class="fas fa-gift"></i> সাপ্তাহিক বোনাস: ৳২০০ সংগ্রহ করুন</button>
+                <button class="bonus-btn" id="bonus-btn-5" onclick="claimBonus('VIP 5', 200)"><i class="fas fa-gift"></i> সাপ্তাহিক বোনাস: ৳২০০</button>
             </div>
 
         </div>
@@ -306,6 +305,9 @@
             } else {
                 const currentVip = localStorage.getItem('userVipLevel') || "VIP 0";
                 document.getElementById("currentVipDisplay").innerText = currentVip;
+                
+                // লগইন করার সাথে সাথে চেক করবে কোন বাটনটি কালারফুল হবে
+                checkBonusStatus(); 
             }
         });
     </script>
@@ -320,31 +322,69 @@
             toast.className = "toast-msg success"; 
             toast.innerText = `আপনি যদি ${vipLevel} এর শর্ত পূরণ করে থাকেন, তবে এডমিনকে মেসেজ দিন।`;
             toast.classList.add("show");
-            
             setTimeout(() => { toast.classList.remove("show"); }, 3500);
         }
 
-        // সাপ্তাহিক বোনাস সংগ্রহ করার ফাংশন
-        function claimBonus(vipLevel, amount) {
-            const lastClaimKey = 'lastBonusClaim_' + vipLevel;
-            const lastClaimTime = localStorage.getItem(lastClaimKey);
-            const currentTime = new Date().getTime();
-            const oneWeek = 7 * 24 * 60 * 60 * 1000; // ৭ দিনের মিলি-সেকেন্ড
+        // বাটন কালারফুল নাকি কালারলেস হবে সেটা নির্ধারণ করা
+        function checkBonusStatus() {
+            const currentVip = localStorage.getItem('userVipLevel') || "VIP 0";
+            
+            for (let i = 1; i <= 5; i++) {
+                const vipName = `VIP ${i}`;
+                const btn = document.getElementById(`bonus-btn-${i}`);
+                
+                if (currentVip === vipName) {
+                    // যদি ইউজার এই ভিআইপি কিনে থাকে
+                    const lastClaim = localStorage.getItem(`lastBonusClaim_${vipName}`);
+                    const now = new Date().getTime();
+                    const oneWeek = 7 * 24 * 60 * 60 * 1000;
+                    
+                    // যদি আগে ক্লেইম না করে থাকে অথবা ৭ দিন পার হয়ে যায়
+                    if (!lastClaim || (now - parseInt(lastClaim)) >= oneWeek) {
+                        btn.classList.add('active-bonus');
+                    } else {
+                        btn.classList.remove('active-bonus'); // ৭ দিন পার না হলে অফ থাকবে
+                    }
+                } else {
+                    // যদি ইউজার এই ভিআইপি না কিনে থাকে
+                    btn.classList.remove('active-bonus');
+                }
+            }
+        }
 
+        // সাপ্তাহিক বোনাস সংগ্রহ করার ফাংশন
+        function claimBonus(vipName, amount) {
+            const currentVip = localStorage.getItem('userVipLevel') || "VIP 0";
             const toast = document.getElementById("toastBox");
 
-            if (lastClaimTime && (currentTime - parseInt(lastClaimTime)) < oneWeek) {
-                // যদি ৭ দিন পার না হয়
+            // প্রথমে চেক করা ইউজার এই VIP এর মালিক কিনা
+            if (currentVip !== vipName) {
                 toast.className = "toast-msg error"; 
-                toast.innerText = `আপনি ইতিমধ্যে ${vipLevel} এর এই সপ্তাহের বোনাস নিয়েছেন! আগামী সপ্তাহে আবার চেষ্টা করুন।`;
+                toast.innerText = `এই বোনাসটি শুধুমাত্র ${vipName} মেম্বারদের জন্য!`;
+                toast.classList.add("show");
+                setTimeout(() => { toast.classList.remove("show"); }, 3500);
+                return;
+            }
+
+            const lastClaimKey = 'lastBonusClaim_' + vipName;
+            const lastClaimTime = localStorage.getItem(lastClaimKey);
+            const currentTime = new Date().getTime();
+            const oneWeek = 7 * 24 * 60 * 60 * 1000;
+
+            if (lastClaimTime && (currentTime - parseInt(lastClaimTime)) < oneWeek) {
+                toast.className = "toast-msg error"; 
+                toast.innerText = `আপনি ইতিমধ্যে এই সপ্তাহের বোনাস নিয়েছেন! আগামী সপ্তাহে আবার চেষ্টা করুন।`;
                 toast.classList.add("show");
             } else {
-                // যদি ৭ দিন পার হয়ে যায় বা প্রথমবার ক্লেইম করে
+                // সফলভাবে বোনাস যুক্ত করা
                 localStorage.setItem(lastClaimKey, currentTime.toString());
                 
                 toast.className = "toast-msg success"; 
                 toast.innerText = `অভিনন্দন! আপনার একাউন্টে ৳${amount} সাপ্তাহিক বোনাস যুক্ত হয়েছে।`;
                 toast.classList.add("show");
+                
+                // বাটনটি সাথে সাথে ডিজেবল/কালারলেস করে দেওয়া
+                checkBonusStatus();
             }
             
             setTimeout(() => { toast.classList.remove("show"); }, 3500);
