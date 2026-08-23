@@ -35,85 +35,87 @@
         }
         .header-title { font-size: 20px; font-weight: bold; display: flex; align-items: center; }
         .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 22px; }
-        .header-action { color: white; font-size: 18px; text-decoration: none; }
+        .header-action { color: white; font-size: 20px; text-decoration: none; }
 
         .content { flex-grow: 1; padding: 20px; overflow-y: auto; padding-bottom: 80px; }
         
         .profile-card {
-            background-color: var(--main-white); border-radius: 12px; padding: 25px 20px;
+            background-color: var(--main-white); border-radius: 12px; padding: 30px 20px;
             border: 1px solid #eaeaea; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
         
+        /* লোগো সাইজ ও টেক্সট বড় করা হয়েছে */
         .profile-avatar {
-            width: 75px; height: 75px; background-color: rgba(226, 0, 90, 0.05);
+            width: 85px; height: 85px; background-color: rgba(226, 0, 90, 0.05);
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 12px auto; color: var(--main-pink); font-size: 14px; font-weight: bold;
+            margin: 0 auto 15px auto; color: var(--main-pink); font-size: 16px; font-weight: bold;
             border: 2px solid var(--main-pink); text-align: center; padding: 5px; line-height: 1.2;
             box-sizing: border-box;
         }
         
-        /* ব্যাজ কন্টেইনার */
+        /* ব্যাজ কন্টেইনার ও সাইজ বড় করা হয়েছে */
         .badge-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
+            display: flex; justify-content: center; align-items: center;
+            gap: 10px; flex-wrap: wrap; margin-top: 15px;
         }
 
         .user-id-badge {
-            background-color: #f1f2f6; padding: 5px 12px; border-radius: 20px;
-            font-size: 11px; font-weight: bold; color: #2c3e50;
+            background-color: #f1f2f6; padding: 8px 15px; border-radius: 20px;
+            font-size: 13px; font-weight: bold; color: #2c3e50;
             border: 1px solid #dcdde1;
         }
 
         .vip-badge {
             background: linear-gradient(135deg, #718093, #2f3640);
-            color: white; padding: 5px 12px; border-radius: 20px;
-            font-size: 11px; font-weight: bold; display: inline-flex; align-items: center; gap: 4px;
+            color: white; padding: 8px 15px; border-radius: 20px;
+            font-size: 13px; font-weight: bold; display: inline-flex; align-items: center; gap: 6px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.15);
         }
-        .vip-badge i { font-size: 10px; color: #f39c12; }
+        .vip-badge i { font-size: 12px; color: #f39c12; }
 
+        /* স্ট্যাটাস কার্ডের ফন্ট সাইজ অন্যান্য পেজের মতো করা হয়েছে */
         .stats-card {
-            background-color: var(--main-white); border-radius: 12px; padding: 15px;
+            background-color: var(--main-white); border-radius: 12px; padding: 20px 15px;
             border: 1px solid #eaeaea; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             display: flex; justify-content: space-around; text-align: center; margin-bottom: 20px;
         }
         .stat-item { flex: 1; border-right: 1px solid #eaeaea; }
         .stat-item:last-child { border-right: none; }
-        .stat-num { font-size: 18px; font-weight: bold; color: var(--main-pink); margin-bottom: 4px; }
-        .stat-label { font-size: 11px; color: var(--text-grey); font-weight: bold; }
+        .stat-num { font-size: 20px; font-weight: bold; color: var(--main-pink); margin-bottom: 5px; }
+        .stat-label { font-size: 13px; color: var(--text-grey); font-weight: bold; }
 
+        /* মেনু লিস্ট প্যাডিং ও ফন্ট বড় করা হয়েছে */
         .menu-list {
             background-color: var(--main-white); border-radius: 12px;
             border: 1px solid #eaeaea; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            overflow: hidden; margin-bottom: 20px;
+            overflow: hidden; margin-bottom: 25px;
         }
         .menu-item {
             display: flex; align-items: center; justify-content: space-between;
-            padding: 15px 20px; text-decoration: none; color: #2c3e50;
+            padding: 18px 20px; text-decoration: none; color: #2c3e50;
             border-bottom: 1px solid #f1f2f6; transition: background 0.2s;
         }
         .menu-item:last-child { border-bottom: none; }
         
         .menu-item:hover { background-color: rgba(226, 0, 90, 0.08); }
         
-        .menu-left { display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: bold; }
-        .menu-left i { font-size: 16px; color: var(--main-pink); width: 20px; text-align: center; }
+        .menu-left { display: flex; align-items: center; gap: 15px; font-size: 15px; font-weight: bold; }
+        .menu-left i { font-size: 18px; color: var(--main-pink); width: 20px; text-align: center; }
         .menu-item.admin-menu { background-color: rgba(226, 0, 90, 0.05); color: var(--main-pink); }
         .menu-item.admin-menu:hover { background-color: rgba(226, 0, 90, 0.12); }
 
+        /* লগআউট বাটন বড় করা হয়েছে */
         .logout-btn {
             background: linear-gradient(135deg, #fff3cd, #ffeeba); color: #856404;
-            border: 1px solid #ffeeba; border-radius: 10px; padding: 14px;
-            font-size: 15px; font-weight: bold; width: 100%; cursor: pointer;
+            border: 1px solid #ffeeba; border-radius: 10px; padding: 16px;
+            font-size: 16px; font-weight: bold; width: 100%; cursor: pointer;
             display: flex; align-items: center; justify-content: center; gap: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.03); transition: background 0.2s;
         }
         .logout-btn:hover { background: linear-gradient(135deg, #ffeeba, #ffe8a1); }
 
+        /* বটম নেভবার */
         .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: sticky; bottom: 0; z-index: 100; }
         .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); text-decoration: none; flex: 1; }
         .nav-item i { font-size: 18px; margin-bottom: 4px; display: block; }
@@ -132,18 +134,19 @@
         </div>
 
         <div class="content">
+            <!-- প্রোফাইল কার্ড -->
             <div class="profile-card">
                 <div class="profile-avatar">
-                    Send bKash
+                    Send<br>bKash
                 </div>
                 
-                <!-- জিমেইল রিমুভ করে সরাসরি ব্যাজ দেওয়া হয়েছে -->
                 <div class="badge-container">
                     <div class="user-id-badge">User ID: <span id="userIdDisplay">Loading...</span></div>
                     <div class="vip-badge"><i class="fas fa-crown"></i> <span id="vipLevelText">VIP 0</span></div>
                 </div>
             </div>
 
+            <!-- স্ট্যাটাস কার্ড -->
             <div class="stats-card">
                 <div class="stat-item">
                     <div class="stat-num">৳৩৫০.০০</div>
@@ -155,33 +158,33 @@
                 </div>
             </div>
 
+            <!-- মেনু লিস্ট -->
             <div class="menu-list">
                 <a href="admin.html" class="menu-item admin-menu">
                     <div class="menu-left"><i class="fas fa-user-shield"></i> এডমিন প্যানেল</div>
-                    <i class="fas fa-chevron-right" style="font-size: 12px; color: var(--main-pink);"></i>
+                    <i class="fas fa-chevron-right" style="font-size: 13px; color: var(--main-pink);"></i>
                 </a>
-                
-                <!-- "পাসওয়ার্ড পরিবর্তন" এর জায়গায় "প্রোফাইল সুরক্ষা" -->
                 <a href="security.html" class="menu-item">
                     <div class="menu-left"><i class="fas fa-user-lock"></i> প্রোফাইল সুরক্ষা</div>
-                    <i class="fas fa-chevron-right" style="font-size: 12px; color: var(--text-grey);"></i>
+                    <i class="fas fa-chevron-right" style="font-size: 13px; color: var(--text-grey);"></i>
                 </a>
-                
                 <a href="support.html" class="menu-item">
                     <div class="menu-left"><i class="fas fa-headset"></i> হেল্পলাইন ও সাপোর্ট</div>
-                    <i class="fas fa-chevron-right" style="font-size: 12px; color: var(--text-grey);"></i>
+                    <i class="fas fa-chevron-right" style="font-size: 13px; color: var(--text-grey);"></i>
                 </a>
                 <a href="rules.html" class="menu-item">
                     <div class="menu-left"><i class="fas fa-file-alt"></i> কাজের নিয়মাবলী</div>
-                    <i class="fas fa-chevron-right" style="font-size: 12px; color: var(--text-grey);"></i>
+                    <i class="fas fa-chevron-right" style="font-size: 13px; color: var(--text-grey);"></i>
                 </a>
             </div>
 
+            <!-- লগআউট বাটন -->
             <button class="logout-btn" onclick="logoutUser()">
                 <i class="fas fa-sign-out-alt"></i> লগআউট করুন
             </button>
         </div>
 
+        <!-- বটম নেভবার -->
         <div class="bottom-nav">
             <a href="index.html" class="nav-item"><i class="fas fa-home"></i>Home</a>
             <a href="withdraw.html" class="nav-item"><i class="fas fa-wallet"></i>Withdraw</a>
@@ -190,6 +193,7 @@
         </div>
     </div>
 
+    <!-- Firebase Script -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
