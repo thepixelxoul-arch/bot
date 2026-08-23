@@ -99,13 +99,23 @@
         }
         .free-btn:hover { background-color: #219653; }
 
-        /* বর্তমান প্যাকেজ বাটনের সবুজ কালার */
         .btn-current { 
             background-color: var(--free-green); 
             color: white; border: none; padding: 12px; 
             border-radius: 6px; font-size: 14px; font-weight: bold; 
             width: 100%; cursor: default; 
         }
+
+        /* সাপ্তাহিক বোনাস বাটন */
+        .bonus-btn {
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            color: #d35400; border: none; padding: 12px; border-radius: 6px;
+            font-size: 14px; font-weight: bold; width: 100%; cursor: pointer;
+            margin-top: 10px; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
+            box-shadow: 0 4px 10px rgba(253, 160, 133, 0.2);
+        }
+        .bonus-btn:hover { background: linear-gradient(135deg, #fda085 0%, #f6d365 100%); }
+        .bonus-btn i { font-size: 16px; color: #e67e22; }
 
         .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: sticky; bottom: 0; z-index: 100; }
         .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); text-decoration: none; flex: 1; }
@@ -121,6 +131,7 @@
         }
         .toast-msg.show { visibility: visible; opacity: 1; top: 40px; }
         .toast-msg.success { background-color: var(--free-green); box-shadow: 0 4px 15px rgba(39, 174, 96, 0.4); }
+        .toast-msg.error { background-color: #e74c3c; box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4); }
     </style>
 </head>
 <body>
@@ -168,12 +179,14 @@
                     <li><i class="fas fa-check-circle"></i> কাজের রেট: ৫% বেশি</li>
                 </ul>
                 <div class="condition-box">
-                    <strong>ফ্রি নেওয়ার শর্ত:</strong> ১০০টি জিমেইল একাউন্ট জমা দিতে হবে।
+                    <strong>ফ্রি নেওয়ার শর্ত:</strong> ১০০টি জিমেইল একাউন্ট জমা দিতে হবে।
                 </div>
                 <div class="btn-group">
-                    <button class="upgrade-btn" onclick="requestUpgrade('VIP 1', 500)">৳৫০০ দিয়ে কিনুন</button>
+                    <button class="upgrade-btn" onclick="requestUpgrade('VIP 1', 500)">৳৫০০ দিয়ে কিনুন</button>
                     <button class="free-btn" onclick="requestFree('VIP 1')">ফ্রি নিন</button>
                 </div>
+                <!-- সাপ্তাহিক বোনাস -->
+                <button class="bonus-btn" onclick="claimBonus('VIP 1', 15)"><i class="fas fa-gift"></i> সাপ্তাহিক বোনাস: ৳১৫ সংগ্রহ করুন</button>
             </div>
 
             <!-- VIP 2 -->
@@ -187,12 +200,14 @@
                     <li><i class="fas fa-check-circle"></i> কাজের রেট: ১০% বেশি</li>
                 </ul>
                 <div class="condition-box">
-                    <strong>ফ্রি নেওয়ার শর্ত:</strong> ২০০টি জিমেইল, ২০টি হোয়াটসঅ্যাপ এবং ২০টি টেলিগ্রাম জমা দিতে হবে।
+                    <strong>ফ্রি নেওয়ার শর্ত:</strong> ২০০টি জিমেইল, ২০টি হোয়াটসঅ্যাপ এবং ২০টি টেলিগ্রাম জমা দিতে হবে।
                 </div>
                 <div class="btn-group">
-                    <button class="upgrade-btn" onclick="requestUpgrade('VIP 2', 1000)">৳১০০০ দিয়ে কিনুন</button>
+                    <button class="upgrade-btn" onclick="requestUpgrade('VIP 2', 1000)">৳১০০০ দিয়ে কিনুন</button>
                     <button class="free-btn" onclick="requestFree('VIP 2')">ফ্রি নিন</button>
                 </div>
+                <!-- সাপ্তাহিক বোনাস -->
+                <button class="bonus-btn" onclick="claimBonus('VIP 2', 40)"><i class="fas fa-gift"></i> সাপ্তাহিক বোনাস: ৳৪০ সংগ্রহ করুন</button>
             </div>
 
             <!-- VIP 3 -->
@@ -206,12 +221,14 @@
                     <li><i class="fas fa-check-circle"></i> কাজের রেট: ১৫% বেশি</li>
                 </ul>
                 <div class="condition-box">
-                    <strong>ফ্রি নেওয়ার শর্ত:</strong> ১০০০টি জিমেইল, ২০০টি হোয়াটসঅ্যাপ, ১০০টি ইনস্টাগ্রাম এবং ৫০টি টেলিগ্রাম জমা দিতে হবে।
+                    <strong>ফ্রি নেওয়ার শর্ত:</strong> ১০০০টি জিমেইল, ২০০টি হোয়াটসঅ্যাপ, ১০০টি ইনস্টাগ্রাম এবং ৫০টি টেলিগ্রাম জমা দিতে হবে।
                 </div>
                 <div class="btn-group">
-                    <button class="upgrade-btn" onclick="requestUpgrade('VIP 3', 2000)">৳২০০০ দিয়ে কিনুন</button>
+                    <button class="upgrade-btn" onclick="requestUpgrade('VIP 3', 2000)">৳২০০০ দিয়ে কিনুন</button>
                     <button class="free-btn" onclick="requestFree('VIP 3')">ফ্রি নিন</button>
                 </div>
+                <!-- সাপ্তাহিক বোনাস -->
+                <button class="bonus-btn" onclick="claimBonus('VIP 3', 80)"><i class="fas fa-gift"></i> সাপ্তাহিক বোনাস: ৳৮০ সংগ্রহ করুন</button>
             </div>
 
             <!-- VIP 4 -->
@@ -225,12 +242,14 @@
                     <li><i class="fas fa-check-circle"></i> কাজের রেট: ২০% বেশি</li>
                 </ul>
                 <div class="condition-box">
-                    <strong>ফ্রি নেওয়ার শর্ত:</strong> ৫০০০টি জিমেইল, ৪০০টি হোয়াটসঅ্যাপ, ২০০টি টেলিগ্রাম এবং ৩০০টি ইনস্টাগ্রাম জমা দিতে হবে।
+                    <strong>ফ্রি নেওয়ার শর্ত:</strong> ৫০০০টি জিমেইল, ৪০০টি হোয়াটসঅ্যাপ, ২০০টি টেলিগ্রাম এবং ৩০০টি ইনস্টাগ্রাম জমা দিতে হবে।
                 </div>
                 <div class="btn-group">
-                    <button class="upgrade-btn" onclick="requestUpgrade('VIP 4', 3000)">৳৩০০০ দিয়ে কিনুন</button>
+                    <button class="upgrade-btn" onclick="requestUpgrade('VIP 4', 3000)">৳৩০০০ দিয়ে কিনুন</button>
                     <button class="free-btn" onclick="requestFree('VIP 4')">ফ্রি নিন</button>
                 </div>
+                <!-- সাপ্তাহিক বোনাস -->
+                <button class="bonus-btn" onclick="claimBonus('VIP 4', 120)"><i class="fas fa-gift"></i> সাপ্তাহিক বোনাস: ৳১২০ সংগ্রহ করুন</button>
             </div>
 
             <!-- VIP 5 -->
@@ -244,12 +263,14 @@
                     <li><i class="fas fa-check-circle"></i> কাজের রেট: সর্বোচ্চ</li>
                 </ul>
                 <div class="condition-box">
-                    <strong>ফ্রি নেওয়ার শর্ত:</strong> ১০০০০টি জিমেইল, ৮০০টি হোয়াটসঅ্যাপ, ৪০০টি টেলিগ্রাম এবং ৭০০টি ইনস্টাগ্রাম জমা দিতে হবে।
+                    <strong>ফ্রি নেওয়ার শর্ত:</strong> ১০০০০টি জিমেইল, ৮০০টি হোয়াটসঅ্যাপ, ৪০০টি টেলিগ্রাম এবং ৭০০টি ইনস্টাগ্রাম জমা দিতে হবে।
                 </div>
                 <div class="btn-group">
-                    <button class="upgrade-btn" onclick="requestUpgrade('VIP 5', 5000)">৳৫০০০ দিয়ে কিনুন</button>
+                    <button class="upgrade-btn" onclick="requestUpgrade('VIP 5', 5000)">৳৫০০০ দিয়ে কিনুন</button>
                     <button class="free-btn" onclick="requestFree('VIP 5')">ফ্রি নিন</button>
                 </div>
+                <!-- সাপ্তাহিক বোনাস -->
+                <button class="bonus-btn" onclick="claimBonus('VIP 5', 200)"><i class="fas fa-gift"></i> সাপ্তাহিক বোনাস: ৳২০০ সংগ্রহ করুন</button>
             </div>
 
         </div>
@@ -291,7 +312,6 @@
 
     <script>
         function requestUpgrade(vipLevel, price) {
-            // পেমেন্ট পেজে রিডাইরেক্ট করবে
             window.location.href = `payment.html?vip=${encodeURIComponent(vipLevel)}&amount=${price}`;
         }
 
@@ -300,6 +320,32 @@
             toast.className = "toast-msg success"; 
             toast.innerText = `আপনি যদি ${vipLevel} এর শর্ত পূরণ করে থাকেন, তবে এডমিনকে মেসেজ দিন।`;
             toast.classList.add("show");
+            
+            setTimeout(() => { toast.classList.remove("show"); }, 3500);
+        }
+
+        // সাপ্তাহিক বোনাস সংগ্রহ করার ফাংশন
+        function claimBonus(vipLevel, amount) {
+            const lastClaimKey = 'lastBonusClaim_' + vipLevel;
+            const lastClaimTime = localStorage.getItem(lastClaimKey);
+            const currentTime = new Date().getTime();
+            const oneWeek = 7 * 24 * 60 * 60 * 1000; // ৭ দিনের মিলি-সেকেন্ড
+
+            const toast = document.getElementById("toastBox");
+
+            if (lastClaimTime && (currentTime - parseInt(lastClaimTime)) < oneWeek) {
+                // যদি ৭ দিন পার না হয়
+                toast.className = "toast-msg error"; 
+                toast.innerText = `আপনি ইতিমধ্যে ${vipLevel} এর এই সপ্তাহের বোনাস নিয়েছেন! আগামী সপ্তাহে আবার চেষ্টা করুন।`;
+                toast.classList.add("show");
+            } else {
+                // যদি ৭ দিন পার হয়ে যায় বা প্রথমবার ক্লেইম করে
+                localStorage.setItem(lastClaimKey, currentTime.toString());
+                
+                toast.className = "toast-msg success"; 
+                toast.innerText = `অভিনন্দন! আপনার একাউন্টে ৳${amount} সাপ্তাহিক বোনাস যুক্ত হয়েছে।`;
+                toast.classList.add("show");
+            }
             
             setTimeout(() => { toast.classList.remove("show"); }, 3500);
         }
