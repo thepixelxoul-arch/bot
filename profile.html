@@ -52,8 +52,6 @@
             border: 2px solid var(--main-pink); text-align: center; padding: 5px; line-height: 1.2;
             box-sizing: border-box;
         }
-
-        .profile-email { font-size: 17px; font-weight: bold; color: #2c3e50; margin: 0 0 10px 0; word-break: break-all; }
         
         /* ব্যাজ কন্টেইনার */
         .badge-container {
@@ -70,7 +68,6 @@
             border: 1px solid #dcdde1;
         }
 
-        /* VIP স্ট্যাটাস ব্যাজ */
         .vip-badge {
             background: linear-gradient(135deg, #718093, #2f3640);
             color: white; padding: 5px 12px; border-radius: 20px;
@@ -139,8 +136,8 @@
                 <div class="profile-avatar">
                     Send bKash
                 </div>
-                <div class="profile-email" id="userEmail">Loading...</div>
                 
+                <!-- জিমেইল রিমুভ করে সরাসরি ব্যাজ দেওয়া হয়েছে -->
                 <div class="badge-container">
                     <div class="user-id-badge">User ID: <span id="userIdDisplay">Loading...</span></div>
                     <div class="vip-badge"><i class="fas fa-crown"></i> <span id="vipLevelText">VIP 0</span></div>
@@ -163,10 +160,13 @@
                     <div class="menu-left"><i class="fas fa-user-shield"></i> এডমিন প্যানেল</div>
                     <i class="fas fa-chevron-right" style="font-size: 12px; color: var(--main-pink);"></i>
                 </a>
-                <a href="change-password.html" class="menu-item">
-                    <div class="menu-left"><i class="fas fa-lock"></i> পাসওয়ার্ড পরিবর্তন</div>
+                
+                <!-- "পাসওয়ার্ড পরিবর্তন" এর জায়গায় "প্রোফাইল সুরক্ষা" -->
+                <a href="security.html" class="menu-item">
+                    <div class="menu-left"><i class="fas fa-user-lock"></i> প্রোফাইল সুরক্ষা</div>
                     <i class="fas fa-chevron-right" style="font-size: 12px; color: var(--text-grey);"></i>
                 </a>
+                
                 <a href="support.html" class="menu-item">
                     <div class="menu-left"><i class="fas fa-headset"></i> হেল্পলাইন ও সাপোর্ট</div>
                     <i class="fas fa-chevron-right" style="font-size: 12px; color: var(--text-grey);"></i>
@@ -208,18 +208,11 @@
 
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                // ১. ইউজারের জিমেইল সেট করা
-                document.getElementById("userEmail").innerText = user.email || "sakibbinsalam.admin@gmail.com";
-                
-                // ২. ইউজারের UID অনুযায়ী ডাইনামিক User ID তৈরি করা (প্রথম ১০ অক্ষর)
                 const shortUid = user.uid.substring(0, 10).toUpperCase();
                 document.getElementById("userIdDisplay").innerText = shortUid;
 
-                // ৩. ডাইনামিক VIP স্ট্যাটাস সেট করা (লোকালস্টোরেজ থেকে)
-                // যদি ইউজারের VIP কেনা থাকে তবে সেটি স্টোরেজ থেকে পাবে, না থাকলে ডিফল্ট "VIP 0" দেখাবে
                 const userVip = localStorage.getItem('userVipLevel') || "VIP 0";
                 document.getElementById("vipLevelText").innerText = userVip;
-
             } else {
                 window.location.href = "login.html";
             }
