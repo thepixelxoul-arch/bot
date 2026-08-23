@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIP Upgrade - Send bKash</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root { 
+            --main-pink: #e2005a; 
+            --main-white: #ffffff; 
+            --text-grey: #888888; 
+            --bg-light: #f4f6f9; 
+            --vip-gold: #f39c12;
+        }
+
+        body { 
+            margin: 0; padding: 0; 
+            background-color: #e9ecef; 
+            font-family: 'Segoe UI', Tahoma, sans-serif; 
+            display: flex; justify-content: center; 
+        }
+
+        .app-container { 
+            width: 100%; max-width: 450px; min-height: 100vh; 
+            background-color: var(--bg-light); color: var(--main-pink); 
+            box-shadow: 0 0 25px rgba(0,0,0,0.1); 
+            display: flex; flex-direction: column; position: relative; 
+        }
+
+        .header { 
+            background-color: var(--main-pink); padding: 15px 20px; 
+            display: flex; justify-content: space-between; align-items: center; 
+            color: var(--main-white); box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); z-index: 10; 
+            position: sticky; top: 0;
+        }
+        .header-title { font-size: 20px; font-weight: bold; display: flex; align-items: center; }
+        .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 22px; }
+
+        .content { flex-grow: 1; padding: 20px; overflow-y: auto; padding-bottom: 80px; }
+        
+        /* কারেন্ট VIP স্ট্যাটাস কার্ড */
+        .current-vip-card {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            border-radius: 12px; padding: 25px 20px;
+            color: white; text-align: center; margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .current-vip-card i { font-size: 40px; color: var(--vip-gold); margin-bottom: 10px; }
+        .current-vip-card h3 { margin: 0 0 5px 0; font-size: 16px; font-weight: normal; color: #dcdde1; }
+        .current-vip-card .level-name { font-size: 24px; font-weight: bold; color: var(--vip-gold); letter-spacing: 1px; }
+
+        /* নোটিশ বা ইনস্ট্রাকশন */
+        .instruction-box {
+            background: linear-gradient(135deg, #fff3cd, #ffeeba); 
+            border: 1px solid #ffeeba; border-left: 5px solid #ffc107;
+            padding: 12px 15px; border-radius: 6px; margin-bottom: 20px; color: #856404;
+            font-size: 13px; line-height: 1.5; box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+
+        /* VIP প্যাকেজ লিস্ট */
+        .vip-package {
+            background-color: var(--main-white); border-radius: 12px; padding: 20px;
+            border: 1px solid #eaeaea; box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            margin-bottom: 15px; position: relative; overflow: hidden;
+        }
+        
+        .vip-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f1f2f6; padding-bottom: 12px; margin-bottom: 12px; }
+        .vip-title { font-size: 18px; font-weight: bold; color: #2c3e50; display: flex; align-items: center; gap: 8px; }
+        .vip-title i { color: var(--vip-gold); font-size: 16px; }
+        .vip-price { font-size: 18px; font-weight: bold; color: var(--main-pink); }
+
+        .vip-features { list-style: none; padding: 0; margin: 0 0 15px 0; }
+        .vip-features li { font-size: 14px; color: var(--text-grey); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .vip-features li i { color: #27ae60; font-size: 14px; }
+
+        .upgrade-btn {
+            background-color: var(--main-pink); color: white; border: none;
+            padding: 12px; border-radius: 8px; font-size: 15px; font-weight: bold;
+            width: 100%; cursor: pointer; transition: background 0.2s;
+        }
+        .upgrade-btn:hover { background-color: #c4004e; }
+        .upgrade-btn.current { background-color: #2ecc71; cursor: default; }
+        .upgrade-btn.current:hover { background-color: #2ecc71; }
+
+        /* বটম নেভবার */
+        .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: sticky; bottom: 0; z-index: 100; }
+        .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); text-decoration: none; flex: 1; }
+        .nav-item i { font-size: 18px; margin-bottom: 4px; display: block; }
+        .nav-item.active { color: var(--main-pink); font-weight: bold; }
+
+        /* টোস্ট মেসেজ */
+        .toast-msg {
+            visibility: hidden; min-width: 250px; background-color: var(--main-pink);
+            color: #fff; text-align: center; border-radius: 30px; padding: 12px 20px;
+            position: fixed; z-index: 9999; left: 50%; transform: translateX(-50%);
+            top: 20px; font-size: 14px; font-weight: bold;
+            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.4); opacity: 0; transition: opacity 0.3s, top 0.3s;
+        }
+        .toast-msg.show { visibility: visible; opacity: 1; top: 40px; }
+    </style>
+</head>
+<body>
+
+    <div id="toastBox" class="toast-msg">আপগ্রেড করতে এডমিনের সাথে যোগাযোগ করুন!</div>
+
+    <div class="app-container">
+        <div class="header">
+            <div class="header-title">
+                <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+                VIP Upgrade
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- কারেন্ট VIP লেভেল দেখানোর কার্ড -->
+            <div class="current-vip-card">
+                <i class="fas fa-crown"></i>
+                <h3>আপনার বর্তমান লেভেল</h3>
+                <div class="level-name" id="currentVipDisplay">VIP 0</div>
+            </div>
+
+            <div class="instruction-box">
+                <i class="fas fa-info-circle"></i> <b>কীভাবে VIP হবেন?</b><br>
+                পছন্দের প্যাকেজটি বাছাই করে "আপগ্রেড করুন" বাটনে ক্লিক করুন এবং পেমেন্ট সম্পন্ন করে এডমিনকে স্ক্রিনশট দিন। ৫-১০ মিনিটের মধ্যে আপনার আইডি আপগ্রেড হয়ে যাবে।
+            </div>
+
+            <!-- VIP 0 (Free) -->
+            <div class="vip-package">
+                <div class="vip-header">
+                    <div class="vip-title"><i class="fas fa-medal"></i> VIP 0</div>
+                    <div class="vip-price">ফ্রি</div>
+                </div>
+                <ul class="vip-features">
+                    <li><i class="fas fa-check-circle"></i> দৈনিক কাজের লিমিট: ৫ টি</li>
+                    <li><i class="fas fa-check-circle"></i> কাজের রেট: সাধারণ</li>
+                    <li><i class="fas fa-check-circle"></i> উইথড্র লিমিট: সাধারণ</li>
+                </ul>
+                <button class="upgrade-btn current" id="btn-vip0">বর্তমান প্যাকেজ</button>
+            </div>
+
+            <!-- VIP 1 -->
+            <div class="vip-package">
+                <div class="vip-header">
+                    <div class="vip-title"><i class="fas fa-crown"></i> VIP 1</div>
+                    <div class="vip-price">৳৫০০</div>
+                </div>
+                <ul class="vip-features">
+                    <li><i class="fas fa-check-circle"></i> দৈনিক কাজের লিমিট: ১৫ টি</li>
+                    <li><i class="fas fa-check-circle"></i> কাজের রেট: ৫% বেশি</li>
+                    <li><i class="fas fa-check-circle"></i> ফাস্ট উইথড্র সাপোর্ট</li>
+                </ul>
+                <button class="upgrade-btn" onclick="requestUpgrade('VIP 1', 500)">৳৫০০ দিয়ে আপগ্রেড করুন</button>
+            </div>
+
+            <!-- VIP 2 -->
+            <div class="vip-package">
+                <div class="vip-header">
+                    <div class="vip-title"><i class="fas fa-crown"></i> VIP 2</div>
+                    <div class="vip-price">৳১০০০</div>
+                </div>
+                <ul class="vip-features">
+                    <li><i class="fas fa-check-circle"></i> দৈনিক কাজের লিমিট: ৩০ টি</li>
+                    <li><i class="fas fa-check-circle"></i> কাজের রেট: ১০% বেশি</li>
+                    <li><i class="fas fa-check-circle"></i> ফাস্ট উইথড্র সাপোর্ট</li>
+                </ul>
+                <button class="upgrade-btn" onclick="requestUpgrade('VIP 2', 1000)">৳১০০০ দিয়ে আপগ্রেড করুন</button>
+            </div>
+
+            <!-- VIP 3 -->
+            <div class="vip-package">
+                <div class="vip-header">
+                    <div class="vip-title"><i class="fas fa-crown"></i> VIP 3</div>
+                    <div class="vip-price">৳২০০০</div>
+                </div>
+                <ul class="vip-features">
+                    <li><i class="fas fa-check-circle"></i> দৈনিক কাজের লিমিট: ৫০ টি</li>
+                    <li><i class="fas fa-check-circle"></i> কাজের রেট: ১৫% বেশি</li>
+                    <li><i class="fas fa-check-circle"></i> সুপার ফাস্ট উইথড্র</li>
+                </ul>
+                <button class="upgrade-btn" onclick="requestUpgrade('VIP 3', 2000)">৳২০০০ দিয়ে আপগ্রেড করুন</button>
+            </div>
+
+            <!-- VIP 4 -->
+            <div class="vip-package">
+                <div class="vip-header">
+                    <div class="vip-title"><i class="fas fa-crown"></i> VIP 4</div>
+                    <div class="vip-price">৳৩০০০</div>
+                </div>
+                <ul class="vip-features">
+                    <li><i class="fas fa-check-circle"></i> দৈনিক কাজের লিমিট: ১০০ টি</li>
+                    <li><i class="fas fa-check-circle"></i> কাজের রেট: ২০% বেশি</li>
+                    <li><i class="fas fa-check-circle"></i> ডেডিকেটেড এডমিন সাপোর্ট</li>
+                </ul>
+                <button class="upgrade-btn" onclick="requestUpgrade('VIP 4', 3000)">৳৩০০০ দিয়ে আপগ্রেড করুন</button>
+            </div>
+
+            <!-- VIP 5 -->
+            <div class="vip-package">
+                <div class="vip-header">
+                    <div class="vip-title"><i class="fas fa-crown" style="color: #e74c3c;"></i> VIP 5 (Premium)</div>
+                    <div class="vip-price">৳৫০০০</div>
+                </div>
+                <ul class="vip-features">
+                    <li><i class="fas fa-check-circle"></i> দৈনিক কাজের লিমিট: আনলিমিটেড</li>
+                    <li><i class="fas fa-check-circle"></i> কাজের রেট: সর্বোচ্চ</li>
+                    <li><i class="fas fa-check-circle"></i> ইনস্ট্যান্ট অটো উইথড্র</li>
+                </ul>
+                <button class="upgrade-btn" onclick="requestUpgrade('VIP 5', 5000)">৳৫০০০ দিয়ে আপগ্রেড করুন</button>
+            </div>
+
+        </div>
+
+        <!-- বটম নেভবার -->
+        <div class="bottom-nav">
+            <a href="index.html" class="nav-item active"><i class="fas fa-home"></i>Home</a>
+            <a href="withdraw.html" class="nav-item"><i class="fas fa-wallet"></i>Withdraw</a>
+            <a href="refer.html" class="nav-item"><i class="fas fa-users"></i>Refer</a>
+            <a href="profile.html" class="nav-item"><i class="fas fa-user"></i>Profile</a>
+        </div>
+    </div>
+
+    <!-- Firebase Script -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
+            authDomain: "send-bkash.firebaseapp.com",
+            projectId: "send-bkash",
+            storageBucket: "send-bkash.firebasestorage.app",
+            messagingSenderId: "306247423891",
+            appId: "1:306247423891:web:bb4fb6634043e6755afa66"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                window.location.href = "login.html";
+            } else {
+                // ইউজারের বর্তমান VIP লেভেল চেক করা
+                const currentVip = localStorage.getItem('userVipLevel') || "VIP 0";
+                document.getElementById("currentVipDisplay").innerText = currentVip;
+            }
+        });
+    </script>
+
+    <script>
+        // আপগ্রেড বাটনে ক্লিক করলে এডমিনকে পেমেন্ট করার নোটিশ দেখাবে
+        function requestUpgrade(vipLevel, price) {
+            const toast = document.getElementById("toastBox");
+            toast.innerText = `${vipLevel} আপগ্রেড করতে এডমিনের সাথে যোগাযোগ করে ৳${price} পেমেন্ট করুন!`;
+            toast.classList.add("show");
+            
+            setTimeout(() => { 
+                toast.classList.remove("show"); 
+            }, 3500);
+
+            // বিঃদ্রঃ - আপনি চাইলে এখানে সরাসরি support.html বা পেমেন্ট পেজের লিংকও বসিয়ে দিতে পারেন:
+            // window.location.href = "support.html";
+        }
+    </script>
+</body>
+</html>
