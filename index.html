@@ -111,64 +111,77 @@
             padding-bottom: 30px; 
         }
         
-        /* স্লাইডার স্টাইল (ওয়েবসাইটের থিমের সাথে মিল রেখে পিংক ও হোয়াইট) */
+        /* স্লাইডার স্টাইল (আসল বিজ্ঞাপনের মতো বড় এবং আকর্ষণীয় পিংক গ্র্যাডিয়েন্ট) */
         .ad-slider-wrapper {
-            background-color: var(--main-white);
-            border: 1px solid #eaeaea;
-            border-left: 4px solid var(--main-pink);
-            border-radius: 8px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            background: linear-gradient(135deg, var(--main-pink), #ff3377); 
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(226, 0, 90, 0.3);
             position: relative;
             overflow: hidden;
             cursor: pointer;
             width: 100%;
         }
 
+        .ad-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: #ffcc00;
+            color: #333;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 4px 10px;
+            border-radius: 20px;
+            z-index: 5;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
         .ad-slider-track {
             display: flex;
-            transition: transform 0.6s ease-in-out; 
+            transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1); 
             width: 100%;
         }
 
         .ad-slide {
             min-width: 100%;
             box-sizing: border-box;
-            padding: 15px;
+            padding: 35px 20px; /* প্যাডিং বাড়িয়ে ব্যানারটি বড় করা হয়েছে */
             display: flex;
+            flex-direction: column;
             align-items: center;
+            text-align: center;
             gap: 15px;
         }
 
         .ad-icon-circle {
-            background-color: rgba(226, 0, 90, 0.08);
-            color: var(--main-pink);
-            min-width: 45px;
-            height: 45px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            min-width: 70px;
+            height: 70px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
-        }
-
-        .ad-content-box {
-            text-align: left;
+            font-size: 32px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         .ad-content-box h4 {
-            font-size: 15px;
-            font-weight: bold;
-            color: #2c3e50; 
-            margin: 0 0 5px 0;
+            font-size: 20px;
+            font-weight: 900;
+            color: white; 
+            margin: 0 0 8px 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.15);
         }
 
         .ad-content-box p {
-            font-size: 12px;
-            color: var(--main-pink); 
+            font-size: 14px;
+            color: #ffe6f0; 
             margin: 0;
-            font-weight: bold;
-            line-height: 1.4;
+            font-weight: 600;
+            line-height: 1.5;
+            padding: 0 10px;
         }
 
         .section-title { color: #2c3e50; font-size: 16px; margin: 5px 0 15px 0; font-weight: bold; }
@@ -259,6 +272,7 @@
             
             <!-- স্লাইডার ব্যানার অ্যাড -->
             <div class="ad-slider-wrapper" onclick="window.location.href='vip.html'">
+                <div class="ad-badge">HOT OFFER 🔥</div>
                 <div class="ad-slider-track" id="adSliderTrack">
                     <!-- জাভাস্ক্রিপ্ট দিয়ে স্লাইডগুলো এখানে তৈরি হবে -->
                 </div>
@@ -388,7 +402,7 @@
             { icon: "fa-crown", title: "VIP 3 স্পেশাল অফার", desc: "মাত্র ৳২৯৯ টাকায় কিনুন! দৈনিক ৪০টি জিমেইল ও ৩০টি ইনস্টাগ্রাম কাজ।" },
             { icon: "fa-crown", title: "VIP 4 স্পেশাল অফার", desc: "মাত্র ৳৩৯৯ টাকায় কিনুন! দৈনিক ৫০টি জিমেইল ও ৪০টি ইনস্টাগ্রাম কাজ।" },
             { icon: "fa-crown", title: "VIP 5 স্পেশাল অফার", desc: "মাত্র ৳৪৯৯ টাকায় কিনুন! দৈনিক ৬০টি জিমেইল ও ৫০টি ইনস্টাগ্রাম কাজ।" },
-            { icon: "fa-crown", title: "VIP 6 স্পেশাল অফার", desc: "মাত্র ৳৫৯৯ টাকায় কিনুন! দৈনিক ৭০টি জিমেইল ও ৬০টি ইনস্টাগ্রাম কাজ।" },
+            { title: "VIP 6 স্পেশাল অফার", desc: "মাত্র ৳৫৯৯ টাকায় কিনুন! দৈনিক ৭০টি জিমেইল ও ৬০টি ইনস্টাগ্রাম কাজ।" },
             { icon: "fa-crown", title: "VIP 7 স্পেশাল অফার", desc: "মাত্র ৳৬৯৯ টাকায় কিনুন! দৈনিক ৮০টি জিমেইল ও ৭০টি ইনস্টাগ্রাম কাজ।" },
             { icon: "fa-crown", title: "VIP 8 স্পেশাল অফার", desc: "মাত্র ৳৭৯৯ টাকায় কিনুন! দৈনিক ৯০টি জিমেইল ও ৮০টি ইনস্টাগ্রাম কাজ।" },
             { icon: "fa-crown", title: "VIP 9 স্পেশাল অফার", desc: "মাত্র ৳৮৯৯ টাকায় কিনুন! দৈনিক ১০০টি জিমেইল ও ৯০টি ইনস্টাগ্রাম কাজ।" },
@@ -402,8 +416,9 @@
         ads.forEach(ad => {
             const slide = document.createElement('div');
             slide.className = 'ad-slide';
+            const iconClass = ad.icon ? ad.icon : "fa-crown"; // ডিফল্ট আইকন
             slide.innerHTML = `
-                <div class="ad-icon-circle"><i class="fas ${ad.icon}"></i></div>
+                <div class="ad-icon-circle"><i class="fas ${iconClass}"></i></div>
                 <div class="ad-content-box">
                     <h4>${ad.title}</h4>
                     <p>${ad.desc}</p>
@@ -423,7 +438,7 @@
                 track.style.transform = `translateX(0%)`;
                 
                 setTimeout(() => {
-                    track.style.transition = 'transform 0.6s ease-in-out';
+                    track.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1)';
                 }, 50);
                 return;
             }
