@@ -68,13 +68,37 @@
             padding-bottom: 30px; 
         }
         
-        .notice-box {
-            background: linear-gradient(135deg, #fff3cd, #ffeeba);
-            border: 1px solid #ffeeba; border-left: 5px solid #ffc107;
-            padding: 12px 15px; border-radius: 4px; margin-bottom: 20px; color: #856404;
+        /* নোটিশ বক্সের জায়গায় ডায়নামিক স্লাইডার ব্যানার */
+        .ad-slider-box {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            border-radius: 8px;
+            padding: 18px 15px;
+            margin-bottom: 20px;
+            color: white;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #f39c12;
+            cursor: pointer;
         }
-        .notice-header { display: flex; align-items: center; gap: 8px; font-weight: bold; font-size: 14px; margin-bottom: 5px; }
-        .notice-text { margin: 0; font-size: 13px; line-height: 1.4; }
+        .ad-slider-box i {
+            color: #f39c12;
+            font-size: 20px;
+            margin-bottom: 6px;
+        }
+        .ad-title {
+            font-size: 15px;
+            font-weight: bold;
+            color: #f39c12;
+            margin-bottom: 4px;
+        }
+        .ad-desc {
+            font-size: 13px;
+            color: #dcdde1;
+            margin: 0;
+            font-weight: 500;
+        }
 
         .section-title { color: #2c3e50; font-size: 16px; margin: 5px 0 15px 0; font-weight: bold; }
         .service-list { display: flex; flex-direction: column; gap: 12px; }
@@ -121,7 +145,7 @@
         .icon-wa { background-color: #25d366; } 
         .icon-tg { background-color: #0088cc; }
         .icon-ig { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
-        .icon-number { background-color: #8e44ad; } /* নাম্বার কেনার আইকনের জন্য বেগুনি কালার */
+        .icon-number { background-color: #8e44ad; } 
         
         .service-details h4 { margin: 0 0 4px 0; color: #2c3e50; font-size: 15px; }
         .service-details p { margin: 0; color: var(--main-pink); font-size: 13px; font-weight: bold; }
@@ -161,19 +185,17 @@
         <!-- Main Content -->
         <div class="content">
             
-            <div class="notice-box">
-                <div class="notice-header">
-                    <i class="fas fa-bullhorn"></i> জরুরি নোটিশ:
-                </div>
-                <p class="notice-text">
-                    সঠিক নিয়মে কাজ করুন। কোনো প্রকার ফেক কাজ জমা দিলে অ্যাকাউন্ট স্থায়ীভাবে ব্যান করা হবে। পেমেন্ট সংক্রান্ত যেকোনো সমস্যায় সাপোর্টে যোগাযোগ করুন।
-                </p>
+            <!-- স্লাইডার ব্যানার অ্যাড (VIP 1 থেকে Send bKash Member পর্যন্ত অটো ঘুরবে) -->
+            <div class="ad-slider-box" onclick="window.location.href='vip.html'">
+                <i class="fas fa-crown"></i>
+                <div class="ad-title" id="adTitle">VIP 1 স্পেশাল অফার</div>
+                <p class="ad-desc" id="adDesc">মাত্র ৳৯৯ টাকায় কিনুন! দৈনিক ২০টি জিমেইল ও ১০টি ইনস্টাগ্রাম কাজ করুন।</p>
             </div>
 
             <h3 class="section-title">কাজ নির্বাচন করুন</h3>
             
             <div class="service-list">
-                <!-- VIP অপশন -->
+                <!-- VIP আপগ্রেড -->
                 <div class="vip-card">
                     <div class="vip-left"><i class="fas fa-crown"></i> VIP আপগ্রেড</div>
                     <button class="vip-btn task-btn" onclick="window.location.href='vip.html'">চেক করুন</button>
@@ -215,7 +237,7 @@
                     <button class="service-btn task-btn" onclick="window.location.href='instagram.html'">জমা দিন</button>
                 </div>
 
-                <!-- নাম্বার কিনুন কার্ড (নতুন যোগ করা হয়েছে) -->
+                <!-- নাম্বার কিনুন কার্ড -->
                 <div class="service-card">
                     <div class="service-info">
                         <div class="service-icon icon-number"><i class="fas fa-sim-card"></i></div>
@@ -235,7 +257,7 @@
         </div>
     </div>
 
-    <!-- Firebase Script -->
+    <!-- Firebase & Ad Slider Script -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
@@ -278,6 +300,37 @@
                 });
             }
         });
+    </script>
+
+    <!-- বিজ্ঞাপন স্লাইডার লজিক -->
+    <script>
+        const ads = [
+            { title: "VIP 1 স্পেশাল অফার", desc: "মাত্র ৳৯৯ টাকায় কিনুন! দৈনিক ২০টি জিমেইল ও ১০টি ইনস্টাগ্রাম কাজ করুন।" },
+            { title: "VIP 2 স্পেশাল অফার", desc: "মাত্র ৳১৯৯ টাকায় কিনুন! দৈনিক ৩০টি জিমেইল ও ২০টি ইনস্টাগ্রাম কাজ করুন।" },
+            { title: "VIP 3 স্পেশাল অফার", desc: "মাত্র ৳২৯৯ টাকায় কিনুন! দৈনিক ৪০টি জিমেইল ও ৩০টি ইনস্টাগ্রাম কাজ করুন।" },
+            { title: "VIP 4 স্পেশাল অফার", desc: "মাত্র ৳৩৯৯ টাকায় কিনুন! দৈনিক ৫০টি জিমেইল ও ৪০টি ইনস্টাগ্রাম কাজ করুন।" },
+            { title: "VIP 5 স্পেশাল অফার", desc: "মাত্র ৳৪৯৯ টাকায় কিনুন! দৈনিক ৬০টি জিমেইল ও ৫০টি ইনস্টাগ্রাম কাজ করুন।" },
+            { title: "VIP 6 স্পেশাল অফার", desc: "মাত্র ৳৫৯৯ টাকায় কিনুন! দৈনিক ৭০টি জিমেইল ও ৬০টি ইনস্টাগ্রাম কাজ করুন।" },
+            { title: "VIP 7 স্পেশাল অফার", desc: "মাত্র ৳৬৯৯ টাকায় কিনুন! দৈনিক ৮০টি জিমেইল ও ৭০টি ইনস্টাগ্রাম কাজ করুন।" },
+            { title: "VIP 8 স্পেশাল অফার", desc: "মাত্র ৳৭৯৯ টাকায় কিনুন! দৈনিক ৯০টি জিমেইল ও ৮০টি ইনস্টাগ্রাম কাজ করুন।" },
+            { title: "VIP 9 স্পেশাল অফার", desc: "মাত্র ৳৮৯৯ টাকায় কিনুন! দৈনিক ১০০টি জিমেইল ও ৯০টি ইনস্টাগ্রাম কাজ করুন।" },
+            { title: "VIP 10 স্পেশাল অফার", desc: "মাত্র ৳৯৯৯ টাকায় কিনুন! দৈনিক ১১০টি জিমেইল ও ১০০টি ইনস্টাগ্রাম কাজ করুন।" },
+            { title: "⭐ Send bKash Member স্পেশাল অফার", desc: "মাত্র ৳২০০০ টাকায় কিনুন! দৈনিক ২০০টি জিমেইল ও ১৮০টি ইনস্টাগ্রাম কাজ করুন।" }
+        ];
+
+        let currentAd = 0;
+        function changeAd() {
+            const titleEl = document.getElementById("adTitle");
+            const descEl = document.getElementById("adDesc");
+            
+            titleEl.innerText = ads[currentAd].title;
+            descEl.innerText = ads[currentAd].desc;
+            
+            currentAd = (currentAd + 1) % ads.length;
+        }
+
+        // প্রতি ৩ সেকেন্ড পর পর অ্যাড পরিবর্তন হবে
+        setInterval(changeAd, 3000);
     </script>
 </body>
 </html>
