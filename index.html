@@ -48,6 +48,17 @@
         }
         
         .header-title { font-size: 20px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
+        
+        /* লোগো অ্যানিমেশন (হালকা নড়বে) */
+        @keyframes flyingPlane {
+            0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+            50% { transform: translateY(-3px) translateX(2px) rotate(8deg); }
+        }
+        .header-title i {
+            display: inline-block;
+            animation: flyingPlane 2.5s infinite ease-in-out;
+        }
+
         .header-auth { display: flex; gap: 8px; align-items: center; }
 
         .auth-btn { 
@@ -68,13 +79,13 @@
             padding-bottom: 30px; 
         }
         
-        /* নতুন স্লাইডার স্টাইল (হালকা গোলাপি থিম এবং স্লাইড অ্যানিমেশন) */
+        /* স্লাইডার স্টাইল (ডার্ক থিম এবং স্লাইড অ্যানিমেশন) */
         .ad-slider-wrapper {
-            background: linear-gradient(135deg, #fff0f5, #fce4ec);
-            border: 1px solid #f8bbd0;
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            border: 1px solid #f39c12;
             border-radius: 8px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.15);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             position: relative;
             overflow: hidden;
             cursor: pointer;
@@ -83,7 +94,7 @@
 
         .ad-slider-track {
             display: flex;
-            transition: transform 0.6s ease-in-out; /* স্লাইড হওয়ার অ্যানিমেশন */
+            transition: transform 0.6s ease-in-out; 
             width: 100%;
         }
 
@@ -95,7 +106,7 @@
         }
 
         .ad-slide i {
-            color: var(--main-pink);
+            color: #f39c12; /* সোনালী আইকন */
             font-size: 24px;
             margin-bottom: 8px;
         }
@@ -103,15 +114,15 @@
         .ad-slide h4 {
             font-size: 16px;
             font-weight: bold;
-            color: var(--main-pink);
+            color: #f39c12; /* সোনালী টেক্সট */
             margin: 0 0 6px 0;
         }
 
         .ad-slide p {
             font-size: 13px;
-            color: #c2185b; /* গাঢ় গোলাপি টেক্সট */
+            color: #dcdde1; /* হালকা সাদা টেক্সট */
             margin: 0;
-            font-weight: bold;
+            font-weight: 500;
             line-height: 1.4;
         }
 
@@ -200,7 +211,7 @@
         <!-- Main Content -->
         <div class="content">
             
-            <!-- স্লাইডার ব্যানার অ্যাড (অ্যানিমেটেড স্লাইডিং) -->
+            <!-- স্লাইডার ব্যানার অ্যাড (অ্যানিমেটেড স্লাইডিং ও ডার্ক থিম) -->
             <div class="ad-slider-wrapper" onclick="window.location.href='vip.html'">
                 <div class="ad-slider-track" id="adSliderTrack">
                     <!-- জাভাস্ক্রিপ্ট দিয়ে স্লাইডগুলো এখানে তৈরি হবে -->
