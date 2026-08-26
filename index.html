@@ -111,7 +111,7 @@
             padding-bottom: 30px; 
         }
         
-        /* স্লাইডার স্টাইল (আসল বিজ্ঞাপনের মতো বড় এবং আকর্ষণীয় পিংক গ্র্যাডিয়েন্ট) */
+        /* স্লাইডার স্টাইল */
         .ad-slider-wrapper {
             background: linear-gradient(135deg, var(--main-pink), #ff3377); 
             border-radius: 12px;
@@ -146,7 +146,7 @@
         .ad-slide {
             min-width: 100%;
             box-sizing: border-box;
-            padding: 35px 20px; /* প্যাডিং বাড়িয়ে ব্যানারটি বড় করা হয়েছে */
+            padding: 35px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -201,7 +201,8 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.03); 
         }
         .vip-left { color: #2c3e50; font-weight: bold; font-size: 16px; display: flex; align-items: center; gap: 10px; }
-        .vip-left i { color: #f39c12; font-size: 22px; } 
+        /* VIP আইকন গোলাপি করা হয়েছে */
+        .vip-left i { color: var(--main-pink); font-size: 22px; } 
         
         .vip-btn { 
             background-color: rgba(226, 0, 90, 0.1); 
@@ -224,12 +225,14 @@
         }
         .service-info { display: flex; align-items: center; gap: 15px; }
         
-        .service-icon { width: 55px; height: 55px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 30px; color: white; }
-        .icon-gmail { background-color: #ea4335; } 
-        .icon-wa { background-color: #25d366; } 
-        .icon-tg { background-color: #0088cc; }
-        .icon-ig { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
-        .icon-number { background-color: #8e44ad; } 
+        /* সব সার্ভিস আইকনের ব্যাকগ্রাউন্ড এখন ওয়েবসাইটের গোলাপি থিমের সাথে মিলানো হয়েছে */
+        .service-icon { 
+            width: 55px; height: 55px; border-radius: 6px; 
+            display: flex; align-items: center; justify-content: center; 
+            font-size: 30px; color: white; 
+            background: linear-gradient(135deg, var(--main-pink), #ff3377);
+            box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);
+        }
         
         .service-details h4 { margin: 0 0 4px 0; color: #2c3e50; font-size: 15px; }
         .service-details p { margin: 0; color: var(--main-pink); font-size: 13px; font-weight: bold; }
@@ -290,7 +293,8 @@
                 <!-- Gmail কার্ড -->
                 <div class="service-card">
                     <div class="service-info">
-                        <div class="service-icon icon-gmail"><i class="fa-brands fa-google"></i></div>
+                        <!-- আইকনের আলাদা কালার ক্লাস বাদ দিয়ে কমন service-icon রাখা হয়েছে -->
+                        <div class="service-icon"><i class="fa-brands fa-google"></i></div>
                         <div class="service-details"><h4>Gmail Account</h4><p>জিমেইল তৈরি করুন (রেট: ৳৭.৫০)</p></div>
                     </div>
                     <button class="service-btn task-btn" onclick="window.location.href='gmail.html'">তৈরি করুন</button>
@@ -299,7 +303,7 @@
                 <!-- WhatsApp কার্ড -->
                 <div class="service-card">
                     <div class="service-info">
-                        <div class="service-icon icon-wa"><i class="fa-brands fa-whatsapp"></i></div>
+                        <div class="service-icon"><i class="fa-brands fa-whatsapp"></i></div>
                         <div class="service-details"><h4>WhatsApp Account</h4><p>রেট: ৳১৫.০০</p></div>
                     </div>
                     <button class="service-btn task-btn" onclick="window.location.href='whatsapp.html'">জমা দিন</button>
@@ -308,7 +312,7 @@
                 <!-- Telegram কার্ড -->
                 <div class="service-card">
                     <div class="service-info">
-                        <div class="service-icon icon-tg"><i class="fa-brands fa-telegram"></i></div>
+                        <div class="service-icon"><i class="fa-brands fa-telegram"></i></div>
                         <div class="service-details"><h4>Telegram Account</h4><p>রেট: ৳১২.০০</p></div>
                     </div>
                     <button class="service-btn task-btn" onclick="window.location.href='telegram.html'">জমা দিন</button>
@@ -317,7 +321,7 @@
                 <!-- Instagram কার্ড -->
                 <div class="service-card">
                     <div class="service-info">
-                        <div class="service-icon icon-ig"><i class="fa-brands fa-instagram"></i></div>
+                        <div class="service-icon"><i class="fa-brands fa-instagram"></i></div>
                         <div class="service-details"><h4>Instagram Account</h4><p>রেট: ৳১০.০০</p></div>
                     </div>
                     <button class="service-btn task-btn" onclick="window.location.href='instagram.html'">জমা দিন</button>
@@ -326,7 +330,7 @@
                 <!-- নাম্বার কিনুন কার্ড -->
                 <div class="service-card">
                     <div class="service-info">
-                        <div class="service-icon icon-number"><i class="fas fa-sim-card"></i></div>
+                        <div class="service-icon"><i class="fas fa-sim-card"></i></div>
                         <div class="service-details"><h4>নাম্বার কিনুন</h4><p>রেট: ৳৩.৮০</p></div>
                     </div>
                     <button class="service-btn task-btn" onclick="window.location.href='number.html'">কিনুন</button>
@@ -402,7 +406,7 @@
             { icon: "fa-crown", title: "VIP 3 স্পেশাল অফার", desc: "মাত্র ৳২৯৯ টাকায় কিনুন! দৈনিক ৪০টি জিমেইল ও ৩০টি ইনস্টাগ্রাম কাজ।" },
             { icon: "fa-crown", title: "VIP 4 স্পেশাল অফার", desc: "মাত্র ৳৩৯৯ টাকায় কিনুন! দৈনিক ৫০টি জিমেইল ও ৪০টি ইনস্টাগ্রাম কাজ।" },
             { icon: "fa-crown", title: "VIP 5 স্পেশাল অফার", desc: "মাত্র ৳৪৯৯ টাকায় কিনুন! দৈনিক ৬০টি জিমেইল ও ৫০টি ইনস্টাগ্রাম কাজ।" },
-            { title: "VIP 6 স্পেশাল অফার", desc: "মাত্র ৳৫৯৯ টাকায় কিনুন! দৈনিক ৭০টি জিমেইল ও ৬০টি ইনস্টাগ্রাম কাজ।" },
+            { icon: "fa-crown", title: "VIP 6 স্পেশাল অফার", desc: "মাত্র ৳৫৯৯ টাকায় কিনুন! দৈনিক ৭০টি জিমেইল ও ৬০টি ইনস্টাগ্রাম কাজ।" },
             { icon: "fa-crown", title: "VIP 7 স্পেশাল অফার", desc: "মাত্র ৳৬৯৯ টাকায় কিনুন! দৈনিক ৮০টি জিমেইল ও ৭০টি ইনস্টাগ্রাম কাজ।" },
             { icon: "fa-crown", title: "VIP 8 স্পেশাল অফার", desc: "মাত্র ৳৭৯৯ টাকায় কিনুন! দৈনিক ৯০টি জিমেইল ও ৮০টি ইনস্টাগ্রাম কাজ।" },
             { icon: "fa-crown", title: "VIP 9 স্পেশাল অফার", desc: "মাত্র ৳৮৯৯ টাকায় কিনুন! দৈনিক ১০০টি জিমেইল ও ৯০টি ইনস্টাগ্রাম কাজ।" },
@@ -416,7 +420,7 @@
         ads.forEach(ad => {
             const slide = document.createElement('div');
             slide.className = 'ad-slide';
-            const iconClass = ad.icon ? ad.icon : "fa-crown"; // ডিফল্ট আইকন
+            const iconClass = ad.icon ? ad.icon : "fa-crown"; 
             slide.innerHTML = `
                 <div class="ad-icon-circle"><i class="fas ${iconClass}"></i></div>
                 <div class="ad-content-box">
