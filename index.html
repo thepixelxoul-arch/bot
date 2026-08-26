@@ -49,7 +49,7 @@
         
         .header-title { font-size: 20px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
         
-        /* লোগো অ্যানিমেশন (হালকা নড়বে) */
+        /* লোগো অ্যানিমেশন */
         @keyframes flyingPlane {
             0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
             50% { transform: translateY(-3px) translateX(2px) rotate(8deg); }
@@ -59,7 +59,8 @@
             animation: flyingPlane 2.5s infinite ease-in-out;
         }
 
-        .header-auth { display: flex; gap: 8px; align-items: center; }
+        /* ব্যালেন্স এবং নোটিফিকেশন সেকশন */
+        .header-auth { display: flex; gap: 15px; align-items: center; } /* গ্যাপ বাড়ানো হয়েছে */
 
         .auth-btn { 
             background-color: var(--main-white); color: var(--main-pink); 
@@ -70,6 +71,37 @@
         .header-balance { 
             background-color: rgba(255, 255, 255, 0.2); padding: 6px 12px; border-radius: 4px; 
             font-size: 15px; font-weight: bold; display: flex; align-items: center; gap: 6px; 
+        }
+
+        /* নোটিফিকেশন আইকন স্টাইল */
+        .notification-btn {
+            color: var(--main-white);
+            font-size: 22px;
+            position: relative;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .notification-btn:hover {
+            transform: scale(1.1);
+        }
+        .notif-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background-color: #ffcc00;
+            color: var(--main-pink);
+            font-size: 10px;
+            font-weight: bold;
+            min-width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .content { 
@@ -106,7 +138,7 @@
         }
 
         .ad-slide i {
-            color: #f39c12; /* সোনালী আইকন */
+            color: #f39c12; 
             font-size: 24px;
             margin-bottom: 8px;
         }
@@ -114,13 +146,13 @@
         .ad-slide h4 {
             font-size: 16px;
             font-weight: bold;
-            color: #f39c12; /* সোনালী টেক্সট */
+            color: #f39c12; 
             margin: 0 0 6px 0;
         }
 
         .ad-slide p {
             font-size: 13px;
-            color: #dcdde1; /* হালকা সাদা টেক্সট */
+            color: #dcdde1; 
             margin: 0;
             font-weight: 500;
             line-height: 1.4;
@@ -202,6 +234,7 @@
                 <i class="fas fa-paper-plane"></i> Send bKash
             </div>
             
+            <!-- ব্যালেন্স এবং নোটিফিকেশন সেকশন -->
             <div class="header-auth" id="authSection">
                 <a href="login.html" class="auth-btn">Login</a>
                 <a href="register.html" class="auth-btn register">Sign Up</a>
@@ -211,7 +244,7 @@
         <!-- Main Content -->
         <div class="content">
             
-            <!-- স্লাইডার ব্যানার অ্যাড (অ্যানিমেটেড স্লাইডিং ও ডার্ক থিম) -->
+            <!-- স্লাইডার ব্যানার অ্যাড -->
             <div class="ad-slider-wrapper" onclick="window.location.href='vip.html'">
                 <div class="ad-slider-track" id="adSliderTrack">
                     <!-- জাভাস্ক্রিপ্ট দিয়ে স্লাইডগুলো এখানে তৈরি হবে -->
@@ -306,7 +339,14 @@
             const taskBtns = document.querySelectorAll(".task-btn");
             
             if (user) {
-                authSection.innerHTML = `<div class="header-balance"><i class="fas fa-wallet"></i> ৳৫০.০০</div>`;
+                // এখানে ব্যালেন্স এবং নোটিফিকেশন বাটন যোগ করা হয়েছে
+                authSection.innerHTML = `
+                    <div class="header-balance"><i class="fas fa-wallet"></i> ৳৫০.০০</div>
+                    <a href="#" class="notification-btn" title="Notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notif-badge">2</span>
+                    </a>
+                `;
             } else {
                 authSection.innerHTML = `<a href="login.html" class="auth-btn">Login</a><a href="register.html" class="auth-btn register">Sign Up</a>`;
                 
