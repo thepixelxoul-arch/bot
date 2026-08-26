@@ -21,10 +21,6 @@
             display: flex; justify-content: center; 
         }
 
-        /* 
-         * পুরো স্ক্রিন ফিক্সড করা হয়েছে (height: 100vh)
-         * যাতে মেনু বার সবসময় নিচেই থাকে 
-         */
         .app-container { 
             width: 100%; max-width: 450px; height: 100vh; 
             background-color: var(--bg-light); color: var(--main-pink); 
@@ -34,7 +30,7 @@
         }
 
         .header { 
-            flex-shrink: 0; /* হেডার ফিক্সড */
+            flex-shrink: 0; 
             background-color: var(--main-pink); padding: 15px 20px; 
             display: flex; justify-content: space-between; align-items: center; 
             color: var(--main-white); box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); z-index: 10; 
@@ -42,10 +38,6 @@
         .header-title { font-size: 20px; font-weight: bold; display: flex; align-items: center; }
         .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 22px; }
 
-        /* 
-         * শুধু মাঝখানের অংশ স্ক্রল হবে
-         * এখানে স্ক্রলবার (দাগ) রিমুভ করা হয়নি
-         */
         .content { 
             flex-grow: 1; padding: 20px; 
             overflow-y: auto; overflow-x: hidden; 
@@ -59,6 +51,12 @@
             font-size: 13px; line-height: 1.5; box-shadow: 0 2px 8px rgba(0,0,0,0.03);
         }
 
+        /* ব্যালেন্স কার্ডের ফ্লোটিং অ্যানিমেশন */
+        @keyframes floatBalance {
+            0%, 100% { transform: translateY(0); box-shadow: 0 6px 15px rgba(226, 0, 90, 0.25); }
+            50% { transform: translateY(-4px); box-shadow: 0 10px 20px rgba(226, 0, 90, 0.35); }
+        }
+
         .balance-card {
             background: linear-gradient(135deg, var(--main-pink), #ff3377);
             border-radius: 10px;
@@ -69,6 +67,7 @@
             align-items: center;
             box-shadow: 0 6px 15px rgba(226, 0, 90, 0.25);
             color: white;
+            animation: floatBalance 3s infinite ease-in-out; /* অ্যানিমেশন যুক্ত করা হলো */
         }
         .balance-title { font-size: 14px; color: rgba(255, 255, 255, 0.9); font-weight: bold; display: flex; align-items: center; gap: 8px; }
         .balance-amount { font-size: 22px; font-weight: 900; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
@@ -181,7 +180,6 @@
         .status-approved { background-color: rgba(39, 174, 96, 0.1); color: #27ae60; }
         .status-rejected { background-color: rgba(231, 76, 60, 0.1); color: #e74c3c; }
 
-        /* বটম নেভিগেশন একদম নিচে ফিক্সড থাকবে */
         .bottom-nav { 
             flex-shrink: 0; 
             background-color: var(--main-white); display: flex; justify-content: space-around; 
@@ -219,7 +217,7 @@
                 <i class="fas fa-info-circle"></i> ন্যূনতম উইথড্র পরিমাণ ৳১০০ টাকা। ২৪ ঘণ্টার মধ্যে পেমেন্ট কমপ্লিট করা হবে।
             </div>
 
-            <!-- ব্যালেন্স কার্ড -->
+            <!-- ব্যালেন্স কার্ড (অ্যানিমেশন সহ) -->
             <div class="balance-card">
                 <div class="balance-title"><i class="fas fa-wallet"></i> আপনার মূল ব্যালেন্স:</div>
                 <div class="balance-amount">৳৫০০.০০</div>
