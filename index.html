@@ -68,36 +68,51 @@
             padding-bottom: 30px; 
         }
         
-        /* নোটিশ বক্সের জায়গায় ডায়নামিক স্লাইডার ব্যানার */
-        .ad-slider-box {
-            background: linear-gradient(135deg, #2c3e50, #34495e);
+        /* নতুন স্লাইডার স্টাইল (হালকা গোলাপি থিম এবং স্লাইড অ্যানিমেশন) */
+        .ad-slider-wrapper {
+            background: linear-gradient(135deg, #fff0f5, #fce4ec);
+            border: 1px solid #f8bbd0;
             border-radius: 8px;
-            padding: 18px 15px;
             margin-bottom: 20px;
-            color: white;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.15);
             position: relative;
             overflow: hidden;
-            border: 1px solid #f39c12;
             cursor: pointer;
+            width: 100%;
         }
-        .ad-slider-box i {
-            color: #f39c12;
-            font-size: 20px;
-            margin-bottom: 6px;
+
+        .ad-slider-track {
+            display: flex;
+            transition: transform 0.6s ease-in-out; /* স্লাইড হওয়ার অ্যানিমেশন */
+            width: 100%;
         }
-        .ad-title {
-            font-size: 15px;
+
+        .ad-slide {
+            min-width: 100%;
+            box-sizing: border-box;
+            padding: 18px 15px;
+            text-align: center;
+        }
+
+        .ad-slide i {
+            color: var(--main-pink);
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .ad-slide h4 {
+            font-size: 16px;
             font-weight: bold;
-            color: #f39c12;
-            margin-bottom: 4px;
+            color: var(--main-pink);
+            margin: 0 0 6px 0;
         }
-        .ad-desc {
+
+        .ad-slide p {
             font-size: 13px;
-            color: #dcdde1;
+            color: #c2185b; /* গাঢ় গোলাপি টেক্সট */
             margin: 0;
-            font-weight: 500;
+            font-weight: bold;
+            line-height: 1.4;
         }
 
         .section-title { color: #2c3e50; font-size: 16px; margin: 5px 0 15px 0; font-weight: bold; }
@@ -185,11 +200,11 @@
         <!-- Main Content -->
         <div class="content">
             
-            <!-- স্লাইডার ব্যানার অ্যাড (VIP 1 থেকে Send bKash Member পর্যন্ত অটো ঘুরবে) -->
-            <div class="ad-slider-box" onclick="window.location.href='vip.html'">
-                <i class="fas fa-crown"></i>
-                <div class="ad-title" id="adTitle">VIP 1 স্পেশাল অফার</div>
-                <p class="ad-desc" id="adDesc">মাত্র ৳৯৯ টাকায় কিনুন! দৈনিক ২০টি জিমেইল ও ১০টি ইনস্টাগ্রাম কাজ করুন।</p>
+            <!-- স্লাইডার ব্যানার অ্যাড (অ্যানিমেটেড স্লাইডিং) -->
+            <div class="ad-slider-wrapper" onclick="window.location.href='vip.html'">
+                <div class="ad-slider-track" id="adSliderTrack">
+                    <!-- জাভাস্ক্রিপ্ট দিয়ে স্লাইডগুলো এখানে তৈরি হবে -->
+                </div>
             </div>
 
             <h3 class="section-title">কাজ নির্বাচন করুন</h3>
@@ -257,7 +272,7 @@
         </div>
     </div>
 
-    <!-- Firebase & Ad Slider Script -->
+    <!-- Firebase Script -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
@@ -302,35 +317,57 @@
         });
     </script>
 
-    <!-- বিজ্ঞাপন স্লাইডার লজিক -->
+    <!-- বিজ্ঞাপন স্লাইডার অ্যানিমেশন লজিক -->
     <script>
         const ads = [
-            { title: "VIP 1 স্পেশাল অফার", desc: "মাত্র ৳৯৯ টাকায় কিনুন! দৈনিক ২০টি জিমেইল ও ১০টি ইনস্টাগ্রাম কাজ করুন।" },
-            { title: "VIP 2 স্পেশাল অফার", desc: "মাত্র ৳১৯৯ টাকায় কিনুন! দৈনিক ৩০টি জিমেইল ও ২০টি ইনস্টাগ্রাম কাজ করুন।" },
-            { title: "VIP 3 স্পেশাল অফার", desc: "মাত্র ৳২৯৯ টাকায় কিনুন! দৈনিক ৪০টি জিমেইল ও ৩০টি ইনস্টাগ্রাম কাজ করুন।" },
-            { title: "VIP 4 স্পেশাল অফার", desc: "মাত্র ৳৩৯৯ টাকায় কিনুন! দৈনিক ৫০টি জিমেইল ও ৪০টি ইনস্টাগ্রাম কাজ করুন।" },
-            { title: "VIP 5 স্পেশাল অফার", desc: "মাত্র ৳৪৯৯ টাকায় কিনুন! দৈনিক ৬০টি জিমেইল ও ৫০টি ইনস্টাগ্রাম কাজ করুন।" },
-            { title: "VIP 6 স্পেশাল অফার", desc: "মাত্র ৳৫৯৯ টাকায় কিনুন! দৈনিক ৭০টি জিমেইল ও ৬০টি ইনস্টাগ্রাম কাজ করুন।" },
-            { title: "VIP 7 স্পেশাল অফার", desc: "মাত্র ৳৬৯৯ টাকায় কিনুন! দৈনিক ৮০টি জিমেইল ও ৭০টি ইনস্টাগ্রাম কাজ করুন।" },
-            { title: "VIP 8 স্পেশাল অফার", desc: "মাত্র ৳৭৯৯ টাকায় কিনুন! দৈনিক ৯০টি জিমেইল ও ৮০টি ইনস্টাগ্রাম কাজ করুন।" },
-            { title: "VIP 9 স্পেশাল অফার", desc: "মাত্র ৳৮৯৯ টাকায় কিনুন! দৈনিক ১০০টি জিমেইল ও ৯০টি ইনস্টাগ্রাম কাজ করুন।" },
-            { title: "VIP 10 স্পেশাল অফার", desc: "মাত্র ৳৯৯৯ টাকায় কিনুন! দৈনিক ১১০টি জিমেইল ও ১০০টি ইনস্টাগ্রাম কাজ করুন।" },
-            { title: "⭐ Send bKash Member স্পেশাল অফার", desc: "মাত্র ৳২০০০ টাকায় কিনুন! দৈনিক ২০০টি জিমেইল ও ১৮০টি ইনস্টাগ্রাম কাজ করুন।" }
+            { title: "VIP 1 স্পেশাল অফার", desc: "মাত্র ৳৯৯ টাকায় কিনুন! দৈনিক ২০টি জিমেইল ও ১০টি ইনস্টাগ্রাম কাজ।" },
+            { title: "VIP 2 স্পেশাল অফার", desc: "মাত্র ৳১৯৯ টাকায় কিনুন! দৈনিক ৩০টি জিমেইল ও ২০টি ইনস্টাগ্রাম কাজ।" },
+            { title: "VIP 3 স্পেশাল অফার", desc: "মাত্র ৳২৯৯ টাকায় কিনুন! দৈনিক ৪০টি জিমেইল ও ৩০টি ইনস্টাগ্রাম কাজ।" },
+            { title: "VIP 4 স্পেশাল অফার", desc: "মাত্র ৳৩৯৯ টাকায় কিনুন! দৈনিক ৫০টি জিমেইল ও ৪০টি ইনস্টাগ্রাম কাজ।" },
+            { title: "VIP 5 স্পেশাল অফার", desc: "মাত্র ৳৪৯৯ টাকায় কিনুন! দৈনিক ৬০টি জিমেইল ও ৫০টি ইনস্টাগ্রাম কাজ।" },
+            { title: "VIP 6 স্পেশাল অফার", desc: "মাত্র ৳৫৯৯ টাকায় কিনুন! দৈনিক ৭০টি জিমেইল ও ৬০টি ইনস্টাগ্রাম কাজ।" },
+            { title: "VIP 7 স্পেশাল অফার", desc: "মাত্র ৳৬৯৯ টাকায় কিনুন! দৈনিক ৮০টি জিমেইল ও ৭০টি ইনস্টাগ্রাম কাজ।" },
+            { title: "VIP 8 স্পেশাল অফার", desc: "মাত্র ৳৭৯৯ টাকায় কিনুন! দৈনিক ৯০টি জিমেইল ও ৮০টি ইনস্টাগ্রাম কাজ।" },
+            { title: "VIP 9 স্পেশাল অফার", desc: "মাত্র ৳৮৯৯ টাকায় কিনুন! দৈনিক ১০০টি জিমেইল ও ৯০টি ইনস্টাগ্রাম কাজ।" },
+            { title: "VIP 10 স্পেশাল অফার", desc: "মাত্র ৳৯৯৯ টাকায় কিনুন! দৈনিক ১১০টি জিমেইল ও ১০০টি ইনস্টাগ্রাম কাজ।" },
+            { title: "⭐ Send bKash Member", desc: "মাত্র ৳২০০০ টাকায় কিনুন! দৈনিক ২০০টি জিমেইল ও ১৮০টি ইনস্টাগ্রাম কাজ।" }
         ];
 
+        const track = document.getElementById('adSliderTrack');
+        
+        // ডাইনামিকভাবে স্লাইডগুলো তৈরি করা
+        ads.forEach(ad => {
+            const slide = document.createElement('div');
+            slide.className = 'ad-slide';
+            slide.innerHTML = `<i class="fas fa-crown"></i><h4>${ad.title}</h4><p>${ad.desc}</p>`;
+            track.appendChild(slide);
+        });
+
         let currentAd = 0;
-        function changeAd() {
-            const titleEl = document.getElementById("adTitle");
-            const descEl = document.getElementById("adDesc");
+        
+        // স্লাইডার অটোমেটিক ঘোরানোর ফাংশন
+        function slideNext() {
+            currentAd++;
             
-            titleEl.innerText = ads[currentAd].title;
-            descEl.innerText = ads[currentAd].desc;
+            // যখন সব অ্যাড শেষ হয়ে যাবে, তখন আবার প্রথম থেকে শুরু হবে
+            if (currentAd >= ads.length) {
+                currentAd = 0;
+                // সাথে সাথে শুরুতে নিতে ট্রানজিশন অফ করে দিচ্ছি
+                track.style.transition = 'none';
+                track.style.transform = `translateX(0%)`;
+                
+                // একটু পর আবার ট্রানজিশন চালু করে দিচ্ছি
+                setTimeout(() => {
+                    track.style.transition = 'transform 0.6s ease-in-out';
+                }, 50);
+                return;
+            }
             
-            currentAd = (currentAd + 1) % ads.length;
+            track.style.transform = `translateX(-${currentAd * 100}%)`;
         }
 
-        // প্রতি ৩ সেকেন্ড পর পর অ্যাড পরিবর্তন হবে
-        setInterval(changeAd, 3000);
+        // প্রতি ৩.৫ সেকেন্ড পর পর স্লাইড পরিবর্তন হবে
+        setInterval(slideNext, 3500);
     </script>
 </body>
 </html>
