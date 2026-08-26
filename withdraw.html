@@ -32,6 +32,7 @@
             background-color: var(--main-pink); padding: 15px 20px; 
             display: flex; justify-content: space-between; align-items: center; 
             color: var(--main-white); box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); z-index: 10; 
+            position: sticky; top: 0;
         }
         .header-title { font-size: 20px; font-weight: bold; display: flex; align-items: center; }
         .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 22px; }
@@ -41,51 +42,65 @@
         .notice-box {
             background: linear-gradient(135deg, #fff3cd, #ffeeba); 
             border: 1px solid #ffeeba; border-left: 5px solid #ffc107;
-            padding: 12px 15px; border-radius: 4px; margin-bottom: 15px; color: #856404;
+            padding: 12px 15px; border-radius: 6px; margin-bottom: 15px; color: #856404;
             font-size: 13px; line-height: 1.5; box-shadow: 0 2px 8px rgba(0,0,0,0.03);
         }
 
+        /* হোম পেজের ব্যানারের মতো ব্যালেন্স কার্ড */
         .balance-card {
-            background-color: var(--main-white);
-            border: 1px solid #eaeaea;
-            border-radius: 8px;
-            padding: 15px;
+            background: linear-gradient(135deg, var(--main-pink), #ff3377);
+            border-radius: 10px;
+            padding: 20px 15px;
             margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            box-shadow: 0 6px 15px rgba(226, 0, 90, 0.25);
+            color: white;
         }
-        .balance-title { font-size: 14px; color: var(--text-grey); font-weight: bold; display: flex; align-items: center; gap: 8px; }
-        .balance-amount { font-size: 18px; color: var(--main-pink); font-weight: bold; }
+        .balance-title { font-size: 14px; color: rgba(255, 255, 255, 0.9); font-weight: bold; display: flex; align-items: center; gap: 8px; }
+        .balance-amount { font-size: 22px; font-weight: 900; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
 
         .task-card {
-            background-color: var(--main-white); border-radius: 8px; padding: 20px;
-            border: 1px solid #eaeaea; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            background-color: var(--main-white); border-radius: 10px; padding: 20px;
+            border: 1px solid #eaeaea; box-shadow: 0 4px 15px rgba(0,0,0,0.03);
         }
 
-        .data-group { margin-bottom: 15px; }
-        .data-group label { display: block; font-size: 13px; font-weight: bold; color: var(--text-grey); margin-bottom: 8px; }
+        .data-group { margin-bottom: 18px; }
+        .data-group label { display: block; font-size: 14px; font-weight: bold; color: #2c3e50; margin-bottom: 10px; }
         
         .method-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
+            gap: 10px;
             margin-bottom: 15px;
         }
         .method-box {
             background: var(--main-white);
-            border: 1.5px solid #dcdde1;
+            border: 1px solid #eaeaea;
             border-radius: 8px;
-            padding: 12px 5px;
+            padding: 15px 5px;
             text-align: center;
             cursor: pointer;
             transition: all 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
         }
+        
+        /* হোম পেজের মতো আইকন স্টাইল */
         .method-box i {
-            font-size: 18px;
-            margin-bottom: 4px;
-            display: block;
+            font-size: 20px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(226, 0, 90, 0.1);
+            color: var(--main-pink);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-left: auto;
+            margin-right: auto;
+            transition: 0.3s;
         }
         .method-box span {
             font-size: 12px;
@@ -93,46 +108,53 @@
             color: #2c3e50;
             display: block;
         }
-        .method-box.bkash i { color: #e2136e; }
-        .method-box.nagad i { color: #ec1c24; }
-        .method-box.rocket i { color: #82318c; }
-        .method-box.upay i { color: #004c8f; }
 
+        /* সিলেক্টেড মেথড হোম পেজের গোলাপি থিমে */
         .method-box.selected {
-            border-color: var(--main-pink);
+            border: 1.5px solid var(--main-pink);
             background-color: rgba(226, 0, 90, 0.05);
-            box-shadow: 0 2px 6px rgba(226, 0, 90, 0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(226, 0, 90, 0.15);
+        }
+        .method-box.selected i {
+            background: linear-gradient(135deg, var(--main-pink), #ff3377);
+            color: white;
+            box-shadow: 0 2px 8px rgba(226, 0, 90, 0.3);
         }
 
         .whatsapp-input {
-            width: 100%; padding: 12px; border: 1.5px solid #a4b0be;
-            border-radius: 6px; box-sizing: border-box; font-size: 14px; outline: none;
-            color: #2c3e50; background-color: var(--main-white);
+            width: 100%; padding: 14px; border: 1.5px solid #eaeaea;
+            border-radius: 8px; box-sizing: border-box; font-size: 14px; outline: none;
+            color: #2c3e50; background-color: #f8f9fa; font-weight: 500;
+            transition: 0.3s;
         }
-        .whatsapp-input:focus { border-color: var(--main-pink); }
+        .whatsapp-input:focus { border-color: var(--main-pink); background-color: white; box-shadow: 0 0 0 3px rgba(226, 0, 90, 0.1); }
 
+        /* হোম পেজের বাটনের মতো স্টাইল */
         .submit-btn {
             background-color: var(--main-pink); color: white; border: none;
-            padding: 12px; border-radius: 6px; font-size: 15px; font-weight: bold;
-            width: 100%; cursor: pointer; box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);
-            margin-top: 5px;
+            padding: 15px; border-radius: 8px; font-size: 15px; font-weight: bold;
+            width: 100%; cursor: pointer; box-shadow: 0 4px 12px rgba(226, 0, 90, 0.25);
+            margin-top: 10px; transition: 0.2s;
         }
-        .submit-btn:hover { background-color: #c4004e; }
+        .submit-btn:hover { background-color: #c4004e; transform: translateY(-1px); }
 
         .history-section { margin-top: 30px; }
-        .history-title { font-size: 15px; font-weight: bold; color: #2c3e50; margin-bottom: 12px; border-bottom: 2px solid #eaeaea; padding-bottom: 5px; }
+        .history-title { font-size: 16px; font-weight: bold; color: #2c3e50; margin-bottom: 15px; border-bottom: 2px solid #eaeaea; padding-bottom: 8px; }
         
+        /* হিস্ট্রি কার্ড হোম পেজের সার্ভিসের মতো */
         .history-card {
-            background: var(--main-white); border: 1px solid #eaeaea; border-radius: 6px;
-            padding: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;
+            background: var(--main-white); border: 1px solid #eaeaea; border-radius: 8px;
+            padding: 15px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
         }
-        .history-info p { margin: 0; font-size: 13px; color: #2c3e50; font-weight: bold; }
-        .history-info small { color: var(--text-grey); font-size: 11px; }
+        .history-info p { margin: 0; font-size: 14px; color: #2c3e50; font-weight: bold; margin-bottom: 4px; }
+        .history-info small { color: var(--text-grey); font-size: 12px; font-weight: 500; }
 
-        .status-badge { padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: bold; }
+        .status-badge { padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; }
         .status-pending { background-color: #fff3cd; color: #856404; }
-        .status-approved { background-color: #d4edda; color: #155724; }
-        .status-rejected { background-color: #f8d7da; color: #721c24; }
+        .status-approved { background-color: rgba(39, 174, 96, 0.1); color: #27ae60; }
+        .status-rejected { background-color: rgba(231, 76, 60, 0.1); color: #e74c3c; }
 
         .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: sticky; bottom: 0; z-index: 100; }
         .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); text-decoration: none; flex: 1; }
@@ -141,7 +163,7 @@
 
         .toast-msg {
             visibility: hidden; min-width: 200px; background-color: var(--main-pink);
-            color: #fff; text-align: center; border-radius: 30px; padding: 10px 20px;
+            color: #fff; text-align: center; border-radius: 30px; padding: 12px 20px;
             position: fixed; z-index: 9999; left: 50%; transform: translateX(-50%);
             top: 20px; font-size: 14px; font-weight: bold;
             box-shadow: 0 4px 15px rgba(226, 0, 90, 0.4); opacity: 0; transition: opacity 0.3s, top 0.3s;
@@ -167,6 +189,7 @@
                 <i class="fas fa-info-circle"></i> ন্যূনতম উইথড্র পরিমাণ ৳১০০ টাকা। ২৪ ঘণ্টার মধ্যে পেমেন্ট কমপ্লিট করা হবে।
             </div>
 
+            <!-- ব্যালেন্স কার্ড হোম পেজের ব্যানারের মতো -->
             <div class="balance-card">
                 <div class="balance-title"><i class="fas fa-wallet"></i> আপনার মূল ব্যালেন্স:</div>
                 <div class="balance-amount">৳৫০০.০০</div>
@@ -177,19 +200,19 @@
                 <div class="data-group">
                     <label>পেমেন্ট মেথড সিলেক্ট করুন</label>
                     <div class="method-grid">
-                        <div class="method-box bkash selected" onclick="selectMethod(this, 'bKash')">
+                        <div class="method-box selected" onclick="selectMethod(this, 'bKash')">
                             <i class="fas fa-wallet"></i>
                             <span>bKash</span>
                         </div>
-                        <div class="method-box nagad" onclick="selectMethod(this, 'Nagad')">
+                        <div class="method-box" onclick="selectMethod(this, 'Nagad')">
                             <i class="fas fa-wallet"></i>
                             <span>Nagad</span>
                         </div>
-                        <div class="method-box rocket" onclick="selectMethod(this, 'Rocket')">
+                        <div class="method-box" onclick="selectMethod(this, 'Rocket')">
                             <i class="fas fa-wallet"></i>
                             <span>Rocket</span>
                         </div>
-                        <div class="method-box upay" onclick="selectMethod(this, 'Upay')">
+                        <div class="method-box" onclick="selectMethod(this, 'Upay')">
                             <i class="fas fa-wallet"></i>
                             <span>Upay</span>
                         </div>
@@ -278,7 +301,7 @@
             const amount = document.getElementById('withdrawAmount').value.trim();
 
             if(!number || !amount) {
-                showToast("দয়া করে একাউন্ট নাম্বার এবং পরিমাণ লিখুন!", true);
+                showToast("দয়া করে একাউন্ট নাম্বার এবং পরিমাণ লিখুন!", true);
                 return;
             }
 
@@ -298,7 +321,7 @@
             history.unshift(newEntry); 
             localStorage.setItem('withdrawHistory', JSON.stringify(history));
 
-            showToast("উইথড্র রিকোয়েস্ট সফলভাবে জমা হয়েছে!");
+            showToast("উইথড্র রিকোয়েস্ট সফলভাবে জমা হয়েছে!");
             document.getElementById('accNumber').value = '';
             document.getElementById('withdrawAmount').value = '';
             loadHistory(); 
@@ -311,7 +334,7 @@
             historyList.innerHTML = ''; 
 
             if(history.length === 0) {
-                historyList.innerHTML = '<p style="text-align:center; color:#888; font-size:12px;">কোনো হিস্ট্রি পাওয়া যায়নি।</p>';
+                historyList.innerHTML = '<p style="text-align:center; color:#888; font-size:13px; font-weight: bold; padding: 20px;">কোনো হিস্ট্রি পাওয়া যায়নি।</p>';
                 return;
             }
 
@@ -330,7 +353,7 @@
                     <div class="history-card">
                         <div class="history-info">
                             <p>${item.details}</p>
-                            <small>তারিখ: ${item.date}</small>
+                            <small><i class="far fa-calendar-alt"></i> ${item.date}</small>
                         </div>
                         <div class="status-badge ${statusClass}">${statusText}</div>
                     </div>
