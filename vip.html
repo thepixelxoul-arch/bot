@@ -123,14 +123,15 @@
         .bonus-btn.active-bonus:hover { background: linear-gradient(135deg, #fda085 0%, #f6d365 100%); }
         .bonus-btn.active-bonus i { color: #e67e22; }
 
-        /* স্পেশাল Golden VIP বাটন স্টাইল */
-        .golden-btn {
-            background: linear-gradient(135deg, #f1c40f, #f39c12);
+        /* স্পেশাল Send bKash Member বাটন স্টাইল */
+        .send-bkash-btn {
+            background: linear-gradient(135deg, #e2005a, #c4004e);
             color: white; border: none;
             padding: 12px; border-radius: 6px; font-size: 14px; font-weight: bold;
             cursor: pointer; transition: background 0.2s; text-align: center; flex: 1;
+            box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);
         }
-        .golden-btn:hover { background: linear-gradient(135deg, #f39c12, #e67e22); }
+        .send-bkash-btn:hover { background: linear-gradient(135deg, #c4004e, #96003b); }
 
         .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: sticky; bottom: 0; z-index: 100; }
         .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); text-decoration: none; flex: 1; }
@@ -341,7 +342,7 @@
                 <button class="bonus-btn" id="bonus-btn-8" onclick="claimBonus('VIP 8', 400)"><i class="fas fa-gift"></i> সাপ্তাহিক বোনাস: ৳৪০০</button>
             </div>
 
-            <!-- VIP 9 (নতুন) -->
+            <!-- VIP 9 -->
             <div class="vip-package">
                 <div class="vip-header">
                     <div class="vip-title"><i class="fas fa-crown" style="color: #e74c3c;"></i> VIP 9</div>
@@ -361,7 +362,7 @@
                 <button class="bonus-btn" id="bonus-btn-9" onclick="claimBonus('VIP 9', 500)"><i class="fas fa-gift"></i> সাপ্তাহিক বোনাস: ৳৫০০</button>
             </div>
 
-            <!-- VIP 10 (নতুন) -->
+            <!-- VIP 10 -->
             <div class="vip-package">
                 <div class="vip-header">
                     <div class="vip-title"><i class="fas fa-crown" style="color: #e74c3c;"></i> VIP 10</div>
@@ -381,23 +382,23 @@
                 <button class="bonus-btn" id="bonus-btn-10" onclick="claimBonus('VIP 10', 600)"><i class="fas fa-gift"></i> সাপ্তাহিক বোনাস: ৳৬০০</button>
             </div>
 
-            <!-- Golden VIP (স্পেশাল) -->
-            <div class="vip-package" style="border: 2px solid #f39c12; background-color: #fffaf0;">
+            <!-- Send bKash Member (স্পেশাল পিংক থিম) -->
+            <div class="vip-package" style="border: 2px solid var(--main-pink); background-color: rgba(226, 0, 90, 0.03);">
                 <div class="vip-header">
-                    <div class="vip-title"><i class="fas fa-star" style="color: #f1c40f;"></i> Golden VIP</div>
+                    <div class="vip-title"><i class="fas fa-star" style="color: var(--main-pink);"></i> Send bKash Member</div>
                     <div class="vip-price"><span class="old-price">৳২৫০০</span> ৳২০০০</div>
                 </div>
                 <ul class="vip-features">
                     <li><i class="fas fa-check-circle"></i> দৈনিক কাজ: ২০০ টি জিমেইল</li>
                     <li><i class="fas fa-check-circle"></i> দৈনিক কাজ: ১৮০ টি ইনস্টাগ্রাম</li>
                 </ul>
-                <div class="condition-box" style="background-color: #fff3cd; border-color: #ffeeba;">
-                    <strong>ফ্রি নেওয়ার শর্ত:</strong> ৫০০০০টি জিমেইল, ৫০০০টি হোয়াটসঅ্যাপ, ৩০০০টি টেলিগ্রাম জমা দিতে হবে।
+                <div class="condition-box" style="background-color: rgba(226, 0, 90, 0.08); border-color: rgba(226, 0, 90, 0.2); color: var(--main-pink);">
+                    <strong style="color: #c4004e;">ফ্রি নেওয়ার শর্ত:</strong> ৫০০০০টি জিমেইল, ৫০০০টি হোয়াটসঅ্যাপ, ৩০০০টি টেলিগ্রাম জমা দিতে হবে।
                 </div>
                 <div class="btn-group">
-                    <button class="golden-btn" onclick="requestUpgrade('Golden VIP', 2000)">৳২০০০ দিয়ে কিনুন</button>
+                    <button class="send-bkash-btn" onclick="requestUpgrade('Send bKash Member', 2000)">৳২০০০ দিয়ে কিনুন</button>
                 </div>
-                <button class="bonus-btn" id="bonus-btn-golden" onclick="claimBonus('Golden VIP', 1000)"><i class="fas fa-gift"></i> সাপ্তাহিক বোনাস: ৳১০০০</button>
+                <button class="bonus-btn" id="bonus-btn-sendbkash" onclick="claimBonus('Send bKash Member', 1000)"><i class="fas fa-gift"></i> সাপ্তাহিক বোনাস: ৳১০০০</button>
             </div>
 
         </div>
@@ -455,9 +456,9 @@
         function checkBonusStatus() {
             const currentVip = localStorage.getItem('userVipLevel') || "VIP 0";
             
-            // সব VIP নাম এবং তাদের আইডি এর একটি লিস্ট
-            const allVips = ['VIP 1', 'VIP 2', 'VIP 3', 'VIP 4', 'VIP 5', 'VIP 6', 'VIP 7', 'VIP 8', 'VIP 9', 'VIP 10', 'Golden VIP'];
-            const btnIds = ['bonus-btn-1', 'bonus-btn-2', 'bonus-btn-3', 'bonus-btn-4', 'bonus-btn-5', 'bonus-btn-6', 'bonus-btn-7', 'bonus-btn-8', 'bonus-btn-9', 'bonus-btn-10', 'bonus-btn-golden'];
+            // সব VIP নাম আপডেট করা হয়েছে
+            const allVips = ['VIP 1', 'VIP 2', 'VIP 3', 'VIP 4', 'VIP 5', 'VIP 6', 'VIP 7', 'VIP 8', 'VIP 9', 'VIP 10', 'Send bKash Member'];
+            const btnIds = ['bonus-btn-1', 'bonus-btn-2', 'bonus-btn-3', 'bonus-btn-4', 'bonus-btn-5', 'bonus-btn-6', 'bonus-btn-7', 'bonus-btn-8', 'bonus-btn-9', 'bonus-btn-10', 'bonus-btn-sendbkash'];
             
             for (let i = 0; i < allVips.length; i++) {
                 const vipName = allVips[i];
