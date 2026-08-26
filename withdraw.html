@@ -21,28 +21,35 @@
             display: flex; justify-content: center; 
         }
 
+        /* 
+         * পুরো স্ক্রিন ফিক্সড করা হয়েছে (height: 100vh)
+         * যাতে মেনু বার সবসময় নিচেই থাকে 
+         */
         .app-container { 
-            width: 100%; max-width: 450px; min-height: 100vh; 
+            width: 100%; max-width: 450px; height: 100vh; 
             background-color: var(--bg-light); color: var(--main-pink); 
             box-shadow: 0 0 25px rgba(0,0,0,0.1); 
             display: flex; flex-direction: column; position: relative; 
-            overflow-x: hidden; /* ডানে-বামে নড়া বন্ধ করার জন্য */
+            overflow: hidden; 
         }
 
         .header { 
+            flex-shrink: 0; /* হেডার ফিক্সড */
             background-color: var(--main-pink); padding: 15px 20px; 
             display: flex; justify-content: space-between; align-items: center; 
             color: var(--main-white); box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); z-index: 10; 
-            position: sticky; top: 0;
         }
         .header-title { font-size: 20px; font-weight: bold; display: flex; align-items: center; }
         .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 22px; }
 
+        /* 
+         * শুধু মাঝখানের অংশ স্ক্রল হবে
+         * এখানে স্ক্রলবার (দাগ) রিমুভ করা হয়নি
+         */
         .content { 
             flex-grow: 1; padding: 20px; 
             overflow-y: auto; overflow-x: hidden; 
-            padding-bottom: 80px; 
-            -webkit-overflow-scrolling: touch; /* মোবাইলে স্মুথ স্ক্রল */
+            padding-bottom: 20px; 
         }
         
         .notice-box {
@@ -141,7 +148,6 @@
         }
         .submit-btn:hover { background-color: #c4004e; transform: translateY(-1px); }
 
-        /* হিস্ট্রি সেকশন হোম পেজের মতো ডিজাইন */
         .history-section { margin-top: 30px; }
         .history-title { font-size: 16px; font-weight: bold; color: #2c3e50; margin-bottom: 15px; border-bottom: 2px solid #eaeaea; padding-bottom: 8px; }
         
@@ -155,7 +161,6 @@
             display: flex; align-items: center; gap: 12px; flex: 1; overflow: hidden;
         }
 
-        /* হোম পেজের মতো আইকন বক্স */
         .history-icon { 
             min-width: 45px; height: 45px; border-radius: 6px; 
             display: flex; align-items: center; justify-content: center; 
@@ -167,7 +172,7 @@
         .history-info { flex: 1; overflow: hidden; }
         .history-info p { 
             margin: 0 0 4px 0; color: #2c3e50; font-size: 14px; font-weight: bold; 
-            word-wrap: break-word; word-break: break-all; /* বিশাল বড় নাম্বার দিলেও যেন নিচে চলে যায় */
+            word-wrap: break-word; word-break: break-all; 
         }
         .history-info small { color: var(--text-grey); font-size: 11px; font-weight: bold; display: flex; align-items: center; gap: 4px;}
 
@@ -176,7 +181,12 @@
         .status-approved { background-color: rgba(39, 174, 96, 0.1); color: #27ae60; }
         .status-rejected { background-color: rgba(231, 76, 60, 0.1); color: #e74c3c; }
 
-        .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: sticky; bottom: 0; z-index: 100; }
+        /* বটম নেভিগেশন একদম নিচে ফিক্সড থাকবে */
+        .bottom-nav { 
+            flex-shrink: 0; 
+            background-color: var(--main-white); display: flex; justify-content: space-around; 
+            padding: 10px 0; border-top: 1px solid #eaeaea; z-index: 100; 
+        }
         .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); text-decoration: none; flex: 1; }
         .nav-item i { font-size: 18px; margin-bottom: 4px; display: block; }
         .nav-item.active { color: var(--main-pink); font-weight: bold; }
@@ -252,7 +262,7 @@
                 <button class="submit-btn" onclick="submitWithdraw()">উইথড্র করুন</button>
             </div>
 
-            <!-- উইথড্র হিস্ট্রি সেকশন (আপডেটেড ডিজাইন) -->
+            <!-- উইথড্র হিস্ট্রি সেকশন -->
             <div class="history-section">
                 <div class="history-title">Withdraw হিস্ট্রি</div>
                 <div id="historyList">
@@ -369,7 +379,6 @@
                     statusClass = 'status-rejected'; statusText = 'Rejected';
                 }
 
-                // হোম পেজের মতো নতুন কার্ড ডিজাইন
                 historyList.innerHTML += `
                     <div class="history-card">
                         <div class="history-left-wrap">
