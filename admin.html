@@ -45,14 +45,12 @@
         .sidebar-header h2 { margin: 0; font-size: 22px; font-weight: 900; }
         .sidebar-header p { margin: 5px 0 0 0; font-size: 12px; color: #ffe6f0; }
 
-        /* মেনু লিস্ট স্ক্রল করার জন্য */
         .nav-links {
             list-style: none; padding: 0; margin: 10px 0;
             flex-grow: 1;
             overflow-y: auto;
         }
         
-        /* কাস্টম স্ক্রলবার ডিজাইন */
         .nav-links::-webkit-scrollbar { width: 5px; }
         .nav-links::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 10px; }
 
@@ -160,6 +158,7 @@
         .status-badge { padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; }
         .status-pending { background-color: #fff3cd; color: #856404; }
         .status-active { background-color: #d4edda; color: #155724; }
+        .status-vip { background-color: rgba(226, 0, 90, 0.1); color: var(--main-pink); }
 
         .action-btns button {
             border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;
@@ -187,7 +186,6 @@
         }
         .save-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(226, 0, 90, 0.3); }
 
-        /* টোস্ট মেসেজ */
         .toast-msg {
             visibility: hidden; background-color: #27ae60; color: #fff; text-align: center;
             border-radius: 8px; padding: 15px 25px; position: fixed; z-index: 9999; right: 30px; top: 30px;
@@ -205,7 +203,7 @@
 
     <div id="toastBox" class="toast-msg"><i class="fas fa-check-circle"></i> সফলভাবে সেভ হয়েছে!</div>
 
-    <!-- সাইডবার (নতুন সব অপশন সহ) -->
+    <!-- সাইডবার (কনসলিডেটেড/শর্ট মেনু) -->
     <aside class="sidebar">
         <div class="sidebar-header">
             <h2><i class="fas fa-paper-plane"></i> Send bKash</h2>
@@ -213,13 +211,9 @@
         </div>
         <ul class="nav-links">
             <li><a href="#" class="nav-link active" onclick="openTab(event, 'dashboard')"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
-            <li><a href="#" class="nav-link" onclick="openTab(event, 'simple_users')"><i class="fas fa-user"></i> সাধারণ ইউজার (Simple)</a></li>
-            <li><a href="#" class="nav-link" onclick="openTab(event, 'vip_users')"><i class="fas fa-user-tie"></i> VIP ইউজার</a></li>
+            <li><a href="#" class="nav-link" onclick="openTab(event, 'user_management')"><i class="fas fa-users"></i> ইউজার ম্যানেজমেন্ট</a></li>
             <li><a href="#" class="nav-link" onclick="openTab(event, 'withdraw')"><i class="fas fa-file-invoice-dollar"></i> উইথড্র রিকোয়েস্ট</a></li>
-            <li><a href="#" class="nav-link" onclick="openTab(event, 'gmail')"><i class="fab fa-google"></i> জিমেইল কাজ</a></li>
-            <li><a href="#" class="nav-link" onclick="openTab(event, 'instagram')"><i class="fab fa-instagram"></i> ইনস্টাগ্রাম কাজ</a></li>
-            <li><a href="#" class="nav-link" onclick="openTab(event, 'whatsapp')"><i class="fab fa-whatsapp"></i> হোয়াটসঅ্যাপ কাজ</a></li>
-            <li><a href="#" class="nav-link" onclick="openTab(event, 'telegram')"><i class="fab fa-telegram-plane"></i> টেলিগ্রাম কাজ</a></li>
+            <li><a href="#" class="nav-link" onclick="openTab(event, 'task_settings')"><i class="fas fa-tasks"></i> কাজের সেটিং</a></li>
             <li><a href="#" class="nav-link" onclick="openTab(event, 'number')"><i class="fas fa-sim-card"></i> নাম্বার ম্যানেজমেন্ট</a></li>
             <li><a href="#" class="nav-link" onclick="openTab(event, 'vip_settings')"><i class="fas fa-crown"></i> VIP প্যাকেজ সেটিং</a></li>
             <li><a href="#" class="nav-link" onclick="openTab(event, 'refer')"><i class="fas fa-user-plus"></i> রেফার সেটিং</a></li>
@@ -231,7 +225,6 @@
 
     <!-- মেইন এরিয়া -->
     <main class="main-content">
-        <!-- টপবার -->
         <header class="topbar">
             <div class="topbar-title" id="topbarTitle">ড্যাশবোর্ড ওভারভিউ</div>
             <div class="admin-profile">
@@ -239,7 +232,6 @@
             </div>
         </header>
 
-        <!-- ড্যাশবোর্ড বডি -->
         <div class="dashboard-body">
             
             <!-- 1. ড্যাশবোর্ড -->
@@ -264,23 +256,52 @@
                 </div>
             </div>
 
-            <!-- 2. সাধারণ ইউজার -->
-            <div id="simple_users" class="tab-section">
+            <!-- 2. ইউজার ম্যানেজমেন্ট (VIP এবং Simple একসাথে) -->
+            <div id="user_management" class="tab-section">
                 <div class="admin-card">
-                    <div class="card-header">সাধারণ ইউজার লিস্ট</div>
-                    <div class="placeholder-text"><i class="fas fa-tools"></i> সাধারণ ইউজার ডাটাবেস এখানে লোড হবে...</div>
+                    <div class="card-header">
+                        <span>সকল ইউজার লিস্ট (Simple + VIP)</span>
+                        <input type="text" class="form-input" placeholder="ইউজার আইডি বা ইমেইল খুঁজুন..." style="width: 250px; padding: 8px 12px;">
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>User ID</th>
+                                    <th>ইমেইল</th>
+                                    <th>ব্যালেন্স</th>
+                                    <th>স্ট্যাটাস / লেভেল</th>
+                                    <th>অ্যাকশন</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>T9KZBTUBR1</td>
+                                    <td>user1@gmail.com</td>
+                                    <td>৳৫০০.০০</td>
+                                    <td><span class="status-badge status-vip">VIP 2</span></td>
+                                    <td class="action-btns">
+                                        <button class="btn-edit" onclick="showToast()">এডিট ব্যালেন্স</button>
+                                        <button class="btn-reject" onclick="showToast()">ব্যান করুন</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>X7ABCTUBR9</td>
+                                    <td>sakib@gmail.com</td>
+                                    <td>৳১২০.০০</td>
+                                    <td><span class="status-badge status-pending">সাধারণ (VIP 0)</span></td>
+                                    <td class="action-btns">
+                                        <button class="btn-edit" onclick="showToast()">এডিট ব্যালেন্স</button>
+                                        <button class="btn-reject" onclick="showToast()">ব্যান করুন</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
-            <!-- 3. VIP ইউজার -->
-            <div id="vip_users" class="tab-section">
-                <div class="admin-card">
-                    <div class="card-header">VIP ইউজার লিস্ট</div>
-                    <div class="placeholder-text"><i class="fas fa-tools"></i> VIP ইউজার ডাটাবেস এখানে লোড হবে...</div>
-                </div>
-            </div>
-
-            <!-- 4. উইথড্র রিকোয়েস্ট -->
+            <!-- 3. উইথড্র রিকোয়েস্ট -->
             <div id="withdraw" class="tab-section">
                 <div class="admin-card">
                     <div class="card-header">পেন্ডিং উইথড্র রিকোয়েস্ট</div>
@@ -312,39 +333,33 @@
                 </div>
             </div>
 
-            <!-- 5. জিমেইল কাজ -->
-            <div id="gmail" class="tab-section">
+            <!-- 4. কাজের সেটিং (Gmail, Insta, WhatsApp, Telegram একসাথে) -->
+            <div id="task_settings" class="tab-section">
                 <div class="admin-card">
-                    <div class="card-header">জিমেইল কাজ সেটিং</div>
-                    <div class="placeholder-text"><i class="fas fa-tools"></i> জিমেইল টাস্ক কন্ট্রোল প্যানেল...</div>
+                    <div class="card-header">সকল কাজের সেটিং (রেট ও টাস্ক কন্ট্রোল)</div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label><i class="fab fa-google" style="color: #ea4335;"></i> Gmail কাজের রেট</label>
+                            <input type="text" class="form-input" value="৭.৫০">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fab fa-instagram" style="color: #e1306c;"></i> Instagram কাজের রেট</label>
+                            <input type="text" class="form-input" value="১০.০০">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fab fa-whatsapp" style="color: #25d366;"></i> WhatsApp কাজের রেট</label>
+                            <input type="text" class="form-input" value="১৫.০০">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fab fa-telegram-plane" style="color: #0088cc;"></i> Telegram কাজের রেট</label>
+                            <input type="text" class="form-input" value="১২.০০">
+                        </div>
+                    </div>
+                    <button class="save-btn" style="margin-top: 15px;" onclick="showToast()"><i class="fas fa-save"></i> কাজের রেট আপডেট করুন</button>
                 </div>
             </div>
 
-            <!-- 6. ইনস্টাগ্রাম কাজ -->
-            <div id="instagram" class="tab-section">
-                <div class="admin-card">
-                    <div class="card-header">ইনস্টাগ্রাম কাজ সেটিং</div>
-                    <div class="placeholder-text"><i class="fas fa-tools"></i> ইনস্টাগ্রাম টাস্ক কন্ট্রোল প্যানেল...</div>
-                </div>
-            </div>
-
-            <!-- 7. হোয়াটসঅ্যাপ কাজ -->
-            <div id="whatsapp" class="tab-section">
-                <div class="admin-card">
-                    <div class="card-header">হোয়াটসঅ্যাপ কাজ সেটিং</div>
-                    <div class="placeholder-text"><i class="fas fa-tools"></i> হোয়াটসঅ্যাপ টাস্ক কন্ট্রোল প্যানেল...</div>
-                </div>
-            </div>
-
-            <!-- 8. টেলিগ্রাম কাজ -->
-            <div id="telegram" class="tab-section">
-                <div class="admin-card">
-                    <div class="card-header">টেলিগ্রাম কাজ সেটিং</div>
-                    <div class="placeholder-text"><i class="fas fa-tools"></i> টেলিগ্রাম টাস্ক কন্ট্রোল প্যানেল...</div>
-                </div>
-            </div>
-
-            <!-- 9. নাম্বার ম্যানেজমেন্ট -->
+            <!-- 5. নাম্বার ম্যানেজমেন্ট -->
             <div id="number" class="tab-section">
                 <div class="admin-card">
                     <div class="card-header">নাম্বার কেনা-বেচা সেটিং</div>
@@ -352,15 +367,33 @@
                 </div>
             </div>
 
-            <!-- 10. VIP প্যাকেজ সেটিং -->
+            <!-- 6. VIP প্যাকেজ সেটিং -->
             <div id="vip_settings" class="tab-section">
                 <div class="admin-card">
                     <div class="card-header">VIP প্যাকেজ কন্ট্রোল</div>
-                    <div class="placeholder-text"><i class="fas fa-tools"></i> ভিআইপি প্রাইস ও লিমিট সেটিং...</div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>VIP 1 প্রাইস</label>
+                            <input type="text" class="form-input" value="৯৯">
+                        </div>
+                        <div class="form-group">
+                            <label>VIP 1 জিমেইল লিমিট</label>
+                            <input type="text" class="form-input" value="২০">
+                        </div>
+                        <div class="form-group">
+                            <label>VIP 2 প্রাইস</label>
+                            <input type="text" class="form-input" value="১৯৯">
+                        </div>
+                        <div class="form-group">
+                            <label>VIP 2 জিমেইল লিমিট</label>
+                            <input type="text" class="form-input" value="৩০">
+                        </div>
+                    </div>
+                    <button class="save-btn" style="margin-top: 10px;" onclick="showToast()"><i class="fas fa-save"></i> VIP আপডেট করুন</button>
                 </div>
             </div>
 
-            <!-- 11. রেফার সেটিং -->
+            <!-- 7. রেফার সেটিং -->
             <div id="refer" class="tab-section">
                 <div class="admin-card">
                     <div class="card-header">রেফার সেটিং</div>
@@ -376,7 +409,7 @@
                 </div>
             </div>
 
-            <!-- 12. নোটিফিকেশন ও নোটিশ -->
+            <!-- 8. নোটিফিকেশন ও নোটিশ -->
             <div id="notification" class="tab-section">
                 <div class="admin-card">
                     <div class="card-header">গ্লোবাল নোটিশ এডিট</div>
@@ -388,7 +421,7 @@
                 </div>
             </div>
 
-            <!-- 13. কাজের নিয়মাবলী -->
+            <!-- 9. কাজের নিয়মাবলী -->
             <div id="rules" class="tab-section">
                 <div class="admin-card">
                     <div class="card-header">কাজের নিয়মাবলী এডিট করুন</div>
@@ -396,7 +429,7 @@
                 </div>
             </div>
 
-            <!-- 14. হেল্প ও সাপোর্ট -->
+            <!-- 10. হেল্প ও সাপোর্ট -->
             <div id="support" class="tab-section">
                 <div class="admin-card">
                     <div class="card-header">হেল্প ও সাপোর্ট লিংক</div>
@@ -430,13 +463,9 @@
 
             const titleMap = {
                 'dashboard': 'ড্যাশবোর্ড ওভারভিউ',
-                'simple_users': 'সাধারণ ইউজার ম্যানেজমেন্ট',
-                'vip_users': 'VIP ইউজার ম্যানেজমেন্ট',
+                'user_management': 'ইউজার ম্যানেজমেন্ট',
                 'withdraw': 'উইথড্র রিকোয়েস্টসমূহ',
-                'gmail': 'জিমেইল কাজ সেটিং',
-                'instagram': 'ইনস্টাগ্রাম কাজ সেটিং',
-                'whatsapp': 'হোয়াটসঅ্যাপ কাজ সেটিং',
-                'telegram': 'টেলিগ্রাম কাজ সেটিং',
+                'task_settings': 'সকল কাজের সেটিং',
                 'number': 'নাম্বার ম্যানেজমেন্ট',
                 'vip_settings': 'VIP প্যাকেজ সেটিং',
                 'refer': 'রেফার ও কমিশন সেটিং',
