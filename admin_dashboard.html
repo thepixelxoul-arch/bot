@@ -134,7 +134,7 @@
         .stat-info h3 { margin: 0 0 5px 0; font-size: 24px; color: var(--dark-blue); }
         .stat-info p { margin: 0; font-size: 13px; color: var(--text-grey); font-weight: bold; }
 
-        /* কাজের হিস্ট্রি টেবিল ডিজাইন */
+        /* কাজের হিস্ট্রি টেবিল */
         .admin-card {
             background: var(--main-white); border-radius: 12px; padding: 25px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-bottom: 25px;
@@ -146,7 +146,7 @@
         }
 
         table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #eaeaea; font-size: 14px; }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #eaeaea; font-size: 14px; vertical-align: middle; }
         th { background-color: #f8f9fa; color: var(--dark-blue); font-weight: bold; }
         tbody tr:hover { background-color: #fcfcfc; }
 
@@ -154,13 +154,54 @@
         .status-pending { background-color: #fff3cd; color: #856404; }
         .status-active { background-color: #d4edda; color: #155724; }
 
-        .action-btns button {
-            border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;
-            font-weight: bold; font-size: 12px; color: white; margin-right: 5px; transition: 0.2s;
+        /* নতুন টাস্ক বাটন ডিজাইন */
+        .task-btn {
+            border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer;
+            font-weight: bold; font-size: 13px; color: white; display: inline-flex; align-items: center; gap: 8px;
+            transition: 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-        .action-btns button:hover { transform: translateY(-2px); box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-        .btn-approve { background-color: #27ae60; }
-        .btn-reject { background-color: #e74c3c; }
+        .task-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(0,0,0,0.15); }
+        
+        .btn-gmail { background: linear-gradient(135deg, #ea4335, #ff6b6b); }
+        .btn-insta { background: linear-gradient(135deg, #e1306c, #f56040); }
+        .btn-wa { background: linear-gradient(135deg, #25d366, #2ecc71); }
+        .btn-tg { background: linear-gradient(135deg, #0088cc, #3498db); }
+
+        /* পপ-আপ (Modal) ডিজাইন */
+        .modal {
+            display: none; position: fixed; z-index: 1000; left: 0; top: 0;
+            width: 100%; height: 100%; background-color: rgba(0,0,0,0.6);
+            align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease;
+        }
+        .modal.show { display: flex; opacity: 1; }
+        
+        .modal-content {
+            background-color: #fff; padding: 30px; border-radius: 15px;
+            width: 90%; max-width: 450px; box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            transform: translateY(20px); transition: transform 0.3s ease; position: relative;
+        }
+        .modal.show .modal-content { transform: translateY(0); }
+
+        .close-btn { 
+            position: absolute; top: 15px; right: 20px; font-size: 24px; 
+            cursor: pointer; color: #aaa; transition: 0.2s; 
+        }
+        .close-btn:hover { color: var(--main-pink); }
+
+        .modal-title { font-size: 18px; font-weight: bold; color: var(--dark-blue); margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+        
+        .detail-row { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 14px; }
+        .detail-row span.label { color: #888; font-weight: bold; }
+        .detail-row span.value { color: var(--dark-blue); font-weight: bold; text-align: right; }
+        
+        .modal-actions { display: flex; gap: 15px; margin-top: 25px; }
+        .modal-actions button { 
+            flex: 1; padding: 12px; border: none; border-radius: 8px; font-size: 15px; 
+            font-weight: bold; cursor: pointer; color: white; transition: 0.2s; 
+        }
+        .modal-actions button:hover { transform: translateY(-2px); }
+        .btn-accept { background: linear-gradient(135deg, #27ae60, #2ecc71); box-shadow: 0 4px 10px rgba(39, 174, 96, 0.2); }
+        .btn-reject-modal { background: linear-gradient(135deg, #e74c3c, #c0392b); box-shadow: 0 4px 10px rgba(231, 76, 60, 0.2); }
 
         /* টোস্ট মেসেজ */
         .toast-msg {
@@ -174,7 +215,34 @@
 </head>
 <body>
 
-    <div id="toastBox" class="toast-msg"><i class="fas fa-check-circle"></i> কাজ সফলভাবে অ্যাপ্রুভ হয়েছে!</div>
+    <!-- টোস্ট মেসেজ -->
+    <div id="toastBox" class="toast-msg"><i class="fas fa-check-circle"></i> <span id="toastText">অ্যাকশন সফল হয়েছে!</span></div>
+
+    <!-- টাস্ক ডিটেইলস পপ-আপ (Modal) -->
+    <div id="taskModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div class="modal-title" id="modalTitle"><i class="fab fa-google"></i> কাজের বিস্তারিত তথ্য</div>
+            
+            <div class="detail-row">
+                <span class="label">ইউজার আইডি:</span>
+                <span class="value" id="m-userId">T9KZBTUBR1</span>
+            </div>
+            <div class="detail-row">
+                <span class="label">কাজের সময়:</span>
+                <span class="value" id="m-time">আজ, ০৩:১৫ PM</span>
+            </div>
+            <div class="detail-row">
+                <span class="label">একাউন্ট ডিটেইলস:</span>
+                <span class="value" id="m-details" style="color: var(--main-pink);">sakib123@gmail.com<br>Pass: sakib@2026</span>
+            </div>
+            
+            <div class="modal-actions">
+                <button class="btn-accept" onclick="actionTask('accept')"><i class="fas fa-check"></i> Accept</button>
+                <button class="btn-reject-modal" onclick="actionTask('reject')"><i class="fas fa-times"></i> Reject</button>
+            </div>
+        </div>
+    </div>
 
     <!-- সাইডবার -->
     <aside class="sidebar">
@@ -183,7 +251,7 @@
             <p>অ্যাডমিন কন্ট্রোল প্যানেল</p>
         </div>
         <ul class="nav-links">
-            <li><a href="admin_dashboard.html" class="nav-link active"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
+            <li><a href="admin.html" class="nav-link active"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
             <li><a href="admin_simple_users.html" class="nav-link"><i class="fas fa-user"></i> সাধারণ ইউজার</a></li>
             <li><a href="admin_vip_users.html" class="nav-link"><i class="fas fa-user-tie"></i> VIP ইউজার</a></li>
             <li><a href="admin_withdraw.html" class="nav-link"><i class="fas fa-file-invoice-dollar"></i> উইথড্র রিকোয়েস্ট</a></li>
@@ -208,7 +276,6 @@
 
         <div class="dashboard-body">
             
-            <!-- ড্যাশবোর্ড স্ট্যাটাস কার্ড -->
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-icon"><i class="fas fa-users"></i></div>
@@ -228,7 +295,7 @@
                 </div>
             </div>
 
-            <!-- নতুন যোগ করা: কাজের হিস্ট্রি টেবিল -->
+            <!-- কাজের হিস্ট্রি টেবিল -->
             <div class="admin-card">
                 <div class="card-header">
                     <span>সাম্প্রতিক কাজ জমা দেওয়ার হিস্ট্রি</span>
@@ -239,55 +306,57 @@
                             <tr>
                                 <th>সময়</th>
                                 <th>ইউজার আইডি</th>
-                                <th>কাজের ধরন</th>
-                                <th>একাউন্ট ডিটেইলস</th>
+                                <th>কাজের বিবরণ (ক্লিক করুন)</th>
                                 <th>স্ট্যাটাস</th>
-                                <th>অ্যাকশন</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <!-- Gmail Task -->
                             <tr>
                                 <td>আজ, ০৩:১৫ PM</td>
                                 <td style="font-weight: bold;">T9KZBTUBR1</td>
-                                <td><i class="fab fa-google" style="color: #ea4335; margin-right: 5px;"></i> Gmail</td>
-                                <td>sakib123@gmail.com <br> <span style="font-size: 12px; color: #888;">Pass: sakib@2026</span></td>
-                                <td><span class="status-badge status-pending">Pending</span></td>
-                                <td class="action-btns">
-                                    <button class="btn-approve" onclick="showToast()">Approve</button>
-                                    <button class="btn-reject" onclick="showToast()">Reject</button>
+                                <td>
+                                    <button class="task-btn btn-gmail" onclick="openModal('Gmail', 'fab fa-google', '#ea4335', 'T9KZBTUBR1', 'আজ, ০৩:১৫ PM', 'sakib123@gmail.com<br>Pass: sakib@2026')">
+                                        <i class="fab fa-google"></i> চেক করুন
+                                    </button>
                                 </td>
+                                <td><span class="status-badge status-pending">Pending</span></td>
                             </tr>
+                            
+                            <!-- Instagram Task -->
                             <tr>
                                 <td>আজ, ০২:৪৫ PM</td>
                                 <td style="font-weight: bold;">X7ABCTUBR9</td>
-                                <td><i class="fab fa-instagram" style="color: #e1306c; margin-right: 5px;"></i> Instagram</td>
-                                <td>insta_salam99 <br> <span style="font-size: 12px; color: #888;">Pass: salam@pass</span></td>
-                                <td><span class="status-badge status-pending">Pending</span></td>
-                                <td class="action-btns">
-                                    <button class="btn-approve" onclick="showToast()">Approve</button>
-                                    <button class="btn-reject" onclick="showToast()">Reject</button>
+                                <td>
+                                    <button class="task-btn btn-insta" onclick="openModal('Instagram', 'fab fa-instagram', '#e1306c', 'X7ABCTUBR9', 'আজ, ০২:৪৫ PM', 'insta_salam99<br>Pass: salam@pass')">
+                                        <i class="fab fa-instagram"></i> চেক করুন
+                                    </button>
                                 </td>
+                                <td><span class="status-badge status-pending">Pending</span></td>
                             </tr>
+                            
+                            <!-- WhatsApp Task -->
                             <tr>
                                 <td>আজ, ০১:২০ PM</td>
                                 <td style="font-weight: bold;">M2LKBTYYY5</td>
-                                <td><i class="fab fa-whatsapp" style="color: #25d366; margin-right: 5px;"></i> WhatsApp</td>
-                                <td>+8801711223344</td>
-                                <td><span class="status-badge status-active">Approved</span></td>
-                                <td class="action-btns">
-                                    <span style="font-size: 13px; color: #27ae60; font-weight: bold;"><i class="fas fa-check-circle"></i> সম্পন্ন</span>
+                                <td>
+                                    <button class="task-btn btn-wa" onclick="openModal('WhatsApp', 'fab fa-whatsapp', '#25d366', 'M2LKBTYYY5', 'আজ, ০১:২০ PM', 'নম্বর: +8801711223344')">
+                                        <i class="fab fa-whatsapp"></i> চেক করুন
+                                    </button>
                                 </td>
+                                <td><span class="status-badge status-pending">Pending</span></td>
                             </tr>
+                            
+                            <!-- Telegram Task -->
                             <tr>
                                 <td>গতকাল, ১১:১০ AM</td>
                                 <td style="font-weight: bold;">A4JKMTUZR8</td>
-                                <td><i class="fab fa-telegram-plane" style="color: #0088cc; margin-right: 5px;"></i> Telegram</td>
-                                <td>+8801999887766</td>
-                                <td><span class="status-badge status-pending">Pending</span></td>
-                                <td class="action-btns">
-                                    <button class="btn-approve" onclick="showToast()">Approve</button>
-                                    <button class="btn-reject" onclick="showToast()">Reject</button>
+                                <td>
+                                    <button class="task-btn btn-tg" onclick="openModal('Telegram', 'fab fa-telegram-plane', '#0088cc', 'A4JKMTUZR8', 'গতকাল, ১১:১০ AM', 'নম্বর: +8801999887766')">
+                                        <i class="fab fa-telegram-plane"></i> চেক করুন
+                                    </button>
                                 </td>
+                                <td><span class="status-badge status-pending">Pending</span></td>
                             </tr>
                         </tbody>
                     </table>
@@ -297,26 +366,36 @@
         </div>
     </main>
 
-    <!-- Firebase Script -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
-        import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+    <!-- শুধুমাত্র ডিজাইনের জন্য জাভাস্ক্রিপ্ট (Firebase বাদ দিয়ে) -->
+    <script>
+        // পপ-আপ ওপেন করার ফাংশন
+        function openModal(taskName, iconClass, iconColor, userId, time, details) {
+            document.getElementById('modalTitle').innerHTML = `<i class="${iconClass}" style="color: ${iconColor};"></i> ${taskName} কাজের বিস্তারিত`;
+            document.getElementById('m-userId').innerText = userId;
+            document.getElementById('m-time').innerText = time;
+            document.getElementById('m-details').innerHTML = details;
+            
+            document.getElementById('taskModal').classList.add('show');
+        }
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
-            authDomain: "send-bkash.firebaseapp.com",
-            projectId: "send-bkash",
-            storageBucket: "send-bkash.firebasestorage.app",
-            messagingSenderId: "306247423891",
-            appId: "1:306247423891:web:bb4fb6634043e6755afa66"
-        };
+        // পপ-আপ ক্লোজ করার ফাংশন
+        function closeModal() {
+            document.getElementById('taskModal').classList.remove('show');
+        }
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-
-        // টোস্ট মেসেজ শো করানোর ফাংশন
-        window.showToast = function() {
+        // Accept বা Reject বাটনে ক্লিক করলে যা হবে
+        function actionTask(action) {
+            closeModal(); // প্রথমে পপ-আপ বন্ধ করবে
+            
             const toast = document.getElementById("toastBox");
+            if(action === 'accept') {
+                document.getElementById("toastText").innerText = "কাজটি সফলভাবে Accept করা হয়েছে!";
+                toast.style.backgroundColor = "#27ae60"; // সবুজ
+            } else {
+                document.getElementById("toastText").innerText = "কাজটি Reject করা হয়েছে!";
+                toast.style.backgroundColor = "#e74c3c"; // লাল
+            }
+
             toast.classList.add("show");
             setTimeout(() => { toast.classList.remove("show"); }, 2500);
         }
