@@ -42,24 +42,15 @@
 
         .content { flex-grow: 1; padding: 20px; overflow-y: auto; padding-bottom: 20px; }
         
-        .profile-card {
-            background-color: var(--main-white); border-radius: 12px; padding: 20px;
-            border: 1px solid #eaeaea; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center;
-            margin-bottom: 20px;
-        }
-        
-        .badge-container {
-            display: flex; flex-direction: column; align-items: center; gap: 12px;
-        }
-
-        /* VIP কার্ডটি আরও বড় এবং আকর্ষণীয় করা হয়েছে */
+        /* হোম পেজের অ্যাড ব্যানারের একদম হুবহু সাইজ ও ডিজাইন */
         .vip-huge-card {
             background: linear-gradient(135deg, var(--main-pink), #ff3377);
             border-radius: 12px;
-            padding: 35px 20px; /* প্যাডিং বাড়িয়ে কার্ড বড় করা হয়েছে */
+            padding: 35px 20px;
+            margin-bottom: 25px;
             color: white;
             text-align: center;
-            box-shadow: 0 8px 25px rgba(226, 0, 90, 0.35); /* শ্যাডো সামান্য বাড়ানো হয়েছে */
+            box-shadow: 0 8px 20px rgba(226, 0, 90, 0.3);
             width: 100%;
             box-sizing: border-box;
             position: relative;
@@ -69,30 +60,31 @@
         .vip-icon-circle {
             background-color: rgba(255, 255, 255, 0.2);
             color: white;
-            width: 70px; /* আইকনের সার্কেল বড় করা হয়েছে */
+            width: 70px;
             height: 70px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 32px; /* আইকন বড় করা হয়েছে */
+            font-size: 32px;
             margin: 0 auto 15px auto;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         .vip-huge-card h3 {
-            font-size: 24px; /* টেক্সট সাইজ বড় করা হয়েছে */
+            font-size: 20px;
             font-weight: 900;
             margin: 0 0 8px 0;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.15);
         }
 
         .vip-huge-card p {
-            font-size: 14px; /* টেক্সট সাইজ বড় করা হয়েছে */
+            font-size: 14px;
             color: #ffe6f0;
             margin: 0;
             font-weight: 600;
             line-height: 1.5;
+            padding: 0 10px;
         }
 
         .stats-card {
@@ -152,15 +144,11 @@
         </div>
 
         <div class="content">
-            <div class="profile-card">
-                <div class="badge-container">
-                    <!-- বড় অ্যাড কার্ডের আদলে তৈরি VIP কার্ড -->
-                    <div class="vip-huge-card">
-                        <div class="vip-icon-circle"><i class="fas fa-crown" id="vipIcon"></i></div>
-                        <h3 id="vipLevelText">VIP 0</h3>
-                        <p id="vipDescText">স্ট্যান্ডার্ড অ্যাকাউন্ট</p>
-                    </div>
-                </div>
+            <!-- বাইরের সাদা বক্সটি সরিয়ে দেওয়া হয়েছে, এখন কার্ডটি বড় দেখাবে -->
+            <div class="vip-huge-card">
+                <div class="vip-icon-circle"><i class="fas fa-crown" id="vipIcon"></i></div>
+                <h3 id="vipLevelText">VIP 0</h3>
+                <p id="vipDescText">স্ট্যান্ডার্ড অ্যাকাউন্ট</p>
             </div>
 
             <div class="stats-card">
