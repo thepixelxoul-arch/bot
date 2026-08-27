@@ -21,6 +21,7 @@
             display: flex; justify-content: center; 
         }
 
+        /* পুরো স্ক্রিন ফিক্সড করা হয়েছে (height: 100vh) */
         .app-container { 
             width: 100%; max-width: 450px; height: 100vh; 
             background-color: var(--bg-light); color: var(--main-pink); 
@@ -30,7 +31,7 @@
         }
 
         .header { 
-            flex-shrink: 0; 
+            flex-shrink: 0; /* হেডার ফিক্সড */
             background-color: var(--main-pink); padding: 15px 20px; 
             display: flex; justify-content: space-between; align-items: center; 
             color: var(--main-white); box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); z-index: 10; 
@@ -38,32 +39,18 @@
         .header-title { font-size: 20px; font-weight: bold; display: flex; align-items: center; }
         .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 22px; }
 
+        /* শুধু মাঝখানের অংশ স্ক্রল হবে */
         .content { 
             flex-grow: 1; padding: 20px; 
             overflow-y: auto; overflow-x: hidden; 
             padding-bottom: 20px; 
         }
         
-        /* নোটিশ বক্সের ফ্লোটিং অ্যানিমেশন */
-        @keyframes floatNotice {
-            0%, 100% { transform: translate3d(0, 0, 0); box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
-            50% { transform: translate3d(0, -3px, 0); box-shadow: 0 8px 15px rgba(0,0,0,0.08); }
-        }
-
         .notice-box {
             background: linear-gradient(135deg, #fff3cd, #ffeeba); 
             border: 1px solid #ffeeba; border-left: 5px solid #ffc107;
             padding: 12px 15px; border-radius: 6px; margin-bottom: 15px; color: #856404;
             font-size: 13px; line-height: 1.5; box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-            
-            /* লেখা না কাঁপার জন্য কোড */
-            -webkit-font-smoothing: antialiased;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            transform: translateZ(0);
-            will-change: transform, box-shadow;
-            
-            animation: floatNotice 3.5s infinite ease-in-out;
         }
 
         .refer-card {
@@ -72,6 +59,7 @@
             margin-bottom: 20px;
         }
         
+        /* আইকনটি পিংক গ্র্যাডিয়েন্ট স্টাইলে করা হয়েছে */
         .refer-card i.main-icon { 
             font-size: 45px; 
             background: -webkit-linear-gradient(135deg, var(--main-pink), #ff3377);
@@ -97,6 +85,7 @@
             font-size: 13px; color: #2c3e50; outline: none; text-overflow: ellipsis; font-weight: bold;
         }
         
+        /* কপি বাটন আপডেট করা হয়েছে */
         .copy-btn {
             background: linear-gradient(135deg, var(--main-pink), #ff3377);
             color: white; border: none;
@@ -105,6 +94,7 @@
         }
         .copy-btn:hover { background: linear-gradient(135deg, #c4004e, #e2005a); }
 
+        /* স্ট্যাটাস কার্ড আপডেট করা হয়েছে */
         .stats-card {
             background-color: var(--main-white); border-radius: 12px; padding: 15px 10px;
             border: 1px solid #eaeaea; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
@@ -115,6 +105,7 @@
         .stat-num { font-size: 18px; font-weight: 900; color: var(--main-pink); margin-bottom: 5px; white-space: nowrap; }
         .stat-label { font-size: 12px; color: var(--text-grey); font-weight: bold; }
 
+        /* হিস্ট্রি সেকশন */
         .history-section { margin-top: 15px; }
         .history-title { font-size: 16px; font-weight: bold; color: #2c3e50; margin-bottom: 15px; border-bottom: 2px solid #eaeaea; padding-bottom: 8px; }
         
@@ -128,6 +119,7 @@
             display: flex; align-items: center; gap: 12px; flex: 1; overflow: hidden;
         }
         
+        /* উইথড্র পেজের মতো আইকন বক্স */
         .history-icon { 
             min-width: 45px; height: 45px; border-radius: 6px; 
             display: flex; align-items: center; justify-content: center; 
@@ -145,6 +137,7 @@
 
         .history-amount { font-size: 15px; font-weight: 900; color: #27ae60; white-space: nowrap; }
 
+        /* বটম নেভিগেশন একদম নিচে ফিক্সড থাকবে */
         .bottom-nav { 
             flex-shrink: 0; 
             background-color: var(--main-white); display: flex; justify-content: space-around; 
@@ -177,7 +170,6 @@
         </div>
 
         <div class="content">
-            <!-- নোটিশ বক্স (স্মুথ ফ্লোটিং অ্যানিমেশন সহ) -->
             <div class="notice-box">
                 <i class="fas fa-info-circle"></i> প্রতি রেফারে পাবেন <b>৳২.০০</b> টাকা বোনাস। এছাড়া আপনার রেফারের বন্ধুরা কাজ করলে তাদের প্রতি কাজের আয় থেকে পাবেন <b>৫% কমিশন</b>!
             </div>
@@ -213,6 +205,7 @@
             <div class="history-section">
                 <div class="history-title">রেফার ও কমিশন হিস্ট্রি</div>
                 <div id="referHistoryList">
+                    <!-- ডেমো বা লোকালস্টোরেজ থেকে ডাটা এখানে আসবে -->
                     <p style="text-align:center; color:#888; font-size:13px; font-weight: bold; padding: 20px;">কোনো হিস্ট্রি পাওয়া যায়নি।</p>
                 </div>
             </div>
@@ -238,7 +231,7 @@
             setTimeout(() => { toast.classList.remove("show"); }, 2500);
         }
 
-        // লোড করার ফাংশন
+        // লোড করার ফাংশন (যদি লোকালস্টোরেজে রেফার হিস্ট্রি থাকে)
         function loadReferHistory() {
             const historyList = document.getElementById('referHistoryList');
             const history = JSON.parse(localStorage.getItem('referHistory')) || [];
@@ -247,6 +240,7 @@
 
             historyList.innerHTML = '';
             history.forEach(item => {
+                // উইথড্র পেজের মতো নতুন কার্ড ডিজাইন
                 historyList.innerHTML += `
                     <div class="history-card">
                         <div class="history-left-wrap">
