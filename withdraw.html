@@ -62,11 +62,7 @@
             font-size: 13px; line-height: 1.5; box-shadow: 0 2px 8px rgba(0,0,0,0.03);
         }
 
-        @keyframes floatBalance {
-            0%, 100% { transform: translate3d(0, 0, 0); box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2); }
-            50% { transform: translate3d(0, -3px, 0); box-shadow: 0 12px 20px rgba(226, 0, 90, 0.4); }
-        }
-
+        /* অ্যানিমেশন সম্পূর্ণ রিমুভ করা হয়েছে, এখন বক্স একদম স্থির থাকবে */
         .balance-card {
             background: linear-gradient(135deg, var(--main-pink), #ff3377);
             border-radius: 10px;
@@ -75,15 +71,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 6px 15px rgba(226, 0, 90, 0.25);
             color: white;
-            
-            -webkit-font-smoothing: antialiased;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            transform: translateZ(0);
-            will-change: transform, box-shadow;
-            
-            animation: floatBalance 3s infinite ease-in-out;
         }
         .balance-title { font-size: 14px; color: rgba(255, 255, 255, 0.9); font-weight: bold; display: flex; align-items: center; gap: 8px; }
         .balance-amount { font-size: 22px; font-weight: 900; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
@@ -163,25 +152,22 @@
         }
         .submit-btn:hover { background-color: #c4004e; transform: translateY(-1px); }
 
-        /* 
-         * ফুল-স্ক্রিন হিস্ট্রি পেজ স্টাইল (নতুন পেজের মতো স্লাইড করে আসবে)
-         */
+        /* ফুল-স্ক্রিন হিস্ট্রি পেজ স্টাইল */
         .history-screen {
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
             background-color: var(--bg-light);
-            z-index: 200; /* সবকিছুর ওপরে থাকবে */
+            z-index: 200;
             display: flex;
             flex-direction: column;
-            transform: translateX(100%); /* শুরুতে ডানপাশে লুকিয়ে থাকবে */
+            transform: translateX(100%);
             transition: transform 0.3s ease-in-out;
         }
         .history-screen.active {
-            transform: translateX(0); /* অ্যাকটিভ হলে স্ক্রিনে চলে আসবে */
+            transform: translateX(0);
         }
 
-        /* হিস্ট্রি কার্ডের স্টাইল */
         .history-card {
             background-color: var(--main-white); border: 1px solid #eaeaea; border-radius: 8px; 
             padding: 12px 15px; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; 
@@ -252,6 +238,7 @@
                 <i class="fas fa-info-circle"></i> ন্যূনতম উইথড্র পরিমাণ ৳১০০ টাকা। ২৪ ঘণ্টার মধ্যে পেমেন্ট কমপ্লিট করা হবে।
             </div>
 
+            <!-- একদম স্থির ব্যালেন্স কার্ড -->
             <div class="balance-card">
                 <div class="balance-title"><i class="fas fa-wallet"></i> আপনার মূল ব্যালেন্স:</div>
                 <div class="balance-amount">৳৫০০.০০</div>
@@ -301,7 +288,7 @@
             <a href="profile.html" class="nav-item"><i class="fas fa-user"></i>Profile</a>
         </div>
 
-        <!-- Full Screen History Page (নতুন পেজের মতো স্লাইড হয়ে আসবে) -->
+        <!-- Full Screen History Page -->
         <div id="historyScreen" class="history-screen">
             <div class="header">
                 <div class="header-title">
@@ -362,7 +349,6 @@
             setTimeout(() => { toast.classList.remove("show"); }, 2500);
         }
 
-        // ফুল-স্ক্রিন হিস্ট্রি পেজ ওপেন ও ক্লোজ ফাংশন
         function openHistoryScreen(event) {
             event.preventDefault();
             document.getElementById('historyScreen').classList.add('active');
