@@ -22,13 +22,15 @@
         }
 
         .app-container { 
-            width: 100%; max-width: 450px; min-height: 100vh; 
+            width: 100%; max-width: 450px; height: 100vh; 
             background-color: var(--bg-light); color: var(--main-pink); 
             box-shadow: 0 0 25px rgba(0,0,0,0.1); 
             display: flex; flex-direction: column; position: relative; 
+            overflow: hidden; 
         }
 
         .header { 
+            flex-shrink: 0; 
             background-color: var(--main-pink); padding: 15px 20px; 
             display: flex; justify-content: space-between; align-items: center; 
             color: var(--main-white); box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); z-index: 10; 
@@ -38,18 +40,18 @@
         .header-action { color: white; font-size: 20px; text-decoration: none; transition: 0.2s; }
         .header-action:hover { color: #f1f2f6; transform: scale(1.1); }
 
-        .content { flex-grow: 1; padding: 20px; overflow-y: auto; padding-bottom: 80px; }
+        .content { flex-grow: 1; padding: 20px; overflow-y: auto; padding-bottom: 20px; }
         
         .profile-card {
-            background-color: var(--main-white); border-radius: 12px; padding: 30px 20px;
+            background-color: var(--main-white); border-radius: 12px; padding: 25px 20px;
             border: 1px solid #eaeaea; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center;
             margin-bottom: 20px;
         }
         
         .profile-avatar {
-            width: 85px; height: 85px; background-color: rgba(226, 0, 90, 0.05);
+            width: 80px; height: 80px; background-color: rgba(226, 0, 90, 0.05);
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 15px auto; color: var(--main-pink); font-size: 16px; font-weight: bold;
+            margin: 0 auto 15px auto; color: var(--main-pink); font-size: 15px; font-weight: bold;
             border: 2px solid var(--main-pink); text-align: center; padding: 5px; line-height: 1.2;
             box-sizing: border-box;
         }
@@ -65,13 +67,22 @@
             border: 1px solid #dcdde1;
         }
 
-        .vip-badge {
-            background: linear-gradient(135deg, #718093, #2f3640);
-            color: white; padding: 8px 15px; border-radius: 20px;
-            font-size: 13px; font-weight: bold; display: inline-flex; align-items: center; gap: 6px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+        /* হোম পেজের অ্যাড ব্যান্টারের থিমের সাথে মেলানো VIP কার্ট স্টাইল */
+        .vip-card-banner {
+            background: linear-gradient(135deg, var(--main-pink), #ff3377);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(226, 0, 90, 0.25);
+            text-align: left;
         }
-        .vip-badge i { font-size: 12px; color: #f39c12; }
+        .vip-card-banner i { font-size: 14px; color: #ffcc00; }
+        .vip-card-banner span { font-size: 11px; display: block; color: #ffe6f0; font-weight: normal; margin-top: 1px; }
 
         .stats-card {
             background-color: var(--main-white); border-radius: 12px; padding: 20px 15px;
@@ -94,7 +105,6 @@
             border-bottom: 1px solid #f1f2f6; transition: background 0.2s;
         }
         .menu-item:last-child { border-bottom: none; }
-        
         .menu-item:hover { background-color: rgba(226, 0, 90, 0.08); }
         
         .menu-left { display: flex; align-items: center; gap: 15px; font-size: 15px; font-weight: bold; }
@@ -109,7 +119,11 @@
         }
         .logout-btn:hover { background: linear-gradient(135deg, #ffeeba, #ffe8a1); }
 
-        .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: sticky; bottom: 0; z-index: 100; }
+        .bottom-nav { 
+            flex-shrink: 0; 
+            background-color: var(--main-white); display: flex; justify-content: space-around; 
+            padding: 10px 0; border-top: 1px solid #eaeaea; z-index: 100; 
+        }
         .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); text-decoration: none; flex: 1; }
         .nav-item i { font-size: 18px; margin-bottom: 4px; display: block; }
         .nav-item.active { color: var(--main-pink); font-weight: bold; }
@@ -123,7 +137,6 @@
                 <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
                 Profile
             </div>
-            <!-- হেডারের ডান কোণায় এডমিন প্যানেলের বাটন -->
             <a href="admin.html" class="header-action" title="এডমিন প্যানেল"><i class="fas fa-user-shield"></i></a>
         </div>
 
@@ -135,14 +148,21 @@
                 
                 <div class="badge-container">
                     <div class="user-id-badge">User ID: <span id="userIdDisplay">Loading...</span></div>
-                    <div class="vip-badge"><i class="fas fa-crown"></i> <span id="vipLevelText">VIP 0</span></div>
+                    
+                    <!-- হোম পেজের অ্যাড ব্যান্টারের মতো VIP কার্ট স্টাইল -->
+                    <div class="vip-card-banner" id="vipBannerBox">
+                        <div>
+                            <i class="fas fa-crown" id="vipIcon"></i> <b id="vipLevelText">VIP 0</b>
+                            <span id="vipDescText">স্ট্যান্ডার্ড অ্যাকাউন্ট</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <div class="stats-card">
                 <div class="stat-item">
                     <div class="stat-num">৳৩৫০.০০</div>
-                    <div class="stat-label">মোট আয়</div>
+                    <div class="stat-label">মোট আয়</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-num">৳৩০০.০০</div>
@@ -160,7 +180,7 @@
                     <i class="fas fa-chevron-right" style="font-size: 13px; color: var(--text-grey);"></i>
                 </a>
                 <a href="rules.html" class="menu-item">
-                    <div class="menu-left"><i class="fas fa-file-alt"></i> কাজের নিয়মাবলী</div>
+                    <div class="menu-left"><i class="fas fa-file-alt"></i> কাজের নিয়মাবলী</div>
                     <i class="fas fa-chevron-right" style="font-size: 13px; color: var(--text-grey);"></i>
                 </a>
             </div>
@@ -195,6 +215,21 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
+        // হোম পেজের বিজ্ঞাপনের সাথে সামঞ্জস্য রেখে বিভিন্ন VIP লেভেলের ডিটেইলস ম্যাপ
+        const vipInfoMap = {
+            "VIP 1": "দৈনিক ২০টি জিমেইল ও ১০টি ইনস্টাগ্রাম কাজ",
+            "VIP 2": "দৈনিক ৩০টি জিমেইল ও ২০টি ইনস্টাগ্রাম কাজ",
+            "VIP 3": "দৈনিক ৪০টি জিমেইল ও ৩০টি ইনস্টাগ্রাম কাজ",
+            "VIP 4": "দৈনিক ৫০টি জিমেইল ও ৪০টি ইনস্টাগ্রাম কাজ",
+            "VIP 5": "দৈনিক ৬০টি জিমেইল ও ৫০টি ইনস্টাগ্রাম কাজ",
+            "VIP 6": "দৈনিক ৭০টি জিমেইল ও ৬০টি ইনস্টাগ্রাম কাজ",
+            "VIP 7": "দৈনিক ৮০টি জিমেইল ও ৭০টি ইনস্টাগ্রাম কাজ",
+            "VIP 8": "দৈনিক ৯০টি জিমেইল ও ৮০টি ইনস্টাগ্রাম কাজ",
+            "VIP 9": "দৈনিক ১০০টি জিমেইল ও ৯০টি ইনস্টাগ্রাম কাজ",
+            "VIP 10": "দৈনিক ১১০টি জিমেইল ও ১০০টি ইনস্টাগ্রাম কাজ",
+            "Send bKash Member": "দৈনিক ২০০টি জিমেইল ও ১৮০টি ইনস্টাগ্রাম কাজ"
+        };
+
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 const shortUid = user.uid.substring(0, 10).toUpperCase();
@@ -202,6 +237,22 @@
 
                 const userVip = localStorage.getItem('userVipLevel') || "VIP 0";
                 document.getElementById("vipLevelText").innerText = userVip;
+
+                // VIP লেভেল অনুযায়ী হোম পেজের আদলে সাব-টেক্সট সেট করা
+                const descElem = document.getElementById("vipDescText");
+                const iconElem = document.getElementById("vipIcon");
+                
+                if (userVip === "VIP 0") {
+                    descElem.innerText = "স্ট্যান্ডার্ড অ্যাকাউন্ট";
+                    iconElem.className = "fas fa-crown";
+                } else if (userVip === "Send bKash Member") {
+                    descElem.innerText = vipInfoMap[userVip];
+                    iconElem.className = "fas fa-star";
+                } else {
+                    descElem.innerText = vipInfoMap[userVip] || "স্পেশাল VIP অফার একটিভ";
+                    iconElem.className = "fas fa-crown";
+                }
+
             } else {
                 window.location.href = "login.html";
             }
