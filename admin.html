@@ -40,21 +40,28 @@
             padding: 20px;
             text-align: center;
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            flex-shrink: 0;
         }
         .sidebar-header h2 { margin: 0; font-size: 22px; font-weight: 900; }
         .sidebar-header p { margin: 5px 0 0 0; font-size: 12px; color: #ffe6f0; }
 
+        /* মেনু লিস্ট স্ক্রল করার জন্য */
         .nav-links {
-            list-style: none; padding: 0; margin: 20px 0;
+            list-style: none; padding: 0; margin: 10px 0;
             flex-grow: 1;
+            overflow-y: auto;
         }
+        
+        /* কাস্টম স্ক্রলবার ডিজাইন */
+        .nav-links::-webkit-scrollbar { width: 5px; }
+        .nav-links::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 10px; }
 
-        .nav-links li { margin-bottom: 5px; }
+        .nav-links li { margin-bottom: 2px; }
 
         .nav-links a {
             display: flex; align-items: center; gap: 15px;
-            padding: 15px 25px; color: rgba(255, 255, 255, 0.9);
-            text-decoration: none; font-size: 15px; font-weight: bold;
+            padding: 12px 25px; color: rgba(255, 255, 255, 0.9);
+            text-decoration: none; font-size: 14px; font-weight: bold;
             transition: 0.3s; border-left: 4px solid transparent;
         }
 
@@ -64,7 +71,7 @@
             border-left: 4px solid #ffcc00;
         }
 
-        .nav-links a i { width: 20px; text-align: center; font-size: 18px; }
+        .nav-links a i { width: 20px; text-align: center; font-size: 16px; }
 
         /* মেইন কন্টেন্ট এরিয়া */
         .main-content {
@@ -85,7 +92,7 @@
             z-index: 10;
         }
 
-        .topbar-title { font-size: 20px; font-weight: bold; color: var(--dark-blue); }
+        .topbar-title { font-size: 18px; font-weight: bold; color: var(--dark-blue); }
 
         .admin-profile { display: flex; align-items: center; gap: 15px; }
         
@@ -133,7 +140,7 @@
         .stat-info h3 { margin: 0 0 5px 0; font-size: 24px; color: var(--dark-blue); }
         .stat-info p { margin: 0; font-size: 13px; color: var(--text-grey); font-weight: bold; }
 
-        /* কার্ড ডিজাইন (সেটিংস ও টেবিল) */
+        /* কার্ড ডিজাইন */
         .admin-card {
             background: var(--main-white); border-radius: 12px; padding: 25px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-bottom: 25px;
@@ -189,9 +196,8 @@
         }
         .toast-msg.show { visibility: visible; opacity: 1; top: 50px; }
 
-        @media (max-width: 768px) {
-            .sidebar { display: none; }
-            .form-grid { grid-template-columns: 1fr; }
+        .placeholder-text {
+            color: #7f8c8d; font-size: 15px; text-align: center; padding: 30px 0; font-weight: bold;
         }
     </style>
 </head>
@@ -199,7 +205,7 @@
 
     <div id="toastBox" class="toast-msg"><i class="fas fa-check-circle"></i> সফলভাবে সেভ হয়েছে!</div>
 
-    <!-- সাইডবার -->
+    <!-- সাইডবার (নতুন সব অপশন সহ) -->
     <aside class="sidebar">
         <div class="sidebar-header">
             <h2><i class="fas fa-paper-plane"></i> Send bKash</h2>
@@ -207,11 +213,19 @@
         </div>
         <ul class="nav-links">
             <li><a href="#" class="nav-link active" onclick="openTab(event, 'dashboard')"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
-            <li><a href="#" class="nav-link" onclick="openTab(event, 'users')"><i class="fas fa-users"></i> ইউজার ম্যানেজমেন্ট</a></li>
-            <li><a href="#" class="nav-link" onclick="openTab(event, 'withdraw')"><i class="fas fa-file-invoice-dollar"></i> উইথড্র রিকোয়েস্ট</a></li>
-            <li><a href="#" class="nav-link" onclick="openTab(event, 'rates')"><i class="fas fa-tags"></i> সার্ভিস ও রেট সেটিং</a></li>
-            <li><a href="#" class="nav-link" onclick="openTab(event, 'vip')"><i class="fas fa-crown"></i> VIP প্যাকেজ সেটিং</a></li>
-            <li><a href="#" class="nav-link" onclick="openTab(event, 'notice')"><i class="fas fa-bell"></i> নোটিশ ও পপআপ</a></li>
+            <li><a href="#" class="nav-link" onclick="openTab(event, 'simple_users')"><i class="fas fa-user"></i> সাধারণ ইউজার (Simple)</a></li>
+            <li><a href="#" class="nav-link" onclick="openTab(event, 'vip_users')"><i class="fas fa-user-tie"></i> VIP ইউজার</a></li>
+            <li><a href="#" class="nav-link" onclick="openTab(event, 'withdraw')"><i class="fas fa-file-invoice-dollar"></i> উইথড্র রিকোয়েস্ট</a></li>
+            <li><a href="#" class="nav-link" onclick="openTab(event, 'gmail')"><i class="fab fa-google"></i> জিমেইল কাজ</a></li>
+            <li><a href="#" class="nav-link" onclick="openTab(event, 'instagram')"><i class="fab fa-instagram"></i> ইনস্টাগ্রাম কাজ</a></li>
+            <li><a href="#" class="nav-link" onclick="openTab(event, 'whatsapp')"><i class="fab fa-whatsapp"></i> হোয়াটসঅ্যাপ কাজ</a></li>
+            <li><a href="#" class="nav-link" onclick="openTab(event, 'telegram')"><i class="fab fa-telegram-plane"></i> টেলিগ্রাম কাজ</a></li>
+            <li><a href="#" class="nav-link" onclick="openTab(event, 'number')"><i class="fas fa-sim-card"></i> নাম্বার ম্যানেজমেন্ট</a></li>
+            <li><a href="#" class="nav-link" onclick="openTab(event, 'vip_settings')"><i class="fas fa-crown"></i> VIP প্যাকেজ সেটিং</a></li>
+            <li><a href="#" class="nav-link" onclick="openTab(event, 'refer')"><i class="fas fa-user-plus"></i> রেফার সেটিং</a></li>
+            <li><a href="#" class="nav-link" onclick="openTab(event, 'notification')"><i class="fas fa-bell"></i> নোটিফিকেশন ও নোটিশ</a></li>
+            <li><a href="#" class="nav-link" onclick="openTab(event, 'rules')"><i class="fas fa-file-alt"></i> কাজের নিয়মাবলী</a></li>
+            <li><a href="#" class="nav-link" onclick="openTab(event, 'support')"><i class="fas fa-headset"></i> হেল্প ও সাপোর্ট</a></li>
         </ul>
     </aside>
 
@@ -228,74 +242,45 @@
         <!-- ড্যাশবোর্ড বডি -->
         <div class="dashboard-body">
             
-            <!-- 1. ড্যাশবোর্ড ট্যাব -->
+            <!-- 1. ড্যাশবোর্ড -->
             <div id="dashboard" class="tab-section active">
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-icon"><i class="fas fa-users"></i></div>
-                        <div class="stat-info"><h3>১,৪৫০</h3><p>মোট রেজিস্টার্ড ইউজার</p></div>
+                        <div class="stat-info"><h3>১,৪৫০</h3><p>মোট ইউজার</p></div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-icon" style="background: linear-gradient(135deg, #27ae60, #2ecc71);"><i class="fas fa-wallet"></i></div>
-                        <div class="stat-info"><h3>৳৪৫,২০০</h3><p>মোট পেমেন্ট প্রদান</p></div>
+                        <div class="stat-info"><h3>৳৪৫,২০০</h3><p>মোট পেমেন্ট</p></div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-icon" style="background: linear-gradient(135deg, #f39c12, #f1c40f);"><i class="fas fa-clock"></i></div>
-                        <div class="stat-info"><h3>১২ টি</h3><p>পেন্ডিং উইথড্র রিকোয়েস্ট</p></div>
+                        <div class="stat-info"><h3>১২ টি</h3><p>পেন্ডিং উইথড্র</p></div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-icon" style="background: linear-gradient(135deg, #8e44ad, #d35400);"><i class="fas fa-crown"></i></div>
-                        <div class="stat-info"><h3>৩২০ জন</h3><p>মোট VIP ইউজার</p></div>
+                        <div class="stat-info"><h3>৩২০ জন</h3><p>VIP ইউজার</p></div>
                     </div>
                 </div>
             </div>
 
-            <!-- 2. ইউজার ম্যানেজমেন্ট ট্যাব -->
-            <div id="users" class="tab-section">
+            <!-- 2. সাধারণ ইউজার -->
+            <div id="simple_users" class="tab-section">
                 <div class="admin-card">
-                    <div class="card-header">
-                        <span>সব ইউজার লিস্ট</span>
-                        <input type="text" class="form-input" placeholder="ইউজার আইডি বা ইমেইল খুঁজুন..." style="width: 250px; padding: 8px 12px;">
-                    </div>
-                    <div style="overflow-x: auto;">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>User ID</th>
-                                    <th>ইমেইল</th>
-                                    <th>ব্যালেন্স</th>
-                                    <th>VIP লেভেল</th>
-                                    <th>অ্যাকশন</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>T9KZBTUBR1</td>
-                                    <td>user1@gmail.com</td>
-                                    <td>৳৫০০.০০</td>
-                                    <td><span class="status-badge status-active">VIP 2</span></td>
-                                    <td class="action-btns">
-                                        <button class="btn-edit" onclick="showToast()">এডিট ব্যালেন্স</button>
-                                        <button class="btn-reject" onclick="showToast()">ব্যান করুন</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>X7ABCTUBR9</td>
-                                    <td>sakib@gmail.com</td>
-                                    <td>৳১২০.০০</td>
-                                    <td><span class="status-badge status-pending">VIP 0</span></td>
-                                    <td class="action-btns">
-                                        <button class="btn-edit" onclick="showToast()">এডিট ব্যালেন্স</button>
-                                        <button class="btn-reject" onclick="showToast()">ব্যান করুন</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <div class="card-header">সাধারণ ইউজার লিস্ট</div>
+                    <div class="placeholder-text"><i class="fas fa-tools"></i> সাধারণ ইউজার ডাটাবেস এখানে লোড হবে...</div>
                 </div>
             </div>
 
-            <!-- 3. উইথড্র রিকোয়েস্ট ট্যাব -->
+            <!-- 3. VIP ইউজার -->
+            <div id="vip_users" class="tab-section">
+                <div class="admin-card">
+                    <div class="card-header">VIP ইউজার লিস্ট</div>
+                    <div class="placeholder-text"><i class="fas fa-tools"></i> VIP ইউজার ডাটাবেস এখানে লোড হবে...</div>
+                </div>
+            </div>
+
+            <!-- 4. উইথড্র রিকোয়েস্ট -->
             <div id="withdraw" class="tab-section">
                 <div class="admin-card">
                     <div class="card-header">পেন্ডিং উইথড্র রিকোয়েস্ট</div>
@@ -307,7 +292,6 @@
                                     <th>মেথড</th>
                                     <th>নম্বর</th>
                                     <th>পরিমাণ</th>
-                                    <th>স্ট্যাটাস</th>
                                     <th>অ্যাকশন</th>
                                 </tr>
                             </thead>
@@ -317,18 +301,6 @@
                                     <td>bKash</td>
                                     <td>01711223344</td>
                                     <td>৳৩০০</td>
-                                    <td><span class="status-badge status-pending">Pending</span></td>
-                                    <td class="action-btns">
-                                        <button class="btn-approve" onclick="showToast()">Approve</button>
-                                        <button class="btn-reject" onclick="showToast()">Reject</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>M2KZBTYYY5</td>
-                                    <td>Nagad</td>
-                                    <td>01999887766</td>
-                                    <td>৳১৫০</td>
-                                    <td><span class="status-badge status-pending">Pending</span></td>
                                     <td class="action-btns">
                                         <button class="btn-approve" onclick="showToast()">Approve</button>
                                         <button class="btn-reject" onclick="showToast()">Reject</button>
@@ -340,80 +312,103 @@
                 </div>
             </div>
 
-            <!-- 4. সার্ভিস ও রেট সেটিং ট্যাব -->
-            <div id="rates" class="tab-section">
+            <!-- 5. জিমেইল কাজ -->
+            <div id="gmail" class="tab-section">
                 <div class="admin-card">
-                    <div class="card-header">কাজের রেট পরিবর্তন করুন (টাকায়)</div>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>Gmail অ্যাকাউন্ট রেট</label>
-                            <input type="text" class="form-input" value="৭.৫০">
-                        </div>
-                        <div class="form-group">
-                            <label>WhatsApp অ্যাকাউন্ট রেট</label>
-                            <input type="text" class="form-input" value="১৫.০০">
-                        </div>
-                        <div class="form-group">
-                            <label>Telegram অ্যাকাউন্ট রেট</label>
-                            <input type="text" class="form-input" value="১২.০০">
-                        </div>
-                        <div class="form-group">
-                            <label>Instagram অ্যাকাউন্ট রেট</label>
-                            <input type="text" class="form-input" value="১০.০০">
-                        </div>
-                        <div class="form-group">
-                            <label>নাম্বার কেনা রেট</label>
-                            <input type="text" class="form-input" value="৩.৮০">
-                        </div>
-                        <div class="form-group">
-                            <label>প্রতি রেফারে বোনাস</label>
-                            <input type="text" class="form-input" value="২.০০">
-                        </div>
-                    </div>
-                    <button class="save-btn" style="margin-top: 10px;" onclick="showToast()"><i class="fas fa-save"></i> রেট আপডেট করুন</button>
+                    <div class="card-header">জিমেইল কাজ সেটিং</div>
+                    <div class="placeholder-text"><i class="fas fa-tools"></i> জিমেইল টাস্ক কন্ট্রোল প্যানেল...</div>
                 </div>
             </div>
 
-            <!-- 5. VIP প্যাকেজ সেটিং ট্যাব -->
-            <div id="vip" class="tab-section">
+            <!-- 6. ইনস্টাগ্রাম কাজ -->
+            <div id="instagram" class="tab-section">
                 <div class="admin-card">
-                    <div class="card-header">VIP প্যাকেজের দাম ও লিমিট সেট করুন</div>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>VIP 1 প্রাইস</label>
-                            <input type="text" class="form-input" value="৯৯">
-                        </div>
-                        <div class="form-group">
-                            <label>VIP 1 জিমেইল লিমিট</label>
-                            <input type="text" class="form-input" value="২০">
-                        </div>
-                        <div class="form-group">
-                            <label>VIP 2 প্রাইস</label>
-                            <input type="text" class="form-input" value="১৯৯">
-                        </div>
-                        <div class="form-group">
-                            <label>VIP 2 জিমেইল লিমিট</label>
-                            <input type="text" class="form-input" value="৩০">
-                        </div>
-                        <!-- আরও ফিল্ড প্রয়োজন অনুযায়ী বাড়াতে পারবেন -->
-                    </div>
-                    <button class="save-btn" style="margin-top: 10px;" onclick="showToast()"><i class="fas fa-save"></i> VIP আপডেট করুন</button>
+                    <div class="card-header">ইনস্টাগ্রাম কাজ সেটিং</div>
+                    <div class="placeholder-text"><i class="fas fa-tools"></i> ইনস্টাগ্রাম টাস্ক কন্ট্রোল প্যানেল...</div>
                 </div>
             </div>
 
-            <!-- 6. নোটিশ ও পপআপ ট্যাব -->
-            <div id="notice" class="tab-section">
+            <!-- 7. হোয়াটসঅ্যাপ কাজ -->
+            <div id="whatsapp" class="tab-section">
                 <div class="admin-card">
-                    <div class="card-header">সাইটের নোটিশ এডিট করুন</div>
+                    <div class="card-header">হোয়াটসঅ্যাপ কাজ সেটিং</div>
+                    <div class="placeholder-text"><i class="fas fa-tools"></i> হোয়াটসঅ্যাপ টাস্ক কন্ট্রোল প্যানেল...</div>
+                </div>
+            </div>
+
+            <!-- 8. টেলিগ্রাম কাজ -->
+            <div id="telegram" class="tab-section">
+                <div class="admin-card">
+                    <div class="card-header">টেলিগ্রাম কাজ সেটিং</div>
+                    <div class="placeholder-text"><i class="fas fa-tools"></i> টেলিগ্রাম টাস্ক কন্ট্রোল প্যানেল...</div>
+                </div>
+            </div>
+
+            <!-- 9. নাম্বার ম্যানেজমেন্ট -->
+            <div id="number" class="tab-section">
+                <div class="admin-card">
+                    <div class="card-header">নাম্বার কেনা-বেচা সেটিং</div>
+                    <div class="placeholder-text"><i class="fas fa-tools"></i> নাম্বার স্টক ও প্রাইস কন্ট্রোল...</div>
+                </div>
+            </div>
+
+            <!-- 10. VIP প্যাকেজ সেটিং -->
+            <div id="vip_settings" class="tab-section">
+                <div class="admin-card">
+                    <div class="card-header">VIP প্যাকেজ কন্ট্রোল</div>
+                    <div class="placeholder-text"><i class="fas fa-tools"></i> ভিআইপি প্রাইস ও লিমিট সেটিং...</div>
+                </div>
+            </div>
+
+            <!-- 11. রেফার সেটিং -->
+            <div id="refer" class="tab-section">
+                <div class="admin-card">
+                    <div class="card-header">রেফার সেটিং</div>
                     <div class="form-group">
-                        <label>হোম ও উইথড্র পেজের নোটিশ (হলুদ বক্স)</label>
-                        <textarea class="form-input" rows="3">ন্যূনতম উইথড্র পরিমাণ ৳১০০ টাকা। ২৪ ঘণ্টার মধ্যে পেমেন্ট কমপ্লিট করা হবে।</textarea>
+                        <label>প্রতি রেফারে বোনাস (টাকায়)</label>
+                        <input type="text" class="form-input" value="২.০০">
                     </div>
                     <div class="form-group">
-                        <label>রেফার পেজের নোটিশ</label>
-                        <textarea class="form-input" rows="3">প্রতি রেফারে পাবেন ৳২.০০ টাকা বোনাস। এছাড়া আপনার রেফারের বন্ধুরা কাজ করলে তাদের প্রতি কাজের আয় থেকে পাবেন ৫% কমিশন!</textarea>
+                        <label>রেফার কমিশন পার্সেন্টেজ (%)</label>
+                        <input type="text" class="form-input" value="৫">
                     </div>
-                    <button class="save-btn" style="margin-top: 10px;" onclick="showToast()"><i class="fas fa-save"></i> নোটিশ সেভ করুন</button>
+                    <button class="save-btn" onclick="showToast()"><i class="fas fa-save"></i> সেভ করুন</button>
+                </div>
+            </div>
+
+            <!-- 12. নোটিফিকেশন ও নোটিশ -->
+            <div id="notification" class="tab-section">
+                <div class="admin-card">
+                    <div class="card-header">গ্লোবাল নোটিশ এডিট</div>
+                    <div class="form-group">
+                        <label>হোম পেজ নোটিশ</label>
+                        <textarea class="form-input" rows="3">স্বাগতম! কাজ শুরু করতে নিয়মাবলী পড়ুন।</textarea>
+                    </div>
+                    <button class="save-btn" onclick="showToast()"><i class="fas fa-save"></i> নোটিশ আপডেট করুন</button>
+                </div>
+            </div>
+
+            <!-- 13. কাজের নিয়মাবলী -->
+            <div id="rules" class="tab-section">
+                <div class="admin-card">
+                    <div class="card-header">কাজের নিয়মাবলী এডিট করুন</div>
+                    <div class="placeholder-text"><i class="fas fa-tools"></i> রুলস ও টার্মস এডিটর...</div>
+                </div>
+            </div>
+
+            <!-- 14. হেল্প ও সাপোর্ট -->
+            <div id="support" class="tab-section">
+                <div class="admin-card">
+                    <div class="card-header">হেল্প ও সাপোর্ট লিংক</div>
+                    <div class="form-group">
+                        <label>অ্যাডমিন টেলিগ্রাম লিংক</label>
+                        <input type="text" class="form-input" value="https://t.me/your_admin">
+                    </div>
+                    <div class="form-group">
+                        <label>সাপোর্ট গ্রুপ লিংক</label>
+                        <input type="text" class="form-input" value="https://t.me/your_group">
+                    </div>
+                    <button class="save-btn" onclick="showToast()"><i class="fas fa-save"></i> সেভ করুন</button>
                 </div>
             </div>
 
@@ -421,44 +416,45 @@
     </main>
 
     <script>
-        // ট্যাব চেঞ্জ করার লজিক (যাতে পেজ রিলোড না নেয়)
         function openTab(event, tabId) {
             event.preventDefault();
             
-            // সব ট্যাব হাইড করা
             const tabs = document.querySelectorAll('.tab-section');
             tabs.forEach(tab => tab.classList.remove('active'));
             
-            // সব লিঙ্ক থেকে একটিভ ক্লাস সরানো
             const links = document.querySelectorAll('.nav-link');
             links.forEach(link => link.classList.remove('active'));
             
-            // নির্দিষ্ট ট্যাব ওপেন করা
             document.getElementById(tabId).classList.add('active');
             event.currentTarget.classList.add('active');
 
-            // টপবারের টাইটেল চেঞ্জ করা
             const titleMap = {
                 'dashboard': 'ড্যাশবোর্ড ওভারভিউ',
-                'users': 'ইউজার ম্যানেজমেন্ট',
-                'withdraw': 'উইথড্র রিকোয়েস্টসমূহ',
-                'rates': 'সার্ভিস ও রেট সেটিং',
-                'vip': 'VIP প্যাকেজ সেটিং',
-                'notice': 'নোটিশ ও পপআপ সেটিং'
+                'simple_users': 'সাধারণ ইউজার ম্যানেজমেন্ট',
+                'vip_users': 'VIP ইউজার ম্যানেজমেন্ট',
+                'withdraw': 'উইথড্র রিকোয়েস্টসমূহ',
+                'gmail': 'জিমেইল কাজ সেটিং',
+                'instagram': 'ইনস্টাগ্রাম কাজ সেটিং',
+                'whatsapp': 'হোয়াটসঅ্যাপ কাজ সেটিং',
+                'telegram': 'টেলিগ্রাম কাজ সেটিং',
+                'number': 'নাম্বার ম্যানেজমেন্ট',
+                'vip_settings': 'VIP প্যাকেজ সেটিং',
+                'refer': 'রেফার ও কমিশন সেটিং',
+                'notification': 'নোটিফিকেশন ও নোটিশ',
+                'rules': 'কাজের নিয়মাবলী',
+                'support': 'হেল্প ও সাপোর্ট'
             };
             document.getElementById('topbarTitle').innerText = titleMap[tabId];
         }
 
-        // ডামি সেভ টোস্ট মেসেজ
         function showToast() {
             const toast = document.getElementById("toastBox");
             toast.classList.add("show");
             setTimeout(() => { toast.classList.remove("show"); }, 2500);
         }
 
-        // লগআউট
         document.getElementById("adminLogout").addEventListener("click", () => {
-            window.location.href = "login.html"; // ফায়ারবেস অ্যাড করলে সাইনআউট ফাংশন বসাবেন
+            window.location.href = "login.html"; 
         });
     </script>
 </body>
