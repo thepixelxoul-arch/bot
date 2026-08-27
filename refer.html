@@ -21,7 +21,6 @@
             display: flex; justify-content: center; 
         }
 
-        /* পুরো স্ক্রিন ফিক্সড করা হয়েছে (height: 100vh) */
         .app-container { 
             width: 100%; max-width: 450px; height: 100vh; 
             background-color: var(--bg-light); color: var(--main-pink); 
@@ -31,7 +30,7 @@
         }
 
         .header { 
-            flex-shrink: 0; /* হেডার ফিক্সড */
+            flex-shrink: 0; 
             background-color: var(--main-pink); padding: 15px 20px; 
             display: flex; justify-content: space-between; align-items: center; 
             color: var(--main-white); box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); z-index: 10; 
@@ -39,13 +38,25 @@
         .header-title { font-size: 20px; font-weight: bold; display: flex; align-items: center; }
         .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 22px; }
 
-        /* শুধু মাঝখানের অংশ স্ক্রল হবে */
+        /* হেডারের ডানদিকের হিস্ট্রি বাটন */
+        .history-btn-header {
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .history-btn-header:hover {
+            transform: scale(1.1);
+        }
+
         .content { 
             flex-grow: 1; padding: 20px; 
             overflow-y: auto; overflow-x: hidden; 
             padding-bottom: 20px; 
         }
         
+        /* নোটিশ বক্স (এখন একদম স্থির) */
         .notice-box {
             background: linear-gradient(135deg, #fff3cd, #ffeeba); 
             border: 1px solid #ffeeba; border-left: 5px solid #ffc107;
@@ -59,7 +70,6 @@
             margin-bottom: 20px;
         }
         
-        /* আইকনটি পিংক গ্র্যাডিয়েন্ট স্টাইলে করা হয়েছে */
         .refer-card i.main-icon { 
             font-size: 45px; 
             background: -webkit-linear-gradient(135deg, var(--main-pink), #ff3377);
@@ -85,7 +95,6 @@
             font-size: 13px; color: #2c3e50; outline: none; text-overflow: ellipsis; font-weight: bold;
         }
         
-        /* কপি বাটন আপডেট করা হয়েছে */
         .copy-btn {
             background: linear-gradient(135deg, var(--main-pink), #ff3377);
             color: white; border: none;
@@ -94,7 +103,6 @@
         }
         .copy-btn:hover { background: linear-gradient(135deg, #c4004e, #e2005a); }
 
-        /* স্ট্যাটাস কার্ড আপডেট করা হয়েছে */
         .stats-card {
             background-color: var(--main-white); border-radius: 12px; padding: 15px 10px;
             border: 1px solid #eaeaea; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
@@ -105,10 +113,22 @@
         .stat-num { font-size: 18px; font-weight: 900; color: var(--main-pink); margin-bottom: 5px; white-space: nowrap; }
         .stat-label { font-size: 12px; color: var(--text-grey); font-weight: bold; }
 
-        /* হিস্ট্রি সেকশন */
-        .history-section { margin-top: 15px; }
-        .history-title { font-size: 16px; font-weight: bold; color: #2c3e50; margin-bottom: 15px; border-bottom: 2px solid #eaeaea; padding-bottom: 8px; }
-        
+        /* ফুল-স্ক্রিন হিস্ট্রি পেজ স্টাইল */
+        .history-screen {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: var(--bg-light);
+            z-index: 200;
+            display: flex;
+            flex-direction: column;
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .history-screen.active {
+            transform: translateX(0);
+        }
+
         .history-card {
             background: var(--main-white); border: 1px solid #eaeaea; border-radius: 8px;
             padding: 15px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;
@@ -119,7 +139,6 @@
             display: flex; align-items: center; gap: 12px; flex: 1; overflow: hidden;
         }
         
-        /* উইথড্র পেজের মতো আইকন বক্স */
         .history-icon { 
             min-width: 45px; height: 45px; border-radius: 6px; 
             display: flex; align-items: center; justify-content: center; 
@@ -137,7 +156,6 @@
 
         .history-amount { font-size: 15px; font-weight: 900; color: #27ae60; white-space: nowrap; }
 
-        /* বটম নেভিগেশন একদম নিচে ফিক্সড থাকবে */
         .bottom-nav { 
             flex-shrink: 0; 
             background-color: var(--main-white); display: flex; justify-content: space-around; 
@@ -162,14 +180,21 @@
     <div id="toastBox" class="toast-msg">কপি করা হয়েছে!</div>
 
     <div class="app-container">
+        <!-- Main Header -->
         <div class="header">
             <div class="header-title">
                 <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
                 Refer
             </div>
+            <!-- ডানদিকের হিস্ট্রি বাটন -->
+            <a href="#" class="history-btn-header" onclick="openHistoryScreen(event)">
+                <i class="fas fa-history"></i>
+            </a>
         </div>
 
+        <!-- Main Content -->
         <div class="content">
+            <!-- স্থির নোটিশ বক্স -->
             <div class="notice-box">
                 <i class="fas fa-info-circle"></i> প্রতি রেফারে পাবেন <b>৳২.০০</b> টাকা বোনাস। এছাড়া আপনার রেফারের বন্ধুরা কাজ করলে তাদের প্রতি কাজের আয় থেকে পাবেন <b>৫% কমিশন</b>!
             </div>
@@ -200,15 +225,6 @@
                     <div class="stat-label">রেফার কমিশন</div>
                 </div>
             </div>
-
-            <!-- হিস্ট্রি সেকশন -->
-            <div class="history-section">
-                <div class="history-title">রেফার ও কমিশন হিস্ট্রি</div>
-                <div id="referHistoryList">
-                    <!-- ডেমো বা লোকালস্টোরেজ থেকে ডাটা এখানে আসবে -->
-                    <p style="text-align:center; color:#888; font-size:13px; font-weight: bold; padding: 20px;">কোনো হিস্ট্রি পাওয়া যায়নি।</p>
-                </div>
-            </div>
         </div>
 
         <div class="bottom-nav">
@@ -216,6 +232,20 @@
             <a href="withdraw.html" class="nav-item"><i class="fas fa-wallet"></i>Withdraw</a>
             <a href="refer.html" class="nav-item active"><i class="fas fa-users"></i>Refer</a>
             <a href="profile.html" class="nav-item"><i class="fas fa-user"></i>Profile</a>
+        </div>
+
+        <!-- Full Screen History Page -->
+        <div id="historyScreen" class="history-screen">
+            <div class="header">
+                <div class="header-title">
+                    <a href="#" class="back-btn" onclick="closeHistoryScreen(event)"><i class="fas fa-arrow-left"></i></a>
+                    Refer হিস্ট্রি
+                </div>
+            </div>
+            <div class="content" id="referHistoryList">
+                <!-- হিস্ট্রি এখানে লোড হবে -->
+                <p style="text-align:center; color:#888; font-size:14px; font-weight: bold; padding: 40px 10px;">কোনো হিস্ট্রি পাওয়া যায়নি।</p>
+            </div>
         </div>
     </div>
 
@@ -231,16 +261,30 @@
             setTimeout(() => { toast.classList.remove("show"); }, 2500);
         }
 
-        // লোড করার ফাংশন (যদি লোকালস্টোরেজে রেফার হিস্ট্রি থাকে)
+        // হিস্ট্রি স্ক্রিন ওপেন ও ক্লোজ ফাংশন
+        function openHistoryScreen(event) {
+            event.preventDefault();
+            document.getElementById('historyScreen').classList.add('active');
+            loadReferHistory();
+        }
+        
+        function closeHistoryScreen(event) {
+            event.preventDefault();
+            document.getElementById('historyScreen').classList.remove('active');
+        }
+
+        // লোড করার ফাংশন
         function loadReferHistory() {
             const historyList = document.getElementById('referHistoryList');
             const history = JSON.parse(localStorage.getItem('referHistory')) || [];
 
-            if(history.length === 0) return;
+            if(history.length === 0) {
+                historyList.innerHTML = '<p style="text-align:center; color:#888; font-size:14px; font-weight: bold; padding: 40px 10px;">কোনো হিস্ট্রি পাওয়া যায়নি।</p>';
+                return;
+            }
 
             historyList.innerHTML = '';
             history.forEach(item => {
-                // উইথড্র পেজের মতো নতুন কার্ড ডিজাইন
                 historyList.innerHTML += `
                     <div class="history-card">
                         <div class="history-left-wrap">
@@ -255,10 +299,6 @@
                 `;
             });
         }
-
-        window.onload = () => {
-            loadReferHistory();
-        };
     </script>
 </body>
 </html>
