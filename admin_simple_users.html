@@ -138,12 +138,13 @@
         .status-pending { background-color: #fff3cd; color: #856404; }
 
         .action-btns button {
-            border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;
+            border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer;
             font-weight: bold; font-size: 12px; color: white; margin-right: 5px; transition: 0.2s;
         }
         .action-btns button:hover { transform: translateY(-2px); box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-        .btn-edit { background-color: #3498db; }
-        .btn-reject { background-color: #e74c3c; }
+        .btn-add { background-color: #27ae60; } /* সবুজ - টাকা এড করার জন্য */
+        .btn-deduct { background-color: #f39c12; } /* কমলা - টাকা কাটার জন্য */
+        .btn-reject { background-color: #e74c3c; } /* লাল - ব্যান করার জন্য */
 
         .toast-msg {
             visibility: hidden; background-color: #27ae60; color: #fff; text-align: center;
@@ -156,7 +157,7 @@
 </head>
 <body>
 
-    <div id="toastBox" class="toast-msg"><i class="fas fa-check-circle"></i> অ্যাকশন সফল হয়েছে!</div>
+    <div id="toastBox" class="toast-msg"><i class="fas fa-check-circle"></i> <span id="toastText">অ্যাকশন সফল হয়েছে!</span></div>
 
     <!-- সাইডবার -->
     <aside class="sidebar">
@@ -202,30 +203,35 @@
                             <tr>
                                 <th>User ID</th>
                                 <th>ইমেইল</th>
-                                <th>ব্যালেন্স</th>
+                                <th>জিমেইল জমা</th> <!-- নতুন কলাম -->
+                                <th>বর্তমান ব্যালেন্স</th>
                                 <th>স্ট্যাটাস</th>
-                                <th>অ্যাকশন</th>
+                                <th>অ্যাকশন (ব্যালেন্স কন্ট্রোল)</th> <!-- আপডেট করা হয়েছে -->
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>X7ABCTUBR9</td>
                                 <td>sakib@gmail.com</td>
+                                <td style="font-weight: bold; color: var(--main-pink);">১২ টি</td> <!-- জমা দেওয়া জিমেইলের সংখ্যা -->
                                 <td>৳১২০.০০</td>
-                                <td><span class="status-badge status-pending">সাধারণ (VIP 0)</span></td>
+                                <td><span class="status-badge status-pending">সাধারণ</span></td>
                                 <td class="action-btns">
-                                    <button class="btn-edit" onclick="showToast()">এডিট ব্যালেন্স</button>
-                                    <button class="btn-reject" onclick="showToast()">ব্যান করুন</button>
+                                    <button class="btn-add" onclick="handleBalance('add', 'X7ABCTUBR9')"><i class="fas fa-plus"></i> টাকা</button>
+                                    <button class="btn-deduct" onclick="handleBalance('deduct', 'X7ABCTUBR9')"><i class="fas fa-minus"></i> টাকা</button>
+                                    <button class="btn-reject" onclick="showToast('ইউজারকে ব্যান করা হয়েছে!', true)"><i class="fas fa-ban"></i></button>
                                 </td>
                             </tr>
                             <tr>
                                 <td>M2LKBTYYY5</td>
                                 <td>rakib22@gmail.com</td>
+                                <td style="font-weight: bold; color: var(--main-pink);">৫ টি</td>
                                 <td>৳৫০.০০</td>
-                                <td><span class="status-badge status-pending">সাধারণ (VIP 0)</span></td>
+                                <td><span class="status-badge status-pending">সাধারণ</span></td>
                                 <td class="action-btns">
-                                    <button class="btn-edit" onclick="showToast()">এডিট ব্যালেন্স</button>
-                                    <button class="btn-reject" onclick="showToast()">ব্যান করুন</button>
+                                    <button class="btn-add" onclick="handleBalance('add', 'M2LKBTYYY5')"><i class="fas fa-plus"></i> টাকা</button>
+                                    <button class="btn-deduct" onclick="handleBalance('deduct', 'M2LKBTYYY5')"><i class="fas fa-minus"></i> টাকা</button>
+                                    <button class="btn-reject" onclick="showToast('ইউজারকে ব্যান করা হয়েছে!', true)"><i class="fas fa-ban"></i></button>
                                 </td>
                             </tr>
                         </tbody>
@@ -253,11 +259,35 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // টোস্ট মেসেজ শো করানোর ফাংশন
-        window.showToast = function() {
+        // টোস্ট মেসেজ শো করানোর ফাংশন (কাস্টম টেক্সট সহ)
+        window.showToast = function(message, isError = false) {
             const toast = document.getElementById("toastBox");
+            document.getElementById("toastText").innerText = message;
+            
+            if(isError) {
+                toast.style.backgroundColor = "#e74c3c"; // লাল রঙ
+            } else {
+                toast.style.backgroundColor = "#27ae60"; // সবুজ রঙ
+            }
+
             toast.classList.add("show");
             setTimeout(() => { toast.classList.remove("show"); }, 2500);
+        }
+
+        // টাকা যোগ করা এবং কেটে নেওয়ার পপ-আপ লজিক
+        window.handleBalance = function(action, userId) {
+            let actionText = action === 'add' ? "যোগ" : "কেটে নিতে";
+            let amount = prompt(`ইউজার ${userId} এর একাউন্টে কত টাকা ${actionText} চান? (অ্যামাউন্ট লিখুন)`);
+            
+            if (amount !== null && amount.trim() !== "" && !isNaN(amount)) {
+                let successMsg = action === 'add' ? 
+                    `সফলভাবে ৳${amount} যোগ করা হয়েছে!` : 
+                    `সফলভাবে ৳${amount} কেটে নেওয়া হয়েছে!`;
+                
+                showToast(successMsg, action === 'deduct');
+            } else if (amount !== null) {
+                alert("অনুগ্রহ করে সঠিক টাকার পরিমাণ দিন!");
+            }
         }
 
         document.getElementById("adminLogout").addEventListener("click", () => {
