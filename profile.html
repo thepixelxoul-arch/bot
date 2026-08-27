@@ -56,7 +56,6 @@
             overflow: hidden;
         }
 
-        /* আপগ্রেড বাটন সম্পূর্ণ বড় হাতের করা হয়েছে */
         .vip-upgrade-btn {
             position: absolute;
             top: 15px;
@@ -70,7 +69,7 @@
             text-decoration: none;
             box-shadow: 0 2px 8px rgba(0,0,0,0.2);
             transition: transform 0.2s;
-            text-transform: uppercase; /* বড় হাতের অক্ষর */
+            text-transform: uppercase;
         }
         .vip-upgrade-btn:hover {
             transform: scale(1.05);
@@ -132,14 +131,28 @@
         .menu-left { display: flex; align-items: center; gap: 15px; font-size: 15px; font-weight: bold; }
         .menu-left i { font-size: 18px; color: var(--main-pink); width: 20px; text-align: center; }
 
+        /* লগআউট বাটনটি পিংক থিমে আপডেট করা হয়েছে */
         .logout-btn {
-            background: linear-gradient(135deg, #fff3cd, #ffeeba); color: #856404;
-            border: 1px solid #ffeeba; border-radius: 10px; padding: 16px;
-            font-size: 16px; font-weight: bold; width: 100%; cursor: pointer;
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03); transition: background 0.2s;
+            background: linear-gradient(135deg, var(--main-pink), #ff3377); 
+            color: white;
+            border: none; 
+            border-radius: 10px; 
+            padding: 16px;
+            font-size: 16px; 
+            font-weight: bold; 
+            width: 100%; 
+            cursor: pointer;
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(226, 0, 90, 0.25); 
+            transition: transform 0.2s, box-shadow 0.2s;
         }
-        .logout-btn:hover { background: linear-gradient(135deg, #ffeeba, #ffe8a1); }
+        .logout-btn:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(226, 0, 90, 0.35); 
+        }
 
         .bottom-nav { 
             flex-shrink: 0; 
@@ -197,6 +210,7 @@
                 </a>
             </div>
 
+            <!-- নতুন পিংক লগআউট বাটন -->
             <button class="logout-btn" onclick="logoutUser()">
                 <i class="fas fa-sign-out-alt"></i> লগআউট করুন
             </button>
@@ -227,7 +241,6 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // কাজের লিমিট
         const vipInfoMap = {
             "VIP 0": "দৈনিক ১০টি জিমেইল ও ৫টি ইনস্টাগ্রাম কাজ।",
             "VIP 1": "দৈনিক ২০টি জিমেইল ও ১০টি ইনস্টাগ্রাম কাজ।",
@@ -243,7 +256,6 @@
             "Send bKash Member": "দৈনিক ২০০টি জিমেইল ও ১৮০টি ইনস্টাগ্রাম কাজ।"
         };
 
-        // সাপ্তাহিক বোনাস 
         const vipBonusMap = {
             "VIP 0": "০",
             "VIP 1": "১০",
@@ -279,7 +291,6 @@
                 const taskDesc = vipInfoMap[userVip] || "স্পেশাল VIP অফার একটিভ আছে।";
                 const bonusAmount = vipBonusMap[userVip] || "০";
                 
-                // কাজের লিমিটের আগে সাপ্তাহিক বোনাস অ্যাড করা হয়েছে
                 descElem.innerHTML = `সাপ্তাহিক বোনাস: ৳${bonusAmount} <br> ${taskDesc}`;
 
             } else {
