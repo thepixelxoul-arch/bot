@@ -130,21 +130,39 @@
 
         /* টেবিল ডিজাইন */
         table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #eaeaea; font-size: 14px; }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #eaeaea; font-size: 14px; vertical-align: middle; }
         th { background-color: #f8f9fa; color: var(--dark-blue); font-weight: bold; }
         tbody tr:hover { background-color: #fcfcfc; }
 
-        .status-badge { padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; }
+        .user-info { display: flex; flex-direction: column; }
+        .user-info strong { color: var(--dark-blue); font-size: 15px; }
+        .user-info small { color: var(--text-grey); font-size: 12px; margin-top: 3px; }
+
+        /* কাজের হিস্ট্রি ব্যাজ */
+        .task-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+        .task-badge { 
+            padding: 4px 10px; border-radius: 6px; font-size: 12px; 
+            font-weight: bold; color: white; display: flex; align-items: center; gap: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .bg-gmail { background-color: #ea4335; }
+        .bg-insta { background-color: #e1306c; }
+        .bg-wa { background-color: #25d366; }
+        .bg-tg { background-color: #0088cc; }
+
+        .status-badge { padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; }
         .status-pending { background-color: #fff3cd; color: #856404; }
 
+        .action-btns { display: flex; gap: 5px; }
         .action-btns button {
-            border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer;
-            font-weight: bold; font-size: 12px; color: white; margin-right: 5px; transition: 0.2s;
+            border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer;
+            font-weight: bold; font-size: 12px; color: white; transition: 0.2s;
+            display: flex; align-items: center; gap: 5px;
         }
-        .action-btns button:hover { transform: translateY(-2px); box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-        .btn-add { background-color: #27ae60; } /* সবুজ - টাকা এড করার জন্য */
-        .btn-deduct { background-color: #f39c12; } /* কমলা - টাকা কাটার জন্য */
-        .btn-reject { background-color: #e74c3c; } /* লাল - ব্যান করার জন্য */
+        .action-btns button:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); }
+        .btn-add { background-color: #27ae60; } 
+        .btn-deduct { background-color: #f39c12; } 
+        .btn-reject { background-color: #e74c3c; padding: 8px 15px; } 
 
         .toast-msg {
             visibility: hidden; background-color: #27ae60; color: #fff; text-align: center;
@@ -167,7 +185,6 @@
         </div>
         <ul class="nav-links">
             <li><a href="admin_dashboard.html" class="nav-link"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
-            <!-- এই পেজটি এক্টিভ করা হয়েছে -->
             <li><a href="admin_simple_users.html" class="nav-link active"><i class="fas fa-user"></i> সাধারণ ইউজার</a></li>
             <li><a href="admin_vip_users.html" class="nav-link"><i class="fas fa-user-tie"></i> VIP ইউজার</a></li>
             <li><a href="admin_withdraw.html" class="nav-link"><i class="fas fa-file-invoice-dollar"></i> উইথড্র রিকোয়েস্ট</a></li>
@@ -201,20 +218,30 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>User ID</th>
-                                <th>ইমেইল</th>
-                                <th>জিমেইল জমা</th> <!-- নতুন কলাম -->
+                                <th>ইউজার ইনফো</th>
+                                <th>জমা দেওয়া কাজ</th>
                                 <th>বর্তমান ব্যালেন্স</th>
                                 <th>স্ট্যাটাস</th>
-                                <th>অ্যাকশন (ব্যালেন্স কন্ট্রোল)</th> <!-- আপডেট করা হয়েছে -->
+                                <th>অ্যাকশন (ব্যালেন্স কন্ট্রোল)</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>X7ABCTUBR9</td>
-                                <td>sakib@gmail.com</td>
-                                <td style="font-weight: bold; color: var(--main-pink);">১২ টি</td> <!-- জমা দেওয়া জিমেইলের সংখ্যা -->
-                                <td>৳১২০.০০</td>
+                                <td>
+                                    <div class="user-info">
+                                        <strong>X7ABCTUBR9</strong>
+                                        <small>sakib@gmail.com</small>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="task-badges">
+                                        <span class="task-badge bg-gmail" title="Gmail"><i class="fab fa-google"></i> ১২</span>
+                                        <span class="task-badge bg-insta" title="Instagram"><i class="fab fa-instagram"></i> ৫</span>
+                                        <span class="task-badge bg-wa" title="WhatsApp"><i class="fab fa-whatsapp"></i> ৩</span>
+                                        <span class="task-badge bg-tg" title="Telegram"><i class="fab fa-telegram-plane"></i> ১</span>
+                                    </div>
+                                </td>
+                                <td style="font-weight: bold; font-size: 15px;">৳১২০.০০</td>
                                 <td><span class="status-badge status-pending">সাধারণ</span></td>
                                 <td class="action-btns">
                                     <button class="btn-add" onclick="handleBalance('add', 'X7ABCTUBR9')"><i class="fas fa-plus"></i> টাকা</button>
@@ -223,10 +250,21 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>M2LKBTYYY5</td>
-                                <td>rakib22@gmail.com</td>
-                                <td style="font-weight: bold; color: var(--main-pink);">৫ টি</td>
-                                <td>৳৫০.০০</td>
+                                <td>
+                                    <div class="user-info">
+                                        <strong>M2LKBTYYY5</strong>
+                                        <small>rakib22@gmail.com</small>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="task-badges">
+                                        <span class="task-badge bg-gmail" title="Gmail"><i class="fab fa-google"></i> ৮</span>
+                                        <span class="task-badge bg-insta" title="Instagram"><i class="fab fa-instagram"></i> ২</span>
+                                        <span class="task-badge bg-wa" title="WhatsApp"><i class="fab fa-whatsapp"></i> ০</span>
+                                        <span class="task-badge bg-tg" title="Telegram"><i class="fab fa-telegram-plane"></i> ৪</span>
+                                    </div>
+                                </td>
+                                <td style="font-weight: bold; font-size: 15px;">৳৫০.০০</td>
                                 <td><span class="status-badge status-pending">সাধারণ</span></td>
                                 <td class="action-btns">
                                     <button class="btn-add" onclick="handleBalance('add', 'M2LKBTYYY5')"><i class="fas fa-plus"></i> টাকা</button>
