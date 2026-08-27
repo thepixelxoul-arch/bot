@@ -21,10 +21,6 @@
             display: flex; justify-content: center; 
         }
 
-        /* 
-         * পুরো স্ক্রিন ফিক্সড করা হয়েছে (height: 100vh)
-         * যাতে মেনু বার সবসময় নিচেই থাকে 
-         */
         .app-container { 
             width: 100%; max-width: 450px; height: 100vh; 
             background-color: var(--bg-light); color: var(--main-pink); 
@@ -34,7 +30,7 @@
         }
 
         .header { 
-            flex-shrink: 0; /* হেডার ফিক্সড */
+            flex-shrink: 0; 
             background-color: var(--main-pink); padding: 15px 20px; 
             display: flex; justify-content: space-between; align-items: center; 
             color: var(--main-white); box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); z-index: 10; 
@@ -42,10 +38,18 @@
         .header-title { font-size: 20px; font-weight: bold; display: flex; align-items: center; }
         .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 22px; }
 
-        /* 
-         * শুধু মাঝখানের অংশ স্ক্রল হবে
-         * এখানে স্ক্রলবার (দাগ) রিমুভ করা হয়নি
-         */
+        /* হেডারের ডানদিকের হিস্ট্রি বাটন */
+        .history-btn-header {
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .history-btn-header:hover {
+            transform: scale(1.1);
+        }
+
         .content { 
             flex-grow: 1; padding: 20px; 
             overflow-y: auto; overflow-x: hidden; 
@@ -59,6 +63,11 @@
             font-size: 13px; line-height: 1.5; box-shadow: 0 2px 8px rgba(0,0,0,0.03);
         }
 
+        @keyframes floatBalance {
+            0%, 100% { transform: translate3d(0, 0, 0); box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2); }
+            50% { transform: translate3d(0, -3px, 0); box-shadow: 0 12px 20px rgba(226, 0, 90, 0.4); }
+        }
+
         .balance-card {
             background: linear-gradient(135deg, var(--main-pink), #ff3377);
             border-radius: 10px;
@@ -67,8 +76,15 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 6px 15px rgba(226, 0, 90, 0.25);
             color: white;
+            
+            -webkit-font-smoothing: antialiased;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transform: translateZ(0);
+            will-change: transform, box-shadow;
+            
+            animation: floatBalance 3s infinite ease-in-out;
         }
         .balance-title { font-size: 14px; color: rgba(255, 255, 255, 0.9); font-weight: bold; display: flex; align-items: center; gap: 8px; }
         .balance-amount { font-size: 22px; font-weight: 900; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
@@ -148,40 +164,86 @@
         }
         .submit-btn:hover { background-color: #c4004e; transform: translateY(-1px); }
 
-        .history-section { margin-top: 30px; }
-        .history-title { font-size: 16px; font-weight: bold; color: #2c3e50; margin-bottom: 15px; border-bottom: 2px solid #eaeaea; padding-bottom: 8px; }
-        
+        /* পপআপ (Modal) স্টাইল */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            display: none; 
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+        .modal-content {
+            background: var(--bg-light);
+            width: 90%;
+            max-width: 400px;
+            max-height: 80vh;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+        .modal-header {
+            background: linear-gradient(135deg, var(--main-pink), #ff3377);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-header h3 {
+            margin: 0; font-size: 16px; font-weight: bold; display: flex; align-items: center; gap: 8px;
+        }
+        .close-btn {
+            font-size: 24px; font-weight: bold; cursor: pointer; color: white;
+        }
+        .modal-body {
+            padding: 15px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        /* হিস্ট্রি কার্ডের স্টাইল (মডেলের ভেতরের জন্য) */
         .history-card {
             background-color: var(--main-white); border: 1px solid #eaeaea; border-radius: 8px; 
             padding: 12px 15px; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; 
             box-shadow: 0 2px 8px rgba(0,0,0,0.03); gap: 10px;
         }
-        
         .history-left-wrap {
             display: flex; align-items: center; gap: 12px; flex: 1; overflow: hidden;
         }
-
         .history-icon { 
             min-width: 45px; height: 45px; border-radius: 6px; 
             display: flex; align-items: center; justify-content: center; 
-            font-size: 22px; color: white; 
+            font-size: 20px; color: white; 
             background: linear-gradient(135deg, var(--main-pink), #ff3377);
             box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);
         }
-
         .history-info { flex: 1; overflow: hidden; }
         .history-info p { 
             margin: 0 0 4px 0; color: #2c3e50; font-size: 14px; font-weight: bold; 
             word-wrap: break-word; word-break: break-all; 
         }
         .history-info small { color: var(--text-grey); font-size: 11px; font-weight: bold; display: flex; align-items: center; gap: 4px;}
-
+        
         .status-badge { padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; white-space: nowrap; }
         .status-pending { background-color: #fff3cd; color: #856404; }
         .status-approved { background-color: rgba(39, 174, 96, 0.1); color: #27ae60; }
         .status-rejected { background-color: rgba(231, 76, 60, 0.1); color: #e74c3c; }
 
-        /* বটম নেভিগেশন একদম নিচে ফিক্সড থাকবে */
         .bottom-nav { 
             flex-shrink: 0; 
             background-color: var(--main-white); display: flex; justify-content: space-around; 
@@ -207,11 +269,16 @@
     <div id="toastBox" class="toast-msg"></div>
 
     <div class="app-container">
+        <!-- Header -->
         <div class="header">
             <div class="header-title">
                 <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
                 Withdraw
             </div>
+            <!-- ডানদিকের হিস্ট্রি বাটন -->
+            <a class="history-btn-header" onclick="openHistoryModal()">
+                <i class="fas fa-history"></i>
+            </a>
         </div>
 
         <div class="content">
@@ -219,7 +286,6 @@
                 <i class="fas fa-info-circle"></i> ন্যূনতম উইথড্র পরিমাণ ৳১০০ টাকা। ২৪ ঘণ্টার মধ্যে পেমেন্ট কমপ্লিট করা হবে।
             </div>
 
-            <!-- ব্যালেন্স কার্ড -->
             <div class="balance-card">
                 <div class="balance-title"><i class="fas fa-wallet"></i> আপনার মূল ব্যালেন্স:</div>
                 <div class="balance-amount">৳৫০০.০০</div>
@@ -261,14 +327,6 @@
 
                 <button class="submit-btn" onclick="submitWithdraw()">উইথড্র করুন</button>
             </div>
-
-            <!-- উইথড্র হিস্ট্রি সেকশন -->
-            <div class="history-section">
-                <div class="history-title">Withdraw হিস্ট্রি</div>
-                <div id="historyList">
-                    <!-- হিস্ট্রি এখানে লোড হবে -->
-                </div>
-            </div>
         </div>
 
         <div class="bottom-nav">
@@ -276,6 +334,19 @@
             <a href="withdraw.html" class="nav-item active"><i class="fas fa-wallet"></i>Withdraw</a>
             <a href="refer.html" class="nav-item"><i class="fas fa-users"></i>Refer</a>
             <a href="profile.html" class="nav-item"><i class="fas fa-user"></i>Profile</a>
+        </div>
+    </div>
+
+    <!-- হিস্ট্রি পপআপ (Modal) -->
+    <div id="historyModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-history"></i> Withdraw হিস্ট্রি</h3>
+                <span class="close-btn" onclick="closeHistoryModal()">&times;</span>
+            </div>
+            <div class="modal-body" id="historyList">
+                <!-- হিস্ট্রি এখানে লোড হবে -->
+            </div>
         </div>
     </div>
 
@@ -326,6 +397,15 @@
             setTimeout(() => { toast.classList.remove("show"); }, 2500);
         }
 
+        // পপআপ ওপেন এবং ক্লোজ ফাংশন
+        function openHistoryModal() {
+            document.getElementById('historyModal').classList.add('active');
+            loadHistory();
+        }
+        function closeHistoryModal() {
+            document.getElementById('historyModal').classList.remove('active');
+        }
+
         function submitWithdraw() {
             const number = document.getElementById('accNumber').value.trim();
             const amount = document.getElementById('withdrawAmount').value.trim();
@@ -354,7 +434,6 @@
             showToast("উইথড্র রিকোয়েস্ট সফলভাবে জমা হয়েছে!");
             document.getElementById('accNumber').value = '';
             document.getElementById('withdrawAmount').value = '';
-            loadHistory(); 
         }
 
         function loadHistory() {
@@ -364,7 +443,7 @@
             historyList.innerHTML = ''; 
 
             if(history.length === 0) {
-                historyList.innerHTML = '<p style="text-align:center; color:#888; font-size:13px; font-weight: bold; padding: 20px;">কোনো হিস্ট্রি পাওয়া যায়নি।</p>';
+                historyList.innerHTML = '<p style="text-align:center; color:#888; font-size:13px; font-weight: bold; padding: 30px 10px;">কোনো হিস্ট্রি পাওয়া যায়নি।</p>';
                 return;
             }
 
@@ -393,10 +472,6 @@
                 `;
             });
         }
-
-        window.onload = () => {
-            loadHistory();
-        };
     </script>
 </body>
 </html>
