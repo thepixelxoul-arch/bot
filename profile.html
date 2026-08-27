@@ -42,12 +42,11 @@
 
         .content { flex-grow: 1; padding: 20px; overflow-y: auto; padding-bottom: 30px; }
 
-        /* হোম পেজের অ্যাড ব্যানারের একদম হুবহু সাইজ ও ডিজাইন */
         .vip-huge-card {
             background: linear-gradient(135deg, var(--main-pink), #ff3377);
             border-radius: 12px;
-            padding: 35px 20px; /* হোম পেজের কার্ডের সাইজ */
-            margin-bottom: 25px; /* নিচের কার্ডের সাথে গ্যাপ তৈরি করবে */
+            padding: 35px 20px;
+            margin-bottom: 25px; 
             color: white;
             text-align: center;
             box-shadow: 0 8px 20px rgba(226, 0, 90, 0.3);
@@ -57,7 +56,7 @@
             overflow: hidden;
         }
 
-        /* আপগ্রেড বাটন (অ্যারো চিহ্ন ছাড়া) */
+        /* আপগ্রেড বাটন সম্পূর্ণ বড় হাতের করা হয়েছে */
         .vip-upgrade-btn {
             position: absolute;
             top: 15px;
@@ -71,6 +70,7 @@
             text-decoration: none;
             box-shadow: 0 2px 8px rgba(0,0,0,0.2);
             transition: transform 0.2s;
+            text-transform: uppercase; /* বড় হাতের অক্ষর */
         }
         .vip-upgrade-btn:hover {
             transform: scale(1.05);
@@ -91,18 +91,18 @@
         }
 
         .vip-huge-card h3 {
-            font-size: 20px; /* হোম পেজের হেডিং সাইজ */
+            font-size: 20px; 
             font-weight: 900;
             margin: 0 0 8px 0;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.15);
         }
 
         .vip-huge-card p {
-            font-size: 14px; /* হোম পেজের প্যারাগ্রাফ সাইজ */
+            font-size: 14px; 
             color: #ffe6f0;
             margin: 0;
             font-weight: 600;
-            line-height: 1.5;
+            line-height: 1.6;
             padding: 0 10px;
         }
 
@@ -163,10 +163,8 @@
         </div>
 
         <div class="content">
-            <!-- হোম পেজের কার্ডের সাইজ অনুযায়ী পারফেক্ট VIP কার্ড -->
             <div class="vip-huge-card">
-                <!-- অ্যারো চিহ্ন ছাড়া আপগ্রেড বাটন -->
-                <a href="vip.html" class="vip-upgrade-btn">Upgrade</a>
+                <a href="vip.html" class="vip-upgrade-btn">UPGRADE</a>
 
                 <div class="vip-icon-circle"><i class="fas fa-crown" id="vipIcon"></i></div>
                 <h3 id="vipLevelText">VIP 0</h3>
@@ -245,27 +243,44 @@
             "Send bKash Member": "দৈনিক ২০০টি জিমেইল ও ১৮০টি ইনস্টাগ্রাম কাজ।"
         };
 
+        // সাপ্তাহিক বোনাস 
+        const vipBonusMap = {
+            "VIP 0": "০",
+            "VIP 1": "১০",
+            "VIP 2": "২০",
+            "VIP 3": "৩০",
+            "VIP 4": "৪০",
+            "VIP 5": "৫০",
+            "VIP 6": "৬০",
+            "VIP 7": "৭০",
+            "VIP 8": "৮০",
+            "VIP 9": "৯০",
+            "VIP 10": "১০০",
+            "Send bKash Member": "২০০"
+        };
+
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 const userVip = localStorage.getItem('userVipLevel') || "VIP 0";
                 
-                // VIP লেভেল সেট করা
                 document.getElementById("vipLevelText").innerText = userVip;
 
-                // কাজের বিবরণ সেট করা
                 const descElem = document.getElementById("vipDescText");
                 const iconElem = document.getElementById("vipIcon");
                 
                 if (userVip === "VIP 0") {
-                    descElem.innerText = vipInfoMap[userVip];
                     iconElem.className = "fas fa-crown";
                 } else if (userVip === "Send bKash Member") {
-                    descElem.innerText = vipInfoMap[userVip];
                     iconElem.className = "fas fa-star";
                 } else {
-                    descElem.innerText = vipInfoMap[userVip] || "স্পেশাল VIP অফার একটিভ আছে।";
                     iconElem.className = "fas fa-crown";
                 }
+
+                const taskDesc = vipInfoMap[userVip] || "স্পেশাল VIP অফার একটিভ আছে।";
+                const bonusAmount = vipBonusMap[userVip] || "০";
+                
+                // কাজের লিমিটের আগে সাপ্তাহিক বোনাস অ্যাড করা হয়েছে
+                descElem.innerHTML = `সাপ্তাহিক বোনাস: ৳${bonusAmount} <br> ${taskDesc}`;
 
             } else {
                 window.location.href = "login.html";
