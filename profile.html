@@ -43,34 +43,20 @@
         .content { flex-grow: 1; padding: 20px; overflow-y: auto; padding-bottom: 20px; }
         
         .profile-card {
-            background-color: var(--main-white); border-radius: 12px; padding: 25px 20px;
+            background-color: var(--main-white); border-radius: 12px; padding: 20px;
             border: 1px solid #eaeaea; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center;
             margin-bottom: 20px;
         }
         
-        .profile-avatar {
-            width: 75px; height: 75px; background-color: rgba(226, 0, 90, 0.05);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 15px auto; color: var(--main-pink); font-size: 14px; font-weight: bold;
-            border: 2px solid var(--main-pink); text-align: center; padding: 5px; line-height: 1.2;
-            box-sizing: border-box;
-        }
-        
         .badge-container {
-            display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 15px;
+            display: flex; flex-direction: column; align-items: center; gap: 12px;
         }
 
-        .user-id-badge {
-            background-color: #f1f2f6; padding: 8px 16px; border-radius: 20px;
-            font-size: 13px; font-weight: bold; color: #2c3e50;
-            border: 1px solid #dcdde1; display: inline-block;
-        }
-
-        /* হোম পেজের বড় অ্যাড কার্ডের আদলে তৈরি VIP কার্ড স্টাইল */
+        /* হোম পেজের বড় অ্যাড কার্ডের আদলে তৈরি VIP কার্ড (যার ভেতরে ইউজার আইডি ও ভিআইপি লেভেল থাকবে) */
         .vip-huge-card {
             background: linear-gradient(135deg, var(--main-pink), #ff3377);
             border-radius: 12px;
-            padding: 25px 15px;
+            padding: 22px 15px;
             color: white;
             text-align: center;
             box-shadow: 0 8px 20px rgba(226, 0, 90, 0.3);
@@ -83,30 +69,43 @@
         .vip-icon-circle {
             background-color: rgba(255, 255, 255, 0.2);
             color: white;
-            width: 60px;
-            height: 60px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
-            margin: 0 auto 12px auto;
+            font-size: 25px;
+            margin: 0 auto 10px auto;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         .vip-huge-card h3 {
-            font-size: 20px;
+            font-size: 19px;
             font-weight: 900;
-            margin: 0 0 8px 0;
+            margin: 0 0 6px 0;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.15);
         }
 
         .vip-huge-card p {
             font-size: 13px;
             color: #ffe6f0;
-            margin: 0;
+            margin: 0 0 12px 0;
             font-weight: 600;
             line-height: 1.4;
+        }
+
+        /* কার্ডের ভেতরের ইউজার আইডি স্টাইল */
+        .card-user-id {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            letter-spacing: 0.5px;
         }
 
         .stats-card {
@@ -167,18 +166,13 @@
 
         <div class="content">
             <div class="profile-card">
-                <div class="profile-avatar">
-                    Send<br>bKash
-                </div>
-                
                 <div class="badge-container">
-                    <div class="user-id-badge">User ID: <span id="userIdDisplay">Loading...</span></div>
-                    
-                    <!-- হোম পেজের বড় অ্যাড কার্ডের আদলে তৈরি VIP কার্ড -->
+                    <!-- হোম পেজের বড় অ্যাড কার্ডের আদলে তৈরি VIP কার্ড (যার ভেতরে ইউজার আইডি ও ভিআইপি লেভেল রয়েছে) -->
                     <div class="vip-huge-card">
                         <div class="vip-icon-circle"><i class="fas fa-crown" id="vipIcon"></i></div>
                         <h3 id="vipLevelText">VIP 0</h3>
                         <p id="vipDescText">স্ট্যান্ডার্ড অ্যাকাউন্ট</p>
+                        <div class="card-user-id">User ID: <span id="userIdDisplay">Loading...</span></div>
                     </div>
                 </div>
             </div>
@@ -239,7 +233,6 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // হোম পেজের বিজ্ঞাপনের সাথে সামঞ্জস্য রেখে বিভিন্ন VIP লেভেলের বিবরণ
         const vipInfoMap = {
             "VIP 1": "মাত্র ৳৯৯ টাকায় কিনুন! দৈনিক ২০টি জিমেইল ও ১০টি ইনস্টাগ্রাম কাজ।",
             "VIP 2": "মাত্র ৳১৯৯ টাকায় কিনুন! দৈনিক ৩০টি জিমেইল ও ২০টি ইনস্টাগ্রাম কাজ।",
@@ -266,7 +259,7 @@
                 const iconElem = document.getElementById("vipIcon");
                 
                 if (userVip === "VIP 0") {
-                    descElem.innerText = "আপনার অ্যাকাউন্টটি বর্তমানে স্ট্যান্ডার্ড VIP 0 স্তরে রয়েছে।";
+                    descElem.innerText = "আপনার অ্যাকাউন্টটি বর্তমানে স্ট্যান্ডার্ড স্তরে রয়েছে।";
                     iconElem.className = "fas fa-crown";
                 } else if (userVip === "Send bKash Member") {
                     descElem.innerText = vipInfoMap[userVip];
