@@ -49,40 +49,65 @@
         }
         
         .profile-avatar {
-            width: 80px; height: 80px; background-color: rgba(226, 0, 90, 0.05);
+            width: 75px; height: 75px; background-color: rgba(226, 0, 90, 0.05);
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 15px auto; color: var(--main-pink); font-size: 15px; font-weight: bold;
+            margin: 0 auto 15px auto; color: var(--main-pink); font-size: 14px; font-weight: bold;
             border: 2px solid var(--main-pink); text-align: center; padding: 5px; line-height: 1.2;
             box-sizing: border-box;
         }
         
         .badge-container {
-            display: flex; justify-content: center; align-items: center;
-            gap: 10px; flex-wrap: wrap; margin-top: 15px;
+            display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 15px;
         }
 
         .user-id-badge {
-            background-color: #f1f2f6; padding: 8px 15px; border-radius: 20px;
+            background-color: #f1f2f6; padding: 8px 16px; border-radius: 20px;
             font-size: 13px; font-weight: bold; color: #2c3e50;
-            border: 1px solid #dcdde1;
+            border: 1px solid #dcdde1; display: inline-block;
         }
 
-        /* হোম পেজের অ্যাড ব্যান্টারের থিমের সাথে মেলানো VIP কার্ট স্টাইল */
-        .vip-card-banner {
+        /* হোম পেজের বড় অ্যাড কার্ডের আদলে তৈরি VIP কার্ড স্টাইল */
+        .vip-huge-card {
             background: linear-gradient(135deg, var(--main-pink), #ff3377);
+            border-radius: 12px;
+            padding: 25px 15px;
             color: white;
-            padding: 10px 18px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: bold;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 12px rgba(226, 0, 90, 0.25);
-            text-align: left;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(226, 0, 90, 0.3);
+            width: 100%;
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
         }
-        .vip-card-banner i { font-size: 14px; color: #ffcc00; }
-        .vip-card-banner span { font-size: 11px; display: block; color: #ffe6f0; font-weight: normal; margin-top: 1px; }
+
+        .vip-icon-circle {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin: 0 auto 12px auto;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .vip-huge-card h3 {
+            font-size: 20px;
+            font-weight: 900;
+            margin: 0 0 8px 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.15);
+        }
+
+        .vip-huge-card p {
+            font-size: 13px;
+            color: #ffe6f0;
+            margin: 0;
+            font-weight: 600;
+            line-height: 1.4;
+        }
 
         .stats-card {
             background-color: var(--main-white); border-radius: 12px; padding: 20px 15px;
@@ -149,12 +174,11 @@
                 <div class="badge-container">
                     <div class="user-id-badge">User ID: <span id="userIdDisplay">Loading...</span></div>
                     
-                    <!-- হোম পেজের অ্যাড ব্যান্টারের মতো VIP কার্ট স্টাইল -->
-                    <div class="vip-card-banner" id="vipBannerBox">
-                        <div>
-                            <i class="fas fa-crown" id="vipIcon"></i> <b id="vipLevelText">VIP 0</b>
-                            <span id="vipDescText">স্ট্যান্ডার্ড অ্যাকাউন্ট</span>
-                        </div>
+                    <!-- হোম পেজের বড় অ্যাড কার্ডের আদলে তৈরি VIP কার্ড -->
+                    <div class="vip-huge-card">
+                        <div class="vip-icon-circle"><i class="fas fa-crown" id="vipIcon"></i></div>
+                        <h3 id="vipLevelText">VIP 0</h3>
+                        <p id="vipDescText">স্ট্যান্ডার্ড অ্যাকাউন্ট</p>
                     </div>
                 </div>
             </div>
@@ -215,19 +239,19 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // হোম পেজের বিজ্ঞাপনের সাথে সামঞ্জস্য রেখে বিভিন্ন VIP লেভেলের ডিটেইলস ম্যাপ
+        // হোম পেজের বিজ্ঞাপনের সাথে সামঞ্জস্য রেখে বিভিন্ন VIP লেভেলের বিবরণ
         const vipInfoMap = {
-            "VIP 1": "দৈনিক ২০টি জিমেইল ও ১০টি ইনস্টাগ্রাম কাজ",
-            "VIP 2": "দৈনিক ৩০টি জিমেইল ও ২০টি ইনস্টাগ্রাম কাজ",
-            "VIP 3": "দৈনিক ৪০টি জিমেইল ও ৩০টি ইনস্টাগ্রাম কাজ",
-            "VIP 4": "দৈনিক ৫০টি জিমেইল ও ৪০টি ইনস্টাগ্রাম কাজ",
-            "VIP 5": "দৈনিক ৬০টি জিমেইল ও ৫০টি ইনস্টাগ্রাম কাজ",
-            "VIP 6": "দৈনিক ৭০টি জিমেইল ও ৬০টি ইনস্টাগ্রাম কাজ",
-            "VIP 7": "দৈনিক ৮০টি জিমেইল ও ৭০টি ইনস্টাগ্রাম কাজ",
-            "VIP 8": "দৈনিক ৯০টি জিমেইল ও ৮০টি ইনস্টাগ্রাম কাজ",
-            "VIP 9": "দৈনিক ১০০টি জিমেইল ও ৯০টি ইনস্টাগ্রাম কাজ",
-            "VIP 10": "দৈনিক ১১০টি জিমেইল ও ১০০টি ইনস্টাগ্রাম কাজ",
-            "Send bKash Member": "দৈনিক ২০০টি জিমেইল ও ১৮০টি ইনস্টাগ্রাম কাজ"
+            "VIP 1": "মাত্র ৳৯৯ টাকায় কিনুন! দৈনিক ২০টি জিমেইল ও ১০টি ইনস্টাগ্রাম কাজ।",
+            "VIP 2": "মাত্র ৳১৯৯ টাকায় কিনুন! দৈনিক ৩০টি জিমেইল ও ২০টি ইনস্টাগ্রাম কাজ।",
+            "VIP 3": "মাত্র ৳২৯৯ টাকায় কিনুন! দৈনিক ৪০টি জিমেইল ও ৩০টি ইনস্টাগ্রাম কাজ।",
+            "VIP 4": "মাত্র ৳৩৯৯ টাকায় কিনুন! দৈনিক ৫০টি জিমেইল ও ৪০টি ইনস্টাগ্রাম কাজ।",
+            "VIP 5": "মাত্র ৳৪৯৯ টাকায় কিনুন! দৈনিক ৬০টি জিমেইল ও ৫০টি ইনস্টাগ্রাম কাজ।",
+            "VIP 6": "মাত্র ৳৫৯৯ টাকায় কিনুন! দৈনিক ৭০টি জিমেইল ও ৬০টি ইনস্টাগ্রাম কাজ।",
+            "VIP 7": "মাত্র ৳৬৯৯ টাকায় কিনুন! দৈনিক ৮০টি জিমেইল ও ৭০টি ইনস্টাগ্রাম কাজ।",
+            "VIP 8": "মাত্র ৳৭৯৯ টাকায় কিনুন! দৈনিক ৯০টি জিমেইল ও ৮০টি ইনস্টাগ্রাম কাজ।",
+            "VIP 9": "মাত্র ৳৮৯৯ টাকায় কিনুন! দৈনিক ১০০টি জিমেইল ও ৯০টি ইনস্টাগ্রাম কাজ।",
+            "VIP 10": "মাত্র ৳৯৯৯ টাকায় কিনুন! দৈনিক ১১০টি জিমেইল ও ১০০টি ইনস্টাগ্রাম কাজ।",
+            "Send bKash Member": "মাত্র ৳২০০০ টাকায় কিনুন! দৈনিক ২০০টি জিমেইল ও ১৮০টি ইনস্টাগ্রাম কাজ।"
         };
 
         onAuthStateChanged(auth, (user) => {
@@ -238,18 +262,17 @@
                 const userVip = localStorage.getItem('userVipLevel') || "VIP 0";
                 document.getElementById("vipLevelText").innerText = userVip;
 
-                // VIP লেভেল অনুযায়ী হোম পেজের আদলে সাব-টেক্সট সেট করা
                 const descElem = document.getElementById("vipDescText");
                 const iconElem = document.getElementById("vipIcon");
                 
                 if (userVip === "VIP 0") {
-                    descElem.innerText = "স্ট্যান্ডার্ড অ্যাকাউন্ট";
+                    descElem.innerText = "আপনার অ্যাকাউন্টটি বর্তমানে স্ট্যান্ডার্ড VIP 0 স্তরে রয়েছে।";
                     iconElem.className = "fas fa-crown";
                 } else if (userVip === "Send bKash Member") {
                     descElem.innerText = vipInfoMap[userVip];
                     iconElem.className = "fas fa-star";
                 } else {
-                    descElem.innerText = vipInfoMap[userVip] || "স্পেশাল VIP অফার একটিভ";
+                    descElem.innerText = vipInfoMap[userVip] || "স্পেশাল VIP অফার একটিভ আছে।";
                     iconElem.className = "fas fa-crown";
                 }
 
