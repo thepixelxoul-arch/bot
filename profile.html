@@ -52,7 +52,7 @@
         .vip-huge-card {
             background: linear-gradient(135deg, var(--main-pink), #ff3377);
             border-radius: 12px;
-            padding: 35px 20px 25px 20px; 
+            padding: 40px 20px 35px 20px; /* প্যাডিং একটু এডজাস্ট করা হয়েছে যেহেতু বোনাস বাটন আর নেই */
             color: white;
             text-align: center;
             box-shadow: 0 8px 25px rgba(226, 0, 90, 0.35);
@@ -60,6 +60,28 @@
             box-sizing: border-box;
             position: relative;
             overflow: hidden;
+        }
+
+        /* আপগ্রেড বাটন স্টাইল */
+        .vip-upgrade-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: #ffcc00;
+            color: #333;
+            font-size: 11px;
+            font-weight: 900;
+            padding: 5px 12px;
+            border-radius: 20px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+        .vip-upgrade-btn:hover {
+            transform: scale(1.05);
         }
 
         .vip-icon-circle {
@@ -89,25 +111,6 @@
             margin: 0;
             font-weight: 600;
             line-height: 1.6;
-        }
-
-        /* বোনাস ব্যাজ স্টাইল */
-        .bonus-badge {
-            background-color: rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 8px 22px;
-            border-radius: 30px;
-            font-size: 14px;
-            font-weight: bold;
-            display: inline-block;
-            margin-top: 20px;
-            border: 1px dashed rgba(255, 255, 255, 0.5);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        .bonus-badge i {
-            color: #ffcc00;
-            margin-right: 6px;
-            font-size: 16px;
         }
 
         .stats-card {
@@ -167,12 +170,14 @@
         </div>
 
         <div class="content">
-            <!-- বড় অ্যাড কার্ডের আদলে তৈরি VIP কার্ড (কাজের লিমিট ও বোনাস সহ) -->
+            <!-- বড় অ্যাড কার্ড -->
             <div class="vip-huge-card">
+                <!-- আপগ্রেড বাটন -->
+                <a href="vip.html" class="vip-upgrade-btn">Upgrade <i class="fas fa-arrow-right"></i></a>
+
                 <div class="vip-icon-circle"><i class="fas fa-crown" id="vipIcon"></i></div>
                 <h3 id="vipLevelText">VIP 0</h3>
                 <p id="vipDescText">Loading...</p>
-                <div class="bonus-badge" id="vipBonusText"><i class="fas fa-gift"></i> বোনাস: ৳০</div>
             </div>
 
             <div class="stats-card">
@@ -231,7 +236,7 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // কাজের লিমিট (VIP 0 সহ)
+        // কাজের লিমিট 
         const vipInfoMap = {
             "VIP 0": "দৈনিক ১০টি জিমেইল ও ৫টি ইনস্টাগ্রাম কাজ।",
             "VIP 1": "দৈনিক ২০টি জিমেইল ও ১০টি ইনস্টাগ্রাম কাজ।",
@@ -247,22 +252,6 @@
             "Send bKash Member": "দৈনিক ২০০টি জিমেইল ও ১৮০টি ইনস্টাগ্রাম কাজ।"
         };
 
-        // VIP অনুযায়ী বোনাসের পরিমাণ 
-        const vipBonusMap = {
-            "VIP 0": "০",
-            "VIP 1": "১০",
-            "VIP 2": "২০",
-            "VIP 3": "৩০",
-            "VIP 4": "৪০",
-            "VIP 5": "৫০",
-            "VIP 6": "৬০",
-            "VIP 7": "৭০",
-            "VIP 8": "৮০",
-            "VIP 9": "৯০",
-            "VIP 10": "১০০",
-            "Send bKash Member": "২০০"
-        };
-
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 const userVip = localStorage.getItem('userVipLevel') || "VIP 0";
@@ -270,10 +259,9 @@
                 // VIP লেভেল সেট করা
                 document.getElementById("vipLevelText").innerText = userVip;
 
-                // কাজের বিবরণ ও বোনাস সেট করা
+                // কাজের বিবরণ সেট করা
                 const descElem = document.getElementById("vipDescText");
                 const iconElem = document.getElementById("vipIcon");
-                const bonusElem = document.getElementById("vipBonusText");
                 
                 if (userVip === "VIP 0") {
                     descElem.innerText = vipInfoMap[userVip];
@@ -285,9 +273,6 @@
                     descElem.innerText = vipInfoMap[userVip] || "স্পেশাল VIP অফার একটিভ আছে।";
                     iconElem.className = "fas fa-crown";
                 }
-
-                // বোনাসের টেক্সট আপডেট
-                bonusElem.innerHTML = `<i class="fas fa-gift"></i> বোনাস: ৳${vipBonusMap[userVip] || "০"}`;
 
             } else {
                 window.location.href = "login.html";
