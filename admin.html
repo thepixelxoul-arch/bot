@@ -54,12 +54,15 @@
         .nav-links::-webkit-scrollbar { width: 5px; }
         .nav-links::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 10px; }
 
-        .nav-links li { margin-bottom: 2px; }
+        /* মেনুর স্পেস এবং সাইজ বড় করা হয়েছে */
+        .nav-links li { margin-bottom: 5px; }
 
         .nav-links a {
             display: flex; align-items: center; gap: 15px;
-            padding: 12px 25px; color: rgba(255, 255, 255, 0.9);
-            text-decoration: none; font-size: 14px; font-weight: bold;
+            padding: 15px 25px; /* প্যাডিং বাড়ানো হয়েছে */
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none; font-size: 15px; /* ফন্ট সাইজ বড় করা হয়েছে */
+            font-weight: bold;
             transition: 0.3s; border-left: 4px solid transparent;
         }
 
@@ -69,7 +72,7 @@
             border-left: 4px solid #ffcc00;
         }
 
-        .nav-links a i { width: 20px; text-align: center; font-size: 16px; }
+        .nav-links a i { width: 20px; text-align: center; font-size: 18px; } /* আইকনের সাইজ বড় করা হয়েছে */
 
         /* মেইন কন্টেন্ট এরিয়া */
         .main-content {
@@ -211,16 +214,10 @@
         </div>
         <ul class="nav-links">
             <li><a href="#" class="nav-link active" onclick="openTab(event, 'dashboard')"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
-            
-            <!-- সাধারণ এবং VIP ইউজার আলাদা করা হলো -->
             <li><a href="#" class="nav-link" onclick="openTab(event, 'simple_users')"><i class="fas fa-user"></i> সাধারণ ইউজার</a></li>
             <li><a href="#" class="nav-link" onclick="openTab(event, 'vip_users')"><i class="fas fa-user-tie"></i> VIP ইউজার</a></li>
-            
             <li><a href="#" class="nav-link" onclick="openTab(event, 'withdraw')"><i class="fas fa-file-invoice-dollar"></i> উইথড্র রিকোয়েস্ট</a></li>
-            
-            <!-- নামের পরিবর্তন: কাজের সেটিং থেকে কাজের রেট -->
             <li><a href="#" class="nav-link" onclick="openTab(event, 'task_settings')"><i class="fas fa-tasks"></i> কাজের রেট</a></li>
-            
             <li><a href="#" class="nav-link" onclick="openTab(event, 'number')"><i class="fas fa-sim-card"></i> নাম্বার ম্যানেজমেন্ট</a></li>
             <li><a href="#" class="nav-link" onclick="openTab(event, 'vip_settings')"><i class="fas fa-crown"></i> VIP প্যাকেজ সেটিং</a></li>
             <li><a href="#" class="nav-link" onclick="openTab(event, 'refer')"><i class="fas fa-user-plus"></i> রেফার সেটিং</a></li>
