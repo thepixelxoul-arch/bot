@@ -52,14 +52,14 @@
             display: flex; flex-direction: column; align-items: center; gap: 12px;
         }
 
-        /* হোম পেজের বড় অ্যাড কার্ডের আদলে তৈরি VIP কার্ড (যার ভেতরে ইউজার আইডি ও ভিআইপি লেভেল থাকবে) */
+        /* VIP কার্ডটি আরও বড় এবং আকর্ষণীয় করা হয়েছে */
         .vip-huge-card {
             background: linear-gradient(135deg, var(--main-pink), #ff3377);
             border-radius: 12px;
-            padding: 22px 15px;
+            padding: 35px 20px; /* প্যাডিং বাড়িয়ে কার্ড বড় করা হয়েছে */
             color: white;
             text-align: center;
-            box-shadow: 0 8px 20px rgba(226, 0, 90, 0.3);
+            box-shadow: 0 8px 25px rgba(226, 0, 90, 0.35); /* শ্যাডো সামান্য বাড়ানো হয়েছে */
             width: 100%;
             box-sizing: border-box;
             position: relative;
@@ -69,43 +69,30 @@
         .vip-icon-circle {
             background-color: rgba(255, 255, 255, 0.2);
             color: white;
-            width: 55px;
-            height: 55px;
+            width: 70px; /* আইকনের সার্কেল বড় করা হয়েছে */
+            height: 70px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 25px;
-            margin: 0 auto 10px auto;
+            font-size: 32px; /* আইকন বড় করা হয়েছে */
+            margin: 0 auto 15px auto;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         .vip-huge-card h3 {
-            font-size: 19px;
+            font-size: 24px; /* টেক্সট সাইজ বড় করা হয়েছে */
             font-weight: 900;
-            margin: 0 0 6px 0;
+            margin: 0 0 8px 0;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.15);
         }
 
         .vip-huge-card p {
-            font-size: 13px;
+            font-size: 14px; /* টেক্সট সাইজ বড় করা হয়েছে */
             color: #ffe6f0;
-            margin: 0 0 12px 0;
+            margin: 0;
             font-weight: 600;
-            line-height: 1.4;
-        }
-
-        /* কার্ডের ভেতরের ইউজার আইডি স্টাইল */
-        .card-user-id {
-            background-color: rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-            display: inline-block;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            letter-spacing: 0.5px;
+            line-height: 1.5;
         }
 
         .stats-card {
@@ -167,12 +154,11 @@
         <div class="content">
             <div class="profile-card">
                 <div class="badge-container">
-                    <!-- হোম পেজের বড় অ্যাড কার্ডের আদলে তৈরি VIP কার্ড (যার ভেতরে ইউজার আইডি ও ভিআইপি লেভেল রয়েছে) -->
+                    <!-- বড় অ্যাড কার্ডের আদলে তৈরি VIP কার্ড -->
                     <div class="vip-huge-card">
                         <div class="vip-icon-circle"><i class="fas fa-crown" id="vipIcon"></i></div>
                         <h3 id="vipLevelText">VIP 0</h3>
                         <p id="vipDescText">স্ট্যান্ডার্ড অ্যাকাউন্ট</p>
-                        <div class="card-user-id">User ID: <span id="userIdDisplay">Loading...</span></div>
                     </div>
                 </div>
             </div>
@@ -249,9 +235,6 @@
 
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                const shortUid = user.uid.substring(0, 10).toUpperCase();
-                document.getElementById("userIdDisplay").innerText = shortUid;
-
                 const userVip = localStorage.getItem('userVipLevel') || "VIP 0";
                 document.getElementById("vipLevelText").innerText = userVip;
 
