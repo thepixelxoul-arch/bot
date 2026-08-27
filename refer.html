@@ -21,14 +21,17 @@
             display: flex; justify-content: center; 
         }
 
+        /* পুরো স্ক্রিন ফিক্সড করা হয়েছে (height: 100vh) */
         .app-container { 
-            width: 100%; max-width: 450px; min-height: 100vh; 
+            width: 100%; max-width: 450px; height: 100vh; 
             background-color: var(--bg-light); color: var(--main-pink); 
             box-shadow: 0 0 25px rgba(0,0,0,0.1); 
             display: flex; flex-direction: column; position: relative; 
+            overflow: hidden; 
         }
 
         .header { 
+            flex-shrink: 0; /* হেডার ফিক্সড */
             background-color: var(--main-pink); padding: 15px 20px; 
             display: flex; justify-content: space-between; align-items: center; 
             color: var(--main-white); box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); z-index: 10; 
@@ -36,12 +39,17 @@
         .header-title { font-size: 20px; font-weight: bold; display: flex; align-items: center; }
         .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 22px; }
 
-        .content { flex-grow: 1; padding: 20px; overflow-y: auto; padding-bottom: 80px; }
+        /* শুধু মাঝখানের অংশ স্ক্রল হবে */
+        .content { 
+            flex-grow: 1; padding: 20px; 
+            overflow-y: auto; overflow-x: hidden; 
+            padding-bottom: 20px; 
+        }
         
         .notice-box {
             background: linear-gradient(135deg, #fff3cd, #ffeeba); 
             border: 1px solid #ffeeba; border-left: 5px solid #ffc107;
-            padding: 12px 15px; border-radius: 4px; margin-bottom: 15px; color: #856404;
+            padding: 12px 15px; border-radius: 6px; margin-bottom: 15px; color: #856404;
             font-size: 13px; line-height: 1.5; box-shadow: 0 2px 8px rgba(0,0,0,0.03);
         }
 
@@ -50,26 +58,43 @@
             border: 1px solid #eaeaea; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center;
             margin-bottom: 20px;
         }
-        .refer-card i.main-icon { font-size: 45px; color: var(--main-pink); margin-bottom: 15px; }
-        .refer-card h3 { color: #2c3e50; margin: 0 0 8px 0; font-size: 18px; }
-        .refer-card p { color: var(--text-grey); font-size: 13px; margin: 0 0 20px 0; line-height: 1.5; }
+        
+        /* আইকনটি পিংক গ্র্যাডিয়েন্ট স্টাইলে করা হয়েছে */
+        .refer-card i.main-icon { 
+            font-size: 45px; 
+            background: -webkit-linear-gradient(135deg, var(--main-pink), #ff3377);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px; 
+        }
+        
+        .refer-card h3 { color: #2c3e50; margin: 0 0 8px 0; font-size: 18px; font-weight: 900;}
+        .refer-card p { color: var(--text-grey); font-size: 13px; margin: 0 0 20px 0; line-height: 1.5; font-weight: 500;}
 
         .link-box {
             display: flex; align-items: center; background-color: #f8f9fa;
             border: 1.5px solid #dcdde1; border-radius: 8px; overflow: hidden;
+            transition: 0.3s;
+        }
+        .link-box:focus-within {
+            border-color: var(--main-pink);
+            box-shadow: 0 0 0 3px rgba(226, 0, 90, 0.1);
         }
         .link-box input {
-            width: 100%; border: none; background: transparent; padding: 12px;
-            font-size: 12px; color: #2c3e50; outline: none; text-overflow: ellipsis;
+            width: 100%; border: none; background: transparent; padding: 14px;
+            font-size: 13px; color: #2c3e50; outline: none; text-overflow: ellipsis; font-weight: bold;
         }
+        
+        /* কপি বাটন আপডেট করা হয়েছে */
         .copy-btn {
-            background-color: var(--main-pink); color: white; border: none;
-            padding: 12px 20px; font-weight: bold; font-size: 14px; cursor: pointer;
+            background: linear-gradient(135deg, var(--main-pink), #ff3377);
+            color: white; border: none;
+            padding: 14px 20px; font-weight: bold; font-size: 14px; cursor: pointer;
             transition: background 0.2s; white-space: nowrap;
         }
-        .copy-btn:hover { background-color: #c4004e; }
+        .copy-btn:hover { background: linear-gradient(135deg, #c4004e, #e2005a); }
 
-        /* স্ট্যাটাস কার্ড */
+        /* স্ট্যাটাস কার্ড আপডেট করা হয়েছে */
         .stats-card {
             background-color: var(--main-white); border-radius: 12px; padding: 15px 10px;
             border: 1px solid #eaeaea; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
@@ -77,30 +102,54 @@
         }
         .stat-item { flex: 1; border-right: 1px solid #eaeaea; padding: 0 5px; }
         .stat-item:last-child { border-right: none; }
-        .stat-num { font-size: 17px; font-weight: bold; color: var(--main-pink); margin-bottom: 5px; white-space: nowrap; }
-        .stat-label { font-size: 11px; color: var(--text-grey); font-weight: bold; }
+        .stat-num { font-size: 18px; font-weight: 900; color: var(--main-pink); margin-bottom: 5px; white-space: nowrap; }
+        .stat-label { font-size: 12px; color: var(--text-grey); font-weight: bold; }
 
         /* হিস্ট্রি সেকশন */
         .history-section { margin-top: 15px; }
-        .history-title { font-size: 15px; font-weight: bold; color: #2c3e50; margin-bottom: 12px; border-bottom: 2px solid #eaeaea; padding-bottom: 5px; }
+        .history-title { font-size: 16px; font-weight: bold; color: #2c3e50; margin-bottom: 15px; border-bottom: 2px solid #eaeaea; padding-bottom: 8px; }
         
         .history-card {
-            background: var(--main-white); border: 1px solid #eaeaea; border-radius: 6px;
-            padding: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;
+            background: var(--main-white); border: 1px solid #eaeaea; border-radius: 8px;
+            padding: 15px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02); gap: 10px;
         }
-        .history-info p { margin: 0; font-size: 13px; color: #2c3e50; font-weight: bold; }
-        .history-info small { color: var(--text-grey); font-size: 11px; }
+        
+        .history-left-wrap {
+            display: flex; align-items: center; gap: 12px; flex: 1; overflow: hidden;
+        }
+        
+        /* উইথড্র পেজের মতো আইকন বক্স */
+        .history-icon { 
+            min-width: 45px; height: 45px; border-radius: 6px; 
+            display: flex; align-items: center; justify-content: center; 
+            font-size: 20px; color: white; 
+            background: linear-gradient(135deg, var(--main-pink), #ff3377);
+            box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);
+        }
 
-        .history-amount { font-size: 14px; font-weight: bold; color: #27ae60; }
+        .history-info { flex: 1; overflow: hidden; }
+        .history-info p { 
+            margin: 0 0 4px 0; color: #2c3e50; font-size: 14px; font-weight: bold; 
+            word-wrap: break-word; word-break: break-all;
+        }
+        .history-info small { color: var(--text-grey); font-size: 11px; font-weight: bold; display: flex; align-items: center; gap: 4px; }
 
-        .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: sticky; bottom: 0; z-index: 100; }
+        .history-amount { font-size: 15px; font-weight: 900; color: #27ae60; white-space: nowrap; }
+
+        /* বটম নেভিগেশন একদম নিচে ফিক্সড থাকবে */
+        .bottom-nav { 
+            flex-shrink: 0; 
+            background-color: var(--main-white); display: flex; justify-content: space-around; 
+            padding: 10px 0; border-top: 1px solid #eaeaea; z-index: 100; 
+        }
         .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); text-decoration: none; flex: 1; }
         .nav-item i { font-size: 18px; margin-bottom: 4px; display: block; }
         .nav-item.active { color: var(--main-pink); font-weight: bold; }
 
         .toast-msg {
             visibility: hidden; min-width: 200px; background-color: var(--main-pink);
-            color: #fff; text-align: center; border-radius: 30px; padding: 10px 20px;
+            color: #fff; text-align: center; border-radius: 30px; padding: 12px 20px;
             position: fixed; z-index: 9999; left: 50%; transform: translateX(-50%);
             top: 20px; font-size: 14px; font-weight: bold;
             box-shadow: 0 4px 15px rgba(226, 0, 90, 0.4); opacity: 0; transition: opacity 0.3s, top 0.3s;
@@ -110,7 +159,7 @@
 </head>
 <body>
 
-    <div id="toastBox" class="toast-msg">কপি করা হয়েছে!</div>
+    <div id="toastBox" class="toast-msg">কপি করা হয়েছে!</div>
 
     <div class="app-container">
         <div class="header">
@@ -122,17 +171,17 @@
 
         <div class="content">
             <div class="notice-box">
-                <i class="fas fa-info-circle"></i> প্রতি রেফারে পাবেন <b>৳২.০০</b> টাকা বোনাস। এছাড়া আপনার রেফারের বন্ধুরা কাজ করলে তাদের প্রতি কাজের আয় থেকে পাবেন <b>৫% কমিশন</b>!
+                <i class="fas fa-info-circle"></i> প্রতি রেফারে পাবেন <b>৳২.০০</b> টাকা বোনাস। এছাড়া আপনার রেফারের বন্ধুরা কাজ করলে তাদের প্রতি কাজের আয় থেকে পাবেন <b>৫% কমিশন</b>!
             </div>
 
             <div class="refer-card">
                 <i class="fas fa-user-plus main-icon"></i>
                 <h3>বন্ধুদের রেফার করুন</h3>
-                <p>আপনার রেফারেল লিংকের মাধ্যমে বন্ধুরা সাইনআপ করলে পেয়ে যান আকর্ষণীয় বোনাস!</p>
+                <p>আপনার রেফারেল লিংকের মাধ্যমে বন্ধুরা সাইনআপ করলে পেয়ে যান আকর্ষণীয় বোনাস!</p>
                 
                 <div class="link-box">
                     <input type="text" id="referLink" value="https://send-bkash.web.app/register.html?ref=t9k" readonly>
-                    <button class="copy-btn" onclick="copyReferLink()">কপি</button>
+                    <button class="copy-btn" onclick="copyReferLink()"><i class="fas fa-copy"></i> কপি</button>
                 </div>
             </div>
 
@@ -157,7 +206,7 @@
                 <div class="history-title">রেফার ও কমিশন হিস্ট্রি</div>
                 <div id="referHistoryList">
                     <!-- ডেমো বা লোকালস্টোরেজ থেকে ডাটা এখানে আসবে -->
-                    <p style="text-align:center; color:#888; font-size:12px;">কোনো হিস্ট্রি পাওয়া যায়নি।</p>
+                    <p style="text-align:center; color:#888; font-size:13px; font-weight: bold; padding: 20px;">কোনো হিস্ট্রি পাওয়া যায়নি।</p>
                 </div>
             </div>
         </div>
@@ -191,11 +240,15 @@
 
             historyList.innerHTML = '';
             history.forEach(item => {
+                // উইথড্র পেজের মতো নতুন কার্ড ডিজাইন
                 historyList.innerHTML += `
                     <div class="history-card">
-                        <div class="history-info">
-                            <p>${item.title}</p>
-                            <small>তারিখ: ${item.date}</small>
+                        <div class="history-left-wrap">
+                            <div class="history-icon"><i class="fas fa-user-check"></i></div>
+                            <div class="history-info">
+                                <p>${item.title}</p>
+                                <small><i class="far fa-calendar-alt"></i> ${item.date}</small>
+                            </div>
                         </div>
                         <div class="history-amount">+${item.amount}</div>
                     </div>
