@@ -51,10 +51,10 @@
             font-size: 13px; line-height: 1.5; box-shadow: 0 2px 8px rgba(0,0,0,0.03);
         }
 
-        /* ব্যালেন্স কার্ডের ফ্লোটিং অ্যানিমেশন */
+        /* ব্যালেন্স কার্ডের ফ্লোটিং অ্যানিমেশন (লেখা কাঁপা বন্ধ করার জন্য translate3d ব্যবহার করা হয়েছে) */
         @keyframes floatBalance {
-            0%, 100% { transform: translateY(0); box-shadow: 0 6px 15px rgba(226, 0, 90, 0.25); }
-            50% { transform: translateY(-4px); box-shadow: 0 10px 20px rgba(226, 0, 90, 0.35); }
+            0%, 100% { transform: translate3d(0, 0, 0); box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2); }
+            50% { transform: translate3d(0, -3px, 0); box-shadow: 0 12px 20px rgba(226, 0, 90, 0.4); }
         }
 
         .balance-card {
@@ -65,9 +65,16 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 6px 15px rgba(226, 0, 90, 0.25);
             color: white;
-            animation: floatBalance 3s infinite ease-in-out; /* অ্যানিমেশন যুক্ত করা হলো */
+            
+            /* লেখা যেন না কাঁপে তার জন্য এই প্রোপার্টিগুলো দেওয়া হয়েছে */
+            -webkit-font-smoothing: antialiased;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transform: translateZ(0);
+            will-change: transform, box-shadow;
+            
+            animation: floatBalance 3s infinite ease-in-out;
         }
         .balance-title { font-size: 14px; color: rgba(255, 255, 255, 0.9); font-weight: bold; display: flex; align-items: center; gap: 8px; }
         .balance-amount { font-size: 22px; font-weight: 900; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
@@ -217,7 +224,7 @@
                 <i class="fas fa-info-circle"></i> ন্যূনতম উইথড্র পরিমাণ ৳১০০ টাকা। ২৪ ঘণ্টার মধ্যে পেমেন্ট কমপ্লিট করা হবে।
             </div>
 
-            <!-- ব্যালেন্স কার্ড (অ্যানিমেশন সহ) -->
+            <!-- ব্যালেন্স কার্ড (স্মুথ ফ্লোটিং অ্যানিমেশন সহ) -->
             <div class="balance-card">
                 <div class="balance-title"><i class="fas fa-wallet"></i> আপনার মূল ব্যালেন্স:</div>
                 <div class="balance-amount">৳৫০০.০০</div>
