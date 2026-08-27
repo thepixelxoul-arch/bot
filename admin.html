@@ -203,7 +203,7 @@
 
     <div id="toastBox" class="toast-msg"><i class="fas fa-check-circle"></i> সফলভাবে সেভ হয়েছে!</div>
 
-    <!-- সাইডবার (কনসলিডেটেড/শর্ট মেনু) -->
+    <!-- সাইডবার -->
     <aside class="sidebar">
         <div class="sidebar-header">
             <h2><i class="fas fa-paper-plane"></i> Send bKash</h2>
@@ -211,9 +211,16 @@
         </div>
         <ul class="nav-links">
             <li><a href="#" class="nav-link active" onclick="openTab(event, 'dashboard')"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
-            <li><a href="#" class="nav-link" onclick="openTab(event, 'user_management')"><i class="fas fa-users"></i> ইউজার ম্যানেজমেন্ট</a></li>
+            
+            <!-- সাধারণ এবং VIP ইউজার আলাদা করা হলো -->
+            <li><a href="#" class="nav-link" onclick="openTab(event, 'simple_users')"><i class="fas fa-user"></i> সাধারণ ইউজার</a></li>
+            <li><a href="#" class="nav-link" onclick="openTab(event, 'vip_users')"><i class="fas fa-user-tie"></i> VIP ইউজার</a></li>
+            
             <li><a href="#" class="nav-link" onclick="openTab(event, 'withdraw')"><i class="fas fa-file-invoice-dollar"></i> উইথড্র রিকোয়েস্ট</a></li>
-            <li><a href="#" class="nav-link" onclick="openTab(event, 'task_settings')"><i class="fas fa-tasks"></i> কাজের সেটিং</a></li>
+            
+            <!-- নামের পরিবর্তন: কাজের সেটিং থেকে কাজের রেট -->
+            <li><a href="#" class="nav-link" onclick="openTab(event, 'task_settings')"><i class="fas fa-tasks"></i> কাজের রেট</a></li>
+            
             <li><a href="#" class="nav-link" onclick="openTab(event, 'number')"><i class="fas fa-sim-card"></i> নাম্বার ম্যানেজমেন্ট</a></li>
             <li><a href="#" class="nav-link" onclick="openTab(event, 'vip_settings')"><i class="fas fa-crown"></i> VIP প্যাকেজ সেটিং</a></li>
             <li><a href="#" class="nav-link" onclick="openTab(event, 'refer')"><i class="fas fa-user-plus"></i> রেফার সেটিং</a></li>
@@ -256,11 +263,11 @@
                 </div>
             </div>
 
-            <!-- 2. ইউজার ম্যানেজমেন্ট (VIP এবং Simple একসাথে) -->
-            <div id="user_management" class="tab-section">
+            <!-- 2. সাধারণ ইউজার -->
+            <div id="simple_users" class="tab-section">
                 <div class="admin-card">
                     <div class="card-header">
-                        <span>সকল ইউজার লিস্ট (Simple + VIP)</span>
+                        <span>সাধারণ ইউজার লিস্ট</span>
                         <input type="text" class="form-input" placeholder="ইউজার আইডি বা ইমেইল খুঁজুন..." style="width: 250px; padding: 8px 12px;">
                     </div>
                     <div style="overflow-x: auto;">
@@ -270,21 +277,11 @@
                                     <th>User ID</th>
                                     <th>ইমেইল</th>
                                     <th>ব্যালেন্স</th>
-                                    <th>স্ট্যাটাস / লেভেল</th>
+                                    <th>স্ট্যাটাস</th>
                                     <th>অ্যাকশন</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>T9KZBTUBR1</td>
-                                    <td>user1@gmail.com</td>
-                                    <td>৳৫০০.০০</td>
-                                    <td><span class="status-badge status-vip">VIP 2</span></td>
-                                    <td class="action-btns">
-                                        <button class="btn-edit" onclick="showToast()">এডিট ব্যালেন্স</button>
-                                        <button class="btn-reject" onclick="showToast()">ব্যান করুন</button>
-                                    </td>
-                                </tr>
                                 <tr>
                                     <td>X7ABCTUBR9</td>
                                     <td>sakib@gmail.com</td>
@@ -301,7 +298,42 @@
                 </div>
             </div>
 
-            <!-- 3. উইথড্র রিকোয়েস্ট -->
+            <!-- 3. VIP ইউজার -->
+            <div id="vip_users" class="tab-section">
+                <div class="admin-card">
+                    <div class="card-header">
+                        <span>VIP ইউজার লিস্ট</span>
+                        <input type="text" class="form-input" placeholder="ইউজার আইডি বা ইমেইল খুঁজুন..." style="width: 250px; padding: 8px 12px;">
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>User ID</th>
+                                    <th>ইমেইল</th>
+                                    <th>ব্যালেন্স</th>
+                                    <th>VIP লেভেল</th>
+                                    <th>অ্যাকশন</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>T9KZBTUBR1</td>
+                                    <td>user1@gmail.com</td>
+                                    <td>৳৫০০.০০</td>
+                                    <td><span class="status-badge status-vip">VIP 2</span></td>
+                                    <td class="action-btns">
+                                        <button class="btn-edit" onclick="showToast()">এডিট ব্যালেন্স</button>
+                                        <button class="btn-reject" onclick="showToast()">ব্যান করুন</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. উইথড্র রিকোয়েস্ট -->
             <div id="withdraw" class="tab-section">
                 <div class="admin-card">
                     <div class="card-header">পেন্ডিং উইথড্র রিকোয়েস্ট</div>
@@ -333,10 +365,10 @@
                 </div>
             </div>
 
-            <!-- 4. কাজের সেটিং (Gmail, Insta, WhatsApp, Telegram একসাথে) -->
+            <!-- 5. কাজের রেট -->
             <div id="task_settings" class="tab-section">
                 <div class="admin-card">
-                    <div class="card-header">সকল কাজের সেটিং (রেট ও টাস্ক কন্ট্রোল)</div>
+                    <div class="card-header">সকল কাজের রেট সেটিং</div>
                     <div class="form-grid">
                         <div class="form-group">
                             <label><i class="fab fa-google" style="color: #ea4335;"></i> Gmail কাজের রেট</label>
@@ -359,7 +391,7 @@
                 </div>
             </div>
 
-            <!-- 5. নাম্বার ম্যানেজমেন্ট -->
+            <!-- 6. নাম্বার ম্যানেজমেন্ট -->
             <div id="number" class="tab-section">
                 <div class="admin-card">
                     <div class="card-header">নাম্বার কেনা-বেচা সেটিং</div>
@@ -367,7 +399,7 @@
                 </div>
             </div>
 
-            <!-- 6. VIP প্যাকেজ সেটিং -->
+            <!-- 7. VIP প্যাকেজ সেটিং -->
             <div id="vip_settings" class="tab-section">
                 <div class="admin-card">
                     <div class="card-header">VIP প্যাকেজ কন্ট্রোল</div>
@@ -393,7 +425,7 @@
                 </div>
             </div>
 
-            <!-- 7. রেফার সেটিং -->
+            <!-- 8. রেফার সেটিং -->
             <div id="refer" class="tab-section">
                 <div class="admin-card">
                     <div class="card-header">রেফার সেটিং</div>
@@ -409,7 +441,7 @@
                 </div>
             </div>
 
-            <!-- 8. নোটিফিকেশন ও নোটিশ -->
+            <!-- 9. নোটিফিকেশন ও নোটিশ -->
             <div id="notification" class="tab-section">
                 <div class="admin-card">
                     <div class="card-header">গ্লোবাল নোটিশ এডিট</div>
@@ -421,7 +453,7 @@
                 </div>
             </div>
 
-            <!-- 9. কাজের নিয়মাবলী -->
+            <!-- 10. কাজের নিয়মাবলী -->
             <div id="rules" class="tab-section">
                 <div class="admin-card">
                     <div class="card-header">কাজের নিয়মাবলী এডিট করুন</div>
@@ -429,7 +461,7 @@
                 </div>
             </div>
 
-            <!-- 10. হেল্প ও সাপোর্ট -->
+            <!-- 11. হেল্প ও সাপোর্ট -->
             <div id="support" class="tab-section">
                 <div class="admin-card">
                     <div class="card-header">হেল্প ও সাপোর্ট লিংক</div>
@@ -463,9 +495,10 @@
 
             const titleMap = {
                 'dashboard': 'ড্যাশবোর্ড ওভারভিউ',
-                'user_management': 'ইউজার ম্যানেজমেন্ট',
+                'simple_users': 'সাধারণ ইউজার ম্যানেজমেন্ট',
+                'vip_users': 'VIP ইউজার ম্যানেজমেন্ট',
                 'withdraw': 'উইথড্র রিকোয়েস্টসমূহ',
-                'task_settings': 'সকল কাজের সেটিং',
+                'task_settings': 'কাজের রেট সেটিং',
                 'number': 'নাম্বার ম্যানেজমেন্ট',
                 'vip_settings': 'VIP প্যাকেজ সেটিং',
                 'refer': 'রেফার ও কমিশন সেটিং',
