@@ -38,7 +38,6 @@
         .header-title { font-size: 20px; font-weight: bold; display: flex; align-items: center; }
         .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 22px; }
 
-        /* হেডারের ডানদিকের হিস্ট্রি বাটন */
         .history-btn-header {
             color: white;
             font-size: 20px;
@@ -164,59 +163,25 @@
         }
         .submit-btn:hover { background-color: #c4004e; transform: translateY(-1px); }
 
-        /* পপআপ (Modal) স্টাইল */
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.5);
-            z-index: 1000;
-            display: none; 
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .modal-overlay.active {
-            display: flex;
-            opacity: 1;
-        }
-        .modal-content {
-            background: var(--bg-light);
-            width: 90%;
-            max-width: 400px;
-            max-height: 80vh;
-            border-radius: 12px;
+        /* 
+         * ফুল-স্ক্রিন হিস্ট্রি পেজ স্টাইল (নতুন পেজের মতো স্লাইড করে আসবে)
+         */
+        .history-screen {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: var(--bg-light);
+            z-index: 200; /* সবকিছুর ওপরে থাকবে */
             display: flex;
             flex-direction: column;
-            overflow: hidden;
-            transform: translateY(20px);
-            transition: transform 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transform: translateX(100%); /* শুরুতে ডানপাশে লুকিয়ে থাকবে */
+            transition: transform 0.3s ease-in-out;
         }
-        .modal-overlay.active .modal-content {
-            transform: translateY(0);
-        }
-        .modal-header {
-            background: linear-gradient(135deg, var(--main-pink), #ff3377);
-            color: white;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .modal-header h3 {
-            margin: 0; font-size: 16px; font-weight: bold; display: flex; align-items: center; gap: 8px;
-        }
-        .close-btn {
-            font-size: 24px; font-weight: bold; cursor: pointer; color: white;
-        }
-        .modal-body {
-            padding: 15px;
-            overflow-y: auto;
-            flex-grow: 1;
+        .history-screen.active {
+            transform: translateX(0); /* অ্যাকটিভ হলে স্ক্রিনে চলে আসবে */
         }
 
-        /* হিস্ট্রি কার্ডের স্টাইল (মডেলের ভেতরের জন্য) */
+        /* হিস্ট্রি কার্ডের স্টাইল */
         .history-card {
             background-color: var(--main-white); border: 1px solid #eaeaea; border-radius: 8px; 
             padding: 12px 15px; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; 
@@ -269,18 +234,19 @@
     <div id="toastBox" class="toast-msg"></div>
 
     <div class="app-container">
-        <!-- Header -->
+        <!-- Main Header -->
         <div class="header">
             <div class="header-title">
                 <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
                 Withdraw
             </div>
             <!-- ডানদিকের হিস্ট্রি বাটন -->
-            <a class="history-btn-header" onclick="openHistoryModal()">
+            <a href="#" class="history-btn-header" onclick="openHistoryScreen(event)">
                 <i class="fas fa-history"></i>
             </a>
         </div>
 
+        <!-- Main Content (উইথড্র ফর্ম) -->
         <div class="content">
             <div class="notice-box">
                 <i class="fas fa-info-circle"></i> ন্যূনতম উইথড্র পরিমাণ ৳১০০ টাকা। ২৪ ঘণ্টার মধ্যে পেমেন্ট কমপ্লিট করা হবে।
@@ -291,7 +257,6 @@
                 <div class="balance-amount">৳৫০০.০০</div>
             </div>
 
-            <!-- উইথড্র ফর্ম কার্ড -->
             <div class="task-card">
                 <div class="data-group">
                     <label>পেমেন্ট মেথড সিলেক্ট করুন</label>
@@ -335,16 +300,16 @@
             <a href="refer.html" class="nav-item"><i class="fas fa-users"></i>Refer</a>
             <a href="profile.html" class="nav-item"><i class="fas fa-user"></i>Profile</a>
         </div>
-    </div>
 
-    <!-- হিস্ট্রি পপআপ (Modal) -->
-    <div id="historyModal" class="modal-overlay">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3><i class="fas fa-history"></i> Withdraw হিস্ট্রি</h3>
-                <span class="close-btn" onclick="closeHistoryModal()">&times;</span>
+        <!-- Full Screen History Page (নতুন পেজের মতো স্লাইড হয়ে আসবে) -->
+        <div id="historyScreen" class="history-screen">
+            <div class="header">
+                <div class="header-title">
+                    <a href="#" class="back-btn" onclick="closeHistoryScreen(event)"><i class="fas fa-arrow-left"></i></a>
+                    Withdraw হিস্ট্রি
+                </div>
             </div>
-            <div class="modal-body" id="historyList">
+            <div class="content" id="historyList">
                 <!-- হিস্ট্রি এখানে লোড হবে -->
             </div>
         </div>
@@ -397,13 +362,16 @@
             setTimeout(() => { toast.classList.remove("show"); }, 2500);
         }
 
-        // পপআপ ওপেন এবং ক্লোজ ফাংশন
-        function openHistoryModal() {
-            document.getElementById('historyModal').classList.add('active');
+        // ফুল-স্ক্রিন হিস্ট্রি পেজ ওপেন ও ক্লোজ ফাংশন
+        function openHistoryScreen(event) {
+            event.preventDefault();
+            document.getElementById('historyScreen').classList.add('active');
             loadHistory();
         }
-        function closeHistoryModal() {
-            document.getElementById('historyModal').classList.remove('active');
+        
+        function closeHistoryScreen(event) {
+            event.preventDefault();
+            document.getElementById('historyScreen').classList.remove('active');
         }
 
         function submitWithdraw() {
@@ -443,7 +411,7 @@
             historyList.innerHTML = ''; 
 
             if(history.length === 0) {
-                historyList.innerHTML = '<p style="text-align:center; color:#888; font-size:13px; font-weight: bold; padding: 30px 10px;">কোনো হিস্ট্রি পাওয়া যায়নি।</p>';
+                historyList.innerHTML = '<p style="text-align:center; color:#888; font-size:14px; font-weight: bold; padding: 40px 10px;">কোনো হিস্ট্রি পাওয়া যায়নি।</p>';
                 return;
             }
 
