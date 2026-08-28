@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notice Settings - Admin Panel</title>
+    <title>Notification & Notice - Admin Panel</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root { 
             --main-pink: #e2005a; 
+            --light-pink: #ff3377;
             --main-white: #ffffff; 
             --text-grey: #888888; 
-            --bg-light: #f4f6f9; 
+            --bg-light: #ffe0e9; /* পিংক ব্যাকগ্রাউন্ড */
             --dark-blue: #2c3e50;
         }
 
@@ -24,10 +25,10 @@
             overflow: hidden;
         }
 
-        /* সাইডবার (Sidebar) */
+        /* সাইডবার */
         .sidebar {
             width: 260px;
-            background: linear-gradient(180deg, var(--main-pink), #ff3377);
+            background: linear-gradient(180deg, var(--main-pink), var(--light-pink));
             color: white;
             display: flex;
             flex-direction: column;
@@ -97,49 +98,147 @@
         .admin-profile { display: flex; align-items: center; gap: 15px; }
         
         .logout-btn {
-            background-color: #ffe0e9; color: var(--main-pink);
+            background-color: #ffb3c6; color: var(--main-pink);
             border: none; padding: 8px 18px; border-radius: 6px;
             cursor: pointer; font-weight: bold; transition: 0.2s;
             display: flex; align-items: center; gap: 8px;
         }
         .logout-btn:hover { background-color: var(--main-pink); color: white; }
 
-        /* ড্যাশবোর্ড বডি ও কার্ড */
+        /* ড্যাশবোর্ড বডি */
         .dashboard-body {
             padding: 30px;
             overflow-y: auto;
             flex-grow: 1;
         }
 
-        .admin-card {
-            background: var(--main-white); border-radius: 12px; padding: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-bottom: 25px;
+        /* হেডার কন্টেইনার */
+        .card-header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
+            padding: 20px 25px;
+            border-radius: 12px;
+            color: white;
+            box-shadow: 0 5px 15px rgba(226, 0, 90, 0.2);
         }
 
-        .card-header {
-            margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #eaeaea;
-            font-size: 18px; font-weight: bold; color: var(--dark-blue); display: flex; justify-content: space-between; align-items: center;
+        .card-header-title {
+            font-size: 20px; font-weight: bold;
+            display: flex; align-items: center; gap: 10px; color: white;
+        }
+
+        .card-header-subtitle { font-size: 13px; color: #ffe0e9; margin-top: 5px; }
+
+        /* --- নোটিফিকেশন কার্ড গ্রিড --- */
+        .notify-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            padding-bottom: 30px;
+        }
+
+        @media (max-width: 900px) {
+            .notify-grid { grid-template-columns: 1fr; }
+        }
+
+        .notify-card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.1);
+            border-top: 5px solid var(--main-pink);
+            display: flex;
+            flex-direction: column;
+            transition: 0.3s;
+        }
+
+        .notify-card:hover {
+            box-shadow: 0 8px 25px rgba(226, 0, 90, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .notify-icon {
+            width: 70px; height: 70px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
+            color: white; display: flex; align-items: center; justify-content: center;
+            font-size: 30px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(226, 0, 90, 0.3);
+        }
+
+        .notify-title {
+            font-size: 22px; font-weight: 900; color: var(--dark-blue);
+            margin: 0 0 5px 0;
+        }
+
+        .notify-desc {
+            font-size: 13px; color: var(--text-grey); font-weight: bold;
+            margin: 0 0 25px 0;
         }
 
         /* ফর্ম ইনপুট ডিজাইন */
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; font-size: 14px; font-weight: bold; color: var(--dark-blue); margin-bottom: 8px; }
-        .form-group label i { margin-right: 5px; color: var(--main-pink); }
-        .form-input {
-            width: 100%; padding: 12px 15px; border: 1.5px solid #eaeaea; border-radius: 8px;
-            font-size: 15px; outline: none; box-sizing: border-box; background-color: #f8f9fa;
-            transition: 0.3s; color: var(--dark-blue); font-family: 'Segoe UI', Tahoma, sans-serif;
-            resize: vertical; /* টেক্সট এরিয়া বড়-ছোট করার জন্য */
+        .input-group {
+            margin-bottom: 15px;
         }
-        .form-input:focus { border-color: var(--main-pink); background-color: white; }
-        
-        .save-btn {
-            background: linear-gradient(135deg, var(--main-pink), #ff3377); color: white;
-            border: none; padding: 12px 25px; border-radius: 8px; font-size: 15px; font-weight: bold;
-            cursor: pointer; box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2); transition: 0.2s;
-        }
-        .save-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(226, 0, 90, 0.3); }
 
+        .input-group label {
+            display: block; font-size: 14px; font-weight: bold;
+            color: var(--dark-blue); margin-bottom: 8px;
+        }
+
+        .form-control {
+            width: 100%; padding: 12px 15px; border: 2px solid #eaeaea;
+            border-radius: 8px; font-size: 14px; outline: none;
+            background-color: #f8f9fa; color: var(--dark-blue); font-weight: bold;
+            box-sizing: border-box; transition: 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--main-pink); background-color: #fff;
+            box-shadow: 0 0 8px rgba(226, 0, 90, 0.1);
+        }
+
+        textarea.form-control {
+            resize: vertical; min-height: 120px; font-family: inherit; line-height: 1.5;
+        }
+
+        .btn-send {
+            width: 100%; border: none; padding: 15px; border-radius: 8px;
+            font-size: 16px; font-weight: bold; color: white; cursor: pointer;
+            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
+            transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 10px;
+            margin-top: auto; box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);
+        }
+
+        .btn-send:hover {
+            transform: translateY(-2px); box-shadow: 0 6px 15px rgba(226, 0, 90, 0.3);
+            background: linear-gradient(135deg, #c0004b, var(--main-pink));
+        }
+
+        /* রিসেন্ট নোটিশ হিস্ট্রি */
+        .history-card {
+            background: #fff; border-radius: 12px; padding: 25px;
+            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.1); margin-top: 10px;
+        }
+
+        .history-header {
+            font-size: 18px; font-weight: bold; color: var(--dark-blue);
+            margin-bottom: 20px; border-bottom: 2px solid #f0f0f0; padding-bottom: 10px;
+        }
+
+        .history-item {
+            background: #fdfdfd; border: 1px solid #eee; border-left: 4px solid var(--main-pink);
+            border-radius: 8px; padding: 15px; margin-bottom: 15px;
+        }
+        .history-item:last-child { margin-bottom: 0; }
+
+        .hi-title { font-size: 16px; font-weight: bold; color: var(--dark-blue); margin: 0 0 5px 0;}
+        .hi-target { font-size: 12px; font-weight: bold; color: var(--main-pink); background: #ffe0e9; padding: 3px 8px; border-radius: 4px; display: inline-block; margin-bottom: 8px;}
+        .hi-body { font-size: 14px; color: #555; margin: 0 0 8px 0; line-height: 1.4; }
+        .hi-time { font-size: 11px; color: #aaa; font-weight: bold; }
+
+        /* টোস্ট মেসেজ */
         .toast-msg {
             visibility: hidden; background-color: #27ae60; color: #fff; text-align: center;
             border-radius: 8px; padding: 15px 25px; position: fixed; z-index: 9999; right: 30px; top: 30px;
@@ -151,7 +250,7 @@
 </head>
 <body>
 
-    <div id="toastBox" class="toast-msg"><i class="fas fa-check-circle"></i> নোটিশ সফলভাবে আপডেট হয়েছে!</div>
+    <div id="toastBox" class="toast-msg"><i class="fas fa-check-circle"></i> <span id="toastText">নোটিফিকেশন পাঠানো হয়েছে!</span></div>
 
     <!-- সাইডবার -->
     <aside class="sidebar">
@@ -160,7 +259,7 @@
             <p>অ্যাডমিন কন্ট্রোল প্যানেল</p>
         </div>
         <ul class="nav-links">
-            <li><a href="admin_dashboard.html" class="nav-link"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
+            <li><a href="admin.html" class="nav-link"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
             <li><a href="admin_simple_users.html" class="nav-link"><i class="fas fa-user"></i> সাধারণ ইউজার</a></li>
             <li><a href="admin_vip_users.html" class="nav-link"><i class="fas fa-user-tie"></i> VIP ইউজার</a></li>
             <li><a href="admin_withdraw.html" class="nav-link"><i class="fas fa-file-invoice-dollar"></i> উইথড্র রিকোয়েস্ট</a></li>
@@ -178,7 +277,7 @@
     <!-- মেইন এরিয়া -->
     <main class="main-content">
         <header class="topbar">
-            <div class="topbar-title">নোটিফিকেশন ও নোটিশ সেটিং</div>
+            <div class="topbar-title">নোটিফিকেশন ম্যানেজমেন্ট</div>
             <div class="admin-profile">
                 <button class="logout-btn" id="adminLogout"><i class="fas fa-sign-out-alt"></i> লগআউট</button>
             </div>
@@ -186,52 +285,132 @@
 
         <div class="dashboard-body">
             
-            <div class="admin-card">
-                <div class="card-header">গ্লোবাল নোটিশ এডিট করুন</div>
-                
-                <div class="form-group">
-                    <label><i class="fas fa-bullhorn"></i> হোম পেজের নোটিশ (হলুদ বক্স)</label>
-                    <textarea class="form-input" rows="3">স্বাগতম! কাজ শুরু করার আগে অবশ্যই কাজের নিয়মাবলী পড়ে নিন। নতুন VIP প্যাকেজ এড করা হয়েছে।</textarea>
+            <div class="card-header-container">
+                <div>
+                    <div class="card-header-title">
+                        <i class="fas fa-bell"></i> নোটিফিকেশন এবং নোটিশ সিস্টেম
+                    </div>
+                    <div class="card-header-subtitle">এখান থেকে আপনি পুরো ওয়েবসাইটের সব ইউজারকে অথবা নির্দিষ্ট যেকোনো একজন ইউজারকে মেসেজ পাঠাতে পারবেন।</div>
                 </div>
+            </div>
+
+            <!-- নোটিফিকেশন কার্ড গ্রিড -->
+            <div class="notify-grid">
                 
-                <div class="form-group">
-                    <label><i class="fas fa-wallet"></i> উইথড্র পেজের নোটিশ</label>
-                    <textarea class="form-input" rows="3">ন্যূনতম উইথড্র পরিমাণ ৳১০০ টাকা। পেমেন্ট রিকোয়েস্ট দেওয়ার ২৪ ঘণ্টার মধ্যে পেমেন্ট কমপ্লিট করা হবে।</textarea>
+                <!-- কার্ড ১: সবাইকে নোটিশ দিন -->
+                <div class="notify-card">
+                    <div class="notify-icon"><i class="fas fa-bullhorn"></i></div>
+                    <h3 class="notify-title">সবাইকে নোটিশ দিন</h3>
+                    <p class="notify-desc">এই নোটিশটি অ্যাপের সকল ইউজারের ড্যাশবোর্ডে শো করবে।</p>
+
+                    <div class="input-group">
+                        <label>নোটিশের টাইটেল (Title)</label>
+                        <input type="text" id="globalTitle" class="form-control" placeholder="যেমন: নতুন কাজের আপডেট">
+                    </div>
+
+                    <div class="input-group">
+                        <label>বিস্তারিত মেসেজ (Message)</label>
+                        <textarea id="globalMessage" class="form-control" placeholder="নোটিশের বিস্তারিত বিবরণ এখানে লিখুন..."></textarea>
+                    </div>
+
+                    <button class="btn-send" onclick="sendGlobalNotice()">
+                        <i class="fas fa-paper-plane"></i> সব ইউজারকে পাঠান
+                    </button>
                 </div>
 
-                <div class="form-group">
-                    <label><i class="fas fa-comment-dots"></i> পপ-আপ মেসেজ (লগইনের পর শো করবে)</label>
-                    <textarea class="form-input" rows="3">ঈদ উপলক্ষে সকল কাজের রেট বাড়ানো হয়েছে! আজই কাজ শুরু করুন।</textarea>
+                <!-- কার্ড ২: নির্দিষ্ট ইউজারকে মেসেজ দিন -->
+                <div class="notify-card">
+                    <div class="notify-icon"><i class="fas fa-user-tag"></i></div>
+                    <h3 class="notify-title">নির্দিষ্ট ইউজারকে মেসেজ দিন</h3>
+                    <p class="notify-desc">শুধুমাত্র এই আইডির ইউজারের কাছে একটি পার্সোনাল নোটিফিকেশন যাবে।</p>
+
+                    <div class="input-group">
+                        <label>ইউজার আইডি বা ইমেইল (User ID)</label>
+                        <input type="text" id="directUserId" class="form-control" placeholder="যেমন: T9KZBTUBR1">
+                    </div>
+
+                    <div class="input-group">
+                        <label>নোটিফিকেশন টাইটেল (Title)</label>
+                        <input type="text" id="directTitle" class="form-control" placeholder="যেমন: পেমেন্ট বাতিল করা হয়েছে">
+                    </div>
+
+                    <div class="input-group">
+                        <label>বিস্তারিত মেসেজ (Message)</label>
+                        <textarea id="directMessage" class="form-control" placeholder="ইউজারকে কী বলতে চান তা এখানে লিখুন..."></textarea>
+                    </div>
+
+                    <button class="btn-send" onclick="sendDirectNotice()">
+                        <i class="fas fa-envelope"></i> নির্দিষ্ট ইউজারকে পাঠান
+                    </button>
                 </div>
 
-                <button class="save-btn" onclick="showToast()"><i class="fas fa-save"></i> নোটিশ সেভ করুন</button>
+            </div>
+
+            <!-- রিসেন্ট নোটিশ হিস্ট্রি -->
+            <div class="history-card">
+                <div class="history-header"><i class="fas fa-history" style="color: var(--main-pink);"></i> সম্প্রতি পাঠানো নোটিশসমূহ</div>
+                
+                <div class="history-item">
+                    <p class="hi-title">সার্ভার মেইনটেন্যান্স অ্যালার্ট</p>
+                    <span class="hi-target"><i class="fas fa-users"></i> সবার জন্য (Global)</span>
+                    <p class="hi-body">আজ রাত ১২টা থেকে ২টা পর্যন্ত সার্ভারের আপডেট কাজ চলবে। এই সময়ে কাজ জমা দেওয়া থেকে বিরত থাকুন।</p>
+                    <span class="hi-time">পাঠানো হয়েছে: আজ, ১০:৩০ AM</span>
+                </div>
+
+                <div class="history-item">
+                    <p class="hi-title">উইথড্র বাতিল করা হয়েছে!</p>
+                    <span class="hi-target"><i class="fas fa-user"></i> X7ABCTUBR9 এর জন্য</span>
+                    <p class="hi-body">আপনার দেওয়া বিকাশ নাম্বারটি ভুল। দয়া করে সঠিক নাম্বার দিয়ে পুনরায় উইথড্র রিকোয়েস্ট দিন।</p>
+                    <span class="hi-time">পাঠানো হয়েছে: গতকাল, ০৪:১৫ PM</span>
+                </div>
             </div>
 
         </div>
     </main>
 
-    <!-- Firebase Script -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
-        import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
-            authDomain: "send-bkash.firebaseapp.com",
-            projectId: "send-bkash",
-            storageBucket: "send-bkash.firebasestorage.app",
-            messagingSenderId: "306247423891",
-            appId: "1:306247423891:web:bb4fb6634043e6755afa66"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-
-        // টোস্ট মেসেজ শো করানোর ফাংশন
-        window.showToast = function() {
+    <script>
+        // টোস্ট মেসেজ
+        function showToast(message) {
             const toast = document.getElementById("toastBox");
+            document.getElementById("toastText").innerText = message;
             toast.classList.add("show");
-            setTimeout(() => { toast.classList.remove("show"); }, 2500);
+            setTimeout(() => { toast.classList.remove("show"); }, 3500);
+        }
+
+        // সবাইকে নোটিশ পাঠানোর ফাংশন
+        function sendGlobalNotice() {
+            const title = document.getElementById("globalTitle").value;
+            const message = document.getElementById("globalMessage").value;
+            
+            if (title.trim() === "" || message.trim() === "") {
+                alert("দয়া করে নোটিশের টাইটেল এবং মেসেজ দুটিই লিখুন!");
+                return;
+            }
+
+            showToast("সাফল্য! নোটিশটি ওয়েবসাইটের সকল ইউজারের কাছে পাঠানো হয়েছে।");
+            
+            // ফিল্ড ক্লিয়ার করা
+            document.getElementById("globalTitle").value = '';
+            document.getElementById("globalMessage").value = '';
+        }
+
+        // নির্দিষ্ট ইউজারকে নোটিশ পাঠানোর ফাংশন
+        function sendDirectNotice() {
+            const userId = document.getElementById("directUserId").value;
+            const title = document.getElementById("directTitle").value;
+            const message = document.getElementById("directMessage").value;
+            
+            if (userId.trim() === "" || title.trim() === "" || message.trim() === "") {
+                alert("দয়া করে ইউজার আইডি, টাইটেল এবং মেসেজ সম্পূর্ণ পূরণ করুন!");
+                return;
+            }
+
+            showToast(`সাফল্য! ${userId} এর কাছে পার্সোনাল নোটিফিকেশন পাঠানো হয়েছে।`);
+            
+            // ফিল্ড ক্লিয়ার করা
+            document.getElementById("directUserId").value = '';
+            document.getElementById("directTitle").value = '';
+            document.getElementById("directMessage").value = '';
         }
 
         document.getElementById("adminLogout").addEventListener("click", () => {
