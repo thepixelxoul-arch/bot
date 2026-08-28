@@ -126,15 +126,17 @@
             margin-bottom: 20px; display: flex; align-items: center; gap: 10px;
         }
 
+        /* গ্রিড কলাম আপডেট করা হয়েছে (৫টি কলামের জন্য) */
         .form-grid {
             display: grid;
-            grid-template-columns: 1fr 2fr 1fr auto;
+            grid-template-columns: 1.2fr 1.5fr 2fr 1fr auto;
             gap: 15px;
             align-items: center;
         }
 
-        @media (max-width: 900px) {
+        @media (max-width: 1000px) {
             .form-grid { grid-template-columns: 1fr 1fr; }
+            .btn-add-number { grid-column: 1 / -1; justify-content: center; }
         }
 
         .input-group { display: flex; flex-direction: column; gap: 8px; }
@@ -144,6 +146,7 @@
             padding: 12px 15px; border: 1.5px solid #eaeaea; border-radius: 8px;
             font-size: 14px; outline: none; background-color: #f8f9fa;
             transition: 0.3s; font-weight: bold; color: var(--dark-blue);
+            width: 100%; box-sizing: border-box;
         }
         .form-control:focus { border-color: var(--main-pink); background-color: #fff; }
 
@@ -152,7 +155,7 @@
             color: white; border: none; padding: 12px 25px; border-radius: 8px;
             font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.2s;
             height: 45px; align-self: end; display: flex; align-items: center; gap: 8px;
-            box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);
+            box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2); white-space: nowrap;
         }
         .btn-add-number:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(226, 0, 90, 0.3); }
 
@@ -188,10 +191,18 @@
         .pi-wa { background: #25d366; }
         .pi-tg { background: #0088cc; }
         .pi-ig { background: #e1306c; }
+        .pi-gm { background: #ea4335; } /* Gmail color */
 
         .nc-header { margin-bottom: 15px; }
         .nc-header h3 { margin: 0 0 5px 0; font-size: 22px; color: var(--dark-blue); letter-spacing: 1px; }
         .nc-header p { margin: 0; font-size: 13px; font-weight: bold; color: #888; }
+        
+        /* কান্ট্রি ব্যাজ */
+        .nc-country {
+            display: inline-block; background-color: #f0f0f0; color: #555;
+            padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: bold;
+            margin-bottom: 10px;
+        }
 
         .nc-price-badge {
             display: inline-block; background-color: #e6f4ea; color: #188038;
@@ -262,17 +273,35 @@
                     <div class="input-group">
                         <label>কাজের ধরন (Platform)</label>
                         <select id="platformSelect" class="form-control">
+                            <option value="Gmail">Gmail</option>
                             <option value="WhatsApp">WhatsApp</option>
                             <option value="Telegram">Telegram</option>
                             <option value="Instagram">Instagram</option>
                         </select>
                     </div>
+
                     <div class="input-group">
-                        <label>নাম্বার (Country Code সহ)</label>
-                        <input type="text" id="phoneNumberInput" class="form-control" placeholder="যেমন: +8801700000000">
+                        <label>দেশ (Country)</label>
+                        <select id="countrySelect" class="form-control">
+                            <option value="Bangladesh">🇧🇩 Bangladesh (+880)</option>
+                            <option value="India">🇮🇳 India (+91)</option>
+                            <option value="USA">🇺🇸 USA (+1)</option>
+                            <option value="UK">🇬🇧 UK (+44)</option>
+                            <option value="Pakistan">🇵🇰 Pakistan (+92)</option>
+                            <option value="Malaysia">🇲🇾 Malaysia (+60)</option>
+                            <option value="Indonesia">🇮🇩 Indonesia (+62)</option>
+                            <option value="Russia">🇷🇺 Russia (+7)</option>
+                            <option value="Brazil">🇧🇷 Brazil (+55)</option>
+                            <option value="Other">🌍 Other / Global</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>নাম্বার (কোড বাদে)</label>
+                        <input type="text" id="phoneNumberInput" class="form-control" placeholder="যেমন: 01700000000">
                     </div>
                     <div class="input-group">
-                        <label>এই নাম্বারের দাম (Price)</label>
+                        <label>দাম (Price)</label>
                         <input type="number" id="priceInput" class="form-control" placeholder="যেমন: 25">
                     </div>
                     <button class="btn-add-number" onclick="addNewNumber()">
@@ -293,41 +322,33 @@
                         <p>WhatsApp Number</p>
                         <h3>+880 1711-223344</h3>
                     </div>
+                    <div><span class="nc-country">🇧🇩 Bangladesh</span></div>
                     <div><span class="nc-price-badge">দাম: ৳২৫.০০</span></div>
                     <button class="btn-delete" onclick="deleteNumber('num-1')"><i class="fas fa-trash-alt"></i> নাম্বারটি মুছুন</button>
                 </div>
 
                 <!-- কার্ড ২ -->
                 <div class="number-card" id="num-2">
-                    <div class="platform-icon pi-tg"><i class="fab fa-telegram-plane"></i></div>
+                    <div class="platform-icon pi-gm"><i class="fab fa-google"></i></div>
                     <div class="nc-header">
-                        <p>Telegram Number</p>
+                        <p>Gmail Verificaton</p>
                         <h3>+1 202-555-0199</h3>
                     </div>
-                    <div><span class="nc-price-badge">দাম: ৳৩৫.০০</span></div>
+                    <div><span class="nc-country">🇺🇸 USA</span></div>
+                    <div><span class="nc-price-badge">দাম: ৳১৫.০০</span></div>
                     <button class="btn-delete" onclick="deleteNumber('num-2')"><i class="fas fa-trash-alt"></i> নাম্বারটি মুছুন</button>
                 </div>
 
                 <!-- কার্ড ৩ -->
                 <div class="number-card" id="num-3">
-                    <div class="platform-icon pi-wa"><i class="fab fa-whatsapp"></i></div>
+                    <div class="platform-icon pi-tg"><i class="fab fa-telegram-plane"></i></div>
                     <div class="nc-header">
-                        <p>WhatsApp Number</p>
-                        <h3>+44 7911 123456</h3>
+                        <p>Telegram Number</p>
+                        <h3>+91 98765 43210</h3>
                     </div>
-                    <div><span class="nc-price-badge">দাম: ৳৪০.০০</span></div>
+                    <div><span class="nc-country">🇮🇳 India</span></div>
+                    <div><span class="nc-price-badge">দাম: ৳৩৫.০০</span></div>
                     <button class="btn-delete" onclick="deleteNumber('num-3')"><i class="fas fa-trash-alt"></i> নাম্বারটি মুছুন</button>
-                </div>
-
-                <!-- কার্ড ৪ -->
-                <div class="number-card" id="num-4">
-                    <div class="platform-icon pi-ig"><i class="fab fa-instagram"></i></div>
-                    <div class="nc-header">
-                        <p>Instagram Auth Number</p>
-                        <h3>+880 1999-887766</h3>
-                    </div>
-                    <div><span class="nc-price-badge">দাম: ৳১৫.০০</span></div>
-                    <button class="btn-delete" onclick="deleteNumber('num-4')"><i class="fas fa-trash-alt"></i> নাম্বারটি মুছুন</button>
                 </div>
 
             </div>
@@ -347,6 +368,8 @@
 
         // নতুন নাম্বার এড করার ফাংশন
         function addNewNumber() {
+            const platform = document.getElementById("platformSelect").value;
+            const country = document.getElementById("countrySelect").value;
             const number = document.getElementById("phoneNumberInput").value;
             const price = document.getElementById("priceInput").value;
 
@@ -355,7 +378,8 @@
                 return;
             }
 
-            showToast(`সাফল্য! ${number} নাম্বারটি ৳${price} দামে যোগ করা হয়েছে।`);
+            // সাকসেস মেসেজ দেখানো
+            showToast(`সাফল্য! ${country} এর ${platform} নাম্বারটি ৳${price} দামে যোগ করা হয়েছে।`);
             
             // ফিল্ড ক্লিয়ার করা
             document.getElementById("phoneNumberInput").value = '';
