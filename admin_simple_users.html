@@ -131,7 +131,7 @@
         }
         .form-input:focus { border-color: var(--main-pink); }
 
-        /* --- ইউজার কার্ড গ্রিড লেআউট (প্রোডাক্ট কার্ড এর মতো) --- */
+        /* --- ইউজার কার্ড গ্রিড লেআউট --- */
         .user-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -194,27 +194,32 @@
             font-size: 12px;
             font-weight: bold;
             color: var(--text-grey);
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             text-transform: uppercase;
         }
 
+        /* শুধু আইকন ও সংখ্যা দিয়ে সুন্দর ব্যাজ ডিজাইন */
         .task-badges {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-bottom: 15px;
+            grid-template-columns: repeat(4, 1fr); /* ৪টা ব্যাজ এক লাইনে সমানভাবে বসবে */
+            gap: 10px;
+            margin-bottom: 20px;
         }
 
         .task-badge {
-            padding: 6px 10px;
-            border-radius: 6px;
-            font-size: 12px;
+            padding: 10px 0;
+            border-radius: 8px;
+            font-size: 15px;
             font-weight: bold;
             color: white;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
+            gap: 6px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
         }
+        
+        .task-badge i { font-size: 18px; }
 
         .bg-gmail { background-color: #ea4335; }
         .bg-insta { background-color: #e1306c; }
@@ -229,10 +234,11 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
+            border: 1px solid #eaeaea;
         }
 
         .balance-label { font-size: 13px; font-weight: bold; color: var(--dark-blue); }
-        .balance-amount { font-size: 16px; font-weight: 900; color: #188038; }
+        .balance-amount { font-size: 18px; font-weight: 900; color: #188038; }
 
         .action-btns {
             display: flex;
@@ -324,11 +330,13 @@
                     </div>
 
                     <div class="task-stats-title">জমাকৃত কাজের সংখ্যা</div>
+                    
+                    <!-- আইকন এবং সংখ্যা (টেক্সট বাদ দেওয়া হয়েছে) -->
                     <div class="task-badges">
-                        <div class="task-badge bg-gmail"><span><i class="fab fa-google"></i> Gmail</span> <span>১২</span></div>
-                        <div class="task-badge bg-insta"><span><i class="fab fa-instagram"></i> Insta</span> <span>৫</span></div>
-                        <div class="task-badge bg-wa"><span><i class="fab fa-whatsapp"></i> WA</span> <span>৩</span></div>
-                        <div class="task-badge bg-tg"><span><i class="fab fa-telegram-plane"></i> TG</span> <span>১</span></div>
+                        <div class="task-badge bg-gmail" title="Google Accounts"><i class="fab fa-google"></i> <span>১২</span></div>
+                        <div class="task-badge bg-insta" title="Instagram Accounts"><i class="fab fa-instagram"></i> <span>৫</span></div>
+                        <div class="task-badge bg-wa" title="WhatsApp Accounts"><i class="fab fa-whatsapp"></i> <span>৩</span></div>
+                        <div class="task-badge bg-tg" title="Telegram Accounts"><i class="fab fa-telegram-plane"></i> <span>১</span></div>
                     </div>
 
                     <div class="balance-box">
@@ -354,11 +362,13 @@
                     </div>
 
                     <div class="task-stats-title">জমাকৃত কাজের সংখ্যা</div>
+                    
+                    <!-- আইকন এবং সংখ্যা -->
                     <div class="task-badges">
-                        <div class="task-badge bg-gmail"><span><i class="fab fa-google"></i> Gmail</span> <span>৮</span></div>
-                        <div class="task-badge bg-insta"><span><i class="fab fa-instagram"></i> Insta</span> <span>২</span></div>
-                        <div class="task-badge bg-wa"><span><i class="fab fa-whatsapp"></i> WA</span> <span>০</span></div>
-                        <div class="task-badge bg-tg"><span><i class="fab fa-telegram-plane"></i> TG</span> <span>৪</span></div>
+                        <div class="task-badge bg-gmail" title="Google Accounts"><i class="fab fa-google"></i> <span>৮</span></div>
+                        <div class="task-badge bg-insta" title="Instagram Accounts"><i class="fab fa-instagram"></i> <span>২</span></div>
+                        <div class="task-badge bg-wa" title="WhatsApp Accounts"><i class="fab fa-whatsapp"></i> <span>০</span></div>
+                        <div class="task-badge bg-tg" title="Telegram Accounts"><i class="fab fa-telegram-plane"></i> <span>৪</span></div>
                     </div>
 
                     <div class="balance-box">
@@ -384,11 +394,13 @@
                     </div>
 
                     <div class="task-stats-title">জমাকৃত কাজের সংখ্যা</div>
+                    
+                    <!-- আইকন এবং সংখ্যা -->
                     <div class="task-badges">
-                        <div class="task-badge bg-gmail"><span><i class="fab fa-google"></i> Gmail</span> <span>১৫</span></div>
-                        <div class="task-badge bg-insta"><span><i class="fab fa-instagram"></i> Insta</span> <span>১০</span></div>
-                        <div class="task-badge bg-wa"><span><i class="fab fa-whatsapp"></i> WA</span> <span>৫</span></div>
-                        <div class="task-badge bg-tg"><span><i class="fab fa-telegram-plane"></i> TG</span> <span>২</span></div>
+                        <div class="task-badge bg-gmail" title="Google Accounts"><i class="fab fa-google"></i> <span>১৫</span></div>
+                        <div class="task-badge bg-insta" title="Instagram Accounts"><i class="fab fa-instagram"></i> <span>১০</span></div>
+                        <div class="task-badge bg-wa" title="WhatsApp Accounts"><i class="fab fa-whatsapp"></i> <span>৫</span></div>
+                        <div class="task-badge bg-tg" title="Telegram Accounts"><i class="fab fa-telegram-plane"></i> <span>২</span></div>
                     </div>
 
                     <div class="balance-box">
