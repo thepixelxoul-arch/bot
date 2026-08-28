@@ -113,7 +113,6 @@
             flex-grow: 1;
         }
 
-        /* হেডার কন্টেইনার এবং গ্লোবাল বোনাস বাটন */
         .card-header-container {
             display: flex;
             justify-content: space-between;
@@ -124,19 +123,11 @@
         }
 
         .card-header-title {
-            font-size: 20px;
-            font-weight: bold;
-            color: var(--dark-blue);
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            font-size: 20px; font-weight: bold; color: var(--dark-blue);
+            display: flex; align-items: center; gap: 10px;
         }
 
-        .header-actions {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
+        .header-actions { display: flex; gap: 15px; align-items: center; }
 
         .btn-global-bonus {
             background: linear-gradient(135deg, var(--gold-dark), var(--gold));
@@ -162,77 +153,39 @@
         }
 
         .user-card {
-            background: #fff;
-            border: 1px solid #e0e0e0;
-            border-radius: 12px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            transition: box-shadow 0.2s, transform 0.2s;
-            position: relative;
-            /* VIP বর্ডার */
-            border-top: 4px solid var(--gold);
+            background: #fff; border: 1px solid #e0e0e0; border-radius: 12px; padding: 20px;
+            display: flex; flex-direction: column; transition: box-shadow 0.2s, transform 0.2s;
+            position: relative; border-top: 4px solid var(--gold);
         }
 
-        .user-card:hover {
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-            transform: translateY(-3px);
-        }
+        .user-card:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.08); transform: translateY(-3px); }
 
         /* VIP ট্যাগ */
         .vip-tag {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
-            color: white;
-            font-size: 10px;
-            font-weight: bold;
-            padding: 4px 8px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
+            position: absolute; top: 15px; right: 15px;
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold)); color: white;
+            font-size: 10px; font-weight: bold; padding: 4px 8px; border-radius: 20px;
+            display: flex; align-items: center; gap: 4px;
         }
 
         .user-card-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 15px;
-            border-bottom: 1px solid #f0f0f0;
-            padding-bottom: 12px;
-            padding-right: 50px; /* ট্যাগের জন্য জায়গা */
+            display: flex; align-items: center; gap: 15px; margin-bottom: 15px;
+            border-bottom: 1px solid #f0f0f0; padding-bottom: 12px; padding-right: 50px;
         }
 
         .user-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #2c3e50, #34495e);
-            color: var(--gold);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            flex-shrink: 0;
+            width: 50px; height: 50px; border-radius: 50%;
+            background: linear-gradient(135deg, #2c3e50, #34495e); color: var(--gold);
+            display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;
         }
 
         .user-details h4 { margin: 0; font-size: 16px; color: var(--dark-blue); }
         .user-details p { margin: 3px 0 0 0; font-size: 12px; color: var(--text-grey); word-break: break-all; }
 
-        .task-stats-title {
-            font-size: 12px; font-weight: bold; color: var(--text-grey);
-            margin-bottom: 10px; text-transform: uppercase;
-        }
+        .task-stats-title { font-size: 12px; font-weight: bold; color: var(--text-grey); margin-bottom: 10px; text-transform: uppercase; }
 
         /* ক্লিকেবল ব্যাজ ডিজাইন */
-        .task-badges {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr); 
-            gap: 8px;
-            margin-bottom: 20px;
-        }
+        .task-badges { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 20px; }
 
         .task-badge {
             padding: 10px 0; border-radius: 8px; font-size: 14px; font-weight: bold; color: white;
@@ -251,20 +204,15 @@
         .bg-empty:hover { transform: none; box-shadow: none; }
 
         .balance-box {
-            background-color: #fcf8e3; /* VIP দের জন্য গোল্ডেন ব্যাকগ্রাউন্ড */
-            border-radius: 8px; padding: 12px; display: flex; justify-content: space-between;
-            align-items: center; margin-bottom: 15px; border: 1px solid #faebcc;
+            background-color: #fcf8e3; border-radius: 8px; padding: 12px; display: flex; 
+            justify-content: space-between; align-items: center; margin-bottom: 15px; border: 1px solid #faebcc;
         }
 
         .balance-label { font-size: 13px; font-weight: bold; color: var(--dark-blue); }
         .balance-amount { font-size: 18px; font-weight: 900; color: #8a6d3b; }
 
         /* অ্যাকশন বাটনগুলো (২x২ গ্রিড) */
-        .action-btns {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-        }
+        .action-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 
         .action-btns button {
             border: none; padding: 10px; border-radius: 6px; cursor: pointer;
@@ -288,7 +236,7 @@
         
         .modal-content {
             background-color: #fff; padding: 25px; border-radius: 12px;
-            width: 90%; max-width: 400px; box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            width: 90%; max-width: 480px; box-shadow: 0 10px 40px rgba(0,0,0,0.2);
             position: relative; max-height: 80vh; display: flex; flex-direction: column;
             transform: translateY(20px); transition: transform 0.3s ease;
         }
@@ -305,17 +253,37 @@
             margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; 
         }
         
-        .task-list-container {
-            overflow-y: auto; max-height: 350px; padding-right: 5px;
+        /* নতুন গ্লোবাল বোনাস মডাল স্টাইল */
+        .vip-tier-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
         }
-        .task-list-container::-webkit-scrollbar { width: 5px; }
-        .task-list-container::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
 
-        .task-item {
-            background: #f8f9fa; padding: 12px; border-radius: 8px; margin-bottom: 10px;
-            border-left: 4px solid var(--main-pink); font-size: 14px; color: var(--dark-blue);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.03); word-break: break-all;
+        .vip-tier-btn {
+            background: #f4f6f9;
+            border: 2px solid transparent;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            color: var(--dark-blue);
+            cursor: pointer;
+            transition: 0.2s;
+            text-align: center;
+            font-size: 14px;
         }
+        .vip-tier-btn:hover { background: #e0e6ed; }
+        .vip-tier-btn.active { border-color: var(--gold); background: #fcf8e3; color: var(--gold-dark); }
+        .btn-sb { grid-column: 1 / -1; background: linear-gradient(135deg, #2c3e50, #34495e); color: var(--gold); }
+        .btn-sb.active { border-color: var(--gold); box-shadow: 0 0 10px rgba(241, 196, 15, 0.5); }
+
+        .submit-bonus-btn {
+            width: 100%; padding: 14px; background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+            border: none; border-radius: 8px; color: white; font-weight: bold; font-size: 16px;
+            cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .submit-bonus-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(241, 196, 15, 0.4); }
 
         /* টোস্ট মেসেজ */
         .toast-msg {
@@ -331,12 +299,34 @@
 
     <div id="toastBox" class="toast-msg"><i class="fas fa-check-circle"></i> <span id="toastText">অ্যাকশন সফল হয়েছে!</span></div>
 
-    <!-- জমাকৃত কাজ দেখানোর পপ-আপ -->
-    <div id="detailsModal" class="modal">
+    <!-- গ্লোবাল বোনাস পপ-আপ (নতুন ডিজাইন) -->
+    <div id="globalBonusModal" class="modal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeDetailsModal()">&times;</span>
-            <div class="modal-title" id="dm-title">কাজের তালিকা</div>
-            <div class="task-list-container" id="dm-list"></div>
+            <span class="close-btn" onclick="closeGlobalBonusModal()">&times;</span>
+            <div class="modal-title"><i class="fas fa-gift" style="color: var(--gold);"></i> কাদের বোনাস দিবেন সিলেক্ট করুন</div>
+            
+            <p style="font-size: 13px; color: #666; margin-bottom: 15px;">যে লেভেল সিলেক্ট করবেন, শুধুমাত্র সেই লেভেলের ইউজারদের অ্যাপে Claim অপশনটি চালু হবে।</p>
+
+            <div class="vip-tier-grid" id="vipTierGrid">
+                <div class="vip-tier-btn" onclick="selectVipTier(this, 'VIP 1')">VIP 1</div>
+                <div class="vip-tier-btn" onclick="selectVipTier(this, 'VIP 2')">VIP 2</div>
+                <div class="vip-tier-btn" onclick="selectVipTier(this, 'VIP 3')">VIP 3</div>
+                <div class="vip-tier-btn" onclick="selectVipTier(this, 'VIP 4')">VIP 4</div>
+                <div class="vip-tier-btn" onclick="selectVipTier(this, 'VIP 5')">VIP 5</div>
+                <div class="vip-tier-btn" onclick="selectVipTier(this, 'VIP 6')">VIP 6</div>
+                <div class="vip-tier-btn" onclick="selectVipTier(this, 'VIP 7')">VIP 7</div>
+                <div class="vip-tier-btn" onclick="selectVipTier(this, 'VIP 8')">VIP 8</div>
+                <div class="vip-tier-btn" onclick="selectVipTier(this, 'VIP 9')">VIP 9</div>
+                <div class="vip-tier-btn" onclick="selectVipTier(this, 'VIP 10')">VIP 10</div>
+                <!-- ফুল উইডথ বাটন -->
+                <div class="vip-tier-btn btn-sb" onclick="selectVipTier(this, 'Send bKash Member')"><i class="fas fa-star"></i> Send bKash Member</div>
+            </div>
+
+            <input type="number" id="bonusAmountInput" class="form-input" style="width: 100%; box-sizing: border-box; margin-bottom: 20px; font-weight: bold;" placeholder="বোনাসের পরিমাণ লিখুন (যেমন: ১০০)...">
+
+            <button class="submit-bonus-btn" onclick="enableClaimOption()">
+                <i class="fas fa-paper-plane"></i> Claim অপশন চালু করুন
+            </button>
         </div>
     </div>
 
@@ -349,7 +339,6 @@
         <ul class="nav-links">
             <li><a href="admin.html" class="nav-link"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
             <li><a href="admin_simple_users.html" class="nav-link"><i class="fas fa-user"></i> সাধারণ ইউজার</a></li>
-            <!-- এই পেজটি এক্টিভ করা হয়েছে -->
             <li><a href="admin_vip_users.html" class="nav-link active"><i class="fas fa-user-tie"></i> VIP ইউজার</a></li>
             <li><a href="admin_withdraw.html" class="nav-link"><i class="fas fa-file-invoice-dollar"></i> উইথড্র রিকোয়েস্ট</a></li>
             <li><a href="admin_task_rates.html" class="nav-link"><i class="fas fa-tasks"></i> কাজের রেট</a></li>
@@ -376,14 +365,13 @@
             <div class="card-header-container">
                 <div class="card-header-title"><i class="fas fa-crown" style="color: var(--gold);"></i> VIP ইউজার কার্ড লিস্ট</div>
                 <div class="header-actions">
-                    <!-- সবাইকে বোনাস দেওয়ার বাটন -->
-                    <button class="btn-global-bonus" onclick="giveBonusToAll()"><i class="fas fa-gift"></i> সবাইকে বোনাস দিন</button>
+                    <!-- পপ-আপ ওপেন করার বাটন -->
+                    <button class="btn-global-bonus" onclick="openGlobalBonusModal()"><i class="fas fa-gift"></i> সবাইকে বোনাস দিন</button>
                     <input type="text" class="form-input" placeholder="VIP আইডি বা ইমেইল খুঁজুন...">
                 </div>
             </div>
 
             <div class="user-grid">
-                
                 <!-- VIP ইউজার কার্ড ১ -->
                 <div class="user-card">
                     <div class="vip-tag"><i class="fas fa-star"></i> VIP 1</div>
@@ -398,18 +386,10 @@
                     <div class="task-stats-title">জমাকৃত কাজের সংখ্যা (ক্লিক করুন)</div>
                     
                     <div class="task-badges">
-                        <div class="task-badge bg-gmail" onclick="showTaskDetails('Google', '#ea4335', 'V9KZBTUBR1', ['vip1@gmail.com (Pass: 123)'])">
-                            <i class="fab fa-google"></i> <span>১</span>
-                        </div>
-                        <div class="task-badge bg-insta" onclick="showTaskDetails('Instagram', '#e1306c', 'V9KZBTUBR1', ['vip_insta (Pass: 123)'])">
-                            <i class="fab fa-instagram"></i> <span>১</span>
-                        </div>
-                        <div class="task-badge bg-wa" onclick="showTaskDetails('WhatsApp', '#25d366', 'V9KZBTUBR1', ['+8801700000000'])">
-                            <i class="fab fa-whatsapp"></i> <span>১</span>
-                        </div>
-                        <div class="task-badge bg-tg" onclick="showTaskDetails('Telegram', '#0088cc', 'V9KZBTUBR1', ['+8801900000000'])">
-                            <i class="fab fa-telegram-plane"></i> <span>১</span>
-                        </div>
+                        <div class="task-badge bg-gmail"><i class="fab fa-google"></i> <span>১</span></div>
+                        <div class="task-badge bg-insta"><i class="fab fa-instagram"></i> <span>১</span></div>
+                        <div class="task-badge bg-wa"><i class="fab fa-whatsapp"></i> <span>১</span></div>
+                        <div class="task-badge bg-tg"><i class="fab fa-telegram-plane"></i> <span>১</span></div>
                     </div>
 
                     <div class="balance-box">
@@ -417,7 +397,6 @@
                         <span class="balance-amount">৳৫০০.০০</span>
                     </div>
 
-                    <!-- ২x২ অ্যাকশন বাটন গ্রিড -->
                     <div class="action-btns">
                         <button class="btn-add" onclick="handleBalance('add', 'V9KZBTUBR1')"><i class="fas fa-plus"></i> টাকা</button>
                         <button class="btn-deduct" onclick="handleBalance('deduct', 'V9KZBTUBR1')"><i class="fas fa-minus"></i> টাকা</button>
@@ -425,48 +404,6 @@
                         <button class="btn-reject" title="ব্যান করুন" onclick="showToast('ইউজারকে ব্যান করা হয়েছে!', true)"><i class="fas fa-ban"></i> ব্যান</button>
                     </div>
                 </div>
-
-                <!-- VIP ইউজার কার্ড ২ -->
-                <div class="user-card">
-                    <div class="vip-tag"><i class="fas fa-star"></i> VIP 2</div>
-                    <div class="user-card-header">
-                        <div class="user-avatar"><i class="fas fa-user-tie"></i></div>
-                        <div class="user-details">
-                            <h4>R2LKBTYYY5</h4>
-                            <p>rakib_vip@gmail.com</p>
-                        </div>
-                    </div>
-
-                    <div class="task-stats-title">জমাকৃত কাজের সংখ্যা (ক্লিক করুন)</div>
-                    
-                    <div class="task-badges">
-                        <div class="task-badge bg-gmail" onclick="showTaskDetails('Google', '#ea4335', 'R2LKBTYYY5', ['r1@gmail.com', 'r2@gmail.com'])">
-                            <i class="fab fa-google"></i> <span>২</span>
-                        </div>
-                        <div class="task-badge bg-empty">
-                            <i class="fab fa-instagram"></i> <span>০</span>
-                        </div>
-                        <div class="task-badge bg-wa" onclick="showTaskDetails('WhatsApp', '#25d366', 'R2LKBTYYY5', ['+8801722334455'])">
-                            <i class="fab fa-whatsapp"></i> <span>১</span>
-                        </div>
-                        <div class="task-badge bg-empty">
-                            <i class="fab fa-telegram-plane"></i> <span>০</span>
-                        </div>
-                    </div>
-
-                    <div class="balance-box">
-                        <span class="balance-label">বর্তমান ব্যালেন্স:</span>
-                        <span class="balance-amount">৳১৫০.০০</span>
-                    </div>
-
-                    <div class="action-btns">
-                        <button class="btn-add" onclick="handleBalance('add', 'R2LKBTYYY5')"><i class="fas fa-plus"></i> টাকা</button>
-                        <button class="btn-deduct" onclick="handleBalance('deduct', 'R2LKBTYYY5')"><i class="fas fa-minus"></i> টাকা</button>
-                        <button class="btn-bonus" onclick="giveIndividualBonus('R2LKBTYYY5')"><i class="fas fa-gift"></i> বোনাস</button>
-                        <button class="btn-reject" title="ব্যান করুন" onclick="showToast('ইউজারকে ব্যান করা হয়েছে!', true)"><i class="fas fa-ban"></i> ব্যান</button>
-                    </div>
-                </div>
-
             </div>
 
         </div>
@@ -479,61 +416,64 @@
             document.getElementById("toastText").innerText = message;
             toast.style.backgroundColor = isError ? "#e74c3c" : "#27ae60";
             toast.classList.add("show");
-            setTimeout(() => { toast.classList.remove("show"); }, 2500);
+            setTimeout(() => { toast.classList.remove("show"); }, 3500);
         }
 
-        // ব্যালেন্স কন্ট্রোল (+/-)
+        /* --- গ্লোবাল বোনাস পপ-আপ লজিক --- */
+        let selectedVipLevel = null;
+
+        function openGlobalBonusModal() {
+            document.getElementById('globalBonusModal').classList.add('show');
+        }
+
+        function closeGlobalBonusModal() {
+            document.getElementById('globalBonusModal').classList.remove('show');
+            // Reset selection
+            selectedVipLevel = null;
+            document.getElementById('bonusAmountInput').value = '';
+            document.querySelectorAll('.vip-tier-btn').forEach(btn => btn.classList.remove('active'));
+        }
+
+        function selectVipTier(buttonElement, levelName) {
+            // Remove active class from all
+            document.querySelectorAll('.vip-tier-btn').forEach(btn => btn.classList.remove('active'));
+            // Add active class to clicked button
+            buttonElement.classList.add('active');
+            selectedVipLevel = levelName;
+        }
+
+        function enableClaimOption() {
+            let amount = document.getElementById('bonusAmountInput').value;
+
+            if(!selectedVipLevel) {
+                alert("দয়া করে একটি VIP লেভেল সিলেক্ট করুন!");
+                return;
+            }
+            if(amount === "" || amount <= 0) {
+                alert("দয়া করে সঠিক বোনাসের পরিমাণ লিখুন!");
+                return;
+            }
+
+            // এখানে পরবর্তীতে ফায়ারবেসের কোড বসবে যারা ওই VIP তে আছে তাদের আইডিতে claim অপশন ট্রু (true) করার জন্য
+            showToast(`সাফল্য! ${selectedVipLevel} ইউজারদের জন্য ৳${amount} বোনাস Claim অপশন চালু করা হয়েছে।`);
+            closeGlobalBonusModal();
+        }
+
+        /* --- সিগেল ইউজার কন্ট্রোল --- */
         function handleBalance(action, userId) {
             let actionText = action === 'add' ? "যোগ" : "কেটে নিতে";
             let amount = prompt(`ইউজার ${userId} এর একাউন্টে কত টাকা ${actionText} চান?`);
-            
             if (amount !== null && amount.trim() !== "" && !isNaN(amount)) {
-                let successMsg = action === 'add' ? 
-                    `সফলভাবে ৳${amount} যোগ করা হয়েছে!` : 
-                    `সফলভাবে ৳${amount} কেটে নেওয়া হয়েছে!`;
-                
+                let successMsg = action === 'add' ? `৳${amount} যোগ করা হয়েছে!` : `৳${amount} কেটে নেওয়া হয়েছে!`;
                 showToast(successMsg, action === 'deduct');
             }
         }
 
-        // সিঙ্গেল ইউজারকে বোনাস দেওয়া
         function giveIndividualBonus(userId) {
             let amount = prompt(`ইউজার ${userId} কে কত টাকা বোনাস দিতে চান?`);
             if (amount !== null && amount.trim() !== "" && !isNaN(amount)) {
                 showToast(`ইউজার ${userId} কে ৳${amount} বোনাস পাঠানো হয়েছে!`);
             }
-        }
-
-        // সবাইকে একসাথে বোনাস দেওয়া
-        function giveBonusToAll() {
-            let amount = prompt(`সব VIP ইউজারকে একসাথে কত টাকা বোনাস দিতে চান?`);
-            if (amount !== null && amount.trim() !== "" && !isNaN(amount)) {
-                // পরবর্তীতে এখানে ডাটাবেসের সবগুলো ইউজারকে আপডেট করার কোড বসবে
-                showToast(`সকল VIP ইউজারকে ৳${amount} বোনাস সফলভাবে দেওয়া হয়েছে!`);
-            }
-        }
-
-        // কাজের ডিটেইলস পপ-আপ
-        function showTaskDetails(platform, color, userId, accountsArray) {
-            document.getElementById('dm-title').innerHTML = `<span style="color:${color};"><i class="fas fa-list"></i> ${platform} Account List</span> <br> <span style="font-size:12px; color:#888;">ইউজার: ${userId}</span>`;
-            
-            let listContainer = document.getElementById('dm-list');
-            let listHtml = '';
-            
-            if(accountsArray.length === 0) {
-                listHtml = '<p style="text-align:center; color:#888; margin-top:20px;">কোনো কাজ জমা দেওয়া হয়নি।</p>';
-            } else {
-                accountsArray.forEach(acc => {
-                    listHtml += `<div class="task-item" style="border-left-color: ${color}">${acc}</div>`;
-                });
-            }
-            
-            listContainer.innerHTML = listHtml;
-            document.getElementById('detailsModal').classList.add('show');
-        }
-
-        function closeDetailsModal() {
-            document.getElementById('detailsModal').classList.remove('show');
         }
 
         document.getElementById("adminLogout").addEventListener("click", () => {
