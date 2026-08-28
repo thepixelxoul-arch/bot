@@ -203,10 +203,6 @@
             margin-bottom: 15px;
         }
 
-        .input-wrapper:nth-last-of-type(1) {
-            flex-grow: 1; /* বাটন নিচে পুশ করার জন্য */
-        }
-
         .input-wrapper label {
             display: block;
             font-size: 13px;
@@ -248,6 +244,30 @@
             text-align: right;
         }
 
+        /* ডেসক্রিপশন বক্সের ডিজাইন */
+        .vip-textarea {
+            width: 100%;
+            border: 2px solid #eaeaea;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-size: 13px;
+            font-weight: bold;
+            color: var(--dark-blue);
+            outline: none;
+            resize: vertical; /* উপর-নিচ বড় করা যাবে */
+            min-height: 80px;
+            transition: 0.3s;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            line-height: 1.5;
+        }
+
+        .vip-textarea:focus {
+            border-color: var(--gold);
+            background-color: #fff;
+        }
+
         /* আপডেট বাটন */
         .btn-vip-update {
             width: 100%;
@@ -264,7 +284,7 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            margin-top: 10px;
+            margin-top: auto; /* বাটন সবসময় নিচে থাকবে */
         }
 
         .btn-vip-update:hover { 
@@ -325,7 +345,7 @@
                     <div class="card-header-title">
                         <i class="fas fa-crown"></i> VIP প্যাকেজ ম্যানেজমেন্ট
                     </div>
-                    <div class="card-header-subtitle">এখান থেকে প্রতিটি VIP প্যাকেজের দাম এবং বোনাস আপডেট করুন।</div>
+                    <div class="card-header-subtitle">এখান থেকে প্রতিটি VIP প্যাকেজের দাম, বোনাস এবং প্যাকেজের সুবিধা (Description) আপডেট করুন।</div>
                 </div>
             </div>
 
@@ -355,7 +375,12 @@
                             <input type="number" id="bonus-vip1" class="vip-input" value="9">
                         </div>
                     </div>
-                    <button class="btn-vip-update" onclick="updateVipPackage('VIP 1', 'price-vip1', 'bonus-vip1')">
+                    <div class="input-wrapper">
+                        <label>প্যাকেজের সুবিধা (Description)</label>
+                        <textarea id="desc-vip1" class="vip-textarea" placeholder="প্যাকেজের সুবিধাগুলো লিখুন...">• প্রতিদিন ৫টি কাজ জমা দেওয়ার সুযোগ।
+• উইথড্র রিকোয়েস্ট ১২ ঘণ্টার মধ্যে।</textarea>
+                    </div>
+                    <button class="btn-vip-update" onclick="updateVipPackage('VIP 1', 'price-vip1', 'bonus-vip1', 'desc-vip1')">
                         <i class="fas fa-save"></i> আপডেট করুন
                     </button>
                 </div>
@@ -383,7 +408,13 @@
                             <input type="number" id="bonus-vip2" class="vip-input" value="18">
                         </div>
                     </div>
-                    <button class="btn-vip-update" onclick="updateVipPackage('VIP 2', 'price-vip2', 'bonus-vip2')">
+                    <div class="input-wrapper">
+                        <label>প্যাকেজের সুবিধা (Description)</label>
+                        <textarea id="desc-vip2" class="vip-textarea" placeholder="প্যাকেজের সুবিধাগুলো লিখুন...">• প্রতিদিন ১০টি কাজ জমা দেওয়ার সুযোগ।
+• উইথড্র রিকোয়েস্ট ৬ ঘণ্টার মধ্যে।
+• ডেডিকেটেড সাপোর্ট।</textarea>
+                    </div>
+                    <button class="btn-vip-update" onclick="updateVipPackage('VIP 2', 'price-vip2', 'bonus-vip2', 'desc-vip2')">
                         <i class="fas fa-save"></i> আপডেট করুন
                     </button>
                 </div>
@@ -411,7 +442,13 @@
                             <input type="number" id="bonus-vip3" class="vip-input" value="27">
                         </div>
                     </div>
-                    <button class="btn-vip-update" onclick="updateVipPackage('VIP 3', 'price-vip3', 'bonus-vip3')">
+                    <div class="input-wrapper">
+                        <label>প্যাকেজের সুবিধা (Description)</label>
+                        <textarea id="desc-vip3" class="vip-textarea" placeholder="প্যাকেজের সুবিধাগুলো লিখুন...">• আনলিমিটেড কাজ জমা দেওয়ার সুযোগ।
+• ইনস্ট্যান্ট উইথড্র (১ ঘন্টার মধ্যে)।
+• ডিরেক্ট এডমিন সাপোর্ট।</textarea>
+                    </div>
+                    <button class="btn-vip-update" onclick="updateVipPackage('VIP 3', 'price-vip3', 'bonus-vip3', 'desc-vip3')">
                         <i class="fas fa-save"></i> আপডেট করুন
                     </button>
                 </div>
@@ -439,7 +476,13 @@
                             <input type="number" id="bonus-vip4" class="vip-input" value="36">
                         </div>
                     </div>
-                    <button class="btn-vip-update" onclick="updateVipPackage('VIP 4', 'price-vip4', 'bonus-vip4')">
+                    <div class="input-wrapper">
+                        <label>প্যাকেজের সুবিধা (Description)</label>
+                        <textarea id="desc-vip4" class="vip-textarea" placeholder="প্যাকেজের সুবিধাগুলো লিখুন...">• প্রতিদিন ২০০+ কাজের সুযোগ।
+• এক্সট্রা ১০% বোনাস প্রতি কাজে।
+• ইনস্ট্যান্ট উইথড্র।</textarea>
+                    </div>
+                    <button class="btn-vip-update" onclick="updateVipPackage('VIP 4', 'price-vip4', 'bonus-vip4', 'desc-vip4')">
                         <i class="fas fa-save"></i> আপডেট করুন
                     </button>
                 </div>
@@ -467,7 +510,13 @@
                             <input type="number" id="bonus-vip5" class="vip-input" value="45">
                         </div>
                     </div>
-                    <button class="btn-vip-update" onclick="updateVipPackage('VIP 5', 'price-vip5', 'bonus-vip5')">
+                    <div class="input-wrapper">
+                        <label>প্যাকেজের সুবিধা (Description)</label>
+                        <textarea id="desc-vip5" class="vip-textarea" placeholder="প্যাকেজের সুবিধাগুলো লিখুন...">• প্রিমিয়াম লেভেল টাস্ক।
+• স্পেশাল উইকএন্ড বোনাস।
+• অটো-উইথড্র সিস্টেম।</textarea>
+                    </div>
+                    <button class="btn-vip-update" onclick="updateVipPackage('VIP 5', 'price-vip5', 'bonus-vip5', 'desc-vip5')">
                         <i class="fas fa-save"></i> আপডেট করুন
                     </button>
                 </div>
@@ -495,7 +544,12 @@
                             <input type="number" id="bonus-vip6" class="vip-input" value="54">
                         </div>
                     </div>
-                    <button class="btn-vip-update" onclick="updateVipPackage('VIP 6', 'price-vip6', 'bonus-vip6')">
+                    <div class="input-wrapper">
+                        <label>প্যাকেজের সুবিধা (Description)</label>
+                        <textarea id="desc-vip6" class="vip-textarea" placeholder="প্যাকেজের সুবিধাগুলো লিখুন...">• এলিট মেম্বার ব্যাজ।
+• প্রতি রেফারে ডাবল ইনকাম।</textarea>
+                    </div>
+                    <button class="btn-vip-update" onclick="updateVipPackage('VIP 6', 'price-vip6', 'bonus-vip6', 'desc-vip6')">
                         <i class="fas fa-save"></i> আপডেট করুন
                     </button>
                 </div>
@@ -523,7 +577,12 @@
                             <input type="number" id="bonus-vip7" class="vip-input" value="63">
                         </div>
                     </div>
-                    <button class="btn-vip-update" onclick="updateVipPackage('VIP 7', 'price-vip7', 'bonus-vip7')">
+                    <div class="input-wrapper">
+                        <label>প্যাকেজের সুবিধা (Description)</label>
+                        <textarea id="desc-vip7" class="vip-textarea" placeholder="প্যাকেজের সুবিধাগুলো লিখুন...">• হাইয়েস্ট রেট টাস্ক।
+• নো উইথড্র ফি।</textarea>
+                    </div>
+                    <button class="btn-vip-update" onclick="updateVipPackage('VIP 7', 'price-vip7', 'bonus-vip7', 'desc-vip7')">
                         <i class="fas fa-save"></i> আপডেট করুন
                     </button>
                 </div>
@@ -551,7 +610,12 @@
                             <input type="number" id="bonus-vip8" class="vip-input" value="72">
                         </div>
                     </div>
-                    <button class="btn-vip-update" onclick="updateVipPackage('VIP 8', 'price-vip8', 'bonus-vip8')">
+                    <div class="input-wrapper">
+                        <label>প্যাকেজের সুবিধা (Description)</label>
+                        <textarea id="desc-vip8" class="vip-textarea" placeholder="প্যাকেজের সুবিধাগুলো লিখুন...">• স্পেশাল গিফট প্রতি মাসে।
+• প্রাইভেট টেলিগ্রাম গ্রুপ এক্সেস।</textarea>
+                    </div>
+                    <button class="btn-vip-update" onclick="updateVipPackage('VIP 8', 'price-vip8', 'bonus-vip8', 'desc-vip8')">
                         <i class="fas fa-save"></i> আপডেট করুন
                     </button>
                 </div>
@@ -579,7 +643,12 @@
                             <input type="number" id="bonus-vip9" class="vip-input" value="81">
                         </div>
                     </div>
-                    <button class="btn-vip-update" onclick="updateVipPackage('VIP 9', 'price-vip9', 'bonus-vip9')">
+                    <div class="input-wrapper">
+                        <label>প্যাকেজের সুবিধা (Description)</label>
+                        <textarea id="desc-vip9" class="vip-textarea" placeholder="প্যাকেজের সুবিধাগুলো লিখুন...">• লাইফটাইম ভ্যালিডিটি।
+• সব ফিচারে ফুল এক্সেস।</textarea>
+                    </div>
+                    <button class="btn-vip-update" onclick="updateVipPackage('VIP 9', 'price-vip9', 'bonus-vip9', 'desc-vip9')">
                         <i class="fas fa-save"></i> আপডেট করুন
                     </button>
                 </div>
@@ -607,7 +676,13 @@
                             <input type="number" id="bonus-vip10" class="vip-input" value="90">
                         </div>
                     </div>
-                    <button class="btn-vip-update" onclick="updateVipPackage('VIP 10', 'price-vip10', 'bonus-vip10')">
+                    <div class="input-wrapper">
+                        <label>প্যাকেজের সুবিধা (Description)</label>
+                        <textarea id="desc-vip10" class="vip-textarea" placeholder="প্যাকেজের সুবিধাগুলো লিখুন...">• কোম্পানির শেয়ার হোল্ডার প্রফিট।
+• ডিরেক্ট কল সাপোর্ট।
+• আনলিমিটেড সব কিছু!</textarea>
+                    </div>
+                    <button class="btn-vip-update" onclick="updateVipPackage('VIP 10', 'price-vip10', 'bonus-vip10', 'desc-vip10')">
                         <i class="fas fa-save"></i> আপডেট করুন
                     </button>
                 </div>
@@ -623,20 +698,26 @@
             const toast = document.getElementById("toastBox");
             document.getElementById("toastText").innerText = message;
             toast.classList.add("show");
-            setTimeout(() => { toast.classList.remove("show"); }, 3000);
+            setTimeout(() => { toast.classList.remove("show"); }, 3500);
         }
 
-        // VIP প্যাকেজ ও বোনাস আপডেট ফাংশন
-        function updateVipPackage(vipLevel, priceId, bonusId) {
+        // VIP প্যাকেজ, বোনাস এবং ডেসক্রিপশন আপডেট ফাংশন
+        function updateVipPackage(vipLevel, priceId, bonusId, descId) {
             const price = document.getElementById(priceId).value;
             const bonus = document.getElementById(bonusId).value;
+            const desc = document.getElementById(descId).value;
             
             if (price === "" || price <= 0 || bonus === "" || bonus < 0) {
                 alert("দয়া করে সঠিক দাম এবং বোনাস প্রদান করুন!");
                 return;
             }
 
-            showToast(`${vipLevel} এর দাম ৳${price} এবং বোনাস ৳${bonus} সফলভাবে সেভ হয়েছে!`);
+            if (desc.trim() === "") {
+                alert("দয়া করে প্যাকেজের সুবিধাগুলো (Description) লিখুন!");
+                return;
+            }
+
+            showToast(`${vipLevel} এর সকল সেটিংস (দাম, বোনাস ও ডেসক্রিপশন) সফলভাবে সেভ হয়েছে!`);
         }
 
         document.getElementById("adminLogout").addEventListener("click", () => {
