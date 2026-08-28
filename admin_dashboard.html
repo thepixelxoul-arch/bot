@@ -134,46 +134,111 @@
         .stat-info h3 { margin: 0 0 5px 0; font-size: 24px; color: var(--dark-blue); }
         .stat-info p { margin: 0; font-size: 13px; color: var(--text-grey); font-weight: bold; }
 
-        /* কাজের হিস্ট্রি টেবিল */
-        .admin-card {
-            background: var(--main-white); border-radius: 12px; padding: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-bottom: 25px;
+        /* --- নতুন প্রোডাক্ট গ্রিড স্টাইল (আপনার দেওয়া ছবির মতো) --- */
+        .history-title {
+            font-size: 20px; font-weight: bold; color: var(--dark-blue); margin-bottom: 20px;
         }
 
-        .card-header {
-            margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #eaeaea;
-            font-size: 18px; font-weight: bold; color: var(--dark-blue); display: flex; justify-content: space-between; align-items: center;
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            padding-bottom: 30px;
         }
 
-        table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 18px 15px; text-align: left; border-bottom: 1px solid #eaeaea; font-size: 15px; vertical-align: middle; }
-        th { background-color: #f8f9fa; color: var(--dark-blue); font-weight: bold; }
-        tbody tr:hover { background-color: #fcfcfc; }
-
-        .status-badge { padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: bold; }
-        .status-pending { background-color: #fff3cd; color: #856404; }
-
-        /* বাটনগুলো পাশাপাশি রাখার জন্য Flexbox */
-        .task-action-group {
+        .product-card {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px;
             display: flex;
-            gap: 12px;
-            justify-content: center;
-            flex-wrap: wrap;
+            flex-direction: column;
+            transition: box-shadow 0.2s, transform 0.2s;
         }
 
-        /* বড় এবং আকর্ষণীয় টাস্ক বাটন */
-        .task-btn {
-            border: none; padding: 10px 18px; border-radius: 10px; cursor: pointer;
-            font-weight: bold; font-size: 14px; color: white; display: inline-flex; align-items: center; gap: 8px;
-            transition: 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        .product-card:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            transform: translateY(-3px);
         }
-        .task-btn i { font-size: 18px; }
-        .task-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,0,0,0.2); }
-        
-        .btn-gmail { background: linear-gradient(135deg, #ea4335, #ff6b6b); }
-        .btn-insta { background: linear-gradient(135deg, #e1306c, #f56040); }
-        .btn-wa { background: linear-gradient(135deg, #25d366, #2ecc71); }
-        .btn-tg { background: linear-gradient(135deg, #0088cc, #3498db); }
+
+        /* কার্ডের উপরের আইকন (ছবির বদলে) */
+        .product-img {
+            height: 140px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+
+        .product-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #202124;
+            margin: 0 0 8px 0;
+        }
+
+        .product-desc {
+            font-size: 13px;
+            color: #5f6368;
+            line-height: 1.5;
+            margin: 0 0 15px 0;
+            flex-grow: 1;
+        }
+
+        .product-desc strong { color: #333; }
+
+        /* ছবির দামের (Price) মতো পেন্ডিং স্ট্যাটাস */
+        .product-price {
+            font-size: 14px;
+            font-weight: bold;
+            color: #188038; /* সবুজ রঙ */
+            margin-bottom: 15px;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        /* View Details বাটন */
+        .btn-view-details {
+            flex-grow: 1;
+            background: transparent;
+            border: 1px solid #dadce0;
+            border-radius: 6px;
+            padding: 10px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #202124;
+            cursor: pointer;
+            text-align: center;
+            transition: 0.2s;
+        }
+
+        .btn-view-details:hover {
+            background: #f8f9fa;
+        }
+
+        /* Cart/Approve বাটন */
+        .btn-cart {
+            background: transparent;
+            border: 1px solid #dadce0;
+            border-radius: 6px;
+            padding: 10px 14px;
+            color: #188038;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 14px;
+        }
+
+        .btn-cart:hover {
+            background: #e6f4ea;
+            border-color: #188038;
+        }
 
         /* পপ-আপ (Modal) ডিজাইন */
         .modal {
@@ -185,7 +250,7 @@
         
         .modal-content {
             background-color: #fff; padding: 35px; border-radius: 16px;
-            width: 90%; max-width: 450px; box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            width: 90%; max-width: 400px; box-shadow: 0 10px 40px rgba(0,0,0,0.2);
             transform: translateY(20px); transition: transform 0.3s ease; position: relative;
         }
         .modal.show .modal-content { transform: translateY(0); }
@@ -196,20 +261,20 @@
         }
         .close-btn:hover { color: var(--main-pink); }
 
-        .modal-title { font-size: 20px; font-weight: bold; color: var(--dark-blue); margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 12px; display: flex; align-items: center; gap: 12px; }
+        .modal-title { font-size: 18px; font-weight: bold; color: var(--dark-blue); margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 12px; display: flex; align-items: center; gap: 10px; }
         
-        .detail-row { display: flex; justify-content: space-between; margin-bottom: 18px; font-size: 15px; }
+        .detail-row { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 14px; }
         .detail-row span.label { color: #888; font-weight: bold; }
         .detail-row span.value { color: var(--dark-blue); font-weight: bold; text-align: right; }
         
-        .modal-actions { display: flex; gap: 15px; margin-top: 30px; }
+        .modal-actions { display: flex; gap: 15px; margin-top: 25px; }
         .modal-actions button { 
-            flex: 1; padding: 14px; border: none; border-radius: 10px; font-size: 16px; 
+            flex: 1; padding: 12px; border: none; border-radius: 8px; font-size: 15px; 
             font-weight: bold; cursor: pointer; color: white; transition: 0.2s; 
         }
         .modal-actions button:hover { transform: translateY(-2px); }
-        .btn-accept { background: linear-gradient(135deg, #27ae60, #2ecc71); box-shadow: 0 4px 12px rgba(39, 174, 96, 0.25); }
-        .btn-reject-modal { background: linear-gradient(135deg, #e74c3c, #c0392b); box-shadow: 0 4px 12px rgba(231, 76, 60, 0.25); }
+        .btn-accept { background: linear-gradient(135deg, #27ae60, #2ecc71); }
+        .btn-reject-modal { background: linear-gradient(135deg, #e74c3c, #c0392b); }
 
         /* টোস্ট মেসেজ */
         .toast-msg {
@@ -223,30 +288,29 @@
 </head>
 <body>
 
-    <!-- টোস্ট মেসেজ -->
     <div id="toastBox" class="toast-msg"><i class="fas fa-check-circle"></i> <span id="toastText">অ্যাকশন সফল হয়েছে!</span></div>
 
-    <!-- টাস্ক ডিটেইলস পপ-আপ (Modal) -->
+    <!-- টাস্ক ডিটেইলস পপ-আপ -->
     <div id="taskModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
-            <div class="modal-title" id="modalTitle"><i class="fab fa-google"></i> কাজের বিস্তারিত তথ্য</div>
+            <div class="modal-title" id="modalTitle"><i class="fab fa-google"></i> কাজের বিস্তারিত</div>
             
             <div class="detail-row">
                 <span class="label">ইউজার আইডি:</span>
                 <span class="value" id="m-userId">T9KZBTUBR1</span>
             </div>
             <div class="detail-row">
-                <span class="label">কাজের সময়:</span>
+                <span class="label">সময়:</span>
                 <span class="value" id="m-time">আজ, ০৩:১৫ PM</span>
             </div>
             <div class="detail-row">
                 <span class="label">একাউন্ট ডিটেইলস:</span>
-                <span class="value" id="m-details" style="color: var(--main-pink); text-align: right;">sakib123@gmail.com<br>Pass: sakib@2026</span>
+                <span class="value" id="m-details" style="color: var(--main-pink); text-align: right;">sakib1@gmail.com<br>Pass: sakib@2026</span>
             </div>
             
             <div class="modal-actions">
-                <button class="btn-accept" onclick="actionTask('accept')"><i class="fas fa-check"></i> Accept All</button>
+                <button class="btn-accept" onclick="actionTask('accept')"><i class="fas fa-check"></i> Accept</button>
                 <button class="btn-reject-modal" onclick="actionTask('reject')"><i class="fas fa-times"></i> Reject</button>
             </div>
         </div>
@@ -303,80 +367,104 @@
                 </div>
             </div>
 
-            <!-- কাজের হিস্ট্রি টেবিল -->
-            <div class="admin-card">
-                <div class="card-header">
-                    <span>সাম্প্রতিক কাজ জমা দেওয়ার হিস্ট্রি</span>
+            <div class="history-title">সাম্প্রতিক জমা দেওয়া কাজগুলো</div>
+            
+            <!-- আপনার দেওয়া ছবির ডিজাইনে গ্রিড লেআউট -->
+            <div class="product-grid">
+                
+                <!-- জিমেইল কার্ড ১ -->
+                <div class="product-card">
+                    <div class="product-img" style="color: #ea4335;">
+                        <i class="fab fa-google"></i>
+                    </div>
+                    <h4 class="product-title">Google Account</h4>
+                    <p class="product-desc">
+                        <strong>ইউজার:</strong> T9KZBTUBR1<br>
+                        <strong>ইমেইল:</strong> sakib1@gmail.com
+                    </p>
+                    <div class="product-price">Pending (অপেক্ষমান)</div>
+                    <div class="product-actions">
+                        <button class="btn-view-details" onclick="openModal('Google Account', 'fab fa-google', '#ea4335', 'T9KZBTUBR1', 'আজ, ০৩:১৫ PM', 'sakib1@gmail.com<br>Pass: sakib@2026')">View Details</button>
+                        <button class="btn-cart" title="Approve" onclick="actionTask('accept')"><i class="fas fa-check"></i></button>
+                    </div>
                 </div>
-                <div style="overflow-x: auto;">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>সময়</th>
-                                <th>ইউজার আইডি</th>
-                                <th style="text-align: center;">জমাকৃত কাজ (ডিটেইলস দেখতে ক্লিক করুন)</th>
-                                <th style="text-align: right;">স্ট্যাটাস</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Multiple Tasks Row (পাশাপাশি বাটন) -->
-                            <tr>
-                                <td>আজ, ০৩:১৫ PM</td>
-                                <td style="font-weight: bold;">T9KZBTUBR1</td>
-                                <td style="text-align: center;">
-                                    <div class="task-action-group">
-                                        <button class="task-btn btn-gmail" onclick="openModal('Gmail', 'fab fa-google', '#ea4335', 'T9KZBTUBR1', 'আজ, ০৩:১৫ PM', '৫টি জিমেইল পেন্ডিং আছে।<br><br>sakib1@gmail.com<br>sakib2@gmail.com<br>...')">
-                                            <i class="fab fa-google"></i> Google (৫)
-                                        </button>
-                                        <button class="task-btn btn-insta" onclick="openModal('Instagram', 'fab fa-instagram', '#e1306c', 'T9KZBTUBR1', 'আজ, ০৩:১৫ PM', '২টি ইন্সটাগ্রাম পেন্ডিং আছে।<br><br>insta_id1<br>insta_id2')">
-                                            <i class="fab fa-instagram"></i> Insta (২)
-                                        </button>
-                                    </div>
-                                </td>
-                                <td style="text-align: right;"><span class="status-badge status-pending">Pending</span></td>
-                            </tr>
-                            
-                            <!-- Single Task Row -->
-                            <tr>
-                                <td>আজ, ০২:৪৫ PM</td>
-                                <td style="font-weight: bold;">X7ABCTUBR9</td>
-                                <td style="text-align: center;">
-                                    <div class="task-action-group">
-                                        <button class="task-btn btn-wa" onclick="openModal('WhatsApp', 'fab fa-whatsapp', '#25d366', 'X7ABCTUBR9', 'আজ, ০২:৪৫ PM', 'নম্বর: +8801711223344')">
-                                            <i class="fab fa-whatsapp"></i> WhatsApp (১)
-                                        </button>
-                                    </div>
-                                </td>
-                                <td style="text-align: right;"><span class="status-badge status-pending">Pending</span></td>
-                            </tr>
-                            
-                            <!-- Telegram & Gmail Task Row -->
-                            <tr>
-                                <td>গতকাল, ১১:১০ AM</td>
-                                <td style="font-weight: bold;">A4JKMTUZR8</td>
-                                <td style="text-align: center;">
-                                    <div class="task-action-group">
-                                        <button class="task-btn btn-tg" onclick="openModal('Telegram', 'fab fa-telegram-plane', '#0088cc', 'A4JKMTUZR8', 'গতকাল, ১১:১০ AM', '৩টি টেলিগ্রাম নাম্বার পেন্ডিং আছে।')">
-                                            <i class="fab fa-telegram-plane"></i> Telegram (৩)
-                                        </button>
-                                        <button class="task-btn btn-gmail" onclick="openModal('Gmail', 'fab fa-google', '#ea4335', 'A4JKMTUZR8', 'গতকাল, ১১:১০ AM', '১টি জিমেইল পেন্ডিং আছে।')">
-                                            <i class="fab fa-google"></i> Google (১)
-                                        </button>
-                                    </div>
-                                </td>
-                                <td style="text-align: right;"><span class="status-badge status-pending">Pending</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
 
+                <!-- জিমেইল কার্ড ২ -->
+                <div class="product-card">
+                    <div class="product-img" style="color: #ea4335;">
+                        <i class="fab fa-google"></i>
+                    </div>
+                    <h4 class="product-title">Google Account</h4>
+                    <p class="product-desc">
+                        <strong>ইউজার:</strong> T9KZBTUBR1<br>
+                        <strong>ইমেইল:</strong> sakib2@gmail.com
+                    </p>
+                    <div class="product-price">Pending (অপেক্ষমান)</div>
+                    <div class="product-actions">
+                        <button class="btn-view-details" onclick="openModal('Google Account', 'fab fa-google', '#ea4335', 'T9KZBTUBR1', 'আজ, ০৩:১৬ PM', 'sakib2@gmail.com<br>Pass: sakib2@2026')">View Details</button>
+                        <button class="btn-cart" title="Approve" onclick="actionTask('accept')"><i class="fas fa-check"></i></button>
+                    </div>
+                </div>
+
+                <!-- ইন্সটাগ্রাম কার্ড -->
+                <div class="product-card">
+                    <div class="product-img" style="color: #e1306c;">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                    <h4 class="product-title">Instagram Account</h4>
+                    <p class="product-desc">
+                        <strong>ইউজার:</strong> X7ABCTUBR9<br>
+                        <strong>ইউজারনেম:</strong> insta_salam99
+                    </p>
+                    <div class="product-price">Pending (অপেক্ষমান)</div>
+                    <div class="product-actions">
+                        <button class="btn-view-details" onclick="openModal('Instagram Account', 'fab fa-instagram', '#e1306c', 'X7ABCTUBR9', 'আজ, ০২:৪৫ PM', 'insta_salam99<br>Pass: salam@pass')">View Details</button>
+                        <button class="btn-cart" title="Approve" onclick="actionTask('accept')"><i class="fas fa-check"></i></button>
+                    </div>
+                </div>
+                
+                <!-- হোয়াটসঅ্যাপ কার্ড -->
+                <div class="product-card">
+                    <div class="product-img" style="color: #25d366;">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <h4 class="product-title">WhatsApp Account</h4>
+                    <p class="product-desc">
+                        <strong>ইউজার:</strong> M2LKBTYYY5<br>
+                        <strong>নম্বর:</strong> +8801711223344
+                    </p>
+                    <div class="product-price" style="color:#e74c3c;">Rejected (বাতিল)</div>
+                    <div class="product-actions">
+                        <button class="btn-view-details" onclick="openModal('WhatsApp Account', 'fab fa-whatsapp', '#25d366', 'M2LKBTYYY5', 'আজ, ০১:২০ PM', '+8801711223344')">View Details</button>
+                        <button class="btn-cart" title="Approve" onclick="actionTask('accept')"><i class="fas fa-check"></i></button>
+                    </div>
+                </div>
+
+                <!-- টেলিগ্রাম কার্ড -->
+                <div class="product-card">
+                    <div class="product-img" style="color: #0088cc;">
+                        <i class="fab fa-telegram-plane"></i>
+                    </div>
+                    <h4 class="product-title">Telegram Account</h4>
+                    <p class="product-desc">
+                        <strong>ইউজার:</strong> A4JKMTUZR8<br>
+                        <strong>নম্বর:</strong> +8801999887766
+                    </p>
+                    <div class="product-price">Pending (অপেক্ষমান)</div>
+                    <div class="product-actions">
+                        <button class="btn-view-details" onclick="openModal('Telegram Account', 'fab fa-telegram-plane', '#0088cc', 'A4JKMTUZR8', 'গতকাল, ১১:১০ AM', '+8801999887766')">View Details</button>
+                        <button class="btn-cart" title="Approve" onclick="actionTask('accept')"><i class="fas fa-check"></i></button>
+                    </div>
+                </div>
+
+            </div>
+            
         </div>
     </main>
 
     <script>
         function openModal(taskName, iconClass, iconColor, userId, time, details) {
-            document.getElementById('modalTitle').innerHTML = `<i class="${iconClass}" style="color: ${iconColor};"></i> ${taskName} কাজের বিস্তারিত`;
+            document.getElementById('modalTitle').innerHTML = `<i class="${iconClass}" style="color: ${iconColor};"></i> ${taskName}`;
             document.getElementById('m-userId').innerText = userId;
             document.getElementById('m-time').innerText = time;
             document.getElementById('m-details').innerHTML = details;
