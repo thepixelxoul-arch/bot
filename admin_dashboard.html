@@ -153,10 +153,18 @@
         .status-badge { padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: bold; }
         .status-pending { background-color: #fff3cd; color: #856404; }
 
-        /* বড় এবং আকর্ষণীয় টাস্ক বাটন (টেবিলের মাঝখানে) */
+        /* বাটনগুলো পাশাপাশি রাখার জন্য Flexbox */
+        .task-action-group {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* বড় এবং আকর্ষণীয় টাস্ক বাটন */
         .task-btn {
-            border: none; padding: 12px 24px; border-radius: 10px; cursor: pointer;
-            font-weight: bold; font-size: 15px; color: white; display: inline-flex; align-items: center; gap: 10px;
+            border: none; padding: 10px 18px; border-radius: 10px; cursor: pointer;
+            font-weight: bold; font-size: 14px; color: white; display: inline-flex; align-items: center; gap: 8px;
             transition: 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
         .task-btn i { font-size: 18px; }
@@ -234,11 +242,11 @@
             </div>
             <div class="detail-row">
                 <span class="label">একাউন্ট ডিটেইলস:</span>
-                <span class="value" id="m-details" style="color: var(--main-pink);">sakib123@gmail.com<br>Pass: sakib@2026</span>
+                <span class="value" id="m-details" style="color: var(--main-pink); text-align: right;">sakib123@gmail.com<br>Pass: sakib@2026</span>
             </div>
             
             <div class="modal-actions">
-                <button class="btn-accept" onclick="actionTask('accept')"><i class="fas fa-check"></i> Accept</button>
+                <button class="btn-accept" onclick="actionTask('accept')"><i class="fas fa-check"></i> Accept All</button>
                 <button class="btn-reject-modal" onclick="actionTask('reject')"><i class="fas fa-times"></i> Reject</button>
             </div>
         </div>
@@ -306,55 +314,55 @@
                             <tr>
                                 <th>সময়</th>
                                 <th>ইউজার আইডি</th>
-                                <th style="text-align: center;">কাজের বিবরণ (বাটন)</th>
+                                <th style="text-align: center;">জমাকৃত কাজ (ডিটেইলস দেখতে ক্লিক করুন)</th>
                                 <th style="text-align: right;">স্ট্যাটাস</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Gmail Task -->
+                            <!-- Multiple Tasks Row (পাশাপাশি বাটন) -->
                             <tr>
                                 <td>আজ, ০৩:১৫ PM</td>
                                 <td style="font-weight: bold;">T9KZBTUBR1</td>
                                 <td style="text-align: center;">
-                                    <button class="task-btn btn-gmail" onclick="openModal('Gmail', 'fab fa-google', '#ea4335', 'T9KZBTUBR1', 'আজ, ০৩:১৫ PM', 'sakib123@gmail.com<br>Pass: sakib@2026')">
-                                        <i class="fab fa-google"></i> Google কাজ
-                                    </button>
+                                    <div class="task-action-group">
+                                        <button class="task-btn btn-gmail" onclick="openModal('Gmail', 'fab fa-google', '#ea4335', 'T9KZBTUBR1', 'আজ, ০৩:১৫ PM', '৫টি জিমেইল পেন্ডিং আছে।<br><br>sakib1@gmail.com<br>sakib2@gmail.com<br>...')">
+                                            <i class="fab fa-google"></i> Google (৫)
+                                        </button>
+                                        <button class="task-btn btn-insta" onclick="openModal('Instagram', 'fab fa-instagram', '#e1306c', 'T9KZBTUBR1', 'আজ, ০৩:১৫ PM', '২টি ইন্সটাগ্রাম পেন্ডিং আছে।<br><br>insta_id1<br>insta_id2')">
+                                            <i class="fab fa-instagram"></i> Insta (২)
+                                        </button>
+                                    </div>
                                 </td>
                                 <td style="text-align: right;"><span class="status-badge status-pending">Pending</span></td>
                             </tr>
                             
-                            <!-- Instagram Task -->
+                            <!-- Single Task Row -->
                             <tr>
                                 <td>আজ, ০২:৪৫ PM</td>
                                 <td style="font-weight: bold;">X7ABCTUBR9</td>
                                 <td style="text-align: center;">
-                                    <button class="task-btn btn-insta" onclick="openModal('Instagram', 'fab fa-instagram', '#e1306c', 'X7ABCTUBR9', 'আজ, ০২:৪৫ PM', 'insta_salam99<br>Pass: salam@pass')">
-                                        <i class="fab fa-instagram"></i> Instagram কাজ
-                                    </button>
+                                    <div class="task-action-group">
+                                        <button class="task-btn btn-wa" onclick="openModal('WhatsApp', 'fab fa-whatsapp', '#25d366', 'X7ABCTUBR9', 'আজ, ০২:৪৫ PM', 'নম্বর: +8801711223344')">
+                                            <i class="fab fa-whatsapp"></i> WhatsApp (১)
+                                        </button>
+                                    </div>
                                 </td>
                                 <td style="text-align: right;"><span class="status-badge status-pending">Pending</span></td>
                             </tr>
                             
-                            <!-- WhatsApp Task -->
-                            <tr>
-                                <td>আজ, ০১:২০ PM</td>
-                                <td style="font-weight: bold;">M2LKBTYYY5</td>
-                                <td style="text-align: center;">
-                                    <button class="task-btn btn-wa" onclick="openModal('WhatsApp', 'fab fa-whatsapp', '#25d366', 'M2LKBTYYY5', 'আজ, ০১:২০ PM', 'নম্বর: +8801711223344')">
-                                        <i class="fab fa-whatsapp"></i> WhatsApp কাজ
-                                    </button>
-                                </td>
-                                <td style="text-align: right;"><span class="status-badge status-pending">Pending</span></td>
-                            </tr>
-                            
-                            <!-- Telegram Task -->
+                            <!-- Telegram & Gmail Task Row -->
                             <tr>
                                 <td>গতকাল, ১১:১০ AM</td>
                                 <td style="font-weight: bold;">A4JKMTUZR8</td>
                                 <td style="text-align: center;">
-                                    <button class="task-btn btn-tg" onclick="openModal('Telegram', 'fab fa-telegram-plane', '#0088cc', 'A4JKMTUZR8', 'গতকাল, ১১:১০ AM', 'নম্বর: +8801999887766')">
-                                        <i class="fab fa-telegram-plane"></i> Telegram কাজ
-                                    </button>
+                                    <div class="task-action-group">
+                                        <button class="task-btn btn-tg" onclick="openModal('Telegram', 'fab fa-telegram-plane', '#0088cc', 'A4JKMTUZR8', 'গতকাল, ১১:১০ AM', '৩টি টেলিগ্রাম নাম্বার পেন্ডিং আছে।')">
+                                            <i class="fab fa-telegram-plane"></i> Telegram (৩)
+                                        </button>
+                                        <button class="task-btn btn-gmail" onclick="openModal('Gmail', 'fab fa-google', '#ea4335', 'A4JKMTUZR8', 'গতকাল, ১১:১০ AM', '১টি জিমেইল পেন্ডিং আছে।')">
+                                            <i class="fab fa-google"></i> Google (১)
+                                        </button>
+                                    </div>
                                 </td>
                                 <td style="text-align: right;"><span class="status-badge status-pending">Pending</span></td>
                             </tr>
