@@ -13,6 +13,9 @@
             --text-grey: #888888; 
             --bg-light: #f4f6f9; 
             --dark-blue: #2c3e50;
+            --bkash-color: #e2136e;
+            --nagad-color: #f37021;
+            --rocket-color: #8c1515;
         }
 
         body { 
@@ -24,7 +27,7 @@
             overflow: hidden;
         }
 
-        /* সাইডবার (Sidebar) */
+        /* সাইডবার */
         .sidebar {
             width: 260px;
             background: linear-gradient(180deg, var(--main-pink), #ff3377);
@@ -104,47 +107,150 @@
         }
         .logout-btn:hover { background-color: var(--main-pink); color: white; }
 
-        /* ড্যাশবোর্ড বডি ও কার্ড */
+        /* ড্যাশবোর্ড বডি */
         .dashboard-body {
             padding: 30px;
             overflow-y: auto;
             flex-grow: 1;
         }
 
-        .admin-card {
-            background: var(--main-white); border-radius: 12px; padding: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-bottom: 25px;
+        .card-header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
-        .card-header {
-            margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #eaeaea;
-            font-size: 18px; font-weight: bold; color: var(--dark-blue); display: flex; justify-content: space-between; align-items: center;
+        .card-header-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--dark-blue);
+            display: flex; align-items: center; gap: 10px;
         }
 
         .form-input {
-            width: 100%; padding: 10px 15px; border: 1.5px solid #eaeaea; border-radius: 8px;
-            font-size: 14px; outline: none; box-sizing: border-box; background-color: #f8f9fa;
-            transition: 0.3s;
+            padding: 10px 15px; border: 1.5px solid #eaeaea; border-radius: 8px;
+            font-size: 14px; outline: none; background-color: white;
+            transition: 0.3s; width: 250px;
         }
-        .form-input:focus { border-color: var(--main-pink); background-color: white; }
+        .form-input:focus { border-color: var(--main-pink); }
 
-        /* টেবিল ডিজাইন */
-        table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #eaeaea; font-size: 14px; }
-        th { background-color: #f8f9fa; color: var(--dark-blue); font-weight: bold; }
-        tbody tr:hover { background-color: #fcfcfc; }
+        /* --- উইথড্র কার্ড গ্রিড লেআউট --- */
+        .withdraw-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding-bottom: 30px;
+        }
 
-        .status-badge { padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; }
-        .status-pending { background-color: #fff3cd; color: #856404; }
+        .withdraw-card {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            transition: box-shadow 0.2s, transform 0.2s;
+            position: relative;
+        }
+
+        .withdraw-card:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transform: translateY(-3px);
+        }
+
+        .w-card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .payment-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 12px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .icon-bkash { background: linear-gradient(135deg, var(--bkash-color), #ff4785); }
+        .icon-nagad { background: linear-gradient(135deg, var(--nagad-color), #ff9f43); }
+        .icon-rocket { background: linear-gradient(135deg, var(--rocket-color), #b33939); }
+
+        .w-user-details h4 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 900;
+        }
+
+        .text-bkash { color: var(--bkash-color); }
+        .text-nagad { color: var(--nagad-color); }
+        .text-rocket { color: var(--rocket-color); }
+
+        .w-user-details p {
+            margin: 4px 0 0 0;
+            font-size: 12px;
+            color: var(--text-grey);
+            font-weight: bold;
+        }
+
+        .w-info-box {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 18px;
+            border: 1px dashed #dadce0;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .info-row:last-child { margin-bottom: 0; }
+
+        .info-label { font-size: 13px; font-weight: bold; color: #666; }
+        .info-value { font-size: 14px; font-weight: bold; color: var(--dark-blue); text-align: right; }
+        
+        .amount-value { font-size: 20px !important; font-weight: 900 !important; color: #27ae60 !important; }
+        .number-value { font-size: 16px !important; letter-spacing: 1px; color: var(--main-pink) !important;}
+
+        .action-btns {
+            display: flex;
+            gap: 10px;
+            margin-top: auto;
+        }
 
         .action-btns button {
-            border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;
-            font-weight: bold; font-size: 12px; color: white; margin-right: 5px; transition: 0.2s;
+            flex: 1;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            color: white;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
         }
-        .action-btns button:hover { transform: translateY(-2px); box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-        .btn-approve { background-color: #27ae60; }
-        .btn-reject { background-color: #e74c3c; }
 
+        .action-btns button:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+        .btn-approve { background: linear-gradient(135deg, #27ae60, #2ecc71); } 
+        .btn-reject { background: linear-gradient(135deg, #e74c3c, #c0392b); } 
+
+        /* টোস্ট মেসেজ */
         .toast-msg {
             visibility: hidden; background-color: #27ae60; color: #fff; text-align: center;
             border-radius: 8px; padding: 15px 25px; position: fixed; z-index: 9999; right: 30px; top: 30px;
@@ -156,7 +262,7 @@
 </head>
 <body>
 
-    <div id="toastBox" class="toast-msg"><i class="fas fa-check-circle"></i> অ্যাকশন সফল হয়েছে!</div>
+    <div id="toastBox" class="toast-msg"><i class="fas fa-check-circle"></i> <span id="toastText">অ্যাকশন সফল হয়েছে!</span></div>
 
     <!-- সাইডবার -->
     <aside class="sidebar">
@@ -165,7 +271,7 @@
             <p>অ্যাডমিন কন্ট্রোল প্যানেল</p>
         </div>
         <ul class="nav-links">
-            <li><a href="admin_dashboard.html" class="nav-link"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
+            <li><a href="admin.html" class="nav-link"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
             <li><a href="admin_simple_users.html" class="nav-link"><i class="fas fa-user"></i> সাধারণ ইউজার</a></li>
             <li><a href="admin_vip_users.html" class="nav-link"><i class="fas fa-user-tie"></i> VIP ইউজার</a></li>
             <!-- এই পেজটি এক্টিভ করা হয়েছে -->
@@ -183,7 +289,7 @@
     <!-- মেইন এরিয়া -->
     <main class="main-content">
         <header class="topbar">
-            <div class="topbar-title">উইথড্র রিকোয়েস্ট ম্যানেজমেন্ট</div>
+            <div class="topbar-title">উইথড্র ম্যানেজমেন্ট</div>
             <div class="admin-profile">
                 <button class="logout-btn" id="adminLogout"><i class="fas fa-sign-out-alt"></i> লগআউট</button>
             </div>
@@ -191,79 +297,152 @@
 
         <div class="dashboard-body">
             
-            <div class="admin-card">
-                <div class="card-header">
-                    <span>পেন্ডিং উইথড্র রিকোয়েস্টসমূহ</span>
-                    <input type="text" class="form-input" placeholder="ইউজার আইডি বা নম্বর খুঁজুন..." style="width: 250px;">
+            <div class="card-header-container">
+                <div class="card-header-title">
+                    <i class="fas fa-hand-holding-usd" style="color: var(--main-pink);"></i> পেন্ডিং উইথড্র রিকোয়েস্ট
                 </div>
-                <div style="overflow-x: auto;">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>তারিখ ও সময়</th>
-                                <th>ইউজার আইডি</th>
-                                <th>পেমেন্ট মেথড</th>
-                                <th>একাউন্ট নম্বর</th>
-                                <th>টাকার পরিমাণ</th>
-                                <th>স্ট্যাটাস</th>
-                                <th>অ্যাকশন</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>২৭-০৮-২০২৬, ১০:৩০ AM</td>
-                                <td>T9KZBTUBR1</td>
-                                <td>bKash (Personal)</td>
-                                <td>01711223344</td>
-                                <td style="font-weight: bold; color: var(--main-pink);">৳৩০০</td>
-                                <td><span class="status-badge status-pending">Pending</span></td>
-                                <td class="action-btns">
-                                    <button class="btn-approve" onclick="showToast()">Approve</button>
-                                    <button class="btn-reject" onclick="showToast()">Reject</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>২৭-০৮-২০২৬, ১১:৪৫ AM</td>
-                                <td>M2LKBTYYY5</td>
-                                <td>Nagad (Personal)</td>
-                                <td>01999887766</td>
-                                <td style="font-weight: bold; color: var(--main-pink);">৳১৫০</td>
-                                <td><span class="status-badge status-pending">Pending</span></td>
-                                <td class="action-btns">
-                                    <button class="btn-approve" onclick="showToast()">Approve</button>
-                                    <button class="btn-reject" onclick="showToast()">Reject</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div>
+                    <input type="text" class="form-input" placeholder="নম্বর বা ইউজার আইডি খুঁজুন...">
                 </div>
+            </div>
+
+            <!-- উইথড্র কার্ড গ্রিড -->
+            <div class="withdraw-grid">
+                
+                <!-- বিকাশ কার্ড -->
+                <div class="withdraw-card" id="req-1">
+                    <div class="w-card-header">
+                        <div class="payment-icon icon-bkash">
+                            <i class="fas fa-bold"></i>
+                        </div>
+                        <div class="w-user-details">
+                            <h4 class="text-bkash">bKash (Personal)</h4>
+                            <p>ইউজার: T9KZBTUBR1</p>
+                        </div>
+                    </div>
+
+                    <div class="w-info-box">
+                        <div class="info-row">
+                            <span class="info-label">পরিমাণ:</span>
+                            <span class="info-value amount-value">৳৫০০</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">অ্যাকাউন্ট নম্বর:</span>
+                            <span class="info-value number-value">01711223344</span>
+                        </div>
+                        <div class="info-row" style="margin-top: 15px; border-top: 1px solid #eaeaea; padding-top: 10px;">
+                            <span class="info-label"><i class="far fa-clock"></i> রিকোয়েস্ট সময়:</span>
+                            <span class="info-value" style="font-size: 12px; color: #888;">আজ, ০৩:১৫ PM</span>
+                        </div>
+                    </div>
+
+                    <div class="action-btns">
+                        <button class="btn-approve" onclick="actionWithdraw('req-1', 'approve')"><i class="fas fa-check-double"></i> পেমেন্ট সম্পন্ন</button>
+                        <button class="btn-reject" onclick="actionWithdraw('req-1', 'reject')"><i class="fas fa-times"></i> বাতিল</button>
+                    </div>
+                </div>
+
+                <!-- নগদ কার্ড -->
+                <div class="withdraw-card" id="req-2">
+                    <div class="w-card-header">
+                        <div class="payment-icon icon-nagad">
+                            <i class="fas fa-n"></i>
+                        </div>
+                        <div class="w-user-details">
+                            <h4 class="text-nagad">Nagad (Personal)</h4>
+                            <p>ইউজার: M2LKBTYYY5</p>
+                        </div>
+                    </div>
+
+                    <div class="w-info-box">
+                        <div class="info-row">
+                            <span class="info-label">পরিমাণ:</span>
+                            <span class="info-value amount-value">৳৩০০</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">অ্যাকাউন্ট নম্বর:</span>
+                            <span class="info-value number-value">01922334455</span>
+                        </div>
+                        <div class="info-row" style="margin-top: 15px; border-top: 1px solid #eaeaea; padding-top: 10px;">
+                            <span class="info-label"><i class="far fa-clock"></i> রিকোয়েস্ট সময়:</span>
+                            <span class="info-value" style="font-size: 12px; color: #888;">আজ, ০১:২০ PM</span>
+                        </div>
+                    </div>
+
+                    <div class="action-btns">
+                        <button class="btn-approve" onclick="actionWithdraw('req-2', 'approve')"><i class="fas fa-check-double"></i> পেমেন্ট সম্পন্ন</button>
+                        <button class="btn-reject" onclick="actionWithdraw('req-2', 'reject')"><i class="fas fa-times"></i> বাতিল</button>
+                    </div>
+                </div>
+
+                <!-- রকেট কার্ড -->
+                <div class="withdraw-card" id="req-3">
+                    <div class="w-card-header">
+                        <div class="payment-icon icon-rocket">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <div class="w-user-details">
+                            <h4 class="text-rocket">Rocket (Personal)</h4>
+                            <p>ইউজার: A4JKMTUZR8</p>
+                        </div>
+                    </div>
+
+                    <div class="w-info-box">
+                        <div class="info-row">
+                            <span class="info-label">পরিমাণ:</span>
+                            <span class="info-value amount-value">৳১০০০</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">অ্যাকাউন্ট নম্বর:</span>
+                            <span class="info-value number-value">01833445566</span>
+                        </div>
+                        <div class="info-row" style="margin-top: 15px; border-top: 1px solid #eaeaea; padding-top: 10px;">
+                            <span class="info-label"><i class="far fa-clock"></i> রিকোয়েস্ট সময়:</span>
+                            <span class="info-value" style="font-size: 12px; color: #888;">গতকাল, ১১:১০ AM</span>
+                        </div>
+                    </div>
+
+                    <div class="action-btns">
+                        <button class="btn-approve" onclick="actionWithdraw('req-3', 'approve')"><i class="fas fa-check-double"></i> পেমেন্ট সম্পন্ন</button>
+                        <button class="btn-reject" onclick="actionWithdraw('req-3', 'reject')"><i class="fas fa-times"></i> বাতিল</button>
+                    </div>
+                </div>
+
             </div>
 
         </div>
     </main>
 
-    <!-- Firebase Script -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
-        import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
-            authDomain: "send-bkash.firebaseapp.com",
-            projectId: "send-bkash",
-            storageBucket: "send-bkash.firebasestorage.app",
-            messagingSenderId: "306247423891",
-            appId: "1:306247423891:web:bb4fb6634043e6755afa66"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-
-        // টোস্ট মেসেজ শো করানোর ফাংশন
-        window.showToast = function() {
+    <script>
+        // টোস্ট মেসেজ
+        function showToast(message, isError = false) {
             const toast = document.getElementById("toastBox");
+            document.getElementById("toastText").innerText = message;
+            toast.style.backgroundColor = isError ? "#e74c3c" : "#27ae60";
             toast.classList.add("show");
-            setTimeout(() => { toast.classList.remove("show"); }, 2500);
+            setTimeout(() => { toast.classList.remove("show"); }, 3000);
+        }
+
+        // উইথড্র অ্যাপ্রুভ বা রিজেক্ট করার ফাংশন
+        function actionWithdraw(cardId, action) {
+            const card = document.getElementById(cardId);
+            
+            if (action === 'approve') {
+                showToast("পেমেন্ট সম্পন্ন হিসেবে মার্ক করা হয়েছে!");
+            } else {
+                let reason = prompt("বাতিল করার কারণ লিখুন (ঐচ্ছিক):");
+                if (reason !== null) {
+                    showToast("উইথড্র রিকোয়েস্ট বাতিল করা হয়েছে!", true);
+                } else {
+                    return; // যদি ক্যান্সেল করে দেয়
+                }
+            }
+
+            // অ্যাকশন নেওয়ার পর কার্ডটি স্ক্রিন থেকে রিমুভ করে দেওয়া
+            card.style.opacity = '0';
+            setTimeout(() => {
+                card.style.display = 'none';
+            }, 300);
         }
 
         document.getElementById("adminLogout").addEventListener("click", () => {
