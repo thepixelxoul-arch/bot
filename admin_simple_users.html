@@ -104,65 +104,161 @@
         }
         .logout-btn:hover { background-color: var(--main-pink); color: white; }
 
-        /* ড্যাশবোর্ড বডি ও কার্ড */
+        /* ড্যাশবোর্ড বডি */
         .dashboard-body {
             padding: 30px;
             overflow-y: auto;
             flex-grow: 1;
         }
 
-        .admin-card {
-            background: var(--main-white); border-radius: 12px; padding: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-bottom: 25px;
+        .card-header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
         }
 
-        .card-header {
-            margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #eaeaea;
-            font-size: 18px; font-weight: bold; color: var(--dark-blue); display: flex; justify-content: space-between; align-items: center;
+        .card-header-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--dark-blue);
         }
 
         .form-input {
-            width: 100%; padding: 10px 15px; border: 1.5px solid #eaeaea; border-radius: 8px;
-            font-size: 14px; outline: none; box-sizing: border-box; background-color: #f8f9fa;
-            transition: 0.3s;
+            padding: 10px 15px; border: 1.5px solid #eaeaea; border-radius: 8px;
+            font-size: 14px; outline: none; background-color: white;
+            transition: 0.3s; width: 250px;
         }
-        .form-input:focus { border-color: var(--main-pink); background-color: white; }
+        .form-input:focus { border-color: var(--main-pink); }
 
-        /* টেবিল ডিজাইন */
-        table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #eaeaea; font-size: 14px; vertical-align: middle; }
-        th { background-color: #f8f9fa; color: var(--dark-blue); font-weight: bold; }
-        tbody tr:hover { background-color: #fcfcfc; }
-
-        .user-info { display: flex; flex-direction: column; }
-        .user-info strong { color: var(--dark-blue); font-size: 15px; }
-        .user-info small { color: var(--text-grey); font-size: 12px; margin-top: 3px; }
-
-        /* কাজের হিস্ট্রি ব্যাজ */
-        .task-badges { display: flex; gap: 8px; flex-wrap: wrap; }
-        .task-badge { 
-            padding: 4px 10px; border-radius: 6px; font-size: 12px; 
-            font-weight: bold; color: white; display: flex; align-items: center; gap: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        /* --- ইউজার কার্ড গ্রিড লেআউট (প্রোডাক্ট কার্ড এর মতো) --- */
+        .user-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            padding-bottom: 30px;
         }
+
+        .user-card {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            transition: box-shadow 0.2s, transform 0.2s;
+            position: relative;
+        }
+
+        .user-card:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transform: translateY(-3px);
+        }
+
+        .user-card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 12px;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--main-pink), #ff3377);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .user-details h4 {
+            margin: 0;
+            font-size: 16px;
+            color: var(--dark-blue);
+        }
+
+        .user-details p {
+            margin: 3px 0 0 0;
+            font-size: 12px;
+            color: var(--text-grey);
+            word-break: break-all;
+        }
+
+        .task-stats-title {
+            font-size: 12px;
+            font-weight: bold;
+            color: var(--text-grey);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .task-badges {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .task-badge {
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
         .bg-gmail { background-color: #ea4335; }
         .bg-insta { background-color: #e1306c; }
         .bg-wa { background-color: #25d366; }
         .bg-tg { background-color: #0088cc; }
 
-        .status-badge { padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; }
-        .status-pending { background-color: #fff3cd; color: #856404; }
-
-        .action-btns { display: flex; gap: 5px; }
-        .action-btns button {
-            border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer;
-            font-weight: bold; font-size: 12px; color: white; transition: 0.2s;
-            display: flex; align-items: center; gap: 5px;
+        .balance-box {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
         }
-        .action-btns button:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); }
+
+        .balance-label { font-size: 13px; font-weight: bold; color: var(--dark-blue); }
+        .balance-amount { font-size: 16px; font-weight: 900; color: #188038; }
+
+        .action-btns {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btns button {
+            flex: 1;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+            color: white;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .action-btns button:hover { opacity: 0.9; transform: translateY(-2px); }
         .btn-add { background-color: #27ae60; } 
         .btn-deduct { background-color: #f39c12; } 
-        .btn-reject { background-color: #e74c3c; padding: 8px 15px; } 
+        .btn-reject { background-color: #e74c3c; flex: 0.4 !important; } 
 
         .toast-msg {
             visibility: hidden; background-color: #27ae60; color: #fff; text-align: center;
@@ -184,7 +280,7 @@
             <p>অ্যাডমিন কন্ট্রোল প্যানেল</p>
         </div>
         <ul class="nav-links">
-            <li><a href="admin_dashboard.html" class="nav-link"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
+            <li><a href="admin.html" class="nav-link"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
             <li><a href="admin_simple_users.html" class="nav-link active"><i class="fas fa-user"></i> সাধারণ ইউজার</a></li>
             <li><a href="admin_vip_users.html" class="nav-link"><i class="fas fa-user-tie"></i> VIP ইউজার</a></li>
             <li><a href="admin_withdraw.html" class="nav-link"><i class="fas fa-file-invoice-dollar"></i> উইথড্র রিকোয়েস্ট</a></li>
@@ -209,158 +305,129 @@
 
         <div class="dashboard-body">
             
-            <div class="admin-card">
-                <div class="card-header">
-                    <span>সাধারণ ইউজার লিস্ট (Live Data)</span>
-                    <input type="text" id="searchInput" class="form-input" placeholder="ইমেইল খুঁজুন..." style="width: 250px;">
+            <div class="card-header-container">
+                <div class="card-header-title">সাধারণ ইউজার কার্ড লিস্ট</div>
+                <input type="text" class="form-input" placeholder="ইউজার আইডি বা ইমেইল খুঁজুন...">
+            </div>
+
+            <!-- ইউজার কার্ড গ্রিড -->
+            <div class="user-grid">
+                
+                <!-- ইউজার কার্ড ১ -->
+                <div class="user-card">
+                    <div class="user-card-header">
+                        <div class="user-avatar"><i class="fas fa-user"></i></div>
+                        <div class="user-details">
+                            <h4>X7ABCTUBR9</h4>
+                            <p>sakib@gmail.com</p>
+                        </div>
+                    </div>
+
+                    <div class="task-stats-title">জমাকৃত কাজের সংখ্যা</div>
+                    <div class="task-badges">
+                        <div class="task-badge bg-gmail"><span><i class="fab fa-google"></i> Gmail</span> <span>১২</span></div>
+                        <div class="task-badge bg-insta"><span><i class="fab fa-instagram"></i> Insta</span> <span>৫</span></div>
+                        <div class="task-badge bg-wa"><span><i class="fab fa-whatsapp"></i> WA</span> <span>৩</span></div>
+                        <div class="task-badge bg-tg"><span><i class="fab fa-telegram-plane"></i> TG</span> <span>১</span></div>
+                    </div>
+
+                    <div class="balance-box">
+                        <span class="balance-label">বর্তমান ব্যালেন্স:</span>
+                        <span class="balance-amount">৳১২০.০০</span>
+                    </div>
+
+                    <div class="action-btns">
+                        <button class="btn-add" onclick="handleBalance('add', 'X7ABCTUBR9')"><i class="fas fa-plus"></i> টাকা</button>
+                        <button class="btn-deduct" onclick="handleBalance('deduct', 'X7ABCTUBR9')"><i class="fas fa-minus"></i> টাকা</button>
+                        <button class="btn-reject" title="ব্যান করুন" onclick="showToast('ইউজারকে ব্যান করা হয়েছে!', true)"><i class="fas fa-ban"></i></button>
+                    </div>
                 </div>
-                <div style="overflow-x: auto;">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ইউজার ইনফো</th>
-                                <th>জমা দেওয়া কাজ</th>
-                                <th>বর্তমান ব্যালেন্স</th>
-                                <th>স্ট্যাটাস</th>
-                                <th>অ্যাকশন (ব্যালেন্স কন্ট্রোল)</th>
-                            </tr>
-                        </thead>
-                        <tbody id="usersTableBody">
-                            <tr>
-                                <td colspan="5" style="text-align:center;">ফায়ারবেস থেকে ডাটা লোড হচ্ছে...</td>
-                            </tr>
-                        </tbody>
-                    </table>
+
+                <!-- ইউজার কার্ড ২ -->
+                <div class="user-card">
+                    <div class="user-card-header">
+                        <div class="user-avatar"><i class="fas fa-user"></i></div>
+                        <div class="user-details">
+                            <h4>M2LKBTYYY5</h4>
+                            <p>rakib22@gmail.com</p>
+                        </div>
+                    </div>
+
+                    <div class="task-stats-title">জমাকৃত কাজের সংখ্যা</div>
+                    <div class="task-badges">
+                        <div class="task-badge bg-gmail"><span><i class="fab fa-google"></i> Gmail</span> <span>৮</span></div>
+                        <div class="task-badge bg-insta"><span><i class="fab fa-instagram"></i> Insta</span> <span>২</span></div>
+                        <div class="task-badge bg-wa"><span><i class="fab fa-whatsapp"></i> WA</span> <span>০</span></div>
+                        <div class="task-badge bg-tg"><span><i class="fab fa-telegram-plane"></i> TG</span> <span>৪</span></div>
+                    </div>
+
+                    <div class="balance-box">
+                        <span class="balance-label">বর্তমান ব্যালেন্স:</span>
+                        <span class="balance-amount">৳৫০.০০</span>
+                    </div>
+
+                    <div class="action-btns">
+                        <button class="btn-add" onclick="handleBalance('add', 'M2LKBTYYY5')"><i class="fas fa-plus"></i> টাকা</button>
+                        <button class="btn-deduct" onclick="handleBalance('deduct', 'M2LKBTYYY5')"><i class="fas fa-minus"></i> টাকা</button>
+                        <button class="btn-reject" title="ব্যান করুন" onclick="showToast('ইউজারকে ব্যান করা হয়েছে!', true)"><i class="fas fa-ban"></i></button>
+                    </div>
                 </div>
+
+                <!-- ইউজার কার্ড ৩ -->
+                <div class="user-card">
+                    <div class="user-card-header">
+                        <div class="user-avatar"><i class="fas fa-user"></i></div>
+                        <div class="user-details">
+                            <h4>A4JKMTUZR8</h4>
+                            <p>user3@gmail.com</p>
+                        </div>
+                    </div>
+
+                    <div class="task-stats-title">জমাকৃত কাজের সংখ্যা</div>
+                    <div class="task-badges">
+                        <div class="task-badge bg-gmail"><span><i class="fab fa-google"></i> Gmail</span> <span>১৫</span></div>
+                        <div class="task-badge bg-insta"><span><i class="fab fa-instagram"></i> Insta</span> <span>১০</span></div>
+                        <div class="task-badge bg-wa"><span><i class="fab fa-whatsapp"></i> WA</span> <span>৫</span></div>
+                        <div class="task-badge bg-tg"><span><i class="fab fa-telegram-plane"></i> TG</span> <span>২</span></div>
+                    </div>
+
+                    <div class="balance-box">
+                        <span class="balance-label">বর্তমান ব্যালেন্স:</span>
+                        <span class="balance-amount">৳৩১০.০০</span>
+                    </div>
+
+                    <div class="action-btns">
+                        <button class="btn-add" onclick="handleBalance('add', 'A4JKMTUZR8')"><i class="fas fa-plus"></i> টাকা</button>
+                        <button class="btn-deduct" onclick="handleBalance('deduct', 'A4JKMTUZR8')"><i class="fas fa-minus"></i> টাকা</button>
+                        <button class="btn-reject" title="ব্যান করুন" onclick="showToast('ইউজারকে ব্যান করা হয়েছে!', true)"><i class="fas fa-ban"></i></button>
+                    </div>
+                </div>
+
             </div>
 
         </div>
     </main>
 
-    <!-- Firebase Scripts (Firestore যুক্ত করা হয়েছে) -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
-        import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
-        import { getFirestore, collection, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
-            authDomain: "send-bkash.firebaseapp.com",
-            projectId: "send-bkash",
-            storageBucket: "send-bkash.firebasestorage.app",
-            messagingSenderId: "306247423891",
-            appId: "1:306247423891:web:bb4fb6634043e6755afa66"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app); // Firestore কানেকশন
-
-        // ডাটাবেস থেকে ইউজার ডাটা টেনে আনার ফাংশন
-        async function loadUsers() {
-            const tbody = document.getElementById("usersTableBody");
-            
-            try {
-                // "users" নামের কালেকশন থেকে ডাটা আনা হচ্ছে
-                const querySnapshot = await getDocs(collection(db, "users"));
-                tbody.innerHTML = ""; // লোডিং টেক্সট সরিয়ে দেওয়া
-
-                if(querySnapshot.empty) {
-                    tbody.innerHTML = "<tr><td colspan='5' style='text-align:center;'>এখনও কোনো ইউজার নেই।</td></tr>";
-                    return;
-                }
-
-                querySnapshot.forEach((docSnap) => {
-                    let user = docSnap.data();
-                    let uid = docSnap.id;
-                    
-                    // ডিফল্ট ভ্যালু (যদি ডাটাবেসে ডাটা না থাকে)
-                    let email = user.email || "No Email";
-                    let balance = user.balance || 0;
-                    let gmailCount = user.gmailTasks || 0;
-                    let instaCount = user.instaTasks || 0;
-                    let waCount = user.waTasks || 0;
-                    let tgCount = user.tgTasks || 0;
-                    let status = user.status || "সাধারণ";
-
-                    let tr = document.createElement("tr");
-                    tr.innerHTML = `
-                        <td>
-                            <div class="user-info">
-                                <strong>${uid.substring(0, 8)}...</strong>
-                                <small>${email}</small>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="task-badges">
-                                <span class="task-badge bg-gmail" title="Gmail"><i class="fab fa-google"></i> ${gmailCount}</span>
-                                <span class="task-badge bg-insta" title="Instagram"><i class="fab fa-instagram"></i> ${instaCount}</span>
-                                <span class="task-badge bg-wa" title="WhatsApp"><i class="fab fa-whatsapp"></i> ${waCount}</span>
-                                <span class="task-badge bg-tg" title="Telegram"><i class="fab fa-telegram-plane"></i> ${tgCount}</span>
-                            </div>
-                        </td>
-                        <td style="font-weight: bold; font-size: 15px;" id="bal-${uid}">৳${balance}</td>
-                        <td><span class="status-badge status-pending">${status}</span></td>
-                        <td class="action-btns">
-                            <button class="btn-add" onclick="handleBalance('add', '${uid}', ${balance})"><i class="fas fa-plus"></i> টাকা</button>
-                            <button class="btn-deduct" onclick="handleBalance('deduct', '${uid}', ${balance})"><i class="fas fa-minus"></i> টাকা</button>
-                            <button class="btn-reject" onclick="showToast('ইউজারকে ব্যান করা হয়েছে!', true)"><i class="fas fa-ban"></i></button>
-                        </td>
-                    `;
-                    tbody.appendChild(tr);
-                });
-            } catch(error) {
-                console.error("ডাটা লোড করতে সমস্যা:", error);
-                tbody.innerHTML = "<tr><td colspan='5' style='text-align:center; color:red;'>ডাটাবেস কানেকশন এরর! Firestore রুলস চেক করুন।</td></tr>";
-            }
-        }
-
-        // পেজ ওপেন হলেই ডাটা লোড হবে
-        window.onload = loadUsers;
-
-        // টোস্ট মেসেজ শো করানোর ফাংশন
-        window.showToast = function(message, isError = false) {
+    <script>
+        function showToast(message, isError = false) {
             const toast = document.getElementById("toastBox");
             document.getElementById("toastText").innerText = message;
-            toast.style.backgroundColor = isError ? "#e74c3c" : "#27ae60"; 
+            toast.style.backgroundColor = isError ? "#e74c3c" : "#27ae60";
             toast.classList.add("show");
             setTimeout(() => { toast.classList.remove("show"); }, 2500);
         }
 
-        // টাকা যোগ করা এবং কেটে নেওয়ার রিয়েল ডাটাবেস আপডেট
-        window.handleBalance = async function(action, userId, currentBalance) {
+        function handleBalance(action, userId) {
             let actionText = action === 'add' ? "যোগ" : "কেটে নিতে";
-            let amountStr = prompt(`এই ইউজারের একাউন্টে কত টাকা ${actionText} চান? (অ্যামাউন্ট লিখুন)`);
+            let amount = prompt(`ইউজার ${userId} এর একাউন্টে কত টাকা ${actionText} চান? (অ্যামাউন্ট লিখুন)`);
             
-            if (amountStr !== null && amountStr.trim() !== "" && !isNaN(amountStr)) {
-                let amount = parseFloat(amountStr);
-                let newBalance = action === 'add' ? (currentBalance + amount) : (currentBalance - amount);
-
-                if(newBalance < 0) {
-                    alert("ব্যালেন্স শূন্যের নিচে যেতে পারবে না!");
-                    return;
-                }
-
-                try {
-                    // Firestore এ ডাটা আপডেট করা হচ্ছে
-                    const userRef = doc(db, "users", userId);
-                    await updateDoc(userRef, {
-                        balance: newBalance
-                    });
-
-                    // সাথে সাথেই পেজে নতুন ব্যালেন্স শো করাবে
-                    document.getElementById(`bal-${userId}`).innerText = `৳${newBalance}`;
-                    
-                    let successMsg = action === 'add' ? `সফলভাবে ৳${amount} যোগ করা হয়েছে!` : `সফলভাবে ৳${amount} কেটে নেওয়া হয়েছে!`;
-                    showToast(successMsg, action === 'deduct');
-                    
-                    // আপডেট হওয়া ব্যালেন্স দিয়ে পেজ রিফ্রেশ
-                    loadUsers(); 
-                } catch (error) {
-                    console.error("ব্যালেন্স আপডেটে সমস্যা:", error);
-                    alert("সমস্যা হয়েছে! ডাটাবেস সিকিউরিটি রুলস চেক করুন।");
-                }
-            } else if (amountStr !== null) {
+            if (amount !== null && amount.trim() !== "" && !isNaN(amount)) {
+                let successMsg = action === 'add' ? 
+                    `সফলভাবে ৳${amount} যোগ করা হয়েছে!` : 
+                    `সফলভাবে ৳${amount} কেটে নেওয়া হয়েছে!`;
+                
+                showToast(successMsg, action === 'deduct');
+            } else if (amount !== null) {
                 alert("অনুগ্রহ করে সঠিক টাকার পরিমাণ দিন!");
             }
         }
