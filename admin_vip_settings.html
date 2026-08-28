@@ -201,6 +201,7 @@
         /* ইনপুট গ্রুপ */
         .input-wrapper {
             margin-bottom: 15px;
+            flex-grow: 1; /* বাটন নিচে পুশ করার জন্য */
         }
 
         .input-wrapper label {
@@ -321,11 +322,11 @@
                     <div class="card-header-title">
                         <i class="fas fa-crown"></i> VIP প্যাকেজ ম্যানেজমেন্ট
                     </div>
-                    <div class="card-header-subtitle">এখান থেকে প্রতিটি VIP প্যাকেজের দাম এবং কাজের কমিশন আপডেট করুন।</div>
+                    <div class="card-header-subtitle">এখান থেকে প্রতিটি VIP প্যাকেজের দাম আপডেট করুন।</div>
                 </div>
             </div>
 
-            <!-- VIP প্যাকেজ কার্ড গ্রিড -->
+            <!-- VIP প্যাকেজ কার্ড গ্রিড (VIP 1 থেকে VIP 10) -->
             <div class="vip-grid">
                 
                 <!-- VIP 1 -->
@@ -337,7 +338,6 @@
                             <p>বেসিক ভিআইপি প্যাকেজ</p>
                         </div>
                     </div>
-                    
                     <div class="input-wrapper">
                         <label>প্যাকেজের দাম (Price)</label>
                         <div class="vip-input-group">
@@ -345,16 +345,7 @@
                             <input type="number" id="price-vip1" class="vip-input" value="500">
                         </div>
                     </div>
-
-                    <div class="input-wrapper">
-                        <label>কাজের কমিশন (Task Commission)</label>
-                        <div class="vip-input-group">
-                            <span class="vip-input-prefix">%</span>
-                            <input type="number" id="comm-vip1" class="vip-input" value="5">
-                        </div>
-                    </div>
-                    
-                    <button class="btn-vip-update" onclick="updateVipPackage('VIP 1', 'price-vip1', 'comm-vip1')">
+                    <button class="btn-vip-update" onclick="updateVipPackage('VIP 1', 'price-vip1')">
                         <i class="fas fa-save"></i> আপডেট করুন
                     </button>
                 </div>
@@ -368,7 +359,6 @@
                             <p>সিলভার ভিআইপি প্যাকেজ</p>
                         </div>
                     </div>
-                    
                     <div class="input-wrapper">
                         <label>প্যাকেজের দাম (Price)</label>
                         <div class="vip-input-group">
@@ -376,16 +366,7 @@
                             <input type="number" id="price-vip2" class="vip-input" value="1000">
                         </div>
                     </div>
-
-                    <div class="input-wrapper">
-                        <label>কাজের কমিশন (Task Commission)</label>
-                        <div class="vip-input-group">
-                            <span class="vip-input-prefix">%</span>
-                            <input type="number" id="comm-vip2" class="vip-input" value="10">
-                        </div>
-                    </div>
-                    
-                    <button class="btn-vip-update" onclick="updateVipPackage('VIP 2', 'price-vip2', 'comm-vip2')">
+                    <button class="btn-vip-update" onclick="updateVipPackage('VIP 2', 'price-vip2')">
                         <i class="fas fa-save"></i> আপডেট করুন
                     </button>
                 </div>
@@ -399,7 +380,6 @@
                             <p>গোল্ড ভিআইপি প্যাকেজ</p>
                         </div>
                     </div>
-                    
                     <div class="input-wrapper">
                         <label>প্যাকেজের দাম (Price)</label>
                         <div class="vip-input-group">
@@ -407,16 +387,7 @@
                             <input type="number" id="price-vip3" class="vip-input" value="2000">
                         </div>
                     </div>
-
-                    <div class="input-wrapper">
-                        <label>কাজের কমিশন (Task Commission)</label>
-                        <div class="vip-input-group">
-                            <span class="vip-input-prefix">%</span>
-                            <input type="number" id="comm-vip3" class="vip-input" value="15">
-                        </div>
-                    </div>
-                    
-                    <button class="btn-vip-update" onclick="updateVipPackage('VIP 3', 'price-vip3', 'comm-vip3')">
+                    <button class="btn-vip-update" onclick="updateVipPackage('VIP 3', 'price-vip3')">
                         <i class="fas fa-save"></i> আপডেট করুন
                     </button>
                 </div>
@@ -430,7 +401,6 @@
                             <p>প্লাটিনাম ভিআইপি প্যাকেজ</p>
                         </div>
                     </div>
-                    
                     <div class="input-wrapper">
                         <label>প্যাকেজের দাম (Price)</label>
                         <div class="vip-input-group">
@@ -438,16 +408,133 @@
                             <input type="number" id="price-vip4" class="vip-input" value="5000">
                         </div>
                     </div>
+                    <button class="btn-vip-update" onclick="updateVipPackage('VIP 4', 'price-vip4')">
+                        <i class="fas fa-save"></i> আপডেট করুন
+                    </button>
+                </div>
 
-                    <div class="input-wrapper">
-                        <label>কাজের কমিশন (Task Commission)</label>
-                        <div class="vip-input-group">
-                            <span class="vip-input-prefix">%</span>
-                            <input type="number" id="comm-vip4" class="vip-input" value="20">
+                <!-- VIP 5 -->
+                <div class="vip-card">
+                    <div class="vip-card-header">
+                        <div class="vip-icon"><i class="fas fa-medal"></i></div>
+                        <div class="vip-title-area">
+                            <h3>VIP 5</h3>
+                            <p>ডায়মন্ড ভিআইপি প্যাকেজ</p>
                         </div>
                     </div>
-                    
-                    <button class="btn-vip-update" onclick="updateVipPackage('VIP 4', 'price-vip4', 'comm-vip4')">
+                    <div class="input-wrapper">
+                        <label>প্যাকেজের দাম (Price)</label>
+                        <div class="vip-input-group">
+                            <span class="vip-input-prefix">৳</span>
+                            <input type="number" id="price-vip5" class="vip-input" value="10000">
+                        </div>
+                    </div>
+                    <button class="btn-vip-update" onclick="updateVipPackage('VIP 5', 'price-vip5')">
+                        <i class="fas fa-save"></i> আপডেট করুন
+                    </button>
+                </div>
+
+                <!-- VIP 6 -->
+                <div class="vip-card">
+                    <div class="vip-card-header">
+                        <div class="vip-icon"><i class="fas fa-trophy"></i></div>
+                        <div class="vip-title-area">
+                            <h3>VIP 6</h3>
+                            <p>এলিট ভিআইপি প্যাকেজ</p>
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>প্যাকেজের দাম (Price)</label>
+                        <div class="vip-input-group">
+                            <span class="vip-input-prefix">৳</span>
+                            <input type="number" id="price-vip6" class="vip-input" value="15000">
+                        </div>
+                    </div>
+                    <button class="btn-vip-update" onclick="updateVipPackage('VIP 6', 'price-vip6')">
+                        <i class="fas fa-save"></i> আপডেট করুন
+                    </button>
+                </div>
+
+                <!-- VIP 7 -->
+                <div class="vip-card">
+                    <div class="vip-card-header">
+                        <div class="vip-icon"><i class="fas fa-chess-king"></i></div>
+                        <div class="vip-title-area">
+                            <h3>VIP 7</h3>
+                            <p>মাস্টার ভিআইপি প্যাকেজ</p>
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>প্যাকেজের দাম (Price)</label>
+                        <div class="vip-input-group">
+                            <span class="vip-input-prefix">৳</span>
+                            <input type="number" id="price-vip7" class="vip-input" value="20000">
+                        </div>
+                    </div>
+                    <button class="btn-vip-update" onclick="updateVipPackage('VIP 7', 'price-vip7')">
+                        <i class="fas fa-save"></i> আপডেট করুন
+                    </button>
+                </div>
+
+                <!-- VIP 8 -->
+                <div class="vip-card">
+                    <div class="vip-card-header">
+                        <div class="vip-icon"><i class="fas fa-star-of-david"></i></div>
+                        <div class="vip-title-area">
+                            <h3>VIP 8</h3>
+                            <p>গ্র্যান্ড ভিআইপি প্যাকেজ</p>
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>প্যাকেজের দাম (Price)</label>
+                        <div class="vip-input-group">
+                            <span class="vip-input-prefix">৳</span>
+                            <input type="number" id="price-vip8" class="vip-input" value="25000">
+                        </div>
+                    </div>
+                    <button class="btn-vip-update" onclick="updateVipPackage('VIP 8', 'price-vip8')">
+                        <i class="fas fa-save"></i> আপডেট করুন
+                    </button>
+                </div>
+
+                <!-- VIP 9 -->
+                <div class="vip-card">
+                    <div class="vip-card-header">
+                        <div class="vip-icon"><i class="fas fa-dragon"></i></div>
+                        <div class="vip-title-area">
+                            <h3>VIP 9</h3>
+                            <p>লেজেন্ড ভিআইপি প্যাকেজ</p>
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>প্যাকেজের দাম (Price)</label>
+                        <div class="vip-input-group">
+                            <span class="vip-input-prefix">৳</span>
+                            <input type="number" id="price-vip9" class="vip-input" value="30000">
+                        </div>
+                    </div>
+                    <button class="btn-vip-update" onclick="updateVipPackage('VIP 9', 'price-vip9')">
+                        <i class="fas fa-save"></i> আপডেট করুন
+                    </button>
+                </div>
+
+                <!-- VIP 10 -->
+                <div class="vip-card">
+                    <div class="vip-card-header">
+                        <div class="vip-icon"><i class="fas fa-sun"></i></div>
+                        <div class="vip-title-area">
+                            <h3>VIP 10</h3>
+                            <p>সুপ্রিম ভিআইপি প্যাকেজ</p>
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>প্যাকেজের দাম (Price)</label>
+                        <div class="vip-input-group">
+                            <span class="vip-input-prefix">৳</span>
+                            <input type="number" id="price-vip10" class="vip-input" value="50000">
+                        </div>
+                    </div>
+                    <button class="btn-vip-update" onclick="updateVipPackage('VIP 10', 'price-vip10')">
                         <i class="fas fa-save"></i> আপডেট করুন
                     </button>
                 </div>
@@ -466,17 +553,16 @@
             setTimeout(() => { toast.classList.remove("show"); }, 3000);
         }
 
-        // VIP প্যাকেজ আপডেট ফাংশন
-        function updateVipPackage(vipLevel, priceId, commId) {
+        // VIP প্যাকেজ আপডেট ফাংশন (শুধু প্রাইস)
+        function updateVipPackage(vipLevel, priceId) {
             const price = document.getElementById(priceId).value;
-            const comm = document.getElementById(commId).value;
             
-            if (price === "" || price <= 0 || comm === "" || comm < 0) {
-                alert("দয়া করে সঠিক দাম এবং কমিশন প্রদান করুন!");
+            if (price === "" || price <= 0) {
+                alert("দয়া করে সঠিক দাম প্রদান করুন!");
                 return;
             }
 
-            showToast(`${vipLevel} এর দাম ৳${price} এবং কমিশন ${comm}% সেভ হয়েছে!`);
+            showToast(`${vipLevel} এর দাম ৳${price} সফলভাবে সেভ হয়েছে!`);
         }
 
         document.getElementById("adminLogout").addEventListener("click", () => {
