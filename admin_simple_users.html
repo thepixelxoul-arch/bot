@@ -214,19 +214,22 @@
             padding: 6px 12px; border-radius: 20px; font-weight: 900; border: 1px dashed var(--main-pink);
         }
 
-        /* অ্যাকশন বাটন */
-        .action-btns { display: flex; gap: 8px; }
+        /* অ্যাকশন বাটন (Add, Cut, Ban) */
+        .action-btns { display: flex; gap: 8px; flex-wrap: wrap; }
         
         .btn-action {
             padding: 8px 12px; border-radius: 6px; border: none; cursor: pointer;
-            font-size: 13px; font-weight: bold; transition: 0.2s; display: flex; align-items: center; gap: 5px;
+            font-size: 12px; font-weight: bold; transition: 0.2s; display: flex; align-items: center; gap: 5px;
         }
         
-        .btn-edit { background: var(--main-white); color: var(--main-pink); border: 1.5px solid var(--main-pink); }
-        .btn-edit:hover { background: var(--main-pink); color: white; }
+        .btn-add { background: var(--main-pink); color: var(--main-white); }
+        .btn-add:hover { background: #b0124c; box-shadow: 0 2px 8px rgba(226, 0, 90, 0.3); }
         
-        .btn-ban { background: #ffe0e9; color: #e74c3c; border: 1px solid #e74c3c; }
-        .btn-ban:hover { background: #e74c3c; color: white; }
+        .btn-cut { background: var(--main-white); color: var(--main-pink); border: 1.5px solid var(--main-pink); }
+        .btn-cut:hover { background: var(--pink-hover); }
+        
+        .btn-ban { background: var(--pink-transparent); color: var(--main-pink); border: 1px dashed var(--main-pink); }
+        .btn-ban:hover { background: var(--main-pink); color: white; }
 
         /* পপ-আপ (Modal) ডিজাইন */
         .modal {
@@ -288,24 +291,24 @@
     <div id="editModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
-            <div class="modal-title"><i class="fas fa-wallet"></i> ব্যালেন্স আপডেট করুন</div>
+            <div class="modal-title" id="modalTitleText"><i class="fas fa-wallet"></i> ব্যালেন্স আপডেট করুন</div>
             
             <div style="font-size: 14px; color: var(--text-grey); margin-bottom: 15px; font-weight: bold;">
                 ইউজার আইডি: <span id="modalUserId" style="color: var(--main-pink);"></span>
             </div>
 
             <div class="input-group">
-                <label>নতুন ব্যালেন্স (৳):</label>
-                <input type="number" id="newBalanceInput" class="modal-input" placeholder="0.00">
+                <label id="inputLabel">টাকার পরিমাণ (৳):</label>
+                <input type="number" id="balanceInput" class="modal-input" placeholder="0.00">
             </div>
             
-            <button class="btn-save-modal" onclick="saveBalance()">
-                <i class="fas fa-save"></i> সেভ করুন
+            <button class="btn-save-modal" id="modalActionBtn" onclick="saveBalance()">
+                <i class="fas fa-save"></i> নিশ্চিত করুন
             </button>
         </div>
     </div>
 
-    <!-- সাইডবার (History অপশনসহ) -->
+    <!-- সাইডবার -->
     <aside class="sidebar">
         <div class="sidebar-header">
             <h2><i class="fas fa-paper-plane"></i> Send bKash</h2>
@@ -378,8 +381,9 @@
                                 <td>২৫ আগস্ট, ২০২৬</td>
                                 <td>
                                     <div class="action-btns">
-                                        <button class="btn-action btn-edit" onclick="openEditModal('T9KZBTUBR1', '150', 'bal-1')"><i class="fas fa-pen"></i> এডিট</button>
-                                        <button class="btn-action btn-ban" onclick="banUser('user-row-1')"><i class="fas fa-ban"></i> ব্যান</button>
+                                        <button class="btn-action btn-add" onclick="openBalanceModal('T9KZBTUBR1', 'bal-1', 'add')"><i class="fas fa-plus"></i> Add</button>
+                                        <button class="btn-action btn-cut" onclick="openBalanceModal('T9KZBTUBR1', 'bal-1', 'cut')"><i class="fas fa-minus"></i> Cut</button>
+                                        <button class="btn-action btn-ban" onclick="banUser('user-row-1')"><i class="fas fa-ban"></i> Ban</button>
                                     </div>
                                 </td>
                             </tr>
@@ -397,8 +401,9 @@
                                 <td>২৬ আগস্ট, ২০২৬</td>
                                 <td>
                                     <div class="action-btns">
-                                        <button class="btn-action btn-edit" onclick="openEditModal('M2LKBTYYY5', '320.50', 'bal-2')"><i class="fas fa-pen"></i> এডিট</button>
-                                        <button class="btn-action btn-ban" onclick="banUser('user-row-2')"><i class="fas fa-ban"></i> ব্যান</button>
+                                        <button class="btn-action btn-add" onclick="openBalanceModal('M2LKBTYYY5', 'bal-2', 'add')"><i class="fas fa-plus"></i> Add</button>
+                                        <button class="btn-action btn-cut" onclick="openBalanceModal('M2LKBTYYY5', 'bal-2', 'cut')"><i class="fas fa-minus"></i> Cut</button>
+                                        <button class="btn-action btn-ban" onclick="banUser('user-row-2')"><i class="fas fa-ban"></i> Ban</button>
                                     </div>
                                 </td>
                             </tr>
@@ -416,8 +421,9 @@
                                 <td>২৮ আগস্ট, ২০২৬</td>
                                 <td>
                                     <div class="action-btns">
-                                        <button class="btn-action btn-edit" onclick="openEditModal('X7ABCTUBR9', '45', 'bal-3')"><i class="fas fa-pen"></i> এডিট</button>
-                                        <button class="btn-action btn-ban" onclick="banUser('user-row-3')"><i class="fas fa-ban"></i> ব্যান</button>
+                                        <button class="btn-action btn-add" onclick="openBalanceModal('X7ABCTUBR9', 'bal-3', 'add')"><i class="fas fa-plus"></i> Add</button>
+                                        <button class="btn-action btn-cut" onclick="openBalanceModal('X7ABCTUBR9', 'bal-3', 'cut')"><i class="fas fa-minus"></i> Cut</button>
+                                        <button class="btn-action btn-ban" onclick="banUser('user-row-3')"><i class="fas fa-ban"></i> Ban</button>
                                     </div>
                                 </td>
                             </tr>
@@ -432,12 +438,35 @@
 
     <script>
         let currentTargetId = "";
+        let currentAction = "";
+        let currentBalance = 0;
 
         // পপ-আপ ওপেন করা
-        function openEditModal(userId, currentBal, targetBalId) {
+        function openBalanceModal(userId, targetBalId, action) {
             document.getElementById('modalUserId').innerText = userId;
-            document.getElementById('newBalanceInput').value = currentBal;
+            document.getElementById('balanceInput').value = ""; // আগের লেখা ক্লিয়ার
+            
             currentTargetId = targetBalId;
+            currentAction = action;
+
+            // বর্তমান ব্যালেন্স DOM থেকে তুলে আনা
+            let balText = document.getElementById(targetBalId).innerText;
+            currentBalance = parseFloat(balText.replace(/[^\d.-]/g, '')); // "৳ ১৫০.০০" থেকে 150.00 বের করা
+
+            const modalTitle = document.getElementById('modalTitleText');
+            const modalBtn = document.getElementById('modalActionBtn');
+            const inputLabel = document.getElementById('inputLabel');
+
+            if(action === 'add') {
+                modalTitle.innerHTML = '<i class="fas fa-plus-circle"></i> ব্যালেন্স যোগ করুন';
+                inputLabel.innerText = "কত টাকা যোগ করতে চান (৳):";
+                modalBtn.innerHTML = '<i class="fas fa-plus"></i> ব্যালেন্স যোগ করুন';
+            } else {
+                modalTitle.innerHTML = '<i class="fas fa-minus-circle"></i> ব্যালেন্স কর্তন করুন';
+                inputLabel.innerText = "কত টাকা কাটতে চান (৳):";
+                modalBtn.innerHTML = '<i class="fas fa-minus"></i> ব্যালেন্স কাটুন';
+            }
+
             document.getElementById('editModal').classList.add('show');
         }
 
@@ -446,21 +475,32 @@
             document.getElementById('editModal').classList.remove('show');
         }
 
-        // ব্যালেন্স সেভ করা
+        // ব্যালেন্স সেভ (যোগ বা বিয়োগ) করা
         function saveBalance() {
-            const newBal = document.getElementById('newBalanceInput').value;
-            if(newBal === "") {
-                alert("দয়া করে ব্যালেন্স লিখুন!");
+            const inputVal = parseFloat(document.getElementById('balanceInput').value);
+            
+            if(isNaN(inputVal) || inputVal <= 0) {
+                alert("দয়া করে সঠিক টাকার পরিমাণ লিখুন!");
                 return;
             }
 
-            // ব্যালেন্স আপডেট করা
-            document.getElementById(currentTargetId).innerText = `৳ ${newBal}`;
+            let newBal = 0;
+            const toast = document.getElementById("toastBox");
+
+            if(currentAction === 'add') {
+                newBal = currentBalance + inputVal;
+                document.getElementById("toastText").innerText = "ব্যালেন্স সফলভাবে যোগ করা হয়েছে!";
+            } else {
+                newBal = currentBalance - inputVal;
+                if(newBal < 0) newBal = 0; // ব্যালেন্স যেন মাইনাস না হয়
+                document.getElementById("toastText").innerText = "ব্যালেন্স সফলভাবে কর্তন করা হয়েছে!";
+            }
+
+            // নতুন ব্যালেন্স টেবিলে আপডেট করা
+            document.getElementById(currentTargetId).innerText = `৳ ${newBal.toFixed(2)}`;
             closeModal();
 
             // টোস্ট মেসেজ দেখানো
-            const toast = document.getElementById("toastBox");
-            document.getElementById("toastText").innerText = "ইউজারের ব্যালেন্স সফলভাবে আপডেট হয়েছে!";
             toast.classList.add("show");
             setTimeout(() => { toast.classList.remove("show"); }, 3000);
         }
