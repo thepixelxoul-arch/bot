@@ -8,13 +8,12 @@
     
     <style>
         :root { 
-            --main-pink: #e2005a; 
+            --main-pink: #d81b60; /* ডিপ পিংক */
+            --light-pink: #f8bbd0; /* হালকা পিংক */
+            --bg-pink: #fce4ec; /* ব্যাকগ্রাউন্ড পিংক */
             --main-white: #ffffff; 
-            --text-grey: #888888; 
-            --bg-light: #f4f6f9; 
-            --dark-blue: #2c3e50;
-            --pink-transparent: rgba(226, 0, 90, 0.05);
-            --pink-hover: rgba(226, 0, 90, 0.1);
+            --text-grey: #666666; 
+            --dark-blue: #1A1A1A; 
         }
 
         body { 
@@ -29,11 +28,11 @@
         /* সাইডবার (Sidebar) */
         .sidebar {
             width: 260px;
-            background: linear-gradient(180deg, var(--main-pink), #ff3377);
+            background: var(--main-pink);
             color: white;
             display: flex;
             flex-direction: column;
-            box-shadow: 4px 0 15px rgba(226, 0, 90, 0.2);
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
             transition: 0.3s;
             z-index: 100;
         }
@@ -41,11 +40,11 @@
         .sidebar-header {
             padding: 20px;
             text-align: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
             flex-shrink: 0;
         }
         .sidebar-header h2 { margin: 0; font-size: 22px; font-weight: 900; letter-spacing: 1px;}
-        .sidebar-header p { margin: 5px 0 0 0; font-size: 12px; color: #ffe6f0; }
+        .sidebar-header p { margin: 5px 0 0 0; font-size: 12px; color: #fce4ec; }
 
         .nav-links {
             list-style: none; padding: 0; margin: 10px 0;
@@ -68,7 +67,7 @@
         }
 
         .nav-links a:hover, .nav-links a.active {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(0, 0, 0, 0.1);
             color: white;
             border-left: 4px solid #fff;
         }
@@ -81,7 +80,7 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            background-color: var(--bg-light);
+            background-color: var(--main-white);
         }
 
         /* টপবার */
@@ -91,7 +90,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-bottom: 1px solid #eaeaea; 
             z-index: 10;
         }
 
@@ -100,7 +99,7 @@
         .admin-profile { display: flex; align-items: center; gap: 15px; }
         
         .logout-btn {
-            background-color: var(--pink-hover); color: var(--main-pink);
+            background-color: var(--bg-pink); color: var(--main-pink);
             border: none; padding: 10px 20px; border-radius: 8px;
             cursor: pointer; font-weight: bold; transition: 0.2s;
             display: flex; align-items: center; gap: 8px; font-size: 14px;
@@ -112,6 +111,7 @@
             padding: 30px;
             overflow-y: auto;
             flex-grow: 1;
+            background-color: var(--bg-pink);
         }
 
         /* স্ট্যাটাস বক্স */
@@ -125,20 +125,20 @@
         .stat-card {
             background: var(--main-white); padding: 20px; border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.04); display: flex; align-items: center; gap: 15px;
-            transition: 0.3s; border: 1px solid #eaeaea;
+            transition: 0.3s; border: 1px solid var(--light-pink);
         }
         
         .stat-card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(226, 0, 90, 0.1);
+            box-shadow: 0 8px 20px rgba(216, 27, 96, 0.15);
             border-color: var(--main-pink);
         }
 
         .stat-icon {
             width: 55px; height: 55px; border-radius: 12px; 
-            background: linear-gradient(135deg, var(--main-pink), #ff3377); color: white;
+            background-color: var(--main-pink); color: white;
             display: flex; align-items: center; justify-content: center; font-size: 22px;
-            flex-shrink: 0; box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);
+            flex-shrink: 0;
         }
 
         .stat-info h3 { margin: 0 0 4px 0; font-size: 22px; color: var(--dark-blue); font-weight: 900; }
@@ -150,20 +150,27 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
+            background-color: var(--main-pink);
+            padding: 15px 25px;
+            border-radius: 8px;
         }
 
         .section-title {
-            font-size: 18px; font-weight: 900; color: var(--dark-blue);
-            display: flex; align-items: center; gap: 10px; margin: 0;
+            color: white;
+            font-size: 18px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0;
         }
-        .section-title i { color: var(--main-pink); }
 
         .btn-history {
-            background: var(--pink-transparent);
+            background: white;
             color: var(--main-pink);
-            border: 1.5px solid var(--main-pink);
+            border: none;
             padding: 8px 16px;
-            border-radius: 8px;
+            border-radius: 6px;
             font-size: 13px;
             font-weight: 900;
             cursor: pointer;
@@ -174,9 +181,8 @@
         }
 
         .btn-history:hover {
-            background: var(--main-pink);
-            color: white;
-            box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);
+            background: var(--bg-pink);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         /* প্রোডাক্ট গ্রিড স্টাইল */
@@ -188,25 +194,24 @@
         }
 
         .product-card {
-            background: var(--main-white);
-            border: 1px solid #eaeaea;
+            background: #fff;
+            border: 1px solid var(--light-pink);
             border-radius: 12px; 
             padding: 20px; 
             display: flex;
             flex-direction: column;
             transition: box-shadow 0.3s, transform 0.3s;
-            border-top: 4px solid var(--main-pink);
         }
 
         .product-card:hover {
-            box-shadow: 0 8px 25px rgba(226, 0, 90, 0.1);
+            box-shadow: 0 8px 25px rgba(216, 27, 96, 0.15);
             transform: translateY(-3px);
         }
 
         /* কার্ডের লোগো বক্স */
         .product-img {
             height: 100px; 
-            background-color: var(--pink-transparent);
+            background-color: var(--bg-pink);
             color: var(--main-pink);
             border-radius: 8px;
             display: flex;
@@ -225,7 +230,7 @@
 
         .product-desc {
             font-size: 13px;
-            color: var(--text-grey);
+            color: #555;
             line-height: 1.5;
             margin: 0 0 12px 0;
             flex-grow: 1;
@@ -234,7 +239,7 @@
         .lbl-pink { color: var(--main-pink); font-weight: bold; font-size: 12px;}
         .val-text { color: var(--dark-blue); font-weight: 900;}
 
-        /* স্ট্যাটাস ব্যাজ */
+        /* স্ট্যাটাস ব্যাজ (ডটেড পিংক বর্ডার) */
         .status-box {
             width: 100%;
             padding: 8px 0; 
@@ -244,13 +249,11 @@
             font-size: 13px; 
             margin-bottom: 15px;
             box-sizing: border-box;
-        }
-        
-        .status-pending { 
-            background-color: var(--pink-transparent); 
+            background-color: var(--bg-pink); 
             color: var(--main-pink); 
-            border: 1.5px dashed var(--main-pink); 
+            border: 1.5px dashed var(--main-pink);
         }
+
         .status-rejected { 
             background-color: var(--main-pink); 
             color: white; 
@@ -262,10 +265,10 @@
             width: 100%;
         }
 
-        /* View Details বাটন (পুরো জায়গা নেবে) */
+        /* View Details বাটন */
         .btn-view-details {
             width: 100%;
-            background: var(--main-white);
+            background: white;
             border: 1.5px solid var(--main-pink);
             border-radius: 6px;
             padding: 10px; 
@@ -278,7 +281,7 @@
         }
 
         .btn-view-details:hover {
-            background: var(--pink-hover);
+            background: var(--bg-pink);
         }
 
         /* পপ-আপ (Modal) ডিজাইন */
@@ -290,7 +293,7 @@
         .modal.show { display: flex; opacity: 1; }
         
         .modal-content {
-            background-color: var(--main-white); padding: 30px; border-radius: 12px;
+            background-color: #fff; padding: 30px; border-radius: 12px;
             width: 90%; max-width: 420px; box-shadow: 0 10px 40px rgba(0,0,0,0.3);
             transform: translateY(20px); transition: transform 0.3s ease; position: relative;
             border-top: 5px solid var(--main-pink);
@@ -299,7 +302,7 @@
 
         .close-btn { 
             position: absolute; top: 15px; right: 20px; font-size: 24px; 
-            cursor: pointer; color: #aaa; transition: 0.2s; 
+            cursor: pointer; color: var(--light-pink); transition: 0.2s; 
         }
         .close-btn:hover { color: var(--main-pink); }
 
@@ -307,12 +310,12 @@
         .modal-title i { color: var(--main-pink); }
 
         .detail-row { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 14px; }
-        .detail-row span.label { color: var(--text-grey); font-weight: bold; }
+        .detail-row span.label { color: #888; font-weight: bold; }
         .detail-row span.value { color: var(--dark-blue); font-weight: bold; text-align: right; }
         
         /* পপ-আপের ডটেড ডিটেইলস বক্স */
         .modal-details-box {
-            background-color: var(--pink-transparent);
+            background-color: var(--bg-pink);
             color: var(--dark-blue);
             border: 1.5px dashed var(--main-pink);
             padding: 15px;
@@ -341,9 +344,9 @@
         .modal-actions button:hover { transform: translateY(-2px); }
         
         /* Modal Buttons */
-        .btn-accept { background: var(--main-pink); color: var(--main-white);}
-        .btn-reject-modal { background: var(--main-white); color: var(--main-pink); border: 1.5px solid var(--main-pink); }
-        .btn-reject-modal:hover { background: var(--pink-hover); }
+        .btn-accept { background: var(--main-pink); color: white;}
+        .btn-reject-modal { background: white; color: var(--main-pink); border: 1.5px solid var(--main-pink); }
+        .btn-reject-modal:hover { background: var(--bg-pink); }
 
         /* টোস্ট মেসেজ */
         .toast-msg {
@@ -399,7 +402,8 @@
             <p>অ্যাডমিন কন্ট্রোল প্যানেল</p>
         </div>
         <ul class="nav-links">
-            <li><a href="admin.html" class="nav-link active"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
+            <li><a href="admin_dashboard.html" class="nav-link active"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
+            <li><a href="admin_history.html" class="nav-link"><i class="fas fa-history"></i> কাজের হিস্ট্রি</a></li>
             <li><a href="admin_simple_users.html" class="nav-link"><i class="fas fa-user"></i> সাধারণ ইউজার</a></li>
             <li><a href="admin_vip_users.html" class="nav-link"><i class="fas fa-user-tie"></i> VIP ইউজার</a></li>
             <li><a href="admin_withdraw.html" class="nav-link"><i class="fas fa-file-invoice-dollar"></i> উইথড্র রিকোয়েস্ট</a></li>
@@ -447,7 +451,7 @@
             <!-- হেডার বার এবং হিস্ট্রি বাটন -->
             <div class="section-header-wrapper">
                 <div class="section-title">
-                    <i class="fas fa-history"></i> সাম্প্রতিক জমা দেওয়া কাজগুলো
+                    <i class="fas fa-history" style="color: white;"></i> সাম্প্রতিক জমা দেওয়া কাজগুলো
                 </div>
                 <button class="btn-history" onclick="window.location.href='admin_history.html'">
                     <i class="fas fa-list-alt"></i> History
