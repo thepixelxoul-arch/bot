@@ -8,12 +8,14 @@
     
     <style>
         :root { 
-            --main-pink: #d81b60; /* ডিপ পিংক */
-            --light-pink: #f8bbd0; /* হালকা পিংক (বর্ডারের জন্য) */
-            --bg-pink: #fce4ec; /* ব্যাকগ্রাউন্ড পিংক */
+            /* আপনার ওয়েবসাইটের অরিজিনাল কালার কোড */
+            --main-pink: #e2005a; 
             --main-white: #ffffff; 
-            --text-grey: #666666; 
-            --dark-blue: #1A1A1A; 
+            --text-grey: #888888; 
+            --bg-light: #f4f6f9; 
+            --dark-blue: #2c3e50;
+            --pink-transparent: rgba(226, 0, 90, 0.05); /* হালকা পিংক ব্যাকগ্রাউন্ডের জন্য */
+            --pink-hover: rgba(226, 0, 90, 0.1);
         }
 
         body { 
@@ -28,11 +30,11 @@
         /* সাইডবার (Sidebar) */
         .sidebar {
             width: 260px;
-            background: var(--main-pink);
+            background: linear-gradient(180deg, var(--main-pink), #ff3377);
             color: white;
             display: flex;
             flex-direction: column;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            box-shadow: 4px 0 15px rgba(226, 0, 90, 0.2);
             transition: 0.3s;
             z-index: 100;
         }
@@ -40,11 +42,11 @@
         .sidebar-header {
             padding: 20px;
             text-align: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             flex-shrink: 0;
         }
         .sidebar-header h2 { margin: 0; font-size: 22px; font-weight: 900; letter-spacing: 1px;}
-        .sidebar-header p { margin: 5px 0 0 0; font-size: 12px; color: #fce4ec; }
+        .sidebar-header p { margin: 5px 0 0 0; font-size: 12px; color: #ffe6f0; }
 
         .nav-links {
             list-style: none; padding: 0; margin: 10px 0;
@@ -67,7 +69,7 @@
         }
 
         .nav-links a:hover, .nav-links a.active {
-            background-color: rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.1);
             color: white;
             border-left: 4px solid #fff;
         }
@@ -80,7 +82,7 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            background-color: var(--main-white); /* ব্যাকগ্রাউন্ড সাদা করা হয়েছে */
+            background-color: var(--bg-light); /* অরিজিনাল লাইট গ্রে/সাদা */
         }
 
         /* টপবার */
@@ -90,7 +92,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #eaeaea; /* শ্যাডোর বদলে হালকা বর্ডার */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             z-index: 10;
         }
 
@@ -99,7 +101,7 @@
         .admin-profile { display: flex; align-items: center; gap: 15px; }
         
         .logout-btn {
-            background-color: var(--bg-pink); color: var(--main-pink);
+            background-color: var(--pink-hover); color: var(--main-pink);
             border: none; padding: 10px 20px; border-radius: 8px;
             cursor: pointer; font-weight: bold; transition: 0.2s;
             display: flex; align-items: center; gap: 8px; font-size: 14px;
@@ -111,7 +113,6 @@
             padding: 30px;
             overflow-y: auto;
             flex-grow: 1;
-            background-color: var(--bg-pink); /* ভেতরের বডির ব্যাকগ্রাউন্ড হালকা পিংক */
         }
 
         /* স্ট্যাটাস বক্স */
@@ -125,20 +126,20 @@
         .stat-card {
             background: var(--main-white); padding: 20px; border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.04); display: flex; align-items: center; gap: 15px;
-            transition: 0.3s; border: 1px solid var(--light-pink);
+            transition: 0.3s; border: 1px solid #eaeaea;
         }
         
         .stat-card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(216, 27, 96, 0.15);
+            box-shadow: 0 8px 20px rgba(226, 0, 90, 0.1);
             border-color: var(--main-pink);
         }
 
         .stat-icon {
             width: 55px; height: 55px; border-radius: 12px; 
-            background-color: var(--main-pink); color: white;
+            background: linear-gradient(135deg, var(--main-pink), #ff3377); color: white;
             display: flex; align-items: center; justify-content: center; font-size: 22px;
-            flex-shrink: 0;
+            flex-shrink: 0; box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);
         }
 
         .stat-info h3 { margin: 0 0 4px 0; font-size: 22px; color: var(--dark-blue); font-weight: 900; }
@@ -146,17 +147,10 @@
 
         /* সেকশন হেডার */
         .section-title {
-            background-color: var(--main-pink);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: 900;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            font-size: 18px; font-weight: 900; color: var(--dark-blue);
+            margin-bottom: 20px; display: flex; align-items: center; gap: 10px;
         }
+        .section-title i { color: var(--main-pink); }
 
         /* প্রোডাক্ট গ্রিড স্টাইল */
         .product-grid {
@@ -167,24 +161,25 @@
         }
 
         .product-card {
-            background: #fff;
-            border: 1px solid var(--light-pink);
+            background: var(--main-white);
+            border: 1px solid #eaeaea;
             border-radius: 12px; 
             padding: 20px; 
             display: flex;
             flex-direction: column;
             transition: box-shadow 0.3s, transform 0.3s;
+            border-top: 4px solid var(--main-pink);
         }
 
         .product-card:hover {
-            box-shadow: 0 8px 25px rgba(216, 27, 96, 0.15);
+            box-shadow: 0 8px 25px rgba(226, 0, 90, 0.1);
             transform: translateY(-3px);
         }
 
         /* কার্ডের লোগো বক্স */
         .product-img {
             height: 100px; 
-            background-color: var(--bg-pink);
+            background-color: var(--pink-transparent);
             color: var(--main-pink);
             border-radius: 8px;
             display: flex;
@@ -203,7 +198,7 @@
 
         .product-desc {
             font-size: 13px;
-            color: #555;
+            color: var(--text-grey);
             line-height: 1.5;
             margin: 0 0 12px 0;
             flex-grow: 1;
@@ -212,7 +207,7 @@
         .lbl-pink { color: var(--main-pink); font-weight: bold; font-size: 12px;}
         .val-text { color: var(--dark-blue); font-weight: 900;}
 
-        /* স্ট্যাটাস ব্যাজ (আপনার স্ক্রিনশটের মতো ডটেড পিংক) */
+        /* স্ট্যাটাস ব্যাজ (অরিজিনাল পিংক ডটেড বর্ডার) */
         .status-box {
             width: 100%;
             padding: 8px 0; 
@@ -222,11 +217,13 @@
             font-size: 13px; 
             margin-bottom: 15px;
             box-sizing: border-box;
-            background-color: var(--bg-pink); 
-            color: var(--main-pink); 
-            border: 1.5px dashed var(--main-pink);
         }
-
+        
+        .status-pending { 
+            background-color: var(--pink-transparent); 
+            color: var(--main-pink); 
+            border: 1.5px dashed var(--main-pink); 
+        }
         .status-rejected { 
             background-color: var(--main-pink); 
             color: white; 
@@ -242,7 +239,7 @@
         /* View Details বাটন */
         .btn-view-details {
             flex-grow: 1;
-            background: white;
+            background: var(--main-white);
             border: 1.5px solid var(--main-pink);
             border-radius: 6px;
             padding: 10px; 
@@ -255,10 +252,10 @@
         }
 
         .btn-view-details:hover {
-            background: var(--bg-pink);
+            background: var(--pink-hover);
         }
 
-        /* Approve বাটন (আপনার স্ক্রিনশটের মতো পিংক) */
+        /* Approve বাটন (সম্পূর্ণ পিংক) */
         .btn-cart {
             background: var(--main-pink);
             border: none;
@@ -271,7 +268,7 @@
             display: flex; align-items: center; justify-content: center;
         }
 
-        .btn-cart:hover { background: #b0124c; transform: translateY(-2px); }
+        .btn-cart:hover { opacity: 0.9; transform: translateY(-2px); }
 
         /* পপ-আপ (Modal) ডিজাইন */
         .modal {
@@ -282,15 +279,16 @@
         .modal.show { display: flex; opacity: 1; }
         
         .modal-content {
-            background-color: #fff; padding: 30px; border-radius: 12px;
+            background-color: var(--main-white); padding: 30px; border-radius: 12px;
             width: 90%; max-width: 420px; box-shadow: 0 10px 40px rgba(0,0,0,0.3);
             transform: translateY(20px); transition: transform 0.3s ease; position: relative;
+            border-top: 5px solid var(--main-pink);
         }
         .modal.show .modal-content { transform: translateY(0); }
 
         .close-btn { 
             position: absolute; top: 15px; right: 20px; font-size: 24px; 
-            cursor: pointer; color: var(--light-pink); transition: 0.2s; 
+            cursor: pointer; color: #aaa; transition: 0.2s; 
         }
         .close-btn:hover { color: var(--main-pink); }
 
@@ -298,12 +296,12 @@
         .modal-title i { color: var(--main-pink); }
 
         .detail-row { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 14px; }
-        .detail-row span.label { color: #888; font-weight: bold; }
+        .detail-row span.label { color: var(--text-grey); font-weight: bold; }
         .detail-row span.value { color: var(--dark-blue); font-weight: bold; text-align: right; }
         
         /* পপ-আপের ডটেড ডিটেইলস বক্স */
         .modal-details-box {
-            background-color: var(--bg-pink);
+            background-color: var(--pink-transparent);
             color: var(--dark-blue);
             border: 1.5px dashed var(--main-pink);
             padding: 15px;
@@ -314,20 +312,26 @@
             margin-bottom: 20px;
         }
 
-        /* রিজেক্ট রিজন ইনপুট বক্স */
+        /* রিজেক্ট রিজন ইনপুট বক্স (সবসময় দেখাবে) */
+        .reject-reason-container {
+            margin-bottom: 20px;
+        }
+        .reject-reason-container label {
+            display: block; font-size: 13px; font-weight: bold; color: var(--dark-blue); margin-bottom: 8px;
+        }
         .reject-reason-input {
             width: 100%;
-            padding: 10px;
-            border: 1px solid var(--light-pink);
+            padding: 12px;
+            border: 1px solid #eaeaea;
+            background-color: #f8f9fa;
             border-radius: 6px;
             font-size: 13px;
             outline: none;
             box-sizing: border-box;
-            margin-bottom: 20px;
-            display: none; /* ডিফল্টভাবে লুকানো থাকবে */
+            transition: 0.3s;
+            font-family: inherit;
         }
-        .reject-reason-input:focus { border-color: var(--main-pink); }
-        .reject-reason-input.show { display: block; }
+        .reject-reason-input:focus { border-color: var(--main-pink); background-color: #fff; }
 
         .modal-actions { display: flex; gap: 15px; }
         .modal-actions button { 
@@ -337,15 +341,16 @@
         }
         .modal-actions button:hover { transform: translateY(-2px); }
         
-        /* Modal Buttons (স্ক্রিনশটের মতো পিংক) */
-        .btn-accept { background: var(--main-pink); color: white;}
-        .btn-reject-modal { background: var(--bg-pink); color: var(--main-pink); }
+        /* Modal Buttons */
+        .btn-accept { background: var(--main-pink); color: var(--main-white);}
+        .btn-reject-modal { background: var(--main-white); color: var(--main-pink); border: 1.5px solid var(--main-pink); }
+        .btn-reject-modal:hover { background: var(--pink-hover); }
 
         /* টোস্ট মেসেজ */
         .toast-msg {
             visibility: hidden; background-color: var(--main-pink); color: #fff; text-align: center;
             border-radius: 8px; padding: 15px 25px; position: fixed; z-index: 9999; right: 30px; top: 30px;
-            font-size: 14px; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            font-size: 14px; font-weight: bold; box-shadow: 0 4px 15px rgba(226, 0, 90, 0.3);
             opacity: 0; transition: opacity 0.3s, top 0.3s;
         }
         .toast-msg.show { visibility: visible; opacity: 1; top: 50px; }
@@ -370,13 +375,16 @@
                 <span class="value" id="m-time">আজ, ০৩:১৫ PM</span>
             </div>
             
-            <div style="color: #888; font-weight: bold; font-size: 14px; margin-bottom: 8px;">একাউন্ট ডিটেইলস:</div>
+            <div style="color: var(--text-grey); font-weight: bold; font-size: 14px; margin-bottom: 8px;">একাউন্ট ডিটেইলস:</div>
             <div class="modal-details-box" id="m-details">
                 sakib1@gmail.com<br>Pass: sakib@2026
             </div>
 
             <!-- রিজেক্ট করার কারণ লেখার বক্স -->
-            <input type="text" id="rejectReason" class="reject-reason-input" placeholder="রিজেক্ট করার কারণ লিখুন (ঐচ্ছিক)...">
+            <div class="reject-reason-container">
+                <label>রিজেক্ট করার কারণ (ঐচ্ছিক):</label>
+                <input type="text" id="rejectReason" class="reject-reason-input" placeholder="কেন কাজটি রিজেক্ট হলো এখানে লিখুন...">
+            </div>
             
             <div class="modal-actions">
                 <button class="btn-accept" onclick="actionTask('accept')"><i class="fas fa-check"></i> Accept</button>
@@ -545,10 +553,8 @@
             document.getElementById('m-time').innerText = time;
             document.getElementById('m-details').innerHTML = details;
             
-            // রিজেক্ট বক্স হাইড করে রাখা
-            const reasonInput = document.getElementById('rejectReason');
-            reasonInput.classList.remove('show');
-            reasonInput.value = '';
+            // রিজেক্ট বক্স ক্লিয়ার রাখা
+            document.getElementById('rejectReason').value = '';
             
             document.getElementById('taskModal').classList.add('show');
         }
@@ -558,18 +564,11 @@
         }
 
         function actionTask(action, cardId = null) {
+            closeModal();
+            
             const toast = document.getElementById("toastBox");
             const reasonInput = document.getElementById('rejectReason');
 
-            if(action === 'reject' && !reasonInput.classList.contains('show')) {
-                // প্রথমবার Reject এ ক্লিক করলে শুধু রিজন লেখার বক্স দেখাবে
-                reasonInput.classList.add('show');
-                reasonInput.focus();
-                return;
-            }
-
-            closeModal();
-            
             if(action === 'accept') {
                 document.getElementById("toastText").innerText = "কাজটি সফলভাবে Accept করা হয়েছে!";
             } else {
