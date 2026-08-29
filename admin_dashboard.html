@@ -9,9 +9,10 @@
     <style>
         :root { 
             --main-pink: #e2005a; 
+            --light-pink: #ff3377;
             --main-white: #ffffff; 
             --text-grey: #888888; 
-            --bg-light: #f4f6f9; 
+            --bg-light: #ffe0e9; /* পিংক ব্যাকগ্রাউন্ড */
             --dark-blue: #2c3e50;
         }
 
@@ -27,7 +28,7 @@
         /* সাইডবার (Sidebar) */
         .sidebar {
             width: 260px;
-            background: linear-gradient(180deg, var(--main-pink), #ff3377);
+            background: linear-gradient(180deg, var(--main-pink), var(--light-pink));
             color: white;
             display: flex;
             flex-direction: column;
@@ -97,7 +98,7 @@
         .admin-profile { display: flex; align-items: center; gap: 15px; }
         
         .logout-btn {
-            background-color: #ffe0e9; color: var(--main-pink);
+            background-color: #ffb3c6; color: var(--main-pink);
             border: none; padding: 8px 18px; border-radius: 6px;
             cursor: pointer; font-weight: bold; transition: 0.2s;
             display: flex; align-items: center; gap: 8px;
@@ -121,27 +122,48 @@
 
         .stat-card {
             background: var(--main-white); padding: 25px; border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03); display: flex; align-items: center; gap: 20px;
-            border-bottom: 4px solid var(--main-pink);
+            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.05); display: flex; align-items: center; gap: 20px;
+            border-top: 4px solid var(--main-pink);
+            transition: 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(226, 0, 90, 0.15);
         }
 
         .stat-icon {
             width: 60px; height: 60px; border-radius: 12px;
-            background: linear-gradient(135deg, var(--main-pink), #ff3377); color: white;
+            background: linear-gradient(135deg, var(--main-pink), var(--light-pink)); color: white;
             display: flex; align-items: center; justify-content: center; font-size: 24px;
+            box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);
         }
 
-        .stat-info h3 { margin: 0 0 5px 0; font-size: 24px; color: var(--dark-blue); }
+        .stat-info h3 { margin: 0 0 5px 0; font-size: 24px; color: var(--dark-blue); font-weight: 900; }
         .stat-info p { margin: 0; font-size: 13px; color: var(--text-grey); font-weight: bold; }
 
-        /* --- নতুন প্রোডাক্ট গ্রিড স্টাইল (আপনার দেওয়া ছবির মতো) --- */
-        .history-title {
-            font-size: 20px; font-weight: bold; color: var(--dark-blue); margin-bottom: 20px;
+        /* হেডার কন্টেইনার */
+        .card-header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
+            padding: 20px 25px;
+            border-radius: 12px;
+            color: white;
+            box-shadow: 0 5px 15px rgba(226, 0, 90, 0.2);
         }
 
+        .card-header-title {
+            font-size: 20px; font-weight: bold;
+            display: flex; align-items: center; gap: 10px; color: white;
+        }
+
+        /* প্রোডাক্ট গ্রিড স্টাইল */
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
             gap: 20px;
             padding-bottom: 30px;
         }
@@ -149,53 +171,58 @@
         .product-card {
             background: #fff;
             border: 1px solid #e0e0e0;
-            border-radius: 10px;
-            padding: 15px;
+            border-radius: 12px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            transition: box-shadow 0.2s, transform 0.2s;
+            transition: box-shadow 0.3s, transform 0.3s;
+            border-top: 4px solid var(--main-pink);
         }
 
         .product-card:hover {
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 8px 25px rgba(226, 0, 90, 0.15);
             transform: translateY(-3px);
         }
 
-        /* কার্ডের উপরের আইকন (ছবির বদলে) */
         .product-img {
-            height: 140px;
+            height: 120px;
             background-color: #f8f9fa;
-            border-radius: 8px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 60px;
+            font-size: 50px;
             margin-bottom: 15px;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.02);
         }
 
         .product-title {
             font-size: 16px;
-            font-weight: bold;
-            color: #202124;
+            font-weight: 900;
+            color: var(--dark-blue);
             margin: 0 0 8px 0;
         }
 
         .product-desc {
             font-size: 13px;
-            color: #5f6368;
+            color: #555;
             line-height: 1.5;
             margin: 0 0 15px 0;
             flex-grow: 1;
         }
 
-        .product-desc strong { color: #333; }
+        .product-desc strong { color: var(--main-pink); }
 
-        /* ছবির দামের (Price) মতো পেন্ডিং স্ট্যাটাস */
         .product-price {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: bold;
-            color: #188038; /* সবুজ রঙ */
+            color: #d35400; 
+            background: #fff3cd;
+            padding: 5px 10px;
+            border-radius: 6px;
+            display: inline-block;
             margin-bottom: 15px;
+            text-align: center;
         }
 
         .product-actions {
@@ -207,37 +234,40 @@
         /* View Details বাটন */
         .btn-view-details {
             flex-grow: 1;
-            background: transparent;
-            border: 1px solid #dadce0;
-            border-radius: 6px;
+            background: #ffe0e9;
+            border: 1px solid transparent;
+            border-radius: 8px;
             padding: 10px;
             font-size: 13px;
             font-weight: bold;
-            color: #202124;
+            color: var(--main-pink);
             cursor: pointer;
             text-align: center;
             transition: 0.2s;
         }
 
         .btn-view-details:hover {
-            background: #f8f9fa;
+            background: var(--main-pink);
+            color: white;
+            box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);
         }
 
-        /* Cart/Approve বাটন */
+        /* Approve বাটন */
         .btn-cart {
-            background: transparent;
-            border: 1px solid #dadce0;
-            border-radius: 6px;
-            padding: 10px 14px;
-            color: #188038;
+            background: #27ae60;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 15px;
+            color: white;
             cursor: pointer;
             transition: 0.2s;
             font-size: 14px;
+            box-shadow: 0 4px 10px rgba(39, 174, 96, 0.2);
         }
 
         .btn-cart:hover {
-            background: #e6f4ea;
-            border-color: #188038;
+            background: #219653;
+            transform: translateY(-2px);
         }
 
         /* পপ-আপ (Modal) ডিজাইন */
@@ -273,8 +303,8 @@
             font-weight: bold; cursor: pointer; color: white; transition: 0.2s; 
         }
         .modal-actions button:hover { transform: translateY(-2px); }
-        .btn-accept { background: linear-gradient(135deg, #27ae60, #2ecc71); }
-        .btn-reject-modal { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+        .btn-accept { background: linear-gradient(135deg, #27ae60, #2ecc71); box-shadow: 0 4px 10px rgba(39, 174, 96, 0.2);}
+        .btn-reject-modal { background: linear-gradient(135deg, #e74c3c, #c0392b); box-shadow: 0 4px 10px rgba(231, 76, 60, 0.2);}
 
         /* টোস্ট মেসেজ */
         .toast-msg {
@@ -304,9 +334,9 @@
                 <span class="label">সময়:</span>
                 <span class="value" id="m-time">আজ, ০৩:১৫ PM</span>
             </div>
-            <div class="detail-row">
+            <div class="detail-row" style="flex-direction: column; gap: 8px;">
                 <span class="label">একাউন্ট ডিটেইলস:</span>
-                <span class="value" id="m-details" style="color: var(--main-pink); text-align: right;">sakib1@gmail.com<br>Pass: sakib@2026</span>
+                <span class="value" id="m-details" style="color: var(--main-pink); text-align: left; background: #f8f9fa; padding: 10px; border-radius: 8px; border: 1px dashed #ccc;">sakib1@gmail.com<br>Pass: sakib@2026</span>
             </div>
             
             <div class="modal-actions">
@@ -348,6 +378,7 @@
 
         <div class="dashboard-body">
             
+            <!-- স্ট্যাটাস বক্স -->
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-icon"><i class="fas fa-users"></i></div>
@@ -367,13 +398,18 @@
                 </div>
             </div>
 
-            <div class="history-title">সাম্প্রতিক জমা দেওয়া কাজগুলো</div>
+            <!-- হেডার -->
+            <div class="card-header-container">
+                <div class="card-header-title">
+                    <i class="fas fa-history"></i> সাম্প্রতিক জমা দেওয়া কাজগুলো
+                </div>
+            </div>
             
-            <!-- আপনার দেওয়া ছবির ডিজাইনে গ্রিড লেআউট -->
+            <!-- টাস্ক গ্রিড -->
             <div class="product-grid">
                 
                 <!-- জিমেইল কার্ড ১ -->
-                <div class="product-card">
+                <div class="product-card" id="task-card-1">
                     <div class="product-img" style="color: #ea4335;">
                         <i class="fab fa-google"></i>
                     </div>
@@ -382,15 +418,15 @@
                         <strong>ইউজার:</strong> T9KZBTUBR1<br>
                         <strong>ইমেইল:</strong> sakib1@gmail.com
                     </p>
-                    <div class="product-price">Pending (অপেক্ষমান)</div>
+                    <div class="product-price"><i class="fas fa-spinner fa-spin"></i> Pending</div>
                     <div class="product-actions">
                         <button class="btn-view-details" onclick="openModal('Google Account', 'fab fa-google', '#ea4335', 'T9KZBTUBR1', 'আজ, ০৩:১৫ PM', 'sakib1@gmail.com<br>Pass: sakib@2026')">View Details</button>
-                        <button class="btn-cart" title="Approve" onclick="actionTask('accept')"><i class="fas fa-check"></i></button>
+                        <button class="btn-cart" title="Approve" onclick="actionTask('accept', 'task-card-1')"><i class="fas fa-check"></i></button>
                     </div>
                 </div>
 
                 <!-- জিমেইল কার্ড ২ -->
-                <div class="product-card">
+                <div class="product-card" id="task-card-2">
                     <div class="product-img" style="color: #ea4335;">
                         <i class="fab fa-google"></i>
                     </div>
@@ -399,15 +435,15 @@
                         <strong>ইউজার:</strong> T9KZBTUBR1<br>
                         <strong>ইমেইল:</strong> sakib2@gmail.com
                     </p>
-                    <div class="product-price">Pending (অপেক্ষমান)</div>
+                    <div class="product-price"><i class="fas fa-spinner fa-spin"></i> Pending</div>
                     <div class="product-actions">
                         <button class="btn-view-details" onclick="openModal('Google Account', 'fab fa-google', '#ea4335', 'T9KZBTUBR1', 'আজ, ০৩:১৬ PM', 'sakib2@gmail.com<br>Pass: sakib2@2026')">View Details</button>
-                        <button class="btn-cart" title="Approve" onclick="actionTask('accept')"><i class="fas fa-check"></i></button>
+                        <button class="btn-cart" title="Approve" onclick="actionTask('accept', 'task-card-2')"><i class="fas fa-check"></i></button>
                     </div>
                 </div>
 
                 <!-- ইন্সটাগ্রাম কার্ড -->
-                <div class="product-card">
+                <div class="product-card" id="task-card-3">
                     <div class="product-img" style="color: #e1306c;">
                         <i class="fab fa-instagram"></i>
                     </div>
@@ -416,15 +452,15 @@
                         <strong>ইউজার:</strong> X7ABCTUBR9<br>
                         <strong>ইউজারনেম:</strong> insta_salam99
                     </p>
-                    <div class="product-price">Pending (অপেক্ষমান)</div>
+                    <div class="product-price"><i class="fas fa-spinner fa-spin"></i> Pending</div>
                     <div class="product-actions">
                         <button class="btn-view-details" onclick="openModal('Instagram Account', 'fab fa-instagram', '#e1306c', 'X7ABCTUBR9', 'আজ, ০২:৪৫ PM', 'insta_salam99<br>Pass: salam@pass')">View Details</button>
-                        <button class="btn-cart" title="Approve" onclick="actionTask('accept')"><i class="fas fa-check"></i></button>
+                        <button class="btn-cart" title="Approve" onclick="actionTask('accept', 'task-card-3')"><i class="fas fa-check"></i></button>
                     </div>
                 </div>
                 
                 <!-- হোয়াটসঅ্যাপ কার্ড -->
-                <div class="product-card">
+                <div class="product-card" id="task-card-4">
                     <div class="product-img" style="color: #25d366;">
                         <i class="fab fa-whatsapp"></i>
                     </div>
@@ -433,15 +469,15 @@
                         <strong>ইউজার:</strong> M2LKBTYYY5<br>
                         <strong>নম্বর:</strong> +8801711223344
                     </p>
-                    <div class="product-price" style="color:#e74c3c;">Rejected (বাতিল)</div>
+                    <div class="product-price" style="background:#f8d7da; color:#721c24;"><i class="fas fa-times-circle"></i> Rejected</div>
                     <div class="product-actions">
                         <button class="btn-view-details" onclick="openModal('WhatsApp Account', 'fab fa-whatsapp', '#25d366', 'M2LKBTYYY5', 'আজ, ০১:২০ PM', '+8801711223344')">View Details</button>
-                        <button class="btn-cart" title="Approve" onclick="actionTask('accept')"><i class="fas fa-check"></i></button>
+                        <button class="btn-cart" title="Approve" onclick="actionTask('accept', 'task-card-4')"><i class="fas fa-check"></i></button>
                     </div>
                 </div>
 
                 <!-- টেলিগ্রাম কার্ড -->
-                <div class="product-card">
+                <div class="product-card" id="task-card-5">
                     <div class="product-img" style="color: #0088cc;">
                         <i class="fab fa-telegram-plane"></i>
                     </div>
@@ -450,10 +486,10 @@
                         <strong>ইউজার:</strong> A4JKMTUZR8<br>
                         <strong>নম্বর:</strong> +8801999887766
                     </p>
-                    <div class="product-price">Pending (অপেক্ষমান)</div>
+                    <div class="product-price"><i class="fas fa-spinner fa-spin"></i> Pending</div>
                     <div class="product-actions">
                         <button class="btn-view-details" onclick="openModal('Telegram Account', 'fab fa-telegram-plane', '#0088cc', 'A4JKMTUZR8', 'গতকাল, ১১:১০ AM', '+8801999887766')">View Details</button>
-                        <button class="btn-cart" title="Approve" onclick="actionTask('accept')"><i class="fas fa-check"></i></button>
+                        <button class="btn-cart" title="Approve" onclick="actionTask('accept', 'task-card-5')"><i class="fas fa-check"></i></button>
                     </div>
                 </div>
 
@@ -463,6 +499,8 @@
     </main>
 
     <script>
+        let currentCardId = null;
+
         function openModal(taskName, iconClass, iconColor, userId, time, details) {
             document.getElementById('modalTitle').innerHTML = `<i class="${iconClass}" style="color: ${iconColor};"></i> ${taskName}`;
             document.getElementById('m-userId').innerText = userId;
@@ -476,7 +514,7 @@
             document.getElementById('taskModal').classList.remove('show');
         }
 
-        function actionTask(action) {
+        function actionTask(action, cardId = null) {
             closeModal();
             
             const toast = document.getElementById("toastBox");
@@ -490,6 +528,16 @@
 
             toast.classList.add("show");
             setTimeout(() => { toast.classList.remove("show"); }, 2500);
+
+            // যদি কার্ড থেকে ডিরেক্ট ক্লিক করা হয়
+            if(cardId) {
+                const card = document.getElementById(cardId);
+                if(card) {
+                    card.style.opacity = '0';
+                    card.style.transform = 'scale(0.9)';
+                    setTimeout(() => { card.style.display = 'none'; }, 300);
+                }
+            }
         }
 
         document.getElementById("adminLogout").addEventListener("click", () => {
