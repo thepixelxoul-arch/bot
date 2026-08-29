@@ -12,7 +12,7 @@
             --light-pink: #ff3377;
             --main-white: #ffffff; 
             --text-grey: #888888; 
-            --bg-light: #ffe0e9; /* পিংক ব্যাকগ্রাউন্ড */
+            --bg-light: #f4f6f9; /* অন্যান্য পেজের মতো ক্লিন ব্যাকগ্রাউন্ড */
             --dark-blue: #2c3e50;
         }
 
@@ -69,17 +69,18 @@
         .nav-links a:hover, .nav-links a.active {
             background-color: rgba(255, 255, 255, 0.1);
             color: white;
-            border-left: 4px solid #ffcc00;
+            border-left: 4px solid #fff; /* অন্যান্য পেজের মতো সাদা বর্ডার */
         }
 
         .nav-links a i { width: 20px; text-align: center; font-size: 18px; }
 
-        /* মেইন কন্টেন্ট এরিয়া */
+        /* মেইন কন্টেন্ট এরিয়া */
         .main-content {
             flex-grow: 1;
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            background-color: var(--bg-light);
         }
 
         /* টপবার */
@@ -98,8 +99,8 @@
         .admin-profile { display: flex; align-items: center; gap: 15px; }
         
         .logout-btn {
-            background-color: #ffb3c6; color: var(--main-pink);
-            border: none; padding: 8px 18px; border-radius: 6px;
+            background-color: rgba(226, 0, 90, 0.1); color: var(--main-pink);
+            border: none; padding: 8px 18px; border-radius: 8px;
             cursor: pointer; font-weight: bold; transition: 0.2s;
             display: flex; align-items: center; gap: 8px;
         }
@@ -112,38 +113,19 @@
             flex-grow: 1;
         }
 
-        /* হেডার কন্টেইনার */
-        .card-header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
-            padding: 20px 25px;
-            border-radius: 12px;
-            color: white;
-            box-shadow: 0 5px 15px rgba(226, 0, 90, 0.2);
-        }
-
-        .card-header-title {
-            font-size: 20px; font-weight: bold;
-            display: flex; align-items: center; gap: 10px; color: white;
-        }
-
-        .card-header-subtitle { font-size: 13px; color: #ffe0e9; margin-top: 5px; }
-
         /* --- রেফার সেটিং এডিট কার্ড --- */
         .settings-card {
             background: #fff;
             border-radius: 12px;
             padding: 25px;
-            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
             margin-bottom: 30px;
             border-top: 4px solid var(--main-pink);
         }
 
+        /* 'বোনাস ও কমিশন আপডেট করুন' লেখাটি পিংক কালার করা হয়েছে */
         .settings-title {
-            font-size: 18px; font-weight: bold; color: var(--dark-blue);
+            font-size: 18px; font-weight: bold; color: var(--main-pink);
             margin-bottom: 20px; display: flex; align-items: center; gap: 10px;
         }
 
@@ -208,6 +190,7 @@
             background: #fff; border: 1px solid #e0e0e0; border-radius: 12px; padding: 20px;
             display: flex; flex-direction: column; transition: box-shadow 0.2s, transform 0.2s;
             position: relative; border-left: 5px solid var(--main-pink);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
         }
 
         .user-card:hover { box-shadow: 0 8px 25px rgba(226, 0, 90, 0.15); transform: translateY(-3px); }
@@ -221,6 +204,7 @@
             width: 50px; height: 50px; border-radius: 50%;
             background: linear-gradient(135deg, var(--main-pink), var(--light-pink)); color: white;
             display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;
+            box-shadow: 0 3px 8px rgba(226, 0, 90, 0.3);
         }
 
         .user-details h4 { margin: 0; font-size: 18px; color: var(--dark-blue); font-weight: 900;}
@@ -243,7 +227,7 @@
 
         .btn-view-referrals {
             width: 100%; border: none; padding: 12px; border-radius: 8px;
-            background-color: #ffe0e9; color: var(--main-pink); font-weight: bold;
+            background-color: rgba(226, 0, 90, 0.05); color: var(--main-pink); font-weight: bold;
             font-size: 14px; cursor: pointer; transition: 0.2s;
             display: flex; align-items: center; justify-content: center; gap: 6px;
         }
@@ -262,6 +246,7 @@
             width: 90%; max-width: 400px; box-shadow: 0 10px 40px rgba(0,0,0,0.2);
             position: relative; max-height: 80vh; display: flex; flex-direction: column;
             transform: translateY(20px); transition: transform 0.3s ease;
+            border-top: 5px solid var(--main-pink);
         }
         .modal.show .modal-content { transform: translateY(0); }
 
@@ -280,7 +265,7 @@
             overflow-y: auto; max-height: 350px; padding-right: 5px;
         }
         .list-container::-webkit-scrollbar { width: 5px; }
-        .list-container::-webkit-scrollbar-thumb { background: #ffb3c6; border-radius: 10px; }
+        .list-container::-webkit-scrollbar-thumb { background: rgba(226, 0, 90, 0.2); border-radius: 10px; }
 
         .list-item {
             background: #f8f9fa; padding: 12px; border-radius: 8px; margin-bottom: 10px;
@@ -292,9 +277,9 @@
 
         /* টোস্ট মেসেজ */
         .toast-msg {
-            visibility: hidden; background-color: #27ae60; color: #fff; text-align: center;
+            visibility: hidden; background-color: var(--main-pink); color: #fff; text-align: center;
             border-radius: 8px; padding: 15px 25px; position: fixed; z-index: 9999; right: 30px; top: 30px;
-            font-size: 14px; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            font-size: 14px; font-weight: bold; box-shadow: 0 4px 15px rgba(226, 0, 90, 0.3);
             opacity: 0; transition: opacity 0.3s, top 0.3s;
         }
         .toast-msg.show { visibility: visible; opacity: 1; top: 50px; }
@@ -302,7 +287,7 @@
 </head>
 <body>
 
-    <div id="toastBox" class="toast-msg"><i class="fas fa-check-circle"></i> <span id="toastText">আপডেট সফল হয়েছে!</span></div>
+    <div id="toastBox" class="toast-msg"><i class="fas fa-check-circle"></i> <span id="toastText">আপডেট সফল হয়েছে!</span></div>
 
     <!-- রেফার লিস্ট পপ-আপ -->
     <div id="referListModal" class="modal">
@@ -327,7 +312,7 @@
             <li><a href="admin_task_rates.html" class="nav-link"><i class="fas fa-tasks"></i> কাজের রেট</a></li>
             <li><a href="admin_number.html" class="nav-link"><i class="fas fa-sim-card"></i> নাম্বার ম্যানেজমেন্ট</a></li>
             <li><a href="admin_vip_settings.html" class="nav-link"><i class="fas fa-crown"></i> VIP প্যাকেজ সেটিং</a></li>
-            <!-- এই পেজটি এক্টিভ করা হয়েছে -->
+            <!-- এই পেজটি এক্টিভ করা হয়েছে -->
             <li><a href="admin_refer.html" class="nav-link active"><i class="fas fa-user-plus"></i> রেফার সেটিং</a></li>
             <li><a href="admin_notification.html" class="nav-link"><i class="fas fa-bell"></i> নোটিফিকেশন ও নোটিশ</a></li>
             <li><a href="admin_rules.html" class="nav-link"><i class="fas fa-file-alt"></i> কাজের নিয়মাবলী</a></li>
@@ -335,7 +320,7 @@
         </ul>
     </aside>
 
-    <!-- মেইন এরিয়া -->
+    <!-- মেইন এরিয়া -->
     <main class="main-content">
         <header class="topbar">
             <div class="topbar-title">রেফার ম্যানেজমেন্ট</div>
@@ -346,18 +331,9 @@
 
         <div class="dashboard-body">
             
-            <div class="card-header-container">
-                <div>
-                    <div class="card-header-title">
-                        <i class="fas fa-user-plus"></i> গ্লোবাল রেফার সেটিং
-                    </div>
-                    <div class="card-header-subtitle">এখান থেকে প্রতি রেফারের বোনাস এবং কাজের কমিশন রেট সেট করুন।</div>
-                </div>
-            </div>
-
-            <!-- রেফার সেটিং ফর্ম -->
+            <!-- রেফার সেটিং ফর্ম (ওপরের গ্লোবাল রেফার সেটিং বক্সটি রিমুভ করা হয়েছে) -->
             <div class="settings-card">
-                <div class="settings-title"><i class="fas fa-cog" style="color: var(--main-pink);"></i> বোনাস ও কমিশন আপডেট করুন</div>
+                <div class="settings-title"><i class="fas fa-cog"></i> বোনাস ও কমিশন আপডেট করুন</div>
                 
                 <div class="form-grid">
                     <div class="input-group">
@@ -404,11 +380,11 @@
                         </div>
                         <div class="stat-box">
                             <div class="stat-value">৳৩০০</div>
-                            <div class="stat-label">রেফার থেকে আয়</div>
+                            <div class="stat-label">রেফার থেকে আয়</div>
                         </div>
                         <div class="stat-box">
                             <div class="stat-value">৳৪৫</div>
-                            <div class="stat-label">কমিশন আয়</div>
+                            <div class="stat-label">কমিশন আয়</div>
                         </div>
                     </div>
 
@@ -437,11 +413,11 @@
                         </div>
                         <div class="stat-box">
                             <div class="stat-value">৳১৬০</div>
-                            <div class="stat-label">রেফার থেকে আয়</div>
+                            <div class="stat-label">রেফার থেকে আয়</div>
                         </div>
                         <div class="stat-box">
                             <div class="stat-value">৳১২</div>
-                            <div class="stat-label">কমিশন আয়</div>
+                            <div class="stat-label">কমিশন আয়</div>
                         </div>
                     </div>
 
@@ -468,11 +444,11 @@
                         </div>
                         <div class="stat-box">
                             <div class="stat-value">৳৫০০</div>
-                            <div class="stat-label">রেফার থেকে আয়</div>
+                            <div class="stat-label">রেফার থেকে আয়</div>
                         </div>
                         <div class="stat-box">
                             <div class="stat-value">৳১২০</div>
-                            <div class="stat-label">কমিশন আয়</div>
+                            <div class="stat-label">কমিশন আয়</div>
                         </div>
                     </div>
 
@@ -505,11 +481,11 @@
             const comm = document.getElementById("referCommInput").value;
             
             if (bonus === "" || bonus < 0 || comm === "" || comm < 0) {
-                alert("দয়া করে সঠিক বোনাস এবং কমিশন প্রদান করুন!");
+                alert("দয়া করে সঠিক বোনাস এবং কমিশন প্রদান করুন!");
                 return;
             }
 
-            showToast(`সাফল্য! রেফার বোনাস ৳${bonus} এবং কমিশন ${comm}% সেভ হয়েছে।`);
+            showToast(`সাফল্য! রেফার বোনাস ৳${bonus} এবং কমিশন ${comm}% সেভ হয়েছে।`);
         }
 
         // ইউজারের রেফার লিস্ট পপ-আপ
@@ -538,7 +514,7 @@
             document.getElementById('referListModal').classList.remove('show');
         }
 
-        document.getElementById("adminLogout").addEventListener("click", () => {
+        document.getElementById("adminLogout").getElementById?.("click") || document.getElementById("adminLogout").addEventListener("click", () => {
             window.location.href = "login.html"; 
         });
     </script>
