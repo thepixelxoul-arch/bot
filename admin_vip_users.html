@@ -318,11 +318,8 @@
             <p class="modal-subtitle">যে লেভেল সিলেক্ট করবেন, শুধুমাত্র সেই লেভেলের ইউজারদের অ্যাপে Claim অপশনটি চালু হবে।</p>
             
             <div class="bonus-grid">
-                <!-- সব ইউজার বাটন (নতুন) -->
-                <button class="bonus-btn bonus-btn-full active" onclick="selectBonus('all', '10.00', this)">সব ইউজার (All)</button>
-                
                 <!-- VIP বাটনগুলো -->
-                <button class="bonus-btn" onclick="selectBonus('vip1', '15.00', this)">VIP 1</button>
+                <button class="bonus-btn active" onclick="selectBonus('vip1', '15.00', this)">VIP 1</button>
                 <button class="bonus-btn" onclick="selectBonus('vip2', '20.00', this)">VIP 2</button>
                 <button class="bonus-btn" onclick="selectBonus('vip3', '25.00', this)">VIP 3</button>
                 <button class="bonus-btn" onclick="selectBonus('vip4', '30.00', this)">VIP 4</button>
@@ -332,11 +329,14 @@
                 <button class="bonus-btn" onclick="selectBonus('vip8', '80.00', this)">VIP 8</button>
                 <button class="bonus-btn" onclick="selectBonus('vip9', '100.00', this)">VIP 9</button>
                 <button class="bonus-btn bonus-btn-full" onclick="selectBonus('vip10', '150.00', this)">VIP 10</button>
-                <button class="bonus-btn bonus-btn-full" onclick="selectBonus('member', '500.00', this)" style="background-color: var(--dark-blue); color: white; border-color: var(--dark-blue);"><i class="fas fa-star" style="color: #ffcc00;"></i> Send bKash Member</button>
+                
+                <!-- মেম্বার বাটনগুলো (পিংক থিম) -->
+                <button class="bonus-btn bonus-btn-full" onclick="selectBonus('member1', '500.00', this)"><i class="fas fa-star" style="margin-right: 5px;"></i> Send bKash Member 1</button>
+                <button class="bonus-btn bonus-btn-full" onclick="selectBonus('member2', '1000.00', this)"><i class="fas fa-star" style="margin-right: 5px;"></i> Send bKash Member 2</button>
             </div>
 
             <div class="input-group">
-                <input type="text" id="bonusAmountInput" class="modal-input" placeholder="বোনাসের পরিমাণ এখানে অটোমেটিক বসবে..." readonly value="৳ 10.00">
+                <input type="text" id="bonusAmountInput" class="modal-input" placeholder="বোনাসের পরিমাণ এখানে অটোমেটিক বসবে..." readonly value="৳ 15.00">
             </div>
             
             <button class="btn-save-modal" onclick="enableClaim()">
@@ -382,7 +382,6 @@
                 <div class="section-title">
                     <i class="fas fa-user-tie" style="color: white;"></i> সকল VIP ইউজারের তালিকা
                 </div>
-                <!-- বোনাস দিন বাটন যুক্ত করা হয়েছে -->
                 <button class="btn-give-bonus" onclick="openModal('bonusModal')">
                     <i class="fas fa-gift"></i> বোনাস দিন
                 </button>
@@ -543,10 +542,8 @@
             const buttons = document.querySelectorAll('.bonus-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
             
-            // Add active to clicked button (if it's not the dark blue one, that one stays dark blue)
-            if(level !== 'member') {
-                btnElement.classList.add('active');
-            }
+            // Add active to clicked button
+            btnElement.classList.add('active');
 
             // Update Input box
             document.getElementById('bonusAmountInput').value = `৳ ${amount}`;
