@@ -116,7 +116,7 @@
             flex-grow: 1;
         }
 
-        /* সেকশন হেডার */
+        /* সেকশন হেডার এবং হিস্ট্রি বাটন */
         .section-header-wrapper {
             display: flex;
             justify-content: space-between;
@@ -134,6 +134,27 @@
             display: flex; align-items: center; gap: 10px; margin: 0;
         }
 
+        .btn-history {
+            background: var(--main-white);
+            color: var(--main-pink);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 900;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .btn-history:hover {
+            background: var(--bg-light);
+            transform: translateY(-2px);
+        }
+
         /* উইথড্র রিকোয়েস্ট টেবিল */
         .table-card {
             background: var(--main-white);
@@ -145,36 +166,72 @@
 
         .table-responsive { width: 100%; overflow-x: auto; }
         .user-table { width: 100%; border-collapse: collapse; min-width: 900px; }
-        .user-table th { background-color: var(--pink-transparent); color: var(--main-pink); font-weight: 900; padding: 15px; text-align: left; border-bottom: 2px solid var(--main-pink); font-size: 14px; }
-        .user-table td { padding: 15px; border-bottom: 1px solid #eaeaea; color: var(--dark-blue); font-size: 14px; font-weight: 600; vertical-align: middle; }
-        .user-table tr:hover { background-color: var(--pink-hover); }
-
-        .method-icon {
-            display: inline-flex; align-items: center; gap: 8px; font-weight: 900; color: var(--dark-blue);
+        
+        .user-table th { 
+            color: var(--main-pink); 
+            font-weight: 900; 
+            padding: 15px; 
+            text-align: left; 
+            border-bottom: 2px solid var(--main-pink); 
+            font-size: 15px; 
         }
-        .method-icon img { width: 20px; height: 20px; object-fit: contain; }
-        .method-icon i { color: var(--main-pink); font-size: 18px; }
+        
+        .user-table td { 
+            padding: 18px 15px; 
+            border-bottom: 1px solid #eaeaea; 
+            color: var(--dark-blue); 
+            font-size: 15px; 
+            font-weight: 900; 
+            vertical-align: middle; 
+        }
 
+        .user-table tr:hover { background-color: var(--pink-transparent); }
+
+        /* আপনার স্ক্রিনশটের মতো পেমেন্ট মেথড আইকন */
+        .method-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .method-icon {
+            color: var(--main-pink);
+            font-size: 18px;
+            border: 2px solid var(--main-pink);
+            border-radius: 6px;
+            padding: 5px 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--pink-transparent);
+        }
+        
+        .method-name {
+            font-weight: 900;
+            color: var(--dark-blue);
+        }
+
+        /* অ্যামাউন্ট পিংক কালার */
         .amount-text { font-size: 16px; font-weight: 900; color: var(--main-pink); }
 
-        /* স্ট্যাটাস ব্যাজ (পিংক থিম) */
+        /* স্ট্যাটাস ব্যাজ */
         .status-badge {
-            padding: 6px 12px; border-radius: 6px; font-weight: 900; font-size: 12px; text-align: center; display: inline-block; min-width: 80px;
+            padding: 8px 15px; border-radius: 6px; font-weight: 900; font-size: 13px; text-align: center; display: inline-block; min-width: 80px;
         }
         .status-pending { background-color: var(--pink-transparent); color: var(--main-pink); border: 1.5px dashed var(--main-pink); }
         .status-paid { background-color: var(--main-pink); color: white; border: 1.5px solid var(--main-pink); }
         .status-rejected { background-color: var(--main-white); color: var(--main-pink); border: 1.5px solid var(--main-pink); }
 
         /* অ্যাকশন বাটন */
-        .action-btns { display: flex; gap: 10px; }
+        .action-btns { display: flex; gap: 8px; }
         
         .btn-action {
-            padding: 8px 15px; border-radius: 6px; border: none; cursor: pointer;
+            padding: 8px 16px; border-radius: 6px; border: none; cursor: pointer;
             font-size: 13px; font-weight: 900; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px; flex: 1;
         }
         
         .btn-pay { background: var(--main-pink); color: var(--main-white); box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);}
-        .btn-pay:hover { opacity: 0.9; transform: translateY(-2px); }
+        .btn-pay:hover { background: #b0124c; transform: translateY(-2px); }
         
         .btn-reject { background: var(--main-white); color: var(--main-pink); border: 1.5px solid var(--main-pink); }
         .btn-reject:hover { background: var(--pink-hover); transform: translateY(-2px); }
@@ -221,7 +278,7 @@
             display: flex; align-items: center; justify-content: center; gap: 6px;
         }
         .btn-confirm-pay { background: var(--main-pink); color: white; box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2); }
-        .btn-confirm-pay:hover { opacity: 0.9; transform: translateY(-2px); }
+        .btn-confirm-pay:hover { background: #b0124c; transform: translateY(-2px); }
         
         .btn-confirm-reject { background: var(--main-white); color: var(--main-pink); border: 1.5px solid var(--main-pink); }
         .btn-confirm-reject:hover { background: var(--pink-hover); transform: translateY(-2px); }
@@ -247,9 +304,7 @@
             <span class="close-btn" onclick="closeModal('payModal')">&times;</span>
             <div class="modal-title"><i class="fas fa-money-bill-wave"></i> পেমেন্ট কনফার্ম করুন</div>
             
-            <div class="modal-details-box" id="payDetailsBox">
-                <!-- Data will be injected here via JS -->
-            </div>
+            <div class="modal-details-box" id="payDetailsBox"></div>
 
             <div class="input-group">
                 <label>পেমেন্ট ট্রানজেকশন আইডি (TxnID):</label>
@@ -268,9 +323,7 @@
             <span class="close-btn" onclick="closeModal('rejectModal')">&times;</span>
             <div class="modal-title"><i class="fas fa-times-circle"></i> রিকোয়েস্ট বাতিল করুন</div>
             
-            <div class="modal-details-box" id="rejectDetailsBox">
-                 <!-- Data will be injected here via JS -->
-            </div>
+            <div class="modal-details-box" id="rejectDetailsBox"></div>
 
             <div class="input-group">
                 <label>বাতিল করার কারণ:</label>
@@ -321,9 +374,13 @@
                 <div class="section-title">
                     <i class="fas fa-file-invoice-dollar" style="color: white;"></i> পেন্ডিং উইথড্র রিকোয়েস্ট
                 </div>
+                <!-- History বাটন ডানপাশে যোগ করা হয়েছে -->
+                <button class="btn-history" onclick="window.location.href='admin_history.html'">
+                    <i class="fas fa-history"></i> History
+                </button>
             </div>
             
-            <!-- রিকোয়েস্ট টেবিল -->
+            <!-- রিকোয়েস্ট টেবিল (আপনার স্ক্রিনশটের মতো) -->
             <div class="table-card">
                 <div class="table-responsive">
                     <table class="user-table">
@@ -333,7 +390,6 @@
                                 <th>পেমেন্ট মেথড</th>
                                 <th>একাউন্ট নাম্বার</th>
                                 <th>টাকার পরিমাণ</th>
-                                <th>স্ট্যাটাস</th>
                                 <th>অ্যাকশন</th>
                             </tr>
                         </thead>
@@ -342,12 +398,14 @@
                             <tr id="req-row-1">
                                 <td>T9KZBTUBR1</td>
                                 <td>
-                                    <div class="method-icon"><i class="fas fa-mobile-alt"></i> bKash</div>
+                                    <div class="method-box">
+                                        <div class="method-icon"><i class="fas fa-mobile-alt"></i></div>
+                                        <span class="method-name">bKash</span>
+                                    </div>
                                 </td>
                                 <td>01712345678</td>
                                 <td><span class="amount-text">৳ ৫০০.০০</span></td>
-                                <td><span class="status-badge status-pending" id="status-1">Pending</span></td>
-                                <td style="width: 200px;">
+                                <td style="width: 250px;">
                                     <div class="action-btns" id="action-btn-1">
                                         <button class="btn-action btn-pay" onclick="openPayModal('req-row-1', 'T9KZBTUBR1', 'bKash', '01712345678', '৳ ৫০০.০০')">Pay</button>
                                         <button class="btn-action btn-reject" onclick="openRejectModal('req-row-1', 'T9KZBTUBR1', '৳ ৫০০.০০')">Reject</button>
@@ -359,12 +417,14 @@
                             <tr id="req-row-2">
                                 <td>M2LKBTYYY5</td>
                                 <td>
-                                    <div class="method-icon"><i class="fas fa-mobile-alt"></i> Nagad</div>
+                                    <div class="method-box">
+                                        <div class="method-icon"><i class="fas fa-mobile-alt"></i></div>
+                                        <span class="method-name">Nagad</span>
+                                    </div>
                                 </td>
                                 <td>01998765432</td>
                                 <td><span class="amount-text">৳ ৩৫০.০০</span></td>
-                                <td><span class="status-badge status-pending" id="status-2">Pending</span></td>
-                                <td style="width: 200px;">
+                                <td style="width: 250px;">
                                     <div class="action-btns" id="action-btn-2">
                                         <button class="btn-action btn-pay" onclick="openPayModal('req-row-2', 'M2LKBTYYY5', 'Nagad', '01998765432', '৳ ৩৫০.০০')">Pay</button>
                                         <button class="btn-action btn-reject" onclick="openRejectModal('req-row-2', 'M2LKBTYYY5', '৳ ৩৫০.০০')">Reject</button>
@@ -376,12 +436,14 @@
                             <tr id="req-row-3">
                                 <td>X7ABCTUBR9</td>
                                 <td>
-                                    <div class="method-icon"><i class="fas fa-mobile-alt"></i> Rocket</div>
+                                    <div class="method-box">
+                                        <div class="method-icon"><i class="fas fa-mobile-alt"></i></div>
+                                        <span class="method-name">Rocket</span>
+                                    </div>
                                 </td>
                                 <td>01811223344</td>
                                 <td><span class="amount-text">৳ ১,২০০.০০</span></td>
-                                <td><span class="status-badge status-pending" id="status-3">Pending</span></td>
-                                <td style="width: 200px;">
+                                <td style="width: 250px;">
                                     <div class="action-btns" id="action-btn-3">
                                         <button class="btn-action btn-pay" onclick="openPayModal('req-row-3', 'X7ABCTUBR9', 'Rocket', '01811223344', '৳ ১,২০০.০০')">Pay</button>
                                         <button class="btn-action btn-reject" onclick="openRejectModal('req-row-3', 'X7ABCTUBR9', '৳ ১,২০০.০০')">Reject</button>
@@ -449,14 +511,9 @@
             showToast("পেমেন্ট সফলভাবে সম্পন্ন হয়েছে!");
             
             // Update Table Row UI
-            const statusBadgeId = currentRowId.replace('req-row-', 'status-');
             const actionBtnId = currentRowId.replace('req-row-', 'action-btn-');
             
-            const badge = document.getElementById(statusBadgeId);
-            badge.className = "status-badge status-paid";
-            badge.innerHTML = '<i class="fas fa-check-circle"></i> Paid';
-            
-            document.getElementById(actionBtnId).innerHTML = '<span style="color: var(--text-grey); font-weight:bold;"><i class="fas fa-check"></i> সম্পন্ন</span>';
+            document.getElementById(actionBtnId).innerHTML = '<span class="status-badge status-paid"><i class="fas fa-check-circle"></i> Paid</span>';
         }
 
         function confirmReject() {
@@ -470,14 +527,9 @@
             showToast("উইথড্র রিকোয়েস্ট বাতিল করা হয়েছে!");
             
             // Update Table Row UI
-            const statusBadgeId = currentRowId.replace('req-row-', 'status-');
             const actionBtnId = currentRowId.replace('req-row-', 'action-btn-');
             
-            const badge = document.getElementById(statusBadgeId);
-            badge.className = "status-badge status-rejected";
-            badge.innerHTML = '<i class="fas fa-times-circle"></i> Rejected';
-            
-            document.getElementById(actionBtnId).innerHTML = `<span style="color: var(--main-pink); font-size: 11px; font-weight:bold;">কারণ: ${reason}</span>`;
+            document.getElementById(actionBtnId).innerHTML = `<span class="status-badge status-rejected" style="width: 100%;"><i class="fas fa-times-circle"></i> Rejected<br><span style="font-size:10px; font-weight:normal;">${reason}</span></span>`;
         }
 
         document.getElementById("adminLogout").addEventListener("click", () => {
