@@ -8,6 +8,7 @@
     
     <style>
         :root { 
+            /* অরিজিনাল ওয়েবসাইট পিংক থিম */
             --main-pink: #e2005a; 
             --light-pink: #ff3377;
             --main-white: #ffffff; 
@@ -208,21 +209,28 @@
 
         .user-info-cell { display: flex; align-items: center; }
 
+        /* ব্যালেন্স ব্যাজ (সলিড পিংক করা হয়েছে) */
         .balance-badge {
-            background: var(--pink-transparent); color: var(--main-pink);
-            padding: 6px 12px; border-radius: 20px; font-weight: 900; border: 1px dashed var(--main-pink);
+            background: var(--main-pink); 
+            color: var(--main-white);
+            padding: 6px 14px; 
+            border-radius: 20px; 
+            font-weight: 900; 
+            border: none;
+            box-shadow: 0 2px 5px rgba(226, 0, 90, 0.2);
+            display: inline-block;
         }
 
-        /* অ্যাকশন বাটন (Add Balance, Cut Balance) - বড় করা হয়েছে */
+        /* অ্যাকশন বাটন */
         .action-btns { display: flex; gap: 10px; flex-wrap: wrap; }
         
         .btn-action {
-            padding: 10px 18px; /* বাটন বড় করা হয়েছে */
-            border-radius: 8px; /* বর্ডার একটু গোল করা হয়েছে */
+            padding: 10px 18px; 
+            border-radius: 8px; 
             border: none; 
             cursor: pointer;
-            font-size: 13px; /* ফন্ট সাইজ বড় করা হয়েছে */
-            font-weight: 900; /* ফন্ট বোল্ড করা হয়েছে */
+            font-size: 13px; 
+            font-weight: 900; 
             transition: 0.2s; 
             display: flex; 
             align-items: center; 
