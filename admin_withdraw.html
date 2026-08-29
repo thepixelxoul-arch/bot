@@ -8,7 +8,6 @@
     
     <style>
         :root { 
-            /* অরিজিনাল ওয়েবসাইট পিংক থিম */
             --main-pink: #e2005a; 
             --light-pink: #ff3377;
             --main-white: #ffffff; 
@@ -116,7 +115,7 @@
             flex-grow: 1;
         }
 
-        /* সেকশন হেডার এবং হিস্ট্রি বাটন */
+        /* সেকশন হেডার (নতুন করে আপডেট করা হয়েছে VIP পেজের মতো) */
         .section-header-wrapper {
             display: flex;
             justify-content: space-between;
@@ -127,6 +126,8 @@
             border-radius: 12px;
             color: white;
             box-shadow: 0 4px 15px rgba(226, 0, 90, 0.2);
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .section-title {
@@ -134,13 +135,14 @@
             display: flex; align-items: center; gap: 10px; margin: 0;
         }
 
+        /* হিস্ট্রি বাটন (সাদা ব্যাকগ্রাউন্ড, পিংক টেক্সট) */
         .btn-history {
             background: var(--main-white);
             color: var(--main-pink);
             border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 13px;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-size: 14px;
             font-weight: 900;
             cursor: pointer;
             transition: 0.2s;
@@ -187,7 +189,7 @@
 
         .user-table tr:hover { background-color: var(--pink-transparent); }
 
-        /* আপনার স্ক্রিনশটের মতো পেমেন্ট মেথড আইকন */
+        /* পেমেন্ট মেথড আইকন */
         .method-box {
             display: flex;
             align-items: center;
@@ -195,15 +197,16 @@
         }
         
         .method-icon {
-            color: var(--main-pink);
-            font-size: 18px;
-            border: 2px solid var(--main-pink);
-            border-radius: 6px;
-            padding: 5px 8px;
+            background-color: var(--main-pink);
+            color: var(--main-white);
+            font-size: 16px;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background: var(--pink-transparent);
+            box-shadow: 0 3px 8px rgba(226, 0, 90, 0.3);
         }
         
         .method-name {
@@ -278,7 +281,7 @@
             display: flex; align-items: center; justify-content: center; gap: 6px;
         }
         .btn-confirm-pay { background: var(--main-pink); color: white; box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2); }
-        .btn-confirm-pay:hover { background: #b0124c; transform: translateY(-2px); }
+        .btn-confirm-pay:hover { opacity: 0.9; transform: translateY(-2px); }
         
         .btn-confirm-reject { background: var(--main-white); color: var(--main-pink); border: 1.5px solid var(--main-pink); }
         .btn-confirm-reject:hover { background: var(--pink-hover); transform: translateY(-2px); }
@@ -347,7 +350,6 @@
             <li><a href="admin_history.html" class="nav-link"><i class="fas fa-history"></i> কাজের হিস্ট্রি</a></li>
             <li><a href="admin_simple_users.html" class="nav-link"><i class="fas fa-user"></i> সাধারণ ইউজার</a></li>
             <li><a href="admin_vip_users.html" class="nav-link"><i class="fas fa-user-tie"></i> VIP ইউজার</a></li>
-            <!-- এই পেজটি Active করা হয়েছে -->
             <li><a href="admin_withdraw.html" class="nav-link active"><i class="fas fa-file-invoice-dollar"></i> উইথড্র রিকোয়েস্ট</a></li>
             <li><a href="admin_task_rates.html" class="nav-link"><i class="fas fa-tasks"></i> কাজের রেট</a></li>
             <li><a href="admin_number.html" class="nav-link"><i class="fas fa-sim-card"></i> নাম্বার ম্যানেজমেন্ট</a></li>
@@ -370,17 +372,18 @@
 
         <div class="dashboard-body">
             
+            <!-- আপডেট করা সেকশন হেডার (আপনার স্ক্রিনশটের মতো) -->
             <div class="section-header-wrapper">
                 <div class="section-title">
                     <i class="fas fa-file-invoice-dollar" style="color: white;"></i> পেন্ডিং উইথড্র রিকোয়েস্ট
                 </div>
-                <!-- History বাটন ডানপাশে যোগ করা হয়েছে -->
+                <!-- History বাটন ডানপাশে -->
                 <button class="btn-history" onclick="window.location.href='admin_history.html'">
                     <i class="fas fa-history"></i> History
                 </button>
             </div>
             
-            <!-- রিকোয়েস্ট টেবিল (আপনার স্ক্রিনশটের মতো) -->
+            <!-- রিকোয়েস্ট টেবিল -->
             <div class="table-card">
                 <div class="table-responsive">
                     <table class="user-table">
@@ -399,7 +402,7 @@
                                 <td>T9KZBTUBR1</td>
                                 <td>
                                     <div class="method-box">
-                                        <div class="method-icon"><i class="fas fa-mobile-alt"></i></div>
+                                        <div class="method-icon"><i class="fas fa-wallet"></i></div>
                                         <span class="method-name">bKash</span>
                                     </div>
                                 </td>
@@ -418,7 +421,7 @@
                                 <td>M2LKBTYYY5</td>
                                 <td>
                                     <div class="method-box">
-                                        <div class="method-icon"><i class="fas fa-mobile-alt"></i></div>
+                                        <div class="method-icon"><i class="fas fa-wallet"></i></div>
                                         <span class="method-name">Nagad</span>
                                     </div>
                                 </td>
@@ -437,7 +440,7 @@
                                 <td>X7ABCTUBR9</td>
                                 <td>
                                     <div class="method-box">
-                                        <div class="method-icon"><i class="fas fa-mobile-alt"></i></div>
+                                        <div class="method-icon"><i class="fas fa-wallet"></i></div>
                                         <span class="method-name">Rocket</span>
                                     </div>
                                 </td>
@@ -477,10 +480,9 @@
             setTimeout(() => { toast.classList.remove("show"); }, 3500);
         }
 
-        // Pay Modal Open
         function openPayModal(rowId, userId, method, number, amount) {
             currentRowId = rowId;
-            document.getElementById('txnIdInput').value = ""; // clear
+            document.getElementById('txnIdInput').value = ""; 
             
             const detailsHtml = `
                 <span style="color:var(--text-grey);">ইউজার আইডি:</span> ${userId}<br>
@@ -492,10 +494,9 @@
             openModal('payModal');
         }
 
-        // Reject Modal Open
         function openRejectModal(rowId, userId, amount) {
             currentRowId = rowId;
-            document.getElementById('rejectReasonInput').value = ""; // clear
+            document.getElementById('rejectReasonInput').value = ""; 
             
             const detailsHtml = `
                 <span style="color:var(--text-grey);">ইউজার আইডি:</span> ${userId}<br>
@@ -505,14 +506,11 @@
             openModal('rejectModal');
         }
 
-        // Confirm Actions
         function confirmPayment() {
             closeModal('payModal');
             showToast("পেমেন্ট সফলভাবে সম্পন্ন হয়েছে!");
             
-            // Update Table Row UI
             const actionBtnId = currentRowId.replace('req-row-', 'action-btn-');
-            
             document.getElementById(actionBtnId).innerHTML = '<span class="status-badge status-paid"><i class="fas fa-check-circle"></i> Paid</span>';
         }
 
@@ -526,9 +524,7 @@
             closeModal('rejectModal');
             showToast("উইথড্র রিকোয়েস্ট বাতিল করা হয়েছে!");
             
-            // Update Table Row UI
             const actionBtnId = currentRowId.replace('req-row-', 'action-btn-');
-            
             document.getElementById(actionBtnId).innerHTML = `<span class="status-badge status-rejected" style="width: 100%;"><i class="fas fa-times-circle"></i> Rejected<br><span style="font-size:10px; font-weight:normal;">${reason}</span></span>`;
         }
 
