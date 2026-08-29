@@ -8,11 +8,15 @@
     
     <style>
         :root { 
+            /* অরিজিনাল ওয়েবসাইট পিংক থিম */
             --main-pink: #e2005a; 
+            --light-pink: #ff3377;
             --main-white: #ffffff; 
             --text-grey: #888888; 
             --bg-light: #f4f6f9; 
             --dark-blue: #2c3e50;
+            --pink-transparent: rgba(226, 0, 90, 0.05); 
+            --pink-hover: rgba(226, 0, 90, 0.1);
         }
 
         body { 
@@ -27,7 +31,7 @@
         /* সাইডবার (Sidebar) */
         .sidebar {
             width: 260px;
-            background: linear-gradient(180deg, var(--main-pink), #ff3377);
+            background: linear-gradient(180deg, var(--main-pink), var(--light-pink));
             color: white;
             display: flex;
             flex-direction: column;
@@ -42,7 +46,7 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             flex-shrink: 0;
         }
-        .sidebar-header h2 { margin: 0; font-size: 22px; font-weight: 900; }
+        .sidebar-header h2 { margin: 0; font-size: 22px; font-weight: 900; letter-spacing: 1px;}
         .sidebar-header p { margin: 5px 0 0 0; font-size: 12px; color: #ffe6f0; }
 
         .nav-links {
@@ -68,7 +72,7 @@
         .nav-links a:hover, .nav-links a.active {
             background-color: rgba(255, 255, 255, 0.1);
             color: white;
-            border-left: 4px solid #ffcc00;
+            border-left: 4px solid #fff;
         }
 
         .nav-links a i { width: 20px; text-align: center; font-size: 18px; }
@@ -79,6 +83,7 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            background-color: var(--bg-light); 
         }
 
         /* টপবার */
@@ -92,190 +97,138 @@
             z-index: 10;
         }
 
-        .topbar-title { font-size: 18px; font-weight: bold; color: var(--dark-blue); }
+        .topbar-title { font-size: 20px; font-weight: 900; color: var(--dark-blue); }
 
         .admin-profile { display: flex; align-items: center; gap: 15px; }
         
         .logout-btn {
-            background-color: #ffe0e9; color: var(--main-pink);
-            border: none; padding: 8px 18px; border-radius: 6px;
+            background-color: var(--pink-hover); color: var(--main-pink);
+            border: none; padding: 10px 20px; border-radius: 8px;
             cursor: pointer; font-weight: bold; transition: 0.2s;
-            display: flex; align-items: center; gap: 8px;
+            display: flex; align-items: center; gap: 8px; font-size: 14px;
         }
         .logout-btn:hover { background-color: var(--main-pink); color: white; }
 
-        /* ড্যাশবোর্ড বডি */
+        /* ড্যাশবোর্ড কন্টেন্ট */
         .dashboard-body {
             padding: 30px;
             overflow-y: auto;
             flex-grow: 1;
         }
 
-        .card-header-container {
+        /* সেকশন হেডার */
+        .section-header-wrapper {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 25px;
+            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
+            padding: 15px 25px;
+            border-radius: 12px;
+            color: white;
+            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.2);
         }
 
-        .card-header-title {
-            font-size: 20px;
+        .section-title {
+            font-size: 18px; font-weight: bold;
+            display: flex; align-items: center; gap: 10px; margin: 0;
+        }
+
+        /* সার্চ বক্স */
+        .search-container {
+            display: flex; gap: 10px; margin-bottom: 20px;
+        }
+
+        .search-box {
+            flex-grow: 1;
+            padding: 12px 20px;
+            border: 2px solid #eaeaea;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            transition: 0.3s;
             font-weight: bold;
             color: var(--dark-blue);
         }
+        .search-box:focus { border-color: var(--main-pink); }
 
-        .form-input {
-            padding: 10px 15px; border: 1.5px solid #eaeaea; border-radius: 8px;
-            font-size: 14px; outline: none; background-color: white;
-            transition: 0.3s; width: 250px;
+        .btn-search {
+            background: var(--main-pink); color: white; border: none; padding: 0 25px;
+            border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.2s;
         }
-        .form-input:focus { border-color: var(--main-pink); }
+        .btn-search:hover { background: var(--light-pink); }
 
-        /* --- ইউজার কার্ড গ্রিড লেআউট --- */
-        .user-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-            padding-bottom: 30px;
-        }
-
-        .user-card {
-            background: #fff;
-            border: 1px solid #e0e0e0;
+        /* ইউজার টেবিল কার্ড */
+        .table-card {
+            background: var(--main-white);
             border-radius: 12px;
             padding: 20px;
-            display: flex;
-            flex-direction: column;
-            transition: box-shadow 0.2s, transform 0.2s;
-            position: relative;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            border-top: 4px solid var(--main-pink);
         }
 
-        .user-card:hover {
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-            transform: translateY(-3px);
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
         }
 
-        .user-card-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 15px;
-            border-bottom: 1px solid #f0f0f0;
-            padding-bottom: 12px;
+        .user-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
         }
 
-        .user-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--main-pink), #ff3377);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            flex-shrink: 0;
+        .user-table th {
+            background-color: var(--pink-transparent);
+            color: var(--main-pink);
+            font-weight: 900;
+            padding: 15px;
+            text-align: left;
+            border-bottom: 2px solid var(--main-pink);
+            font-size: 14px;
         }
 
-        .user-details h4 {
-            margin: 0;
-            font-size: 16px;
+        .user-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eaeaea;
             color: var(--dark-blue);
+            font-size: 14px;
+            font-weight: 600;
+            vertical-align: middle;
         }
 
-        .user-details p {
-            margin: 3px 0 0 0;
-            font-size: 12px;
-            color: var(--text-grey);
-            word-break: break-all;
+        .user-table tr:hover { background-color: var(--pink-hover); }
+
+        .user-avatar-sm {
+            width: 35px; height: 35px; border-radius: 50%;
+            background-color: var(--pink-transparent); color: var(--main-pink);
+            display: inline-flex; align-items: center; justify-content: center;
+            font-weight: bold; font-size: 16px; margin-right: 10px;
+            border: 1px solid var(--main-pink);
         }
 
-        .task-stats-title {
-            font-size: 12px;
-            font-weight: bold;
-            color: var(--text-grey);
-            margin-bottom: 10px;
-            text-transform: uppercase;
+        .user-info-cell { display: flex; align-items: center; }
+
+        .balance-badge {
+            background: var(--pink-transparent); color: var(--main-pink);
+            padding: 6px 12px; border-radius: 20px; font-weight: 900; border: 1px dashed var(--main-pink);
         }
 
-        /* ক্লিকেবল ব্যাজ ডিজাইন */
-        .task-badges {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr); 
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .task-badge {
-            padding: 10px 0;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: bold;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-            cursor: pointer; /* ক্লিক করার অপশন বোঝানোর জন্য */
-            transition: transform 0.2s, box-shadow 0.2s;
+        /* অ্যাকশন বাটন */
+        .action-btns { display: flex; gap: 8px; }
+        
+        .btn-action {
+            padding: 8px 12px; border-radius: 6px; border: none; cursor: pointer;
+            font-size: 13px; font-weight: bold; transition: 0.2s; display: flex; align-items: center; gap: 5px;
         }
         
-        .task-badge:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 12px rgba(0,0,0,0.2);
-        }
+        .btn-edit { background: var(--main-white); color: var(--main-pink); border: 1.5px solid var(--main-pink); }
+        .btn-edit:hover { background: var(--main-pink); color: white; }
         
-        .task-badge i { font-size: 18px; }
+        .btn-ban { background: #ffe0e9; color: #e74c3c; border: 1px solid #e74c3c; }
+        .btn-ban:hover { background: #e74c3c; color: white; }
 
-        .bg-gmail { background-color: #ea4335; }
-        .bg-insta { background-color: #e1306c; }
-        .bg-wa { background-color: #25d366; }
-        .bg-tg { background-color: #0088cc; }
-        .bg-empty { background-color: #dcdde1; cursor: not-allowed; box-shadow: none; } /* যখন কাজ 0 থাকবে */
-        .bg-empty:hover { transform: none; box-shadow: none; }
-
-        .balance-box {
-            background-color: #f8f9fa;
-            border-radius: 8px;
-            padding: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            border: 1px solid #eaeaea;
-        }
-
-        .balance-label { font-size: 13px; font-weight: bold; color: var(--dark-blue); }
-        .balance-amount { font-size: 18px; font-weight: 900; color: #188038; }
-
-        .action-btns {
-            display: flex;
-            gap: 8px;
-        }
-
-        .action-btns button {
-            flex: 1;
-            border: none;
-            padding: 10px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 13px;
-            color: white;
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-        }
-
-        .action-btns button:hover { opacity: 0.9; transform: translateY(-2px); }
-        .btn-add { background-color: #27ae60; } 
-        .btn-deduct { background-color: #f39c12; } 
-        .btn-reject { background-color: #e74c3c; flex: 0.4 !important; } 
-
-        /* --- পপ-আপ (Modal) ডিজাইন --- */
+        /* পপ-আপ (Modal) ডিজাইন */
         .modal {
             display: none; position: fixed; z-index: 1000; left: 0; top: 0;
             width: 100%; height: 100%; background-color: rgba(0,0,0,0.6);
@@ -284,10 +237,10 @@
         .modal.show { display: flex; opacity: 1; }
         
         .modal-content {
-            background-color: #fff; padding: 25px; border-radius: 12px;
-            width: 90%; max-width: 400px; box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-            position: relative; max-height: 80vh; display: flex; flex-direction: column;
-            transform: translateY(20px); transition: transform 0.3s ease;
+            background-color: var(--main-white); padding: 30px; border-radius: 12px;
+            width: 90%; max-width: 400px; box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            transform: translateY(20px); transition: transform 0.3s ease; position: relative;
+            border-top: 5px solid var(--main-pink);
         }
         .modal.show .modal-content { transform: translateY(0); }
 
@@ -297,50 +250,62 @@
         }
         .close-btn:hover { color: var(--main-pink); }
 
-        .modal-title { 
-            font-size: 18px; font-weight: bold; color: var(--dark-blue); 
-            margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; 
-        }
-        
-        /* জমাকৃত কাজের লিস্টের ডিজাইন */
-        .task-list-container {
-            overflow-y: auto; max-height: 350px; padding-right: 5px;
-        }
-        .task-list-container::-webkit-scrollbar { width: 5px; }
-        .task-list-container::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+        .modal-title { font-size: 18px; font-weight: 900; color: var(--dark-blue); margin-bottom: 20px; border-bottom: 1px solid #eaeaea; padding-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+        .modal-title i { color: var(--main-pink); }
 
-        .task-item {
-            background: #f8f9fa; padding: 12px; border-radius: 8px; margin-bottom: 10px;
-            border-left: 4px solid var(--main-pink); font-size: 14px; color: var(--dark-blue);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.03); word-break: break-all;
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; font-size: 13px; font-weight: bold; color: var(--dark-blue); margin-bottom: 8px; }
+        .modal-input {
+            width: 100%; padding: 12px; border: 2px solid #eaeaea; background-color: #f8f9fa;
+            border-radius: 6px; font-size: 15px; outline: none; box-sizing: border-box; transition: 0.3s; font-weight: bold; color: var(--main-pink);
         }
+        .modal-input:focus { border-color: var(--main-pink); background-color: #fff; }
+
+        .btn-save-modal { 
+            width: 100%; padding: 12px; border: none; border-radius: 8px; font-size: 15px; 
+            font-weight: bold; cursor: pointer; transition: 0.2s; 
+            display: flex; align-items: center; justify-content: center; gap: 6px;
+            background: var(--main-pink); color: white;
+        }
+        .btn-save-modal:hover { background: var(--light-pink); }
 
         /* টোস্ট মেসেজ */
         .toast-msg {
-            visibility: hidden; background-color: #27ae60; color: #fff; text-align: center;
+            visibility: hidden; background-color: var(--main-pink); color: #fff; text-align: center;
             border-radius: 8px; padding: 15px 25px; position: fixed; z-index: 9999; right: 30px; top: 30px;
-            font-size: 14px; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            font-size: 14px; font-weight: bold; box-shadow: 0 4px 15px rgba(226, 0, 90, 0.3);
             opacity: 0; transition: opacity 0.3s, top 0.3s;
         }
         .toast-msg.show { visibility: visible; opacity: 1; top: 50px; }
+
     </style>
 </head>
 <body>
 
-    <div id="toastBox" class="toast-msg"><i class="fas fa-check-circle"></i> <span id="toastText">অ্যাকশন সফল হয়েছে!</span></div>
+    <div id="toastBox" class="toast-msg"><i class="fas fa-check-circle"></i> <span id="toastText">আপডেট সফল হয়েছে!</span></div>
 
-    <!-- জমাকৃত কাজ দেখানোর পপ-আপ (Modal) -->
-    <div id="detailsModal" class="modal">
+    <!-- ব্যালেন্স এডিট পপ-আপ -->
+    <div id="editModal" class="modal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeDetailsModal()">&times;</span>
-            <div class="modal-title" id="dm-title">কাজের তালিকা</div>
-            <div class="task-list-container" id="dm-list">
-                <!-- ডাইনামিক কাজের লিস্ট এখানে আসবে -->
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div class="modal-title"><i class="fas fa-wallet"></i> ব্যালেন্স আপডেট করুন</div>
+            
+            <div style="font-size: 14px; color: var(--text-grey); margin-bottom: 15px; font-weight: bold;">
+                ইউজার আইডি: <span id="modalUserId" style="color: var(--main-pink);"></span>
             </div>
+
+            <div class="input-group">
+                <label>নতুন ব্যালেন্স (৳):</label>
+                <input type="number" id="newBalanceInput" class="modal-input" placeholder="0.00">
+            </div>
+            
+            <button class="btn-save-modal" onclick="saveBalance()">
+                <i class="fas fa-save"></i> সেভ করুন
+            </button>
         </div>
     </div>
 
-    <!-- সাইডবার -->
+    <!-- সাইডবার (History অপশনসহ) -->
     <aside class="sidebar">
         <div class="sidebar-header">
             <h2><i class="fas fa-paper-plane"></i> Send bKash</h2>
@@ -348,6 +313,8 @@
         </div>
         <ul class="nav-links">
             <li><a href="admin_dashboard.html" class="nav-link"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
+            <li><a href="admin_history.html" class="nav-link"><i class="fas fa-history"></i> কাজের হিস্ট্রি</a></li>
+            <!-- এই পেজটি Active করা হয়েছে -->
             <li><a href="admin_simple_users.html" class="nav-link active"><i class="fas fa-user"></i> সাধারণ ইউজার</a></li>
             <li><a href="admin_vip_users.html" class="nav-link"><i class="fas fa-user-tie"></i> VIP ইউজার</a></li>
             <li><a href="admin_withdraw.html" class="nav-link"><i class="fas fa-file-invoice-dollar"></i> উইথড্র রিকোয়েস্ট</a></li>
@@ -372,149 +339,145 @@
 
         <div class="dashboard-body">
             
-            <div class="card-header-container">
-                <div class="card-header-title">সাধারণ ইউজার কার্ড লিস্ট</div>
-                <input type="text" class="form-input" placeholder="ইউজার আইডি বা ইমেইল খুঁজুন...">
+            <div class="section-header-wrapper">
+                <div class="section-title">
+                    <i class="fas fa-users" style="color: white;"></i> সকল সাধারণ ইউজারের তালিকা
+                </div>
             </div>
 
-            <div class="user-grid">
-                
-                <!-- ইউজার কার্ড ১ -->
-                <div class="user-card">
-                    <div class="user-card-header">
-                        <div class="user-avatar"><i class="fas fa-user"></i></div>
-                        <div class="user-details">
-                            <h4>X7ABCTUBR9</h4>
-                            <p>sakib@gmail.com</p>
-                        </div>
-                    </div>
+            <!-- সার্চ বক্স -->
+            <div class="search-container">
+                <input type="text" class="search-box" placeholder="ইউজার আইডি বা ইমেইল দিয়ে সার্চ করুন...">
+                <button class="btn-search"><i class="fas fa-search"></i> সার্চ</button>
+            </div>
+            
+            <!-- ইউজার লিস্ট টেবিল -->
+            <div class="table-card">
+                <div class="table-responsive">
+                    <table class="user-table">
+                        <thead>
+                            <tr>
+                                <th>ইউজার প্রোফাইল</th>
+                                <th>ইমেইল এড্রেস</th>
+                                <th>বর্তমান ব্যালেন্স</th>
+                                <th>জয়েনিং ডেট</th>
+                                <th>অ্যাকশন</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- ইউজার ১ -->
+                            <tr id="user-row-1">
+                                <td>
+                                    <div class="user-info-cell">
+                                        <div class="user-avatar-sm"><i class="fas fa-user"></i></div>
+                                        <div>T9KZBTUBR1</div>
+                                    </div>
+                                </td>
+                                <td>sakib123@gmail.com</td>
+                                <td><span class="balance-badge" id="bal-1">৳ ১৫০.০০</span></td>
+                                <td>২৫ আগস্ট, ২০২৬</td>
+                                <td>
+                                    <div class="action-btns">
+                                        <button class="btn-action btn-edit" onclick="openEditModal('T9KZBTUBR1', '150', 'bal-1')"><i class="fas fa-pen"></i> এডিট</button>
+                                        <button class="btn-action btn-ban" onclick="banUser('user-row-1')"><i class="fas fa-ban"></i> ব্যান</button>
+                                    </div>
+                                </td>
+                            </tr>
 
-                    <div class="task-stats-title">জমাকৃত কাজের সংখ্যা (ডিটেইলস দেখতে ক্লিক করুন)</div>
-                    
-                    <!-- ক্লিকেবল আইকন ব্যাজ -->
-                    <div class="task-badges">
-                        <div class="task-badge bg-gmail" title="Google Accounts" onclick="showTaskDetails('Google', '#ea4335', 'X7ABCTUBR9', ['sakib1@gmail.com (Pass: sk123)', 'sakib2@gmail.com (Pass: sk123)', 'sakib3@gmail.com (Pass: sk123)'])">
-                            <i class="fab fa-google"></i> <span>৩</span>
-                        </div>
-                        <div class="task-badge bg-insta" title="Instagram Accounts" onclick="showTaskDetails('Instagram', '#e1306c', 'X7ABCTUBR9', ['insta_salam99 (Pass: 12345)', 'salam_v2 (Pass: 12345)'])">
-                            <i class="fab fa-instagram"></i> <span>২</span>
-                        </div>
-                        <div class="task-badge bg-wa" title="WhatsApp Accounts" onclick="showTaskDetails('WhatsApp', '#25d366', 'X7ABCTUBR9', ['+8801711223344'])">
-                            <i class="fab fa-whatsapp"></i> <span>১</span>
-                        </div>
-                        <div class="task-badge bg-empty" title="কোনো কাজ নেই">
-                            <i class="fab fa-telegram-plane"></i> <span>০</span>
-                        </div>
-                    </div>
+                            <!-- ইউজার ২ -->
+                            <tr id="user-row-2">
+                                <td>
+                                    <div class="user-info-cell">
+                                        <div class="user-avatar-sm"><i class="fas fa-user"></i></div>
+                                        <div>M2LKBTYYY5</div>
+                                    </div>
+                                </td>
+                                <td>rakib_pro@gmail.com</td>
+                                <td><span class="balance-badge" id="bal-2">৳ ৩২০.৫০</span></td>
+                                <td>২৬ আগস্ট, ২০২৬</td>
+                                <td>
+                                    <div class="action-btns">
+                                        <button class="btn-action btn-edit" onclick="openEditModal('M2LKBTYYY5', '320.50', 'bal-2')"><i class="fas fa-pen"></i> এডিট</button>
+                                        <button class="btn-action btn-ban" onclick="banUser('user-row-2')"><i class="fas fa-ban"></i> ব্যান</button>
+                                    </div>
+                                </td>
+                            </tr>
 
-                    <div class="balance-box">
-                        <span class="balance-label">বর্তমান ব্যালেন্স:</span>
-                        <span class="balance-amount">৳১২০.০০</span>
-                    </div>
+                            <!-- ইউজার ৩ -->
+                            <tr id="user-row-3">
+                                <td>
+                                    <div class="user-info-cell">
+                                        <div class="user-avatar-sm"><i class="fas fa-user"></i></div>
+                                        <div>X7ABCTUBR9</div>
+                                    </div>
+                                </td>
+                                <td>salam99@gmail.com</td>
+                                <td><span class="balance-badge" id="bal-3">৳ ৪৫.০০</span></td>
+                                <td>২৮ আগস্ট, ২০২৬</td>
+                                <td>
+                                    <div class="action-btns">
+                                        <button class="btn-action btn-edit" onclick="openEditModal('X7ABCTUBR9', '45', 'bal-3')"><i class="fas fa-pen"></i> এডিট</button>
+                                        <button class="btn-action btn-ban" onclick="banUser('user-row-3')"><i class="fas fa-ban"></i> ব্যান</button>
+                                    </div>
+                                </td>
+                            </tr>
 
-                    <div class="action-btns">
-                        <button class="btn-add" onclick="handleBalance('add', 'X7ABCTUBR9')"><i class="fas fa-plus"></i> টাকা</button>
-                        <button class="btn-deduct" onclick="handleBalance('deduct', 'X7ABCTUBR9')"><i class="fas fa-minus"></i> টাকা</button>
-                        <button class="btn-reject" title="ব্যান করুন" onclick="showToast('ইউজারকে ব্যান করা হয়েছে!', true)"><i class="fas fa-ban"></i></button>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
-
-                <!-- ইউজার কার্ড ২ -->
-                <div class="user-card">
-                    <div class="user-card-header">
-                        <div class="user-avatar"><i class="fas fa-user"></i></div>
-                        <div class="user-details">
-                            <h4>M2LKBTYYY5</h4>
-                            <p>rakib22@gmail.com</p>
-                        </div>
-                    </div>
-
-                    <div class="task-stats-title">জমাকৃত কাজের সংখ্যা (ডিটেইলস দেখতে ক্লিক করুন)</div>
-                    
-                    <div class="task-badges">
-                        <div class="task-badge bg-gmail" title="Google Accounts" onclick="showTaskDetails('Google', '#ea4335', 'M2LKBTYYY5', ['rakib1@gmail.com (Pass: 112233)'])">
-                            <i class="fab fa-google"></i> <span>১</span>
-                        </div>
-                        <div class="task-badge bg-empty" title="কোনো কাজ নেই">
-                            <i class="fab fa-instagram"></i> <span>০</span>
-                        </div>
-                        <div class="task-badge bg-empty" title="কোনো কাজ নেই">
-                            <i class="fab fa-whatsapp"></i> <span>০</span>
-                        </div>
-                        <div class="task-badge bg-tg" title="Telegram Accounts" onclick="showTaskDetails('Telegram', '#0088cc', 'M2LKBTYYY5', ['+8801999887766', '+8801888776655'])">
-                            <i class="fab fa-telegram-plane"></i> <span>২</span>
-                        </div>
-                    </div>
-
-                    <div class="balance-box">
-                        <span class="balance-label">বর্তমান ব্যালেন্স:</span>
-                        <span class="balance-amount">৳৫০.০০</span>
-                    </div>
-
-                    <div class="action-btns">
-                        <button class="btn-add" onclick="handleBalance('add', 'M2LKBTYYY5')"><i class="fas fa-plus"></i> টাকা</button>
-                        <button class="btn-deduct" onclick="handleBalance('deduct', 'M2LKBTYYY5')"><i class="fas fa-minus"></i> টাকা</button>
-                        <button class="btn-reject" title="ব্যান করুন" onclick="showToast('ইউজারকে ব্যান করা হয়েছে!', true)"><i class="fas fa-ban"></i></button>
-                    </div>
-                </div>
-
             </div>
 
         </div>
     </main>
 
     <script>
-        // টোস্ট মেসেজ
-        function showToast(message, isError = false) {
+        let currentTargetId = "";
+
+        // পপ-আপ ওপেন করা
+        function openEditModal(userId, currentBal, targetBalId) {
+            document.getElementById('modalUserId').innerText = userId;
+            document.getElementById('newBalanceInput').value = currentBal;
+            currentTargetId = targetBalId;
+            document.getElementById('editModal').classList.add('show');
+        }
+
+        // পপ-আপ ক্লোজ করা
+        function closeModal() {
+            document.getElementById('editModal').classList.remove('show');
+        }
+
+        // ব্যালেন্স সেভ করা
+        function saveBalance() {
+            const newBal = document.getElementById('newBalanceInput').value;
+            if(newBal === "") {
+                alert("দয়া করে ব্যালেন্স লিখুন!");
+                return;
+            }
+
+            // ব্যালেন্স আপডেট করা
+            document.getElementById(currentTargetId).innerText = `৳ ${newBal}`;
+            closeModal();
+
+            // টোস্ট মেসেজ দেখানো
             const toast = document.getElementById("toastBox");
-            document.getElementById("toastText").innerText = message;
-            toast.style.backgroundColor = isError ? "#e74c3c" : "#27ae60";
+            document.getElementById("toastText").innerText = "ইউজারের ব্যালেন্স সফলভাবে আপডেট হয়েছে!";
             toast.classList.add("show");
-            setTimeout(() => { toast.classList.remove("show"); }, 2500);
+            setTimeout(() => { toast.classList.remove("show"); }, 3000);
         }
 
-        // ব্যালেন্স কন্ট্রোল
-        function handleBalance(action, userId) {
-            let actionText = action === 'add' ? "যোগ" : "কেটে নিতে";
-            let amount = prompt(`ইউজার ${userId} এর একাউন্টে কত টাকা ${actionText} চান? (অ্যামাউন্ট লিখুন)`);
-            
-            if (amount !== null && amount.trim() !== "" && !isNaN(amount)) {
-                let successMsg = action === 'add' ? 
-                    `সফলভাবে ৳${amount} যোগ করা হয়েছে!` : 
-                    `সফলভাবে ৳${amount} কেটে নেওয়া হয়েছে!`;
-                
-                showToast(successMsg, action === 'deduct');
-            } else if (amount !== null) {
-                alert("অনুগ্রহ করে সঠিক টাকার পরিমাণ দিন!");
+        // ইউজার ব্যান করা
+        function banUser(rowId) {
+            if(confirm("আপনি কি নিশ্চিত যে এই ইউজারকে ব্যান করতে চান?")) {
+                const row = document.getElementById(rowId);
+                row.style.opacity = '0';
+                setTimeout(() => {
+                    row.style.display = 'none';
+                    const toast = document.getElementById("toastBox");
+                    document.getElementById("toastText").innerText = "ইউজারকে ব্যান করা হয়েছে!";
+                    toast.classList.add("show");
+                    setTimeout(() => { toast.classList.remove("show"); }, 3000);
+                }, 300);
             }
-        }
-
-        // কাজের ডিটেইলস পপ-আপ ওপেন করার ফাংশন
-        function showTaskDetails(platform, color, userId, accountsArray) {
-            // টাইটেল সেট করা
-            document.getElementById('dm-title').innerHTML = `<span style="color:${color};"><i class="fas fa-list"></i> ${platform} Account List</span> <br> <span style="font-size:12px; color:#888;">ইউজার: ${userId}</span>`;
-            
-            // লিস্ট তৈরি করা
-            let listContainer = document.getElementById('dm-list');
-            let listHtml = '';
-            
-            if(accountsArray.length === 0) {
-                listHtml = '<p style="text-align:center; color:#888; margin-top:20px;">কোনো কাজ জমা দেওয়া হয়নি।</p>';
-            } else {
-                accountsArray.forEach(acc => {
-                    listHtml += `<div class="task-item" style="border-left-color: ${color}">${acc}</div>`;
-                });
-            }
-            
-            listContainer.innerHTML = listHtml;
-            
-            // পপ-আপ দেখানো
-            document.getElementById('detailsModal').classList.add('show');
-        }
-
-        // পপ-আপ ক্লোজ করার ফাংশন
-        function closeDetailsModal() {
-            document.getElementById('detailsModal').classList.remove('show');
         }
 
         document.getElementById("adminLogout").addEventListener("click", () => {
