@@ -8,14 +8,14 @@
     
     <style>
         :root { 
-            /* আপনার ওয়েবসাইটের অরিজিনাল কালার কোড */
             --main-pink: #e2005a; 
             --light-pink: #ff3377;
             --main-white: #ffffff; 
             --text-grey: #888888; 
-            --bg-light: #f4f6f9; /* অরিজিনাল ক্লিন ব্যাকগ্রাউন্ড */
+            --bg-light: #f4f6f9; 
             --dark-blue: #2c3e50;
-            --pink-transparent: rgba(226, 0, 90, 0.08); 
+            --pink-transparent: rgba(226, 0, 90, 0.05); 
+            --pink-hover: rgba(226, 0, 90, 0.1);
         }
 
         body { 
@@ -82,7 +82,7 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            background-color: var(--bg-light); /* ক্লিন ব্যাকগ্রাউন্ড */
+            background-color: var(--bg-light); 
         }
 
         /* টপবার */
@@ -101,7 +101,7 @@
         .admin-profile { display: flex; align-items: center; gap: 15px; }
         
         .logout-btn {
-            background-color: var(--pink-transparent); color: var(--main-pink);
+            background-color: var(--pink-hover); color: var(--main-pink);
             border: none; padding: 10px 20px; border-radius: 8px;
             cursor: pointer; font-weight: bold; transition: 0.2s;
             display: flex; align-items: center; gap: 8px; font-size: 14px;
@@ -205,10 +205,10 @@
             border-top: 4px solid var(--main-pink);
         }
 
+        /* হোভার করলে এখন শুধু উপরে উঠবে, বর্ডার চেঞ্জ হবে না */
         .product-card:hover {
             box-shadow: 0 8px 25px rgba(226, 0, 90, 0.1);
             transform: translateY(-3px);
-            border-color: var(--pink-transparent);
         }
 
         /* কার্ডের লোগো বক্স */
@@ -242,7 +242,7 @@
         .lbl-pink { color: var(--main-pink); font-weight: bold; font-size: 12px;}
         .val-text { color: var(--dark-blue); font-weight: 900;}
 
-        /* স্ট্যাটাস ব্যাজ (ডটেড পিংক বর্ডার) */
+        /* স্ট্যাটাস ব্যাজ */
         .status-box {
             width: 100%;
             padding: 8px 0; 
@@ -284,9 +284,7 @@
         }
 
         .btn-view-details:hover {
-            background: var(--main-pink);
-            color: white;
-            box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);
+            background: var(--pink-hover);
         }
 
         /* পপ-আপ (Modal) ডিজাইন */
@@ -351,7 +349,7 @@
         /* Modal Buttons */
         .btn-accept { background: var(--main-pink); color: var(--main-white);}
         .btn-reject-modal { background: var(--main-white); color: var(--main-pink); border: 1.5px solid var(--main-pink); }
-        .btn-reject-modal:hover { background: var(--pink-transparent); }
+        .btn-reject-modal:hover { background: var(--pink-hover); }
 
         /* টোস্ট মেসেজ */
         .toast-msg {
