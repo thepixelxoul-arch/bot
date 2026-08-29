@@ -8,13 +8,12 @@
     
     <style>
         :root { 
-            /* আপনার ওয়েবসাইটের অরিজিনাল কালার কোড */
             --main-pink: #e2005a; 
             --main-white: #ffffff; 
             --text-grey: #888888; 
             --bg-light: #f4f6f9; 
             --dark-blue: #2c3e50;
-            --pink-transparent: rgba(226, 0, 90, 0.05); /* হালকা পিংক ব্যাকগ্রাউন্ডের জন্য */
+            --pink-transparent: rgba(226, 0, 90, 0.05);
             --pink-hover: rgba(226, 0, 90, 0.1);
         }
 
@@ -82,7 +81,7 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            background-color: var(--bg-light); /* অরিজিনাল লাইট গ্রে/সাদা */
+            background-color: var(--bg-light);
         }
 
         /* টপবার */
@@ -145,12 +144,40 @@
         .stat-info h3 { margin: 0 0 4px 0; font-size: 22px; color: var(--dark-blue); font-weight: 900; }
         .stat-info p { margin: 0; font-size: 12px; color: var(--text-grey); font-weight: bold; }
 
-        /* সেকশন হেডার */
+        /* সেকশন হেডার এবং হিস্ট্রি বাটন */
+        .section-header-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
         .section-title {
             font-size: 18px; font-weight: 900; color: var(--dark-blue);
-            margin-bottom: 20px; display: flex; align-items: center; gap: 10px;
+            display: flex; align-items: center; gap: 10px; margin: 0;
         }
         .section-title i { color: var(--main-pink); }
+
+        .btn-history {
+            background: var(--pink-transparent);
+            color: var(--main-pink);
+            border: 1.5px solid var(--main-pink);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 900;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-history:hover {
+            background: var(--main-pink);
+            color: white;
+            box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);
+        }
 
         /* প্রোডাক্ট গ্রিড স্টাইল */
         .product-grid {
@@ -207,7 +234,7 @@
         .lbl-pink { color: var(--main-pink); font-weight: bold; font-size: 12px;}
         .val-text { color: var(--dark-blue); font-weight: 900;}
 
-        /* স্ট্যাটাস ব্যাজ (অরিজিনাল পিংক ডটেড বর্ডার) */
+        /* স্ট্যাটাস ব্যাজ */
         .status-box {
             width: 100%;
             padding: 8px 0; 
@@ -232,13 +259,12 @@
 
         .product-actions {
             display: flex;
-            gap: 10px; 
-            align-items: center;
+            width: 100%;
         }
 
-        /* View Details বাটন */
+        /* View Details বাটন (পুরো জায়গা নেবে) */
         .btn-view-details {
-            flex-grow: 1;
+            width: 100%;
             background: var(--main-white);
             border: 1.5px solid var(--main-pink);
             border-radius: 6px;
@@ -254,21 +280,6 @@
         .btn-view-details:hover {
             background: var(--pink-hover);
         }
-
-        /* Approve বাটন (সম্পূর্ণ পিংক) */
-        .btn-cart {
-            background: var(--main-pink);
-            border: none;
-            border-radius: 6px;
-            padding: 10px 18px; 
-            color: white;
-            cursor: pointer;
-            transition: 0.2s;
-            font-size: 14px;
-            display: flex; align-items: center; justify-content: center;
-        }
-
-        .btn-cart:hover { opacity: 0.9; transform: translateY(-2px); }
 
         /* পপ-আপ (Modal) ডিজাইন */
         .modal {
@@ -312,24 +323,12 @@
             margin-bottom: 20px;
         }
 
-        /* রিজেক্ট রিজন ইনপুট বক্স (সবসময় দেখাবে) */
-        .reject-reason-container {
-            margin-bottom: 20px;
-        }
-        .reject-reason-container label {
-            display: block; font-size: 13px; font-weight: bold; color: var(--dark-blue); margin-bottom: 8px;
-        }
+        /* রিজেক্ট রিজন ইনপুট বক্স */
+        .reject-reason-container { margin-bottom: 20px; }
+        .reject-reason-container label { display: block; font-size: 13px; font-weight: bold; color: var(--dark-blue); margin-bottom: 8px; }
         .reject-reason-input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #eaeaea;
-            background-color: #f8f9fa;
-            border-radius: 6px;
-            font-size: 13px;
-            outline: none;
-            box-sizing: border-box;
-            transition: 0.3s;
-            font-family: inherit;
+            width: 100%; padding: 12px; border: 1px solid #eaeaea; background-color: #f8f9fa;
+            border-radius: 6px; font-size: 13px; outline: none; box-sizing: border-box; transition: 0.3s; font-family: inherit;
         }
         .reject-reason-input:focus { border-color: var(--main-pink); background-color: #fff; }
 
@@ -445,9 +444,14 @@
                 </div>
             </div>
 
-            <!-- হেডার বার -->
-            <div class="section-title">
-                <i class="fas fa-history"></i> সাম্প্রতিক জমা দেওয়া কাজগুলো
+            <!-- হেডার বার এবং হিস্ট্রি বাটন -->
+            <div class="section-header-wrapper">
+                <div class="section-title">
+                    <i class="fas fa-history"></i> সাম্প্রতিক জমা দেওয়া কাজগুলো
+                </div>
+                <button class="btn-history" onclick="window.location.href='admin_history.html'">
+                    <i class="fas fa-list-alt"></i> History
+                </button>
             </div>
             
             <!-- টাস্ক গ্রিড -->
@@ -466,7 +470,6 @@
                     <div class="status-box status-pending"><i class="fas fa-spinner fa-spin"></i> Pending</div>
                     <div class="product-actions">
                         <button class="btn-view-details" onclick="openModal('Google Account', 'fab fa-google', 'T9KZBTUBR1', 'আজ, ০৩:১৫ PM', 'sakib1@gmail.com<br>Pass: sakib@2026', 'task-card-1')">View Details</button>
-                        <button class="btn-cart" title="Approve" onclick="actionTask('accept', 'task-card-1')"><i class="fas fa-check"></i></button>
                     </div>
                 </div>
 
@@ -483,7 +486,6 @@
                     <div class="status-box status-pending"><i class="fas fa-spinner fa-spin"></i> Pending</div>
                     <div class="product-actions">
                         <button class="btn-view-details" onclick="openModal('Google Account', 'fab fa-google', 'T9KZBTUBR1', 'আজ, ০৩:১৬ PM', 'sakib2@gmail.com<br>Pass: sakib2@2026', 'task-card-2')">View Details</button>
-                        <button class="btn-cart" title="Approve" onclick="actionTask('accept', 'task-card-2')"><i class="fas fa-check"></i></button>
                     </div>
                 </div>
 
@@ -500,7 +502,6 @@
                     <div class="status-box status-pending"><i class="fas fa-spinner fa-spin"></i> Pending</div>
                     <div class="product-actions">
                         <button class="btn-view-details" onclick="openModal('Instagram Account', 'fab fa-instagram', 'X7ABCTUBR9', 'আজ, ০২:৪৫ PM', 'insta_salam99<br>Pass: salam@pass', 'task-card-3')">View Details</button>
-                        <button class="btn-cart" title="Approve" onclick="actionTask('accept', 'task-card-3')"><i class="fas fa-check"></i></button>
                     </div>
                 </div>
                 
@@ -517,7 +518,6 @@
                     <div class="status-box status-rejected"><i class="fas fa-times-circle"></i> Rejected</div>
                     <div class="product-actions">
                         <button class="btn-view-details" onclick="openModal('WhatsApp Account', 'fab fa-whatsapp', 'M2LKBTYYY5', 'আজ, ০১:২০ PM', '+8801711223344', 'task-card-4')">View Details</button>
-                        <button class="btn-cart" title="Approve" onclick="actionTask('accept', 'task-card-4')"><i class="fas fa-check"></i></button>
                     </div>
                 </div>
 
@@ -534,7 +534,6 @@
                     <div class="status-box status-pending"><i class="fas fa-spinner fa-spin"></i> Pending</div>
                     <div class="product-actions">
                         <button class="btn-view-details" onclick="openModal('Telegram Account', 'fab fa-telegram-plane', 'A4JKMTUZR8', 'গতকাল, ১১:১০ AM', '+8801999887766', 'task-card-5')">View Details</button>
-                        <button class="btn-cart" title="Approve" onclick="actionTask('accept', 'task-card-5')"><i class="fas fa-check"></i></button>
                     </div>
                 </div>
 
