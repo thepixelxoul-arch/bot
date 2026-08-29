@@ -12,8 +12,10 @@
             --light-pink: #ff3377;
             --main-white: #ffffff; 
             --text-grey: #888888; 
-            --bg-light: #ffe0e9; 
+            --bg-light: #f4f6f9; 
             --dark-blue: #2c3e50;
+            --pink-transparent: rgba(226, 0, 90, 0.05); 
+            --pink-hover: rgba(226, 0, 90, 0.1);
         }
 
         body { 
@@ -43,7 +45,7 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             flex-shrink: 0;
         }
-        .sidebar-header h2 { margin: 0; font-size: 22px; font-weight: 900; }
+        .sidebar-header h2 { margin: 0; font-size: 22px; font-weight: 900; letter-spacing: 1px;}
         .sidebar-header p { margin: 5px 0 0 0; font-size: 12px; color: #ffe6f0; }
 
         .nav-links {
@@ -69,7 +71,7 @@
         .nav-links a:hover, .nav-links a.active {
             background-color: rgba(255, 255, 255, 0.1);
             color: white;
-            border-left: 4px solid #ffcc00;
+            border-left: 4px solid #fff; /* অন্যান্য পেজের মতো সাদা বর্ডার দেওয়া হয়েছে */
         }
 
         .nav-links a i { width: 20px; text-align: center; font-size: 18px; }
@@ -80,6 +82,7 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            background-color: var(--bg-light); 
         }
 
         /* টপবার */
@@ -93,15 +96,15 @@
             z-index: 10;
         }
 
-        .topbar-title { font-size: 18px; font-weight: bold; color: var(--dark-blue); }
+        .topbar-title { font-size: 20px; font-weight: 900; color: var(--dark-blue); }
 
         .admin-profile { display: flex; align-items: center; gap: 15px; }
         
         .logout-btn {
-            background-color: #ffb3c6; color: var(--main-pink);
-            border: none; padding: 8px 18px; border-radius: 6px;
+            background-color: var(--pink-hover); color: var(--main-pink);
+            border: none; padding: 10px 20px; border-radius: 8px;
             cursor: pointer; font-weight: bold; transition: 0.2s;
-            display: flex; align-items: center; gap: 8px;
+            display: flex; align-items: center; gap: 8px; font-size: 14px;
         }
         .logout-btn:hover { background-color: var(--main-pink); color: white; }
 
@@ -125,14 +128,14 @@
         }
 
         .card-header-title {
-            font-size: 20px;
-            font-weight: bold;
+            font-size: 18px;
+            font-weight: 900;
             display: flex; align-items: center; gap: 10px;
             color: white;
         }
         
         .card-header-subtitle {
-            font-size: 13px; color: #ffe0e9; margin-top: 5px;
+            font-size: 13px; color: #ffe0e9; margin-top: 5px; font-weight: bold;
         }
 
         /* --- VIP প্যাকেজ কার্ড গ্রিড --- */
@@ -298,9 +301,9 @@
 
         /* টোস্ট মেসেজ */
         .toast-msg {
-            visibility: hidden; background-color: #27ae60; color: #fff; text-align: center;
+            visibility: hidden; background-color: var(--main-pink); color: #fff; text-align: center;
             border-radius: 8px; padding: 15px 25px; position: fixed; z-index: 9999; right: 30px; top: 30px;
-            font-size: 14px; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            font-size: 14px; font-weight: bold; box-shadow: 0 4px 15px rgba(226, 0, 90, 0.3);
             opacity: 0; transition: opacity 0.3s, top 0.3s;
         }
         .toast-msg.show { visibility: visible; opacity: 1; top: 50px; }
@@ -317,12 +320,14 @@
             <p>অ্যাডমিন কন্ট্রোল প্যানেল</p>
         </div>
         <ul class="nav-links">
-            <li><a href="admin.html" class="nav-link"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
+            <li><a href="admin_dashboard.html" class="nav-link"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
+            <li><a href="admin_history.html" class="nav-link"><i class="fas fa-history"></i> কাজের হিস্ট্রি</a></li>
             <li><a href="admin_simple_users.html" class="nav-link"><i class="fas fa-user"></i> সাধারণ ইউজার</a></li>
             <li><a href="admin_vip_users.html" class="nav-link"><i class="fas fa-user-tie"></i> VIP ইউজার</a></li>
             <li><a href="admin_withdraw.html" class="nav-link"><i class="fas fa-file-invoice-dollar"></i> উইথড্র রিকোয়েস্ট</a></li>
             <li><a href="admin_task_rates.html" class="nav-link"><i class="fas fa-tasks"></i> কাজের রেট</a></li>
             <li><a href="admin_number.html" class="nav-link"><i class="fas fa-sim-card"></i> নাম্বার ম্যানেজমেন্ট</a></li>
+            <!-- এই পেজটি এক্টিভ করা হয়েছে -->
             <li><a href="admin_vip_settings.html" class="nav-link active"><i class="fas fa-crown"></i> VIP প্যাকেজ সেটিং</a></li>
             <li><a href="admin_refer.html" class="nav-link"><i class="fas fa-user-plus"></i> রেফার সেটিং</a></li>
             <li><a href="admin_notification.html" class="nav-link"><i class="fas fa-bell"></i> নোটিফিকেশন ও নোটিশ</a></li>
@@ -689,7 +694,7 @@
                     </button>
                 </div>
 
-                <!-- Send bKash Member 1 (তারার লোগোসহ) -->
+                <!-- Send bKash Member 1 -->
                 <div class="vip-card">
                     <div class="vip-card-header">
                         <div class="vip-icon"><i class="fas fa-star"></i></div>
@@ -721,7 +726,7 @@
                     </button>
                 </div>
 
-                <!-- Send bKash Member 2 (তারার লোগোসহ) -->
+                <!-- Send bKash Member 2 -->
                 <div class="vip-card">
                     <div class="vip-card-header">
                         <div class="vip-icon"><i class="fas fa-star"></i></div>
