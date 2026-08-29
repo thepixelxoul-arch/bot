@@ -25,7 +25,7 @@
             overflow: hidden;
         }
 
-        /* সাইডবার (অন্যান্য পেজের মতো পারফেক্ট সিরিয়াল) */
+        /* সাইডবার */
         .sidebar {
             width: 260px;
             background: linear-gradient(180deg, var(--main-pink), var(--light-pink));
@@ -113,18 +113,19 @@
             flex-grow: 1;
         }
 
-        /* --- রেফার সেটিং এডিট কার্ড --- */
+        /* --- রেফার সেটিং এডিট কার্ড (সম্পূর্ণ পিংক কালার) --- */
         .settings-card {
-            background: #fff;
+            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
             border-radius: 12px;
             padding: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.2);
             margin-bottom: 30px;
-            border-top: 4px solid var(--main-pink);
+            color: white;
+            border-top: 4px solid #fff;
         }
 
         .settings-title {
-            font-size: 18px; font-weight: bold; color: var(--main-pink);
+            font-size: 18px; font-weight: bold; color: white;
             margin-bottom: 20px; display: flex; align-items: center; gap: 10px;
         }
 
@@ -140,21 +141,20 @@
         }
 
         .input-group { display: flex; flex-direction: column; gap: 8px; }
-        .input-group label { font-size: 13px; font-weight: bold; color: var(--text-grey); }
+        .input-group label { font-size: 13px; font-weight: bold; color: rgba(255, 255, 255, 0.9); }
         
         .input-with-icon {
             display: flex;
             align-items: center;
-            background-color: #f8f9fa;
-            border: 2px solid #eaeaea;
+            background-color: var(--main-white);
+            border: 2px solid transparent;
             border-radius: 8px;
             padding: 5px 15px;
             transition: 0.3s;
         }
 
         .input-with-icon:focus-within {
-            border-color: var(--main-pink);
-            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
         }
 
         .input-prefix { font-size: 16px; font-weight: 900; color: var(--dark-blue); }
@@ -165,12 +165,13 @@
         }
 
         .btn-update-settings {
-            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
-            color: white; border: none; padding: 14px 25px; border-radius: 8px;
+            background: var(--main-white);
+            color: var(--main-pink);
+            border: none; padding: 14px 25px; border-radius: 8px;
             font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.2s;
-            display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);
+            display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-        .btn-update-settings:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(226, 0, 90, 0.3); }
+        .btn-update-settings:hover { background: var(--bg-light); transform: translateY(-2px); }
 
         /* --- যারা রেফার করেছে তাদের কার্ড গ্রিড --- */
         .section-header {
@@ -297,7 +298,7 @@
         </div>
     </div>
 
-    <!-- সাইডবার (অন্যান্য পেজের সাথে ১০০% মিল রেখে সাজানো) -->
+    <!-- সাইডবার -->
     <aside class="sidebar">
         <div class="sidebar-header">
             <h2><i class="fas fa-paper-plane"></i> Send bKash</h2>
@@ -331,7 +332,7 @@
 
         <div class="dashboard-body">
             
-            <!-- রেফার সেটিং ফর্ম -->
+            <!-- রেফার সেটিং ফর্ম (সম্পূর্ণ পিংক কালার বক্স) -->
             <div class="settings-card">
                 <div class="settings-title"><i class="fas fa-cog"></i> বোনাস ও কমিশন আপডেট করুন</div>
                 
