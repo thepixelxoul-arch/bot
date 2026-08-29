@@ -13,7 +13,7 @@
             --main-white: #ffffff; 
             --text-grey: #6c757d; 
             --bg-light: #fce4ec; /* সুন্দর সফট পিংক ব্যাকগ্রাউন্ড */
-            --dark-blue: #2c3e50;
+            --dark-blue: #2c3e50; /* শুধুমাত্র টেক্সটের জন্য */
         }
 
         body { 
@@ -98,7 +98,7 @@
         .admin-profile { display: flex; align-items: center; gap: 15px; }
         
         .logout-btn {
-            background-color: #fce4ec; color: var(--main-pink);
+            background-color: var(--bg-light); color: var(--main-pink);
             border: none; padding: 10px 20px; border-radius: 8px;
             cursor: pointer; font-weight: bold; transition: 0.2s;
             display: flex; align-items: center; gap: 8px; font-size: 14px;
@@ -131,16 +131,13 @@
             box-shadow: 0 8px 25px rgba(233, 30, 99, 0.15);
         }
 
+        /* সব স্ট্যাটাস আইকন এখন পিংক থিমে */
         .stat-icon {
             width: 60px; height: 60px; border-radius: 12px; color: white;
             display: flex; align-items: center; justify-content: center; font-size: 24px;
+            background: linear-gradient(135deg, var(--light-pink), var(--main-pink));
+            box-shadow: 0 4px 10px rgba(233, 30, 99, 0.3);
         }
-
-        /* আলাদা আইকন কালার */
-        .icon-users { background: linear-gradient(135deg, #f06292, #e91e63); box-shadow: 0 4px 10px rgba(233, 30, 99, 0.3); }
-        .icon-wallet { background: linear-gradient(135deg, #4caf50, #2e7d32); box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3); }
-        .icon-pending { background: linear-gradient(135deg, #ffca28, #f57c00); box-shadow: 0 4px 10px rgba(245, 124, 0, 0.3); }
-        .icon-vip { background: linear-gradient(135deg, #ab47bc, #7b1fa2); box-shadow: 0 4px 10px rgba(123, 31, 162, 0.3); }
 
         .stat-info h3 { margin: 0 0 5px 0; font-size: 26px; color: var(--dark-blue); font-weight: 900; }
         .stat-info p { margin: 0; font-size: 13px; color: var(--text-grey); font-weight: bold; }
@@ -186,9 +183,11 @@
             transform: translateY(-3px);
         }
 
+        /* কার্ডের ভেতরের আইকন (সব পিংক) */
         .product-img {
             height: 110px;
-            background-color: #f8f9fa;
+            background-color: var(--bg-light);
+            color: var(--main-pink);
             border-radius: 10px;
             display: flex;
             align-items: center;
@@ -213,10 +212,9 @@
             font-weight: bold;
         }
 
-        /* পিংক লেবেল (যেমন: ইউজার, ইমেইল) */
         .lbl-pink { color: var(--main-pink); font-weight: 900; }
 
-        /* স্ট্যাটাস ব্যাজ (Pending / Rejected) */
+        /* স্ট্যাটাস ব্যাজ (সম্পূর্ণ পিংক থিমে) */
         .status-box {
             width: 100%;
             padding: 8px 0;
@@ -228,8 +226,8 @@
             box-sizing: border-box;
         }
         
-        .status-pending { background-color: #fff3cd; color: #d35400; border: 1px solid #ffeeba; }
-        .status-rejected { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .status-pending { background-color: var(--bg-light); color: var(--main-pink); border: 1px solid var(--light-pink); }
+        .status-rejected { background-color: var(--main-pink); color: white; border: 1px solid var(--main-pink); }
 
         .product-actions {
             display: flex;
@@ -240,8 +238,8 @@
         /* View Details বাটন */
         .btn-view-details {
             flex-grow: 1;
-            background: #fce4ec;
-            border: none;
+            background: var(--bg-light);
+            border: 1px solid transparent;
             border-radius: 8px;
             padding: 12px;
             font-size: 13px;
@@ -253,14 +251,13 @@
         }
 
         .btn-view-details:hover {
-            background: var(--main-pink);
+            background: var(--light-pink);
             color: white;
-            box-shadow: 0 4px 10px rgba(233, 30, 99, 0.2);
         }
 
-        /* Approve বাটন */
+        /* Approve বাটন (পিংক করা হয়েছে) */
         .btn-cart {
-            background: #27ae60;
+            background: linear-gradient(135deg, var(--light-pink), var(--main-pink));
             border: none;
             border-radius: 8px;
             padding: 12px 18px;
@@ -268,37 +265,38 @@
             cursor: pointer;
             transition: 0.2s;
             font-size: 14px;
-            box-shadow: 0 4px 10px rgba(39, 174, 96, 0.2);
+            box-shadow: 0 4px 10px rgba(233, 30, 99, 0.2);
             display: flex; align-items: center; justify-content: center;
         }
 
         .btn-cart:hover {
-            background: #219653;
             transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(233, 30, 99, 0.3);
         }
 
         /* পপ-আপ (Modal) ডিজাইন */
         .modal {
             display: none; position: fixed; z-index: 1000; left: 0; top: 0;
-            width: 100%; height: 100%; background-color: rgba(0,0,0,0.6);
+            width: 100%; height: 100%; background-color: rgba(233, 30, 99, 0.3); /* ব্যাকগ্রাউন্ড হালকা পিংক */
             align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease;
         }
         .modal.show { display: flex; opacity: 1; }
         
         .modal-content {
             background-color: #fff; padding: 35px; border-radius: 16px;
-            width: 90%; max-width: 400px; box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            width: 90%; max-width: 400px; box-shadow: 0 10px 40px rgba(233, 30, 99, 0.2);
             transform: translateY(20px); transition: transform 0.3s ease; position: relative;
+            border-top: 5px solid var(--main-pink);
         }
         .modal.show .modal-content { transform: translateY(0); }
 
         .close-btn { 
             position: absolute; top: 15px; right: 20px; font-size: 24px; 
-            cursor: pointer; color: #aaa; transition: 0.2s; 
+            cursor: pointer; color: var(--light-pink); transition: 0.2s; 
         }
         .close-btn:hover { color: var(--main-pink); }
 
-        .modal-title { font-size: 18px; font-weight: bold; color: var(--dark-blue); margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+        .modal-title { font-size: 18px; font-weight: bold; color: var(--main-pink); margin-bottom: 20px; border-bottom: 2px solid var(--bg-light); padding-bottom: 12px; display: flex; align-items: center; gap: 10px; }
         
         .detail-row { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 14px; }
         .detail-row span.label { color: #888; font-weight: bold; }
@@ -307,17 +305,19 @@
         .modal-actions { display: flex; gap: 15px; margin-top: 25px; }
         .modal-actions button { 
             flex: 1; padding: 12px; border: none; border-radius: 8px; font-size: 15px; 
-            font-weight: bold; cursor: pointer; color: white; transition: 0.2s; 
+            font-weight: bold; cursor: pointer; transition: 0.2s; 
         }
         .modal-actions button:hover { transform: translateY(-2px); }
-        .btn-accept { background: linear-gradient(135deg, #27ae60, #2ecc71); box-shadow: 0 4px 10px rgba(39, 174, 96, 0.2);}
-        .btn-reject-modal { background: linear-gradient(135deg, #e74c3c, #c0392b); box-shadow: 0 4px 10px rgba(231, 76, 60, 0.2);}
+        
+        /* Modal Buttons (পিংক থিম) */
+        .btn-accept { background: linear-gradient(135deg, var(--light-pink), var(--main-pink)); color: white; box-shadow: 0 4px 10px rgba(233, 30, 99, 0.2);}
+        .btn-reject-modal { background: var(--bg-light); color: var(--main-pink); border: 1px solid var(--main-pink); }
 
         /* টোস্ট মেসেজ */
         .toast-msg {
-            visibility: hidden; background-color: #27ae60; color: #fff; text-align: center;
+            visibility: hidden; background-color: var(--main-pink); color: #fff; text-align: center;
             border-radius: 8px; padding: 15px 25px; position: fixed; z-index: 9999; right: 30px; top: 30px;
-            font-size: 14px; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            font-size: 14px; font-weight: bold; box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
             opacity: 0; transition: opacity 0.3s, top 0.3s;
         }
         .toast-msg.show { visibility: visible; opacity: 1; top: 50px; }
@@ -331,7 +331,7 @@
     <div id="taskModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
-            <div class="modal-title" id="modalTitle"><i class="fab fa-google"></i> কাজের বিস্তারিত</div>
+            <div class="modal-title" id="modalTitle"><i class="fas fa-tasks"></i> কাজের বিস্তারিত</div>
             
             <div class="detail-row">
                 <span class="label">ইউজার আইডি:</span>
@@ -343,7 +343,7 @@
             </div>
             <div class="detail-row" style="flex-direction: column; gap: 8px;">
                 <span class="label">একাউন্ট ডিটেইলস:</span>
-                <span class="value" id="m-details" style="color: var(--main-pink); text-align: left; background: #f8f9fa; padding: 10px; border-radius: 8px; border: 1px dashed #ccc;">sakib1@gmail.com<br>Pass: sakib@2026</span>
+                <span class="value" id="m-details" style="color: var(--main-pink); text-align: left; background: var(--bg-light); padding: 10px; border-radius: 8px; border: 1px dashed var(--main-pink);">sakib1@gmail.com<br>Pass: sakib@2026</span>
             </div>
             
             <div class="modal-actions">
@@ -388,19 +388,19 @@
             <!-- স্ট্যাটাস বক্স -->
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-icon icon-users"><i class="fas fa-users"></i></div>
+                    <div class="stat-icon"><i class="fas fa-users"></i></div>
                     <div class="stat-info"><h3>১,৪৫০</h3><p>মোট ইউজার</p></div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon icon-wallet"><i class="fas fa-wallet"></i></div>
+                    <div class="stat-icon"><i class="fas fa-wallet"></i></div>
                     <div class="stat-info"><h3>৳৪৫,২০০</h3><p>মোট পেমেন্ট</p></div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon icon-pending"><i class="fas fa-clock"></i></div>
+                    <div class="stat-icon"><i class="fas fa-clock"></i></div>
                     <div class="stat-info"><h3>১২ টি</h3><p>পেন্ডিং উইথড্র</p></div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon icon-vip"><i class="fas fa-crown"></i></div>
+                    <div class="stat-icon"><i class="fas fa-crown"></i></div>
                     <div class="stat-info"><h3>৩২০ জন</h3><p>VIP ইউজার</p></div>
                 </div>
             </div>
@@ -417,7 +417,7 @@
                 
                 <!-- জিমেইল কার্ড ১ -->
                 <div class="product-card" id="task-card-1">
-                    <div class="product-img" style="color: #ea4335;">
+                    <div class="product-img">
                         <i class="fab fa-google"></i>
                     </div>
                     <h4 class="product-title">Google Account</h4>
@@ -427,14 +427,14 @@
                     </p>
                     <div class="status-box status-pending"><i class="fas fa-spinner fa-spin"></i> Pending</div>
                     <div class="product-actions">
-                        <button class="btn-view-details" onclick="openModal('Google Account', 'fab fa-google', '#ea4335', 'T9KZBTUBR1', 'আজ, ০৩:১৫ PM', 'sakib1@gmail.com<br>Pass: sakib@2026')">View Details</button>
+                        <button class="btn-view-details" onclick="openModal('Google Account', 'fab fa-google', 'T9KZBTUBR1', 'আজ, ০৩:১৫ PM', 'sakib1@gmail.com<br>Pass: sakib@2026')">View Details</button>
                         <button class="btn-cart" title="Approve" onclick="actionTask('accept', 'task-card-1')"><i class="fas fa-check"></i></button>
                     </div>
                 </div>
 
                 <!-- জিমেইল কার্ড ২ -->
                 <div class="product-card" id="task-card-2">
-                    <div class="product-img" style="color: #ea4335;">
+                    <div class="product-img">
                         <i class="fab fa-google"></i>
                     </div>
                     <h4 class="product-title">Google Account</h4>
@@ -444,14 +444,14 @@
                     </p>
                     <div class="status-box status-pending"><i class="fas fa-spinner fa-spin"></i> Pending</div>
                     <div class="product-actions">
-                        <button class="btn-view-details" onclick="openModal('Google Account', 'fab fa-google', '#ea4335', 'T9KZBTUBR1', 'আজ, ০৩:১৬ PM', 'sakib2@gmail.com<br>Pass: sakib2@2026')">View Details</button>
+                        <button class="btn-view-details" onclick="openModal('Google Account', 'fab fa-google', 'T9KZBTUBR1', 'আজ, ০৩:১৬ PM', 'sakib2@gmail.com<br>Pass: sakib2@2026')">View Details</button>
                         <button class="btn-cart" title="Approve" onclick="actionTask('accept', 'task-card-2')"><i class="fas fa-check"></i></button>
                     </div>
                 </div>
 
                 <!-- ইন্সটাগ্রাম কার্ড -->
                 <div class="product-card" id="task-card-3">
-                    <div class="product-img" style="color: #e1306c;">
+                    <div class="product-img">
                         <i class="fab fa-instagram"></i>
                     </div>
                     <h4 class="product-title">Instagram Account</h4>
@@ -461,14 +461,14 @@
                     </p>
                     <div class="status-box status-pending"><i class="fas fa-spinner fa-spin"></i> Pending</div>
                     <div class="product-actions">
-                        <button class="btn-view-details" onclick="openModal('Instagram Account', 'fab fa-instagram', '#e1306c', 'X7ABCTUBR9', 'আজ, ০২:৪৫ PM', 'insta_salam99<br>Pass: salam@pass')">View Details</button>
+                        <button class="btn-view-details" onclick="openModal('Instagram Account', 'fab fa-instagram', 'X7ABCTUBR9', 'আজ, ০২:৪৫ PM', 'insta_salam99<br>Pass: salam@pass')">View Details</button>
                         <button class="btn-cart" title="Approve" onclick="actionTask('accept', 'task-card-3')"><i class="fas fa-check"></i></button>
                     </div>
                 </div>
                 
                 <!-- হোয়াটসঅ্যাপ কার্ড -->
                 <div class="product-card" id="task-card-4">
-                    <div class="product-img" style="color: #25d366;">
+                    <div class="product-img">
                         <i class="fab fa-whatsapp"></i>
                     </div>
                     <h4 class="product-title">WhatsApp Account</h4>
@@ -478,14 +478,14 @@
                     </p>
                     <div class="status-box status-rejected"><i class="fas fa-times-circle"></i> Rejected</div>
                     <div class="product-actions">
-                        <button class="btn-view-details" onclick="openModal('WhatsApp Account', 'fab fa-whatsapp', '#25d366', 'M2LKBTYYY5', 'আজ, ০১:২০ PM', '+8801711223344')">View Details</button>
+                        <button class="btn-view-details" onclick="openModal('WhatsApp Account', 'fab fa-whatsapp', 'M2LKBTYYY5', 'আজ, ০১:২০ PM', '+8801711223344')">View Details</button>
                         <button class="btn-cart" title="Approve" onclick="actionTask('accept', 'task-card-4')"><i class="fas fa-check"></i></button>
                     </div>
                 </div>
 
                 <!-- টেলিগ্রাম কার্ড -->
                 <div class="product-card" id="task-card-5">
-                    <div class="product-img" style="color: #0088cc;">
+                    <div class="product-img">
                         <i class="fab fa-telegram-plane"></i>
                     </div>
                     <h4 class="product-title">Telegram Account</h4>
@@ -495,7 +495,7 @@
                     </p>
                     <div class="status-box status-pending"><i class="fas fa-spinner fa-spin"></i> Pending</div>
                     <div class="product-actions">
-                        <button class="btn-view-details" onclick="openModal('Telegram Account', 'fab fa-telegram-plane', '#0088cc', 'A4JKMTUZR8', 'গতকাল, ১১:১০ AM', '+8801999887766')">View Details</button>
+                        <button class="btn-view-details" onclick="openModal('Telegram Account', 'fab fa-telegram-plane', 'A4JKMTUZR8', 'গতকাল, ১১:১০ AM', '+8801999887766')">View Details</button>
                         <button class="btn-cart" title="Approve" onclick="actionTask('accept', 'task-card-5')"><i class="fas fa-check"></i></button>
                     </div>
                 </div>
@@ -506,8 +506,8 @@
     </main>
 
     <script>
-        function openModal(taskName, iconClass, iconColor, userId, time, details) {
-            document.getElementById('modalTitle').innerHTML = `<i class="${iconClass}" style="color: ${iconColor};"></i> ${taskName}`;
+        function openModal(taskName, iconClass, userId, time, details) {
+            document.getElementById('modalTitle').innerHTML = `<i class="${iconClass}"></i> ${taskName}`;
             document.getElementById('m-userId').innerText = userId;
             document.getElementById('m-time').innerText = time;
             document.getElementById('m-details').innerHTML = details;
@@ -525,10 +525,10 @@
             const toast = document.getElementById("toastBox");
             if(action === 'accept') {
                 document.getElementById("toastText").innerText = "কাজটি সফলভাবে Accept করা হয়েছে!";
-                toast.style.backgroundColor = "#27ae60";
+                toast.style.backgroundColor = "var(--main-pink)";
             } else {
                 document.getElementById("toastText").innerText = "কাজটি Reject করা হয়েছে!";
-                toast.style.backgroundColor = "#e74c3c";
+                toast.style.backgroundColor = "var(--light-pink)";
             }
 
             toast.classList.add("show");
