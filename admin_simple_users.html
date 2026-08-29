@@ -8,7 +8,6 @@
     
     <style>
         :root { 
-            /* অরিজিনাল ওয়েবসাইট পিংক থিম */
             --main-pink: #e2005a; 
             --light-pink: #ff3377;
             --main-white: #ffffff; 
@@ -134,6 +133,24 @@
             display: flex; align-items: center; gap: 10px; margin: 0;
         }
 
+        /* বোনাস বাটন */
+        .btn-give-bonus {
+            background: var(--main-white);
+            color: var(--main-pink);
+            border: none;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 900;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .btn-give-bonus:hover { background: var(--bg-light); transform: translateY(-2px); }
+
         /* সার্চ বক্স */
         .search-container {
             display: flex; gap: 10px; margin-bottom: 20px;
@@ -209,7 +226,6 @@
 
         .user-info-cell { display: flex; align-items: center; }
 
-        /* ব্যালেন্স ব্যাজ (সলিড পিংক করা হয়েছে) */
         .balance-badge {
             background: var(--main-pink); 
             color: var(--main-white);
@@ -277,12 +293,12 @@
         .modal-input:focus { border-color: var(--main-pink); background-color: #fff; }
 
         .btn-save-modal { 
-            width: 100%; padding: 12px; border: none; border-radius: 8px; font-size: 15px; 
+            width: 100%; padding: 15px; border: none; border-radius: 8px; font-size: 15px; 
             font-weight: bold; cursor: pointer; transition: 0.2s; 
             display: flex; align-items: center; justify-content: center; gap: 6px;
             background: var(--main-pink); color: white; box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);
         }
-        .btn-save-modal:hover { background: var(--light-pink); }
+        .btn-save-modal:hover { background: var(--light-pink); transform: translateY(-2px); }
 
         /* টোস্ট মেসেজ */
         .toast-msg {
@@ -302,20 +318,41 @@
     <!-- ব্যালেন্স এডিট পপ-আপ -->
     <div id="editModal" class="modal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
-            <div class="modal-title" id="modalTitleText"><i class="fas fa-wallet"></i> ব্যালেন্স আপডেট করুন</div>
+            <span class="close-btn" onclick="closeModal('editModal')">&times;</span>
+            <div class="modal-title" id="modalTitleText" style="border-bottom: none; padding-bottom: 0;"><i class="fas fa-wallet"></i> ব্যালেন্স আপডেট করুন</div>
             
-            <div style="font-size: 14px; color: var(--text-grey); margin-bottom: 15px; font-weight: bold;">
+            <div style="font-size: 14px; color: var(--text-grey); margin-bottom: 15px; font-weight: bold; margin-top: 10px; border-bottom: 1px solid #eaeaea; padding-bottom: 15px;">
                 ইউজার আইডি: <span id="modalUserId" style="color: var(--main-pink);"></span>
             </div>
 
             <div class="input-group">
                 <label id="inputLabel">টাকার পরিমাণ (৳):</label>
-                <input type="number" id="balanceInput" class="modal-input" placeholder="0.00">
+                <input type="number" id="balanceInput" class="modal-input" placeholder="0.00" style="text-align: left;">
             </div>
             
             <button class="btn-save-modal" id="modalActionBtn" onclick="saveBalance()">
                 <i class="fas fa-save"></i> নিশ্চিত করুন
+            </button>
+        </div>
+    </div>
+
+    <!-- বোনাস দিন পপ-আপ (শুধু সাধারণ ইউজারদের জন্য ৫ টাকা) -->
+    <div id="bonusModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('bonusModal')">&times;</span>
+            <div class="modal-title" style="border-bottom: none; padding-bottom: 0;"><i class="fas fa-gift"></i> সাধারণ ইউজারদের বোনাস</div>
+            
+            <p style="font-size: 13px; color: var(--text-grey); margin-bottom: 20px; font-weight: bold; border-bottom: 1px solid #eaeaea; padding-bottom: 15px; line-height: 1.5;">
+                সকল সাধারণ ইউজারের অ্যাপে <span style="color: var(--main-pink);">৫ টাকা</span> বোনাস ক্লেইম (Claim) করার অপশনটি চালু হবে।
+            </p>
+
+            <div class="input-group">
+                <label style="display: block; font-size: 13px; font-weight: bold; color: var(--dark-blue); margin-bottom: 8px;">বোনাসের পরিমাণ (৳):</label>
+                <input type="text" id="bonusAmountInput" class="modal-input" value="৳ 5.00" readonly style="text-align: center; background-color: var(--pink-transparent);">
+            </div>
+            
+            <button class="btn-save-modal" onclick="enableClaim()">
+                <i class="fas fa-paper-plane"></i> Claim অপশন চালু করুন
             </button>
         </div>
     </div>
@@ -357,6 +394,10 @@
                 <div class="section-title">
                     <i class="fas fa-users" style="color: white;"></i> সকল সাধারণ ইউজারের তালিকা
                 </div>
+                <!-- বোনাস দিন বাটন যুক্ত করা হয়েছে -->
+                <button class="btn-give-bonus" onclick="openModal('bonusModal')">
+                    <i class="fas fa-gift"></i> বোনাস দিন
+                </button>
             </div>
 
             <!-- সার্চ বক্স -->
@@ -445,11 +486,20 @@
     </main>
 
     <script>
+        // Modal Handlers
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('show');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('show');
+        }
+
+        // --- Balance Add/Cut Logic ---
         let currentTargetId = "";
         let currentAction = "";
         let currentBalance = 0;
 
-        // পপ-আপ ওপেন করা
         function openBalanceModal(userId, targetBalId, action) {
             document.getElementById('modalUserId').innerText = userId;
             document.getElementById('balanceInput').value = ""; 
@@ -475,15 +525,9 @@
                 modalBtn.innerHTML = '<i class="fas fa-minus"></i> ব্যালেন্স কাটুন';
             }
 
-            document.getElementById('editModal').classList.add('show');
+            openModal('editModal');
         }
 
-        // পপ-আপ ক্লোজ করা
-        function closeModal() {
-            document.getElementById('editModal').classList.remove('show');
-        }
-
-        // ব্যালেন্স সেভ (যোগ বা বিয়োগ) করা
         function saveBalance() {
             const inputVal = parseFloat(document.getElementById('balanceInput').value);
             
@@ -504,13 +548,22 @@
                 document.getElementById("toastText").innerText = "ব্যালেন্স সফলভাবে কর্তন করা হয়েছে!";
             }
 
-            // নতুন ব্যালেন্স টেবিলে আপডেট করা
-            document.getElementById(currentTargetId).innerText = `৳ ${newBal.toFixed(2)}`;
-            closeModal();
+            // নতুন ব্যালেন্স টেবিলে আপডেট করা (কমা সহ ফরম্যাটিং)
+            document.getElementById(currentTargetId).innerText = `৳ ${newBal.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            closeModal('editModal');
 
             // টোস্ট মেসেজ দেখানো
             toast.classList.add("show");
             setTimeout(() => { toast.classList.remove("show"); }, 3000);
+        }
+
+        // --- Bonus Logic for Simple Users ---
+        function enableClaim() {
+            closeModal('bonusModal');
+            const toast = document.getElementById("toastBox");
+            document.getElementById("toastText").innerText = "সাধারণ ইউজারদের ৫ টাকা বোনাস চালু হয়েছে!";
+            toast.classList.add("show");
+            setTimeout(() => { toast.classList.remove("show"); }, 3500);
         }
 
         document.getElementById("adminLogout").addEventListener("click", () => {
