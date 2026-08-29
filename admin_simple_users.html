@@ -8,7 +8,6 @@
     
     <style>
         :root { 
-            /* অরিজিনাল ওয়েবসাইট পিংক থিম */
             --main-pink: #e2005a; 
             --light-pink: #ff3377;
             --main-white: #ffffff; 
@@ -214,22 +213,27 @@
             padding: 6px 12px; border-radius: 20px; font-weight: 900; border: 1px dashed var(--main-pink);
         }
 
-        /* অ্যাকশন বাটন (Add, Cut, Ban) */
-        .action-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+        /* অ্যাকশন বাটন (Add Balance, Cut Balance) - বড় করা হয়েছে */
+        .action-btns { display: flex; gap: 10px; flex-wrap: wrap; }
         
         .btn-action {
-            padding: 8px 12px; border-radius: 6px; border: none; cursor: pointer;
-            font-size: 12px; font-weight: bold; transition: 0.2s; display: flex; align-items: center; gap: 5px;
+            padding: 10px 18px; /* বাটন বড় করা হয়েছে */
+            border-radius: 8px; /* বর্ডার একটু গোল করা হয়েছে */
+            border: none; 
+            cursor: pointer;
+            font-size: 13px; /* ফন্ট সাইজ বড় করা হয়েছে */
+            font-weight: 900; /* ফন্ট বোল্ড করা হয়েছে */
+            transition: 0.2s; 
+            display: flex; 
+            align-items: center; 
+            gap: 6px;
         }
         
-        .btn-add { background: var(--main-pink); color: var(--main-white); }
-        .btn-add:hover { background: #b0124c; box-shadow: 0 2px 8px rgba(226, 0, 90, 0.3); }
+        .btn-add { background: var(--main-pink); color: var(--main-white); box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);}
+        .btn-add:hover { background: #b0124c; transform: translateY(-2px); }
         
         .btn-cut { background: var(--main-white); color: var(--main-pink); border: 1.5px solid var(--main-pink); }
-        .btn-cut:hover { background: var(--pink-hover); }
-        
-        .btn-ban { background: var(--pink-transparent); color: var(--main-pink); border: 1px dashed var(--main-pink); }
-        .btn-ban:hover { background: var(--main-pink); color: white; }
+        .btn-cut:hover { background: var(--pink-hover); transform: translateY(-2px); }
 
         /* পপ-আপ (Modal) ডিজাইন */
         .modal {
@@ -268,7 +272,7 @@
             width: 100%; padding: 12px; border: none; border-radius: 8px; font-size: 15px; 
             font-weight: bold; cursor: pointer; transition: 0.2s; 
             display: flex; align-items: center; justify-content: center; gap: 6px;
-            background: var(--main-pink); color: white;
+            background: var(--main-pink); color: white; box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);
         }
         .btn-save-modal:hover { background: var(--light-pink); }
 
@@ -317,7 +321,6 @@
         <ul class="nav-links">
             <li><a href="admin_dashboard.html" class="nav-link"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
             <li><a href="admin_history.html" class="nav-link"><i class="fas fa-history"></i> কাজের হিস্ট্রি</a></li>
-            <!-- এই পেজটি Active করা হয়েছে -->
             <li><a href="admin_simple_users.html" class="nav-link active"><i class="fas fa-user"></i> সাধারণ ইউজার</a></li>
             <li><a href="admin_vip_users.html" class="nav-link"><i class="fas fa-user-tie"></i> VIP ইউজার</a></li>
             <li><a href="admin_withdraw.html" class="nav-link"><i class="fas fa-file-invoice-dollar"></i> উইথড্র রিকোয়েস্ট</a></li>
@@ -381,9 +384,8 @@
                                 <td>২৫ আগস্ট, ২০২৬</td>
                                 <td>
                                     <div class="action-btns">
-                                        <button class="btn-action btn-add" onclick="openBalanceModal('T9KZBTUBR1', 'bal-1', 'add')"><i class="fas fa-plus"></i> Add</button>
-                                        <button class="btn-action btn-cut" onclick="openBalanceModal('T9KZBTUBR1', 'bal-1', 'cut')"><i class="fas fa-minus"></i> Cut</button>
-                                        <button class="btn-action btn-ban" onclick="banUser('user-row-1')"><i class="fas fa-ban"></i> Ban</button>
+                                        <button class="btn-action btn-add" onclick="openBalanceModal('T9KZBTUBR1', 'bal-1', 'add')"><i class="fas fa-plus"></i> Add Balance</button>
+                                        <button class="btn-action btn-cut" onclick="openBalanceModal('T9KZBTUBR1', 'bal-1', 'cut')"><i class="fas fa-minus"></i> Cut Balance</button>
                                     </div>
                                 </td>
                             </tr>
@@ -401,9 +403,8 @@
                                 <td>২৬ আগস্ট, ২০২৬</td>
                                 <td>
                                     <div class="action-btns">
-                                        <button class="btn-action btn-add" onclick="openBalanceModal('M2LKBTYYY5', 'bal-2', 'add')"><i class="fas fa-plus"></i> Add</button>
-                                        <button class="btn-action btn-cut" onclick="openBalanceModal('M2LKBTYYY5', 'bal-2', 'cut')"><i class="fas fa-minus"></i> Cut</button>
-                                        <button class="btn-action btn-ban" onclick="banUser('user-row-2')"><i class="fas fa-ban"></i> Ban</button>
+                                        <button class="btn-action btn-add" onclick="openBalanceModal('M2LKBTYYY5', 'bal-2', 'add')"><i class="fas fa-plus"></i> Add Balance</button>
+                                        <button class="btn-action btn-cut" onclick="openBalanceModal('M2LKBTYYY5', 'bal-2', 'cut')"><i class="fas fa-minus"></i> Cut Balance</button>
                                     </div>
                                 </td>
                             </tr>
@@ -421,9 +422,8 @@
                                 <td>২৮ আগস্ট, ২০২৬</td>
                                 <td>
                                     <div class="action-btns">
-                                        <button class="btn-action btn-add" onclick="openBalanceModal('X7ABCTUBR9', 'bal-3', 'add')"><i class="fas fa-plus"></i> Add</button>
-                                        <button class="btn-action btn-cut" onclick="openBalanceModal('X7ABCTUBR9', 'bal-3', 'cut')"><i class="fas fa-minus"></i> Cut</button>
-                                        <button class="btn-action btn-ban" onclick="banUser('user-row-3')"><i class="fas fa-ban"></i> Ban</button>
+                                        <button class="btn-action btn-add" onclick="openBalanceModal('X7ABCTUBR9', 'bal-3', 'add')"><i class="fas fa-plus"></i> Add Balance</button>
+                                        <button class="btn-action btn-cut" onclick="openBalanceModal('X7ABCTUBR9', 'bal-3', 'cut')"><i class="fas fa-minus"></i> Cut Balance</button>
                                     </div>
                                 </td>
                             </tr>
@@ -444,14 +444,14 @@
         // পপ-আপ ওপেন করা
         function openBalanceModal(userId, targetBalId, action) {
             document.getElementById('modalUserId').innerText = userId;
-            document.getElementById('balanceInput').value = ""; // আগের লেখা ক্লিয়ার
+            document.getElementById('balanceInput').value = ""; 
             
             currentTargetId = targetBalId;
             currentAction = action;
 
             // বর্তমান ব্যালেন্স DOM থেকে তুলে আনা
             let balText = document.getElementById(targetBalId).innerText;
-            currentBalance = parseFloat(balText.replace(/[^\d.-]/g, '')); // "৳ ১৫০.০০" থেকে 150.00 বের করা
+            currentBalance = parseFloat(balText.replace(/[^\d.-]/g, '')); 
 
             const modalTitle = document.getElementById('modalTitleText');
             const modalBtn = document.getElementById('modalActionBtn');
@@ -492,7 +492,7 @@
                 document.getElementById("toastText").innerText = "ব্যালেন্স সফলভাবে যোগ করা হয়েছে!";
             } else {
                 newBal = currentBalance - inputVal;
-                if(newBal < 0) newBal = 0; // ব্যালেন্স যেন মাইনাস না হয়
+                if(newBal < 0) newBal = 0; 
                 document.getElementById("toastText").innerText = "ব্যালেন্স সফলভাবে কর্তন করা হয়েছে!";
             }
 
@@ -503,21 +503,6 @@
             // টোস্ট মেসেজ দেখানো
             toast.classList.add("show");
             setTimeout(() => { toast.classList.remove("show"); }, 3000);
-        }
-
-        // ইউজার ব্যান করা
-        function banUser(rowId) {
-            if(confirm("আপনি কি নিশ্চিত যে এই ইউজারকে ব্যান করতে চান?")) {
-                const row = document.getElementById(rowId);
-                row.style.opacity = '0';
-                setTimeout(() => {
-                    row.style.display = 'none';
-                    const toast = document.getElementById("toastBox");
-                    document.getElementById("toastText").innerText = "ইউজারকে ব্যান করা হয়েছে!";
-                    toast.classList.add("show");
-                    setTimeout(() => { toast.classList.remove("show"); }, 3000);
-                }, 300);
-            }
         }
 
         document.getElementById("adminLogout").addEventListener("click", () => {
