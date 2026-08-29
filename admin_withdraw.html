@@ -115,46 +115,39 @@
             flex-grow: 1;
         }
 
-        /* সেকশন হেডার (সাইজ ছোট করে স্লিম করা হয়েছে) */
+        /* সেকশন হেডার (অন্যান্য পেজের সাথে হুবহু মিলানো হয়েছে) */
         .section-header-wrapper {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 25px;
-            background-color: var(--main-pink); 
-            padding: 10px 20px; /* প্যাডিং কমানো হয়েছে */
-            border-radius: 6px; /* একটু তীক্ষ্ণ করা হয়েছে */
-            box-shadow: 0 4px 10px rgba(226, 0, 90, 0.15);
-            width: 100%;
-            box-sizing: border-box;
+            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
+            padding: 15px 25px;
+            border-radius: 12px;
+            color: white;
+            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.2);
         }
 
         .section-title {
-            color: white;
-            font-size: 16px; /* সাইজ ছোট করা হয়েছে */
-            font-weight: 900;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin: 0;
+            font-size: 18px; font-weight: bold;
+            display: flex; align-items: center; gap: 10px; margin: 0;
         }
-        .section-title i { color: white; } 
 
         /* হিস্ট্রি বাটন */
         .btn-history {
             background: var(--main-white);
             color: var(--main-pink);
             border: none;
-            padding: 6px 14px;
-            border-radius: 6px;
-            font-size: 13px;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-size: 14px;
             font-weight: 900;
             cursor: pointer;
             transition: 0.2s;
             display: flex;
             align-items: center;
             gap: 6px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         .btn-history:hover {
@@ -195,7 +188,7 @@
 
         .user-table tr:hover { background-color: var(--pink-transparent); }
 
-        /* পেমেন্ট মেথড আইকন (সলিড পিংক রাউন্ড + ওয়ালেট আইকন) */
+        /* পেমেন্ট মেথড আইকন */
         .method-box {
             display: flex;
             align-items: center;
@@ -375,13 +368,12 @@
 
         <div class="dashboard-body">
             
-            <!-- পেন্ডিং ভিউ (প্রথম পেজ) -->
+            <!-- পেন্ডিং ভিউ -->
             <div id="pendingView">
                 <div class="section-header-wrapper">
                     <div class="section-title">
                         <i class="fas fa-file-invoice-dollar"></i> পেন্ডিং উইথড্র রিকোয়েস্ট
                     </div>
-                    <!-- এই হিস্ট্রি বাটনে ক্লিক করলে একই পেজে হিস্ট্রি ওপেন হবে -->
                     <button class="btn-history" onclick="toggleView('history')">
                         <i class="fas fa-history"></i> History
                     </button>
@@ -443,13 +435,12 @@
                 </div>
             </div>
 
-            <!-- হিস্ট্রি ভিউ (লুকানো থাকবে, History বাটনে ক্লিক করলে দেখাবে) -->
+            <!-- হিস্ট্রি ভিউ (লুকানো থাকবে) -->
             <div id="historyView" style="display: none;">
                 <div class="section-header-wrapper">
                     <div class="section-title">
                         <i class="fas fa-history"></i> সম্পন্ন হওয়া উইথড্র (History)
                     </div>
-                    <!-- ফিরে যান বাটনে ক্লিক করলে আবার পেন্ডিং পেজে যাবে -->
                     <button class="btn-history" onclick="toggleView('pending')">
                         <i class="fas fa-arrow-left"></i> ফিরে যান
                     </button>
@@ -467,9 +458,8 @@
                                     <th>স্ট্যাটাস</th>
                                 </tr>
                             </thead>
-                            <!-- এখানে অটোমেটিক পেমেন্ট করা বা বাতিল করা রিকোয়েস্ট জমা হবে -->
                             <tbody id="historyTableBody">
-                                <!-- ডেমো হিস্ট্রি (আগে থেকেই সম্পন্ন হয়েছে) -->
+                                <!-- ডেমো হিস্ট্রি -->
                                 <tr>
                                     <td>A4JKMTUZR8</td>
                                     <td>
