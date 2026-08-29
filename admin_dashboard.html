@@ -8,11 +8,11 @@
     
     <style>
         :root { 
-            --main-pink: #E2136E; 
-            --light-pink: #F0418A;
+            --main-pink: #d81b60; /* ডিপ পিংক */
+            --light-pink: #f48fb1; /* হালকা পিংক */
             --main-white: #ffffff; 
             --text-grey: #666666; 
-            --bg-light: #F4F7F6; 
+            --bg-light: #fce4ec; /* ব্যাকগ্রাউন্ড আরেকটু ডিপ পিংক */
             --dark-blue: #1A1A1A; 
         }
 
@@ -98,7 +98,7 @@
         .admin-profile { display: flex; align-items: center; gap: 15px; }
         
         .logout-btn {
-            background-color: #fde9f0; color: var(--main-pink);
+            background-color: var(--bg-light); color: var(--main-pink);
             border: none; padding: 10px 20px; border-radius: 8px;
             cursor: pointer; font-weight: bold; transition: 0.2s;
             display: flex; align-items: center; gap: 8px; font-size: 14px;
@@ -123,18 +123,18 @@
         .stat-card {
             background: var(--main-white); padding: 20px; border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.04); display: flex; align-items: center; gap: 15px;
-            transition: 0.3s; border: 1px solid #eaeaea;
+            transition: 0.3s; border: 1px solid var(--light-pink);
         }
         
         .stat-card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(226, 19, 110, 0.08);
-            border-color: #fde9f0;
+            box-shadow: 0 8px 20px rgba(216, 27, 96, 0.15);
+            border-color: var(--main-pink);
         }
 
         .stat-icon {
             width: 55px; height: 55px; border-radius: 12px; 
-            background-color: #fde9f0; color: var(--main-pink);
+            background-color: var(--main-pink); color: white;
             display: flex; align-items: center; justify-content: center; font-size: 22px;
             flex-shrink: 0;
         }
@@ -149,88 +149,90 @@
         }
         .section-title i { color: var(--main-pink); }
 
-        /* প্রোডাক্ট গ্রিড স্টাইল (সাইজ ছোট করা হয়েছে) */
+        /* প্রোডাক্ট গ্রিড স্টাইল */
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); /* কার্ডের চওড়া কমানো হয়েছে */
-            gap: 18px;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); /* কার্ডের প্রস্থ ঠিক করা হয়েছে */
+            gap: 20px;
             padding-bottom: 30px;
         }
 
         .product-card {
             background: #fff;
-            border: 1px solid #eaeaea;
-            border-radius: 10px; /* বর্ডার রেডিয়াস কমানো হয়েছে */
-            padding: 15px; /* প্যাডিং কমানো হয়েছে */
+            border: 1px solid var(--light-pink);
+            border-radius: 12px; 
+            padding: 20px; 
             display: flex;
             flex-direction: column;
             transition: box-shadow 0.3s, transform 0.3s;
+            border-top: 4px solid var(--main-pink);
         }
 
         .product-card:hover {
-            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+            box-shadow: 0 8px 25px rgba(216, 27, 96, 0.15);
             transform: translateY(-3px);
         }
 
+        /* কার্ডের লোগো বক্স (মোটা বা চ্যাপ্টা ভাব দূর করা হয়েছে) */
         .product-img {
-            height: 75px; /* উচ্চতা অনেক কমানো হয়েছে */
-            background-color: #fde9f0;
+            height: 100px; /* হাইট বাড়ানো হয়েছে যাতে পারফেক্ট লাগে */
+            background-color: var(--bg-light);
             color: var(--main-pink);
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 35px; /* আইকনের সাইজ ছোট করা হয়েছে */
-            margin-bottom: 12px;
+            font-size: 40px; 
+            margin-bottom: 15px;
         }
 
         .product-title {
-            font-size: 15px; /* টাইটেল একটু ছোট করা হয়েছে */
+            font-size: 16px;
             font-weight: 900;
             color: var(--dark-blue);
             margin: 0 0 8px 0;
         }
 
         .product-desc {
-            font-size: 12px;
+            font-size: 13px;
             color: #555;
             line-height: 1.5;
             margin: 0 0 12px 0;
             flex-grow: 1;
         }
 
-        .lbl-pink { color: var(--text-grey); font-weight: normal; font-size: 11px;}
+        .lbl-pink { color: var(--text-grey); font-weight: normal; font-size: 12px;}
         .val-text { color: var(--dark-blue); font-weight: 900;}
 
-        /* স্ট্যাটাস ব্যাজ */
+        /* স্ট্যাটাস ব্যাজ (শুধুমাত্র পিংক থিম) */
         .status-box {
             width: 100%;
-            padding: 6px 0; /* প্যাডিং কমানো হয়েছে */
+            padding: 8px 0; 
             border-radius: 6px;
             text-align: center;
             font-weight: 900;
-            font-size: 12px; /* ফন্ট সাইজ ছোট করা হয়েছে */
-            margin-bottom: 12px;
+            font-size: 13px; 
+            margin-bottom: 15px;
             box-sizing: border-box;
         }
         
-        .status-pending { background-color: #fff3cd; color: #d35400; border: 1px solid #ffeeba; }
-        .status-rejected { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .status-pending { background-color: var(--bg-light); color: var(--main-pink); border: 1px dashed var(--main-pink); }
+        .status-rejected { background-color: var(--main-pink); color: white; border: 1px solid var(--main-pink); }
 
         .product-actions {
             display: flex;
-            gap: 8px; /* গ্যাপ কমানো হয়েছে */
+            gap: 10px; 
             align-items: center;
         }
 
-        /* View Details বাটন */
+        /* View Details বাটন (সাদা ব্যাকগ্রাউন্ড, পিংক বর্ডার) */
         .btn-view-details {
             flex-grow: 1;
-            background: transparent;
+            background: white;
             border: 1.5px solid var(--main-pink);
             border-radius: 6px;
-            padding: 8px; /* প্যাডিং কমানো হয়েছে */
-            font-size: 12px;
+            padding: 10px; 
+            font-size: 13px;
             font-weight: 900;
             color: var(--main-pink);
             cursor: pointer;
@@ -239,43 +241,43 @@
         }
 
         .btn-view-details:hover {
-            background: var(--main-pink);
-            color: white;
+            background: var(--bg-light);
         }
 
-        /* Approve বাটন */
+        /* Approve বাটন (সবুজ বাদ দিয়ে পিংক করা হয়েছে) */
         .btn-cart {
-            background: #00b894;
+            background: var(--main-pink);
             border: none;
             border-radius: 6px;
-            padding: 8px 15px; /* সাইজ ছোট করা হয়েছে */
+            padding: 10px 18px; 
             color: white;
             cursor: pointer;
             transition: 0.2s;
-            font-size: 13px;
+            font-size: 14px;
             display: flex; align-items: center; justify-content: center;
         }
 
-        .btn-cart:hover { background: #219653; transform: translateY(-2px); }
+        .btn-cart:hover { background: #ad1457; transform: translateY(-2px); }
 
         /* পপ-আপ (Modal) ডিজাইন */
         .modal {
             display: none; position: fixed; z-index: 1000; left: 0; top: 0;
-            width: 100%; height: 100%; background-color: rgba(0,0,0,0.5);
+            width: 100%; height: 100%; background-color: rgba(0,0,0,0.6);
             align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease;
         }
         .modal.show { display: flex; opacity: 1; }
         
         .modal-content {
             background-color: #fff; padding: 30px; border-radius: 12px;
-            width: 90%; max-width: 400px; box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            width: 90%; max-width: 400px; box-shadow: 0 10px 40px rgba(0,0,0,0.3);
             transform: translateY(20px); transition: transform 0.3s ease; position: relative;
+            border-top: 5px solid var(--main-pink);
         }
         .modal.show .modal-content { transform: translateY(0); }
 
         .close-btn { 
             position: absolute; top: 15px; right: 20px; font-size: 24px; 
-            cursor: pointer; color: #aaa; transition: 0.2s; 
+            cursor: pointer; color: var(--light-pink); transition: 0.2s; 
         }
         .close-btn:hover { color: var(--main-pink); }
 
@@ -289,20 +291,20 @@
         .modal-actions { display: flex; gap: 15px; margin-top: 25px; }
         .modal-actions button { 
             flex: 1; padding: 12px; border: none; border-radius: 8px; font-size: 14px; 
-            font-weight: bold; cursor: pointer; color: white; transition: 0.2s; 
+            font-weight: bold; cursor: pointer; transition: 0.2s; 
             display: flex; align-items: center; justify-content: center; gap: 6px;
         }
         .modal-actions button:hover { transform: translateY(-2px); }
         
-        /* Modal Buttons */
-        .btn-accept { background: #00b894; }
-        .btn-reject-modal { background: #e74c3c; }
+        /* Modal Buttons (পিংক থিম) */
+        .btn-accept { background: var(--main-pink); color: white;}
+        .btn-reject-modal { background: white; color: var(--main-pink); border: 1.5px solid var(--main-pink); }
 
         /* টোস্ট মেসেজ */
         .toast-msg {
-            visibility: hidden; background-color: #00b894; color: #fff; text-align: center;
+            visibility: hidden; background-color: var(--main-pink); color: #fff; text-align: center;
             border-radius: 8px; padding: 15px 25px; position: fixed; z-index: 9999; right: 30px; top: 30px;
-            font-size: 14px; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            font-size: 14px; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             opacity: 0; transition: opacity 0.3s, top 0.3s;
         }
         .toast-msg.show { visibility: visible; opacity: 1; top: 50px; }
@@ -312,6 +314,7 @@
 
     <div id="toastBox" class="toast-msg"><i class="fas fa-check-circle"></i> <span id="toastText">অ্যাকশন সফল হয়েছে!</span></div>
 
+    <!-- টাস্ক ডিটেইলস পপ-আপ -->
     <div id="taskModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
@@ -327,7 +330,7 @@
             </div>
             <div class="detail-row" style="flex-direction: column; gap: 8px;">
                 <span class="label">একাউন্ট ডিটেইলস:</span>
-                <span class="value" id="m-details" style="color: var(--dark-blue); text-align: left; background: #f8f9fa; padding: 12px; border-radius: 8px; border: 1px dashed #ccc;">sakib1@gmail.com<br>Pass: sakib@2026</span>
+                <span class="value" id="m-details" style="color: var(--dark-blue); text-align: left; background: var(--bg-light); padding: 12px; border-radius: 8px; border: 1px dashed var(--main-pink);">sakib1@gmail.com<br>Pass: sakib@2026</span>
             </div>
             
             <div class="modal-actions">
@@ -337,6 +340,7 @@
         </div>
     </div>
 
+    <!-- সাইডবার -->
     <aside class="sidebar">
         <div class="sidebar-header">
             <h2><i class="fas fa-paper-plane"></i> Send bKash</h2>
@@ -357,6 +361,7 @@
         </ul>
     </aside>
 
+    <!-- মেইন এরিয়া -->
     <main class="main-content">
         <header class="topbar">
             <div class="topbar-title">ড্যাশবোর্ড ওভারভিউ</div>
@@ -367,6 +372,7 @@
 
         <div class="dashboard-body">
             
+            <!-- স্ট্যাটাস বক্স -->
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-icon"><i class="fas fa-users"></i></div>
@@ -386,12 +392,15 @@
                 </div>
             </div>
 
+            <!-- হেডার বার -->
             <div class="section-title">
                 <i class="fas fa-history"></i> সাম্প্রতিক জমা দেওয়া কাজগুলো
             </div>
             
+            <!-- টাস্ক গ্রিড -->
             <div class="product-grid">
                 
+                <!-- জিমেইল কার্ড ১ -->
                 <div class="product-card" id="task-card-1">
                     <div class="product-img">
                         <i class="fab fa-google"></i>
@@ -408,6 +417,7 @@
                     </div>
                 </div>
 
+                <!-- জিমেইল কার্ড ২ -->
                 <div class="product-card" id="task-card-2">
                     <div class="product-img">
                         <i class="fab fa-google"></i>
@@ -424,6 +434,7 @@
                     </div>
                 </div>
 
+                <!-- ইন্সটাগ্রাম কার্ড -->
                 <div class="product-card" id="task-card-3">
                     <div class="product-img">
                         <i class="fab fa-instagram"></i>
@@ -440,6 +451,7 @@
                     </div>
                 </div>
                 
+                <!-- হোয়াটসঅ্যাপ কার্ড -->
                 <div class="product-card" id="task-card-4">
                     <div class="product-img">
                         <i class="fab fa-whatsapp"></i>
@@ -456,6 +468,7 @@
                     </div>
                 </div>
 
+                <!-- টেলিগ্রাম কার্ড -->
                 <div class="product-card" id="task-card-5">
                     <div class="product-img">
                         <i class="fab fa-telegram-plane"></i>
@@ -497,10 +510,8 @@
             const toast = document.getElementById("toastBox");
             if(action === 'accept') {
                 document.getElementById("toastText").innerText = "কাজটি সফলভাবে Accept করা হয়েছে!";
-                toast.style.backgroundColor = "#00b894";
             } else {
                 document.getElementById("toastText").innerText = "কাজটি Reject করা হয়েছে!";
-                toast.style.backgroundColor = "#e74c3c";
             }
 
             toast.classList.add("show");
