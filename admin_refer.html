@@ -12,7 +12,7 @@
             --light-pink: #ff3377;
             --main-white: #ffffff; 
             --text-grey: #888888; 
-            --bg-light: #f4f6f9; /* অন্যান্য পেজের মতো ক্লিন ব্যাকগ্রাউন্ড */
+            --bg-light: #f4f6f9; 
             --dark-blue: #2c3e50;
         }
 
@@ -25,7 +25,7 @@
             overflow: hidden;
         }
 
-        /* সাইডবার */
+        /* সাইডবার (অন্যান্য পেজের মতো পারফেক্ট সিরিয়াল) */
         .sidebar {
             width: 260px;
             background: linear-gradient(180deg, var(--main-pink), var(--light-pink));
@@ -43,7 +43,7 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             flex-shrink: 0;
         }
-        .sidebar-header h2 { margin: 0; font-size: 22px; font-weight: 900; }
+        .sidebar-header h2 { margin: 0; font-size: 22px; font-weight: 900; letter-spacing: 1px;}
         .sidebar-header p { margin: 5px 0 0 0; font-size: 12px; color: #ffe6f0; }
 
         .nav-links {
@@ -69,7 +69,7 @@
         .nav-links a:hover, .nav-links a.active {
             background-color: rgba(255, 255, 255, 0.1);
             color: white;
-            border-left: 4px solid #fff; /* অন্যান্য পেজের মতো সাদা বর্ডার */
+            border-left: 4px solid #fff;
         }
 
         .nav-links a i { width: 20px; text-align: center; font-size: 18px; }
@@ -123,7 +123,6 @@
             border-top: 4px solid var(--main-pink);
         }
 
-        /* 'বোনাস ও কমিশন আপডেট করুন' লেখাটি পিংক কালার করা হয়েছে */
         .settings-title {
             font-size: 18px; font-weight: bold; color: var(--main-pink);
             margin-bottom: 20px; display: flex; align-items: center; gap: 10px;
@@ -298,14 +297,15 @@
         </div>
     </div>
 
-    <!-- সাইডবার -->
+    <!-- সাইডবার (অন্যান্য পেজের সাথে ১০০% মিল রেখে সাজানো) -->
     <aside class="sidebar">
         <div class="sidebar-header">
             <h2><i class="fas fa-paper-plane"></i> Send bKash</h2>
             <p>অ্যাডমিন কন্ট্রোল প্যানেল</p>
         </div>
         <ul class="nav-links">
-            <li><a href="admin.html" class="nav-link"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
+            <li><a href="admin_dashboard.html" class="nav-link"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
+            <li><a href="admin_history.html" class="nav-link"><i class="fas fa-history"></i> কাজের হিস্ট্রি</a></li>
             <li><a href="admin_simple_users.html" class="nav-link"><i class="fas fa-user"></i> সাধারণ ইউজার</a></li>
             <li><a href="admin_vip_users.html" class="nav-link"><i class="fas fa-user-tie"></i> VIP ইউজার</a></li>
             <li><a href="admin_withdraw.html" class="nav-link"><i class="fas fa-file-invoice-dollar"></i> উইথড্র রিকোয়েস্ট</a></li>
@@ -331,7 +331,7 @@
 
         <div class="dashboard-body">
             
-            <!-- রেফার সেটিং ফর্ম (ওপরের গ্লোবাল রেফার সেটিং বক্সটি রিমুভ করা হয়েছে) -->
+            <!-- রেফার সেটিং ফর্ম -->
             <div class="settings-card">
                 <div class="settings-title"><i class="fas fa-cog"></i> বোনাস ও কমিশন আপডেট করুন</div>
                 
@@ -514,7 +514,7 @@
             document.getElementById('referListModal').classList.remove('show');
         }
 
-        document.getElementById("adminLogout").getElementById?.("click") || document.getElementById("adminLogout").addEventListener("click", () => {
+        document.getElementById("adminLogout").addEventListener("click", () => {
             window.location.href = "login.html"; 
         });
     </script>
