@@ -9,10 +9,10 @@
     <style>
         :root { 
             --main-pink: #d81b60; /* ডিপ পিংক */
-            --light-pink: #f48fb1; /* হালকা পিংক */
+            --light-pink: #f8bbd0; /* হালকা পিংক (বর্ডারের জন্য) */
+            --bg-pink: #fce4ec; /* ব্যাকগ্রাউন্ড পিংক */
             --main-white: #ffffff; 
             --text-grey: #666666; 
-            --bg-light: #fce4ec; /* ব্যাকগ্রাউন্ড আরেকটু ডিপ পিংক */
             --dark-blue: #1A1A1A; 
         }
 
@@ -44,7 +44,7 @@
             flex-shrink: 0;
         }
         .sidebar-header h2 { margin: 0; font-size: 22px; font-weight: 900; letter-spacing: 1px;}
-        .sidebar-header p { margin: 5px 0 0 0; font-size: 12px; color: #fde9f0; }
+        .sidebar-header p { margin: 5px 0 0 0; font-size: 12px; color: #fce4ec; }
 
         .nav-links {
             list-style: none; padding: 0; margin: 10px 0;
@@ -80,6 +80,7 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            background-color: var(--main-white); /* ব্যাকগ্রাউন্ড সাদা করা হয়েছে */
         }
 
         /* টপবার */
@@ -89,7 +90,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-bottom: 1px solid #eaeaea; /* শ্যাডোর বদলে হালকা বর্ডার */
             z-index: 10;
         }
 
@@ -98,7 +99,7 @@
         .admin-profile { display: flex; align-items: center; gap: 15px; }
         
         .logout-btn {
-            background-color: var(--bg-light); color: var(--main-pink);
+            background-color: var(--bg-pink); color: var(--main-pink);
             border: none; padding: 10px 20px; border-radius: 8px;
             cursor: pointer; font-weight: bold; transition: 0.2s;
             display: flex; align-items: center; gap: 8px; font-size: 14px;
@@ -110,6 +111,7 @@
             padding: 30px;
             overflow-y: auto;
             flex-grow: 1;
+            background-color: var(--bg-pink); /* ভেতরের বডির ব্যাকগ্রাউন্ড হালকা পিংক */
         }
 
         /* স্ট্যাটাস বক্স */
@@ -144,15 +146,22 @@
 
         /* সেকশন হেডার */
         .section-title {
-            font-size: 18px; font-weight: 900; color: var(--dark-blue);
-            margin-bottom: 20px; display: flex; align-items: center; gap: 10px;
+            background-color: var(--main-pink);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        .section-title i { color: var(--main-pink); }
 
         /* প্রোডাক্ট গ্রিড স্টাইল */
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); /* কার্ডের প্রস্থ ঠিক করা হয়েছে */
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); 
             gap: 20px;
             padding-bottom: 30px;
         }
@@ -165,7 +174,6 @@
             display: flex;
             flex-direction: column;
             transition: box-shadow 0.3s, transform 0.3s;
-            border-top: 4px solid var(--main-pink);
         }
 
         .product-card:hover {
@@ -173,10 +181,10 @@
             transform: translateY(-3px);
         }
 
-        /* কার্ডের লোগো বক্স (মোটা বা চ্যাপ্টা ভাব দূর করা হয়েছে) */
+        /* কার্ডের লোগো বক্স */
         .product-img {
-            height: 100px; /* হাইট বাড়ানো হয়েছে যাতে পারফেক্ট লাগে */
-            background-color: var(--bg-light);
+            height: 100px; 
+            background-color: var(--bg-pink);
             color: var(--main-pink);
             border-radius: 8px;
             display: flex;
@@ -201,10 +209,10 @@
             flex-grow: 1;
         }
 
-        .lbl-pink { color: var(--text-grey); font-weight: normal; font-size: 12px;}
+        .lbl-pink { color: var(--main-pink); font-weight: bold; font-size: 12px;}
         .val-text { color: var(--dark-blue); font-weight: 900;}
 
-        /* স্ট্যাটাস ব্যাজ (শুধুমাত্র পিংক থিম) */
+        /* স্ট্যাটাস ব্যাজ (আপনার স্ক্রিনশটের মতো ডটেড পিংক) */
         .status-box {
             width: 100%;
             padding: 8px 0; 
@@ -214,10 +222,16 @@
             font-size: 13px; 
             margin-bottom: 15px;
             box-sizing: border-box;
+            background-color: var(--bg-pink); 
+            color: var(--main-pink); 
+            border: 1.5px dashed var(--main-pink);
         }
-        
-        .status-pending { background-color: var(--bg-light); color: var(--main-pink); border: 1px dashed var(--main-pink); }
-        .status-rejected { background-color: var(--main-pink); color: white; border: 1px solid var(--main-pink); }
+
+        .status-rejected { 
+            background-color: var(--main-pink); 
+            color: white; 
+            border: 1.5px solid var(--main-pink); 
+        }
 
         .product-actions {
             display: flex;
@@ -225,7 +239,7 @@
             align-items: center;
         }
 
-        /* View Details বাটন (সাদা ব্যাকগ্রাউন্ড, পিংক বর্ডার) */
+        /* View Details বাটন */
         .btn-view-details {
             flex-grow: 1;
             background: white;
@@ -241,10 +255,10 @@
         }
 
         .btn-view-details:hover {
-            background: var(--bg-light);
+            background: var(--bg-pink);
         }
 
-        /* Approve বাটন (সবুজ বাদ দিয়ে পিংক করা হয়েছে) */
+        /* Approve বাটন (আপনার স্ক্রিনশটের মতো পিংক) */
         .btn-cart {
             background: var(--main-pink);
             border: none;
@@ -257,7 +271,7 @@
             display: flex; align-items: center; justify-content: center;
         }
 
-        .btn-cart:hover { background: #ad1457; transform: translateY(-2px); }
+        .btn-cart:hover { background: #b0124c; transform: translateY(-2px); }
 
         /* পপ-আপ (Modal) ডিজাইন */
         .modal {
@@ -269,9 +283,8 @@
         
         .modal-content {
             background-color: #fff; padding: 30px; border-radius: 12px;
-            width: 90%; max-width: 400px; box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            width: 90%; max-width: 420px; box-shadow: 0 10px 40px rgba(0,0,0,0.3);
             transform: translateY(20px); transition: transform 0.3s ease; position: relative;
-            border-top: 5px solid var(--main-pink);
         }
         .modal.show .modal-content { transform: translateY(0); }
 
@@ -288,7 +301,35 @@
         .detail-row span.label { color: #888; font-weight: bold; }
         .detail-row span.value { color: var(--dark-blue); font-weight: bold; text-align: right; }
         
-        .modal-actions { display: flex; gap: 15px; margin-top: 25px; }
+        /* পপ-আপের ডটেড ডিটেইলস বক্স */
+        .modal-details-box {
+            background-color: var(--bg-pink);
+            color: var(--dark-blue);
+            border: 1.5px dashed var(--main-pink);
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        /* রিজেক্ট রিজন ইনপুট বক্স */
+        .reject-reason-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--light-pink);
+            border-radius: 6px;
+            font-size: 13px;
+            outline: none;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            display: none; /* ডিফল্টভাবে লুকানো থাকবে */
+        }
+        .reject-reason-input:focus { border-color: var(--main-pink); }
+        .reject-reason-input.show { display: block; }
+
+        .modal-actions { display: flex; gap: 15px; }
         .modal-actions button { 
             flex: 1; padding: 12px; border: none; border-radius: 8px; font-size: 14px; 
             font-weight: bold; cursor: pointer; transition: 0.2s; 
@@ -296,9 +337,9 @@
         }
         .modal-actions button:hover { transform: translateY(-2px); }
         
-        /* Modal Buttons (পিংক থিম) */
+        /* Modal Buttons (স্ক্রিনশটের মতো পিংক) */
         .btn-accept { background: var(--main-pink); color: white;}
-        .btn-reject-modal { background: white; color: var(--main-pink); border: 1.5px solid var(--main-pink); }
+        .btn-reject-modal { background: var(--bg-pink); color: var(--main-pink); }
 
         /* টোস্ট মেসেজ */
         .toast-msg {
@@ -328,10 +369,14 @@
                 <span class="label">সময়:</span>
                 <span class="value" id="m-time">আজ, ০৩:১৫ PM</span>
             </div>
-            <div class="detail-row" style="flex-direction: column; gap: 8px;">
-                <span class="label">একাউন্ট ডিটেইলস:</span>
-                <span class="value" id="m-details" style="color: var(--dark-blue); text-align: left; background: var(--bg-light); padding: 12px; border-radius: 8px; border: 1px dashed var(--main-pink);">sakib1@gmail.com<br>Pass: sakib@2026</span>
+            
+            <div style="color: #888; font-weight: bold; font-size: 14px; margin-bottom: 8px;">একাউন্ট ডিটেইলস:</div>
+            <div class="modal-details-box" id="m-details">
+                sakib1@gmail.com<br>Pass: sakib@2026
             </div>
+
+            <!-- রিজেক্ট করার কারণ লেখার বক্স -->
+            <input type="text" id="rejectReason" class="reject-reason-input" placeholder="রিজেক্ট করার কারণ লিখুন (ঐচ্ছিক)...">
             
             <div class="modal-actions">
                 <button class="btn-accept" onclick="actionTask('accept')"><i class="fas fa-check"></i> Accept</button>
@@ -412,7 +457,7 @@
                     </p>
                     <div class="status-box status-pending"><i class="fas fa-spinner fa-spin"></i> Pending</div>
                     <div class="product-actions">
-                        <button class="btn-view-details" onclick="openModal('Google Account', 'fab fa-google', 'T9KZBTUBR1', 'আজ, ০৩:১৫ PM', 'sakib1@gmail.com<br>Pass: sakib@2026')">View Details</button>
+                        <button class="btn-view-details" onclick="openModal('Google Account', 'fab fa-google', 'T9KZBTUBR1', 'আজ, ০৩:১৫ PM', 'sakib1@gmail.com<br>Pass: sakib@2026', 'task-card-1')">View Details</button>
                         <button class="btn-cart" title="Approve" onclick="actionTask('accept', 'task-card-1')"><i class="fas fa-check"></i></button>
                     </div>
                 </div>
@@ -429,7 +474,7 @@
                     </p>
                     <div class="status-box status-pending"><i class="fas fa-spinner fa-spin"></i> Pending</div>
                     <div class="product-actions">
-                        <button class="btn-view-details" onclick="openModal('Google Account', 'fab fa-google', 'T9KZBTUBR1', 'আজ, ০৩:১৬ PM', 'sakib2@gmail.com<br>Pass: sakib2@2026')">View Details</button>
+                        <button class="btn-view-details" onclick="openModal('Google Account', 'fab fa-google', 'T9KZBTUBR1', 'আজ, ০৩:১৬ PM', 'sakib2@gmail.com<br>Pass: sakib2@2026', 'task-card-2')">View Details</button>
                         <button class="btn-cart" title="Approve" onclick="actionTask('accept', 'task-card-2')"><i class="fas fa-check"></i></button>
                     </div>
                 </div>
@@ -446,7 +491,7 @@
                     </p>
                     <div class="status-box status-pending"><i class="fas fa-spinner fa-spin"></i> Pending</div>
                     <div class="product-actions">
-                        <button class="btn-view-details" onclick="openModal('Instagram Account', 'fab fa-instagram', 'X7ABCTUBR9', 'আজ, ০২:৪৫ PM', 'insta_salam99<br>Pass: salam@pass')">View Details</button>
+                        <button class="btn-view-details" onclick="openModal('Instagram Account', 'fab fa-instagram', 'X7ABCTUBR9', 'আজ, ০২:৪৫ PM', 'insta_salam99<br>Pass: salam@pass', 'task-card-3')">View Details</button>
                         <button class="btn-cart" title="Approve" onclick="actionTask('accept', 'task-card-3')"><i class="fas fa-check"></i></button>
                     </div>
                 </div>
@@ -463,7 +508,7 @@
                     </p>
                     <div class="status-box status-rejected"><i class="fas fa-times-circle"></i> Rejected</div>
                     <div class="product-actions">
-                        <button class="btn-view-details" onclick="openModal('WhatsApp Account', 'fab fa-whatsapp', 'M2LKBTYYY5', 'আজ, ০১:২০ PM', '+8801711223344')">View Details</button>
+                        <button class="btn-view-details" onclick="openModal('WhatsApp Account', 'fab fa-whatsapp', 'M2LKBTYYY5', 'আজ, ০১:২০ PM', '+8801711223344', 'task-card-4')">View Details</button>
                         <button class="btn-cart" title="Approve" onclick="actionTask('accept', 'task-card-4')"><i class="fas fa-check"></i></button>
                     </div>
                 </div>
@@ -480,7 +525,7 @@
                     </p>
                     <div class="status-box status-pending"><i class="fas fa-spinner fa-spin"></i> Pending</div>
                     <div class="product-actions">
-                        <button class="btn-view-details" onclick="openModal('Telegram Account', 'fab fa-telegram-plane', 'A4JKMTUZR8', 'গতকাল, ১১:১০ AM', '+8801999887766')">View Details</button>
+                        <button class="btn-view-details" onclick="openModal('Telegram Account', 'fab fa-telegram-plane', 'A4JKMTUZR8', 'গতকাল, ১১:১০ AM', '+8801999887766', 'task-card-5')">View Details</button>
                         <button class="btn-cart" title="Approve" onclick="actionTask('accept', 'task-card-5')"><i class="fas fa-check"></i></button>
                     </div>
                 </div>
@@ -491,11 +536,19 @@
     </main>
 
     <script>
-        function openModal(taskName, iconClass, userId, time, details) {
+        let currentCardId = null;
+
+        function openModal(taskName, iconClass, userId, time, details, cardId) {
+            currentCardId = cardId;
             document.getElementById('modalTitle').innerHTML = `<i class="${iconClass}"></i> ${taskName}`;
             document.getElementById('m-userId').innerText = userId;
             document.getElementById('m-time').innerText = time;
             document.getElementById('m-details').innerHTML = details;
+            
+            // রিজেক্ট বক্স হাইড করে রাখা
+            const reasonInput = document.getElementById('rejectReason');
+            reasonInput.classList.remove('show');
+            reasonInput.value = '';
             
             document.getElementById('taskModal').classList.add('show');
         }
@@ -505,21 +558,32 @@
         }
 
         function actionTask(action, cardId = null) {
+            const toast = document.getElementById("toastBox");
+            const reasonInput = document.getElementById('rejectReason');
+
+            if(action === 'reject' && !reasonInput.classList.contains('show')) {
+                // প্রথমবার Reject এ ক্লিক করলে শুধু রিজন লেখার বক্স দেখাবে
+                reasonInput.classList.add('show');
+                reasonInput.focus();
+                return;
+            }
+
             closeModal();
             
-            const toast = document.getElementById("toastBox");
             if(action === 'accept') {
                 document.getElementById("toastText").innerText = "কাজটি সফলভাবে Accept করা হয়েছে!";
             } else {
-                document.getElementById("toastText").innerText = "কাজটি Reject করা হয়েছে!";
+                let reason = reasonInput.value.trim() !== "" ? ` কারণ: ${reasonInput.value}` : "";
+                document.getElementById("toastText").innerText = `কাজটি Reject করা হয়েছে!${reason}`;
             }
 
             toast.classList.add("show");
-            setTimeout(() => { toast.classList.remove("show"); }, 2500);
+            setTimeout(() => { toast.classList.remove("show"); }, 3500);
 
             // কার্ড রিমুভ করা
-            if(cardId) {
-                const card = document.getElementById(cardId);
+            let idToRemove = cardId || currentCardId;
+            if(idToRemove) {
+                const card = document.getElementById(idToRemove);
                 if(card) {
                     card.style.opacity = '0';
                     card.style.transform = 'scale(0.9)';
