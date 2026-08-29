@@ -8,13 +8,15 @@
     
     <style>
         :root { 
+            /* অরিজিনাল ওয়েবসাইট পিংক থিম */
             --main-pink: #e2005a; 
+            --light-pink: #ff3377;
             --main-white: #ffffff; 
             --text-grey: #888888; 
             --bg-light: #f4f6f9; 
             --dark-blue: #2c3e50;
-            --gold: #f1c40f;
-            --gold-dark: #f39c12;
+            --pink-transparent: rgba(226, 0, 90, 0.05); 
+            --pink-hover: rgba(226, 0, 90, 0.1);
         }
 
         body { 
@@ -29,7 +31,7 @@
         /* সাইডবার (Sidebar) */
         .sidebar {
             width: 260px;
-            background: linear-gradient(180deg, var(--main-pink), #ff3377);
+            background: linear-gradient(180deg, var(--main-pink), var(--light-pink));
             color: white;
             display: flex;
             flex-direction: column;
@@ -44,7 +46,7 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             flex-shrink: 0;
         }
-        .sidebar-header h2 { margin: 0; font-size: 22px; font-weight: 900; }
+        .sidebar-header h2 { margin: 0; font-size: 22px; font-weight: 900; letter-spacing: 1px;}
         .sidebar-header p { margin: 5px 0 0 0; font-size: 12px; color: #ffe6f0; }
 
         .nav-links {
@@ -70,7 +72,7 @@
         .nav-links a:hover, .nav-links a.active {
             background-color: rgba(255, 255, 255, 0.1);
             color: white;
-            border-left: 4px solid #ffcc00;
+            border-left: 4px solid #fff;
         }
 
         .nav-links a i { width: 20px; text-align: center; font-size: 18px; }
@@ -81,6 +83,7 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            background-color: var(--bg-light); 
         }
 
         /* টপবার */
@@ -94,141 +97,161 @@
             z-index: 10;
         }
 
-        .topbar-title { font-size: 18px; font-weight: bold; color: var(--dark-blue); }
+        .topbar-title { font-size: 20px; font-weight: 900; color: var(--dark-blue); }
 
         .admin-profile { display: flex; align-items: center; gap: 15px; }
         
         .logout-btn {
-            background-color: #ffe0e9; color: var(--main-pink);
-            border: none; padding: 8px 18px; border-radius: 6px;
+            background-color: var(--pink-hover); color: var(--main-pink);
+            border: none; padding: 10px 20px; border-radius: 8px;
             cursor: pointer; font-weight: bold; transition: 0.2s;
-            display: flex; align-items: center; gap: 8px;
+            display: flex; align-items: center; gap: 8px; font-size: 14px;
         }
         .logout-btn:hover { background-color: var(--main-pink); color: white; }
 
-        /* ড্যাশবোর্ড বডি */
+        /* ড্যাশবোর্ড কন্টেন্ট */
         .dashboard-body {
             padding: 30px;
             overflow-y: auto;
             flex-grow: 1;
         }
 
-        .card-header-container {
+        /* সেকশন হেডার */
+        .section-header-wrapper {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 25px;
-            flex-wrap: wrap;
-            gap: 15px;
+            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
+            padding: 15px 25px;
+            border-radius: 12px;
+            color: white;
+            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.2);
         }
 
-        .card-header-title {
-            font-size: 20px;
+        .section-title {
+            font-size: 18px; font-weight: bold;
+            display: flex; align-items: center; gap: 10px; margin: 0;
+        }
+
+        /* সার্চ বক্স */
+        .search-container {
+            display: flex; gap: 10px; margin-bottom: 20px;
+        }
+
+        .search-box {
+            flex-grow: 1;
+            padding: 12px 20px;
+            border: 2px solid #eaeaea;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            transition: 0.3s;
             font-weight: bold;
             color: var(--dark-blue);
-            display: flex; align-items: center; gap: 10px;
+        }
+        .search-box:focus { border-color: var(--main-pink); }
+
+        .btn-search {
+            background: var(--main-pink); color: white; border: none; padding: 0 25px;
+            border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.2s;
+        }
+        .btn-search:hover { background: var(--light-pink); }
+
+        /* ইউজার টেবিল কার্ড */
+        .table-card {
+            background: var(--main-white);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            border-top: 4px solid var(--main-pink);
         }
 
-        .header-actions { display: flex; gap: 15px; align-items: center; }
-
-        .btn-global-bonus {
-            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
-            border: none; padding: 10px 20px; border-radius: 8px; color: white;
-            font-weight: bold; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 8px;
-            box-shadow: 0 4px 10px rgba(241, 196, 15, 0.3); transition: 0.2s;
-        }
-        .btn-global-bonus:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(241, 196, 15, 0.4); }
-
-        .form-input {
-            padding: 10px 15px; border: 1.5px solid #eaeaea; border-radius: 8px;
-            font-size: 14px; outline: none; background-color: white;
-            transition: 0.3s; width: 220px;
-        }
-        .form-input:focus { border-color: var(--main-pink); }
-
-        /* --- ইউজার কার্ড গ্রিড লেআউট --- */
-        .user-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-            padding-bottom: 30px;
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
         }
 
-        .user-card {
-            background: #fff; border: 1px solid #e0e0e0; border-radius: 12px; padding: 20px;
-            display: flex; flex-direction: column; transition: box-shadow 0.2s, transform 0.2s;
-            position: relative; border-top: 4px solid var(--gold);
+        .user-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
         }
 
-        .user-card:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.08); transform: translateY(-3px); }
-
-        /* VIP ট্যাগ */
-        .vip-tag {
-            position: absolute; top: 15px; right: 15px;
-            background: linear-gradient(135deg, var(--gold-dark), var(--gold)); color: white;
-            font-size: 10px; font-weight: bold; padding: 4px 8px; border-radius: 20px;
-            display: flex; align-items: center; gap: 4px;
+        .user-table th {
+            background-color: var(--pink-transparent);
+            color: var(--main-pink);
+            font-weight: 900;
+            padding: 15px;
+            text-align: left;
+            border-bottom: 2px solid var(--main-pink);
+            font-size: 14px;
         }
 
-        .user-card-header {
-            display: flex; align-items: center; gap: 15px; margin-bottom: 15px;
-            border-bottom: 1px solid #f0f0f0; padding-bottom: 12px; padding-right: 50px;
+        .user-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eaeaea;
+            color: var(--dark-blue);
+            font-size: 14px;
+            font-weight: 600;
+            vertical-align: middle;
         }
 
-        .user-avatar {
-            width: 50px; height: 50px; border-radius: 50%;
-            background: linear-gradient(135deg, #2c3e50, #34495e); color: var(--gold);
-            display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;
+        .user-table tr:hover { background-color: var(--pink-hover); }
+
+        .user-avatar-sm {
+            width: 35px; height: 35px; border-radius: 50%;
+            background-color: var(--pink-transparent); color: var(--main-pink);
+            display: inline-flex; align-items: center; justify-content: center;
+            font-weight: bold; font-size: 16px; margin-right: 10px;
+            border: 1px solid var(--main-pink);
         }
 
-        .user-details h4 { margin: 0; font-size: 16px; color: var(--dark-blue); }
-        .user-details p { margin: 3px 0 0 0; font-size: 12px; color: var(--text-grey); word-break: break-all; }
+        .user-info-cell { display: flex; align-items: center; }
 
-        .task-stats-title { font-size: 12px; font-weight: bold; color: var(--text-grey); margin-bottom: 10px; text-transform: uppercase; }
+        .vip-badge {
+            color: var(--main-pink);
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
 
-        /* ক্লিকেবল ব্যাজ ডিজাইন */
-        .task-badges { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 20px; }
+        /* ব্যালেন্স ব্যাজ (সলিড পিংক) */
+        .balance-badge {
+            background: var(--main-pink); 
+            color: var(--main-white);
+            padding: 6px 14px; 
+            border-radius: 20px; 
+            font-weight: 900; 
+            border: none;
+            box-shadow: 0 2px 5px rgba(226, 0, 90, 0.2);
+            display: inline-block;
+        }
 
-        .task-badge {
-            padding: 10px 0; border-radius: 8px; font-size: 14px; font-weight: bold; color: white;
-            display: flex; align-items: center; justify-content: center; gap: 6px;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.1); cursor: pointer; transition: 0.2s;
+        /* অ্যাকশন বাটন */
+        .action-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+        
+        .btn-action {
+            padding: 10px 18px; 
+            border-radius: 8px; 
+            border: none; 
+            cursor: pointer;
+            font-size: 13px; 
+            font-weight: 900; 
+            transition: 0.2s; 
+            display: flex; 
+            align-items: center; 
+            gap: 6px;
         }
         
-        .task-badge:hover { transform: translateY(-3px); box-shadow: 0 5px 12px rgba(0,0,0,0.2); }
-        .task-badge i { font-size: 16px; }
+        .btn-add { background: var(--main-pink); color: var(--main-white); box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);}
+        .btn-add:hover { background: #b0124c; transform: translateY(-2px); }
+        
+        .btn-cut { background: var(--main-white); color: var(--main-pink); border: 1.5px solid var(--main-pink); }
+        .btn-cut:hover { background: var(--pink-hover); transform: translateY(-2px); }
 
-        .bg-gmail { background-color: #ea4335; }
-        .bg-insta { background-color: #e1306c; }
-        .bg-wa { background-color: #25d366; }
-        .bg-tg { background-color: #0088cc; }
-        .bg-empty { background-color: #dcdde1; cursor: not-allowed; box-shadow: none; }
-        .bg-empty:hover { transform: none; box-shadow: none; }
-
-        .balance-box {
-            background-color: #fcf8e3; border-radius: 8px; padding: 12px; display: flex; 
-            justify-content: space-between; align-items: center; margin-bottom: 15px; border: 1px solid #faebcc;
-        }
-
-        .balance-label { font-size: 13px; font-weight: bold; color: var(--dark-blue); }
-        .balance-amount { font-size: 18px; font-weight: 900; color: #8a6d3b; }
-
-        /* অ্যাকশন বাটনগুলো (২x২ গ্রিড) */
-        .action-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-
-        .action-btns button {
-            border: none; padding: 10px; border-radius: 6px; cursor: pointer;
-            font-weight: bold; font-size: 13px; color: white; transition: 0.2s;
-            display: flex; align-items: center; justify-content: center; gap: 6px;
-        }
-
-        .action-btns button:hover { opacity: 0.9; transform: translateY(-2px); }
-        .btn-add { background-color: #27ae60; } 
-        .btn-deduct { background-color: #e67e22; } 
-        .btn-bonus { background: linear-gradient(135deg, var(--gold-dark), var(--gold)); } 
-        .btn-reject { background-color: #e74c3c; } 
-
-        /* --- পপ-আপ (Modal) ডিজাইন --- */
+        /* পপ-আপ (Modal) ডিজাইন */
         .modal {
             display: none; position: fixed; z-index: 1000; left: 0; top: 0;
             width: 100%; height: 100%; background-color: rgba(0,0,0,0.6);
@@ -237,10 +260,10 @@
         .modal.show { display: flex; opacity: 1; }
         
         .modal-content {
-            background-color: #fff; padding: 25px; border-radius: 12px;
-            width: 90%; max-width: 480px; box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-            position: relative; max-height: 80vh; display: flex; flex-direction: column;
-            transform: translateY(20px); transition: transform 0.3s ease;
+            background-color: var(--main-white); padding: 30px; border-radius: 12px;
+            width: 90%; max-width: 400px; box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            transform: translateY(20px); transition: transform 0.3s ease; position: relative;
+            border-top: 5px solid var(--main-pink);
         }
         .modal.show .modal-content { transform: translateY(0); }
 
@@ -250,99 +273,58 @@
         }
         .close-btn:hover { color: var(--main-pink); }
 
-        .modal-title { 
-            font-size: 18px; font-weight: bold; color: var(--dark-blue); 
-            margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; 
-        }
-        
-        .task-list-container {
-            overflow-y: auto; max-height: 350px; padding-right: 5px;
-        }
-        .task-list-container::-webkit-scrollbar { width: 5px; }
-        .task-list-container::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+        .modal-title { font-size: 18px; font-weight: 900; color: var(--dark-blue); margin-bottom: 20px; border-bottom: 1px solid #eaeaea; padding-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+        .modal-title i { color: var(--main-pink); }
 
-        .task-item {
-            background: #f8f9fa; padding: 12px; border-radius: 8px; margin-bottom: 10px;
-            border-left: 4px solid var(--main-pink); font-size: 14px; color: var(--dark-blue);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.03); word-break: break-all;
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; font-size: 13px; font-weight: bold; color: var(--dark-blue); margin-bottom: 8px; }
+        .modal-input {
+            width: 100%; padding: 12px; border: 2px solid #eaeaea; background-color: #f8f9fa;
+            border-radius: 6px; font-size: 15px; outline: none; box-sizing: border-box; transition: 0.3s; font-weight: bold; color: var(--main-pink);
         }
+        .modal-input:focus { border-color: var(--main-pink); background-color: #fff; }
 
-        /* নতুন গ্লোবাল বোনাস মডাল স্টাইল */
-        .vip-tier-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
+        .btn-save-modal { 
+            width: 100%; padding: 12px; border: none; border-radius: 8px; font-size: 15px; 
+            font-weight: bold; cursor: pointer; transition: 0.2s; 
+            display: flex; align-items: center; justify-content: center; gap: 6px;
+            background: var(--main-pink); color: white; box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);
         }
-
-        .vip-tier-btn {
-            background: #f4f6f9; border: 2px solid transparent; padding: 10px;
-            border-radius: 8px; font-weight: bold; color: var(--dark-blue);
-            cursor: pointer; transition: 0.2s; text-align: center; font-size: 14px;
-        }
-        .vip-tier-btn:hover { background: #e0e6ed; }
-        .vip-tier-btn.active { border-color: var(--gold); background: #fcf8e3; color: var(--gold-dark); }
-        
-        .btn-sb { grid-column: 1 / -1; background: linear-gradient(135deg, #2c3e50, #34495e); color: var(--gold); }
-        .btn-sb.active { border-color: var(--gold); box-shadow: 0 0 10px rgba(241, 196, 15, 0.5); }
-
-        .submit-bonus-btn {
-            width: 100%; padding: 14px; background: linear-gradient(135deg, var(--gold-dark), var(--gold));
-            border: none; border-radius: 8px; color: white; font-weight: bold; font-size: 16px;
-            cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
-        }
-        .submit-bonus-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(241, 196, 15, 0.4); }
+        .btn-save-modal:hover { background: var(--light-pink); }
 
         /* টোস্ট মেসেজ */
         .toast-msg {
-            visibility: hidden; background-color: #27ae60; color: #fff; text-align: center;
+            visibility: hidden; background-color: var(--main-pink); color: #fff; text-align: center;
             border-radius: 8px; padding: 15px 25px; position: fixed; z-index: 9999; right: 30px; top: 30px;
-            font-size: 14px; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            font-size: 14px; font-weight: bold; box-shadow: 0 4px 15px rgba(226, 0, 90, 0.3);
             opacity: 0; transition: opacity 0.3s, top 0.3s;
         }
         .toast-msg.show { visibility: visible; opacity: 1; top: 50px; }
+
     </style>
 </head>
 <body>
 
-    <div id="toastBox" class="toast-msg"><i class="fas fa-check-circle"></i> <span id="toastText">অ্যাকশন সফল হয়েছে!</span></div>
+    <div id="toastBox" class="toast-msg"><i class="fas fa-check-circle"></i> <span id="toastText">আপডেট সফল হয়েছে!</span></div>
 
-    <!-- গ্লোবাল বোনাস পপ-আপ -->
-    <div id="globalBonusModal" class="modal">
+    <!-- ব্যালেন্স এডিট পপ-আপ -->
+    <div id="editModal" class="modal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeGlobalBonusModal()">&times;</span>
-            <div class="modal-title"><i class="fas fa-gift" style="color: var(--gold);"></i> কাদের বোনাস দিবেন সিলেক্ট করুন</div>
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div class="modal-title" id="modalTitleText"><i class="fas fa-wallet"></i> ব্যালেন্স আপডেট করুন</div>
             
-            <p style="font-size: 13px; color: #666; margin-bottom: 15px;">যে লেভেল সিলেক্ট করবেন, শুধুমাত্র সেই লেভেলের ইউজারদের অ্যাপে Claim অপশনটি চালু হবে।</p>
-
-            <div class="vip-tier-grid" id="vipTierGrid">
-                <div class="vip-tier-btn" onclick="selectVipTier(this, 'VIP 1')">VIP 1</div>
-                <div class="vip-tier-btn" onclick="selectVipTier(this, 'VIP 2')">VIP 2</div>
-                <div class="vip-tier-btn" onclick="selectVipTier(this, 'VIP 3')">VIP 3</div>
-                <div class="vip-tier-btn" onclick="selectVipTier(this, 'VIP 4')">VIP 4</div>
-                <div class="vip-tier-btn" onclick="selectVipTier(this, 'VIP 5')">VIP 5</div>
-                <div class="vip-tier-btn" onclick="selectVipTier(this, 'VIP 6')">VIP 6</div>
-                <div class="vip-tier-btn" onclick="selectVipTier(this, 'VIP 7')">VIP 7</div>
-                <div class="vip-tier-btn" onclick="selectVipTier(this, 'VIP 8')">VIP 8</div>
-                <div class="vip-tier-btn" onclick="selectVipTier(this, 'VIP 9')">VIP 9</div>
-                <div class="vip-tier-btn" onclick="selectVipTier(this, 'VIP 10')">VIP 10</div>
-                <div class="vip-tier-btn btn-sb" onclick="selectVipTier(this, 'Send bKash Member')"><i class="fas fa-star"></i> Send bKash Member</div>
+            <div style="font-size: 14px; color: var(--text-grey); margin-bottom: 15px; font-weight: bold;">
+                ইউজার আইডি: <span id="modalUserId" style="color: var(--main-pink);"></span>
             </div>
 
-            <input type="number" id="bonusAmountInput" class="form-input" style="width: 100%; box-sizing: border-box; margin-bottom: 20px; font-weight: bold;" placeholder="বোনাসের পরিমাণ এখানে অটোমেটিক বসবে...">
-
-            <button class="submit-bonus-btn" onclick="enableClaimOption()">
-                <i class="fas fa-paper-plane"></i> Claim অপশন চালু করুন
+            <div class="input-group">
+                <label id="inputLabel">টাকার পরিমাণ (৳):</label>
+                <input type="number" id="balanceInput" class="modal-input" placeholder="0.00">
+            </div>
+            
+            <button class="btn-save-modal" id="modalActionBtn" onclick="saveBalance()">
+                <i class="fas fa-save"></i> নিশ্চিত করুন
             </button>
-        </div>
-    </div>
-
-    <!-- কাজের লিস্ট পপ-আপ -->
-    <div id="detailsModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeDetailsModal()">&times;</span>
-            <div class="modal-title" id="dm-title">কাজের তালিকা</div>
-            <div class="task-list-container" id="dm-list"></div>
         </div>
     </div>
 
@@ -353,8 +335,10 @@
             <p>অ্যাডমিন কন্ট্রোল প্যানেল</p>
         </div>
         <ul class="nav-links">
-            <li><a href="admin.html" class="nav-link"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
+            <li><a href="admin_dashboard.html" class="nav-link"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
+            <li><a href="admin_history.html" class="nav-link"><i class="fas fa-history"></i> কাজের হিস্ট্রি</a></li>
             <li><a href="admin_simple_users.html" class="nav-link"><i class="fas fa-user"></i> সাধারণ ইউজার</a></li>
+            <!-- এই পেজটি Active করা হয়েছে -->
             <li><a href="admin_vip_users.html" class="nav-link active"><i class="fas fa-user-tie"></i> VIP ইউজার</a></li>
             <li><a href="admin_withdraw.html" class="nav-link"><i class="fas fa-file-invoice-dollar"></i> উইথড্র রিকোয়েস্ট</a></li>
             <li><a href="admin_task_rates.html" class="nav-link"><i class="fas fa-tasks"></i> কাজের রেট</a></li>
@@ -378,166 +362,164 @@
 
         <div class="dashboard-body">
             
-            <div class="card-header-container">
-                <div class="card-header-title"><i class="fas fa-crown" style="color: var(--gold);"></i> VIP ইউজার কার্ড লিস্ট</div>
-                <div class="header-actions">
-                    <button class="btn-global-bonus" onclick="openGlobalBonusModal()"><i class="fas fa-gift"></i> সবাইকে বোনাস দিন</button>
-                    <input type="text" class="form-input" placeholder="VIP আইডি বা ইমেইল খুঁজুন...">
+            <div class="section-header-wrapper">
+                <div class="section-title">
+                    <i class="fas fa-user-tie" style="color: white;"></i> সকল VIP ইউজারের তালিকা
                 </div>
             </div>
 
-            <div class="user-grid">
-                
-                <!-- VIP ইউজার কার্ড ১ -->
-                <div class="user-card">
-                    <div class="vip-tag"><i class="fas fa-star"></i> VIP 1</div>
-                    <div class="user-card-header">
-                        <div class="user-avatar"><i class="fas fa-user-tie"></i></div>
-                        <div class="user-details">
-                            <h4>V9KZBTUBR1</h4>
-                            <p>vip_sakib@gmail.com</p>
-                        </div>
-                    </div>
+            <!-- সার্চ বক্স -->
+            <div class="search-container">
+                <input type="text" class="search-box" placeholder="ইউজার আইডি বা ইমেইল দিয়ে সার্চ করুন...">
+                <button class="btn-search"><i class="fas fa-search"></i> সার্চ</button>
+            </div>
+            
+            <!-- ইউজার লিস্ট টেবিল -->
+            <div class="table-card">
+                <div class="table-responsive">
+                    <table class="user-table">
+                        <thead>
+                            <tr>
+                                <th>ইউজার প্রোফাইল</th>
+                                <th>ইমেইল এড্রেস</th>
+                                <th>VIP লেভেল</th>
+                                <th>বর্তমান ব্যালেন্স</th>
+                                <th>অ্যাকশন</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- VIP ইউজার ১ -->
+                            <tr id="user-row-1">
+                                <td>
+                                    <div class="user-info-cell">
+                                        <div class="user-avatar-sm"><i class="fas fa-user-tie"></i></div>
+                                        <div>P9KZBTUBR1</div>
+                                    </div>
+                                </td>
+                                <td>vip_sakib@gmail.com</td>
+                                <td><span class="vip-badge"><i class="fas fa-crown"></i> VIP 5</span></td>
+                                <td><span class="balance-badge" id="bal-1">৳ ১,৫০০.০০</span></td>
+                                <td>
+                                    <div class="action-btns">
+                                        <button class="btn-action btn-add" onclick="openBalanceModal('P9KZBTUBR1', 'bal-1', 'add')"><i class="fas fa-plus"></i> Add Balance</button>
+                                        <button class="btn-action btn-cut" onclick="openBalanceModal('P9KZBTUBR1', 'bal-1', 'cut')"><i class="fas fa-minus"></i> Cut Balance</button>
+                                    </div>
+                                </td>
+                            </tr>
 
-                    <div class="task-stats-title">জমাকৃত কাজের সংখ্যা (ক্লিক করুন)</div>
-                    
-                    <div class="task-badges">
-                        <div class="task-badge bg-gmail" onclick="showTaskDetails('Google', '#ea4335', 'V9KZBTUBR1', ['vip1@gmail.com (Pass: 123)'])">
-                            <i class="fab fa-google"></i> <span>১</span>
-                        </div>
-                        <div class="task-badge bg-insta" onclick="showTaskDetails('Instagram', '#e1306c', 'V9KZBTUBR1', ['vip_insta (Pass: 123)'])">
-                            <i class="fab fa-instagram"></i> <span>১</span>
-                        </div>
-                        <div class="task-badge bg-wa" onclick="showTaskDetails('WhatsApp', '#25d366', 'V9KZBTUBR1', ['+8801700000000'])">
-                            <i class="fab fa-whatsapp"></i> <span>১</span>
-                        </div>
-                        <div class="task-badge bg-tg" onclick="showTaskDetails('Telegram', '#0088cc', 'V9KZBTUBR1', ['+8801900000000'])">
-                            <i class="fab fa-telegram-plane"></i> <span>১</span>
-                        </div>
-                    </div>
+                            <!-- VIP ইউজার ২ -->
+                            <tr id="user-row-2">
+                                <td>
+                                    <div class="user-info-cell">
+                                        <div class="user-avatar-sm"><i class="fas fa-user-tie"></i></div>
+                                        <div>V2LKBTYYY5</div>
+                                    </div>
+                                </td>
+                                <td>boss_rakib@gmail.com</td>
+                                <td><span class="vip-badge"><i class="fas fa-crown"></i> VIP 2</span></td>
+                                <td><span class="balance-badge" id="bal-2">৳ ৩,২০০.৫০</span></td>
+                                <td>
+                                    <div class="action-btns">
+                                        <button class="btn-action btn-add" onclick="openBalanceModal('V2LKBTYYY5', 'bal-2', 'add')"><i class="fas fa-plus"></i> Add Balance</button>
+                                        <button class="btn-action btn-cut" onclick="openBalanceModal('V2LKBTYYY5', 'bal-2', 'cut')"><i class="fas fa-minus"></i> Cut Balance</button>
+                                    </div>
+                                </td>
+                            </tr>
 
-                    <div class="balance-box">
-                        <span class="balance-label">বর্তমান ব্যালেন্স:</span>
-                        <span class="balance-amount">৳৫০০.০০</span>
-                    </div>
+                            <!-- VIP ইউজার ৩ -->
+                            <tr id="user-row-3">
+                                <td>
+                                    <div class="user-info-cell">
+                                        <div class="user-avatar-sm"><i class="fas fa-user-tie"></i></div>
+                                        <div>K7ABCTUBR9</div>
+                                    </div>
+                                </td>
+                                <td>vip_salam99@gmail.com</td>
+                                <td><span class="vip-badge"><i class="fas fa-crown"></i> VIP 10</span></td>
+                                <td><span class="balance-badge" id="bal-3">৳ ৮,৪৫০.০০</span></td>
+                                <td>
+                                    <div class="action-btns">
+                                        <button class="btn-action btn-add" onclick="openBalanceModal('K7ABCTUBR9', 'bal-3', 'add')"><i class="fas fa-plus"></i> Add Balance</button>
+                                        <button class="btn-action btn-cut" onclick="openBalanceModal('K7ABCTUBR9', 'bal-3', 'cut')"><i class="fas fa-minus"></i> Cut Balance</button>
+                                    </div>
+                                </td>
+                            </tr>
 
-                    <div class="action-btns">
-                        <button class="btn-add" onclick="handleBalance('add', 'V9KZBTUBR1')"><i class="fas fa-plus"></i> টাকা</button>
-                        <button class="btn-deduct" onclick="handleBalance('deduct', 'V9KZBTUBR1')"><i class="fas fa-minus"></i> টাকা</button>
-                        <button class="btn-bonus" onclick="giveIndividualBonus('V9KZBTUBR1')"><i class="fas fa-gift"></i> বোনাস</button>
-                        <button class="btn-reject" title="ব্যান করুন" onclick="showToast('ইউজারকে ব্যান করা হয়েছে!', true)"><i class="fas fa-ban"></i> ব্যান</button>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
-
             </div>
 
         </div>
     </main>
 
     <script>
-        function showToast(message, isError = false) {
-            const toast = document.getElementById("toastBox");
-            document.getElementById("toastText").innerText = message;
-            toast.style.backgroundColor = isError ? "#e74c3c" : "#27ae60";
-            toast.classList.add("show");
-            setTimeout(() => { toast.classList.remove("show"); }, 3500);
-        }
+        let currentTargetId = "";
+        let currentAction = "";
+        let currentBalance = 0;
 
-        /* --- গ্লোবাল বোনাস পপ-আপ লজিক এবং অটো-অ্যামাউন্ট --- */
-        let selectedVipLevel = null;
-
-        // প্রতিটি VIP লেভেলের নির্দিষ্ট বোনাস অ্যামাউন্ট
-        const vipBonusAmounts = {
-            'VIP 1': 9,
-            'VIP 2': 18,
-            'VIP 3': 27,
-            'VIP 4': 36,
-            'VIP 5': 45,
-            'VIP 6': 54,
-            'VIP 7': 63,
-            'VIP 8': 72,
-            'VIP 9': 81,
-            'VIP 10': 90,
-            'Send bKash Member': 100
-        };
-
-        function openGlobalBonusModal() {
-            document.getElementById('globalBonusModal').classList.add('show');
-        }
-
-        function closeGlobalBonusModal() {
-            document.getElementById('globalBonusModal').classList.remove('show');
-            selectedVipLevel = null;
-            document.getElementById('bonusAmountInput').value = '';
-            document.querySelectorAll('.vip-tier-btn').forEach(btn => btn.classList.remove('active'));
-        }
-
-        function selectVipTier(buttonElement, levelName) {
-            // সব বাটন থেকে একটিভ ক্লাস মুছে ফেলা
-            document.querySelectorAll('.vip-tier-btn').forEach(btn => btn.classList.remove('active'));
-            // ক্লিক করা বাটনে একটিভ ক্লাস যোগ করা
-            buttonElement.classList.add('active');
-            selectedVipLevel = levelName;
-
-            // অটোমেটিক ওই লেভেলের বোনাস অ্যামাউন্ট ইনপুট বক্সে বসিয়ে দেওয়া
-            if (vipBonusAmounts[levelName]) {
-                document.getElementById('bonusAmountInput').value = vipBonusAmounts[levelName];
-            }
-        }
-
-        function enableClaimOption() {
-            let amount = document.getElementById('bonusAmountInput').value;
-
-            if(!selectedVipLevel) {
-                alert("দয়া করে একটি VIP লেভেল সিলেক্ট করুন!");
-                return;
-            }
-            if(amount === "" || amount <= 0) {
-                alert("দয়া করে সঠিক বোনাসের পরিমাণ লিখুন!");
-                return;
-            }
-
-            showToast(`সাফল্য! ${selectedVipLevel} ইউজারদের জন্য ৳${amount} বোনাস Claim অপশন চালু করা হয়েছে।`);
-            closeGlobalBonusModal();
-        }
-
-        /* --- সিগেল ইউজার কন্ট্রোল --- */
-        function handleBalance(action, userId) {
-            let actionText = action === 'add' ? "যোগ" : "কেটে নিতে";
-            let amount = prompt(`ইউজার ${userId} এর একাউন্টে কত টাকা ${actionText} চান?`);
-            if (amount !== null && amount.trim() !== "" && !isNaN(amount)) {
-                let successMsg = action === 'add' ? `৳${amount} যোগ করা হয়েছে!` : `৳${amount} কেটে নেওয়া হয়েছে!`;
-                showToast(successMsg, action === 'deduct');
-            }
-        }
-
-        function giveIndividualBonus(userId) {
-            let amount = prompt(`ইউজার ${userId} কে কত টাকা বোনাস দিতে চান?`);
-            if (amount !== null && amount.trim() !== "" && !isNaN(amount)) {
-                showToast(`ইউজার ${userId} কে ৳${amount} বোনাস পাঠানো হয়েছে!`);
-            }
-        }
-
-        /* --- কাজের ডিটেইলস পপ-আপ --- */
-        function showTaskDetails(platform, color, userId, accountsArray) {
-            document.getElementById('dm-title').innerHTML = `<span style="color:${color};"><i class="fas fa-list"></i> ${platform} Account List</span> <br> <span style="font-size:12px; color:#888;">ইউজার: ${userId}</span>`;
-            let listContainer = document.getElementById('dm-list');
-            let listHtml = '';
+        // পপ-আপ ওপেন করা
+        function openBalanceModal(userId, targetBalId, action) {
+            document.getElementById('modalUserId').innerText = userId;
+            document.getElementById('balanceInput').value = ""; 
             
-            if(accountsArray.length === 0) {
-                listHtml = '<p style="text-align:center; color:#888; margin-top:20px;">কোনো কাজ জমা দেওয়া হয়নি।</p>';
+            currentTargetId = targetBalId;
+            currentAction = action;
+
+            // বর্তমান ব্যালেন্স DOM থেকে তুলে আনা
+            let balText = document.getElementById(targetBalId).innerText;
+            currentBalance = parseFloat(balText.replace(/[^\d.-]/g, '')); 
+
+            const modalTitle = document.getElementById('modalTitleText');
+            const modalBtn = document.getElementById('modalActionBtn');
+            const inputLabel = document.getElementById('inputLabel');
+
+            if(action === 'add') {
+                modalTitle.innerHTML = '<i class="fas fa-plus-circle"></i> ব্যালেন্স যোগ করুন';
+                inputLabel.innerText = "কত টাকা যোগ করতে চান (৳):";
+                modalBtn.innerHTML = '<i class="fas fa-plus"></i> ব্যালেন্স যোগ করুন';
             } else {
-                accountsArray.forEach(acc => {
-                    listHtml += `<div class="task-item" style="border-left-color: ${color}">${acc}</div>`;
-                });
+                modalTitle.innerHTML = '<i class="fas fa-minus-circle"></i> ব্যালেন্স কর্তন করুন';
+                inputLabel.innerText = "কত টাকা কাটতে চান (৳):";
+                modalBtn.innerHTML = '<i class="fas fa-minus"></i> ব্যালেন্স কাটুন';
             }
-            
-            listContainer.innerHTML = listHtml;
-            document.getElementById('detailsModal').classList.add('show');
+
+            document.getElementById('editModal').classList.add('show');
         }
 
-        function closeDetailsModal() {
-            document.getElementById('detailsModal').classList.remove('show');
+        // পপ-আপ ক্লোজ করা
+        function closeModal() {
+            document.getElementById('editModal').classList.remove('show');
+        }
+
+        // ব্যালেন্স সেভ (যোগ বা বিয়োগ) করা
+        function saveBalance() {
+            const inputVal = parseFloat(document.getElementById('balanceInput').value);
+            
+            if(isNaN(inputVal) || inputVal <= 0) {
+                alert("দয়া করে সঠিক টাকার পরিমাণ লিখুন!");
+                return;
+            }
+
+            let newBal = 0;
+            const toast = document.getElementById("toastBox");
+
+            if(currentAction === 'add') {
+                newBal = currentBalance + inputVal;
+                document.getElementById("toastText").innerText = "ব্যালেন্স সফলভাবে যোগ করা হয়েছে!";
+            } else {
+                newBal = currentBalance - inputVal;
+                if(newBal < 0) newBal = 0; 
+                document.getElementById("toastText").innerText = "ব্যালেন্স সফলভাবে কর্তন করা হয়েছে!";
+            }
+
+            // নতুন ব্যালেন্স টেবিলে আপডেট করা (কমা সহ ফরম্যাটিং)
+            document.getElementById(currentTargetId).innerText = `৳ ${newBal.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            closeModal();
+
+            // টোস্ট মেসেজ দেখানো
+            toast.classList.add("show");
+            setTimeout(() => { toast.classList.remove("show"); }, 3000);
         }
 
         document.getElementById("adminLogout").addEventListener("click", () => {
