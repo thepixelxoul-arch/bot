@@ -95,7 +95,15 @@
             z-index: 10;
         }
 
-        .topbar-title { font-size: 20px; font-weight: 900; color: var(--dark-blue); }
+        .topbar-title { 
+            font-size: 20px; 
+            font-weight: 900; 
+            color: var(--dark-blue); 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+        }
+        .topbar-title i { color: var(--main-pink); }
 
         .admin-profile { display: flex; align-items: center; gap: 15px; }
 
@@ -125,6 +133,7 @@
         }
         .section-title i { color: var(--main-pink); }
 
+        /* ফুল পিংক ব্যাক বাটন */
         .btn-back {
             background: var(--main-pink);
             color: white;
@@ -139,10 +148,11 @@
             align-items: center;
             gap: 8px;
             text-decoration: none;
+            box-shadow: 0 4px 10px rgba(226, 0, 90, 0.3);
         }
 
         .btn-back:hover {
-            opacity: 0.9;
+            background: #c0004b;
             transform: translateY(-2px);
         }
 
@@ -217,14 +227,12 @@
             gap: 6px;
         }
         
-        /* Accepted: সলিড পিংক */
         .status-accepted { 
             background-color: var(--main-pink); 
             color: white; 
             border: 1.5px solid var(--main-pink); 
         }
 
-        /* Rejected: সাদা ব্যাকগ্রাউন্ড, পিংক বর্ডার */
         .status-rejected { 
             background-color: var(--main-white); 
             color: var(--main-pink); 
@@ -272,7 +280,10 @@
     <!-- মেইন এরিয়া -->
     <main class="main-content">
         <header class="topbar">
-            <div class="topbar-title">কাজের হিস্ট্রি</div>
+            <!-- কাজের হিস্ট্রি এর আগে লোগো যোগ করা হয়েছে -->
+            <div class="topbar-title">
+                <i class="fas fa-history"></i> কাজের হিস্ট্রি
+            </div>
             <div class="admin-profile"></div>
         </header>
 
