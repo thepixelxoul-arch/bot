@@ -167,6 +167,7 @@
             .notify-grid { grid-template-columns: 1fr; } 
         }
 
+        /* কার্ডের ডিজাইন এবং হোভার ইফেক্ট */
         .settings-card {
             background: #fff;
             border-radius: 12px;
@@ -175,6 +176,13 @@
             border-top: 4px solid var(--main-pink);
             display: flex;
             flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* স্মুথ ট্রানজিশন */
+        }
+
+        /* মাউস হোভার করলে কার্ড একটু ওপরে উঠবে */
+        .settings-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(226, 0, 90, 0.15);
         }
 
         .settings-title {
@@ -203,13 +211,19 @@
             width: 100%; box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);
             margin-top: auto; 
         }
-        .btn-submit:hover { background: #b0124c; transform: translateY(-2px); }
+        .btn-submit:hover { background: #b0124c; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(226, 0, 90, 0.3); }
 
         /* হিস্ট্রি কার্ড ডিজাইন */
         .history-card {
             background: #fff; border-radius: 12px; padding: 25px;
             box-shadow: 0 4px 15px rgba(226, 0, 90, 0.1); 
             border-top: 4px solid var(--main-pink);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .history-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(226, 0, 90, 0.15);
         }
 
         .history-item {
@@ -228,7 +242,7 @@
             visibility: hidden; background-color: var(--main-pink); color: #fff; text-align: center;
             border-radius: 8px; padding: 15px 25px; position: fixed; z-index: 9999; right: 30px; top: 30px;
             font-size: 14px; font-weight: bold; box-shadow: 0 4px 15px rgba(226, 0, 90, 0.3);
-            opacity: 0; transition: opacity 0.3s, top 0.3s;
+            opacity: 0; transition: opacity 0.3s, top 0.3s, background-color 0.3s;
         }
         .toast-msg.show { visibility: visible; opacity: 1; top: 50px; }
 
@@ -236,7 +250,9 @@
 </head>
 <body>
 
-    <div id="toastBox" class="toast-msg"><i class="fas fa-check-circle"></i> <span id="toastText">সফল হয়েছে!</span></div>
+    <div id="toastBox" class="toast-msg">
+        <i id="toastIcon" class="fas fa-check-circle"></i> <span id="toastText">সফল হয়েছে!</span>
+    </div>
 
     <!-- সাইডবার -->
     <aside class="sidebar">
@@ -300,7 +316,6 @@
 
                         <div class="input-group" style="flex-grow: 1;">
                             <label>বিস্তারিত নোটিশ লিখুন:</label>
-                            <!-- বক্সটি লম্বা করা হয়েছে -->
                             <textarea id="globalMessage" class="form-control form-textarea" style="height: 100%; min-height: 160px;" placeholder="হোম পেজে বা সবার ড্যাশবোর্ডে দেখানোর জন্য নোটিশ লিখুন..."></textarea>
                         </div>
 
@@ -325,7 +340,6 @@
 
                         <div class="input-group">
                             <label>বিস্তারিত বার্তা (Message):</label>
-                            <!-- বক্সটি ব্যালেন্স করার জন্য লম্বা করা হয়েছে -->
                             <textarea id="directMessage" class="form-control form-textarea" style="min-height: 90px;" placeholder="বিস্তারিত নোটিফিকেশন মেসেজ লিখুন..."></textarea>
                         </div>
 
@@ -358,11 +372,24 @@
     </main>
 
     <script>
-        function showToast(message) {
+        // কাস্টম টোস্ট মেসেজ (সাকসেস এবং এরর দুটোর জন্য)
+        function showToast(message, isError = false) {
             const toast = document.getElementById("toastBox");
-            document.getElementById("toastText").innerText = message;
+            const text = document.getElementById("toastText");
+            const icon = document.getElementById("toastIcon");
+
+            text.innerText = message;
+            
+            if(isError) {
+                toast.style.backgroundColor = "#e74c3c"; // লাল রঙ
+                icon.className = "fas fa-exclamation-triangle";
+            } else {
+                toast.style.backgroundColor = "var(--main-pink)"; // অরিজিনাল পিংক
+                icon.className = "fas fa-check-circle";
+            }
+
             toast.classList.add("show");
-            setTimeout(() => { toast.classList.remove("show"); }, 3000);
+            setTimeout(() => { toast.classList.remove("show"); }, 3500);
         }
 
         let isHistoryView = false;
@@ -405,14 +432,15 @@
             const message = document.getElementById("globalMessage").value;
             
             if (title.trim() === "" || message.trim() === "") {
-                alert("দয়া করে নোটিশের টাইটেল এবং মেসেজ দুটিই লিখুন!");
+                showToast("দয়া করে নোটিশের টাইটেল এবং মেসেজ দুটিই লিখুন!", true);
                 return;
             }
             
             // হিস্ট্রি সেভ করা
             addHistoryItem(title, '<i class="fas fa-users"></i> সবার জন্য (Global)', message);
             
-            showToast("গ্লোবাল নোটিশ সফলভাবে পাবলিশ হয়েছে!");
+            showToast("গ্লোবাল নোটিশ সফলভাবে পাবলিশ হয়েছে!", false);
+            
             document.getElementById("globalTitle").value = "";
             document.getElementById("globalMessage").value = "";
         }
@@ -423,14 +451,15 @@
             const msg = document.getElementById("directMessage").value;
             
             if (userId.trim() === "" || title.trim() === "" || msg.trim() === "") {
-                alert("দয়া করে ইউজার আইডি, শিরোনাম এবং বিস্তারিত বার্তা সম্পূর্ণ পূরণ করুন!");
+                showToast("দয়া করে ইউজার আইডি, শিরোনাম এবং বিস্তারিত বার্তা সম্পূর্ণ পূরণ করুন!", true);
                 return;
             }
 
             // হিস্ট্রি সেভ করা
             addHistoryItem(title, `<i class="fas fa-user"></i> ${userId} এর জন্য`, msg);
 
-            showToast(`সাফল্য! ${userId} এর কাছে নোটিফিকেশন পাঠানো হয়েছে।`);
+            showToast(`সাফল্য! ${userId} এর কাছে নোটিফিকেশন পাঠানো হয়েছে।`, false);
+            
             document.getElementById("directUserId").value = "";
             document.getElementById("directTitle").value = "";
             document.getElementById("directMessage").value = "";
