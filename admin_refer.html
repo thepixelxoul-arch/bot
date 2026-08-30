@@ -124,7 +124,6 @@
             border-top: 4px solid #fff;
         }
 
-        /* কার্ডের ওপরের অংশ (টাইটেল এবং বোনাস কোড বাটন পাশাপাশি) */
         .settings-header-flex {
             display: flex;
             justify-content: space-between;
@@ -139,7 +138,6 @@
             display: flex; align-items: center; gap: 10px; margin: 0;
         }
 
-        /* বোনাস কোড বাটন (উপরে ডানে সেট করা) */
         .btn-bonus-code {
             background: var(--main-white);
             color: var(--main-pink);
@@ -322,32 +320,28 @@
     <div id="bonusCodeModal" class="modal">
         <div class="modal-content" style="max-width: 450px;">
             <span class="close-btn" onclick="closeBonusModal()">&times;</span>
-            <div class="modal-title"><i class="fas fa-gift" style="color: var(--main-pink);"></i> বোনাস কোড ম্যানেজমেন্ট</div>
+            <div class="modal-title"><i class="fas fa-gift" style="color: var(--main-pink);"></i> বোনাস কোড ম্যানেজমেন্ট (৳20 Bonus)</div>
             
             <!-- কোড অ্যাড করার অপশন -->
             <div style="display: flex; gap: 10px; margin-bottom: 20px;">
                 <div style="display: flex; align-items: center; background-color: #f8f9fa; border: 2px solid #eaeaea; border-radius: 8px; padding: 2px 15px; flex-grow: 1;">
                     <i class="fas fa-ticket-alt" style="color: var(--main-pink); margin-right: 8px;"></i>
-                    <input type="text" id="newBonusCode" class="form-control" style="padding: 8px 0; color: var(--dark-blue);" placeholder="নতুন বোনাস কোড লিখুন...">
+                    <input type="text" id="newBonusCode" class="form-control" style="padding: 8px 0; color: var(--dark-blue);" placeholder="নতুন বোনাস কোড লিখুন (৳20)...">
                 </div>
                 <button class="btn-update-settings" style="background: linear-gradient(135deg, var(--main-pink), var(--light-pink)); color: white; padding: 10px 20px; box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);" onclick="addBonusCode()">
                     <i class="fas fa-plus"></i> অ্যাড
                 </button>
             </div>
 
-            <div style="font-size: 14px; font-weight: bold; color: var(--text-grey); margin-bottom: 10px;">অ্যাক্টিভ বোনাস কোডসমূহ:</div>
+            <div style="font-size: 14px; font-weight: bold; color: var(--text-grey); margin-bottom: 10px;">অ্যাক্টিভ বোনাস কোডসমূহ (৳২০ টাকা বোনাস):</div>
             
             <div class="list-container" id="bonusCodeList">
                 <div class="list-item">
-                    <span><i class="fas fa-ticket-alt" style="color: var(--main-pink); margin-right: 8px;"></i> WELCOME50</span>
+                    <span><i class="fas fa-ticket-alt" style="color: var(--main-pink); margin-right: 8px;"></i> WELCOME20 <b style="color: var(--main-pink); font-size: 11px;">(৳20)</b></span>
                     <span class="date" style="color: #27ae60; font-weight: bold;">Active</span>
                 </div>
                 <div class="list-item">
-                    <span><i class="fas fa-ticket-alt" style="color: var(--main-pink); margin-right: 8px;"></i> NEWUSER20</span>
-                    <span class="date" style="color: #27ae60; font-weight: bold;">Active</span>
-                </div>
-                <div class="list-item">
-                    <span><i class="fas fa-ticket-alt" style="color: var(--main-pink); margin-right: 8px;"></i> EID100</span>
+                    <span><i class="fas fa-ticket-alt" style="color: var(--main-pink); margin-right: 8px;"></i> EID20 <b style="color: var(--main-pink); font-size: 11px;">(৳20)</b></span>
                     <span class="date" style="color: #27ae60; font-weight: bold;">Active</span>
                 </div>
             </div>
@@ -388,7 +382,7 @@
 
         <div class="dashboard-body">
             
-            <!-- রেফার সেটিং ফর্ম (পিংক কালার কার্ডের ওপরের ডানপাশে বোনাস কোড বাটন সেট করা হয়েছে) -->
+            <!-- রেফার সেটিং ফর্ম -->
             <div class="settings-card">
                 <div class="settings-header-flex">
                     <div class="settings-title"><i class="fas fa-cog"></i> বোনাস ও কমিশন আপডেট করুন</div>
@@ -576,7 +570,7 @@
             document.getElementById('referListModal').classList.remove('show');
         }
 
-        // --- নতুন বোনাস কোড লজিক ---
+        // --- বোনাস কোড লজিক (৳২০ টাকা বোনাস) ---
         function openBonusModal() {
             document.getElementById('bonusCodeModal').classList.add('show');
         }
@@ -598,12 +592,12 @@
             const newItem = document.createElement("div");
             newItem.className = "list-item";
             newItem.innerHTML = `
-                <span><i class="fas fa-ticket-alt" style="color: var(--main-pink); margin-right: 8px;"></i> ${codeVal}</span>
+                <span><i class="fas fa-ticket-alt" style="color: var(--main-pink); margin-right: 8px;"></i> ${codeVal} <b style="color: var(--main-pink); font-size: 11px;">(৳20)</b></span>
                 <span class="date" style="color: #27ae60; font-weight: bold;">Active</span>
             `;
             listContainer.prepend(newItem);
 
-            showToast(`সাফল্য! '${codeVal}' কোডটি যুক্ত করা হয়েছে।`);
+            showToast(`সাফল্য! ৳২০ টাকার '${codeVal}' বোনাস কোডটি যুক্ত করা হয়েছে।`);
             codeInput.value = "";
         }
 
