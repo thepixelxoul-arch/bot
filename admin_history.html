@@ -95,7 +95,6 @@
             z-index: 10;
         }
 
-        /* কাজের হিস্ট্রি লেখা এবং আইকন ফুল পিংক করা হয়েছে */
         .topbar-title { 
             font-size: 20px; 
             font-weight: 900; 
@@ -115,7 +114,7 @@
             flex-grow: 1;
         }
 
-        /* সেকশন হেডার এবং ব্যাক বাটন */
+        /* সেকশন হেডার */
         .section-header-wrapper {
             display: flex;
             justify-content: space-between;
@@ -133,29 +132,6 @@
             display: flex; align-items: center; gap: 10px; margin: 0;
         }
         .section-title i { color: var(--main-pink); }
-
-        /* ফুল পিংক ব্যাক বাটন */
-        .btn-back {
-            background: var(--main-pink);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 900;
-            cursor: pointer;
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-            box-shadow: 0 4px 10px rgba(226, 0, 90, 0.3);
-        }
-
-        .btn-back:hover {
-            background: #c0004b;
-            transform: translateY(-2px);
-        }
 
         /* প্রোডাক্ট গ্রিড স্টাইল */
         .product-grid {
@@ -281,7 +257,6 @@
     <!-- মেইন এরিয়া -->
     <main class="main-content">
         <header class="topbar">
-            <!-- কাজের হিস্ট্রি লেখা এখন ফুল পিংক -->
             <div class="topbar-title">
                 <i class="fas fa-history"></i> কাজের হিস্ট্রি
             </div>
@@ -290,14 +265,11 @@
 
         <div class="dashboard-body">
 
-            <!-- হেডার বার এবং ব্যাক বাটন -->
+            <!-- হেডার বার (ব্যাক বাটন রিমুভ করা হয়েছে) -->
             <div class="section-header-wrapper">
                 <div class="section-title">
                     <i class="fas fa-clipboard-check"></i> সম্পন্ন হওয়া কাজগুলো (Approved & Rejected)
                 </div>
-                <a href="admin.html" class="btn-back">
-                    <i class="fas fa-arrow-left"></i> ফিরে যান
-                </a>
             </div>
             
             <!-- হিস্ট্রি গ্রিড -->
