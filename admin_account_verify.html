@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Verification - Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root { 
+            --main-pink: #e2005a; 
+            --light-pink: #ff3377;
+            --main-white: #ffffff; 
+            --text-grey: #888888; 
+            --bg-light: #f4f6f9; 
+            --dark-blue: #2c3e50;
+            --success-green: #27ae60;
+            --danger-red: #e74c3c;
+        }
+
+        body { 
+            margin: 0; padding: 0; 
+            background-color: var(--bg-light); 
+            font-family: 'Segoe UI', Tahoma, sans-serif; 
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* সাইডবার */
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(180deg, var(--main-pink), var(--light-pink));
+            color: white;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 4px 0 15px rgba(226, 0, 90, 0.2);
+            transition: 0.3s;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            flex-shrink: 0;
+        }
+        .sidebar-header h2 { margin: 0; font-size: 22px; font-weight: 900; }
+        .sidebar-header p { margin: 5px 0 0 0; font-size: 12px; color: #ffe6f0; }
+
+        .nav-links {
+            list-style: none; padding: 0; margin: 10px 0;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+        
+        .nav-links::-webkit-scrollbar { width: 5px; }
+        .nav-links::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 10px; }
+
+        .nav-links li { margin-bottom: 5px; }
+
+        .nav-links a {
+            display: flex; align-items: center; gap: 15px;
+            padding: 15px 25px; 
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none; font-size: 15px; 
+            font-weight: bold;
+            transition: 0.3s; border-left: 4px solid transparent;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-left: 4px solid #fff; 
+        }
+
+        .nav-links a i { width: 20px; text-align: center; font-size: 18px; }
+
+        /* মেইন কন্টেন্ট এরিয়া */
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* টপবার */
+        .topbar {
+            background-color: var(--main-white);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            z-index: 10;
+        }
+
+        .topbar-title { font-size: 18px; font-weight: bold; color: var(--dark-blue); }
+
+        .admin-profile { display: flex; align-items: center; gap: 15px; }
+        
+        .logout-btn {
+            background-color: rgba(226, 0, 90, 0.1); color: var(--main-pink);
+            border: none; padding: 8px 18px; border-radius: 8px;
+            cursor: pointer; font-weight: bold; transition: 0.2s;
+            display: flex; align-items: center; gap: 8px; font-size: 14px;
+        }
+        .logout-btn:hover { background-color: var(--main-pink); color: white; }
+
+        /* ড্যাশবোর্ড বডি */
+        .dashboard-body {
+            padding: 30px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        .card-header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
+            padding: 20px 25px;
+            border-radius: 12px;
+            color: white;
+            box-shadow: 0 5px 15px rgba(226, 0, 90, 0.2);
+        }
+
+        .card-header-title {
+            font-size: 20px; font-weight: bold;
+            display: flex; align-items: center; gap: 10px; color: white;
+        }
+
+        .card-header-subtitle { font-size: 13px; color: #ffe0e9; margin-top: 5px; }
+
+        /* AI Settings Card */
+        .ai-settings-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.1);
+            margin-bottom: 30px;
+            border-top: 4px solid var(--main-pink);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .ai-title {
+            font-size: 18px; font-weight: 900; color: var(--dark-blue);
+            display: flex; align-items: center; gap: 10px; margin-bottom: 5px;
+        }
+        .ai-desc { font-size: 13px; color: var(--text-grey); font-weight: bold; margin: 0; }
+
+        .toggle-container {
+            display: flex; align-items: center; gap: 15px;
+            background: #f8f9fa; padding: 12px 20px; border-radius: 8px; border: 1px solid #eaeaea;
+        }
+
+        .toggle-label { font-size: 14px; font-weight: bold; color: var(--dark-blue); }
+
+        /* Toggle Switch */
+        .switch {
+            position: relative; display: inline-block; width: 44px; height: 24px;
+        }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #ccc; transition: .4s; border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px;
+            background-color: white; transition: .4s; border-radius: 50%;
+        }
+        input:checked + .slider { background-color: var(--success-green); }
+        input:checked + .slider:before { transform: translateX(20px); }
+
+        /* Logs Section */
+        .section-title {
+            font-size: 18px; font-weight: bold; color: var(--dark-blue);
+            margin-bottom: 20px; display: flex; align-items: center; gap: 10px;
+        }
+
+        .logs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+            padding-bottom: 30px;
+        }
+
+        .log-card {
+            background: #fff; border: 1px solid #e0e0e0; border-radius: 12px; padding: 20px;
+            display: flex; flex-direction: column; transition: 0.3s;
+        }
+        .log-card:hover { box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08); transform: translateY(-3px); }
+
+        .log-header {
+            display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; border-bottom: 1px solid #f0f0f0; padding-bottom: 10px;
+        }
+
+        .user-info { display: flex; align-items: center; gap: 10px; }
+        .user-avatar {
+            width: 40px; height: 40px; border-radius: 50%; background: var(--bg-light); border: 2px solid #eaeaea;
+            color: var(--dark-blue); display: flex; align-items: center; justify-content: center; font-size: 18px; overflow: hidden;
+        }
+        .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .user-info h4 { margin: 0; font-size: 15px; color: var(--dark-blue); font-weight: 900;}
+        .user-info p { margin: 2px 0 0 0; font-size: 11px; color: #888; font-weight: bold;}
+
+        /* Status Badges */
+        .status-badge { padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: 900; display: inline-flex; align-items: center; gap: 5px;}
+        .status-verified { background-color: rgba(39, 174, 96, 0.1); color: var(--success-green); }
+        .status-fake { background-color: rgba(231, 76, 60, 0.1); color: var(--danger-red); }
+        .status-duplicate { background-color: rgba(230, 126, 34, 0.1); color: #d35400; }
+
+        .log-details {
+            background: #f8f9fa; padding: 12px; border-radius: 8px; font-size: 13px; color: #444; font-weight: bold; line-height: 1.5; margin-bottom: 15px;
+        }
+        .log-details i { margin-right: 5px; }
+
+        .btn-view-scan {
+            width: 100%; border: 1px solid #eaeaea; padding: 10px; border-radius: 8px; background: #fff;
+            font-size: 13px; font-weight: 900; color: var(--dark-blue); cursor: pointer; transition: 0.2s;
+            display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: auto;
+        }
+        .btn-view-scan:hover { background: #f0f0f0; }
+
+    </style>
+</head>
+<body>
+
+    <!-- সাইডবার -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2><i class="fas fa-paper-plane"></i> Send bKash</h2>
+            <p>অ্যাডমিন কন্ট্রোল প্যানেল</p>
+        </div>
+        <ul class="nav-links">
+            <li><a href="admin_dashboard.html" class="nav-link"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
+            <li><a href="admin_history.html" class="nav-link"><i class="fas fa-history"></i> কাজের হিস্ট্রি</a></li>
+            <li><a href="admin_simple_users.html" class="nav-link"><i class="fas fa-user"></i> সাধারণ ইউজার</a></li>
+            <li><a href="admin_vip_users.html" class="nav-link"><i class="fas fa-user-tie"></i> VIP ইউজার</a></li>
+            <li><a href="admin_withdraw.html" class="nav-link"><i class="fas fa-file-invoice-dollar"></i> উইথড্র রিকোয়েস্ট</a></li>
+            
+            <!-- নতুন অ্যাড করা অ্যাকাউন্ট যাচাই মেনু (fa-user-check আইকন সহ) -->
+            <li><a href="admin_account_verify.html" class="nav-link active"><i class="fas fa-user-check"></i> অ্যাকাউন্ট যাচাই</a></li>
+            
+            <li><a href="admin_task_rates.html" class="nav-link"><i class="fas fa-tasks"></i> কাজের রেট</a></li>
+            <li><a href="admin_number.html" class="nav-link"><i class="fas fa-sim-card"></i> নাম্বার ম্যানেজমেন্ট</a></li>
+            <li><a href="admin_vip_settings.html" class="nav-link"><i class="fas fa-crown"></i> VIP প্যাকেজ সেটিং</a></li>
+            <li><a href="admin_refer.html" class="nav-link"><i class="fas fa-user-plus"></i> রেফার সেটিং</a></li>
+            <li><a href="admin_notification.html" class="nav-link"><i class="fas fa-bell"></i> নোটিফিকেশন ও নোটিশ</a></li>
+            <li><a href="admin_rules.html" class="nav-link"><i class="fas fa-file-alt"></i> কাজের নিয়মাবলী</a></li>
+            <li><a href="admin_support.html" class="nav-link"><i class="fas fa-headset"></i> হেল্প ও সাপোর্ট</a></li>
+        </ul>
+    </aside>
+
+    <!-- মেইন এরিয়া -->
+    <main class="main-content">
+        <header class="topbar">
+            <div class="topbar-title">অ্যাকাউন্ট যাচাই (Face Verification)</div>
+            <div class="admin-profile">
+                <button class="logout-btn" id="adminLogout"><i class="fas fa-sign-out-alt"></i> লগআউট</button>
+            </div>
+        </header>
+
+        <div class="dashboard-body">
+            
+            <div class="card-header-container">
+                <div>
+                    <div class="card-header-title">
+                        <i class="fas fa-robot"></i> AI অটোমেটিক ফেস ভেরিফিকেশন
+                    </div>
+                    <div class="card-header-subtitle">সিস্টেম নিজেই ইউজারের আসল চেহারা (Liveness) এবং ডুপ্লিকেট ফেস স্ক্যান করবে। কোনো ম্যানুয়াল অ্যাপ্রুভালের প্রয়োজন নেই।</div>
+                </div>
+            </div>
+
+            <!-- AI Settings Card -->
+            <div class="ai-settings-card">
+                <div>
+                    <div class="ai-title"><i class="fas fa-shield-alt" style="color: var(--main-pink);"></i> সিকিউরিটি ও ফেস পলিসি</div>
+                    <p class="ai-desc">এই অপশনগুলো অন থাকলে ফেক ছবি বা ডুপ্লিকেট ফেস দিয়ে কেউ অ্যাকাউন্ট খুলতে পারবে না।</p>
+                </div>
+                
+                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                    <!-- Liveness Toggle -->
+                    <div class="toggle-container">
+                        <div class="toggle-label"><i class="fas fa-user-alt"></i> রিয়েল হিউম্যান ফেস (Liveness)</div>
+                        <label class="switch">
+                            <input type="checkbox" checked onchange="toggleSetting('Liveness Detection')">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <!-- Unique Face Toggle -->
+                    <div class="toggle-container">
+                        <div class="toggle-label"><i class="fas fa-users-slash"></i> ১ ফেস = ১ অ্যাকাউন্ট (Unique)</div>
+                        <label class="switch">
+                            <input type="checkbox" checked onchange="toggleSetting('Unique Face Policy')">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Verification Logs -->
+            <div class="section-title"><i class="fas fa-history" style="color: var(--main-pink);"></i> অটোমেটিক স্ক্যানিং হিস্ট্রি (Logs)</div>
+
+            <div class="logs-grid">
+                
+                <!-- কার্ড ১: সফল ভেরিফিকেশন -->
+                <div class="log-card">
+                    <div class="log-header">
+                        <div class="user-info">
+                            <div class="user-avatar"><i class="fas fa-user"></i></div>
+                            <div>
+                                <h4>T9KZBTUBR1</h4>
+                                <p>আজ, ১০:১৫ AM</p>
+                            </div>
+                        </div>
+                        <span class="status-badge status-verified"><i class="fas fa-check-circle"></i> Verified</span>
+                    </div>
+                    <div class="log-details">
+                        <div style="color: var(--success-green);"><i class="fas fa-user-check"></i> <b>আসল মানুষ:</b> 98% ম্যাচ</div>
+                        <div style="color: var(--success-green); margin-top: 5px;"><i class="fas fa-id-badge"></i> <b>ইউনিক ফেস:</b> কোনো ডুপ্লিকেট পাওয়া যায়নি</div>
+                    </div>
+                    <button class="btn-view-scan" onclick="alert('সিস্টেম কর্তৃক ইউজার ভেরিফাইড হয়েছে।')"><i class="fas fa-expand"></i> স্ক্যান রেজাল্ট দেখুন</button>
+                </div>
+
+                <!-- কার্ড ২: ফেক ছবি (মানুষ না) -->
+                <div class="log-card" style="border-left: 4px solid var(--danger-red);">
+                    <div class="log-header">
+                        <div class="user-info">
+                            <div class="user-avatar"><i class="fas fa-user-secret"></i></div>
+                            <div>
+                                <h4>X7ABCTUBR9</h4>
+                                <p>আজ, ০৯:৩০ AM</p>
+                            </div>
+                        </div>
+                        <span class="status-badge status-fake"><i class="fas fa-times-circle"></i> Rejected</span>
+                    </div>
+                    <div class="log-details">
+                        <div style="color: var(--danger-red);"><i class="fas fa-ban"></i> <b>ফেক ফেস:</b> মানুষ নয় (ছবি বা স্ক্রিন স্ক্যান)</div>
+                        <div style="margin-top: 5px;"><i class="fas fa-robot"></i> <b>AI ডিসিশন:</b> অ্যাকাউন্ট রিজেক্টেড</div>
+                    </div>
+                    <button class="btn-view-scan" onclick="alert('ছবি বা স্ক্রিন ব্যবহার করায় সিস্টেম এটি বাতিল করেছে।')"><i class="fas fa-expand"></i> স্ক্যান রেজাল্ট দেখুন</button>
+                </div>
+
+                <!-- কার্ড ৩: ডুপ্লিকেট ফেস -->
+                <div class="log-card" style="border-left: 4px solid #e67e22;">
+                    <div class="log-header">
+                        <div class="user-info">
+                            <div class="user-avatar"><i class="fas fa-user-friends"></i></div>
+                            <div>
+                                <h4>M2LKBTYYY5</h4>
+                                <p>গতকাল, ১১:৪৫ PM</p>
+                            </div>
+                        </div>
+                        <span class="status-badge status-duplicate"><i class="fas fa-exclamation-triangle"></i> Duplicate</span>
+                    </div>
+                    <div class="log-details">
+                        <div style="color: var(--success-green);"><i class="fas fa-user-check"></i> <b>আসল মানুষ:</b> 95% ম্যাচ</div>
+                        <div style="color: #d35400; margin-top: 5px;"><i class="fas fa-copy"></i> <b>ডুপ্লিকেট ফেস:</b> এই চেহারায় অ্যাকাউন্ট (ID: T9KZBTUBR1) অলরেডি আছে</div>
+                    </div>
+                    <button class="btn-view-scan" onclick="alert('একই মানুষের একাধিক অ্যাকাউন্ট খোলার চেষ্টা করায় সিস্টেম এটি বাতিল করেছে।')"><i class="fas fa-expand"></i> স্ক্যান রেজাল্ট দেখুন</button>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // Toggle settings function (Just for visual feedback in Admin Panel)
+        function toggleSetting(settingName) {
+            console.log(settingName + " status changed.");
+            // Here you would normally send an API request to your backend to save the setting.
+        }
+
+        document.getElementById("adminLogout").addEventListener("click", () => {
+            window.location.href = "login.html"; 
+        });
+    </script>
+</body>
+</html>
