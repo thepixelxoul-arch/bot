@@ -124,10 +124,30 @@
             border-top: 4px solid #fff;
         }
 
+        /* কার্ডের ওপরের অংশ (টাইটেল এবং বোনাস কোড বাটন পাশাপাশি) */
+        .settings-header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
         .settings-title {
             font-size: 18px; font-weight: bold; color: white;
-            margin-bottom: 20px; display: flex; align-items: center; gap: 10px;
+            display: flex; align-items: center; gap: 10px; margin: 0;
         }
+
+        /* বোনাস কোড বাটন (উপরে ডানে সেট করা) */
+        .btn-bonus-code {
+            background: var(--main-white);
+            color: var(--main-pink);
+            border: none; padding: 10px 18px; border-radius: 8px;
+            font-size: 14px; font-weight: bold; cursor: pointer; transition: 0.2s;
+            display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .btn-bonus-code:hover { background: var(--bg-light); transform: translateY(-2px); }
 
         .form-grid {
             display: grid;
@@ -298,7 +318,7 @@
         </div>
     </div>
 
-    <!-- বোনাস কোড পপ-আপ (নতুন অ্যাড করা হয়েছে) -->
+    <!-- বোনাস কোড পপ-আপ -->
     <div id="bonusCodeModal" class="modal">
         <div class="modal-content" style="max-width: 450px;">
             <span class="close-btn" onclick="closeBonusModal()">&times;</span>
@@ -368,16 +388,14 @@
 
         <div class="dashboard-body">
             
-            <!-- বোনাস কোড বাটন (নতুন অ্যাড করা হয়েছে) -->
-            <div style="text-align: right; margin-bottom: 20px;">
-                <button class="btn-update-settings" style="display: inline-flex; background: linear-gradient(135deg, var(--main-pink), var(--light-pink)); color: white;" onclick="openBonusModal()">
-                    <i class="fas fa-gift"></i> বোনাস কোড ম্যানেজ করুন
-                </button>
-            </div>
-
-            <!-- রেফার সেটিং ফর্ম -->
+            <!-- রেফার সেটিং ফর্ম (পিংক কালার কার্ডের ওপরের ডানপাশে বোনাস কোড বাটন সেট করা হয়েছে) -->
             <div class="settings-card">
-                <div class="settings-title"><i class="fas fa-cog"></i> বোনাস ও কমিশন আপডেট করুন</div>
+                <div class="settings-header-flex">
+                    <div class="settings-title"><i class="fas fa-cog"></i> বোনাস ও কমিশন আপডেট করুন</div>
+                    <button class="btn-bonus-code" onclick="openBonusModal()">
+                        <i class="fas fa-gift"></i> বোনাস কোড ম্যানেজ করুন
+                    </button>
+                </div>
                 
                 <div class="form-grid">
                     <div class="input-group">
@@ -583,10 +601,10 @@
                 <span><i class="fas fa-ticket-alt" style="color: var(--main-pink); margin-right: 8px;"></i> ${codeVal}</span>
                 <span class="date" style="color: #27ae60; font-weight: bold;">Active</span>
             `;
-            listContainer.prepend(newItem); // নতুন কোডটি সবার উপরে যুক্ত হবে
+            listContainer.prepend(newItem);
 
             showToast(`সাফল্য! '${codeVal}' কোডটি যুক্ত করা হয়েছে।`);
-            codeInput.value = ""; // ইনপুট বক্স খালি করা
+            codeInput.value = "";
         }
 
         document.getElementById("adminLogout").addEventListener("click", () => {
