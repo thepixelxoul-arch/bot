@@ -16,6 +16,8 @@
             --dark-blue: #2c3e50;
             --success-green: #27ae60;
             --danger-red: #e74c3c;
+            --pink-transparent: rgba(226, 0, 90, 0.05); 
+            --pink-hover: rgba(226, 0, 90, 0.1);
         }
 
         body { 
@@ -27,7 +29,7 @@
             overflow: hidden;
         }
 
-        /* সাইডবার */
+        /* সাইডবার (VIP Users পেজ থেকে ১০০% হুবহু কপি করা হয়েছে) */
         .sidebar {
             width: 260px;
             background: linear-gradient(180deg, var(--main-pink), var(--light-pink));
@@ -45,7 +47,7 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             flex-shrink: 0;
         }
-        .sidebar-header h2 { margin: 0; font-size: 22px; font-weight: 900; }
+        .sidebar-header h2 { margin: 0; font-size: 22px; font-weight: 900; letter-spacing: 1px;}
         .sidebar-header p { margin: 5px 0 0 0; font-size: 12px; color: #ffe6f0; }
 
         .nav-links {
@@ -100,8 +102,8 @@
         .admin-profile { display: flex; align-items: center; gap: 15px; }
         
         .logout-btn {
-            background-color: rgba(226, 0, 90, 0.1); color: var(--main-pink);
-            border: none; padding: 8px 18px; border-radius: 8px;
+            background-color: var(--pink-hover); color: var(--main-pink);
+            border: none; padding: 10px 20px; border-radius: 8px;
             cursor: pointer; font-weight: bold; transition: 0.2s;
             display: flex; align-items: center; gap: 8px; font-size: 14px;
         }
@@ -133,50 +135,6 @@
 
         .card-header-subtitle { font-size: 13px; color: #ffe0e9; margin-top: 5px; }
 
-        /* AI Settings Card */
-        .ai-settings-card {
-            background: #fff;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.1);
-            margin-bottom: 30px;
-            border-top: 4px solid var(--main-pink);
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .ai-title {
-            font-size: 18px; font-weight: 900; color: var(--dark-blue);
-            display: flex; align-items: center; gap: 10px; margin-bottom: 5px;
-        }
-        .ai-desc { font-size: 13px; color: var(--text-grey); font-weight: bold; margin: 0; }
-
-        .toggle-container {
-            display: flex; align-items: center; gap: 15px;
-            background: #f8f9fa; padding: 12px 20px; border-radius: 8px; border: 1px solid #eaeaea;
-        }
-
-        .toggle-label { font-size: 14px; font-weight: bold; color: var(--dark-blue); }
-
-        /* Toggle Switch */
-        .switch {
-            position: relative; display: inline-block; width: 44px; height: 24px;
-        }
-        .switch input { opacity: 0; width: 0; height: 0; }
-        .slider {
-            position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
-            background-color: #ccc; transition: .4s; border-radius: 34px;
-        }
-        .slider:before {
-            position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px;
-            background-color: white; transition: .4s; border-radius: 50%;
-        }
-        input:checked + .slider { background-color: var(--success-green); }
-        input:checked + .slider:before { transform: translateX(20px); }
-
         /* Logs Section */
         .section-title {
             font-size: 18px; font-weight: bold; color: var(--dark-blue);
@@ -205,7 +163,6 @@
             width: 40px; height: 40px; border-radius: 50%; background: var(--bg-light); border: 2px solid #eaeaea;
             color: var(--dark-blue); display: flex; align-items: center; justify-content: center; font-size: 18px; overflow: hidden;
         }
-        .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
         
         .user-info h4 { margin: 0; font-size: 15px; color: var(--dark-blue); font-weight: 900;}
         .user-info p { margin: 2px 0 0 0; font-size: 11px; color: #888; font-weight: bold;}
@@ -245,7 +202,7 @@
             <li><a href="admin_vip_users.html" class="nav-link"><i class="fas fa-user-tie"></i> VIP ইউজার</a></li>
             <li><a href="admin_withdraw.html" class="nav-link"><i class="fas fa-file-invoice-dollar"></i> উইথড্র রিকোয়েস্ট</a></li>
             
-            <!-- নতুন অ্যাড করা অ্যাকাউন্ট যাচাই মেনু (fa-user-check আইকন সহ) -->
+            <!-- অ্যাকাউন্ট যাচাই মেনু (অ্যাক্টিভ) -->
             <li><a href="admin_account_verify.html" class="nav-link active"><i class="fas fa-user-check"></i> অ্যাকাউন্ট যাচাই</a></li>
             
             <li><a href="admin_task_rates.html" class="nav-link"><i class="fas fa-tasks"></i> কাজের রেট</a></li>
@@ -278,34 +235,6 @@
                 </div>
             </div>
 
-            <!-- AI Settings Card -->
-            <div class="ai-settings-card">
-                <div>
-                    <div class="ai-title"><i class="fas fa-shield-alt" style="color: var(--main-pink);"></i> সিকিউরিটি ও ফেস পলিসি</div>
-                    <p class="ai-desc">এই অপশনগুলো অন থাকলে ফেক ছবি বা ডুপ্লিকেট ফেস দিয়ে কেউ অ্যাকাউন্ট খুলতে পারবে না।</p>
-                </div>
-                
-                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-                    <!-- Liveness Toggle -->
-                    <div class="toggle-container">
-                        <div class="toggle-label"><i class="fas fa-user-alt"></i> রিয়েল হিউম্যান ফেস (Liveness)</div>
-                        <label class="switch">
-                            <input type="checkbox" checked onchange="toggleSetting('Liveness Detection')">
-                            <span class="slider"></span>
-                        </label>
-                    </div>
-
-                    <!-- Unique Face Toggle -->
-                    <div class="toggle-container">
-                        <div class="toggle-label"><i class="fas fa-users-slash"></i> ১ ফেস = ১ অ্যাকাউন্ট (Unique)</div>
-                        <label class="switch">
-                            <input type="checkbox" checked onchange="toggleSetting('Unique Face Policy')">
-                            <span class="slider"></span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-
             <!-- Verification Logs -->
             <div class="section-title"><i class="fas fa-history" style="color: var(--main-pink);"></i> অটোমেটিক স্ক্যানিং হিস্ট্রি (Logs)</div>
 
@@ -327,7 +256,7 @@
                         <div style="color: var(--success-green);"><i class="fas fa-user-check"></i> <b>আসল মানুষ:</b> 98% ম্যাচ</div>
                         <div style="color: var(--success-green); margin-top: 5px;"><i class="fas fa-id-badge"></i> <b>ইউনিক ফেস:</b> কোনো ডুপ্লিকেট পাওয়া যায়নি</div>
                     </div>
-                    <button class="btn-view-scan" onclick="alert('সিস্টেম কর্তৃক ইউজার ভেরিফাইড হয়েছে।')"><i class="fas fa-expand"></i> স্ক্যান রেজাল্ট দেখুন</button>
+                    <button class="btn-view-scan" onclick="alert('ইউজারের লাইভ ফেস ভিডিওটি এখানে প্লে হবে।')"><i class="fas fa-play-circle"></i> ফেস ভিডিও দেখুন</button>
                 </div>
 
                 <!-- কার্ড ২: ফেক ছবি (মানুষ না) -->
@@ -346,7 +275,7 @@
                         <div style="color: var(--danger-red);"><i class="fas fa-ban"></i> <b>ফেক ফেস:</b> মানুষ নয় (ছবি বা স্ক্রিন স্ক্যান)</div>
                         <div style="margin-top: 5px;"><i class="fas fa-robot"></i> <b>AI ডিসিশন:</b> অ্যাকাউন্ট রিজেক্টেড</div>
                     </div>
-                    <button class="btn-view-scan" onclick="alert('ছবি বা স্ক্রিন ব্যবহার করায় সিস্টেম এটি বাতিল করেছে।')"><i class="fas fa-expand"></i> স্ক্যান রেজাল্ট দেখুন</button>
+                    <button class="btn-view-scan" onclick="alert('ইউজারের লাইভ ফেস ভিডিওটি এখানে প্লে হবে।')"><i class="fas fa-play-circle"></i> ফেস ভিডিও দেখুন</button>
                 </div>
 
                 <!-- কার্ড ৩: ডুপ্লিকেট ফেস -->
@@ -365,7 +294,7 @@
                         <div style="color: var(--success-green);"><i class="fas fa-user-check"></i> <b>আসল মানুষ:</b> 95% ম্যাচ</div>
                         <div style="color: #d35400; margin-top: 5px;"><i class="fas fa-copy"></i> <b>ডুপ্লিকেট ফেস:</b> এই চেহারায় অ্যাকাউন্ট (ID: T9KZBTUBR1) অলরেডি আছে</div>
                     </div>
-                    <button class="btn-view-scan" onclick="alert('একই মানুষের একাধিক অ্যাকাউন্ট খোলার চেষ্টা করায় সিস্টেম এটি বাতিল করেছে।')"><i class="fas fa-expand"></i> স্ক্যান রেজাল্ট দেখুন</button>
+                    <button class="btn-view-scan" onclick="alert('ইউজারের লাইভ ফেস ভিডিওটি এখানে প্লে হবে।')"><i class="fas fa-play-circle"></i> ফেস ভিডিও দেখুন</button>
                 </div>
 
             </div>
@@ -374,12 +303,6 @@
     </main>
 
     <script>
-        // Toggle settings function (Just for visual feedback in Admin Panel)
-        function toggleSetting(settingName) {
-            console.log(settingName + " status changed.");
-            // Here you would normally send an API request to your backend to save the setting.
-        }
-
         document.getElementById("adminLogout").addEventListener("click", () => {
             window.location.href = "login.html"; 
         });
