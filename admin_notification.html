@@ -12,7 +12,7 @@
             --light-pink: #ff3377;
             --main-white: #ffffff; 
             --text-grey: #888888; 
-            --bg-light: #f4f6f9; 
+            --bg-light: #ffe0e9; /* পিংক ব্যাকগ্রাউন্ড */
             --dark-blue: #2c3e50;
         }
 
@@ -25,7 +25,7 @@
             overflow: hidden;
         }
 
-        /* সাইডবার (অন্যান্য পেজের সাথে ১০০% মিল রেখে) */
+        /* সাইডবার */
         .sidebar {
             width: 260px;
             background: linear-gradient(180deg, var(--main-pink), var(--light-pink));
@@ -43,7 +43,7 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             flex-shrink: 0;
         }
-        .sidebar-header h2 { margin: 0; font-size: 22px; font-weight: 900; letter-spacing: 1px;}
+        .sidebar-header h2 { margin: 0; font-size: 22px; font-weight: 900; }
         .sidebar-header p { margin: 5px 0 0 0; font-size: 12px; color: #ffe6f0; }
 
         .nav-links {
@@ -69,18 +69,17 @@
         .nav-links a:hover, .nav-links a.active {
             background-color: rgba(255, 255, 255, 0.1);
             color: white;
-            border-left: 4px solid #fff; /* অন্যান্য পেজের মতো সাদা বর্ডার */
+            border-left: 4px solid #ffcc00;
         }
 
         .nav-links a i { width: 20px; text-align: center; font-size: 18px; }
 
-        /* মেইন কন্টেন্ট এরিয়া */
+        /* মেইন কন্টেন্ট এরিয়া */
         .main-content {
             flex-grow: 1;
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            background-color: var(--bg-light);
         }
 
         /* টপবার */
@@ -99,8 +98,8 @@
         .admin-profile { display: flex; align-items: center; gap: 15px; }
         
         .logout-btn {
-            background-color: rgba(226, 0, 90, 0.1); color: var(--main-pink);
-            border: none; padding: 8px 18px; border-radius: 8px;
+            background-color: #ffb3c6; color: var(--main-pink);
+            border: none; padding: 8px 18px; border-radius: 6px;
             cursor: pointer; font-weight: bold; transition: 0.2s;
             display: flex; align-items: center; gap: 8px;
         }
@@ -133,14 +132,26 @@
 
         .card-header-subtitle { font-size: 13px; color: #ffe0e9; margin-top: 5px; }
 
-        /* ফর্ম কার্ড */
+        /* নোটিফিকেশন গ্রিড - পাশাপাশি রাখার জন্য */
+        .notify-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 900px) {
+            .notify-grid { grid-template-columns: 1fr; }
+        }
+
         .settings-card {
             background: #fff;
             border-radius: 12px;
             padding: 25px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            margin-bottom: 30px;
             border-top: 4px solid var(--main-pink);
+            display: flex;
+            flex-direction: column;
         }
 
         .settings-title {
@@ -167,6 +178,7 @@
             font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.2s;
             display: flex; align-items: center; justify-content: center; gap: 8px; 
             width: 100%; box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);
+            margin-top: auto; /* বাটনটিকে সবসময় নিচে রাখার জন্য */
         }
         .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(226, 0, 90, 0.3); }
 
@@ -184,15 +196,14 @@
 
     <div id="toastBox" class="toast-msg"><i class="fas fa-check-circle"></i> <span id="toastText">সফল হয়েছে!</span></div>
 
-    <!-- সাইডবার (অন্যান্য পেজের সাথে সিরিয়াল ও স্টাইল ১০০% মিলানো হয়েছে) -->
+    <!-- সাইডবার -->
     <aside class="sidebar">
         <div class="sidebar-header">
             <h2><i class="fas fa-paper-plane"></i> Send bKash</h2>
             <p>অ্যাডমিন কন্ট্রোল প্যানেল</p>
         </div>
         <ul class="nav-links">
-            <li><a href="admin_dashboard.html" class="nav-link"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
-            <li><a href="admin_history.html" class="nav-link"><i class="fas fa-history"></i> কাজের হিস্ট্রি</a></li>
+            <li><a href="admin.html" class="nav-link"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
             <li><a href="admin_simple_users.html" class="nav-link"><i class="fas fa-user"></i> সাধারণ ইউজার</a></li>
             <li><a href="admin_vip_users.html" class="nav-link"><i class="fas fa-user-tie"></i> VIP ইউজার</a></li>
             <li><a href="admin_withdraw.html" class="nav-link"><i class="fas fa-file-invoice-dollar"></i> উইথড্র রিকোয়েস্ট</a></li>
@@ -227,37 +238,47 @@
                 </div>
             </div>
 
-            <!-- গ্লোবাল নোটিশ ফর্ম -->
-            <div class="settings-card">
-                <div class="settings-title"><i class="fas fa-bullhorn" style="color: var(--main-pink);"></i> গ্লোবাল নোটিশ আপডেট (হোম পেজ)</div>
+            <!-- নোটিফিকেশন বক্সসমূহ (পাশাপাশি) -->
+            <div class="notify-grid">
                 
-                <div class="input-group">
-                    <label>নতুন নোটিশ লিখুন:</label>
-                    <textarea id="noticeInput" class="form-control form-textarea" placeholder="হোম পেজে দেখানোর জন্য নোটিশ লিখুন..."></textarea>
+                <!-- গ্লোবাল নোটিশ ফর্ম -->
+                <div class="settings-card">
+                    <div class="settings-title"><i class="fas fa-bullhorn" style="color: var(--main-pink);"></i> গ্লোবাল নোটিশ আপডেট (হোম পেজ)</div>
+                    
+                    <div class="input-group" style="flex-grow: 1;">
+                        <label>নতুন নোটিশ লিখুন:</label>
+                        <textarea id="noticeInput" class="form-control form-textarea" style="height: 100%; min-height: 180px;" placeholder="হোম পেজে বা সবার ড্যাশবোর্ডে দেখানোর জন্য নোটিশ লিখুন..."></textarea>
+                    </div>
+
+                    <button class="btn-submit" onclick="updateNotice()">
+                        <i class="fas fa-paper-plane"></i> নোটিশ পাবলিশ করুন
+                    </button>
                 </div>
 
-                <button class="btn-submit" onclick="updateNotice()">
-                    <i class="fas fa-paper-plane"></i> নোটিশ পাবলিশ করুন
-                </button>
-            </div>
+                <!-- পুশ নোটিফিকেশন ফর্ম (নির্দিষ্ট ইউজারের জন্য) -->
+                <div class="settings-card">
+                    <div class="settings-title"><i class="fas fa-comment-dots" style="color: var(--main-pink);"></i> নির্দিষ্ট ইউজারকে নোটিফিকেশন পাঠান</div>
+                    
+                    <div class="input-group">
+                        <label>ইউজার আইডি (User ID):</label>
+                        <input type="text" id="notifUserId" class="form-control" placeholder="যেমন: T9KZBTUBR1">
+                    </div>
 
-            <!-- পুশ নোটিফিকেশন ফর্ম -->
-            <div class="settings-card">
-                <div class="settings-title"><i class="fas fa-comment-dots" style="color: var(--main-pink);"></i> ইউজারদের নোটিফিকেশন পাঠান</div>
-                
-                <div class="input-group">
-                    <label>নোটিফিকেশনের শিরোনাম (Title):</label>
-                    <input type="text" id="notifTitleInput" class="form-control" placeholder="যেমন: নতুন কাজ এসেছে!">
+                    <div class="input-group">
+                        <label>নোটিফিকেশনের শিরোনাম (Title):</label>
+                        <input type="text" id="notifTitleInput" class="form-control" placeholder="যেমন: নতুন কাজ এসেছে!">
+                    </div>
+
+                    <div class="input-group">
+                        <label>বিস্তারিত বার্তা (Message):</label>
+                        <textarea id="notifMsgInput" class="form-control form-textarea" style="min-height: 80px;" placeholder="বিস্তারিত নোটিফিকেশন মেসেজ লিখুন..."></textarea>
+                    </div>
+
+                    <button class="btn-submit" onclick="sendNotification()">
+                        <i class="fas fa-share-square"></i> নোটিফিকেশন পাঠান
+                    </button>
                 </div>
 
-                <div class="input-group">
-                    <label>বিস্তারিত বার্তা (Message):</label>
-                    <textarea id="notifMsgInput" class="form-control form-textarea" placeholder="বিস্তারিত নোটিফিকেশন মেসেজ লিখুন..."></textarea>
-                </div>
-
-                <button class="btn-submit" onclick="sendNotification()">
-                    <i class="fas fa-share-square"></i> নোটিফিকেশন পাঠান
-                </button>
             </div>
 
         </div>
@@ -282,14 +303,16 @@
         }
 
         function sendNotification() {
+            const userId = document.getElementById("notifUserId").value;
             const title = document.getElementById("notifTitleInput").value;
             const msg = document.getElementById("notifMsgInput").value;
             
-            if (title.trim() === "" || msg.trim() === "") {
-                alert("দয়া করে শিরোনাম এবং বিস্তারিত বার্তা দুটোই লিখুন!");
+            if (userId.trim() === "" || title.trim() === "" || msg.trim() === "") {
+                alert("দয়া করে ইউজার আইডি, শিরোনাম এবং বিস্তারিত বার্তা সম্পূর্ণ পূরণ করুন!");
                 return;
             }
-            showToast("সব ইউজারকে নোটিফিকেশন পাঠানো হয়েছে!");
+            showToast(`সাফল্য! ${userId} এর কাছে নোটিফিকেশন পাঠানো হয়েছে।`);
+            document.getElementById("notifUserId").value = "";
             document.getElementById("notifTitleInput").value = "";
             document.getElementById("notifMsgInput").value = "";
         }
