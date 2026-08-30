@@ -98,14 +98,6 @@
         .topbar-title { font-size: 20px; font-weight: 900; color: var(--dark-blue); }
 
         .admin-profile { display: flex; align-items: center; gap: 15px; }
-        
-        .logout-btn {
-            background-color: var(--pink-hover); color: var(--main-pink);
-            border: none; padding: 10px 20px; border-radius: 8px;
-            cursor: pointer; font-weight: bold; transition: 0.2s;
-            display: flex; align-items: center; gap: 8px; font-size: 14px;
-        }
-        .logout-btn:hover { background-color: var(--main-pink); color: white; }
 
         /* ড্যাশবোর্ড কন্টেন্ট */
         .dashboard-body {
@@ -281,9 +273,7 @@
     <main class="main-content">
         <header class="topbar">
             <div class="topbar-title">কাজের হিস্ট্রি</div>
-            <div class="admin-profile">
-                <button class="logout-btn" id="adminLogout"><i class="fas fa-sign-out-alt"></i> লগআউট</button>
-            </div>
+            <div class="admin-profile"></div>
         </header>
 
         <div class="dashboard-body">
@@ -377,11 +367,5 @@
             
         </div>
     </main>
-
-    <script>
-        document.getElementById("adminLogout").addEventListener("click", () => {
-            window.location.href = "login.html"; 
-        });
-    </script>
 </body>
 </html>
