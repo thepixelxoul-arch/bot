@@ -12,7 +12,7 @@
             --light-pink: #ff3377;
             --main-white: #ffffff; 
             --text-grey: #888888; 
-            --bg-light: #f4f6f9; /* অন্যান্য পেজের মতো পারফেক্ট ব্যাকগ্রাউন্ড দেওয়া হয়েছে */
+            --bg-light: #f4f6f9;
             --dark-blue: #2c3e50;
         }
 
@@ -25,7 +25,7 @@
             overflow: hidden;
         }
 
-        /* সাইডবার (অন্যান্য পেজের সাথে ১০০% মিলানো) */
+        /* সাইডবার (admin_notification.html এর হুবহু কপি) */
         .sidebar {
             width: 260px;
             background: linear-gradient(180deg, var(--main-pink), var(--light-pink));
@@ -43,7 +43,7 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             flex-shrink: 0;
         }
-        .sidebar-header h2 { margin: 0; font-size: 22px; font-weight: 900; }
+        .sidebar-header h2 { margin: 0; font-size: 22px; font-weight: 900; letter-spacing: 1px;}
         .sidebar-header p { margin: 5px 0 0 0; font-size: 12px; color: #ffe6f0; }
 
         .nav-links {
@@ -69,7 +69,7 @@
         .nav-links a:hover, .nav-links a.active {
             background-color: rgba(255, 255, 255, 0.1);
             color: white;
-            border-left: 4px solid #fff; /* হলুদ দাগ সরিয়ে সাদা বর্ডার দেওয়া হয়েছে */
+            border-left: 4px solid #fff; 
         }
 
         .nav-links a i { width: 20px; text-align: center; font-size: 18px; }
@@ -80,7 +80,7 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            background-color: var(--bg-light); /* ব্যাকগ্রাউন্ড কালার আপডেট */
+            background-color: var(--bg-light);
         }
 
         /* টপবার */
@@ -252,15 +252,14 @@
 
     <div id="toastBox" class="toast-msg"><i class="fas fa-check-circle"></i> <span id="toastText">সফল হয়েছে!</span></div>
 
-    <!-- সাইডবার (অন্যান্য পেজের সাথে ১০০% মিলানো) -->
+    <!-- সাইডবার -->
     <aside class="sidebar">
         <div class="sidebar-header">
             <h2><i class="fas fa-paper-plane"></i> Send bKash</h2>
             <p>অ্যাডমিন কন্ট্রোল প্যানেল</p>
         </div>
         <ul class="nav-links">
-            <li><a href="admin_dashboard.html" class="nav-link"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
-            <li><a href="admin_history.html" class="nav-link"><i class="fas fa-history"></i> কাজের হিস্ট্রি</a></li>
+            <li><a href="admin.html" class="nav-link"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
             <li><a href="admin_simple_users.html" class="nav-link"><i class="fas fa-user"></i> সাধারণ ইউজার</a></li>
             <li><a href="admin_vip_users.html" class="nav-link"><i class="fas fa-user-tie"></i> VIP ইউজার</a></li>
             <li><a href="admin_withdraw.html" class="nav-link"><i class="fas fa-file-invoice-dollar"></i> উইথড্র রিকোয়েস্ট</a></li>
@@ -269,7 +268,7 @@
             <li><a href="admin_vip_settings.html" class="nav-link"><i class="fas fa-crown"></i> VIP প্যাকেজ সেটিং</a></li>
             <li><a href="admin_refer.html" class="nav-link"><i class="fas fa-user-plus"></i> রেফার সেটিং</a></li>
             <li><a href="admin_notification.html" class="nav-link"><i class="fas fa-bell"></i> নোটিফিকেশন ও নোটিশ</a></li>
-            <!-- এই পেজটি এক্টিভ করা হয়েছে, হলুদ দাগ সরানো হয়েছে -->
+            <!-- এই পেজটি এক্টিভ করা হয়েছে -->
             <li><a href="admin_rules.html" class="nav-link active"><i class="fas fa-file-alt"></i> কাজের নিয়মাবলী</a></li>
             <li><a href="admin_support.html" class="nav-link"><i class="fas fa-headset"></i> হেল্প ও সাপোর্ট</a></li>
         </ul>
