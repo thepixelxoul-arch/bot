@@ -25,7 +25,7 @@
             overflow: hidden;
         }
 
-        /* সাইডবার */
+        /* সাইডবার (অন্যান্য পেজের সাথে ১০০% মিলানো) */
         .sidebar {
             width: 260px;
             background: linear-gradient(180deg, var(--main-pink), var(--light-pink));
@@ -43,7 +43,8 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             flex-shrink: 0;
         }
-        .sidebar-header h2 { margin: 0; font-size: 22px; font-weight: 900; }
+        /* লোগোর সাইজ ও স্টাইল অন্যান্য পেজের মতো ১০০% সেম করা হয়েছে */
+        .sidebar-header h2 { margin: 0; font-size: 22px; font-weight: 900; letter-spacing: 1px;}
         .sidebar-header p { margin: 5px 0 0 0; font-size: 12px; color: #ffe6f0; }
 
         .nav-links {
@@ -69,7 +70,7 @@
         .nav-links a:hover, .nav-links a.active {
             background-color: rgba(255, 255, 255, 0.1);
             color: white;
-            border-left: 4px solid #fff; /* হলুদ দাগ সরিয়ে সাদা বর্ডার দেওয়া হয়েছে */
+            border-left: 4px solid #fff; 
         }
 
         .nav-links a i { width: 20px; text-align: center; font-size: 18px; }
@@ -80,6 +81,7 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            background-color: var(--bg-light);
         }
 
         /* টপবার */
@@ -98,7 +100,7 @@
         .admin-profile { display: flex; align-items: center; gap: 15px; }
         
         .logout-btn {
-            background-color: #ffb3c6; color: var(--main-pink);
+            background-color: rgba(226, 0, 90, 0.1); color: var(--main-pink);
             border: none; padding: 8px 18px; border-radius: 6px;
             cursor: pointer; font-weight: bold; transition: 0.2s;
             display: flex; align-items: center; gap: 8px;
@@ -291,8 +293,7 @@
             <p>অ্যাডমিন কন্ট্রোল প্যানেল</p>
         </div>
         <ul class="nav-links">
-            <li><a href="admin_dashboard.html" class="nav-link"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
-            <li><a href="admin_history.html" class="nav-link"><i class="fas fa-history"></i> কাজের হিস্ট্রি</a></li>
+            <li><a href="admin.html" class="nav-link"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
             <li><a href="admin_simple_users.html" class="nav-link"><i class="fas fa-user"></i> সাধারণ ইউজার</a></li>
             <li><a href="admin_vip_users.html" class="nav-link"><i class="fas fa-user-tie"></i> VIP ইউজার</a></li>
             <li><a href="admin_withdraw.html" class="nav-link"><i class="fas fa-file-invoice-dollar"></i> উইথড্র রিকোয়েস্ট</a></li>
