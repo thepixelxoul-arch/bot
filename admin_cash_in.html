@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cash In Requests - Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root { 
+            --main-pink: #e2005a; 
+            --light-pink: #ff3377;
+            --main-white: #ffffff; 
+            --text-grey: #888888; 
+            --bg-light: #f4f6f9; 
+            --dark-blue: #2c3e50;
+            --success-green: #27ae60;
+            --danger-red: #e74c3c;
+            --pink-transparent: rgba(226, 0, 90, 0.05);
+        }
+
+        body { 
+            margin: 0; padding: 0; 
+            background-color: var(--bg-light); 
+            font-family: 'Segoe UI', Tahoma, sans-serif; 
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* সাইডবার */
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(180deg, var(--main-pink), var(--light-pink));
+            color: white;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 4px 0 15px rgba(226, 0, 90, 0.2);
+            transition: 0.3s;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            flex-shrink: 0;
+        }
+        .sidebar-header h2 { margin: 0; font-size: 22px; font-weight: 900; letter-spacing: 1px;}
+        .sidebar-header p { margin: 5px 0 0 0; font-size: 12px; color: #ffe6f0; }
+
+        .nav-links {
+            list-style: none; padding: 0; margin: 10px 0;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+        
+        .nav-links::-webkit-scrollbar { width: 5px; }
+        .nav-links::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 10px; }
+
+        .nav-links li { margin-bottom: 5px; }
+
+        .nav-links a {
+            display: flex; align-items: center; gap: 15px;
+            padding: 15px 25px; 
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none; font-size: 15px; 
+            font-weight: bold;
+            transition: 0.3s; border-left: 4px solid transparent;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-left: 4px solid #fff;
+        }
+
+        .nav-links a i { width: 20px; text-align: center; font-size: 18px; }
+
+        /* মেইন কন্টেন্ট এরিয়া */
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background-color: var(--bg-light);
+        }
+
+        /* টপবার */
+        .topbar {
+            background-color: var(--main-white);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            z-index: 10;
+        }
+
+        .topbar-title { font-size: 20px; font-weight: 900; color: var(--main-pink); display: flex; align-items: center; gap: 10px;}
+        .topbar-title i { color: var(--main-pink); }
+
+        .admin-profile { display: flex; align-items: center; gap: 15px; }
+
+        /* ড্যাশবোর্ড বডি */
+        .dashboard-body {
+            padding: 30px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        /* সেকশন হেডার */
+        .section-header-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            background: var(--main-white);
+            padding: 20px 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            border-left: 5px solid var(--main-pink);
+        }
+
+        .section-title {
+            font-size: 18px; font-weight: 900; color: var(--dark-blue);
+            display: flex; align-items: center; gap: 10px; margin: 0;
+        }
+
+        /* রিকোয়েস্ট গ্রিড */
+        .request-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+            gap: 20px;
+            padding-bottom: 30px;
+        }
+
+        .request-card {
+            background: var(--main-white);
+            border: 1px solid #eaeaea;
+            border-radius: 12px; 
+            padding: 20px; 
+            display: flex;
+            flex-direction: column;
+            transition: box-shadow 0.3s, transform 0.3s;
+            position: relative;
+            border-top: 4px solid var(--main-pink);
+        }
+
+        .request-card:hover {
+            box-shadow: 0 8px 25px rgba(226, 0, 90, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+
+        .user-info { display: flex; align-items: center; gap: 10px; }
+        .user-icon {
+            width: 40px; height: 40px; border-radius: 50%;
+            background-color: var(--pink-transparent); color: var(--main-pink);
+            display: flex; align-items: center; justify-content: center; font-size: 18px;
+        }
+
+        .user-details h4 { margin: 0; font-size: 16px; color: var(--dark-blue); font-weight: 900;}
+        .user-details p { margin: 3px 0 0 0; font-size: 11px; color: var(--text-grey); font-weight: bold;}
+
+        .amount-badge {
+            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
+            color: white; padding: 6px 12px; border-radius: 20px; font-weight: 900; font-size: 14px;
+            box-shadow: 0 3px 8px rgba(226, 0, 90, 0.3);
+        }
+
+        .req-details {
+            font-size: 13px; color: #444; line-height: 1.6; margin-bottom: 20px; flex-grow: 1;
+        }
+
+        .lbl { font-weight: bold; color: var(--text-grey); display: inline-block; width: 80px;}
+        .val { font-weight: 900; color: var(--dark-blue); }
+        .val-trx { font-family: monospace; font-size: 14px; color: var(--main-pink); font-weight: bold; background: var(--pink-transparent); padding: 2px 6px; border-radius: 4px; letter-spacing: 1px;}
+        .purpose-badge { display: inline-block; background: #e8f4f8; color: #2980b9; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; margin-top: 5px;}
+
+        /* অ্যাকশন বাটন */
+        .action-buttons {
+            display: flex; gap: 10px;
+        }
+
+        .btn-action {
+            flex: 1; border: none; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 900;
+            cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px;
+        }
+
+        .btn-approve { background-color: rgba(39, 174, 96, 0.1); color: var(--success-green); }
+        .btn-approve:hover { background-color: var(--success-green); color: white; transform: translateY(-2px);}
+
+        .btn-reject { background-color: var(--pink-transparent); color: var(--main-pink); }
+        .btn-reject:hover { background-color: var(--main-pink); color: white; transform: translateY(-2px);}
+
+        /* টোস্ট মেসেজ */
+        .toast-msg {
+            visibility: hidden; color: #fff; text-align: center;
+            border-radius: 8px; padding: 15px 25px; position: fixed; z-index: 9999; right: 30px; top: 30px;
+            font-size: 14px; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            opacity: 0; transition: opacity 0.3s, top 0.3s;
+        }
+        .toast-msg.show { visibility: visible; opacity: 1; top: 50px; }
+        .toast-success { background-color: var(--success-green); }
+        .toast-error { background-color: var(--danger-red); }
+
+    </style>
+</head>
+<body>
+
+    <!-- টোস্ট নোটিফিকেশন -->
+    <div id="toastBox" class="toast-msg"><i id="toastIcon" class="fas fa-check-circle"></i> <span id="toastText">সম্পন্ন হয়েছে!</span></div>
+
+    <!-- সাইডবার -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2><i class="fas fa-paper-plane"></i> Send bKash</h2>
+            <p>অ্যাডমিন কন্ট্রোল প্যানেল</p>
+        </div>
+        <ul class="nav-links">
+            <li><a href="admin_dashboard.html" class="nav-link"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
+            <li><a href="admin_history.html" class="nav-link"><i class="fas fa-history"></i> কাজের হিস্ট্রি</a></li>
+            
+            <!-- ক্যাশ ইন বাটন (অ্যাক্টিভ) -->
+            <li><a href="admin_cash_in.html" class="nav-link active"><i class="fas fa-wallet"></i> ক্যাশ ইন</a></li>
+            
+            <li><a href="admin_simple_users.html" class="nav-link"><i class="fas fa-user"></i> সাধারণ ইউজার</a></li>
+            <li><a href="admin_vip_users.html" class="nav-link"><i class="fas fa-user-tie"></i> VIP ইউজার</a></li>
+            <li><a href="admin_withdraw.html" class="nav-link"><i class="fas fa-file-invoice-dollar"></i> উইথড্র রিকোয়েস্ট</a></li>
+            <li><a href="admin_account_verify.html" class="nav-link"><i class="fas fa-user-check"></i> অ্যাকাউন্ট যাচাই</a></li>
+            <li><a href="admin_task_rates.html" class="nav-link"><i class="fas fa-tasks"></i> কাজের রেট</a></li>
+            <li><a href="admin_number.html" class="nav-link"><i class="fas fa-sim-card"></i> নাম্বার ম্যানেজমেন্ট</a></li>
+            <li><a href="admin_vip_settings.html" class="nav-link"><i class="fas fa-crown"></i> VIP প্যাকেজ সেটিং</a></li>
+            <li><a href="admin_refer.html" class="nav-link"><i class="fas fa-user-plus"></i> রেফার সেটিং</a></li>
+            <li><a href="admin_notification.html" class="nav-link"><i class="fas fa-bell"></i> নোটিফিকেশন ও নোটিশ</a></li>
+            <li><a href="admin_rules.html" class="nav-link"><i class="fas fa-file-alt"></i> কাজের নিয়মাবলী</a></li>
+            <li><a href="admin_support.html" class="nav-link"><i class="fas fa-headset"></i> হেল্প ও সাপোর্ট</a></li>
+        </ul>
+    </aside>
+
+    <!-- মেইন এরিয়া -->
+    <main class="main-content">
+        <header class="topbar">
+            <div class="topbar-title">
+                <i class="fas fa-wallet"></i> ক্যাশ ইন রিকোয়েস্ট
+            </div>
+            <div class="admin-profile"></div>
+        </header>
+
+        <div class="dashboard-body">
+
+            <div class="section-header-wrapper">
+                <div class="section-title">
+                    <i class="fas fa-hand-holding-usd" style="color: var(--main-pink);"></i> পেন্ডিং ক্যাশ ইন (Pending Deposits)
+                </div>
+            </div>
+            
+            <!-- রিকোয়েস্ট গ্রিড -->
+            <div class="request-grid">
+                
+                <!-- কার্ড ১ (VIP প্যাকেজ) -->
+                <div class="request-card" id="req-1">
+                    <div class="card-header">
+                        <div class="user-info">
+                            <div class="user-icon"><i class="fas fa-user"></i></div>
+                            <div class="user-details">
+                                <h4>T9KZBTUBR1</h4>
+                                <p>আজ, ১০:১৫ AM</p>
+                            </div>
+                        </div>
+                        <div class="amount-badge">৳500</div>
+                    </div>
+                    
+                    <div class="req-details">
+                        <span class="lbl">মেথড:</span> <span class="val" style="color: #e2136e;"><i class="fas fa-paper-plane"></i> bKash</span><br>
+                        <span class="lbl">নাম্বার:</span> <span class="val">01711223344</span><br>
+                        <span class="lbl">TrxID:</span> <span class="val-trx">8A7B6C5D4E</span><br>
+                        <span class="purpose-badge"><i class="fas fa-crown"></i> VIP প্যাকেজ ক্রয়</span>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn-action btn-reject" onclick="handleRequest('req-1', 'reject')"><i class="fas fa-times"></i> Reject</button>
+                        <button class="btn-action btn-approve" onclick="handleRequest('req-1', 'approve')"><i class="fas fa-check"></i> Approve</button>
+                    </div>
+                </div>
+
+                <!-- কার্ড ২ (নাম্বার কেনা) -->
+                <div class="request-card" id="req-2">
+                    <div class="card-header">
+                        <div class="user-info">
+                            <div class="user-icon"><i class="fas fa-user"></i></div>
+                            <div class="user-details">
+                                <h4>M2LKBTYYY5</h4>
+                                <p>আজ, ০৯:২০ AM</p>
+                            </div>
+                        </div>
+                        <div class="amount-badge">৳50</div>
+                    </div>
+                    
+                    <div class="req-details">
+                        <span class="lbl">মেথড:</span> <span class="val" style="color: #f39c12;"><i class="fas fa-mobile-alt"></i> Nagad</span><br>
+                        <span class="lbl">নাম্বার:</span> <span class="val">01999887766</span><br>
+                        <span class="lbl">TrxID:</span> <span class="val-trx">7X8Y9Z0A1B</span><br>
+                        <span class="purpose-badge" style="background: #fdf2e9; color: #d35400;"><i class="fas fa-sim-card"></i> নাম্বার কেনা</span>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn-action btn-reject" onclick="handleRequest('req-2', 'reject')"><i class="fas fa-times"></i> Reject</button>
+                        <button class="btn-action btn-approve" onclick="handleRequest('req-2', 'approve')"><i class="fas fa-check"></i> Approve</button>
+                    </div>
+                </div>
+
+                <!-- কার্ড ৩ (অ্যাকাউন্ট ভেরিফিকেশন) -->
+                <div class="request-card" id="req-3">
+                    <div class="card-header">
+                        <div class="user-info">
+                            <div class="user-icon"><i class="fas fa-user"></i></div>
+                            <div class="user-details">
+                                <h4>X7ABCTUBR9</h4>
+                                <p>গতকাল, ১১:৪৫ PM</p>
+                            </div>
+                        </div>
+                        <div class="amount-badge">৳100</div>
+                    </div>
+                    
+                    <div class="req-details">
+                        <span class="lbl">মেথড:</span> <span class="val" style="color: #8e44ad;"><i class="fas fa-rocket"></i> Rocket</span><br>
+                        <span class="lbl">নাম্বার:</span> <span class="val">01888776655</span><br>
+                        <span class="lbl">TrxID:</span> <span class="val-trx">1A2B3C4D5E</span><br>
+                        <span class="purpose-badge" style="background: #eaeded; color: #2c3e50;"><i class="fas fa-user-check"></i> অ্যাকাউন্ট ভেরিফিকেশন</span>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn-action btn-reject" onclick="handleRequest('req-3', 'reject')"><i class="fas fa-times"></i> Reject</button>
+                        <button class="btn-action btn-approve" onclick="handleRequest('req-3', 'approve')"><i class="fas fa-check"></i> Approve</button>
+                    </div>
+                </div>
+
+            </div>
+            
+        </div>
+    </main>
+
+    <script>
+        // টোস্ট মেসেজ দেখানোর ফাংশন
+        function showToast(message, type) {
+            const toast = document.getElementById("toastBox");
+            const toastText = document.getElementById("toastText");
+            const toastIcon = document.getElementById("toastIcon");
+
+            toastText.innerText = message;
+            
+            // পূর্বের ক্লাস মুছে ফেলা
+            toast.className = "toast-msg"; 
+
+            if(type === 'approve') {
+                toast.classList.add("toast-success");
+                toastIcon.className = "fas fa-check-circle";
+            } else {
+                toast.classList.add("toast-error");
+                toastIcon.className = "fas fa-times-circle";
+            }
+
+            toast.classList.add("show");
+            
+            setTimeout(() => { 
+                toast.classList.remove("show"); 
+            }, 3000);
+        }
+
+        // Approve / Reject হ্যান্ডেল করার ফাংশন
+        function handleRequest(cardId, action) {
+            const card = document.getElementById(cardId);
+            
+            // কার্ড হাইড করার অ্যানিমেশন
+            card.style.transform = "scale(0.9)";
+            card.style.opacity = "0";
+            
+            setTimeout(() => {
+                card.style.display = "none";
+            }, 300);
+
+            if(action === 'approve') {
+                showToast("ক্যাশ ইন রিকোয়েস্ট সফলভাবে Approve করা হয়েছে!", "approve");
+            } else {
+                showToast("ক্যাশ ইন রিকোয়েস্ট Reject করা হয়েছে!", "reject");
+            }
+        }
+    </script>
+</body>
+</html>
