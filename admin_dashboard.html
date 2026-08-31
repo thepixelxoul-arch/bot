@@ -105,8 +105,30 @@
             align-items: center; 
             gap: 10px; 
         }
+        .topbar-title i { color: var(--main-pink); }
 
         .admin-profile { display: flex; align-items: center; gap: 15px; }
+
+        /* টপবারের ডানদিকের ছোট হিস্ট্রি বাটন */
+        .topbar-history-btn {
+            background-color: var(--main-pink);
+            color: white;
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 18px;
+            transition: 0.2s;
+            box-shadow: 0 3px 8px rgba(226, 0, 90, 0.2);
+        }
+        
+        .topbar-history-btn:hover {
+            transform: translateY(-2px);
+            background-color: #c0004b;
+        }
 
         /* ড্যাশবোর্ড কন্টেন্ট */
         .dashboard-body {
@@ -144,42 +166,6 @@
 
         .stat-info h3 { margin: 0 0 4px 0; font-size: 22px; color: var(--dark-blue); font-weight: 900; }
         .stat-info p { margin: 0; font-size: 12px; color: var(--text-grey); font-weight: bold; }
-
-        /* সেকশন হেডার এবং হিস্ট্রি আইকন */
-        .section-header-wrapper {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
-            padding: 15px 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.2);
-        }
-
-        .section-title {
-            color: white;
-            font-size: 18px;
-            font-weight: 900;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 0;
-        }
-
-        .history-icon-btn {
-            color: white;
-            font-size: 20px;
-            text-decoration: none;
-            transition: 0.2s;
-            cursor: pointer;
-            opacity: 0.9;
-        }
-        
-        .history-icon-btn:hover {
-            opacity: 1;
-            transform: scale(1.1);
-        }
 
         /* প্রোডাক্ট গ্রিড স্টাইল */
         .product-grid {
@@ -423,7 +409,13 @@
             <div class="topbar-title">
                 <i class="fas fa-home"></i> ড্যাশবোর্ড ওভারভিউ
             </div>
-            <div class="admin-profile"></div>
+            
+            <!-- টপবারের ডানদিকের কোণায় ছোট হিস্ট্রি বাটন -->
+            <div class="admin-profile">
+                <a href="admin_history.html" class="topbar-history-btn" title="কাজের হিস্ট্রি">
+                    <i class="fas fa-history"></i>
+                </a>
+            </div>
         </header>
 
         <div class="dashboard-body">
@@ -446,17 +438,6 @@
                     <div class="stat-icon"><i class="fas fa-crown"></i></div>
                     <div class="stat-info"><h3>৩২০ জন</h3><p>VIP ইউজার</p></div>
                 </div>
-            </div>
-
-            <!-- হেডার বার এবং ডান পাশে ছোট হিস্ট্রি আইকন -->
-            <div class="section-header-wrapper">
-                <div class="section-title">
-                    <i class="fas fa-list-alt" style="color: white;"></i> সাম্প্রতিক জমা দেওয়া কাজগুলো
-                </div>
-                <!-- ডানদিকের কোণায় ছোট হিস্ট্রি আইকন -->
-                <a href="admin_history.html" class="history-icon-btn" title="কাজের হিস্ট্রি">
-                    <i class="fas fa-history"></i>
-                </a>
             </div>
             
             <!-- টাস্ক গ্রিড -->
