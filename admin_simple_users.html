@@ -109,25 +109,22 @@
 
         .admin-profile { display: flex; align-items: center; gap: 15px; }
         
-        /* বোনাস দিন বাটন (টপবারের জন্য) */
-        .btn-give-bonus-top {
-            background-color: var(--main-pink);
-            color: white;
+        /* বোনাস দিন বাটন (ব্যাকগ্রাউন্ড ছাড়া, ফুল পিংক) */
+        .topbar-bonus-btn {
+            background: transparent;
+            color: var(--main-pink);
             border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 900;
             cursor: pointer;
             transition: 0.2s;
             display: flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 3px 10px rgba(226, 0, 90, 0.2);
         }
-        .btn-give-bonus-top:hover { 
-            background-color: #c0004b; 
-            transform: translateY(-2px); 
+        .topbar-bonus-btn:hover { 
+            color: #c0004b; 
+            transform: scale(1.05); 
         }
 
         /* ড্যাশবোর্ড কন্টেন্ট */
@@ -137,113 +134,73 @@
             flex-grow: 1;
         }
 
-        /* সার্চ বক্স */
-        .search-container {
-            display: flex; gap: 10px; margin-bottom: 20px;
+        /* ইউজার গ্রিড (বক্স আকার) */
+        .user-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 20px;
+            padding-bottom: 30px;
         }
 
-        .search-box {
-            flex-grow: 1;
-            padding: 12px 20px;
-            border: 2px solid #eaeaea;
-            border-radius: 8px;
-            font-size: 14px;
-            outline: none;
-            transition: 0.3s;
-            font-weight: bold;
-            color: var(--dark-blue);
-        }
-        .search-box:focus { border-color: var(--main-pink); }
-
-        .btn-search {
-            background: var(--main-pink); color: white; border: none; padding: 0 25px;
-            border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.2s;
-        }
-        .btn-search:hover { background: var(--light-pink); }
-
-        /* ইউজার টেবিল কার্ড */
-        .table-card {
+        .user-card {
             background: var(--main-white);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            border: 1px solid #eaeaea;
+            border-radius: 12px; 
+            padding: 20px; 
+            display: flex;
+            flex-direction: column;
+            transition: box-shadow 0.3s, transform 0.3s;
             border-top: 4px solid var(--main-pink);
         }
 
-        .table-responsive {
-            width: 100%;
-            overflow-x: auto;
+        .user-card:hover {
+            box-shadow: 0 8px 25px rgba(226, 0, 90, 0.1);
+            transform: translateY(-3px);
         }
 
-        .user-table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 800px;
+        .card-header {
+            display: flex; align-items: center; gap: 15px;
+            margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #f0f0f0;
         }
 
-        .user-table th {
-            background-color: var(--pink-transparent);
-            color: var(--main-pink);
-            font-weight: 900;
-            padding: 15px;
-            text-align: left;
-            border-bottom: 2px solid var(--main-pink);
-            font-size: 14px;
-        }
-
-        .user-table td {
-            padding: 15px;
-            border-bottom: 1px solid #eaeaea;
-            color: var(--dark-blue);
-            font-size: 14px;
-            font-weight: 600;
-            vertical-align: middle;
-        }
-
-        .user-table tr:hover { background-color: var(--pink-hover); }
-
-        .user-avatar-sm {
-            width: 35px; height: 35px; border-radius: 50%;
+        .user-avatar {
+            width: 50px; height: 50px; border-radius: 50%;
             background-color: var(--pink-transparent); color: var(--main-pink);
-            display: inline-flex; align-items: center; justify-content: center;
-            font-weight: bold; font-size: 16px; margin-right: 10px;
-            border: 1px solid var(--main-pink);
+            display: flex; align-items: center; justify-content: center; font-size: 22px;
         }
 
-        .user-info-cell { display: flex; align-items: center; }
+        .user-title { margin: 0; font-size: 18px; color: var(--dark-blue); font-weight: 900;}
+        .user-date { margin: 3px 0 0 0; font-size: 12px; color: var(--text-grey); font-weight: bold;}
 
-        .balance-badge {
-            background: var(--main-pink); 
-            color: var(--main-white);
-            padding: 6px 14px; 
-            border-radius: 20px; 
-            font-weight: 900; 
-            border: none;
-            box-shadow: 0 2px 5px rgba(226, 0, 90, 0.2);
-            display: inline-block;
+        .user-info-row { margin-bottom: 8px; font-size: 14px; }
+        .user-info-row .lbl { color: var(--text-grey); font-weight: bold; display: inline-block; width: 60px;}
+        .user-info-row .val { color: var(--dark-blue); font-weight: 900; }
+
+        .balance-box {
+            background: var(--pink-transparent);
+            color: var(--main-pink);
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 900;
+            font-size: 18px;
+            margin: 15px 0;
+            border: 1.5px dashed var(--main-pink);
         }
 
-        /* অ্যাকশন বাটন */
-        .action-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+        .action-buttons { display: flex; gap: 10px; margin-top: auto; }
         
         .btn-action {
-            padding: 10px 18px; 
-            border-radius: 8px; 
-            border: none; 
-            cursor: pointer;
-            font-size: 13px; 
-            font-weight: 900; 
-            transition: 0.2s; 
-            display: flex; 
-            align-items: center; 
-            gap: 6px;
+            flex: 1; padding: 10px; border-radius: 8px; border: none; cursor: pointer;
+            font-size: 13px; font-weight: 900; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px;
         }
         
-        .btn-add { background: var(--main-pink); color: var(--main-white); box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);}
-        .btn-add:hover { background: #b0124c; transform: translateY(-2px); }
+        .btn-add { background: var(--main-pink); color: white; }
+        .btn-add:hover { background: #c0004b; transform: translateY(-2px); }
         
         .btn-cut { background: var(--main-white); color: var(--main-pink); border: 1.5px solid var(--main-pink); }
         .btn-cut:hover { background: var(--pink-hover); transform: translateY(-2px); }
+
 
         /* পপ-আপ (Modal) ডিজাইন */
         .modal {
@@ -373,95 +330,84 @@
             <!-- টপবার টাইটেল ফুল পিংক এবং লোগো অ্যাড করা হয়েছে -->
             <div class="topbar-title"><i class="fas fa-users"></i> সাধারণ ইউজার ম্যানেজমেন্ট</div>
             <div class="admin-profile">
-                <!-- লগআউট বাটন রিমুভ করে বোনাস দিন অপশন ডানপাশে যুক্ত করা হয়েছে -->
-                <button class="btn-give-bonus-top" onclick="openModal('bonusModal')">
+                <!-- বোনাস দিন বাটন ব্যাকগ্রাউন্ড ছাড়া শুধু পিংক কালারে দেওয়া হয়েছে -->
+                <button class="topbar-bonus-btn" onclick="openModal('bonusModal')" title="বোনাস দিন">
                     <i class="fas fa-gift"></i> বোনাস দিন
                 </button>
             </div>
         </header>
 
         <div class="dashboard-body">
-
-            <!-- সার্চ বক্স -->
-            <div class="search-container">
-                <input type="text" class="search-box" placeholder="ইউজার আইডি বা ইমেইল দিয়ে সার্চ করুন...">
-                <button class="btn-search"><i class="fas fa-search"></i> সার্চ</button>
-            </div>
             
-            <!-- ইউজার লিস্ট টেবিল -->
-            <div class="table-card">
-                <div class="table-responsive">
-                    <table class="user-table">
-                        <thead>
-                            <tr>
-                                <th>ইউজার প্রোফাইল</th>
-                                <th>ইমেইল এড্রেস</th>
-                                <th>বর্তমান ব্যালেন্স</th>
-                                <th>জয়েনিং ডেট</th>
-                                <th>অ্যাকশন</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- ইউজার ১ -->
-                            <tr id="user-row-1">
-                                <td>
-                                    <div class="user-info-cell">
-                                        <div class="user-avatar-sm"><i class="fas fa-user"></i></div>
-                                        <div>T9KZBTUBR1</div>
-                                    </div>
-                                </td>
-                                <td>sakib123@gmail.com</td>
-                                <td><span class="balance-badge" id="bal-1">৳ ১৫০.০০</span></td>
-                                <td>২৫ আগস্ট, ২০২৬</td>
-                                <td>
-                                    <div class="action-btns">
-                                        <button class="btn-action btn-add" onclick="openBalanceModal('T9KZBTUBR1', 'bal-1', 'add')"><i class="fas fa-plus"></i> Add Balance</button>
-                                        <button class="btn-action btn-cut" onclick="openBalanceModal('T9KZBTUBR1', 'bal-1', 'cut')"><i class="fas fa-minus"></i> Cut Balance</button>
-                                    </div>
-                                </td>
-                            </tr>
+            <!-- ইউজার গ্রিড (টেবিলের বদলে ড্যাশবোর্ডের মতো বক্স) -->
+            <div class="user-grid">
+                
+                <!-- ইউজার কার্ড ১ -->
+                <div class="user-card" id="user-1">
+                    <div class="card-header">
+                        <div class="user-avatar"><i class="fas fa-user"></i></div>
+                        <div>
+                            <h4 class="user-title">T9KZBTUBR1</h4>
+                            <p class="user-date">২৫ আগস্ট, ২০২৬</p>
+                        </div>
+                    </div>
+                    
+                    <div class="user-info-row">
+                        <span class="lbl">ইমেইল:</span> <span class="val">sakib123@gmail.com</span>
+                    </div>
+                    
+                    <div class="balance-box" id="bal-1">৳ ১৫০.০০</div>
 
-                            <!-- ইউজার ২ -->
-                            <tr id="user-row-2">
-                                <td>
-                                    <div class="user-info-cell">
-                                        <div class="user-avatar-sm"><i class="fas fa-user"></i></div>
-                                        <div>M2LKBTYYY5</div>
-                                    </div>
-                                </td>
-                                <td>rakib_pro@gmail.com</td>
-                                <td><span class="balance-badge" id="bal-2">৳ ৩২০.৫০</span></td>
-                                <td>২৬ আগস্ট, ২০২৬</td>
-                                <td>
-                                    <div class="action-btns">
-                                        <button class="btn-action btn-add" onclick="openBalanceModal('M2LKBTYYY5', 'bal-2', 'add')"><i class="fas fa-plus"></i> Add Balance</button>
-                                        <button class="btn-action btn-cut" onclick="openBalanceModal('M2LKBTYYY5', 'bal-2', 'cut')"><i class="fas fa-minus"></i> Cut Balance</button>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <!-- ইউজার ৩ -->
-                            <tr id="user-row-3">
-                                <td>
-                                    <div class="user-info-cell">
-                                        <div class="user-avatar-sm"><i class="fas fa-user"></i></div>
-                                        <div>X7ABCTUBR9</div>
-                                    </div>
-                                </td>
-                                <td>salam99@gmail.com</td>
-                                <td><span class="balance-badge" id="bal-3">৳ ৪৫.০০</span></td>
-                                <td>২৮ আগস্ট, ২০২৬</td>
-                                <td>
-                                    <div class="action-btns">
-                                        <button class="btn-action btn-add" onclick="openBalanceModal('X7ABCTUBR9', 'bal-3', 'add')"><i class="fas fa-plus"></i> Add Balance</button>
-                                        <button class="btn-action btn-cut" onclick="openBalanceModal('X7ABCTUBR9', 'bal-3', 'cut')"><i class="fas fa-minus"></i> Cut Balance</button>
-                                    </div>
-                                </td>
-                            </tr>
-
-                        </tbody>
-                    </table>
+                    <div class="action-buttons">
+                        <button class="btn-action btn-add" onclick="openBalanceModal('T9KZBTUBR1', 'bal-1', 'add')"><i class="fas fa-plus"></i> Add</button>
+                        <button class="btn-action btn-cut" onclick="openBalanceModal('T9KZBTUBR1', 'bal-1', 'cut')"><i class="fas fa-minus"></i> Cut</button>
+                    </div>
                 </div>
+
+                <!-- ইউজার কার্ড ২ -->
+                <div class="user-card" id="user-2">
+                    <div class="card-header">
+                        <div class="user-avatar"><i class="fas fa-user"></i></div>
+                        <div>
+                            <h4 class="user-title">M2LKBTYYY5</h4>
+                            <p class="user-date">২৬ আগস্ট, ২০২৬</p>
+                        </div>
+                    </div>
+                    
+                    <div class="user-info-row">
+                        <span class="lbl">ইমেইল:</span> <span class="val">rakib_pro@gmail.com</span>
+                    </div>
+                    
+                    <div class="balance-box" id="bal-2">৳ ৩২০.৫০</div>
+
+                    <div class="action-buttons">
+                        <button class="btn-action btn-add" onclick="openBalanceModal('M2LKBTYYY5', 'bal-2', 'add')"><i class="fas fa-plus"></i> Add</button>
+                        <button class="btn-action btn-cut" onclick="openBalanceModal('M2LKBTYYY5', 'bal-2', 'cut')"><i class="fas fa-minus"></i> Cut</button>
+                    </div>
+                </div>
+
+                <!-- ইউজার কার্ড ৩ -->
+                <div class="user-card" id="user-3">
+                    <div class="card-header">
+                        <div class="user-avatar"><i class="fas fa-user"></i></div>
+                        <div>
+                            <h4 class="user-title">X7ABCTUBR9</h4>
+                            <p class="user-date">২৮ আগস্ট, ২০২৬</p>
+                        </div>
+                    </div>
+                    
+                    <div class="user-info-row">
+                        <span class="lbl">ইমেইল:</span> <span class="val">salam99@gmail.com</span>
+                    </div>
+                    
+                    <div class="balance-box" id="bal-3">৳ ৪৫.০০</div>
+
+                    <div class="action-buttons">
+                        <button class="btn-action btn-add" onclick="openBalanceModal('X7ABCTUBR9', 'bal-3', 'add')"><i class="fas fa-plus"></i> Add</button>
+                        <button class="btn-action btn-cut" onclick="openBalanceModal('X7ABCTUBR9', 'bal-3', 'cut')"><i class="fas fa-minus"></i> Cut</button>
+                    </div>
+                </div>
+
             </div>
 
         </div>
@@ -530,7 +476,7 @@
                 document.getElementById("toastText").innerText = "ব্যালেন্স সফলভাবে কর্তন করা হয়েছে!";
             }
 
-            // নতুন ব্যালেন্স টেবিলে আপডেট করা (কমা সহ ফরম্যাটিং)
+            // নতুন ব্যালেন্স বক্সে আপডেট করা (কমা সহ ফরম্যাটিং)
             document.getElementById(currentTargetId).innerText = `৳ ${newBal.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
             closeModal('editModal');
 
