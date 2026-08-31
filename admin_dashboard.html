@@ -109,25 +109,23 @@
 
         .admin-profile { display: flex; align-items: center; gap: 15px; }
 
-        /* টপবারের ডানদিকের ছোট হিস্ট্রি বাটন */
+        /* টপবারের ডানদিকের ছোট হিস্ট্রি আইকন (সিম্পল পিংক আইকন, কোনো ব্যাকগ্রাউন্ড ছাড়া) */
         .topbar-history-btn {
-            background-color: var(--main-pink);
-            color: white;
-            width: 38px;
-            height: 38px;
-            border-radius: 8px;
+            background: transparent;
+            color: var(--main-pink);
+            font-size: 24px;
+            text-decoration: none;
+            transition: 0.2s;
+            cursor: pointer;
+            padding: 5px;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-decoration: none;
-            font-size: 18px;
-            transition: 0.2s;
-            box-shadow: 0 3px 8px rgba(226, 0, 90, 0.2);
         }
         
         .topbar-history-btn:hover {
-            transform: translateY(-2px);
-            background-color: #c0004b;
+            transform: scale(1.1);
+            color: #c0004b;
         }
 
         /* ড্যাশবোর্ড কন্টেন্ট */
@@ -186,6 +184,7 @@
             border-top: 4px solid var(--main-pink);
         }
 
+        /* হোভার করলে এখন শুধু উপরে উঠবে, বর্ডার চেঞ্জ হবে না */
         .product-card:hover {
             box-shadow: 0 8px 25px rgba(226, 0, 90, 0.1);
             transform: translateY(-3px);
@@ -410,7 +409,7 @@
                 <i class="fas fa-home"></i> ড্যাশবোর্ড ওভারভিউ
             </div>
             
-            <!-- টপবারের ডানদিকের কোণায় ছোট হিস্ট্রি বাটন -->
+            <!-- টপবারের ডানদিকের কোণায় শুধু পিংক আইকন (কোনো ব্যাকগ্রাউন্ড নেই) -->
             <div class="admin-profile">
                 <a href="admin_history.html" class="topbar-history-btn" title="কাজের হিস্ট্রি">
                     <i class="fas fa-history"></i>
