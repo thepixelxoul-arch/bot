@@ -109,22 +109,22 @@
 
         .admin-profile { display: flex; align-items: center; gap: 15px; }
         
-        /* বোনাস দিন বাটন (হালকা বড়, ব্যাকগ্রাউন্ড ছাড়া, ফুল পিংক) */
+        /* বোনাস দিন বাটন (সাইজ ছোট করা হয়েছে) */
         .topbar-bonus-btn {
             background: transparent;
             color: var(--main-pink);
             border: none;
-            font-size: 18px; /* ফন্ট সাইজ বড় করা হয়েছে */
+            font-size: 15px; /* ফন্ট সাইজ কমানো হয়েছে */
             font-weight: 900;
             cursor: pointer;
             transition: 0.2s;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             padding: 5px;
         }
         .topbar-bonus-btn i {
-            font-size: 22px; /* আইকন বড় করা হয়েছে */
+            font-size: 18px; /* আইকন ছোট করা হয়েছে */
         }
         .topbar-bonus-btn:hover { 
             color: #c0004b; 
@@ -154,7 +154,6 @@
             display: flex;
             flex-direction: column;
             transition: box-shadow 0.3s, transform 0.3s;
-            /* ওপরের দাগ (border-top) রিমুভ করা হয়েছে */
         }
 
         .user-card:hover {
@@ -179,7 +178,7 @@
         .user-info-row { margin-bottom: 8px; font-size: 14px; display: flex;}
         .user-info-row .lbl { color: var(--text-grey); font-weight: bold; width: 70px; flex-shrink: 0;}
         .user-info-row .val { color: var(--dark-blue); font-weight: 900; }
-        .user-info-row .val-task { color: var(--main-pink); font-weight: 900; } /* কাজের সংখ্যার জন্য পিংক কালার */
+        .user-info-row .val-task { color: var(--main-pink); font-weight: 900; }
 
         .balance-box {
             background: var(--pink-transparent);
@@ -335,7 +334,7 @@
             <!-- টপবার টাইটেল ফুল পিংক এবং লোগো -->
             <div class="topbar-title"><i class="fas fa-users"></i> সাধারণ ইউজার ম্যানেজমেন্ট</div>
             <div class="admin-profile">
-                <!-- বোনাস দিন বাটন (হালকা বড়, ব্যাকগ্রাউন্ড ছাড়া শুধু পিংক কালারে) -->
+                <!-- বোনাস দিন বাটন (সাইজ নরমাল করা হয়েছে) -->
                 <button class="topbar-bonus-btn" onclick="openModal('bonusModal')" title="বোনাস দিন">
                     <i class="fas fa-gift"></i> বোনাস দিন
                 </button>
@@ -344,7 +343,7 @@
 
         <div class="dashboard-body">
             
-            <!-- ইউজার গ্রিড (টেবিলের বদলে ড্যাশবোর্ডের মতো বক্স) -->
+            <!-- ইউজার গ্রিড -->
             <div class="user-grid">
                 
                 <!-- ইউজার কার্ড ১ -->
@@ -360,7 +359,6 @@
                     <div class="user-info-row">
                         <span class="lbl">ইমেইল:</span> <span class="val">sakib123@gmail.com</span>
                     </div>
-                    <!-- কাজের সংখ্যা যোগ করা হয়েছে -->
                     <div class="user-info-row">
                         <span class="lbl">মোট কাজ:</span> <span class="val-task">১২ টি</span>
                     </div>
@@ -386,7 +384,6 @@
                     <div class="user-info-row">
                         <span class="lbl">ইমেইল:</span> <span class="val">rakib_pro@gmail.com</span>
                     </div>
-                    <!-- কাজের সংখ্যা যোগ করা হয়েছে -->
                     <div class="user-info-row">
                         <span class="lbl">মোট কাজ:</span> <span class="val-task">৪৫ টি</span>
                     </div>
@@ -412,7 +409,6 @@
                     <div class="user-info-row">
                         <span class="lbl">ইমেইল:</span> <span class="val">salam99@gmail.com</span>
                     </div>
-                    <!-- কাজের সংখ্যা যোগ করা হয়েছে -->
                     <div class="user-info-row">
                         <span class="lbl">মোট কাজ:</span> <span class="val-task">৫ টি</span>
                     </div>
