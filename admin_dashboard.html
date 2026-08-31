@@ -96,17 +96,18 @@
             z-index: 10;
         }
 
-        .topbar-title { font-size: 20px; font-weight: 900; color: var(--dark-blue); }
+        /* টপবার টাইটেল স্টাইল (ফুল পিংক এবং লোগো সহ) */
+        .topbar-title { 
+            font-size: 20px; 
+            font-weight: 900; 
+            color: var(--main-pink); 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+        }
+        .topbar-title i { color: var(--main-pink); }
 
         .admin-profile { display: flex; align-items: center; gap: 15px; }
-        
-        .logout-btn {
-            background-color: var(--pink-hover); color: var(--main-pink);
-            border: none; padding: 10px 20px; border-radius: 8px;
-            cursor: pointer; font-weight: bold; transition: 0.2s;
-            display: flex; align-items: center; gap: 8px; font-size: 14px;
-        }
-        .logout-btn:hover { background-color: var(--main-pink); color: white; }
 
         /* ড্যাশবোর্ড কন্টেন্ট */
         .dashboard-body {
@@ -425,10 +426,11 @@
     <!-- মেইন এরিয়া -->
     <main class="main-content">
         <header class="topbar">
-            <div class="topbar-title">ড্যাশবোর্ড ওভারভিউ</div>
-            <div class="admin-profile">
-                <button class="logout-btn" id="adminLogout"><i class="fas fa-sign-out-alt"></i> লগআউট</button>
+            <!-- টপবার টাইটেল কালার ফুল পিংক এবং লোগো অ্যাড করা হয়েছে -->
+            <div class="topbar-title">
+                <i class="fas fa-home"></i> ড্যাশবোর্ড ওভারভিউ
             </div>
+            <div class="admin-profile"></div>
         </header>
 
         <div class="dashboard-body">
@@ -598,10 +600,6 @@
                 }
             }
         }
-
-        document.getElementById("adminLogout").addEventListener("click", () => {
-            window.location.href = "login.html"; 
-        });
     </script>
 </body>
 </html>
