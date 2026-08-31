@@ -14,9 +14,8 @@
             --text-grey: #888888; 
             --bg-light: #f4f6f9; 
             --dark-blue: #2c3e50;
-            --success-green: #27ae60;
-            --danger-red: #e74c3c;
             --pink-transparent: rgba(226, 0, 90, 0.05);
+            --pink-hover: rgba(226, 0, 90, 0.1);
         }
 
         body { 
@@ -127,24 +126,6 @@
             flex-grow: 1;
         }
 
-        /* সেকশন হেডার */
-        .section-header-wrapper {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            background: var(--main-white);
-            padding: 20px 25px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
-            border-left: 5px solid var(--main-pink);
-        }
-
-        .section-title {
-            font-size: 18px; font-weight: 900; color: var(--dark-blue);
-            display: flex; align-items: center; gap: 10px; margin: 0;
-        }
-
         /* রিকোয়েস্ট গ্রিড */
         .request-grid {
             display: grid;
@@ -199,13 +180,11 @@
         }
 
         .lbl { font-weight: bold; color: var(--text-grey); display: inline-block; width: 80px;}
-        .val { font-weight: 900; color: var(--main-pink); } /* সব ভ্যালু কালার পিংক */
+        .val { font-weight: 900; color: var(--main-pink); }
         .val-trx { font-family: monospace; font-size: 14px; color: var(--main-pink); font-weight: bold; background: var(--pink-transparent); padding: 2px 6px; border-radius: 4px; letter-spacing: 1px;}
-        
-        /* ব্যাজ কালার পুরোপুরি পিংক */
         .purpose-badge { display: inline-block; background: var(--pink-transparent); color: var(--main-pink); padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: bold; margin-top: 5px; border: 1px solid rgba(226, 0, 90, 0.2);}
 
-        /* অ্যাকশন বাটন */
+        /* অ্যাকশন বাটন (পুরো পিংক থিম) */
         .action-buttons {
             display: flex; gap: 10px;
         }
@@ -215,11 +194,26 @@
             cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px;
         }
 
-        .btn-approve { background-color: rgba(39, 174, 96, 0.1); color: var(--success-green); }
-        .btn-approve:hover { background-color: var(--success-green); color: white; transform: translateY(-2px);}
+        .btn-approve { 
+            background-color: var(--main-pink); 
+            color: var(--main-white); 
+            border: 1.5px solid var(--main-pink);
+        }
+        .btn-approve:hover { 
+            background-color: #c0004b; 
+            border-color: #c0004b;
+            transform: translateY(-2px);
+        }
 
-        .btn-reject { background-color: var(--pink-transparent); color: var(--main-pink); }
-        .btn-reject:hover { background-color: var(--main-pink); color: white; transform: translateY(-2px);}
+        .btn-reject { 
+            background-color: var(--main-white); 
+            color: var(--main-pink); 
+            border: 1.5px solid var(--main-pink);
+        }
+        .btn-reject:hover { 
+            background-color: var(--pink-hover); 
+            transform: translateY(-2px);
+        }
 
         /* হিস্ট্রি স্ট্যাটাস ব্যাজ */
         .status-box {
@@ -237,8 +231,8 @@
             opacity: 0; transition: opacity 0.3s, top 0.3s;
         }
         .toast-msg.show { visibility: visible; opacity: 1; top: 50px; }
-        .toast-success { background-color: var(--success-green); }
-        .toast-error { background-color: var(--main-pink); } /* Reject কালার পিংক */
+        .toast-success { background-color: var(--main-pink); } /* সবুজ বাদ দিয়ে পিংক করা হয়েছে */
+        .toast-error { background-color: var(--main-pink); }
 
     </style>
 </head>
@@ -286,13 +280,6 @@
         </header>
 
         <div class="dashboard-body">
-
-            <!-- সেকশন হেডার ডাইনামিক হবে -->
-            <div class="section-header-wrapper">
-                <div class="section-title" id="section-main-title">
-                    <i class="fas fa-hand-holding-usd" style="color: var(--main-pink);"></i> পেন্ডিং ক্যাশ ইন (Pending Deposits)
-                </div>
-            </div>
             
             <!-- পেন্ডিং রিকোয়েস্ট গ্রিড -->
             <div class="request-grid" id="pending-view">
@@ -392,16 +379,13 @@
             showingHistory = !showingHistory;
             const pendingView = document.getElementById('pending-view');
             const historyView = document.getElementById('history-view');
-            const sectionTitle = document.getElementById('section-main-title');
 
             if (showingHistory) {
                 pendingView.style.display = 'none';
                 historyView.style.display = 'grid'; 
-                sectionTitle.innerHTML = '<i class="fas fa-history" style="color: var(--main-pink);"></i> ক্যাশ ইন হিস্ট্রি (Approved & Rejected)';
             } else {
                 pendingView.style.display = 'grid';
                 historyView.style.display = 'none';
-                sectionTitle.innerHTML = '<i class="fas fa-hand-holding-usd" style="color: var(--main-pink);"></i> পেন্ডিং ক্যাশ ইন (Pending Deposits)';
             }
         }
 
