@@ -109,18 +109,22 @@
 
         .admin-profile { display: flex; align-items: center; gap: 15px; }
         
-        /* বোনাস দিন বাটন (ব্যাকগ্রাউন্ড ছাড়া, ফুল পিংক) */
+        /* বোনাস দিন বাটন (হালকা বড়, ব্যাকগ্রাউন্ড ছাড়া, ফুল পিংক) */
         .topbar-bonus-btn {
             background: transparent;
             color: var(--main-pink);
             border: none;
-            font-size: 16px;
+            font-size: 18px; /* ফন্ট সাইজ বড় করা হয়েছে */
             font-weight: 900;
             cursor: pointer;
             transition: 0.2s;
             display: flex;
             align-items: center;
             gap: 8px;
+            padding: 5px;
+        }
+        .topbar-bonus-btn i {
+            font-size: 22px; /* আইকন বড় করা হয়েছে */
         }
         .topbar-bonus-btn:hover { 
             color: #c0004b; 
@@ -150,7 +154,7 @@
             display: flex;
             flex-direction: column;
             transition: box-shadow 0.3s, transform 0.3s;
-            border-top: 4px solid var(--main-pink);
+            /* ওপরের দাগ (border-top) রিমুভ করা হয়েছে */
         }
 
         .user-card:hover {
@@ -172,9 +176,10 @@
         .user-title { margin: 0; font-size: 18px; color: var(--dark-blue); font-weight: 900;}
         .user-date { margin: 3px 0 0 0; font-size: 12px; color: var(--text-grey); font-weight: bold;}
 
-        .user-info-row { margin-bottom: 8px; font-size: 14px; }
-        .user-info-row .lbl { color: var(--text-grey); font-weight: bold; display: inline-block; width: 60px;}
+        .user-info-row { margin-bottom: 8px; font-size: 14px; display: flex;}
+        .user-info-row .lbl { color: var(--text-grey); font-weight: bold; width: 70px; flex-shrink: 0;}
         .user-info-row .val { color: var(--dark-blue); font-weight: 900; }
+        .user-info-row .val-task { color: var(--main-pink); font-weight: 900; } /* কাজের সংখ্যার জন্য পিংক কালার */
 
         .balance-box {
             background: var(--pink-transparent);
@@ -279,7 +284,7 @@
         </div>
     </div>
 
-    <!-- বোনাস দিন পপ-আপ (শুধু সাধারণ ইউজারদের জন্য ৫ টাকা) -->
+    <!-- বোনাস দিন পপ-আপ -->
     <div id="bonusModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('bonusModal')">&times;</span>
@@ -327,10 +332,10 @@
     <!-- মেইন এরিয়া -->
     <main class="main-content">
         <header class="topbar">
-            <!-- টপবার টাইটেল ফুল পিংক এবং লোগো অ্যাড করা হয়েছে -->
+            <!-- টপবার টাইটেল ফুল পিংক এবং লোগো -->
             <div class="topbar-title"><i class="fas fa-users"></i> সাধারণ ইউজার ম্যানেজমেন্ট</div>
             <div class="admin-profile">
-                <!-- বোনাস দিন বাটন ব্যাকগ্রাউন্ড ছাড়া শুধু পিংক কালারে দেওয়া হয়েছে -->
+                <!-- বোনাস দিন বাটন (হালকা বড়, ব্যাকগ্রাউন্ড ছাড়া শুধু পিংক কালারে) -->
                 <button class="topbar-bonus-btn" onclick="openModal('bonusModal')" title="বোনাস দিন">
                     <i class="fas fa-gift"></i> বোনাস দিন
                 </button>
@@ -355,6 +360,10 @@
                     <div class="user-info-row">
                         <span class="lbl">ইমেইল:</span> <span class="val">sakib123@gmail.com</span>
                     </div>
+                    <!-- কাজের সংখ্যা যোগ করা হয়েছে -->
+                    <div class="user-info-row">
+                        <span class="lbl">মোট কাজ:</span> <span class="val-task">১২ টি</span>
+                    </div>
                     
                     <div class="balance-box" id="bal-1">৳ ১৫০.০০</div>
 
@@ -377,6 +386,10 @@
                     <div class="user-info-row">
                         <span class="lbl">ইমেইল:</span> <span class="val">rakib_pro@gmail.com</span>
                     </div>
+                    <!-- কাজের সংখ্যা যোগ করা হয়েছে -->
+                    <div class="user-info-row">
+                        <span class="lbl">মোট কাজ:</span> <span class="val-task">৪৫ টি</span>
+                    </div>
                     
                     <div class="balance-box" id="bal-2">৳ ৩২০.৫০</div>
 
@@ -398,6 +411,10 @@
                     
                     <div class="user-info-row">
                         <span class="lbl">ইমেইল:</span> <span class="val">salam99@gmail.com</span>
+                    </div>
+                    <!-- কাজের সংখ্যা যোগ করা হয়েছে -->
+                    <div class="user-info-row">
+                        <span class="lbl">মোট কাজ:</span> <span class="val-task">৫ টি</span>
                     </div>
                     
                     <div class="balance-box" id="bal-3">৳ ৪৫.০০</div>
