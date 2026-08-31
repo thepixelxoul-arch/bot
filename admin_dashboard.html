@@ -105,7 +105,6 @@
             align-items: center; 
             gap: 10px; 
         }
-        .topbar-title i { color: var(--main-pink); }
 
         .admin-profile { display: flex; align-items: center; gap: 15px; }
 
@@ -146,6 +145,42 @@
         .stat-info h3 { margin: 0 0 4px 0; font-size: 22px; color: var(--dark-blue); font-weight: 900; }
         .stat-info p { margin: 0; font-size: 12px; color: var(--text-grey); font-weight: bold; }
 
+        /* সেকশন হেডার এবং হিস্ট্রি আইকন */
+        .section-header-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.2);
+        }
+
+        .section-title {
+            color: white;
+            font-size: 18px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0;
+        }
+
+        .history-icon-btn {
+            color: white;
+            font-size: 20px;
+            text-decoration: none;
+            transition: 0.2s;
+            cursor: pointer;
+            opacity: 0.9;
+        }
+        
+        .history-icon-btn:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
         /* প্রোডাক্ট গ্রিড স্টাইল */
         .product-grid {
             display: grid;
@@ -165,7 +200,6 @@
             border-top: 4px solid var(--main-pink);
         }
 
-        /* হোভার করলে এখন শুধু উপরে উঠবে, বর্ডার চেঞ্জ হবে না */
         .product-card:hover {
             box-shadow: 0 8px 25px rgba(226, 0, 90, 0.1);
             transform: translateY(-3px);
@@ -385,7 +419,7 @@
     <!-- মেইন এরিয়া -->
     <main class="main-content">
         <header class="topbar">
-            <!-- টপবার টাইটেল কালার ফুল পিংক এবং লোগো অ্যাড করা হয়েছে -->
+            <!-- টপবার টাইটেল কালার ফুল পিংক এবং লোগো -->
             <div class="topbar-title">
                 <i class="fas fa-home"></i> ড্যাশবোর্ড ওভারভিউ
             </div>
@@ -412,6 +446,17 @@
                     <div class="stat-icon"><i class="fas fa-crown"></i></div>
                     <div class="stat-info"><h3>৩২০ জন</h3><p>VIP ইউজার</p></div>
                 </div>
+            </div>
+
+            <!-- হেডার বার এবং ডান পাশে ছোট হিস্ট্রি আইকন -->
+            <div class="section-header-wrapper">
+                <div class="section-title">
+                    <i class="fas fa-list-alt" style="color: white;"></i> সাম্প্রতিক জমা দেওয়া কাজগুলো
+                </div>
+                <!-- ডানদিকের কোণায় ছোট হিস্ট্রি আইকন -->
+                <a href="admin_history.html" class="history-icon-btn" title="কাজের হিস্ট্রি">
+                    <i class="fas fa-history"></i>
+                </a>
             </div>
             
             <!-- টাস্ক গ্রিড -->
