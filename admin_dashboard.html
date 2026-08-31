@@ -109,7 +109,7 @@
 
         .admin-profile { display: flex; align-items: center; gap: 15px; }
 
-        /* টপবারের ডানদিকের ছোট হিস্ট্রি আইকন */
+        /* টপবারের ডানদিকের ছোট হিস্ট্রি আইকন (সিম্পল পিংক আইকন, কোনো ব্যাকগ্রাউন্ড ছাড়া) */
         .topbar-history-btn {
             background: transparent;
             color: var(--main-pink);
@@ -181,8 +181,10 @@
             display: flex;
             flex-direction: column;
             transition: box-shadow 0.3s, transform 0.3s;
+            /* ওপরের গোলাপি দাগ (border-top) রিমুভ করা হয়েছে */
         }
 
+        /* হোভার করলে শুধু উপরে উঠবে */
         .product-card:hover {
             box-shadow: 0 8px 25px rgba(226, 0, 90, 0.1);
             transform: translateY(-3px);
@@ -327,9 +329,20 @@
         .btn-accept { background: var(--main-pink); color: var(--main-white);}
         .btn-reject-modal { background: var(--main-white); color: var(--main-pink); border: 1.5px solid var(--main-pink); }
         .btn-reject-modal:hover { background: var(--pink-hover); }
+
+        /* টোস্ট মেসেজ */
+        .toast-msg {
+            visibility: hidden; background-color: var(--main-pink); color: #fff; text-align: center;
+            border-radius: 8px; padding: 15px 25px; position: fixed; z-index: 9999; right: 30px; top: 30px;
+            font-size: 14px; font-weight: bold; box-shadow: 0 4px 15px rgba(226, 0, 90, 0.3);
+            opacity: 0; transition: opacity 0.3s, top 0.3s;
+        }
+        .toast-msg.show { visibility: visible; opacity: 1; top: 50px; }
     </style>
 </head>
 <body>
+
+    <div id="toastBox" class="toast-msg"><i class="fas fa-check-circle"></i> <span id="toastText">অ্যাকশন সফল হয়েছে!</span></div>
 
     <!-- টাস্ক ডিটেইলস পপ-আপ -->
     <div id="taskModal" class="modal">
@@ -391,7 +404,7 @@
     <!-- মেইন এরিয়া -->
     <main class="main-content">
         <header class="topbar">
-            <!-- টপবার টাইটেল -->
+            <!-- টপবার টাইটেল কালার ফুল পিংক এবং লোগো -->
             <div class="topbar-title">
                 <i class="fas fa-home"></i> ড্যাশবোর্ড ওভারভিউ
             </div>
@@ -534,10 +547,32 @@
             document.getElementById('taskModal').classList.remove('show');
         }
 
-        // Accept বা Reject করলে সরাসরি History পেজে চলে যাবে
         function actionTask(action, cardId = null) {
             closeModal();
-            window.location.href = 'admin_history.html';
+            
+            const toast = document.getElementById("toastBox");
+            const reasonInput = document.getElementById('rejectReason');
+
+            if(action === 'accept') {
+                document.getElementById("toastText").innerText = "কাজটি Accept করা হয়েছে এবং হিস্ট্রিতে চলে গেছে!";
+            } else {
+                let reason = reasonInput.value.trim() !== "" ? ` কারণ: ${reasonInput.value}` : "";
+                document.getElementById("toastText").innerText = `কাজটি Reject করা হয়েছে এবং হিস্ট্রিতে চলে গেছে!${reason}`;
+            }
+
+            toast.classList.add("show");
+            setTimeout(() => { toast.classList.remove("show"); }, 3500);
+
+            // কার্ড রিমুভ করা (হিস্ট্রিতে চলে যাওয়ার ইফেক্ট)
+            let idToRemove = cardId || currentCardId;
+            if(idToRemove) {
+                const card = document.getElementById(idToRemove);
+                if(card) {
+                    card.style.opacity = '0';
+                    card.style.transform = 'scale(0.9)';
+                    setTimeout(() => { card.style.display = 'none'; }, 300);
+                }
+            }
         }
     </script>
 </body>
