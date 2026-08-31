@@ -98,15 +98,51 @@
         }
 
         .topbar-title { font-size: 20px; font-weight: 900; color: var(--main-pink); display: flex; align-items: center; gap: 10px;}
-        .topbar-title i { color: var(--main-pink); }
-
+        
         .admin-profile { display: flex; align-items: center; gap: 15px; }
+
+        /* টপবারের ডানদিকের হিস্ট্রি আইকন */
+        .topbar-history-btn {
+            background: transparent;
+            color: var(--main-pink);
+            font-size: 24px;
+            border: none;
+            transition: 0.2s;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .topbar-history-btn:hover {
+            transform: scale(1.1);
+            color: #c0004b;
+        }
 
         /* ড্যাশবোর্ড বডি */
         .dashboard-body {
             padding: 30px;
             overflow-y: auto;
             flex-grow: 1;
+        }
+
+        /* সেকশন হেডার */
+        .section-header-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            background: var(--main-white);
+            padding: 20px 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            border-left: 5px solid var(--main-pink);
+        }
+
+        .section-title {
+            font-size: 18px; font-weight: 900; color: var(--dark-blue);
+            display: flex; align-items: center; gap: 10px; margin: 0;
         }
 
         /* রিকোয়েস্ট গ্রিড */
@@ -126,7 +162,6 @@
             flex-direction: column;
             transition: box-shadow 0.3s, transform 0.3s;
             position: relative;
-            border-top: 4px solid var(--main-pink);
         }
 
         .request-card:hover {
@@ -164,9 +199,11 @@
         }
 
         .lbl { font-weight: bold; color: var(--text-grey); display: inline-block; width: 80px;}
-        .val { font-weight: 900; color: var(--dark-blue); }
+        .val { font-weight: 900; color: var(--main-pink); } /* সব ভ্যালু কালার পিংক */
         .val-trx { font-family: monospace; font-size: 14px; color: var(--main-pink); font-weight: bold; background: var(--pink-transparent); padding: 2px 6px; border-radius: 4px; letter-spacing: 1px;}
-        .purpose-badge { display: inline-block; background: #e8f4f8; color: #2980b9; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; margin-top: 5px;}
+        
+        /* ব্যাজ কালার পুরোপুরি পিংক */
+        .purpose-badge { display: inline-block; background: var(--pink-transparent); color: var(--main-pink); padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: bold; margin-top: 5px; border: 1px solid rgba(226, 0, 90, 0.2);}
 
         /* অ্যাকশন বাটন */
         .action-buttons {
@@ -184,6 +221,14 @@
         .btn-reject { background-color: var(--pink-transparent); color: var(--main-pink); }
         .btn-reject:hover { background-color: var(--main-pink); color: white; transform: translateY(-2px);}
 
+        /* হিস্ট্রি স্ট্যাটাস ব্যাজ */
+        .status-box {
+            width: 100%; padding: 10px; border-radius: 6px; text-align: center;
+            font-weight: 900; font-size: 13px; margin-top: auto; display: flex; align-items: center; justify-content: center; gap: 6px;
+        }
+        .status-accepted { background-color: var(--main-pink); color: white; border: 1.5px solid var(--main-pink); }
+        .status-rejected { background-color: var(--main-white); color: var(--main-pink); border: 1.5px dashed var(--main-pink); }
+
         /* টোস্ট মেসেজ */
         .toast-msg {
             visibility: hidden; color: #fff; text-align: center;
@@ -193,7 +238,7 @@
         }
         .toast-msg.show { visibility: visible; opacity: 1; top: 50px; }
         .toast-success { background-color: var(--success-green); }
-        .toast-error { background-color: var(--danger-red); }
+        .toast-error { background-color: var(--main-pink); } /* Reject কালার পিংক */
 
     </style>
 </head>
@@ -211,10 +256,7 @@
         <ul class="nav-links">
             <li><a href="admin_dashboard.html" class="nav-link"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
             <li><a href="admin_history.html" class="nav-link"><i class="fas fa-history"></i> কাজের হিস্ট্রি</a></li>
-            
-            <!-- ক্যাশ ইন বাটন (অ্যাক্টিভ) -->
             <li><a href="admin_cash_in.html" class="nav-link active"><i class="fas fa-wallet"></i> ক্যাশ ইন</a></li>
-            
             <li><a href="admin_simple_users.html" class="nav-link"><i class="fas fa-user"></i> সাধারণ ইউজার</a></li>
             <li><a href="admin_vip_users.html" class="nav-link"><i class="fas fa-user-tie"></i> VIP ইউজার</a></li>
             <li><a href="admin_withdraw.html" class="nav-link"><i class="fas fa-file-invoice-dollar"></i> উইথড্র রিকোয়েস্ট</a></li>
@@ -235,13 +277,25 @@
             <div class="topbar-title">
                 <i class="fas fa-wallet"></i> ক্যাশ ইন রিকোয়েস্ট
             </div>
-            <div class="admin-profile"></div>
+            <div class="admin-profile">
+                <!-- টপবারের ডানদিকের কোণায় হিস্ট্রি বাটন -->
+                <button class="topbar-history-btn" onclick="toggleHistory()" title="ক্যাশ ইন হিস্ট্রি">
+                    <i class="fas fa-history"></i>
+                </button>
+            </div>
         </header>
 
         <div class="dashboard-body">
+
+            <!-- সেকশন হেডার ডাইনামিক হবে -->
+            <div class="section-header-wrapper">
+                <div class="section-title" id="section-main-title">
+                    <i class="fas fa-hand-holding-usd" style="color: var(--main-pink);"></i> পেন্ডিং ক্যাশ ইন (Pending Deposits)
+                </div>
+            </div>
             
-            <!-- রিকোয়েস্ট গ্রিড -->
-            <div class="request-grid">
+            <!-- পেন্ডিং রিকোয়েস্ট গ্রিড -->
+            <div class="request-grid" id="pending-view">
                 
                 <!-- কার্ড ১ (VIP প্যাকেজ) -->
                 <div class="request-card" id="req-1">
@@ -257,8 +311,8 @@
                     </div>
                     
                     <div class="req-details">
-                        <span class="lbl">মেথড:</span> <span class="val" style="color: #e2136e;"><i class="fas fa-paper-plane"></i> bKash</span><br>
-                        <span class="lbl">নাম্বার:</span> <span class="val">01711223344</span><br>
+                        <span class="lbl">মেথড:</span> <span class="val"><i class="fas fa-paper-plane"></i> bKash</span><br>
+                        <span class="lbl">নাম্বার:</span> <span class="val" style="color: var(--dark-blue);">01711223344</span><br>
                         <span class="lbl">TrxID:</span> <span class="val-trx">8A7B6C5D4E</span><br>
                         <span class="purpose-badge"><i class="fas fa-crown"></i> VIP প্যাকেজ ক্রয়</span>
                     </div>
@@ -283,10 +337,10 @@
                     </div>
                     
                     <div class="req-details">
-                        <span class="lbl">মেথড:</span> <span class="val" style="color: #f39c12;"><i class="fas fa-mobile-alt"></i> Nagad</span><br>
-                        <span class="lbl">নাম্বার:</span> <span class="val">01999887766</span><br>
+                        <span class="lbl">মেথড:</span> <span class="val"><i class="fas fa-mobile-alt"></i> Nagad</span><br>
+                        <span class="lbl">নাম্বার:</span> <span class="val" style="color: var(--dark-blue);">01999887766</span><br>
                         <span class="lbl">TrxID:</span> <span class="val-trx">7X8Y9Z0A1B</span><br>
-                        <span class="purpose-badge" style="background: #fdf2e9; color: #d35400;"><i class="fas fa-sim-card"></i> নাম্বার কেনা</span>
+                        <span class="purpose-badge"><i class="fas fa-sim-card"></i> নাম্বার কেনা</span>
                     </div>
 
                     <div class="action-buttons">
@@ -309,10 +363,10 @@
                     </div>
                     
                     <div class="req-details">
-                        <span class="lbl">মেথড:</span> <span class="val" style="color: #8e44ad;"><i class="fas fa-rocket"></i> Rocket</span><br>
-                        <span class="lbl">নাম্বার:</span> <span class="val">01888776655</span><br>
+                        <span class="lbl">মেথড:</span> <span class="val"><i class="fas fa-rocket"></i> Rocket</span><br>
+                        <span class="lbl">নাম্বার:</span> <span class="val" style="color: var(--dark-blue);">01888776655</span><br>
                         <span class="lbl">TrxID:</span> <span class="val-trx">1A2B3C4D5E</span><br>
-                        <span class="purpose-badge" style="background: #eaeded; color: #2c3e50;"><i class="fas fa-user-check"></i> অ্যাকাউন্ট ভেরিফিকেশন</span>
+                        <span class="purpose-badge"><i class="fas fa-user-check"></i> অ্যাকাউন্ট ভেরিফিকেশন</span>
                     </div>
 
                     <div class="action-buttons">
@@ -320,13 +374,37 @@
                         <button class="btn-action btn-approve" onclick="handleRequest('req-3', 'approve')"><i class="fas fa-check"></i> Approve</button>
                     </div>
                 </div>
+            </div>
 
+            <!-- হিস্ট্রি গ্রিড (প্রাথমিকভাবে লুকানো থাকবে) -->
+            <div class="request-grid" id="history-view" style="display: none;">
+                <!-- হিস্ট্রিতে যাওয়া কার্ডগুলো এখানে অ্যাড হবে -->
             </div>
             
         </div>
     </main>
 
     <script>
+        let showingHistory = false;
+
+        // হিস্ট্রি এবং পেন্ডিং লিস্ট টগল করার ফাংশন
+        function toggleHistory() {
+            showingHistory = !showingHistory;
+            const pendingView = document.getElementById('pending-view');
+            const historyView = document.getElementById('history-view');
+            const sectionTitle = document.getElementById('section-main-title');
+
+            if (showingHistory) {
+                pendingView.style.display = 'none';
+                historyView.style.display = 'grid'; 
+                sectionTitle.innerHTML = '<i class="fas fa-history" style="color: var(--main-pink);"></i> ক্যাশ ইন হিস্ট্রি (Approved & Rejected)';
+            } else {
+                pendingView.style.display = 'grid';
+                historyView.style.display = 'none';
+                sectionTitle.innerHTML = '<i class="fas fa-hand-holding-usd" style="color: var(--main-pink);"></i> পেন্ডিং ক্যাশ ইন (Pending Deposits)';
+            }
+        }
+
         // টোস্ট মেসেজ দেখানোর ফাংশন
         function showToast(message, type) {
             const toast = document.getElementById("toastBox");
@@ -334,8 +412,6 @@
             const toastIcon = document.getElementById("toastIcon");
 
             toastText.innerText = message;
-            
-            // পূর্বের ক্লাস মুছে ফেলা
             toast.className = "toast-msg"; 
 
             if(type === 'approve') {
@@ -347,28 +423,41 @@
             }
 
             toast.classList.add("show");
-            
-            setTimeout(() => { 
-                toast.classList.remove("show"); 
-            }, 3000);
+            setTimeout(() => { toast.classList.remove("show"); }, 3000);
         }
 
-        // Approve / Reject হ্যান্ডেল করার ফাংশন
+        // Approve / Reject হ্যান্ডেল করার ফাংশন এবং হিস্ট্রিতে পাঠানো
         function handleRequest(cardId, action) {
             const card = document.getElementById(cardId);
+            const actionButtons = card.querySelector('.action-buttons');
             
+            // বাটনের অংশটি সরিয়ে ফেলা
+            if(actionButtons) actionButtons.style.display = 'none';
+
+            // হিস্ট্রি স্ট্যাটাস ব্যাজ অ্যাড করা
+            const statusDiv = document.createElement('div');
+            statusDiv.className = 'status-box ' + (action === 'approve' ? 'status-accepted' : 'status-rejected');
+            statusDiv.innerHTML = action === 'approve' ? '<i class="fas fa-check-circle"></i> Approved' : '<i class="fas fa-times-circle"></i> Rejected';
+            card.appendChild(statusDiv);
+
             // কার্ড হাইড করার অ্যানিমেশন
             card.style.transform = "scale(0.9)";
             card.style.opacity = "0";
             
             setTimeout(() => {
-                card.style.display = "none";
+                // কার্ডটিকে পেন্ডিং থেকে সরিয়ে হিস্ট্রি সেকশনে যোগ করা
+                const historyView = document.getElementById('history-view');
+                historyView.prepend(card);
+                
+                // অ্যানিমেশন রিসেট করা
+                card.style.transform = "scale(1)";
+                card.style.opacity = "1";
             }, 300);
 
             if(action === 'approve') {
-                showToast("ক্যাশ ইন রিকোয়েস্ট সফলভাবে Approve করা হয়েছে!", "approve");
+                showToast("সফলভাবে Approve করা হয়েছে এবং হিস্ট্রিতে সেভ হয়েছে!", "approve");
             } else {
-                showToast("ক্যাশ ইন রিকোয়েস্ট Reject করা হয়েছে!", "reject");
+                showToast("Reject করা হয়েছে এবং হিস্ট্রিতে সেভ হয়েছে!", "reject");
             }
         }
     </script>
