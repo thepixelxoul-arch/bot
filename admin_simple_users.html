@@ -96,49 +96,25 @@
             z-index: 10;
         }
 
-        .topbar-title { font-size: 20px; font-weight: 900; color: var(--dark-blue); }
+        /* টপবার টাইটেল - ফুল পিংক এবং লোগো */
+        .topbar-title { 
+            font-size: 20px; 
+            font-weight: 900; 
+            color: var(--main-pink); 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+        }
+        .topbar-title i { color: var(--main-pink); }
 
         .admin-profile { display: flex; align-items: center; gap: 15px; }
         
-        .logout-btn {
-            background-color: var(--pink-hover); color: var(--main-pink);
-            border: none; padding: 10px 20px; border-radius: 8px;
-            cursor: pointer; font-weight: bold; transition: 0.2s;
-            display: flex; align-items: center; gap: 8px; font-size: 14px;
-        }
-        .logout-btn:hover { background-color: var(--main-pink); color: white; }
-
-        /* ড্যাশবোর্ড কন্টেন্ট */
-        .dashboard-body {
-            padding: 30px;
-            overflow-y: auto;
-            flex-grow: 1;
-        }
-
-        /* সেকশন হেডার */
-        .section-header-wrapper {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
-            padding: 15px 25px;
-            border-radius: 12px;
+        /* বোনাস দিন বাটন (টপবারের জন্য) */
+        .btn-give-bonus-top {
+            background-color: var(--main-pink);
             color: white;
-            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.2);
-        }
-
-        .section-title {
-            font-size: 18px; font-weight: bold;
-            display: flex; align-items: center; gap: 10px; margin: 0;
-        }
-
-        /* বোনাস বাটন */
-        .btn-give-bonus {
-            background: var(--main-white);
-            color: var(--main-pink);
             border: none;
-            padding: 8px 18px;
+            padding: 10px 20px;
             border-radius: 8px;
             font-size: 14px;
             font-weight: 900;
@@ -146,10 +122,20 @@
             transition: 0.2s;
             display: flex;
             align-items: center;
-            gap: 6px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            gap: 8px;
+            box-shadow: 0 3px 10px rgba(226, 0, 90, 0.2);
         }
-        .btn-give-bonus:hover { background: var(--bg-light); transform: translateY(-2px); }
+        .btn-give-bonus-top:hover { 
+            background-color: #c0004b; 
+            transform: translateY(-2px); 
+        }
+
+        /* ড্যাশবোর্ড কন্টেন্ট */
+        .dashboard-body {
+            padding: 30px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
 
         /* সার্চ বক্স */
         .search-container {
@@ -384,23 +370,17 @@
     <!-- মেইন এরিয়া -->
     <main class="main-content">
         <header class="topbar">
-            <div class="topbar-title">সাধারণ ইউজার ম্যানেজমেন্ট</div>
+            <!-- টপবার টাইটেল ফুল পিংক এবং লোগো অ্যাড করা হয়েছে -->
+            <div class="topbar-title"><i class="fas fa-users"></i> সাধারণ ইউজার ম্যানেজমেন্ট</div>
             <div class="admin-profile">
-                <button class="logout-btn" id="adminLogout"><i class="fas fa-sign-out-alt"></i> লগআউট</button>
+                <!-- লগআউট বাটন রিমুভ করে বোনাস দিন অপশন ডানপাশে যুক্ত করা হয়েছে -->
+                <button class="btn-give-bonus-top" onclick="openModal('bonusModal')">
+                    <i class="fas fa-gift"></i> বোনাস দিন
+                </button>
             </div>
         </header>
 
         <div class="dashboard-body">
-            
-            <div class="section-header-wrapper">
-                <div class="section-title">
-                    <i class="fas fa-users" style="color: white;"></i> সকল সাধারণ ইউজারের তালিকা
-                </div>
-                <!-- বোনাস দিন বাটন যুক্ত করা হয়েছে -->
-                <button class="btn-give-bonus" onclick="openModal('bonusModal')">
-                    <i class="fas fa-gift"></i> বোনাস দিন
-                </button>
-            </div>
 
             <!-- সার্চ বক্স -->
             <div class="search-container">
@@ -567,10 +547,6 @@
             toast.classList.add("show");
             setTimeout(() => { toast.classList.remove("show"); }, 3500);
         }
-
-        document.getElementById("adminLogout").addEventListener("click", () => {
-            window.location.href = "login.html"; 
-        });
     </script>
 </body>
 </html>
