@@ -252,6 +252,60 @@
         }
         .btn-view-referrals:hover { background: linear-gradient(135deg, var(--main-pink), var(--light-pink)); color: white; }
 
+        /* --- নতুন রেফার হিস্ট্রি টেবিল সেকশন --- */
+        .history-table-container {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+            overflow: hidden;
+            margin-bottom: 40px;
+            border: 1px solid #eaeaea;
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .history-table th {
+            background-color: var(--pink-transparent);
+            color: var(--main-pink);
+            padding: 15px 20px;
+            font-weight: 900;
+            border-bottom: 2px solid #eaeaea;
+        }
+
+        .history-table td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            color: var(--dark-blue);
+            font-weight: bold;
+        }
+
+        .history-table tr:hover {
+            background-color: #fafbfc;
+        }
+
+        .badge-referrer {
+            background-color: rgba(226, 0, 90, 0.1);
+            color: var(--main-pink);
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 900;
+        }
+
+        .badge-referred {
+            background-color: #e8f8f5;
+            color: #27ae60;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 900;
+        }
+
         /* --- পপ-আপ (Modal) ডিজাইন --- */
         .modal {
             display: none; position: fixed; z-index: 1000; left: 0; top: 0;
@@ -323,7 +377,6 @@
             <span class="close-btn" onclick="closeBonusModal()">&times;</span>
             <div class="modal-title"><i class="fas fa-gift" style="color: var(--main-pink);"></i> বোনাস কোড ম্যানেজমেন্ট (৳20 Bonus)</div>
             
-            <!-- কোড অ্যাড করার অপশন -->
             <div style="display: flex; gap: 10px; margin-bottom: 20px;">
                 <div style="display: flex; align-items: center; background-color: #f8f9fa; border: 2px solid #eaeaea; border-radius: 8px; padding: 2px 15px; flex-grow: 1;">
                     <i class="fas fa-ticket-alt" style="color: var(--main-pink); margin-right: 8px;"></i>
@@ -376,7 +429,6 @@
     <!-- মেইন এরিয়া -->
     <main class="main-content">
         <header class="topbar">
-            <!-- টপবার টাইটেল ফুল পিংক এবং লোগো -->
             <div class="topbar-title">
                 <i class="fas fa-user-plus"></i> রেফার সেটিং
             </div>
@@ -522,11 +574,58 @@
 
             </div>
 
+            <!-- সম্পূর্ণ রেফার হিস্ট্রি টেবিল (Referral History) -->
+            <div class="section-header" style="margin-top: 20px;"><i class="fas fa-history" style="color: var(--main-pink);"></i> সম্পূর্ণ রেফার হিস্ট্রি (Referral History)</div>
+            
+            <div class="history-table-container">
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>রেফারকারী (Referrer)</th>
+                            <th>যার অ্যাকাউন্ট খোলা হয়েছে (Referred User)</th>
+                            <th>বোনাস পরিমাণ</th>
+                            <th>তারিখ ও সময়</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="badge-referrer">T9KZBTUBR1</span></td>
+                            <td><span class="badge-referred">USER_A12</span></td>
+                            <td style="color: var(--main-pink); font-weight: 900;">৳২০.০০</td>
+                            <td>আজ, ১০:০০ AM</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge-referrer">T9KZBTUBR1</span></td>
+                            <td><span class="badge-referred">USER_B99</span></td>
+                            <td style="color: var(--main-pink); font-weight: 900;">৳২০.০০</td>
+                            <td>গতকাল, ০৪:৩০ PM</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge-referrer">M2LKBTYYY5</span></td>
+                            <td><span class="badge-referred">NEW_55X</span></td>
+                            <td style="color: var(--main-pink); font-weight: 900;">৳২০.০০</td>
+                            <td>আজ, ০২:১৫ PM</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge-referrer">X7ABCTUBR9</span></td>
+                            <td><span class="badge-referred">MEM_001</span></td>
+                            <td style="color: var(--main-pink); font-weight: 900;">৳২০.০০</td>
+                            <td>আজ, ১১:২০ AM</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge-referrer">X7ABCTUBR9</span></td>
+                            <td><span class="badge-referred">MEM_002</span></td>
+                            <td style="color: var(--main-pink); font-weight: 900;">৳২০.০০</td>
+                            <td>আজ, ১২:০৫ PM</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
     </main>
 
     <script>
-        // টোস্ট মেসেজ
         function showToast(message) {
             const toast = document.getElementById("toastBox");
             document.getElementById("toastText").innerText = message;
@@ -534,7 +633,6 @@
             setTimeout(() => { toast.classList.remove("show"); }, 3000);
         }
 
-        // গ্লোবাল সেটিং আপডেট ফাংশন
         function updateReferSettings() {
             const bonus = document.getElementById("referBonusInput").value;
             const comm = document.getElementById("referCommInput").value;
@@ -547,7 +645,6 @@
             showToast(`সাফল্য! রেফার বোনাস ৳${bonus} এবং কমিশন ${comm}% সেভ হয়েছে।`);
         }
 
-        // ইউজারের রেফার লিস্ট পপ-আপ
         function showReferList(userId, referArray) {
             document.getElementById('rm-title').innerHTML = `<i class="fas fa-users" style="color: var(--main-pink);"></i> ${userId} এর রেফার লিস্ট`;
             let listContainer = document.getElementById('rm-list');
@@ -573,7 +670,6 @@
             document.getElementById('referListModal').classList.remove('show');
         }
 
-        // --- বোনাস কোড লজিক (৳২০ টাকা বোনাস) ---
         function openBonusModal() {
             document.getElementById('bonusCodeModal').classList.add('show');
         }
