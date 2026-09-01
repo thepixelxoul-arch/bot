@@ -249,6 +249,12 @@
         .stat-value { font-size: 18px; font-weight: 900; color: var(--main-pink); }
         .stat-label { font-size: 11px; color: #666; font-weight: bold; margin-top: 5px; }
 
+        .card-btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
         .btn-view-referrals {
             width: 100%; border: none; padding: 12px; border-radius: 8px;
             background-color: rgba(226, 0, 90, 0.05); color: var(--main-pink); font-weight: bold;
@@ -256,6 +262,14 @@
             display: flex; align-items: center; justify-content: center; gap: 6px;
         }
         .btn-view-referrals:hover { background: linear-gradient(135deg, var(--main-pink), var(--light-pink)); color: white; }
+
+        .btn-card-history {
+            width: 100%; border: 1px dashed var(--main-pink); padding: 10px; border-radius: 8px;
+            background-color: transparent; color: var(--main-pink); font-weight: bold;
+            font-size: 13px; cursor: pointer; transition: 0.2s;
+            display: flex; align-items: center; justify-content: center; gap: 6px;
+        }
+        .btn-card-history:hover { background: var(--main-pink); color: white; border-style: solid; }
 
         /* --- টেবিল স্টাইল --- */
         .history-table-container {
@@ -374,6 +388,31 @@
             <span class="close-btn" onclick="closeModal('referListModal')">&times;</span>
             <div class="modal-title" id="rm-title"><i class="fas fa-users"></i> রেফার করা ইউজারদের তালিকা</div>
             <div class="list-container" id="rm-list"></div>
+        </div>
+    </div>
+
+    <!-- নির্দিষ্ট ইউজারের ইন্ডিভিজুয়াল রেফার হিস্ট্রি পপ-আপ -->
+    <div id="userHistoryModal" class="modal">
+        <div class="modal-content" style="max-width: 550px;">
+            <span class="close-btn" onclick="closeModal('userHistoryModal')">&times;</span>
+            <div class="modal-title" id="uh-title"><i class="fas fa-history" style="color: var(--main-pink);"></i> ইউজারের রেফার হিস্ট্রি</div>
+            <div class="list-container">
+                <div class="history-table-container" style="margin: 0; border: none; box-shadow: none;">
+                    <table class="history-table" style="font-size: 13px;">
+                        <thead>
+                            <tr>
+                                <th>রেফারকৃত আইডি</th>
+                                <th>বোনাস</th>
+                                <th>কমিশন</th>
+                                <th>তারিখ</th>
+                            </tr>
+                        </thead>
+                        <tbody id="uh-tbody">
+                            <!-- ডাইনামিক ডাটা বসবে -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -585,12 +624,19 @@
                         </div>
                     </div>
 
-                    <button class="btn-view-referrals" onclick="showReferList('T9KZBTUBR1', [
-                        {id: 'USER_A12', date: 'আজ, ১০:০০ AM'},
-                        {id: 'USER_B99', date: 'গতকাল'},
-                        {id: 'USER_X45', date: '২৫ আগস্ট'},
-                        {id: 'USER_Z01', date: '২৩ আগস্ট'}
-                    ])"><i class="fas fa-list"></i> রেফার লিস্ট দেখুন</button>
+                    <div class="card-btn-group">
+                        <button class="btn-view-referrals" onclick="showReferList('T9KZBTUBR1', [
+                            {id: 'USER_A12', date: 'আজ, ১০:০০ AM'},
+                            {id: 'USER_B99', date: 'গতকাল'},
+                            {id: 'USER_X45', date: '২৫ আগস্ট'},
+                            {id: 'USER_Z01', date: '২৩ আগস্ট'}
+                        ])"><i class="fas fa-list"></i> রেফার লিস্ট দেখুন</button>
+
+                        <button class="btn-card-history" onclick="showUserHistory('T9KZBTUBR1', [
+                            {refId: 'USER_A12', bonus: '৳২০', comm: '৳৩', date: 'আজ, ১০:০০ AM'},
+                            {refId: 'USER_B99', bonus: '৳২০', comm: '৳৫', date: 'গতকাল'}
+                        ])"><i class="fas fa-history"></i> রেফার হিস্ট্রি</button>
+                    </div>
                 </div>
 
                 <!-- কার্ড ২ -->
@@ -618,10 +664,17 @@
                         </div>
                     </div>
 
-                    <button class="btn-view-referrals" onclick="showReferList('M2LKBTYYY5', [
-                        {id: 'NEW_55X', date: 'আজ, ০২:১৫ PM'},
-                        {id: 'NEW_77Y', date: 'গতকাল'}
-                    ])"><i class="fas fa-list"></i> রেফার লিস্ট দেখুন</button>
+                    <div class="card-btn-group">
+                        <button class="btn-view-referrals" onclick="showReferList('M2LKBTYYY5', [
+                            {id: 'NEW_55X', date: 'আজ, ০২:১৫ PM'},
+                            {id: 'NEW_77Y', date: 'গতকাল'}
+                        ])"><i class="fas fa-list"></i> রেফার লিস্ট দেখুন</button>
+
+                        <button class="btn-card-history" onclick="showUserHistory('M2LKBTYYY5', [
+                            {refId: 'NEW_55X', bonus: '৳২০', comm: '৳৬', date: 'আজ, ০২:১৫ PM'},
+                            {refId: 'NEW_77Y', bonus: '৳২০', comm: '৳৬', date: 'গতকাল'}
+                        ])"><i class="fas fa-history"></i> রেফার হিস্ট্রি</button>
+                    </div>
                 </div>
 
                 <!-- কার্ড ৩ -->
@@ -649,13 +702,20 @@
                         </div>
                     </div>
 
-                    <button class="btn-view-referrals" onclick="showReferList('X7ABCTUBR9', [
-                        {id: 'MEM_001', date: 'আজ'},
-                        {id: 'MEM_002', date: 'আজ'},
-                        {id: 'MEM_003', date: 'গতকাল'},
-                        {id: 'MEM_004', date: '২৬ আগস্ট'},
-                        {id: 'MEM_005', date: '২৫ আগস্ট'}
-                    ])"><i class="fas fa-list"></i> রেফার লিস্ট দেখুন</button>
+                    <div class="card-btn-group">
+                        <button class="btn-view-referrals" onclick="showReferList('X7ABCTUBR9', [
+                            {id: 'MEM_001', date: 'আজ'},
+                            {id: 'MEM_002', date: 'আজ'},
+                            {id: 'MEM_003', date: 'গতকাল'},
+                            {id: 'MEM_004', date: '২৬ আগস্ট'},
+                            {id: 'MEM_005', date: '২৫ আগস্ট'}
+                        ])"><i class="fas fa-list"></i> রেফার লিস্ট দেখুন</button>
+
+                        <button class="btn-card-history" onclick="showUserHistory('X7ABCTUBR9', [
+                            {refId: 'MEM_001', bonus: '৳২০', comm: '৳২৪', date: 'আজ'},
+                            {refId: 'MEM_002', bonus: '৳২০', comm: '৳৯৬', date: 'আজ'}
+                        ])"><i class="fas fa-history"></i> রেফার হিস্ট্রি</button>
+                    </div>
                 </div>
 
             </div>
@@ -740,7 +800,7 @@
         }
 
         function showReferList(userId, referArray) {
-            document.getElementById('rm-title').innerHTML = `<i class="fas fa-users" style="color: var(--main-pink);"></i> ${userId} এর রেফার লিস্ট`;
+            document.getElementById('rm-title').innerHTML = `<i class="fas fa-users" style="color: var(--main-pink);"></i> ${userId} এর রেফার তালিকা`;
             let listContainer = document.getElementById('rm-list');
             let listHtml = '';
             
@@ -758,6 +818,30 @@
             
             listContainer.innerHTML = listHtml;
             openModal('referListModal');
+        }
+
+        function showUserHistory(userId, historyArray) {
+            document.getElementById('uh-title').innerHTML = `<i class="fas fa-history" style="color: var(--main-pink);"></i> ${userId} এর রেফার হিস্ট্রি`;
+            let tbody = document.getElementById('uh-tbody');
+            let rowsHtml = '';
+
+            if(historyArray.length === 0) {
+                rowsHtml = '<tr><td colspan="4" style="text-align:center; color:#888;">কোনো হিস্ট্রি পাওয়া যায়নি।</td></tr>';
+            } else {
+                historyArray.forEach(item => {
+                    rowsHtml += `
+                        <tr>
+                            <td><span class="badge-referred">${item.refId}</span></td>
+                            <td style="color: var(--main-pink);">${item.bonus}</td>
+                            <td style="color: #27ae60;">${item.comm}</td>
+                            <td>${item.date}</td>
+                        </tr>
+                    `;
+                });
+            }
+
+            tbody.innerHTML = rowsHtml;
+            openModal('userHistoryModal');
         }
 
         function addBonusCode() {
