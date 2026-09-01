@@ -157,49 +157,62 @@
         }
         .log-details i { margin-right: 5px; }
 
-        /* ডাইরেক্ট ভিডিও প্লেয়ার স্টাইল (পুরোপুরি গোলাকার / Circle ফ্রেম) */
+        /* ডাইরেক্ট ভিডিও প্লেয়ার স্টাইল (একটু বড়, পুরোপুরি গোলাকার, বর্ডার ছাড়া) */
         .video-container {
-            width: 150px; /* প্রস্থ */
-            height: 150px; /* উচ্চতা সমান দিয়ে পুরোপুরি গোলাকার করা হয়েছে */
+            width: 200px; /* ফ্রেম একটু বড় করা হয়েছে */
+            height: 200px; /* পুরোপুরি গোল রাখতে হাইট ও উইডথ সমান */
             margin: 0 auto; 
             margin-top: auto;
             border-radius: 50%; /* পুরোপুরি গোল করার জন্য */
             overflow: hidden;
             background: #000;
             position: relative;
-            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.2); 
-            border: 3px solid var(--main-pink); /* চারদিকে সুন্দর গোলাপি বর্ডার */
+            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.15); 
             display: flex;
             align-items: center;
             justify-content: center;
+            /* border রিমুভ করা হয়েছে */
         }
         
         .video-container video {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* ভিডিও ফ্রেম অনুযায়ী পারফেক্টলি ফিট করার জন্য */
+            object-fit: cover; 
             display: block;
             border-radius: 50%;
         }
 
-        /* ভিডিও কন্ট্রোল থেকে ভলিউম এবং থ্রি-ডট (মেনু) রিমুভ করার সিএসএস */
-        video::-webkit-media-controls-mute-button,
-        video::-webkit-media-controls-volume-slider,
-        video::-webkit-media-controls-overflow-button,
-        video::-webkit-media-controls-timeline,
-        video::-webkit-media-controls-current-time-display,
-        video::-webkit-media-controls-time-remaining-display {
-            display: none !important;
+        /* প্লে বাটন মাঝখানে আনার এবং বাকি সবকিছু হাইড করার কোড */
+        video::-webkit-media-controls-enclosure {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* শুধুমাত্র প্লে বাটন সেন্টারে দেখানোর জন্য */
         video::-webkit-media-controls-panel {
             display: flex !important;
-            justify-content: center;
-            align-items: center;
+            justify-content: center !important;
+            align-items: center !important;
+            width: 100%;
+            height: 100%;
+            background: transparent !important;
         }
+
         video::-webkit-media-controls-play-button {
-            transform: scale(1.5); /* প্লে বাটনটি একটু বড় করা হয়েছে */
+            margin: auto !important; /* একদম সেন্টারে বসানোর জন্য */
+            transform: scale(2) !important; /* প্লে বাটনটি বড় করা হয়েছে */
+        }
+
+        video::-webkit-media-controls-mute-button,
+        video::-webkit-media-controls-volume-slider,
+        video::-webkit-media-controls-timeline,
+        video::-webkit-media-controls-current-time-display,
+        video::-webkit-media-controls-time-remaining-display,
+        video::-webkit-media-controls-fullscreen-button,
+        video::-webkit-media-controls-overflow-button {
+            display: none !important; /* বাকি সব কন্ট্রোল হাইড করা হয়েছে */
         }
 
     </style>
@@ -260,9 +273,9 @@
                         <div style="color: var(--main-pink);"><i class="fas fa-user-check"></i> <b>আসল মানুষ:</b> 98% ম্যাচ</div>
                         <div style="color: var(--main-pink); margin-top: 5px;"><i class="fas fa-id-badge"></i> <b>ইউনিক ফেস:</b> কোনো ডুপ্লিকেট পাওয়া যায়নি</div>
                     </div>
-                    <!-- ডাইরেক্ট গোলাকার ভিডিও প্লেয়ার -->
+                    <!-- ডাইরেক্ট ভিডিও প্লেয়ার (মাঝখানে প্লে বাটন, একটু বড় সার্কেল) -->
                     <div class="video-container">
-                        <video controls controlslist="nodownload" disablepictureinpicture poster="https://via.placeholder.com/150x150/000000/FFFFFF?text=Face">
+                        <video controls controlslist="nodownload nofullscreen noremoteplayback" disablepictureinpicture poster="https://via.placeholder.com/200x200/000000/FFFFFF?text=Face">
                             <source src="#" type="video/mp4">
                         </video>
                     </div>
@@ -284,9 +297,9 @@
                         <div style="color: var(--main-pink);"><i class="fas fa-ban"></i> <b>ফেক ফেস:</b> মানুষ নয় (ছবি বা স্ক্রিন স্ক্যান)</div>
                         <div style="color: var(--main-pink); margin-top: 5px;"><i class="fas fa-robot"></i> <b>AI ডিসিশন:</b> অ্যাকাউন্ট রিজেক্টেড</div>
                     </div>
-                    <!-- ডাইরেক্ট গোলাকার ভিডিও প্লেয়ার -->
+                    <!-- ডাইরেক্ট ভিডিও প্লেয়ার -->
                     <div class="video-container">
-                        <video controls controlslist="nodownload" disablepictureinpicture poster="https://via.placeholder.com/150x150/000000/FFFFFF?text=Fake">
+                        <video controls controlslist="nodownload nofullscreen noremoteplayback" disablepictureinpicture poster="https://via.placeholder.com/200x200/000000/FFFFFF?text=Fake">
                             <source src="#" type="video/mp4">
                         </video>
                     </div>
@@ -308,9 +321,9 @@
                         <div style="color: var(--main-pink);"><i class="fas fa-user-check"></i> <b>আসল মানুষ:</b> 95% ম্যাচ</div>
                         <div style="color: var(--main-pink); margin-top: 5px;"><i class="fas fa-copy"></i> <b>ডুপ্লিকেট ফেস:</b> আইডি (T9KZBTUBR1) এ আছে</div>
                     </div>
-                    <!-- ডাইরেক্ট গোলাকার ভিডিও প্লেয়ার -->
+                    <!-- ডাইরেক্ট ভিডিও প্লেয়ার -->
                     <div class="video-container">
-                        <video controls controlslist="nodownload" disablepictureinpicture poster="https://via.placeholder.com/150x150/000000/FFFFFF?text=Duplicate">
+                        <video controls controlslist="nodownload nofullscreen noremoteplayback" disablepictureinpicture poster="https://via.placeholder.com/200x200/000000/FFFFFF?text=Duplicate">
                             <source src="#" type="video/mp4">
                         </video>
                     </div>
