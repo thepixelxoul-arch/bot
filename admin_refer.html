@@ -94,7 +94,6 @@
             z-index: 10;
         }
 
-        /* টপবার টাইটেল - ফুল পিংক এবং লোগো */
         .topbar-title { 
             font-size: 20px; 
             font-weight: 900; 
@@ -139,14 +138,20 @@
             display: flex; align-items: center; gap: 10px; margin: 0;
         }
 
-        .btn-bonus-code {
+        .btn-action-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn-top-action {
             background: var(--main-white);
             color: var(--main-pink);
             border: none; padding: 10px 18px; border-radius: 8px;
             font-size: 14px; font-weight: bold; cursor: pointer; transition: 0.2s;
             display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-        .btn-bonus-code:hover { background: var(--bg-light); transform: translateY(-2px); }
+        .btn-top-action:hover { background: var(--bg-light); transform: translateY(-2px); }
 
         .form-grid {
             display: grid;
@@ -252,7 +257,7 @@
         }
         .btn-view-referrals:hover { background: linear-gradient(135deg, var(--main-pink), var(--light-pink)); color: white; }
 
-        /* --- নতুন রেফার হিস্ট্রি টেবিল সেকশন --- */
+        /* --- টেবিল স্টাইল --- */
         .history-table-container {
             background: #fff;
             border-radius: 12px;
@@ -316,7 +321,7 @@
         
         .modal-content {
             background-color: #fff; padding: 25px; border-radius: 12px;
-            width: 90%; max-width: 400px; box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            width: 90%; max-width: 500px; box-shadow: 0 10px 40px rgba(0,0,0,0.2);
             position: relative; max-height: 80vh; display: flex; flex-direction: column;
             transform: translateY(20px); transition: transform 0.3s ease;
             border-top: 5px solid var(--main-pink);
@@ -332,6 +337,7 @@
         .modal-title { 
             font-size: 18px; font-weight: bold; color: var(--dark-blue); 
             margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; 
+            display: flex; align-items: center; gap: 10px;
         }
         
         .list-container {
@@ -365,16 +371,88 @@
     <!-- রেফার লিস্ট পপ-আপ -->
     <div id="referListModal" class="modal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeReferModal()">&times;</span>
-            <div class="modal-title" id="rm-title">রেফার করা ইউজারদের তালিকা</div>
+            <span class="close-btn" onclick="closeModal('referListModal')">&times;</span>
+            <div class="modal-title" id="rm-title"><i class="fas fa-users"></i> রেফার করা ইউজারদের তালিকা</div>
             <div class="list-container" id="rm-list"></div>
+        </div>
+    </div>
+
+    <!-- ভিআইপি কোড হিস্ট্রি পপ-আপ -->
+    <div id="vipCodeHistoryModal" class="modal">
+        <div class="modal-content" style="max-width: 550px;">
+            <span class="close-btn" onclick="closeModal('vipCodeHistoryModal')">&times;</span>
+            <div class="modal-title"><i class="fas fa-crown" style="color: var(--main-pink);"></i> ভিআইপি কোড রিডিম হিস্ট্রি</div>
+            <div class="list-container">
+                <div class="history-table-container" style="margin: 0; border: none; box-shadow: none;">
+                    <table class="history-table" style="font-size: 13px;">
+                        <thead>
+                            <tr>
+                                <th>ইউজার আইডি</th>
+                                <th>প্যাকেজ</th>
+                                <th>কোড/মূল্য</th>
+                                <th>সময়</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="badge-referrer">USER_X99</span></td>
+                                <td>VIP 3 (Gold)</td>
+                                <td style="color: var(--main-pink);">৳২০১০</td>
+                                <td>আজ, ০১:২০ PM</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge-referrer">USER_B12</span></td>
+                                <td>Member 3</td>
+                                <td style="color: var(--main-pink);">৳৯৯৯৯</td>
+                                <td>গতকাল, ০৩:১০ PM</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- রেফার বোনাস হিস্ট্রি পপ-আপ -->
+    <div id="referBonusHistoryModal" class="modal">
+        <div class="modal-content" style="max-width: 550px;">
+            <span class="close-btn" onclick="closeModal('referBonusHistoryModal')">&times;</span>
+            <div class="modal-title"><i class="fas fa-gift" style="color: var(--main-pink);"></i> রেফার বোনাস পেমেন্ট হিস্ট্রি</div>
+            <div class="list-container">
+                <div class="history-table-container" style="margin: 0; border: none; box-shadow: none;">
+                    <table class="history-table" style="font-size: 13px;">
+                        <thead>
+                            <tr>
+                                <th>রেফারকারী</th>
+                                <th>বোনাস পরিমাণ</th>
+                                <th>মাধ্যম</th>
+                                <th>তারিখ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="badge-referrer">T9KZBTUBR1</span></td>
+                                <td style="color: #27ae60; font-weight: 900;">+৳২০.০০</td>
+                                <td>মেইন ব্যালেন্স</td>
+                                <td>আজ, ১০:০০ AM</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge-referrer">X7ABCTUBR9</span></td>
+                                <td style="color: #27ae60; font-weight: 900;">+৳২০.০০</td>
+                                <td>মেইন ব্যালেন্স</td>
+                                <td>গতকাল, ০৪:১৫ PM</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- বোনাস কোড পপ-আপ -->
     <div id="bonusCodeModal" class="modal">
         <div class="modal-content" style="max-width: 450px;">
-            <span class="close-btn" onclick="closeBonusModal()">&times;</span>
+            <span class="close-btn" onclick="closeModal('bonusCodeModal')">&times;</span>
             <div class="modal-title"><i class="fas fa-gift" style="color: var(--main-pink);"></i> বোনাস কোড ম্যানেজমেন্ট (৳20 Bonus)</div>
             
             <div style="display: flex; gap: 10px; margin-bottom: 20px;">
@@ -437,13 +515,21 @@
 
         <div class="dashboard-body">
             
-            <!-- রেফার সেটিং ফর্ম -->
+            <!-- রেফার সেটিং ফর্ম এবং হিস্ট্রি বাটনসমূহ -->
             <div class="settings-card">
                 <div class="settings-header-flex">
                     <div class="settings-title"><i class="fas fa-cog"></i> বোনাস ও কমিশন আপডেট করুন</div>
-                    <button class="btn-bonus-code" onclick="openBonusModal()">
-                        <i class="fas fa-gift"></i> বোনাস কোড ম্যানেজ করুন
-                    </button>
+                    <div class="btn-action-group">
+                        <button class="btn-top-action" onclick="openModal('vipCodeHistoryModal')">
+                            <i class="fas fa-crown"></i> VIP কোড হিস্ট্রি
+                        </button>
+                        <button class="btn-top-action" onclick="openModal('referBonusHistoryModal')">
+                            <i class="fas fa-gift"></i> রেফার বোনাস হিস্ট্রি
+                        </button>
+                        <button class="btn-top-action" onclick="openModal('bonusCodeModal')">
+                            <i class="fas fa-ticket-alt"></i> বোনাস কোড
+                        </button>
+                    </div>
                 </div>
                 
                 <div class="form-grid">
@@ -574,7 +660,7 @@
 
             </div>
 
-            <!-- সম্পূর্ণ রেফার হিস্ট্রি টেবিল (Referral History) -->
+            <!-- সম্পূর্ণ রেফার হিস্ট্রি টেবিল -->
             <div class="section-header" style="margin-top: 20px;"><i class="fas fa-history" style="color: var(--main-pink);"></i> সম্পূর্ণ রেফার হিস্ট্রি (Referral History)</div>
             
             <div class="history-table-container">
@@ -633,6 +719,14 @@
             setTimeout(() => { toast.classList.remove("show"); }, 3000);
         }
 
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('show');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('show');
+        }
+
         function updateReferSettings() {
             const bonus = document.getElementById("referBonusInput").value;
             const comm = document.getElementById("referCommInput").value;
@@ -663,19 +757,7 @@
             }
             
             listContainer.innerHTML = listHtml;
-            document.getElementById('referListModal').classList.add('show');
-        }
-
-        function closeReferModal() {
-            document.getElementById('referListModal').classList.remove('show');
-        }
-
-        function openBonusModal() {
-            document.getElementById('bonusCodeModal').classList.add('show');
-        }
-
-        function closeBonusModal() {
-            document.getElementById('bonusCodeModal').classList.remove('show');
+            openModal('referListModal');
         }
 
         function addBonusCode() {
