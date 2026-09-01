@@ -96,17 +96,18 @@
             z-index: 10;
         }
 
-        .topbar-title { font-size: 20px; font-weight: 900; color: var(--dark-blue); }
+        /* টপবার টাইটেল - ফুল পিংক এবং লোগো */
+        .topbar-title { 
+            font-size: 20px; 
+            font-weight: 900; 
+            color: var(--main-pink); 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+        }
+        .topbar-title i { color: var(--main-pink); }
 
         .admin-profile { display: flex; align-items: center; gap: 15px; }
-        
-        .logout-btn {
-            background-color: var(--pink-transparent); color: var(--main-pink);
-            border: none; padding: 10px 20px; border-radius: 8px;
-            cursor: pointer; font-weight: bold; transition: 0.2s;
-            display: flex; align-items: center; gap: 8px; font-size: 14px;
-        }
-        .logout-btn:hover { background-color: var(--main-pink); color: white; }
 
         /* ড্যাশবোর্ড বডি */
         .dashboard-body {
@@ -170,9 +171,11 @@
             margin-bottom: 8px;
         }
 
+        /* ইনপুট বক্সের স্টাইল (উচ্চতা ফিক্সড করা হয়েছে) */
         .add-number-card .modal-input {
             width: 100%;
-            padding: 12px 15px;
+            height: 46px; /* উচ্চতা ৪৬px করা হয়েছে */
+            padding: 0 15px;
             border: 2px solid transparent;
             background-color: var(--main-white);
             border-radius: 6px;
@@ -189,12 +192,13 @@
             box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
         }
 
-        /* ফর্মের যোগ করুন বাটন (সাদা) */
+        /* ফর্মের যোগ করুন বাটন (সাদা এবং উচ্চতা ইনপুটের সমান করা হয়েছে) */
         .btn-add-submit {
             background: var(--main-white);
             color: var(--main-pink);
             border: none;
-            padding: 14px 25px;
+            height: 46px; /* ইনপুটের সাথে মিল রেখে উচ্চতা ৪৬px করা হয়েছে */
+            padding: 0 25px;
             border-radius: 6px;
             font-size: 14px;
             font-weight: 900;
@@ -206,13 +210,13 @@
             gap: 8px;
             white-space: nowrap;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-sizing: border-box;
         }
 
         .btn-add-submit:hover {
             background: var(--bg-light);
             transform: translateY(-2px);
         }
-
 
         /* --- যোগ করা নাম্বার গ্রিড --- */
         .number-grid {
@@ -409,10 +413,12 @@
     <!-- মেইন এরিয়া -->
     <main class="main-content">
         <header class="topbar">
-            <div class="topbar-title">নাম্বার ম্যানেজমেন্ট</div>
-            <div class="admin-profile">
-                <button class="logout-btn" id="adminLogout"><i class="fas fa-sign-out-alt"></i> লগআউট</button>
+            <!-- টপবার টাইটেল ফুল পিংক এবং লোগো -->
+            <div class="topbar-title">
+                <i class="fas fa-sim-card"></i> নাম্বার ম্যানেজমেন্ট
             </div>
+            <!-- লগআউট বাটন রিমুভ করা হয়েছে -->
+            <div class="admin-profile"></div>
         </header>
 
         <div class="dashboard-body">
@@ -558,10 +564,6 @@
                 }
             }
         }
-
-        document.getElementById("adminLogout").addEventListener("click", () => {
-            window.location.href = "login.html"; 
-        });
     </script>
 </body>
 </html>
