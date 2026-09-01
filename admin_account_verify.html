@@ -84,6 +84,7 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            background-color: var(--bg-light);
         }
 
         /* টপবার */
@@ -117,31 +118,7 @@
             flex-grow: 1;
         }
 
-        .card-header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
-            padding: 20px 25px;
-            border-radius: 12px;
-            color: white;
-            box-shadow: 0 5px 15px rgba(226, 0, 90, 0.2);
-        }
-
-        .card-header-title {
-            font-size: 20px; font-weight: bold;
-            display: flex; align-items: center; gap: 10px; color: white;
-        }
-
-        .card-header-subtitle { font-size: 13px; color: #ffe0e9; margin-top: 5px; }
-
-        /* Logs Section */
-        .section-title {
-            font-size: 18px; font-weight: bold; color: var(--dark-blue);
-            margin-bottom: 20px; display: flex; align-items: center; gap: 10px;
-        }
-
+        /* Logs Section Grid */
         .logs-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -179,12 +156,22 @@
         }
         .log-details i { margin-right: 5px; }
 
-        .btn-view-scan {
-            width: 100%; border: 1px solid #eaeaea; padding: 10px; border-radius: 8px; background: #fff;
-            font-size: 13px; font-weight: 900; color: var(--dark-blue); cursor: pointer; transition: 0.2s;
-            display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: auto;
+        /* ডাইরেক্ট ভিডিও প্লেয়ার স্টাইল */
+        .video-container {
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: auto;
+            background: #000;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
-        .btn-view-scan:hover { background: #f0f0f0; }
+        
+        .video-container video {
+            width: 100%;
+            display: block;
+            border-radius: 8px;
+        }
 
     </style>
 </head>
@@ -221,23 +208,10 @@
             <div class="topbar-title">
                 <i class="fas fa-user-check"></i> অ্যাকাউন্ট যাচাই
             </div>
-            <!-- লগআউট বাটন রিমুভ করা হয়েছে -->
             <div class="admin-profile"></div>
         </header>
 
         <div class="dashboard-body">
-            
-            <div class="card-header-container">
-                <div>
-                    <div class="card-header-title">
-                        <i class="fas fa-robot"></i> AI অটোমেটিক ফেস ভেরিফিকেশন
-                    </div>
-                    <div class="card-header-subtitle">সিস্টেম নিজেই ইউজারের আসল চেহারা (Liveness) এবং ডুপ্লিকেট ফেস স্ক্যান করবে। কোনো ম্যানুয়াল অ্যাপ্রুভালের প্রয়োজন নেই।</div>
-                </div>
-            </div>
-
-            <!-- Verification Logs -->
-            <div class="section-title"><i class="fas fa-history" style="color: var(--main-pink);"></i> অটোমেটিক স্ক্যানিং হিস্ট্রি (Logs)</div>
 
             <div class="logs-grid">
                 
@@ -257,7 +231,13 @@
                         <div style="color: var(--success-green);"><i class="fas fa-user-check"></i> <b>আসল মানুষ:</b> 98% ম্যাচ</div>
                         <div style="color: var(--success-green); margin-top: 5px;"><i class="fas fa-id-badge"></i> <b>ইউনিক ফেস:</b> কোনো ডুপ্লিকেট পাওয়া যায়নি</div>
                     </div>
-                    <button class="btn-view-scan" onclick="alert('ইউজারের লাইভ ফেস ভিডিওটি এখানে প্লে হবে।')"><i class="fas fa-play-circle"></i> ফেস ভিডিও দেখুন</button>
+                    <!-- ডাইরেক্ট ভিডিও প্লেয়ার -->
+                    <div class="video-container">
+                        <video controls poster="https://via.placeholder.com/400x200/000000/FFFFFF?text=Face+Verification+Video">
+                            <source src="#" type="video/mp4">
+                            আপনার ব্রাউজার ভিডিও সাপোর্ট করে না।
+                        </video>
+                    </div>
                 </div>
 
                 <!-- কার্ড ২: ফেক ছবি (মানুষ না) -->
@@ -276,7 +256,13 @@
                         <div style="color: var(--danger-red);"><i class="fas fa-ban"></i> <b>ফেক ফেস:</b> মানুষ নয় (ছবি বা স্ক্রিন স্ক্যান)</div>
                         <div style="margin-top: 5px;"><i class="fas fa-robot"></i> <b>AI ডিসিশন:</b> অ্যাকাউন্ট রিজেক্টেড</div>
                     </div>
-                    <button class="btn-view-scan" onclick="alert('ইউজারের লাইভ ফেস ভিডিওটি এখানে প্লে হবে।')"><i class="fas fa-play-circle"></i> ফেস ভিডিও দেখুন</button>
+                    <!-- ডাইরেক্ট ভিডিও প্লেয়ার -->
+                    <div class="video-container">
+                        <video controls poster="https://via.placeholder.com/400x200/000000/FFFFFF?text=Fake+Face+Detected">
+                            <source src="#" type="video/mp4">
+                            আপনার ব্রাউজার ভিডিও সাপোর্ট করে না।
+                        </video>
+                    </div>
                 </div>
 
                 <!-- কার্ড ৩: ডুপ্লিকেট ফেস -->
@@ -295,7 +281,13 @@
                         <div style="color: var(--success-green);"><i class="fas fa-user-check"></i> <b>আসল মানুষ:</b> 95% ম্যাচ</div>
                         <div style="color: #d35400; margin-top: 5px;"><i class="fas fa-copy"></i> <b>ডুপ্লিকেট ফেস:</b> এই চেহারায় অ্যাকাউন্ট (ID: T9KZBTUBR1) অলরেডি আছে</div>
                     </div>
-                    <button class="btn-view-scan" onclick="alert('ইউজারের লাইভ ফেস ভিডিওটি এখানে প্লে হবে।')"><i class="fas fa-play-circle"></i> ফেস ভিডিও দেখুন</button>
+                    <!-- ডাইরেক্ট ভিডিও প্লেয়ার -->
+                    <div class="video-container">
+                        <video controls poster="https://via.placeholder.com/400x200/000000/FFFFFF?text=Duplicate+Face+Video">
+                            <source src="#" type="video/mp4">
+                            আপনার ব্রাউজার ভিডিও সাপোর্ট করে না।
+                        </video>
+                    </div>
                 </div>
 
             </div>
