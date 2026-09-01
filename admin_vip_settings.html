@@ -71,7 +71,7 @@
         .nav-links a:hover, .nav-links a.active {
             background-color: rgba(255, 255, 255, 0.1);
             color: white;
-            border-left: 4px solid #fff; /* অন্যান্য পেজের মতো সাদা বর্ডার দেওয়া হয়েছে */
+            border-left: 4px solid #fff;
         }
 
         .nav-links a i { width: 20px; text-align: center; font-size: 18px; }
@@ -96,46 +96,24 @@
             z-index: 10;
         }
 
-        .topbar-title { font-size: 20px; font-weight: 900; color: var(--dark-blue); }
+        /* টপবার টাইটেল - ফুল পিংক এবং লোগো */
+        .topbar-title { 
+            font-size: 20px; 
+            font-weight: 900; 
+            color: var(--main-pink); 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+        }
+        .topbar-title i { color: var(--main-pink); }
 
         .admin-profile { display: flex; align-items: center; gap: 15px; }
-        
-        .logout-btn {
-            background-color: var(--pink-hover); color: var(--main-pink);
-            border: none; padding: 10px 20px; border-radius: 8px;
-            cursor: pointer; font-weight: bold; transition: 0.2s;
-            display: flex; align-items: center; gap: 8px; font-size: 14px;
-        }
-        .logout-btn:hover { background-color: var(--main-pink); color: white; }
 
         /* ড্যাশবোর্ড বডি */
         .dashboard-body {
             padding: 30px;
             overflow-y: auto;
             flex-grow: 1;
-        }
-
-        .card-header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
-            padding: 20px 25px;
-            border-radius: 12px;
-            color: white;
-            box-shadow: 0 5px 15px rgba(226, 0, 90, 0.2);
-        }
-
-        .card-header-title {
-            font-size: 18px;
-            font-weight: 900;
-            display: flex; align-items: center; gap: 10px;
-            color: white;
-        }
-        
-        .card-header-subtitle {
-            font-size: 13px; color: #ffe0e9; margin-top: 5px; font-weight: bold;
         }
 
         /* --- VIP প্যাকেজ কার্ড গ্রিড --- */
@@ -340,24 +318,16 @@
     <!-- মেইন এরিয়া -->
     <main class="main-content">
         <header class="topbar">
-            <div class="topbar-title">VIP প্যাকেজ সেটিং</div>
-            <div class="admin-profile">
-                <button class="logout-btn" id="adminLogout"><i class="fas fa-sign-out-alt"></i> লগআউট</button>
+            <!-- টপবার টাইটেল ফুল পিংক এবং লোগো -->
+            <div class="topbar-title">
+                <i class="fas fa-crown"></i> VIP প্যাকেজ সেটিং
             </div>
+            <div class="admin-profile"></div>
         </header>
 
         <div class="dashboard-body">
-            
-            <div class="card-header-container">
-                <div>
-                    <div class="card-header-title">
-                        <i class="fas fa-crown"></i> VIP প্যাকেজ ম্যানেজমেন্ট
-                    </div>
-                    <div class="card-header-subtitle">এখান থেকে প্রতিটি VIP প্যাকেজের দাম, বোনাস এবং প্যাকেজের সুবিধা (Description) আপডেট করুন।</div>
-                </div>
-            </div>
 
-            <!-- VIP প্যাকেজ কার্ড গ্রিড (VIP 1 থেকে VIP 10 + Send bKash Member 1 & 2) -->
+            <!-- VIP প্যাকেজ কার্ড গ্রিড -->
             <div class="vip-grid">
                 
                 <!-- VIP 1 -->
@@ -377,7 +347,7 @@
                         </div>
                     </div>
                     <div class="input-wrapper">
-                        <label>বোনাস (Bonus)</label>
+                        <label>অফার / বোনাস (Offer/Bonus)</label>
                         <div class="vip-input-group">
                             <span class="vip-input-prefix">৳</span>
                             <input type="number" id="bonus-vip1" class="vip-input" value="9">
@@ -410,7 +380,7 @@
                         </div>
                     </div>
                     <div class="input-wrapper">
-                        <label>বোনাস (Bonus)</label>
+                        <label>অফার / বোনাস (Offer/Bonus)</label>
                         <div class="vip-input-group">
                             <span class="vip-input-prefix">৳</span>
                             <input type="number" id="bonus-vip2" class="vip-input" value="18">
@@ -444,7 +414,7 @@
                         </div>
                     </div>
                     <div class="input-wrapper">
-                        <label>বোনাস (Bonus)</label>
+                        <label>অফার / বোনাস (Offer/Bonus)</label>
                         <div class="vip-input-group">
                             <span class="vip-input-prefix">৳</span>
                             <input type="number" id="bonus-vip3" class="vip-input" value="27">
@@ -478,7 +448,7 @@
                         </div>
                     </div>
                     <div class="input-wrapper">
-                        <label>বোনাস (Bonus)</label>
+                        <label>অফার / বোনাস (Offer/Bonus)</label>
                         <div class="vip-input-group">
                             <span class="vip-input-prefix">৳</span>
                             <input type="number" id="bonus-vip4" class="vip-input" value="36">
@@ -512,7 +482,7 @@
                         </div>
                     </div>
                     <div class="input-wrapper">
-                        <label>বোনাস (Bonus)</label>
+                        <label>অফার / বোনাস (Offer/Bonus)</label>
                         <div class="vip-input-group">
                             <span class="vip-input-prefix">৳</span>
                             <input type="number" id="bonus-vip5" class="vip-input" value="45">
@@ -546,7 +516,7 @@
                         </div>
                     </div>
                     <div class="input-wrapper">
-                        <label>বোনাস (Bonus)</label>
+                        <label>অফার / বোনাস (Offer/Bonus)</label>
                         <div class="vip-input-group">
                             <span class="vip-input-prefix">৳</span>
                             <input type="number" id="bonus-vip6" class="vip-input" value="54">
@@ -579,7 +549,7 @@
                         </div>
                     </div>
                     <div class="input-wrapper">
-                        <label>বোনাস (Bonus)</label>
+                        <label>অফার / বোনাস (Offer/Bonus)</label>
                         <div class="vip-input-group">
                             <span class="vip-input-prefix">৳</span>
                             <input type="number" id="bonus-vip7" class="vip-input" value="63">
@@ -612,7 +582,7 @@
                         </div>
                     </div>
                     <div class="input-wrapper">
-                        <label>বোনাস (Bonus)</label>
+                        <label>অফার / বোনাস (Offer/Bonus)</label>
                         <div class="vip-input-group">
                             <span class="vip-input-prefix">৳</span>
                             <input type="number" id="bonus-vip8" class="vip-input" value="72">
@@ -645,7 +615,7 @@
                         </div>
                     </div>
                     <div class="input-wrapper">
-                        <label>বোনাস (Bonus)</label>
+                        <label>অফার / বোনাস (Offer/Bonus)</label>
                         <div class="vip-input-group">
                             <span class="vip-input-prefix">৳</span>
                             <input type="number" id="bonus-vip9" class="vip-input" value="81">
@@ -678,7 +648,7 @@
                         </div>
                     </div>
                     <div class="input-wrapper">
-                        <label>বোনাস (Bonus)</label>
+                        <label>অফার / বোনাস (Offer/Bonus)</label>
                         <div class="vip-input-group">
                             <span class="vip-input-prefix">৳</span>
                             <input type="number" id="bonus-vip10" class="vip-input" value="90">
@@ -712,7 +682,7 @@
                         </div>
                     </div>
                     <div class="input-wrapper">
-                        <label>বোনাস (Bonus)</label>
+                        <label>অফার / বোনাস (Offer/Bonus)</label>
                         <div class="vip-input-group">
                             <span class="vip-input-prefix">৳</span>
                             <input type="number" id="bonus-m1" class="vip-input" value="50">
@@ -744,7 +714,7 @@
                         </div>
                     </div>
                     <div class="input-wrapper">
-                        <label>বোনাস (Bonus)</label>
+                        <label>অফার / বোনাস (Offer/Bonus)</label>
                         <div class="vip-input-group">
                             <span class="vip-input-prefix">৳</span>
                             <input type="number" id="bonus-m2" class="vip-input" value="100">
@@ -755,6 +725,105 @@
                         <textarea id="desc-m2" class="vip-textarea" placeholder="প্যাকেজের সুবিধাগুলো লিখুন...">• মেম্বারশিপ প্যাকেজ ২ এর বিশেষ সুবিধাসমূহ।</textarea>
                     </div>
                     <button class="btn-vip-update" onclick="updateVipPackage('Send bKash Member 2', 'price-m2', 'bonus-m2', 'desc-m2')">
+                        <i class="fas fa-save"></i> আপডেট করুন
+                    </button>
+                </div>
+
+                <!-- Send bKash Member 3 (নতুন যোগ করা হয়েছে) -->
+                <div class="vip-card">
+                    <div class="vip-card-header">
+                        <div class="vip-icon"><i class="fas fa-star"></i></div>
+                        <div class="vip-title-area">
+                            <h3>Member 3</h3>
+                            <p>Send bKash Member 3</p>
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>প্যাকেজের দাম (Price)</label>
+                        <div class="vip-input-group">
+                            <span class="vip-input-prefix">৳</span>
+                            <input type="number" id="price-m3" class="vip-input" value="9999">
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>অফার / বোনাস (Offer/Bonus)</label>
+                        <div class="vip-input-group">
+                            <span class="vip-input-prefix">৳</span>
+                            <input type="number" id="bonus-m3" class="vip-input" value="12000">
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>প্যাকেজের সুবিধা (Description)</label>
+                        <textarea id="desc-m3" class="vip-textarea" placeholder="প্যাকেজের সুবিধাগুলো লিখুন...">• মেম্বারশিপ প্যাকেজ ৩ এর স্পেশাল অফার।
+• লাইফটাইম সাপোর্ট।</textarea>
+                    </div>
+                    <button class="btn-vip-update" onclick="updateVipPackage('Send bKash Member 3', 'price-m3', 'bonus-m3', 'desc-m3')">
+                        <i class="fas fa-save"></i> আপডেট করুন
+                    </button>
+                </div>
+
+                <!-- Send bKash Member 4 (নতুন যোগ করা হয়েছে) -->
+                <div class="vip-card">
+                    <div class="vip-card-header">
+                        <div class="vip-icon"><i class="fas fa-star"></i></div>
+                        <div class="vip-title-area">
+                            <h3>Member 4</h3>
+                            <p>Send bKash Member 4</p>
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>প্যাকেজের দাম (Price)</label>
+                        <div class="vip-input-group">
+                            <span class="vip-input-prefix">৳</span>
+                            <input type="number" id="price-m4" class="vip-input" value="14999">
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>অফার / বোনাস (Offer/Bonus)</label>
+                        <div class="vip-input-group">
+                            <span class="vip-input-prefix">৳</span>
+                            <input type="number" id="bonus-m4" class="vip-input" value="18000">
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>প্যাকেজের সুবিধা (Description)</label>
+                        <textarea id="desc-m4" class="vip-textarea" placeholder="প্যাকেজের সুবিধাগুলো লিখুন...">• মেম্বারশিপ প্যাকেজ ৪ এর স্পেশাল অফার।
+• এক্সট্রা বোনাস।</textarea>
+                    </div>
+                    <button class="btn-vip-update" onclick="updateVipPackage('Send bKash Member 4', 'price-m4', 'bonus-m4', 'desc-m4')">
+                        <i class="fas fa-save"></i> আপডেট করুন
+                    </button>
+                </div>
+
+                <!-- Send bKash Member 5 (নতুন যোগ করা হয়েছে) -->
+                <div class="vip-card">
+                    <div class="vip-card-header">
+                        <div class="vip-icon"><i class="fas fa-star"></i></div>
+                        <div class="vip-title-area">
+                            <h3>Member 5</h3>
+                            <p>Send bKash Member 5</p>
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>প্যাকেজের দাম (Price)</label>
+                        <div class="vip-input-group">
+                            <span class="vip-input-prefix">৳</span>
+                            <input type="number" id="price-m5" class="vip-input" value="19999">
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>অফার / বোনাস (Offer/Bonus)</label>
+                        <div class="vip-input-group">
+                            <span class="vip-input-prefix">৳</span>
+                            <input type="number" id="bonus-m5" class="vip-input" value="25000">
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <label>প্যাকেজের সুবিধা (Description)</label>
+                        <textarea id="desc-m5" class="vip-textarea" placeholder="প্যাকেজের সুবিধাগুলো লিখুন...">• মেম্বারশিপ প্যাকেজ ৫ এর স্পেশাল অফার।
+• সর্বোচ্চ রেট।</textarea>
+                    </div>
+                    <button class="btn-vip-update" onclick="updateVipPackage('Send bKash Member 5', 'price-m5', 'bonus-m5', 'desc-m5')">
                         <i class="fas fa-save"></i> আপডেট করুন
                     </button>
                 </div>
@@ -777,8 +846,8 @@
             const bonus = document.getElementById(bonusId).value;
             const desc = document.getElementById(descId).value;
             
-            if (price === "" || price <= 0 || bonus === "" || bonus < 0) {
-                alert("দয়া করে সঠিক দাম এবং বোনাস প্রদান করুন!");
+            if (price === "" || price <= 0 || bonus === "" || bonus <= 0) {
+                alert("দয়া করে সঠিক দাম এবং অফার প্রদান করুন!");
                 return;
             }
 
@@ -789,10 +858,6 @@
 
             showToast(`${vipLevel} এর সকল সেটিংস সফলভাবে সেভ হয়েছে!`);
         }
-
-        document.getElementById("adminLogout").addEventListener("click", () => {
-            window.location.href = "login.html"; 
-        });
     </script>
 </body>
 </html>
