@@ -197,6 +197,57 @@
         }
         .btn-update-settings:hover { background: var(--bg-light); transform: translateY(-2px); }
 
+        /* --- সেকশন হেডার --- */
+        .section-header {
+            font-size: 18px; font-weight: bold; color: var(--dark-blue);
+            margin-bottom: 20px; display: flex; align-items: center; gap: 10px;
+        }
+
+        /* --- হিস্ট্রি কার্ড গ্রিড --- */
+        .history-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding-bottom: 30px;
+        }
+
+        .history-card {
+            background: #fff; 
+            border: 1px solid #e0e0e0; 
+            border-radius: 12px; 
+            padding: 20px;
+            display: flex; 
+            flex-direction: column; 
+            gap: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            transition: 0.3s;
+            border-left: 5px solid var(--main-pink);
+        }
+
+        .history-card:hover { 
+            box-shadow: 0 8px 25px rgba(226, 0, 90, 0.1); 
+            transform: translateY(-3px); 
+        }
+
+        .card-top-row {
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            font-weight: 900; 
+            font-size: 16px; 
+            color: var(--dark-blue);
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+
+        .card-info-row {
+            display: flex; 
+            justify-content: space-between; 
+            font-size: 13px; 
+            color: var(--text-grey); 
+            font-weight: bold;
+        }
+
         /* --- পপ-আপ (Modal) ডিজাইন --- */
         .modal {
             display: none; position: fixed; z-index: 1000; left: 0; top: 0;
@@ -207,7 +258,7 @@
         
         .modal-content {
             background-color: #fff; padding: 25px; border-radius: 12px;
-            width: 90%; max-width: 500px; box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            width: 90%; max-width: 450px; box-shadow: 0 10px 40px rgba(0,0,0,0.2);
             position: relative; max-height: 80vh; display: flex; flex-direction: column;
             transform: translateY(20px); transition: transform 0.3s ease;
             border-top: 5px solid var(--main-pink);
@@ -232,14 +283,11 @@
         .list-container::-webkit-scrollbar { width: 5px; }
         .list-container::-webkit-scrollbar-thumb { background: rgba(226, 0, 90, 0.2); border-radius: 10px; }
 
-        /* পপ-আপের ভেতরে কার্ড স্টাইল */
-        .popup-card {
-            background: #fff; border: 1px solid #e0e0e0; border-radius: 10px; padding: 15px;
-            margin-bottom: 12px; display: flex; flex-direction: column; gap: 8px;
-            border-left: 4px solid var(--main-pink); box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        .list-item {
+            background: #f8f9fa; padding: 12px; border-radius: 8px; margin-bottom: 10px;
+            border-left: 4px solid var(--main-pink); font-size: 14px; color: var(--dark-blue);
+            display: flex; justify-content: space-between; align-items: center; font-weight: bold;
         }
-        .popup-card-header { display: flex; justify-content: space-between; font-weight: 900; color: var(--dark-blue); font-size: 15px; }
-        .popup-card-sub { display: flex; justify-content: font-size: 13px; color: var(--text-grey); font-weight: bold; gap: 15px; }
 
         /* টোস্ট মেসেজ */
         .toast-msg {
@@ -255,124 +303,32 @@
 
     <div id="toastBox" class="toast-msg"><i class="fas fa-check-circle"></i> <span id="toastText">আপডেট সফল হয়েছে!</span></div>
 
-    <!-- রেফার বোনাস হিস্ট্রি পপ-আপ (কার্ড স্টাইল) -->
-    <div id="referBonusHistoryModal" class="modal">
-        <div class="modal-content" style="max-width: 500px;">
-            <span class="close-btn" onclick="closeModal('referBonusHistoryModal')">&times;</span>
-            <div class="modal-title"><i class="fas fa-gift" style="color: var(--main-pink);"></i> রেফার বোনাস হিস্ট্রি</div>
-            <div class="list-container">
-                
-                <!-- কার্ড ১ -->
-                <div class="popup-card">
-                    <div class="popup-card-header">
-                        <span>T9KZBTUBR1</span>
-                        <span style="color: var(--main-pink);">+৳২০.০০</span>
-                    </div>
-                    <div class="popup-card-sub">
-                        <span>রেফারকৃত আইডি: USER_A12</span>
-                        <span style="margin-left: auto; color: #888; font-size: 11px;">আজ, ১০:০০ AM</span>
-                    </div>
-                </div>
-
-                <!-- কার্ড ২ -->
-                <div class="popup-card">
-                    <div class="popup-card-header">
-                        <span>T9KZBTUBR1</span>
-                        <span style="color: var(--main-pink);">+৳২০.০০</span>
-                    </div>
-                    <div class="popup-card-sub">
-                        <span>রেফারকৃত আইডি: USER_B99</span>
-                        <span style="margin-left: auto; color: #888; font-size: 11px;">গতকাল, ০৪:৩০ PM</span>
-                    </div>
-                </div>
-
-                <!-- কার্ড ৩ -->
-                <div class="popup-card">
-                    <div class="popup-card-header">
-                        <span>M2LKBTYYY5</span>
-                        <span style="color: var(--main-pink);">+৳২০.০০</span>
-                    </div>
-                    <div class="popup-card-sub">
-                        <span>রেফারকৃত আইডি: NEW_55X</span>
-                        <span style="margin-left: auto; color: #888; font-size: 11px;">আজ, ০২:১৫ PM</span>
-                    </div>
-                </div>
-
-                <!-- কার্ড ৪ -->
-                <div class="popup-card">
-                    <div class="popup-card-header">
-                        <span>X7ABCTUBR9</span>
-                        <span style="color: var(--main-pink);">+৳২০.০০</span>
-                    </div>
-                    <div class="popup-card-sub">
-                        <span>রেফারকৃত আইডি: MEM_001</span>
-                        <span style="margin-left: auto; color: #888; font-size: 11px;">আজ, ১১:২০ AM</span>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <!-- ভিআইপি কোড হিস্ট্রি পপ-আপ (কার্ড স্টাইল) -->
-    <div id="vipCodeHistoryModal" class="modal">
-        <div class="modal-content" style="max-width: 500px;">
-            <span class="close-btn" onclick="closeModal('vipCodeHistoryModal')">&times;</span>
-            <div class="modal-title"><i class="fas fa-crown" style="color: var(--main-pink);"></i> ভিআইপি কোড রিডিম হিস্ট্রি</div>
-            <div class="list-container">
-                
-                <div class="popup-card">
-                    <div class="popup-card-header">
-                        <span>USER_X99</span>
-                        <span style="color: var(--main-pink);">৳২০১০</span>
-                    </div>
-                    <div class="popup-card-sub">
-                        <span>প্যাকেজ: VIP 3 (Gold)</span>
-                        <span style="margin-left: auto; color: #888; font-size: 11px;">আজ, ০১:২০ PM</span>
-                    </div>
-                </div>
-
-                <div class="popup-card">
-                    <div class="popup-card-header">
-                        <span>USER_B12</span>
-                        <span style="color: var(--main-pink);">৳৯৯৯৯</span>
-                    </div>
-                    <div class="popup-card-sub">
-                        <span>প্যাকেজ: Member 3</span>
-                        <span style="margin-left: auto; color: #888; font-size: 11px;">গতকাল, ০৩:১০ PM</span>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
     <!-- বোনাস কোড পপ-আপ -->
     <div id="bonusCodeModal" class="modal">
-        <div class="modal-content" style="max-width: 450px;">
+        <div class="modal-content">
             <span class="close-btn" onclick="closeModal('bonusCodeModal')">&times;</span>
-            <div class="modal-title"><i class="fas fa-gift" style="color: var(--main-pink);"></i> বোনাস কোড ম্যানেজমেন্ট (৳20 Bonus)</div>
+            <div class="modal-title"><i class="fas fa-ticket-alt" style="color: var(--main-pink);"></i> বোনাস কোড ম্যানেজমেন্ট (৳20 Bonus)</div>
             
             <div style="display: flex; gap: 10px; margin-bottom: 20px;">
                 <div style="display: flex; align-items: center; background-color: #f8f9fa; border: 2px solid #eaeaea; border-radius: 8px; padding: 2px 15px; flex-grow: 1;">
                     <i class="fas fa-ticket-alt" style="color: var(--main-pink); margin-right: 8px;"></i>
-                    <input type="text" id="newBonusCode" class="form-control" style="padding: 8px 0; color: var(--dark-blue);" placeholder="নতুন বোনাস কোড লিখুন (৳20)...">
+                    <input type="text" id="newBonusCode" class="form-control" style="padding: 8px 0; color: var(--dark-blue);" placeholder="নতুন বোনাস কোড লিখুন...">
                 </div>
                 <button class="btn-update-settings" style="background: linear-gradient(135deg, var(--main-pink), var(--light-pink)); color: white; padding: 10px 20px; box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);" onclick="addBonusCode()">
                     <i class="fas fa-plus"></i> অ্যাড
                 </button>
             </div>
 
-            <div style="font-size: 14px; font-weight: bold; color: var(--text-grey); margin-bottom: 10px;">অ্যাক্টিভ বোনাস কোডসমূহ (৳২০ টাকা বোনাস):</div>
+            <div style="font-size: 14px; font-weight: bold; color: var(--text-grey); margin-bottom: 10px;">অ্যাক্টিভ বোনাস কোডসমূহ:</div>
             
             <div class="list-container" id="bonusCodeList">
-                <div class="list-item" style="background: #f8f9fa; padding: 12px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid var(--main-pink); font-size: 14px; color: var(--dark-blue); display: flex; justify-content: space-between; align-items: center; font-weight: bold;">
+                <div class="list-item">
                     <span><i class="fas fa-ticket-alt" style="color: var(--main-pink); margin-right: 8px;"></i> WELCOME20 <b style="color: var(--main-pink); font-size: 11px;">(৳20)</b></span>
-                    <span class="date" style="color: #27ae60; font-weight: bold; font-size: 11px;">Active</span>
+                    <span style="color: #27ae60; font-weight: bold; font-size: 11px;">Active</span>
                 </div>
-                <div class="list-item" style="background: #f8f9fa; padding: 12px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid var(--main-pink); font-size: 14px; color: var(--dark-blue); display: flex; justify-content: space-between; align-items: center; font-weight: bold;">
+                <div class="list-item">
                     <span><i class="fas fa-ticket-alt" style="color: var(--main-pink); margin-right: 8px;"></i> EID20 <b style="color: var(--main-pink); font-size: 11px;">(৳20)</b></span>
-                    <span class="date" style="color: #27ae60; font-weight: bold; font-size: 11px;">Active</span>
+                    <span style="color: #27ae60; font-weight: bold; font-size: 11px;">Active</span>
                 </div>
             </div>
         </div>
@@ -406,7 +362,7 @@
     <main class="main-content">
         <header class="topbar">
             <div class="topbar-title">
-                <i class="fas fa-user-plus"></i> রেফার সেটিং
+                <i class="fas fa-user-plus"></i> রেফার সেটিং ও হিস্ট্রি
             </div>
             <div class="admin-profile"></div>
         </header>
@@ -418,12 +374,6 @@
                 <div class="settings-header-flex">
                     <div class="settings-title"><i class="fas fa-cog"></i> বোনাস ও কমিশন আপডেট করুন</div>
                     <div class="btn-action-group">
-                        <button class="btn-top-action" onclick="openModal('vipCodeHistoryModal')">
-                            <i class="fas fa-crown"></i> VIP কোড হিস্ট্রি
-                        </button>
-                        <button class="btn-top-action" onclick="openModal('referBonusHistoryModal')">
-                            <i class="fas fa-gift"></i> রেফার বোনাস হিস্ট্রি
-                        </button>
                         <button class="btn-top-action" onclick="openModal('bonusCodeModal')">
                             <i class="fas fa-ticket-alt"></i> বোনাস কোড
                         </button>
@@ -451,6 +401,94 @@
                         <i class="fas fa-save"></i> সেটিং আপডেট করুন
                     </button>
                 </div>
+            </div>
+
+            <!-- রেফার বোনাস হিস্ট্রি সেকশন (কার্ড আকারে সরাসরি পেজে) -->
+            <div class="section-header">
+                <i class="fas fa-gift" style="color: var(--main-pink);"></i> রেফার বোনাস হিস্ট্রি (Referral Bonus History)
+            </div>
+
+            <div class="history-grid">
+                
+                <!-- কার্ড ১ -->
+                <div class="history-card">
+                    <div class="card-top-row">
+                        <span><i class="fas fa-user" style="color: var(--main-pink); margin-right: 5px;"></i> T9KZBTUBR1</span>
+                        <span style="color: var(--main-pink);">+৳২০.০০</span>
+                    </div>
+                    <div class="card-info-row">
+                        <span>রেফারকৃত আইডি: USER_A12</span>
+                        <span style="color: #888; font-size: 11px;">আজ, ১০:০০ AM</span>
+                    </div>
+                </div>
+
+                <!-- কার্ড ২ -->
+                <div class="history-card">
+                    <div class="card-top-row">
+                        <span><i class="fas fa-user" style="color: var(--main-pink); margin-right: 5px;"></i> T9KZBTUBR1</span>
+                        <span style="color: var(--main-pink);">+৳২০.০০</span>
+                    </div>
+                    <div class="card-info-row">
+                        <span>রেফারকৃত আইডি: USER_B99</span>
+                        <span style="color: #888; font-size: 11px;">গতকাল, ০৪:৩০ PM</span>
+                    </div>
+                </div>
+
+                <!-- কার্ড ৩ -->
+                <div class="history-card">
+                    <div class="card-top-row">
+                        <span><i class="fas fa-user" style="color: var(--main-pink); margin-right: 5px;"></i> M2LKBTYYY5</span>
+                        <span style="color: var(--main-pink);">+৳২০.০০</span>
+                    </div>
+                    <div class="card-info-row">
+                        <span>রেফারকৃত আইডি: NEW_55X</span>
+                        <span style="color: #888; font-size: 11px;">আজ, ০২:১৫ PM</span>
+                    </div>
+                </div>
+
+                <!-- কার্ড ৪ -->
+                <div class="history-card">
+                    <div class="card-top-row">
+                        <span><i class="fas fa-user" style="color: var(--main-pink); margin-right: 5px;"></i> X7ABCTUBR9</span>
+                        <span style="color: var(--main-pink);">+৳২০.০০</span>
+                    </div>
+                    <div class="card-info-row">
+                        <span>রেফারকৃত আইডি: MEM_001</span>
+                        <span style="color: #888; font-size: 11px;">আজ, ১১:২০ AM</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- VIP কোড হিস্ট্রি সেকশন (কার্ড আকারে সরাসরি পেজে) -->
+            <div class="section-header" style="margin-top: 20px;">
+                <i class="fas fa-crown" style="color: var(--main-pink);"></i> VIP কোড রিডিম হিস্ট্রি (VIP Code History)
+            </div>
+
+            <div class="history-grid">
+                
+                <div class="history-card">
+                    <div class="card-top-row">
+                        <span><i class="fas fa-crown" style="color: var(--main-pink); margin-right: 5px;"></i> USER_X99</span>
+                        <span style="color: var(--main-pink);">৳২০১০</span>
+                    </div>
+                    <div class="card-info-row">
+                        <span>প্যাকেজ: VIP 3 (Gold)</span>
+                        <span style="color: #888; font-size: 11px;">আজ, ০১:২০ PM</span>
+                    </div>
+                </div>
+
+                <div class="history-card">
+                    <div class="card-top-row">
+                        <span><i class="fas fa-crown" style="color: var(--main-pink); margin-right: 5px;"></i> USER_B12</span>
+                        <span style="color: var(--main-pink);">৳৯৯৯৯</span>
+                    </div>
+                    <div class="card-info-row">
+                        <span>প্যাকেজ: Member 3</span>
+                        <span style="color: #888; font-size: 11px;">গতকাল, ০৩:১০ PM</span>
+                    </div>
+                </div>
+
             </div>
 
         </div>
@@ -496,10 +534,9 @@
             const listContainer = document.getElementById("bonusCodeList");
             const newItem = document.createElement("div");
             newItem.className = "list-item";
-            newItem.style.cssText = "background: #f8f9fa; padding: 12px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid var(--main-pink); font-size: 14px; color: var(--dark-blue); display: flex; justify-content: space-between; align-items: center; font-weight: bold;";
             newItem.innerHTML = `
                 <span><i class="fas fa-ticket-alt" style="color: var(--main-pink); margin-right: 8px;"></i> ${codeVal} <b style="color: var(--main-pink); font-size: 11px;">(৳20)</b></span>
-                <span class="date" style="color: #27ae60; font-weight: bold; font-size: 11px;">Active</span>
+                <span style="color: #27ae60; font-weight: bold; font-size: 11px;">Active</span>
             `;
             listContainer.prepend(newItem);
 
