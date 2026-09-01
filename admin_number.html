@@ -96,7 +96,7 @@
             z-index: 10;
         }
 
-        /* টপবার টাইটেল - ফুল পিংক এবং লোগো */
+        /* টপবার টাইটেল */
         .topbar-title { 
             font-size: 20px; 
             font-weight: 900; 
@@ -142,14 +142,14 @@
             display: block;
             font-size: 13px;
             font-weight: 900;
-            color: rgba(255, 255, 255, 0.9); /* লেবেল সাদা */
+            color: rgba(255, 255, 255, 0.9);
             margin-bottom: 8px;
         }
 
-        /* ইনপুট বক্সের স্টাইল (উচ্চতা ফিক্সড করা হয়েছে) */
+        /* ইনপুট বক্সের স্টাইল */
         .add-number-card .modal-input {
             width: 100%;
-            height: 46px; /* উচ্চতা ৪৬px করা হয়েছে */
+            height: 46px; 
             padding: 0 15px;
             border: 2px solid transparent;
             background-color: var(--main-white);
@@ -167,12 +167,12 @@
             box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
         }
 
-        /* ফর্মের যোগ করুন বাটন (সাদা এবং উচ্চতা ইনপুটের সমান করা হয়েছে) */
+        /* ফর্মের যোগ করুন বাটন */
         .btn-add-submit {
             background: var(--main-white);
             color: var(--main-pink);
             border: none;
-            height: 46px; /* ইনপুটের সাথে মিল রেখে উচ্চতা ৪৬px করা হয়েছে */
+            height: 46px; 
             padding: 0 25px;
             border-radius: 6px;
             font-size: 14px;
@@ -200,7 +200,6 @@
             gap: 20px;
         }
 
-        /* বর্ডার টপ মুছে দেওয়া হয়েছে */
         .number-card {
             background: var(--main-white);
             border: 1px solid #eaeaea;
@@ -213,6 +212,12 @@
             transition: 0.3s;
             position: relative;
             overflow: hidden;
+            animation: fadeIn 0.4s ease-out; /* নতুন কার্ড আসার এনিমেশন */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .number-card:hover {
@@ -322,7 +327,7 @@
             background-color: #b0124c;
         }
 
-        /* নাম্বার মুছুন বাটন (পিংক থিম) */
+        /* নাম্বার মুছুন বাটন */
         .btn-delete-num {
             width: 100%;
             background-color: var(--pink-transparent);
@@ -388,7 +393,7 @@
     <!-- মেইন এরিয়া -->
     <main class="main-content">
         <header class="topbar">
-            <!-- টপবার টাইটেল ফুল পিংক এবং লোগো -->
+            <!-- টপবার টাইটেল -->
             <div class="topbar-title">
                 <i class="fas fa-sim-card"></i> নাম্বার ম্যানেজমেন্ট
             </div>
@@ -397,34 +402,34 @@
 
         <div class="dashboard-body">
             
-            <!-- নতুন নাম্বার যোগ করার ফর্ম (Full Pink Box) -->
+            <!-- নতুন নাম্বার যোগ করার ফর্ম -->
             <div class="add-number-card">
                 
                 <div class="add-number-form">
                     <div class="input-group">
                         <label>কাজের ধরন (Platform)</label>
-                        <select class="modal-input">
-                            <option>Gmail</option>
-                            <option>WhatsApp</option>
-                            <option>Telegram</option>
-                            <option>Instagram</option>
+                        <select class="modal-input" id="platformSelect">
+                            <option value="Gmail">Gmail</option>
+                            <option value="WhatsApp">WhatsApp</option>
+                            <option value="Telegram">Telegram</option>
+                            <option value="Instagram">Instagram</option>
                         </select>
                     </div>
                     <div class="input-group">
                         <label>দেশ (Country)</label>
-                        <select class="modal-input">
-                            <option>🇧🇩 Bangladesh (+880)</option>
-                            <option>🇺🇸 USA (+1)</option>
-                            <option>🇮🇳 India (+91)</option>
+                        <select class="modal-input" id="countrySelect">
+                            <option value="🇧🇩 Bangladesh">🇧🇩 Bangladesh (+880)</option>
+                            <option value="🇺🇸 USA">🇺🇸 USA (+1)</option>
+                            <option value="🇮🇳 India">🇮🇳 India (+91)</option>
                         </select>
                     </div>
                     <div class="input-group">
-                        <label>নাম্বার (কোড বাদে)</label>
-                        <input type="text" class="modal-input" placeholder="যেমন: 01700000000">
+                        <label>নাম্বার (কোড বাদে/সহ)</label>
+                        <input type="text" class="modal-input" id="numberInput" placeholder="যেমন: 01700000000">
                     </div>
                     <div class="input-group">
                         <label>দাম (Price)</label>
-                        <input type="number" class="modal-input" placeholder="যেমন: 25">
+                        <input type="number" class="modal-input" id="priceInput" placeholder="যেমন: 25">
                     </div>
                     <button class="btn-add-submit" onclick="addNumber()">
                         <i class="fas fa-save"></i> যোগ করুন
@@ -433,7 +438,7 @@
             </div>
             
             <!-- নাম্বার কার্ড গ্রিড -->
-            <div class="number-grid">
+            <div class="number-grid" id="numberGrid">
                 
                 <!-- WhatsApp Card -->
                 <div class="number-card" id="num-card-1">
@@ -507,6 +512,8 @@
     </main>
 
     <script>
+        let cardCounter = 4; // নতুন আইডি জেনারেট করার জন্য
+
         function showToast(msg) {
             const toast = document.getElementById("toastBox");
             document.getElementById("toastText").innerText = msg;
@@ -514,7 +521,63 @@
             setTimeout(() => { toast.classList.remove("show"); }, 3000);
         }
 
+        // নতুন নাম্বার যোগ করার ডাইনামিক ফাংশন
         function addNumber() {
+            const platform = document.getElementById('platformSelect').value;
+            const country = document.getElementById('countrySelect').value;
+            const numberVal = document.getElementById('numberInput').value.trim();
+            const priceVal = document.getElementById('priceInput').value.trim();
+
+            if(numberVal === "" || priceVal === "") {
+                alert("দয়া করে নাম্বার এবং দাম সঠিকভাবে দিন!");
+                return;
+            }
+
+            let iconClass = "";
+            let platformName = "";
+
+            if(platform === "Gmail") { iconClass = "fab fa-google"; platformName = "Gmail Verification"; }
+            else if(platform === "WhatsApp") { iconClass = "fab fa-whatsapp"; platformName = "WhatsApp Number"; }
+            else if(platform === "Telegram") { iconClass = "fab fa-telegram-plane"; platformName = "Telegram Number"; }
+            else if(platform === "Instagram") { iconClass = "fab fa-instagram"; platformName = "Instagram Account"; }
+
+            // দামকে বাংলা (bn-BD) ফরম্যাটে কনভার্ট করা
+            const formattedPrice = parseFloat(priceVal).toLocaleString('bn-BD', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            
+            const newCardId = 'num-card-' + cardCounter++;
+
+            // নতুন কার্ডের HTML ডিজাইন
+            const cardHtml = `
+                <div class="number-card" id="${newCardId}">
+                    <div class="card-top">
+                        <div class="num-details">
+                            <span class="platform-name">${platformName}</span>
+                            <h3 class="the-number">${numberVal}</h3>
+                        </div>
+                        <div class="platform-icon"><i class="${iconClass}"></i></div>
+                    </div>
+                    <div class="card-mid">
+                        <span class="country-badge">${country}</span>
+                        <span class="price-badge">দাম: ৳${formattedPrice}</span>
+                    </div>
+                    <div class="otp-group">
+                        <input type="text" class="otp-input" placeholder="OTP/কোড লিখুন...">
+                        <button class="btn-send-otp" onclick="sendOtp()"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                    <button class="btn-delete-num" onclick="deleteNumber('${newCardId}')">
+                        <i class="fas fa-trash-alt"></i> নাম্বারটি মুছুন
+                    </button>
+                </div>
+            `;
+
+            // গ্রিডের একদম শুরুতে (উপরে) নতুন কার্ড যোগ করা
+            const grid = document.getElementById('numberGrid');
+            grid.insertAdjacentHTML('afterbegin', cardHtml);
+
+            // ইনপুট বক্স ক্লিয়ার করা
+            document.getElementById('numberInput').value = '';
+            document.getElementById('priceInput').value = '';
+
             showToast("নতুন নাম্বার সফলভাবে যোগ করা হয়েছে!");
         }
 
@@ -522,6 +585,7 @@
             showToast("OTP কোড ইউজারকে পাঠানো হয়েছে!");
         }
 
+        // কার্ড ডিলিট করার ফাংশন
         function deleteNumber(cardId) {
             if(confirm("আপনি কি নিশ্চিত যে এই নাম্বারটি মুছে ফেলতে চান?")) {
                 const card = document.getElementById(cardId);
@@ -529,7 +593,7 @@
                     card.style.opacity = '0';
                     card.style.transform = 'scale(0.9)';
                     setTimeout(() => { 
-                        card.style.display = 'none'; 
+                        card.remove(); // পুরোপুরি রিমুভ করে দেওয়া
                         showToast("নাম্বারটি সফলভাবে মুছে ফেলা হয়েছে!");
                     }, 300);
                 }
