@@ -121,7 +121,7 @@
         /* Logs Section Grid */
         .logs-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 20px;
             padding-bottom: 30px;
         }
@@ -157,17 +157,17 @@
         }
         .log-details i { margin-right: 5px; }
 
-        /* ডাইরেক্ট ভিডিও প্লেয়ার স্টাইল (লম্বালম্বি / Portrait ফ্রেম) */
+        /* ডাইরেক্ট ভিডিও প্লেয়ার স্টাইল (সাইজ বেশ ছোট করা হয়েছে) */
         .video-container {
-            width: 100%;
-            border-radius: 8px;
-            overflow: hidden;
+            width: 160px; /* ভিডিও ফ্রেম ছোট করা হয়েছে */
+            margin: 0 auto; /* কার্ডের মাঝে বসানোর জন্য */
             margin-top: auto;
+            border-radius: 12px;
+            overflow: hidden;
             background: #000;
             position: relative;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            display: flex;
-            justify-content: center;
+            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.15); /* হালকা গোলাপি শ্যাডো */
+            border: 2px solid var(--pink-transparent);
         }
         
         .video-container video {
@@ -175,7 +175,6 @@
             aspect-ratio: 3 / 4; /* ভিডিওটি লম্বালম্বি দেখানোর জন্য */
             object-fit: cover; /* ফ্রেমটি সুন্দরভাবে পূর্ণ করার জন্য */
             display: block;
-            border-radius: 8px;
         }
 
         /* ভিডিও কন্ট্রোল থেকে ভলিউম এবং থ্রি-ডট (মেনু) রিমুভ করার সিএসএস */
@@ -243,11 +242,10 @@
                         <div style="color: var(--main-pink);"><i class="fas fa-user-check"></i> <b>আসল মানুষ:</b> 98% ম্যাচ</div>
                         <div style="color: var(--main-pink); margin-top: 5px;"><i class="fas fa-id-badge"></i> <b>ইউনিক ফেস:</b> কোনো ডুপ্লিকেট পাওয়া যায়নি</div>
                     </div>
-                    <!-- ডাইরেক্ট ভিডিও প্লেয়ার (লম্বালম্বি থাম্বনেইল সহ) -->
+                    <!-- ডাইরেক্ট ছোট ভিডিও প্লেয়ার -->
                     <div class="video-container">
-                        <video controls controlslist="nodownload" disablepictureinpicture poster="https://via.placeholder.com/300x400/000000/FFFFFF?text=Face+Verification+Video">
+                        <video controls controlslist="nodownload" disablepictureinpicture poster="https://via.placeholder.com/160x213/000000/FFFFFF?text=Face+Video">
                             <source src="#" type="video/mp4">
-                            আপনার ব্রাউজার ভিডিও সাপোর্ট করে না।
                         </video>
                     </div>
                 </div>
@@ -268,11 +266,10 @@
                         <div style="color: var(--main-pink);"><i class="fas fa-ban"></i> <b>ফেক ফেস:</b> মানুষ নয় (ছবি বা স্ক্রিন স্ক্যান)</div>
                         <div style="color: var(--main-pink); margin-top: 5px;"><i class="fas fa-robot"></i> <b>AI ডিসিশন:</b> অ্যাকাউন্ট রিজেক্টেড</div>
                     </div>
-                    <!-- ডাইরেক্ট ভিডিও প্লেয়ার -->
+                    <!-- ডাইরেক্ট ছোট ভিডিও প্লেয়ার -->
                     <div class="video-container">
-                        <video controls controlslist="nodownload" disablepictureinpicture poster="https://via.placeholder.com/300x400/000000/FFFFFF?text=Fake+Face+Detected">
+                        <video controls controlslist="nodownload" disablepictureinpicture poster="https://via.placeholder.com/160x213/000000/FFFFFF?text=Fake+Face">
                             <source src="#" type="video/mp4">
-                            আপনার ব্রাউজার ভিডিও সাপোর্ট করে না।
                         </video>
                     </div>
                 </div>
@@ -291,13 +288,12 @@
                     </div>
                     <div class="log-details">
                         <div style="color: var(--main-pink);"><i class="fas fa-user-check"></i> <b>আসল মানুষ:</b> 95% ম্যাচ</div>
-                        <div style="color: var(--main-pink); margin-top: 5px;"><i class="fas fa-copy"></i> <b>ডুপ্লিকেট ফেস:</b> এই চেহারায় অ্যাকাউন্ট (ID: T9KZBTUBR1) অলরেডি আছে</div>
+                        <div style="color: var(--main-pink); margin-top: 5px;"><i class="fas fa-copy"></i> <b>ডুপ্লিকেট ফেস:</b> আইডি (T9KZBTUBR1) এ আছে</div>
                     </div>
-                    <!-- ডাইরেক্ট ভিডিও প্লেয়ার -->
+                    <!-- ডাইরেক্ট ছোট ভিডিও প্লেয়ার -->
                     <div class="video-container">
-                        <video controls controlslist="nodownload" disablepictureinpicture poster="https://via.placeholder.com/300x400/000000/FFFFFF?text=Duplicate+Face+Video">
+                        <video controls controlslist="nodownload" disablepictureinpicture poster="https://via.placeholder.com/160x213/000000/FFFFFF?text=Duplicate">
                             <source src="#" type="video/mp4">
-                            আপনার ব্রাউজার ভিডিও সাপোর্ট করে না।
                         </video>
                     </div>
                 </div>
