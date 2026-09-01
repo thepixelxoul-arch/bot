@@ -121,7 +121,7 @@
         /* Logs Section Grid */
         .logs-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 20px;
             padding-bottom: 30px;
         }
@@ -138,25 +138,26 @@
 
         .user-info { display: flex; align-items: center; gap: 10px; }
         .user-avatar {
-            width: 40px; height: 40px; border-radius: 50%; background: var(--bg-light); border: 2px solid #eaeaea;
-            color: var(--dark-blue); display: flex; align-items: center; justify-content: center; font-size: 18px; overflow: hidden;
+            width: 40px; height: 40px; border-radius: 50%; background: var(--pink-transparent); border: 1.5px solid var(--main-pink);
+            color: var(--main-pink); display: flex; align-items: center; justify-content: center; font-size: 18px; overflow: hidden;
         }
         
         .user-info h4 { margin: 0; font-size: 15px; color: var(--dark-blue); font-weight: 900;}
         .user-info p { margin: 2px 0 0 0; font-size: 11px; color: #888; font-weight: bold;}
 
-        /* Status Badges */
+        /* Status Badges - সব পিংক থিম করা হয়েছে */
         .status-badge { padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: 900; display: inline-flex; align-items: center; gap: 5px;}
-        .status-verified { background-color: rgba(39, 174, 96, 0.1); color: var(--success-green); }
-        .status-fake { background-color: rgba(231, 76, 60, 0.1); color: var(--danger-red); }
-        .status-duplicate { background-color: rgba(230, 126, 34, 0.1); color: #d35400; }
+        .status-verified { background-color: var(--main-pink); color: white; }
+        .status-fake { background-color: var(--pink-transparent); color: var(--main-pink); border: 1.5px dashed var(--main-pink); }
+        .status-duplicate { background-color: var(--main-white); color: var(--main-pink); border: 1.5px solid var(--main-pink); }
 
         .log-details {
-            background: #f8f9fa; padding: 12px; border-radius: 8px; font-size: 13px; color: #444; font-weight: bold; line-height: 1.5; margin-bottom: 15px;
+            background: var(--pink-transparent); padding: 12px; border-radius: 8px; font-size: 13px; font-weight: bold; line-height: 1.5; margin-bottom: 15px;
+            border: 1px dashed var(--main-pink);
         }
         .log-details i { margin-right: 5px; }
 
-        /* ডাইরেক্ট ভিডিও প্লেয়ার স্টাইল */
+        /* ডাইরেক্ট ভিডিও প্লেয়ার স্টাইল (লম্বালম্বি / Portrait ফ্রেম) */
         .video-container {
             width: 100%;
             border-radius: 8px;
@@ -165,12 +166,23 @@
             background: #000;
             position: relative;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
         }
         
         .video-container video {
             width: 100%;
+            aspect-ratio: 3 / 4; /* ভিডিওটি লম্বালম্বি দেখানোর জন্য */
+            object-fit: cover; /* ফ্রেমটি সুন্দরভাবে পূর্ণ করার জন্য */
             display: block;
             border-radius: 8px;
+        }
+
+        /* ভিডিও কন্ট্রোল থেকে ভলিউম এবং থ্রি-ডট (মেনু) রিমুভ করার সিএসএস */
+        video::-webkit-media-controls-mute-button,
+        video::-webkit-media-controls-volume-slider,
+        video::-webkit-media-controls-overflow-button {
+            display: none !important;
         }
 
     </style>
@@ -228,12 +240,12 @@
                         <span class="status-badge status-verified"><i class="fas fa-check-circle"></i> Verified</span>
                     </div>
                     <div class="log-details">
-                        <div style="color: var(--success-green);"><i class="fas fa-user-check"></i> <b>আসল মানুষ:</b> 98% ম্যাচ</div>
-                        <div style="color: var(--success-green); margin-top: 5px;"><i class="fas fa-id-badge"></i> <b>ইউনিক ফেস:</b> কোনো ডুপ্লিকেট পাওয়া যায়নি</div>
+                        <div style="color: var(--main-pink);"><i class="fas fa-user-check"></i> <b>আসল মানুষ:</b> 98% ম্যাচ</div>
+                        <div style="color: var(--main-pink); margin-top: 5px;"><i class="fas fa-id-badge"></i> <b>ইউনিক ফেস:</b> কোনো ডুপ্লিকেট পাওয়া যায়নি</div>
                     </div>
-                    <!-- ডাইরেক্ট ভিডিও প্লেয়ার -->
+                    <!-- ডাইরেক্ট ভিডিও প্লেয়ার (লম্বালম্বি থাম্বনেইল সহ) -->
                     <div class="video-container">
-                        <video controls poster="https://via.placeholder.com/400x200/000000/FFFFFF?text=Face+Verification+Video">
+                        <video controls controlslist="nodownload" disablepictureinpicture poster="https://via.placeholder.com/300x400/000000/FFFFFF?text=Face+Verification+Video">
                             <source src="#" type="video/mp4">
                             আপনার ব্রাউজার ভিডিও সাপোর্ট করে না।
                         </video>
@@ -241,7 +253,7 @@
                 </div>
 
                 <!-- কার্ড ২: ফেক ছবি (মানুষ না) -->
-                <div class="log-card" style="border-left: 4px solid var(--danger-red);">
+                <div class="log-card">
                     <div class="log-header">
                         <div class="user-info">
                             <div class="user-avatar"><i class="fas fa-user-secret"></i></div>
@@ -253,12 +265,12 @@
                         <span class="status-badge status-fake"><i class="fas fa-times-circle"></i> Rejected</span>
                     </div>
                     <div class="log-details">
-                        <div style="color: var(--danger-red);"><i class="fas fa-ban"></i> <b>ফেক ফেস:</b> মানুষ নয় (ছবি বা স্ক্রিন স্ক্যান)</div>
-                        <div style="margin-top: 5px;"><i class="fas fa-robot"></i> <b>AI ডিসিশন:</b> অ্যাকাউন্ট রিজেক্টেড</div>
+                        <div style="color: var(--main-pink);"><i class="fas fa-ban"></i> <b>ফেক ফেস:</b> মানুষ নয় (ছবি বা স্ক্রিন স্ক্যান)</div>
+                        <div style="color: var(--main-pink); margin-top: 5px;"><i class="fas fa-robot"></i> <b>AI ডিসিশন:</b> অ্যাকাউন্ট রিজেক্টেড</div>
                     </div>
                     <!-- ডাইরেক্ট ভিডিও প্লেয়ার -->
                     <div class="video-container">
-                        <video controls poster="https://via.placeholder.com/400x200/000000/FFFFFF?text=Fake+Face+Detected">
+                        <video controls controlslist="nodownload" disablepictureinpicture poster="https://via.placeholder.com/300x400/000000/FFFFFF?text=Fake+Face+Detected">
                             <source src="#" type="video/mp4">
                             আপনার ব্রাউজার ভিডিও সাপোর্ট করে না।
                         </video>
@@ -266,7 +278,7 @@
                 </div>
 
                 <!-- কার্ড ৩: ডুপ্লিকেট ফেস -->
-                <div class="log-card" style="border-left: 4px solid #e67e22;">
+                <div class="log-card">
                     <div class="log-header">
                         <div class="user-info">
                             <div class="user-avatar"><i class="fas fa-user-friends"></i></div>
@@ -278,12 +290,12 @@
                         <span class="status-badge status-duplicate"><i class="fas fa-exclamation-triangle"></i> Duplicate</span>
                     </div>
                     <div class="log-details">
-                        <div style="color: var(--success-green);"><i class="fas fa-user-check"></i> <b>আসল মানুষ:</b> 95% ম্যাচ</div>
-                        <div style="color: #d35400; margin-top: 5px;"><i class="fas fa-copy"></i> <b>ডুপ্লিকেট ফেস:</b> এই চেহারায় অ্যাকাউন্ট (ID: T9KZBTUBR1) অলরেডি আছে</div>
+                        <div style="color: var(--main-pink);"><i class="fas fa-user-check"></i> <b>আসল মানুষ:</b> 95% ম্যাচ</div>
+                        <div style="color: var(--main-pink); margin-top: 5px;"><i class="fas fa-copy"></i> <b>ডুপ্লিকেট ফেস:</b> এই চেহারায় অ্যাকাউন্ট (ID: T9KZBTUBR1) অলরেডি আছে</div>
                     </div>
                     <!-- ডাইরেক্ট ভিডিও প্লেয়ার -->
                     <div class="video-container">
-                        <video controls poster="https://via.placeholder.com/400x200/000000/FFFFFF?text=Duplicate+Face+Video">
+                        <video controls controlslist="nodownload" disablepictureinpicture poster="https://via.placeholder.com/300x400/000000/FFFFFF?text=Duplicate+Face+Video">
                             <source src="#" type="video/mp4">
                             আপনার ব্রাউজার ভিডিও সাপোর্ট করে না।
                         </video>
