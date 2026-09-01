@@ -109,8 +109,6 @@
         }
         .topbar-title i { color: var(--main-pink); }
 
-        .admin-profile { display: flex; align-items: center; gap: 15px; }
-
         /* ড্যাশবোর্ড বডি */
         .dashboard-body {
             padding: 30px;
@@ -152,72 +150,91 @@
         .status-duplicate { background-color: var(--main-white); color: var(--main-pink); border: 1.5px solid var(--main-pink); }
 
         .log-details {
-            background: var(--pink-transparent); padding: 12px; border-radius: 8px; font-size: 13px; font-weight: bold; line-height: 1.5; margin-bottom: 15px;
+            background: var(--pink-transparent); padding: 12px; border-radius: 8px; font-size: 13px; font-weight: bold; line-height: 1.5; margin-bottom: 25px;
             border: 1px dashed var(--main-pink);
         }
         .log-details i { margin-right: 5px; }
 
-        /* ডাইরেক্ট ভিডিও প্লেয়ার স্টাইল (একটু বড়, পুরোপুরি গোলাকার, বর্ডার ছাড়া) */
-        .video-container {
-            width: 200px; /* ফ্রেম একটু বড় করা হয়েছে */
-            height: 200px; /* পুরোপুরি গোল রাখতে হাইট ও উইডথ সমান */
+        /* ভিডিও থাম্বনেইল স্টাইল (প্লে বাটনসহ গোলাকার ফ্রেম) */
+        .video-thumbnail {
+            width: 150px; 
+            height: 150px; 
             margin: 0 auto; 
             margin-top: auto;
-            border-radius: 50%; /* পুরোপুরি গোল করার জন্য */
-            overflow: hidden;
+            border-radius: 50%; 
             background: #000;
             position: relative;
-            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.15); 
+            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.2); 
+            border: 3px solid var(--main-pink); 
             display: flex;
             align-items: center;
             justify-content: center;
-            /* border রিমুভ করা হয়েছে */
+            cursor: pointer;
+            transition: 0.3s;
         }
         
-        .video-container video {
+        .video-thumbnail:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(226, 0, 90, 0.3);
+            border-color: #c0004b;
+        }
+
+        .video-thumbnail i {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 45px;
+            margin-left: 8px; /* প্লে বাটনটি ভিজ্যুয়ালি সেন্টারে রাখার জন্য */
+            transition: 0.3s;
+        }
+
+        .video-thumbnail:hover i {
+            color: #fff;
+        }
+
+        /* পপ-আপ (Modal) কমন ডিজাইন */
+        .modal {
+            display: none; position: fixed; z-index: 1000; left: 0; top: 0;
+            width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); /* ভিডিওর জন্য ব্যাকগ্রাউন্ড একটু ডার্ক */
+            align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease;
+        }
+        .modal.show { display: flex; opacity: 1; }
+        
+        /* ভিডিওর জন্য স্পেশাল পপ-আপ কন্টেন্ট */
+        .video-modal-content {
+            position: relative;
+            width: 90%; 
+            max-width: 400px; /* মোবাইলের পোর্ট্রেইট ভিডিওর জন্য পারফেক্ট সাইজ */
+            transform: translateY(20px); transition: transform 0.3s ease;
+        }
+        .modal.show .video-modal-content { transform: translateY(0); }
+
+        .video-modal-content video {
             width: 100%;
-            height: 100%;
-            object-fit: cover; 
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
             display: block;
-            border-radius: 50%;
         }
 
-        /* প্লে বাটন মাঝখানে আনার এবং বাকি সবকিছু হাইড করার কোড */
-        video::-webkit-media-controls-enclosure {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .close-video-btn { 
+            position: absolute; top: -40px; right: 0; font-size: 30px; 
+            cursor: pointer; color: #fff; transition: 0.2s; 
         }
-
-        video::-webkit-media-controls-panel {
-            display: flex !important;
-            justify-content: center !important;
-            align-items: center !important;
-            width: 100%;
-            height: 100%;
-            background: transparent !important;
-        }
-
-        video::-webkit-media-controls-play-button {
-            margin: auto !important; /* একদম সেন্টারে বসানোর জন্য */
-            transform: scale(2) !important; /* প্লে বাটনটি বড় করা হয়েছে */
-        }
-
-        video::-webkit-media-controls-mute-button,
-        video::-webkit-media-controls-volume-slider,
-        video::-webkit-media-controls-timeline,
-        video::-webkit-media-controls-current-time-display,
-        video::-webkit-media-controls-time-remaining-display,
-        video::-webkit-media-controls-fullscreen-button,
-        video::-webkit-media-controls-overflow-button {
-            display: none !important; /* বাকি সব কন্ট্রোল হাইড করা হয়েছে */
-        }
+        .close-video-btn:hover { color: var(--main-pink); }
 
     </style>
 </head>
 <body>
+
+    <!-- ভিডিও প্লেয়ার পপ-আপ (Modal) -->
+    <div id="videoModal" class="modal">
+        <div class="video-modal-content">
+            <span class="close-video-btn" onclick="closeVideoModal()">&times;</span>
+            <!-- এই ভিডিও প্লেয়ারে সব অপশন (থ্রি ডট, সাউন্ড, ডাউনলোড) থাকবে -->
+            <video id="popupVideoPlayer" controls>
+                <source src="" type="video/mp4">
+                আপনার ব্রাউজার ভিডিও সাপোর্ট করে না।
+            </video>
+        </div>
+    </div>
 
     <!-- সাইডবার -->
     <aside class="sidebar">
@@ -273,11 +290,9 @@
                         <div style="color: var(--main-pink);"><i class="fas fa-user-check"></i> <b>আসল মানুষ:</b> 98% ম্যাচ</div>
                         <div style="color: var(--main-pink); margin-top: 5px;"><i class="fas fa-id-badge"></i> <b>ইউনিক ফেস:</b> কোনো ডুপ্লিকেট পাওয়া যায়নি</div>
                     </div>
-                    <!-- ডাইরেক্ট ভিডিও প্লেয়ার (মাঝখানে প্লে বাটন, একটু বড় সার্কেল) -->
-                    <div class="video-container">
-                        <video controls controlslist="nodownload nofullscreen noremoteplayback" disablepictureinpicture poster="https://via.placeholder.com/200x200/000000/FFFFFF?text=Face">
-                            <source src="#" type="video/mp4">
-                        </video>
+                    <!-- গোল ফ্রেমের থাম্বনেইল, ক্লিক করলে পপ-আপে ভিডিও ওপেন হবে -->
+                    <div class="video-thumbnail" onclick="openVideoModal('dummy_video_url_1.mp4')">
+                        <i class="fas fa-play"></i>
                     </div>
                 </div>
 
@@ -297,11 +312,9 @@
                         <div style="color: var(--main-pink);"><i class="fas fa-ban"></i> <b>ফেক ফেস:</b> মানুষ নয় (ছবি বা স্ক্রিন স্ক্যান)</div>
                         <div style="color: var(--main-pink); margin-top: 5px;"><i class="fas fa-robot"></i> <b>AI ডিসিশন:</b> অ্যাকাউন্ট রিজেক্টেড</div>
                     </div>
-                    <!-- ডাইরেক্ট ভিডিও প্লেয়ার -->
-                    <div class="video-container">
-                        <video controls controlslist="nodownload nofullscreen noremoteplayback" disablepictureinpicture poster="https://via.placeholder.com/200x200/000000/FFFFFF?text=Fake">
-                            <source src="#" type="video/mp4">
-                        </video>
+                    <!-- গোল ফ্রেমের থাম্বনেইল, ক্লিক করলে পপ-আপে ভিডিও ওপেন হবে -->
+                    <div class="video-thumbnail" onclick="openVideoModal('dummy_video_url_2.mp4')">
+                        <i class="fas fa-play"></i>
                     </div>
                 </div>
 
@@ -321,11 +334,9 @@
                         <div style="color: var(--main-pink);"><i class="fas fa-user-check"></i> <b>আসল মানুষ:</b> 95% ম্যাচ</div>
                         <div style="color: var(--main-pink); margin-top: 5px;"><i class="fas fa-copy"></i> <b>ডুপ্লিকেট ফেস:</b> আইডি (T9KZBTUBR1) এ আছে</div>
                     </div>
-                    <!-- ডাইরেক্ট ভিডিও প্লেয়ার -->
-                    <div class="video-container">
-                        <video controls controlslist="nodownload nofullscreen noremoteplayback" disablepictureinpicture poster="https://via.placeholder.com/200x200/000000/FFFFFF?text=Duplicate">
-                            <source src="#" type="video/mp4">
-                        </video>
+                    <!-- গোল ফ্রেমের থাম্বনেইল, ক্লিক করলে পপ-আপে ভিডিও ওপেন হবে -->
+                    <div class="video-thumbnail" onclick="openVideoModal('dummy_video_url_3.mp4')">
+                        <i class="fas fa-play"></i>
                     </div>
                 </div>
 
@@ -334,5 +345,35 @@
         </div>
     </main>
 
+    <script>
+        // ভিডিও পপ-আপ ওপেন করার ফাংশন
+        function openVideoModal(videoSrc) {
+            const modal = document.getElementById('videoModal');
+            const videoPlayer = document.getElementById('popupVideoPlayer');
+            
+            // ভিডিও সোর্স সেট করা (বাস্তব প্রোজেক্টে আসল লিংক বসবে)
+            // videoPlayer.src = videoSrc; 
+            
+            modal.classList.add('show');
+            // videoPlayer.play(); // অটো প্লে করতে চাইলে এই লাইনটি আনকমেন্ট করবেন
+        }
+
+        // ভিডিও পপ-আপ ক্লোজ করার ফাংশন
+        function closeVideoModal() {
+            const modal = document.getElementById('videoModal');
+            const videoPlayer = document.getElementById('popupVideoPlayer');
+            
+            modal.classList.remove('show');
+            videoPlayer.pause(); // পপ-আপ বন্ধ হলে ভিডিও পজ হয়ে যাবে
+        }
+
+        // পপ-আপের বাইরের কালো অংশে ক্লিক করলেও যেন পপ-আপ বন্ধ হয়ে যায়
+        window.onclick = function(event) {
+            const modal = document.getElementById('videoModal');
+            if (event.target === modal) {
+                closeVideoModal();
+            }
+        }
+    </script>
 </body>
 </html>
