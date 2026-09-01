@@ -388,8 +388,8 @@
                 return;
             }
 
-            // রেট আপডেট করা (অটোমেটিক ৳ এবং দশমিক যুক্ত করা)
-            document.getElementById(currentTargetRateId).innerText = `৳ ${newRate.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            // রেট আপডেট করা (bn-BD ব্যবহার করে ইংরেজি নাম্বারকে সরাসরি বাংলায় রূপান্তর করা হলো)
+            document.getElementById(currentTargetRateId).innerText = `৳ ${newRate.toLocaleString('bn-BD', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
             
             closeModal('rateModal');
             showToast("কাজের রেট সফলভাবে আপডেট করা হয়েছে!");
