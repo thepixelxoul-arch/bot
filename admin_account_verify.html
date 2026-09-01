@@ -98,7 +98,7 @@
             z-index: 10;
         }
 
-        /* টপবার টাইটেল - ফুল পিংক এবং লোগো */
+        /* টপবার টাইটেল */
         .topbar-title { 
             font-size: 20px; 
             font-weight: 900; 
@@ -121,7 +121,7 @@
         /* Logs Section Grid */
         .logs-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 20px;
             padding-bottom: 30px;
         }
@@ -145,7 +145,7 @@
         .user-info h4 { margin: 0; font-size: 15px; color: var(--dark-blue); font-weight: 900;}
         .user-info p { margin: 2px 0 0 0; font-size: 11px; color: #888; font-weight: bold;}
 
-        /* Status Badges - সব পিংক থিম করা হয়েছে */
+        /* Status Badges */
         .status-badge { padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: 900; display: inline-flex; align-items: center; gap: 5px;}
         .status-verified { background-color: var(--main-pink); color: white; }
         .status-fake { background-color: var(--pink-transparent); color: var(--main-pink); border: 1.5px dashed var(--main-pink); }
@@ -157,31 +157,49 @@
         }
         .log-details i { margin-right: 5px; }
 
-        /* ডাইরেক্ট ভিডিও প্লেয়ার স্টাইল (সাইজ বেশ ছোট করা হয়েছে) */
+        /* ডাইরেক্ট ভিডিও প্লেয়ার স্টাইল (পুরোপুরি গোলাকার / Circle ফ্রেম) */
         .video-container {
-            width: 160px; /* ভিডিও ফ্রেম ছোট করা হয়েছে */
-            margin: 0 auto; /* কার্ডের মাঝে বসানোর জন্য */
+            width: 150px; /* প্রস্থ */
+            height: 150px; /* উচ্চতা সমান দিয়ে পুরোপুরি গোলাকার করা হয়েছে */
+            margin: 0 auto; 
             margin-top: auto;
-            border-radius: 12px;
+            border-radius: 50%; /* পুরোপুরি গোল করার জন্য */
             overflow: hidden;
             background: #000;
             position: relative;
-            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.15); /* হালকা গোলাপি শ্যাডো */
-            border: 2px solid var(--pink-transparent);
+            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.2); 
+            border: 3px solid var(--main-pink); /* চারদিকে সুন্দর গোলাপি বর্ডার */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .video-container video {
             width: 100%;
-            aspect-ratio: 3 / 4; /* ভিডিওটি লম্বালম্বি দেখানোর জন্য */
-            object-fit: cover; /* ফ্রেমটি সুন্দরভাবে পূর্ণ করার জন্য */
+            height: 100%;
+            object-fit: cover; /* ভিডিও ফ্রেম অনুযায়ী পারফেক্টলি ফিট করার জন্য */
             display: block;
+            border-radius: 50%;
         }
 
         /* ভিডিও কন্ট্রোল থেকে ভলিউম এবং থ্রি-ডট (মেনু) রিমুভ করার সিএসএস */
         video::-webkit-media-controls-mute-button,
         video::-webkit-media-controls-volume-slider,
-        video::-webkit-media-controls-overflow-button {
+        video::-webkit-media-controls-overflow-button,
+        video::-webkit-media-controls-timeline,
+        video::-webkit-media-controls-current-time-display,
+        video::-webkit-media-controls-time-remaining-display {
             display: none !important;
+        }
+
+        /* শুধুমাত্র প্লে বাটন সেন্টারে দেখানোর জন্য */
+        video::-webkit-media-controls-panel {
+            display: flex !important;
+            justify-content: center;
+            align-items: center;
+        }
+        video::-webkit-media-controls-play-button {
+            transform: scale(1.5); /* প্লে বাটনটি একটু বড় করা হয়েছে */
         }
 
     </style>
@@ -242,9 +260,9 @@
                         <div style="color: var(--main-pink);"><i class="fas fa-user-check"></i> <b>আসল মানুষ:</b> 98% ম্যাচ</div>
                         <div style="color: var(--main-pink); margin-top: 5px;"><i class="fas fa-id-badge"></i> <b>ইউনিক ফেস:</b> কোনো ডুপ্লিকেট পাওয়া যায়নি</div>
                     </div>
-                    <!-- ডাইরেক্ট ছোট ভিডিও প্লেয়ার -->
+                    <!-- ডাইরেক্ট গোলাকার ভিডিও প্লেয়ার -->
                     <div class="video-container">
-                        <video controls controlslist="nodownload" disablepictureinpicture poster="https://via.placeholder.com/160x213/000000/FFFFFF?text=Face+Video">
+                        <video controls controlslist="nodownload" disablepictureinpicture poster="https://via.placeholder.com/150x150/000000/FFFFFF?text=Face">
                             <source src="#" type="video/mp4">
                         </video>
                     </div>
@@ -266,9 +284,9 @@
                         <div style="color: var(--main-pink);"><i class="fas fa-ban"></i> <b>ফেক ফেস:</b> মানুষ নয় (ছবি বা স্ক্রিন স্ক্যান)</div>
                         <div style="color: var(--main-pink); margin-top: 5px;"><i class="fas fa-robot"></i> <b>AI ডিসিশন:</b> অ্যাকাউন্ট রিজেক্টেড</div>
                     </div>
-                    <!-- ডাইরেক্ট ছোট ভিডিও প্লেয়ার -->
+                    <!-- ডাইরেক্ট গোলাকার ভিডিও প্লেয়ার -->
                     <div class="video-container">
-                        <video controls controlslist="nodownload" disablepictureinpicture poster="https://via.placeholder.com/160x213/000000/FFFFFF?text=Fake+Face">
+                        <video controls controlslist="nodownload" disablepictureinpicture poster="https://via.placeholder.com/150x150/000000/FFFFFF?text=Fake">
                             <source src="#" type="video/mp4">
                         </video>
                     </div>
@@ -290,9 +308,9 @@
                         <div style="color: var(--main-pink);"><i class="fas fa-user-check"></i> <b>আসল মানুষ:</b> 95% ম্যাচ</div>
                         <div style="color: var(--main-pink); margin-top: 5px;"><i class="fas fa-copy"></i> <b>ডুপ্লিকেট ফেস:</b> আইডি (T9KZBTUBR1) এ আছে</div>
                     </div>
-                    <!-- ডাইরেক্ট ছোট ভিডিও প্লেয়ার -->
+                    <!-- ডাইরেক্ট গোলাকার ভিডিও প্লেয়ার -->
                     <div class="video-container">
-                        <video controls controlslist="nodownload" disablepictureinpicture poster="https://via.placeholder.com/160x213/000000/FFFFFF?text=Duplicate">
+                        <video controls controlslist="nodownload" disablepictureinpicture poster="https://via.placeholder.com/150x150/000000/FFFFFF?text=Duplicate">
                             <source src="#" type="video/mp4">
                         </video>
                     </div>
