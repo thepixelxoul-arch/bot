@@ -94,17 +94,18 @@
             z-index: 10;
         }
 
-        .topbar-title { font-size: 18px; font-weight: bold; color: var(--dark-blue); }
+        /* টপবার টাইটেল - ফুল পিংক এবং লোগো */
+        .topbar-title { 
+            font-size: 20px; 
+            font-weight: 900; 
+            color: var(--main-pink); 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+        }
+        .topbar-title i { color: var(--main-pink); }
 
         .admin-profile { display: flex; align-items: center; gap: 15px; }
-        
-        .logout-btn {
-            background-color: rgba(226, 0, 90, 0.1); color: var(--main-pink);
-            border: none; padding: 8px 18px; border-radius: 8px;
-            cursor: pointer; font-weight: bold; transition: 0.2s;
-            display: flex; align-items: center; gap: 8px;
-        }
-        .logout-btn:hover { background-color: var(--main-pink); color: white; }
 
         /* ড্যাশবোর্ড বডি */
         .dashboard-body {
@@ -375,10 +376,11 @@
     <!-- মেইন এরিয়া -->
     <main class="main-content">
         <header class="topbar">
-            <div class="topbar-title">রেফার ম্যানেজমেন্ট</div>
-            <div class="admin-profile">
-                <button class="logout-btn" id="adminLogout"><i class="fas fa-sign-out-alt"></i> লগআউট</button>
+            <!-- টপবার টাইটেল ফুল পিংক এবং লোগো -->
+            <div class="topbar-title">
+                <i class="fas fa-user-plus"></i> রেফার সেটিং
             </div>
+            <div class="admin-profile"></div>
         </header>
 
         <div class="dashboard-body">
@@ -601,10 +603,6 @@
             showToast(`সাফল্য! ৳২০ টাকার '${codeVal}' বোনাস কোডটি যুক্ত করা হয়েছে।`);
             codeInput.value = "";
         }
-
-        document.getElementById("adminLogout").addEventListener("click", () => {
-            window.location.href = "login.html"; 
-        });
     </script>
 </body>
 </html>
