@@ -116,21 +116,6 @@
             flex-grow: 1;
         }
 
-        /* কার্ডের কমন টাইটেল (নিচেরটার জন্য) */
-        .card-header-title {
-            font-size: 18px;
-            font-weight: 900;
-            color: var(--dark-blue);
-            margin: 0 0 20px 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .card-header-title i {
-            color: var(--main-pink);
-        }
-
         /* --- নতুন নাম্বার যোগ করার ফর্ম (Full Pink Box) --- */
         .add-number-card {
             background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
@@ -138,16 +123,6 @@
             padding: 25px;
             box-shadow: 0 4px 15px rgba(226, 0, 90, 0.2);
             margin-bottom: 30px;
-            color: white;
-        }
-
-        .add-number-card .card-header-title {
-            color: white;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            padding-bottom: 15px;
-        }
-
-        .add-number-card .card-header-title i {
             color: white;
         }
 
@@ -225,6 +200,7 @@
             gap: 20px;
         }
 
+        /* বর্ডার টপ মুছে দেওয়া হয়েছে */
         .number-card {
             background: var(--main-white);
             border: 1px solid #eaeaea;
@@ -237,7 +213,6 @@
             transition: 0.3s;
             position: relative;
             overflow: hidden;
-            border-top: 4px solid var(--main-pink);
         }
 
         .number-card:hover {
@@ -417,7 +392,6 @@
             <div class="topbar-title">
                 <i class="fas fa-sim-card"></i> নাম্বার ম্যানেজমেন্ট
             </div>
-            <!-- লগআউট বাটন রিমুভ করা হয়েছে -->
             <div class="admin-profile"></div>
         </header>
 
@@ -425,7 +399,6 @@
             
             <!-- নতুন নাম্বার যোগ করার ফর্ম (Full Pink Box) -->
             <div class="add-number-card">
-                <h3 class="card-header-title"><i class="fas fa-plus-circle"></i> নতুন নাম্বার বিক্রি/কাজের জন্য যোগ করুন</h3>
                 
                 <div class="add-number-form">
                     <div class="input-group">
@@ -458,8 +431,6 @@
                     </button>
                 </div>
             </div>
-
-            <h3 class="card-header-title" style="margin-bottom: 20px;"><i class="fas fa-sim-card"></i> যোগ করা নাম্বারসমূহ (Available Numbers)</h3>
             
             <!-- নাম্বার কার্ড গ্রিড -->
             <div class="number-grid">
