@@ -113,105 +113,71 @@
             flex-grow: 1;
         }
 
-        /* --- রেফার সেটিং এডিট কার্ড (সম্পূর্ণ পিংক কালার) --- */
-        .settings-card {
-            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.2);
-            margin-bottom: 30px;
-            color: white;
-            border-top: 4px solid #fff;
-        }
-
-        .settings-header-flex {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .settings-title {
-            font-size: 18px; font-weight: bold; color: white;
-            display: flex; align-items: center; gap: 10px; margin: 0;
-        }
-
-        .btn-action-group {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .btn-top-action {
-            background: var(--main-white);
-            color: var(--main-pink);
-            border: none; padding: 10px 18px; border-radius: 8px;
-            font-size: 13px; font-weight: bold; cursor: pointer; transition: 0.2s;
-            display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        .btn-top-action:hover { background: var(--bg-light); transform: translateY(-2px); }
-
-        .form-grid {
+        /* --- বড় মেনু কার্ড ডিজাইন (Big Menu Buttons) --- */
+        .menu-card-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr auto;
-            gap: 20px;
-            align-items: end;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding-top: 10px;
         }
 
-        @media (max-width: 900px) {
-            .form-grid { grid-template-columns: 1fr; }
+        .menu-card {
+            background: #fff;
+            border: 1px solid #eaeaea;
+            border-radius: 12px;
+            padding: 35px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+            border-bottom: 5px solid var(--main-pink);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
-        .input-group { display: flex; flex-direction: column; gap: 8px; }
-        .input-group label { font-size: 13px; font-weight: bold; color: rgba(255, 255, 255, 0.9); }
-        
-        .input-with-icon {
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(226, 0, 90, 0.15);
+            border-color: var(--main-pink);
+        }
+
+        .menu-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(226, 0, 90, 0.08);
+            color: var(--main-pink);
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            background-color: var(--main-white);
-            border: 2px solid transparent;
-            border-radius: 8px;
-            padding: 5px 15px;
+            justify-content: center;
+            font-size: 35px;
+            margin: 0 auto 20px;
             transition: 0.3s;
         }
 
-        .input-with-icon:focus-within {
-            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
+        .menu-card:hover .menu-icon {
+            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
+            color: #fff;
+            transform: scale(1.1);
         }
 
-        .input-prefix { font-size: 16px; font-weight: 900; color: var(--dark-blue); }
-
-        .form-control {
-            width: 100%; border: none; background: transparent; padding: 10px;
-            font-size: 16px; font-weight: bold; color: var(--main-pink); outline: none;
+        .menu-card h3 {
+            color: var(--dark-blue);
+            margin: 0 0 10px;
+            font-size: 18px;
+            font-weight: 900;
         }
 
-        .btn-update-settings {
-            background: var(--main-white);
-            color: var(--main-pink);
-            border: none; padding: 14px 25px; border-radius: 8px;
-            font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.2s;
-            display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        .btn-update-settings:hover { background: var(--bg-light); transform: translateY(-2px); }
-
-        /* --- টেবিল সেকশন স্টাইল --- */
-        .section-header {
-            font-size: 18px; font-weight: bold; color: var(--dark-blue);
-            margin-bottom: 15px; display: flex; align-items: center; gap: 10px;
+        .menu-card p {
+            color: var(--text-grey);
+            margin: 0;
+            font-size: 13px;
+            font-weight: bold;
         }
 
-        .history-table-container {
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
-            overflow: hidden;
-            margin-bottom: 30px;
-            border: 1px solid #eaeaea;
-        }
-
+        /* --- টেবিল সেকশন স্টাইল (মডালের ভেতর) --- */
         .history-table {
             width: 100%;
             border-collapse: collapse;
@@ -220,23 +186,23 @@
         }
 
         .history-table th {
-            background-color: var(--pink-transparent);
+            background-color: rgba(226, 0, 90, 0.05);
             color: var(--main-pink);
-            padding: 15px 20px;
+            padding: 12px 15px;
             font-weight: 900;
             border-bottom: 2px solid #eaeaea;
+            white-space: nowrap;
         }
 
         .history-table td {
-            padding: 15px 20px;
+            padding: 12px 15px;
             border-bottom: 1px solid #f0f0f0;
             color: var(--dark-blue);
             font-weight: bold;
+            white-space: nowrap;
         }
 
-        .history-table tr:hover {
-            background-color: #fafbfc;
-        }
+        .history-table tr:hover { background-color: #fafbfc; }
 
         .badge-id {
             background-color: rgba(226, 0, 90, 0.1);
@@ -257,11 +223,15 @@
         
         .modal-content {
             background-color: #fff; padding: 25px; border-radius: 12px;
-            width: 90%; max-width: 450px; box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-            position: relative; max-height: 80vh; display: flex; flex-direction: column;
+            width: 90%; max-width: 500px; box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            position: relative; max-height: 85vh; display: flex; flex-direction: column;
             transform: translateY(20px); transition: transform 0.3s ease;
             border-top: 5px solid var(--main-pink);
         }
+        
+        /* টেবিলের জন্য চওড়া মডাল */
+        .modal-content-wide { max-width: 750px; }
+
         .modal.show .modal-content { transform: translateY(0); }
 
         .close-btn { 
@@ -272,21 +242,15 @@
 
         .modal-title { 
             font-size: 18px; font-weight: bold; color: var(--dark-blue); 
-            margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; 
+            margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px; 
             display: flex; align-items: center; gap: 10px;
         }
         
         .list-container {
-            overflow-y: auto; max-height: 350px; padding-right: 5px;
+            overflow-y: auto; overflow-x: auto; max-height: 400px; padding-right: 5px;
         }
-        .list-container::-webkit-scrollbar { width: 5px; }
+        .list-container::-webkit-scrollbar { width: 5px; height: 5px; }
         .list-container::-webkit-scrollbar-thumb { background: rgba(226, 0, 90, 0.2); border-radius: 10px; }
-
-        .list-item {
-            background: #f8f9fa; padding: 12px; border-radius: 8px; margin-bottom: 10px;
-            border-left: 4px solid var(--main-pink); font-size: 14px; color: var(--dark-blue);
-            display: flex; justify-content: space-between; align-items: center; font-weight: bold;
-        }
 
         /* টোস্ট মেসেজ */
         .toast-msg {
@@ -296,11 +260,45 @@
             opacity: 0; transition: opacity 0.3s, top 0.3s;
         }
         .toast-msg.show { visibility: visible; opacity: 1; top: 50px; }
+
+        /* ইনপুট ফিল্ড (মডালের ভেতর) */
+        .form-control {
+            width: 100%; border: none; background: transparent; padding: 10px;
+            font-size: 16px; font-weight: bold; color: var(--main-pink); outline: none;
+        }
     </style>
 </head>
 <body>
 
     <div id="toastBox" class="toast-msg"><i class="fas fa-check-circle"></i> <span id="toastText">আপডেট সফল হয়েছে!</span></div>
+
+    <!-- ১ নং বাটন: রেফার ও কমিশন সেটিং পপ-আপ -->
+    <div id="referSettingsModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('referSettingsModal')">&times;</span>
+            <div class="modal-title"><i class="fas fa-cog" style="color: var(--main-pink);"></i> রেফার ও কমিশন আপডেট করুন</div>
+            
+            <div style="margin-bottom: 15px;">
+                <label style="font-size: 13px; font-weight: bold; color: var(--dark-blue); margin-bottom: 8px; display: block;">প্রতি রেফারে বোনাস (Referral Bonus)</label>
+                <div style="background-color: #f8f9fa; border: 2px solid #eaeaea; border-radius: 8px; padding: 5px 15px; display: flex; align-items: center;">
+                    <span style="font-size: 16px; font-weight: 900; color: var(--dark-blue);">৳</span>
+                    <input type="number" id="referBonusInput" class="form-control" value="20">
+                </div>
+            </div>
+
+            <div style="margin-bottom: 25px;">
+                <label style="font-size: 13px; font-weight: bold; color: var(--dark-blue); margin-bottom: 8px; display: block;">রেফারের কাজের ওপর কমিশন (Task Commission)</label>
+                <div style="background-color: #f8f9fa; border: 2px solid #eaeaea; border-radius: 8px; padding: 5px 15px; display: flex; align-items: center;">
+                    <span style="font-size: 16px; font-weight: 900; color: var(--dark-blue);">%</span>
+                    <input type="number" id="referCommInput" class="form-control" value="5">
+                </div>
+            </div>
+
+            <button style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, var(--main-pink), var(--light-pink)); color: white; padding: 14px; border-radius: 8px; font-size: 15px; font-weight: bold; border: none; cursor: pointer;" onclick="updateReferSettings()">
+                <i class="fas fa-save"></i> সেটিং আপডেট করুন
+            </button>
+        </div>
+    </div>
 
     <!-- ২ নং বাটন: প্রমো কোড (Promo Code) পপ-আপ -->
     <div id="promoCodeModal" class="modal">
@@ -313,7 +311,7 @@
                     <i class="fas fa-ticket-alt" style="color: var(--main-pink); margin-right: 8px;"></i>
                     <input type="text" id="newPromoCode" class="form-control" style="padding: 8px 0; color: var(--dark-blue);" placeholder="নতুন প্রমো কোড লিখুন...">
                 </div>
-                <button class="btn-update-settings" style="background: linear-gradient(135deg, var(--main-pink), var(--light-pink)); color: white; padding: 10px 20px; box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);" onclick="addPromoCode()">
+                <button style="background: linear-gradient(135deg, var(--main-pink), var(--light-pink)); color: white; padding: 10px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;" onclick="addPromoCode()">
                     <i class="fas fa-plus"></i> অ্যাড
                 </button>
             </div>
@@ -321,14 +319,85 @@
             <div style="font-size: 14px; font-weight: bold; color: var(--text-grey); margin-bottom: 10px;">অ্যাক্টিভ প্রমো কোডসমূহ:</div>
             
             <div class="list-container" id="promoCodeList">
-                <div class="list-item">
+                <div style="background: #f8f9fa; padding: 12px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid var(--main-pink); font-size: 14px; color: var(--dark-blue); display: flex; justify-content: space-between; align-items: center; font-weight: bold;">
                     <span><i class="fas fa-ticket-alt" style="color: var(--main-pink); margin-right: 8px;"></i> PROMO50</span>
-                    <span style="color: #27ae60; font-weight: bold; font-size: 11px;">Active</span>
+                    <span style="color: #27ae60; font-size: 11px;">Active</span>
                 </div>
-                <div class="list-item">
+                <div style="background: #f8f9fa; padding: 12px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid var(--main-pink); font-size: 14px; color: var(--dark-blue); display: flex; justify-content: space-between; align-items: center; font-weight: bold;">
                     <span><i class="fas fa-ticket-alt" style="color: var(--main-pink); margin-right: 8px;"></i> EID100</span>
-                    <span style="color: #27ae60; font-weight: bold; font-size: 11px;">Active</span>
+                    <span style="color: #27ae60; font-size: 11px;">Active</span>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ৩ নং বাটন: প্রমো কোড ইউজ হিস্ট্রি পপ-আপ -->
+    <div id="promoHistoryModal" class="modal">
+        <div class="modal-content modal-content-wide">
+            <span class="close-btn" onclick="closeModal('promoHistoryModal')">&times;</span>
+            <div class="modal-title"><i class="fas fa-history" style="color: var(--main-pink);"></i> প্রমো কোড ইউজ হিস্ট্রি</div>
+            <div class="list-container">
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>ইউজার আইডি</th>
+                            <th>ব্যবহৃত কোড</th>
+                            <th>বোনাস পরিমাণ</th>
+                            <th>তারিখ ও সময়</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="badge-id">USER_XYZ</span></td>
+                            <td style="color: var(--main-pink); font-weight: 900;">PROMO50</td>
+                            <td>৳৫০.০০</td>
+                            <td>আজ, ১১:১৫ AM</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge-id">USER_ABC</span></td>
+                            <td style="color: var(--main-pink); font-weight: 900;">EID100</td>
+                            <td>৳১০০.০০</td>
+                            <td>গতকাল, ০৩:৩০ PM</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ৪ নং বাটন: রেফার ও কমিশন হিস্ট্রি পপ-আপ -->
+    <div id="referCommissionHistoryModal" class="modal">
+        <div class="modal-content modal-content-wide">
+            <span class="close-btn" onclick="closeModal('referCommissionHistoryModal')">&times;</span>
+            <div class="modal-title"><i class="fas fa-gift" style="color: var(--main-pink);"></i> রেফার ও কমিশন হিস্ট্রি</div>
+            <div class="list-container">
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>রেফারকারী আইডি</th>
+                            <th>রেফারকৃত আইডি</th>
+                            <th>রেফার বোনাস</th>
+                            <th>টাস্ক কমিশন</th>
+                            <th>তারিখ ও সময়</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="badge-id">T9KZBTUBR1</span></td>
+                            <td><span class="badge-id" style="background-color: #e8f8f5; color: #27ae60;">USER_A12</span></td>
+                            <td style="color: var(--main-pink); font-weight: 900;">+৳২০.০০</td>
+                            <td style="color: #27ae60; font-weight: 900;">+৳৫.০০</td>
+                            <td>আজ, ১০:০০ AM</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge-id">M2LKBTYYY5</span></td>
+                            <td><span class="badge-id" style="background-color: #e8f8f5; color: #27ae60;">NEW_55X</span></td>
+                            <td style="color: var(--main-pink); font-weight: 900;">+৳২০.০০</td>
+                            <td style="color: #27ae60; font-weight: 900;">+৳১২.০০</td>
+                            <td>আজ, ০২:১৫ PM</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -368,114 +437,37 @@
 
         <div class="dashboard-body">
             
-            <!-- ১ নং অপশন: রেফার ও কমিশন আপডেট কার্ড (যেখানে ৩টি বাটন রাখা হয়েছে) -->
-            <div class="settings-card">
-                <div class="settings-header-flex">
-                    <div class="settings-title"><i class="fas fa-cog"></i> রেফার ও কমিশন আপডেট করুন</div>
-                    <div class="btn-action-group">
-                        <!-- ২ নং বাটন: প্রমো কোড -->
-                        <button class="btn-top-action" onclick="openModal('promoCodeModal')">
-                            <i class="fas fa-ticket-alt"></i> প্রমো কোড
-                        </button>
-                        <!-- ৩ নং বাটন: প্রমো কোড ইউজ হিস্ট্রি -->
-                        <button class="btn-top-action" onclick="scrollToSection('promoHistorySection')">
-                            <i class="fas fa-history"></i> প্রমো কোড ইউজ হিস্ট্রি
-                        </button>
-                        <!-- ৪ নং বাটন: রেফার ও কমিশন হিস্ট্রি -->
-                        <button class="btn-top-action" onclick="scrollToSection('referHistorySection')">
-                            <i class="fas fa-gift"></i> রেফার ও কমিশন হিস্ট্রি
-                        </button>
-                    </div>
-                </div>
+            <!-- বড় বড় কার্ড বাটন গ্রিড -->
+            <div class="menu-card-grid">
                 
-                <div class="form-grid">
-                    <div class="input-group">
-                        <label>প্রতি রেফারে বোনাস (Referral Bonus)</label>
-                        <div class="input-with-icon">
-                            <span class="input-prefix">৳</span>
-                            <input type="number" id="referBonusInput" class="form-control" value="20">
-                        </div>
-                    </div>
-
-                    <div class="input-group">
-                        <label>রেফারের কাজের ওপর কমিশন (Task Commission)</label>
-                        <div class="input-with-icon">
-                            <span class="input-prefix">%</span>
-                            <input type="number" id="referCommInput" class="form-control" value="5">
-                        </div>
-                    </div>
-
-                    <button class="btn-update-settings" onclick="updateReferSettings()">
-                        <i class="fas fa-save"></i> সেটিং আপডেট করুন
-                    </button>
+                <!-- কার্ড ১ -->
+                <div class="menu-card" onclick="openModal('referSettingsModal')">
+                    <div class="menu-icon"><i class="fas fa-cog"></i></div>
+                    <h3>রেফার ও কমিশন সেটিং</h3>
+                    <p>রেফার বোনাস এবং পার্সেন্টেজ আপডেট করুন</p>
                 </div>
-            </div>
 
-            <!-- ৩ নং বাটন ক্লিক করলে এখানে স্ক্রল করে আসবে: প্রমো কোড ইউজ হিস্ট্রি টেবিল -->
-            <div id="promoHistorySection" class="section-header">
-                <i class="fas fa-history" style="color: var(--main-pink);"></i> প্রমো কোড ইউজ হিস্ট্রি (Promo Code Use History)
-            </div>
+                <!-- কার্ড ২ -->
+                <div class="menu-card" onclick="openModal('promoCodeModal')">
+                    <div class="menu-icon"><i class="fas fa-ticket-alt"></i></div>
+                    <h3>প্রমো কোড</h3>
+                    <p>নতুন প্রমো কোড তৈরি ও ম্যানেজ করুন</p>
+                </div>
 
-            <div class="history-table-container">
-                <table class="history-table">
-                    <thead>
-                        <tr>
-                            <th>ইউজার আইডি</th>
-                            <th>ব্যবহৃত কোড</th>
-                            <th>বোনাস পরিমাণ</th>
-                            <th>তারিখ ও সময়</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><span class="badge-id">USER_XYZ</span></td>
-                            <td style="color: var(--main-pink); font-weight: 900;">PROMO50</td>
-                            <td>৳৫০.০০</td>
-                            <td>আজ, ১১:১৫ AM</td>
-                        </tr>
-                        <tr>
-                            <td><span class="badge-id">USER_ABC</span></td>
-                            <td style="color: var(--main-pink); font-weight: 900;">EID100</td>
-                            <td>৳১০০.০০</td>
-                            <td>গতকাল, ০৩:৩০ PM</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                <!-- কার্ড ৩ -->
+                <div class="menu-card" onclick="openModal('promoHistoryModal')">
+                    <div class="menu-icon"><i class="fas fa-history"></i></div>
+                    <h3>প্রমো কোড ইউজ হিস্ট্রি</h3>
+                    <p>কে কোন প্রমো কোড ব্যবহার করেছে দেখুন</p>
+                </div>
 
-            <!-- ৪ নং বাটন ক্লিক করলে এখানে স্ক্রল করে আসবে: রেফার ও কমিশন হিস্ট্রি টেবিল -->
-            <div id="referHistorySection" class="section-header" style="margin-top: 30px;">
-                <i class="fas fa-gift" style="color: var(--main-pink);"></i> রেফার ও কমিশন হিস্ট্রি (Refer & Commission History)
-            </div>
+                <!-- কার্ড ৪ -->
+                <div class="menu-card" onclick="openModal('referCommissionHistoryModal')">
+                    <div class="menu-icon"><i class="fas fa-gift"></i></div>
+                    <h3>রেফার ও কমিশন হিস্ট্রি</h3>
+                    <p>রেফার ও কমিশনের বিস্তারিত তালিকা দেখুন</p>
+                </div>
 
-            <div class="history-table-container">
-                <table class="history-table">
-                    <thead>
-                        <tr>
-                            <th>রেফারকারী আইডি</th>
-                            <th>রেফারকৃত আইডি</th>
-                            <th>রেফার বোনাস</th>
-                            <th>টাস্ক কমিশন</th>
-                            <th>তারিখ ও সময়</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><span class="badge-id">T9KZBTUBR1</span></td>
-                            <td><span class="badge-id" style="background-color: #e8f8f5; color: #27ae60;">USER_A12</span></td>
-                            <td style="color: var(--main-pink); font-weight: 900;">+৳২০.০০</td>
-                            <td style="color: #27ae60; font-weight: 900;">+৳৫.০০</td>
-                            <td>আজ, ১০:০০ AM</td>
-                        </tr>
-                        <tr>
-                            <td><span class="badge-id">M2LKBTYYY5</span></td>
-                            <td><span class="badge-id" style="background-color: #e8f8f5; color: #27ae60;">NEW_55X</span></td>
-                            <td style="color: var(--main-pink); font-weight: 900;">+৳২০.০০</td>
-                            <td style="color: #27ae60; font-weight: 900;">+৳১২.০০</td>
-                            <td>আজ, ০২:১৫ PM</td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
 
         </div>
@@ -497,10 +489,6 @@
             document.getElementById(modalId).classList.remove('show');
         }
 
-        function scrollToSection(sectionId) {
-            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
-        }
-
         function updateReferSettings() {
             const bonus = document.getElementById("referBonusInput").value;
             const comm = document.getElementById("referCommInput").value;
@@ -511,6 +499,7 @@
             }
 
             showToast(`সাফল্য! রেফার বোনাস ৳${bonus} এবং কমিশন ${comm}% সেভ হয়েছে।`);
+            closeModal('referSettingsModal');
         }
 
         function addPromoCode() {
@@ -524,10 +513,10 @@
 
             const listContainer = document.getElementById("promoCodeList");
             const newItem = document.createElement("div");
-            newItem.className = "list-item";
+            newItem.style.cssText = "background: #f8f9fa; padding: 12px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid var(--main-pink); font-size: 14px; color: var(--dark-blue); display: flex; justify-content: space-between; align-items: center; font-weight: bold;";
             newItem.innerHTML = `
                 <span><i class="fas fa-ticket-alt" style="color: var(--main-pink); margin-right: 8px;"></i> ${codeVal}</span>
-                <span style="color: #27ae60; font-weight: bold; font-size: 11px;">Active</span>
+                <span style="color: #27ae60; font-size: 11px;">Active</span>
             `;
             listContainer.prepend(newItem);
 
