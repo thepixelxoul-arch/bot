@@ -94,18 +94,10 @@
             z-index: 10;
         }
 
-        .topbar-title { font-size: 20px; font-weight: 900; color: var(--dark-blue); }
+        .topbar-title { font-size: 20px; font-weight: 900; color: var(--main-pink); display: flex; align-items: center; gap: 10px;}
 
         .admin-profile { display: flex; align-items: center; gap: 15px; }
         
-        .logout-btn {
-            background-color: rgba(226, 0, 90, 0.1); color: var(--main-pink);
-            border: none; padding: 10px 20px; border-radius: 8px;
-            cursor: pointer; font-weight: bold; transition: 0.2s;
-            display: flex; align-items: center; gap: 8px; font-size: 14px;
-        }
-        .logout-btn:hover { background-color: var(--main-pink); color: white; }
-
         /* ড্যাশবোর্ড বডি */
         .dashboard-body {
             padding: 30px;
@@ -113,45 +105,25 @@
             flex-grow: 1;
         }
 
-        /* সেকশন হেডার */
-        .card-header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
-            padding: 15px 25px;
-            border-radius: 12px;
-            color: white;
-            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.2);
-        }
-
-        .card-header-title {
-            font-size: 18px; font-weight: bold;
-            display: flex; align-items: center; gap: 10px; color: white; margin: 0;
-        }
-
-        .card-header-subtitle { font-size: 13px; color: #ffe0e9; margin-top: 5px; font-weight: bold; }
-
         /* হিস্ট্রি বাটন */
         .btn-history {
-            background: var(--main-white);
+            background-color: rgba(226, 0, 90, 0.1);
             color: var(--main-pink);
             border: none;
-            padding: 8px 18px;
+            padding: 10px 20px;
             border-radius: 8px;
             font-size: 14px;
-            font-weight: 900;
+            font-weight: bold;
             cursor: pointer;
             transition: 0.2s;
             display: flex;
             align-items: center;
-            gap: 6px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            gap: 8px;
         }
 
         .btn-history:hover {
-            background: var(--bg-light);
+            background-color: var(--main-pink); 
+            color: white;
             transform: translateY(-2px);
         }
 
@@ -176,10 +148,9 @@
             border-top: 4px solid var(--main-pink);
             display: flex;
             flex-direction: column;
-            transition: transform 0.3s ease, box-shadow 0.3s ease; /* স্মুথ ট্রানজিশন */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        /* মাউস হোভার করলে কার্ড একটু ওপরে উঠবে */
         .settings-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(226, 0, 90, 0.15);
@@ -281,28 +252,17 @@
     <!-- মেইন এরিয়া -->
     <main class="main-content">
         <header class="topbar">
-            <div class="topbar-title">নোটিফিকেশন ও নোটিশ</div>
+            <div class="topbar-title" id="mainTitle"><i class="fas fa-bell"></i> নোটিফিকেশন ও নোটিশ</div>
             <div class="admin-profile">
-                <button class="logout-btn" id="adminLogout"><i class="fas fa-sign-out-alt"></i> লগআউট</button>
-            </div>
-        </header>
-
-        <div class="dashboard-body">
-            
-            <div class="card-header-container">
-                <div>
-                    <div class="card-header-title" id="headerTitle">
-                        <i class="fas fa-bell"></i> সিস্টেম নোটিফিকেশন
-                    </div>
-                    <div class="card-header-subtitle" id="headerSubtitle">এখান থেকে আপনি পুরো ওয়েবসাইটের সব ইউজারকে অথবা নির্দিষ্ট যেকোনো একজন ইউজারকে মেসেজ পাঠাতে পারবেন।</div>
-                </div>
-                
                 <!-- হিস্ট্রি বাটন -->
                 <button class="btn-history" id="toggleViewBtn" onclick="toggleView()">
                     <i class="fas fa-history"></i> History
                 </button>
             </div>
+        </header>
 
+        <div class="dashboard-body">
+            
             <!-- মূল নোটিফিকেশন পাঠানোর ভিউ -->
             <div id="mainView">
                 <div class="notify-grid">
@@ -383,10 +343,10 @@
             text.innerText = message;
             
             if(isError) {
-                toast.style.backgroundColor = "#e74c3c"; // লাল রঙ
+                toast.style.backgroundColor = "#e74c3c"; 
                 icon.className = "fas fa-exclamation-triangle";
             } else {
-                toast.style.backgroundColor = "var(--main-pink)"; // অরিজিনাল পিংক
+                toast.style.backgroundColor = "var(--main-pink)"; 
                 icon.className = "fas fa-check-circle";
             }
 
@@ -402,14 +362,12 @@
             if(isHistoryView) {
                 document.getElementById('mainView').style.display = 'none';
                 document.getElementById('historyView').style.display = 'block';
-                document.getElementById('headerTitle').innerHTML = '<i class="fas fa-history"></i> নোটিশ ও নোটিফিকেশন হিস্ট্রি';
-                document.getElementById('headerSubtitle').innerText = 'আপনার পাঠানো সকল নোটিশ এবং ইউজার নোটিফিকেশনের রেকর্ড এখানে সংরক্ষিত আছে।';
+                document.getElementById('mainTitle').innerHTML = '<i class="fas fa-history"></i> নোটিশ ও নোটিফিকেশন হিস্ট্রি';
                 document.getElementById('toggleViewBtn').innerHTML = '<i class="fas fa-arrow-left"></i> ফিরে যান';
             } else {
                 document.getElementById('historyView').style.display = 'none';
                 document.getElementById('mainView').style.display = 'block';
-                document.getElementById('headerTitle').innerHTML = '<i class="fas fa-bell"></i> সিস্টেম নোটিফিকেশন';
-                document.getElementById('headerSubtitle').innerText = 'এখান থেকে আপনি পুরো ওয়েবসাইটের সব ইউজারকে অথবা নির্দিষ্ট যেকোনো একজন ইউজারকে মেসেজ পাঠাতে পারবেন।';
+                document.getElementById('mainTitle').innerHTML = '<i class="fas fa-bell"></i> নোটিফিকেশন ও নোটিশ';
                 document.getElementById('toggleViewBtn').innerHTML = '<i class="fas fa-history"></i> History';
             }
         }
@@ -466,10 +424,6 @@
             document.getElementById("directTitle").value = "";
             document.getElementById("directMessage").value = "";
         }
-
-        document.getElementById("adminLogout").addEventListener("click", () => {
-            window.location.href = "login.html"; 
-        });
     </script>
 </body>
 </html>
