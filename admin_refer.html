@@ -25,10 +25,10 @@
             overflow: hidden;
         }
 
-        /* সাইডবার - ফিক্স করা হয়েছে যেন উধাও না হয় */
+        /* সাইডবার */
         .sidebar {
             width: 260px;
-            flex-shrink: 0; /* এই কোডটি সাইডবারকে উধাও হতে দেবে না */
+            flex-shrink: 0; 
             background: linear-gradient(180deg, var(--main-pink), var(--light-pink));
             color: white;
             display: flex;
@@ -75,10 +75,10 @@
 
         .nav-links a i { width: 20px; text-align: center; font-size: 18px; }
 
-        /* মেইন কন্টেন্ট এরিয়া - ফিক্স করা হয়েছে */
+        /* মেইন কন্টেন্ট এরিয়া */
         .main-content {
             flex-grow: 1;
-            min-width: 0; /* কনটেন্ট বেশি হলে যেন সাইডবারকে ধাক্কা না দেয় */
+            min-width: 0;
             display: flex;
             flex-direction: column;
             overflow: hidden;
@@ -103,10 +103,16 @@
             display: flex; 
             align-items: center; 
             gap: 10px; 
+            transition: 0.3s;
         }
-        .topbar-title i { color: var(--main-pink); }
 
-        .admin-profile { display: flex; align-items: center; gap: 15px; }
+        /* ডাইনামিক ব্যাক বাটনের হোভার ইফেক্ট */
+        .topbar-back-btn {
+            display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.2s;
+        }
+        .topbar-back-btn:hover {
+            transform: translateX(-5px);
+        }
 
         /* ড্যাশবোর্ড বডি */
         .dashboard-body {
@@ -152,18 +158,6 @@
         /* --- পেইজ সেকশন স্টাইল --- */
         .page-section { animation: fadeIn 0.3s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        .section-header-bar {
-            display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;
-        }
-
-        .btn-back {
-            background: rgba(226, 0, 90, 0.1); color: var(--main-pink);
-            border: none; padding: 10px 20px; border-radius: 8px;
-            font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.2s;
-            display: flex; align-items: center; gap: 8px;
-        }
-        .btn-back:hover { background: var(--main-pink); color: white; }
 
         /* ডানদিকের কোনার হিস্ট্রি বাটন */
         .btn-history-icon {
@@ -400,10 +394,56 @@
         </ul>
     </aside>
 
+    <!-- প্রমো কোড ইউজ হিস্ট্রি পপ-আপ (Modal) -->
+    <div id="promoHistoryModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('promoHistoryModal')">&times;</span>
+            <div class="modal-title"><i class="fas fa-history" style="color: var(--main-pink);"></i> প্রমো কোড ইউজ হিস্ট্রি</div>
+            <div class="list-container">
+                <div class="history-table-container" style="margin: 0; border: none; box-shadow: none;">
+                    <table class="history-table" style="font-size: 13px;">
+                        <thead>
+                            <tr>
+                                <th>ইউজার আইডি</th>
+                                <th>ব্যবহৃত কোড</th>
+                                <th>বোনাস পরিমাণ</th>
+                                <th>তারিখ ও সময়</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="badge-id">USER_XYZ</span></td>
+                                <td style="color: var(--main-pink); font-weight: 900;">PROMO50</td>
+                                <td>৳৫০.০০</td>
+                                <td>আজ, ১১:১৫ AM</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge-id">USER_ABC</span></td>
+                                <td style="color: var(--main-pink); font-weight: 900;">EID100</td>
+                                <td>৳১০০.০০</td>
+                                <td>গতকাল, ০৩:৩০ PM</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- নির্দিষ্ট ইউজারের রেফার লিস্ট পপ-আপ -->
+    <div id="referListModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('referListModal')">&times;</span>
+            <div class="modal-title" id="rm-title"><i class="fas fa-users" style="color: var(--main-pink);"></i> রেফার করা ইউজারদের তালিকা</div>
+            <div class="list-container" id="rm-list"></div>
+        </div>
+    </div>
+
     <!-- মেইন এরিয়া -->
     <main class="main-content">
         <header class="topbar">
-            <div class="topbar-title">
+            <!-- এই লেখাটি ডাইনামিক্যালি পরিবর্তন হবে -->
+            <div class="topbar-title" id="dynamicTopbarTitle">
                 <i class="fas fa-user-plus"></i> রেফার ও প্রমো ম্যানেজমেন্ট
             </div>
             <div class="admin-profile"></div>
@@ -432,11 +472,6 @@
 
             <!-- ================= স্ক্রিন ১: রেফার ও কমিশন সেটিং ================= -->
             <div id="referSettingsPage" class="page-section" style="display: none;">
-                
-                <!-- হেডার -->
-                <div class="section-header-bar">
-                    <button class="btn-back" onclick="showMainMenu()"><i class="fas fa-arrow-left"></i> রেফার</button>
-                </div>
                 
                 <!-- আপডেট ফর্ম -->
                 <div class="settings-card">
@@ -556,17 +591,13 @@
                         ])"><i class="fas fa-list"></i> রেফার লিস্ট দেখুন</button>
                     </div>
                 </div>
-
             </div>
 
-            <!-- ================= স্ক্রিন ২: প্রমো কোড ================= -->
+            <!-- ================= স্ক্রিন ২: প্রমো কোড + হিস্ট্রি ================= -->
             <div id="promoCodePage" class="page-section" style="display: none;">
                 
-                <!-- হেডার ও ডানদিকের হিস্ট্রি বাটন -->
-                <div class="section-header-bar">
-                    <button class="btn-back" onclick="showMainMenu()"><i class="fas fa-arrow-left"></i> প্রমো</button>
-                    
-                    <!-- হিস্ট্রি আইকন (ওপরের ডান কোনায়) -->
+                <!-- প্রমো কোড ম্যানেজমেন্ট হেডার এবং হিস্ট্রি বাটন -->
+                <div style="display: flex; justify-content: flex-end; margin-bottom: 20px;">
                     <button class="btn-history-icon" onclick="openModal('promoHistoryModal')" title="প্রমো কোড ইউজ হিস্ট্রি দেখুন">
                         <i class="fas fa-history"></i>
                     </button>
@@ -618,51 +649,6 @@
         </div>
     </main>
 
-    <!-- প্রমো কোড ইউজ হিস্ট্রি পপ-আপ (Modal) -->
-    <div id="promoHistoryModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('promoHistoryModal')">&times;</span>
-            <div class="modal-title"><i class="fas fa-history" style="color: var(--main-pink);"></i> প্রমো কোড ইউজ হিস্ট্রি</div>
-            <div class="list-container">
-                <div class="history-table-container" style="margin: 0; border: none; box-shadow: none;">
-                    <table class="history-table" style="font-size: 13px;">
-                        <thead>
-                            <tr>
-                                <th>ইউজার আইডি</th>
-                                <th>ব্যবহৃত কোড</th>
-                                <th>বোনাস পরিমাণ</th>
-                                <th>তারিখ ও সময়</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><span class="badge-id">USER_XYZ</span></td>
-                                <td style="color: var(--main-pink); font-weight: 900;">PROMO50</td>
-                                <td>৳৫০.০০</td>
-                                <td>আজ, ১১:১৫ AM</td>
-                            </tr>
-                            <tr>
-                                <td><span class="badge-id">USER_ABC</span></td>
-                                <td style="color: var(--main-pink); font-weight: 900;">EID100</td>
-                                <td>৳১০০.০০</td>
-                                <td>গতকাল, ০৩:৩০ PM</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- নির্দিষ্ট ইউজারের রেফার লিস্ট পপ-আপ -->
-    <div id="referListModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('referListModal')">&times;</span>
-            <div class="modal-title" id="rm-title"><i class="fas fa-users" style="color: var(--main-pink);"></i> রেফার করা ইউজারদের তালিকা</div>
-            <div class="list-container" id="rm-list"></div>
-        </div>
-    </div>
-
     <script>
         let promoCount = 2; // For dynamic IDs
 
@@ -673,18 +659,31 @@
             setTimeout(() => { toast.classList.remove("show"); }, 3000);
         }
 
-        // --- পেজ নেভিগেশন ও URL Hash স্ক্রিপ্ট ---
+        // --- পেজ নেভিগেশন ও টপবার আপডেট স্ক্রিপ্ট ---
+        function updateTopbarTitle(sectionId) {
+            const topbarTitle = document.getElementById('dynamicTopbarTitle');
+            if (sectionId === 'referSettingsPage') {
+                topbarTitle.innerHTML = '<div class="topbar-back-btn" onclick="showMainMenu()"><i class="fas fa-arrow-left"></i> রেফার</div>';
+            } else if (sectionId === 'promoCodePage') {
+                topbarTitle.innerHTML = '<div class="topbar-back-btn" onclick="showMainMenu()"><i class="fas fa-arrow-left"></i> প্রমো</div>';
+            } else {
+                topbarTitle.innerHTML = '<i class="fas fa-user-plus"></i> রেফার ও প্রমো ম্যানেজমেন্ট';
+            }
+        }
+
         function showSection(sectionId) {
             document.getElementById('mainMenu').style.display = 'none';
             document.querySelectorAll('.page-section').forEach(sec => sec.style.display = 'none');
             document.getElementById(sectionId).style.display = 'block';
             window.location.hash = sectionId; 
+            updateTopbarTitle(sectionId);
         }
 
         function showMainMenu() {
             document.querySelectorAll('.page-section').forEach(sec => sec.style.display = 'none');
             document.getElementById('mainMenu').style.display = 'grid';
             history.replaceState(null, null, ' '); 
+            updateTopbarTitle('mainMenu');
         }
 
         function checkHash() {
@@ -693,6 +692,7 @@
                 document.getElementById('mainMenu').style.display = 'none';
                 document.querySelectorAll('.page-section').forEach(sec => sec.style.display = 'none');
                 document.getElementById(hash).style.display = 'block';
+                updateTopbarTitle(hash);
             } else {
                 showMainMenu();
             }
