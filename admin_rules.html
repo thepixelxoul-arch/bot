@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Rules - Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root { 
+            --main-pink: #e2005a; 
+            --light-pink: #ff3377;
+            --main-white: #ffffff; 
+            --text-grey: #888888; 
+            --bg-light: #f4f6f9;
+            --dark-blue: #2c3e50;
+        }
+
+        body { 
+            margin: 0; padding: 0; 
+            background-color: var(--bg-light); 
+            font-family: 'Segoe UI', Tahoma, sans-serif; 
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* সাইডবার (admin_notification.html এর হুবহু কপি) */
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(180deg, var(--main-pink), var(--light-pink));
+            color: white;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 4px 0 15px rgba(226, 0, 90, 0.2);
+            transition: 0.3s;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            flex-shrink: 0;
+        }
+        .sidebar-header h2 { margin: 0; font-size: 22px; font-weight: 900; letter-spacing: 1px;}
+        .sidebar-header p { margin: 5px 0 0 0; font-size: 12px; color: #ffe6f0; }
+
+        .nav-links {
+            list-style: none; padding: 0; margin: 10px 0;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+        
+        .nav-links::-webkit-scrollbar { width: 5px; }
+        .nav-links::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 10px; }
+
+        .nav-links li { margin-bottom: 5px; }
+
+        .nav-links a {
+            display: flex; align-items: center; gap: 15px;
+            padding: 15px 25px; 
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none; font-size: 15px; 
+            font-weight: bold;
+            transition: 0.3s; border-left: 4px solid transparent;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-left: 4px solid #fff; 
+        }
+
+        .nav-links a i { width: 20px; text-align: center; font-size: 18px; }
+
+        /* মেইন কন্টেন্ট এরিয়া */
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background-color: var(--bg-light);
+        }
+
+        /* টপবার */
+        .topbar {
+            background-color: var(--main-white);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            z-index: 10;
+        }
+
+        .topbar-title { font-size: 18px; font-weight: bold; color: var(--dark-blue); }
+
+        .admin-profile { display: flex; align-items: center; gap: 15px; }
+        
+        .logout-btn {
+            background-color: #ffb3c6; color: var(--main-pink);
+            border: none; padding: 8px 18px; border-radius: 6px;
+            cursor: pointer; font-weight: bold; transition: 0.2s;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .logout-btn:hover { background-color: var(--main-pink); color: white; }
+
+        /* ড্যাশবোর্ড বডি */
+        .dashboard-body {
+            padding: 30px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        .card-header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
+            padding: 20px 25px;
+            border-radius: 12px;
+            color: white;
+            box-shadow: 0 5px 15px rgba(226, 0, 90, 0.2);
+        }
+
+        .card-header-title {
+            font-size: 20px; font-weight: bold;
+            display: flex; align-items: center; gap: 10px; color: white;
+        }
+
+        .card-header-subtitle { font-size: 13px; color: #ffe0e9; margin-top: 5px; }
+
+        /* --- নিয়ম অ্যাড করার ফর্ম --- */
+        .rules-form-card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.1);
+            margin-bottom: 30px;
+            border-top: 5px solid var(--main-pink);
+        }
+
+        .form-title {
+            font-size: 18px; font-weight: bold; color: var(--dark-blue);
+            margin-bottom: 20px; display: flex; align-items: center; gap: 10px;
+        }
+
+        .input-group { margin-bottom: 15px; }
+        .input-group label { display: block; font-size: 14px; font-weight: bold; color: var(--dark-blue); margin-bottom: 8px; }
+
+        .form-control {
+            width: 100%; padding: 12px 15px; border: 2px solid #eaeaea;
+            border-radius: 8px; font-size: 14px; outline: none;
+            background-color: #f8f9fa; color: var(--dark-blue); font-weight: bold;
+            box-sizing: border-box; transition: 0.3s;
+        }
+        .form-control:focus { border-color: var(--main-pink); background-color: #fff; }
+
+        textarea.form-control { resize: vertical; min-height: 120px; font-family: inherit; line-height: 1.6; }
+
+        .btn-save-rule {
+            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
+            color: white; border: none; padding: 14px 25px; border-radius: 8px;
+            font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.2s;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            width: 100%; box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2); margin-top: 10px;
+        }
+        .btn-save-rule:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(226, 0, 90, 0.3); }
+
+        /* --- সেভ করা নিয়মগুলোর গ্রিড --- */
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            padding-bottom: 30px;
+        }
+
+        .rule-card {
+            background: #fff; border: 1px solid #e0e0e0; border-radius: 12px;
+            overflow: hidden; display: flex; flex-direction: column;
+            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.05); transition: 0.3s;
+        }
+        .rule-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(226, 0, 90, 0.15); }
+
+        .rule-header {
+            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
+            color: white; padding: 15px 20px; display: flex; align-items: center; gap: 10px;
+            font-size: 18px; font-weight: bold;
+        }
+
+        .video-container {
+            width: 100%;
+            height: 180px;
+            background-color: #000;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        /* YouTube iframe style */
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* যদি ভিডিও না থাকে */
+        .no-video {
+            font-size: 14px; color: #888; display: flex; flex-direction: column; align-items: center; gap: 10px;
+            background: #f8f9fa; width: 100%; height: 100%; justify-content: center; font-weight: bold;
+        }
+
+        .rule-body {
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        .rule-text {
+            font-size: 14px; color: #444; line-height: 1.6; margin: 0 0 20px 0;
+            white-space: pre-line; /* লাইন ব্রেক কাজ করার জন্য */
+        }
+
+        .rule-actions {
+            display: flex; gap: 10px; padding: 0 20px 20px 20px;
+        }
+
+        .btn-edit, .btn-delete {
+            flex: 1; border: none; padding: 10px; border-radius: 6px; cursor: pointer;
+            font-weight: bold; font-size: 14px; transition: 0.2s;
+            display: flex; align-items: center; justify-content: center; gap: 6px;
+        }
+        .btn-edit { background-color: #f8f9fa; color: var(--dark-blue); border: 1px solid #ddd; }
+        .btn-edit:hover { background-color: #eaeaea; }
+        .btn-delete { background-color: #ffe0e9; color: var(--main-pink); }
+        .btn-delete:hover { background-color: var(--main-pink); color: white; }
+
+        /* টোস্ট মেসেজ */
+        .toast-msg {
+            visibility: hidden; background-color: #27ae60; color: #fff; text-align: center;
+            border-radius: 8px; padding: 15px 25px; position: fixed; z-index: 9999; right: 30px; top: 30px;
+            font-size: 14px; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            opacity: 0; transition: opacity 0.3s, top 0.3s;
+        }
+        .toast-msg.show { visibility: visible; opacity: 1; top: 50px; }
+    </style>
+</head>
+<body>
+
+    <div id="toastBox" class="toast-msg"><i class="fas fa-check-circle"></i> <span id="toastText">সফল হয়েছে!</span></div>
+
+    <!-- সাইডবার -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2><i class="fas fa-paper-plane"></i> Send bKash</h2>
+            <p>অ্যাডমিন কন্ট্রোল প্যানেল</p>
+        </div>
+        <ul class="nav-links">
+            <li><a href="admin.html" class="nav-link"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
+            <li><a href="admin_history.html" class="nav-link"><i class="fas fa-history"></i> কাজের হিস্ট্রি</a></li>
+            <li><a href="admin_cash_in.html" class="nav-link"><i class="fas fa-wallet"></i> ক্যাশ ইন</a></li>
+            <li><a href="admin_simple_users.html" class="nav-link"><i class="fas fa-user"></i> সাধারণ ইউজার</a></li>
+            <li><a href="admin_vip_users.html" class="nav-link"><i class="fas fa-user-tie"></i> VIP ইউজার</a></li>
+            <li><a href="admin_withdraw.html" class="nav-link"><i class="fas fa-file-invoice-dollar"></i> উইথড্র রিকোয়েস্ট</a></li>
+            <li><a href="admin_account_verify.html" class="nav-link"><i class="fas fa-user-check"></i> অ্যাকাউন্ট যাচাই</a></li>
+            <li><a href="admin_task_rates.html" class="nav-link"><i class="fas fa-tasks"></i> কাজের রেট</a></li>
+            <li><a href="admin_number.html" class="nav-link"><i class="fas fa-sim-card"></i> নাম্বার ম্যানেজমেন্ট</a></li>
+            <li><a href="admin_vip_settings.html" class="nav-link"><i class="fas fa-crown"></i> VIP প্যাকেজ সেটিং</a></li>
+            <li><a href="admin_refer.html" class="nav-link"><i class="fas fa-user-plus"></i> রেফার সেটিং</a></li>
+            <li><a href="admin_notification.html" class="nav-link"><i class="fas fa-bell"></i> নোটিফিকেশন ও নোটিশ</a></li>
+            <li><a href="admin_rules.html" class="nav-link active"><i class="fas fa-file-alt"></i> কাজের নিয়মাবলী</a></li>
+            <li><a href="admin_support.html" class="nav-link"><i class="fas fa-headset"></i> হেল্প ও সাপোর্ট</a></li>
+        </ul>
+    </aside>
+
+    <!-- মেইন এরিয়া -->
+    <main class="main-content">
+        <header class="topbar">
+            <div class="topbar-title">কাজের নিয়মাবলী ম্যানেজমেন্ট</div>
+            <div class="admin-profile">
+                <button class="logout-btn" id="adminLogout"><i class="fas fa-sign-out-alt"></i> লগআউট</button>
+            </div>
+        </header>
+
+        <div class="dashboard-body">
+            
+            <div class="card-header-container">
+                <div>
+                    <div class="card-header-title">
+                        <i class="fas fa-clipboard-list"></i> কাজের নিয়ম এবং টিউটোরিয়াল
+                    </div>
+                    <div class="card-header-subtitle">ইউজারদের কাজ শেখানোর জন্য এখানে ভিডিও লিংক এবং কাজের বিস্তারিত নিয়মাবলী যুক্ত করুন।</div>
+                </div>
+            </div>
+
+            <!-- নিয়ম যোগ করার ফর্ম -->
+            <div class="rules-form-card">
+                <div class="form-title"><i class="fas fa-plus-circle" style="color: var(--main-pink);"></i> নতুন নিয়ম বা টিউটোরিয়াল যোগ করুন</div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div class="input-group">
+                        <label>কাজের ধরন (Platform)</label>
+                        <select id="platformSelect" class="form-control">
+                            <option value="Google Account">Google Account</option>
+                            <option value="Instagram Account">Instagram Account</option>
+                            <option value="WhatsApp Account">WhatsApp Account</option>
+                            <option value="Telegram Account">Telegram Account</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>ভিডিও লিংক (YouTube URL / ঐচ্ছিক)</label>
+                        <input type="text" id="videoUrlInput" class="form-control" placeholder="যেমন: https://www.youtube.com/embed/xxxxxx">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>নিয়মাবলী (Rules & Text)</label>
+                    <textarea id="rulesTextInput" class="form-control" placeholder="কাজটি কীভাবে করতে হবে তার নিয়মগুলো ধাপে ধাপে লিখুন..."></textarea>
+                </div>
+
+                <button class="btn-save-rule" onclick="saveRule()">
+                    <i class="fas fa-save"></i> সেভ করুন এবং পাবলিশ করুন
+                </button>
+            </div>
+
+            <!-- সেভ করা নিয়মগুলোর কার্ড গ্রিড -->
+            <div style="font-size: 18px; font-weight: bold; color: var(--dark-blue); margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                <i class="fas fa-list-alt" style="color: var(--main-pink);"></i> বর্তমান নিয়মাবলীসমূহ
+            </div>
+
+            <div class="rules-grid">
+                
+                <!-- কার্ড ১ (ভিডিও সহ) -->
+                <div class="rule-card" id="rule-1">
+                    <div class="rule-header">
+                        <i class="fab fa-google"></i> Google Account খোলার নিয়ম
+                    </div>
+                    
+                    <!-- ভিডিও কন্টেইনার -->
+                    <div class="video-container">
+                        <!-- রিয়েল ওয়েবসাইটে এখানে আইফ্রেম (iframe) থাকবে -->
+                        <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY" allowfullscreen></iframe>
+                    </div>
+
+                    <div class="rule-body">
+                        <p class="rule-text">
+                            ১. প্রথমে একটি ফ্রেশ আইপি कनेक्ट করুন।
+                            ২. ব্রাউজারের ডাটা ক্লিয়ার করে নিন।
+                            ৩. আমাদের দেওয়া রিকভারি ইমেইল ব্যবহার করে নতুন একাউন্ট খুলুন।
+                            ৪. পাসওয়ার্ড হিসেবে অবশ্যই "sakib@2026" ব্যবহার করবেন।
+                        </p>
+                    </div>
+
+                    <div class="rule-actions">
+                        <button class="btn-edit" onclick="editRule()"><i class="fas fa-edit"></i> এডিট</button>
+                        <button class="btn-delete" onclick="deleteRule('rule-1')"><i class="fas fa-trash-alt"></i> ডিলিট</button>
+                    </div>
+                </div>
+
+                <!-- কার্ড ২ (ভিডিও ছাড়া) -->
+                <div class="rule-card" id="rule-2">
+                    <div class="rule-header">
+                        <i class="fab fa-instagram"></i> Instagram Account এর নিয়ম
+                    </div>
+                    
+                    <div class="video-container">
+                        <div class="no-video">
+                            <i class="fas fa-video-slash" style="font-size: 30px; color: #ccc;"></i>
+                            <span>কোনো ভিডিও যোগ করা হয়নি</span>
+                        </div>
+                    </div>
+
+                    <div class="rule-body">
+                        <p class="rule-text">
+                            ১. ইন্সটাগ্রাম অ্যাপের ডাটা ক্লিয়ার করুন।
+                            ২. নতুন ইমেইল দিয়ে সাইন আপ করুন।
+                            ৩. প্রোফাইল পিকচার এবং বায়ো সেট করা বাধ্যতামূলক।
+                            ৪. কাজ শেষে ইউজারনেম এবং পাসওয়ার্ড জমা দিন।
+                        </p>
+                    </div>
+
+                    <div class="rule-actions">
+                        <button class="btn-edit" onclick="editRule()"><i class="fas fa-edit"></i> এডিট</button>
+                        <button class="btn-delete" onclick="deleteRule('rule-2')"><i class="fas fa-trash-alt"></i> ডিলিট</button>
+                    </div>
+                </div>
+
+                <!-- কার্ড ৩ -->
+                <div class="rule-card" id="rule-3">
+                    <div class="rule-header">
+                        <i class="fab fa-whatsapp"></i> WhatsApp Number এর নিয়ম
+                    </div>
+                    
+                    <div class="video-container">
+                        <div class="no-video">
+                            <i class="fas fa-video-slash" style="font-size: 30px; color: #ccc;"></i>
+                            <span>কোনো ভিডিও যোগ করা হয়নি</span>
+                        </div>
+                    </div>
+
+                    <div class="rule-body">
+                        <p class="rule-text">
+                            ১. আমাদের দেওয়া কান্ট্রি কোড সিলেক্ট করুন।
+                            ২. নাম্বারটি হোয়াটসঅ্যাপে বসিয়ে সেন্ড কোড দিন।
+                            ৩. ওয়েবসাইটের ড্যাশবোর্ডে ওটিপি (OTP) পেলে তা বসিয়ে একাউন্ট তৈরি করুন।
+                        </p>
+                    </div>
+
+                    <div class="rule-actions">
+                        <button class="btn-edit" onclick="editRule()"><i class="fas fa-edit"></i> এডিট</button>
+                        <button class="btn-delete" onclick="deleteRule('rule-3')"><i class="fas fa-trash-alt"></i> ডিলিট</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // টোস্ট মেসেজ
+        function showToast(message, isError = false) {
+            const toast = document.getElementById("toastBox");
+            document.getElementById("toastText").innerText = message;
+            toast.style.backgroundColor = isError ? "#e74c3c" : "#27ae60";
+            toast.classList.add("show");
+            setTimeout(() => { toast.classList.remove("show"); }, 3000);
+        }
+
+        // রুল সেভ করার ফাংশন
+        function saveRule() {
+            const text = document.getElementById("rulesTextInput").value;
+            
+            if (text.trim() === "") {
+                alert("দয়া করে নিয়মাবলী লিখুন!");
+                return;
+            }
+
+            showToast("নতুন নিয়ম এবং ভিডিও সফলভাবে সেভ হয়েছে!");
+            
+            // ইনপুট ক্লিয়ার
+            document.getElementById("videoUrlInput").value = '';
+            document.getElementById("rulesTextInput").value = '';
+        }
+
+        // এডিট বাটনের ডামি ফাংশন
+        function editRule() {
+            alert("এই অপশনটি সার্ভারের সাথে কানেক্ট করার পর কাজ করবে।");
+        }
+
+        // ডিলিট করার ফাংশন
+        function deleteRule(cardId) {
+            if(confirm("আপনি কি নিশ্চিত যে এই নিয়মটি মুছে ফেলতে চান?")) {
+                const card = document.getElementById(cardId);
+                card.style.opacity = '0';
+                card.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    card.style.display = 'none';
+                    showToast("নিয়মটি সফলভাবে মুছে ফেলা হয়েছে!", true);
+                }, 300);
+            }
+        }
+
+        document.getElementById("adminLogout").addEventListener("click", () => {
+            window.location.href = "login.html"; 
+        });
+    </script>
+</body>
+</html>
