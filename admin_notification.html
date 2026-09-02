@@ -35,7 +35,7 @@
             box-shadow: 4px 0 15px rgba(226, 0, 90, 0.2);
             transition: 0.3s;
             z-index: 100;
-            flex-shrink: 0; /* স্ক্রিন ছোট হলেও মেনু হারাবে না */
+            flex-shrink: 0;
         }
 
         .sidebar-header {
@@ -249,7 +249,7 @@
         <header class="topbar">
             <div class="topbar-title" id="mainTitle"><i class="fas fa-bell"></i> নোটিফিকেশন ও নোটিশ</div>
             <div class="admin-profile">
-                <!-- হিস্ট্রি বাটন (সব সময় হিস্ট্রি আইকন থাকবে) -->
+                <!-- হিস্ট্রি বাটন -->
                 <button class="btn-history" id="toggleViewBtn" onclick="toggleView()" title="হিস্ট্রি দেখুন">
                     <i class="fas fa-history"></i>
                 </button>
@@ -308,7 +308,7 @@
                 </div>
             </div>
 
-            <!-- হিস্ট্রি ভিউ (লুকানো থাকবে, বাটনে ক্লিক করলে দেখাবে) -->
+            <!-- হিস্ট্রি ভিউ -->
             <div id="historyView" style="display: none;">
                 <div class="history-card">
                     <div class="settings-title" style="margin-bottom: 20px;"><i class="fas fa-history"></i> পাঠানো নোটিশের হিস্ট্রি</div>
@@ -329,7 +329,7 @@
     </main>
 
     <script>
-        // কাস্টম টোস্ট মেসেজ
+        // টোস্ট মেসেজ ফাংশন
         function showToast(message, isError = false) {
             const toast = document.getElementById("toastBox");
             const text = document.getElementById("toastText");
@@ -349,26 +349,40 @@
             setTimeout(() => { toast.classList.remove("show"); }, 3500);
         }
 
-        let isHistoryView = false;
-
-        // পেজ পাল্টানোর লজিক
-        function toggleView() {
-            isHistoryView = !isHistoryView;
-            if(isHistoryView) {
+        // পেজ লোড হওয়ার সময় চেক করবে আগে কোথায় ছিল (LocalStorage ব্যবহার করে)
+        window.onload = function() {
+            const savedView = localStorage.getItem("admin_active_view");
+            if (savedView === "history") {
                 document.getElementById('mainView').style.display = 'none';
                 document.getElementById('historyView').style.display = 'block';
-                // অ্যারো বাটন সরিয়ে দিয়েছি, শুধু টাইটেল পরিবর্তন হবে
                 document.getElementById('mainTitle').innerHTML = '<i class="fas fa-history"></i> নোটিশ ও নোটিফিকেশন হিস্ট্রি';
                 document.getElementById('toggleViewBtn').title = "ফিরে যান";
+            }
+        };
+
+        // পেজ বা ভিউ পাল্টানোর লজিক
+        function toggleView() {
+            const mainView = document.getElementById('mainView');
+            const historyView = document.getElementById('historyView');
+            const mainTitle = document.getElementById('mainTitle');
+            const toggleBtn = document.getElementById('toggleViewBtn');
+
+            if (mainView.style.display !== 'none') {
+                mainView.style.display = 'none';
+                historyView.style.display = 'block';
+                mainTitle.innerHTML = '<i class="fas fa-history"></i> নোটিশ ও নোটিফিকেশন হিস্ট্রি';
+                toggleBtn.title = "ফিরে যান";
+                localStorage.setItem("admin_active_view", "history"); // স্টেট সেভ করা হলো
             } else {
-                document.getElementById('historyView').style.display = 'none';
-                document.getElementById('mainView').style.display = 'block';
-                document.getElementById('mainTitle').innerHTML = '<i class="fas fa-bell"></i> নোটিফিকেশন ও নোটিশ';
-                document.getElementById('toggleViewBtn').title = "হিস্ট্রি দেখুন";
+                historyView.style.display = 'none';
+                mainView.style.display = 'block';
+                mainTitle.innerHTML = '<i class="fas fa-bell"></i> নোটিফিকেশন ও নোটিশ';
+                toggleBtn.title = "হিস্ট্রি দেখুন";
+                localStorage.setItem("admin_active_view", "main"); // স্টেট সেভ করা হলো
             }
         }
 
-        // হিস্ট্রি লিস্টে নতুন আইটেম যুক্ত করার লজিক
+        // হিস্ট্রি লিস্টে আইটেম যোগ করার ফাংশন
         function addHistoryItem(title, targetHTML, message) {
             const timeStr = new Date().toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit', hour12: true });
             const historyList = document.getElementById("historyList");
