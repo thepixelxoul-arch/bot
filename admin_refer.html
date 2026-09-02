@@ -25,9 +25,10 @@
             overflow: hidden;
         }
 
-        /* সাইডবার */
+        /* সাইডবার - ফিক্স করা হয়েছে যেন উধাও না হয় */
         .sidebar {
             width: 260px;
+            flex-shrink: 0; /* এই কোডটি সাইডবারকে উধাও হতে দেবে না */
             background: linear-gradient(180deg, var(--main-pink), var(--light-pink));
             color: white;
             display: flex;
@@ -74,9 +75,10 @@
 
         .nav-links a i { width: 20px; text-align: center; font-size: 18px; }
 
-        /* মেইন কন্টেন্ট এরিয়া */
+        /* মেইন কন্টেন্ট এরিয়া - ফিক্স করা হয়েছে */
         .main-content {
             flex-grow: 1;
+            min-width: 0; /* কনটেন্ট বেশি হলে যেন সাইডবারকে ধাক্কা না দেয় */
             display: flex;
             flex-direction: column;
             overflow: hidden;
@@ -103,6 +105,8 @@
             gap: 10px; 
         }
         .topbar-title i { color: var(--main-pink); }
+
+        .admin-profile { display: flex; align-items: center; gap: 15px; }
 
         /* ড্যাশবোর্ড বডি */
         .dashboard-body {
@@ -372,50 +376,29 @@
 
     <div id="toastBox" class="toast-msg"><i class="fas fa-check-circle"></i> <span id="toastText">আপডেট সফল হয়েছে!</span></div>
 
-    <!-- প্রমো কোড ইউজ হিস্ট্রি পপ-আপ (Modal) -->
-    <div id="promoHistoryModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('promoHistoryModal')">&times;</span>
-            <div class="modal-title"><i class="fas fa-history" style="color: var(--main-pink);"></i> প্রমো কোড ইউজ হিস্ট্রি</div>
-            <div class="list-container">
-                <div class="history-table-container" style="margin: 0; border: none; box-shadow: none;">
-                    <table class="history-table" style="font-size: 13px;">
-                        <thead>
-                            <tr>
-                                <th>ইউজার আইডি</th>
-                                <th>ব্যবহৃত কোড</th>
-                                <th>বোনাস পরিমাণ</th>
-                                <th>তারিখ ও সময়</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><span class="badge-id">USER_XYZ</span></td>
-                                <td style="color: var(--main-pink); font-weight: 900;">PROMO50</td>
-                                <td>৳৫০.০০</td>
-                                <td>আজ, ১১:১৫ AM</td>
-                            </tr>
-                            <tr>
-                                <td><span class="badge-id">USER_ABC</span></td>
-                                <td style="color: var(--main-pink); font-weight: 900;">EID100</td>
-                                <td>৳১০০.০০</td>
-                                <td>গতকাল, ০৩:৩০ PM</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+    <!-- সাইডবার -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2><i class="fas fa-paper-plane"></i> Send bKash</h2>
+            <p>অ্যাডমিন কন্ট্রোল প্যানেল</p>
         </div>
-    </div>
-
-    <!-- নির্দিষ্ট ইউজারের রেফার লিস্ট পপ-আপ -->
-    <div id="referListModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('referListModal')">&times;</span>
-            <div class="modal-title" id="rm-title"><i class="fas fa-users" style="color: var(--main-pink);"></i> রেফার করা ইউজারদের তালিকা</div>
-            <div class="list-container" id="rm-list"></div>
-        </div>
-    </div>
+        <ul class="nav-links">
+            <li><a href="admin_dashboard.html" class="nav-link"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
+            <li><a href="admin_history.html" class="nav-link"><i class="fas fa-history"></i> কাজের হিস্ট্রি</a></li>
+            <li><a href="admin_cash_in.html" class="nav-link"><i class="fas fa-wallet"></i> ক্যাশ ইন</a></li>
+            <li><a href="admin_simple_users.html" class="nav-link"><i class="fas fa-user"></i> সাধারণ ইউজার</a></li>
+            <li><a href="admin_vip_users.html" class="nav-link"><i class="fas fa-user-tie"></i> VIP ইউজার</a></li>
+            <li><a href="admin_withdraw.html" class="nav-link"><i class="fas fa-file-invoice-dollar"></i> উইথড্র রিকোয়েস্ট</a></li>
+            <li><a href="admin_account_verify.html" class="nav-link"><i class="fas fa-user-check"></i> অ্যাকাউন্ট যাচাই</a></li>
+            <li><a href="admin_task_rates.html" class="nav-link"><i class="fas fa-tasks"></i> কাজের রেট</a></li>
+            <li><a href="admin_number.html" class="nav-link"><i class="fas fa-sim-card"></i> নাম্বার ম্যানেজমেন্ট</a></li>
+            <li><a href="admin_vip_settings.html" class="nav-link"><i class="fas fa-crown"></i> VIP প্যাকেজ সেটিং</a></li>
+            <li><a href="admin_refer.html" class="nav-link active"><i class="fas fa-user-plus"></i> রেফার সেটিং</a></li>
+            <li><a href="admin_notification.html" class="nav-link"><i class="fas fa-bell"></i> নোটিফিকেশন ও নোটিশ</a></li>
+            <li><a href="admin_rules.html" class="nav-link"><i class="fas fa-file-alt"></i> কাজের নিয়মাবলী</a></li>
+            <li><a href="admin_support.html" class="nav-link"><i class="fas fa-headset"></i> হেল্প ও সাপোর্ট</a></li>
+        </ul>
+    </aside>
 
     <!-- মেইন এরিয়া -->
     <main class="main-content">
@@ -449,6 +432,8 @@
 
             <!-- ================= স্ক্রিন ১: রেফার ও কমিশন সেটিং ================= -->
             <div id="referSettingsPage" class="page-section" style="display: none;">
+                
+                <!-- হেডার -->
                 <div class="section-header-bar">
                     <button class="btn-back" onclick="showMainMenu()"><i class="fas fa-arrow-left"></i> রেফার</button>
                 </div>
@@ -571,9 +556,10 @@
                         ])"><i class="fas fa-list"></i> রেফার লিস্ট দেখুন</button>
                     </div>
                 </div>
+
             </div>
 
-            <!-- ================= স্ক্রিন ২: প্রমো কোড + হিস্ট্রি ================= -->
+            <!-- ================= স্ক্রিন ২: প্রমো কোড ================= -->
             <div id="promoCodePage" class="page-section" style="display: none;">
                 
                 <!-- হেডার ও ডানদিকের হিস্ট্রি বাটন -->
@@ -631,6 +617,51 @@
 
         </div>
     </main>
+
+    <!-- প্রমো কোড ইউজ হিস্ট্রি পপ-আপ (Modal) -->
+    <div id="promoHistoryModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('promoHistoryModal')">&times;</span>
+            <div class="modal-title"><i class="fas fa-history" style="color: var(--main-pink);"></i> প্রমো কোড ইউজ হিস্ট্রি</div>
+            <div class="list-container">
+                <div class="history-table-container" style="margin: 0; border: none; box-shadow: none;">
+                    <table class="history-table" style="font-size: 13px;">
+                        <thead>
+                            <tr>
+                                <th>ইউজার আইডি</th>
+                                <th>ব্যবহৃত কোড</th>
+                                <th>বোনাস পরিমাণ</th>
+                                <th>তারিখ ও সময়</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="badge-id">USER_XYZ</span></td>
+                                <td style="color: var(--main-pink); font-weight: 900;">PROMO50</td>
+                                <td>৳৫০.০০</td>
+                                <td>আজ, ১১:১৫ AM</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge-id">USER_ABC</span></td>
+                                <td style="color: var(--main-pink); font-weight: 900;">EID100</td>
+                                <td>৳১০০.০০</td>
+                                <td>গতকাল, ০৩:৩০ PM</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- নির্দিষ্ট ইউজারের রেফার লিস্ট পপ-আপ -->
+    <div id="referListModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('referListModal')">&times;</span>
+            <div class="modal-title" id="rm-title"><i class="fas fa-users" style="color: var(--main-pink);"></i> রেফার করা ইউজারদের তালিকা</div>
+            <div class="list-container" id="rm-list"></div>
+        </div>
+    </div>
 
     <script>
         let promoCount = 2; // For dynamic IDs
