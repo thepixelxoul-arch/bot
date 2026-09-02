@@ -135,7 +135,7 @@
             .notify-grid { grid-template-columns: 1fr; } 
         }
 
-        /* কার্ডের ডিজাইন এবং হোভার ইফেক্ট (বর্ডার সরানো হয়েছে) */
+        /* কার্ডের ডিজাইন এবং হোভার ইফেক্ট */
         .settings-card {
             background: #fff;
             border-radius: 12px;
@@ -179,7 +179,7 @@
         }
         .btn-submit:hover { background: #b0124c; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(226, 0, 90, 0.3); }
 
-        /* হিস্ট্রি কার্ড ডিজাইন (বর্ডার সরানো হয়েছে) */
+        /* হিস্ট্রি কার্ড ডিজাইন */
         .history-card {
             background: #fff; border-radius: 12px; padding: 25px;
             box-shadow: 0 4px 15px rgba(226, 0, 90, 0.1); 
@@ -356,7 +356,8 @@
             if(isHistoryView) {
                 document.getElementById('mainView').style.display = 'none';
                 document.getElementById('historyView').style.display = 'block';
-                document.getElementById('mainTitle').innerHTML = '<i class="fas fa-history"></i> নোটিশ ও নোটিফিকেশন হিস্ট্রি';
+                // এখানে টাইটেল পরিবর্তন করা হয়েছে
+                document.getElementById('mainTitle').innerHTML = '<i class="fas fa-history"></i> কাজের হিস্ট্রি';
                 document.getElementById('toggleViewBtn').innerHTML = '<i class="fas fa-arrow-left"></i>';
                 document.getElementById('toggleViewBtn').title = "ফিরে যান";
             } else {
