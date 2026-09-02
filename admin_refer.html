@@ -161,6 +161,18 @@
         }
         .btn-back:hover { background: var(--main-pink); color: white; }
 
+        /* ডানদিকের কোনার হিস্ট্রি বাটন */
+        .btn-history-icon {
+            background: rgba(226, 0, 90, 0.1); color: var(--main-pink);
+            border: none; width: 45px; height: 45px; border-radius: 50%;
+            font-size: 18px; cursor: pointer; transition: 0.3s;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 2px 8px rgba(226, 0, 90, 0.2);
+        }
+        .btn-history-icon:hover {
+            background: var(--main-pink); color: white; transform: rotate(-15deg) scale(1.1);
+        }
+
         /* সেটিংস কার্ড */
         .settings-card {
             background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
@@ -244,6 +256,41 @@
             opacity: 0; transition: opacity 0.3s, top 0.3s;
         }
         .toast-msg.show { visibility: visible; opacity: 1; top: 50px; }
+
+        /* --- পপ-আপ (Modal) ডিজাইন --- */
+        .modal {
+            display: none; position: fixed; z-index: 1000; left: 0; top: 0;
+            width: 100%; height: 100%; background-color: rgba(0,0,0,0.6);
+            align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease;
+        }
+        .modal.show { display: flex; opacity: 1; }
+        
+        .modal-content {
+            background-color: #fff; padding: 25px; border-radius: 12px;
+            width: 90%; max-width: 600px; box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            position: relative; max-height: 80vh; display: flex; flex-direction: column;
+            transform: translateY(20px); transition: transform 0.3s ease;
+            border-top: 5px solid var(--main-pink);
+        }
+        .modal.show .modal-content { transform: translateY(0); }
+
+        .close-btn { 
+            position: absolute; top: 15px; right: 20px; font-size: 24px; 
+            cursor: pointer; color: #aaa; transition: 0.2s; 
+        }
+        .close-btn:hover { color: var(--main-pink); }
+
+        .modal-title { 
+            font-size: 18px; font-weight: bold; color: var(--dark-blue); 
+            margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; 
+            display: flex; align-items: center; gap: 10px;
+        }
+        
+        .list-container {
+            overflow-y: auto; max-height: 350px; padding-right: 5px;
+        }
+        .list-container::-webkit-scrollbar { width: 5px; }
+        .list-container::-webkit-scrollbar-thumb { background: rgba(226, 0, 90, 0.2); border-radius: 10px; }
     </style>
 </head>
 <body>
@@ -274,6 +321,42 @@
         </ul>
     </aside>
 
+    <!-- প্রমো কোড ইউজ হিস্ট্রি পপ-আপ (Modal) -->
+    <div id="promoHistoryModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('promoHistoryModal')">&times;</span>
+            <div class="modal-title"><i class="fas fa-history" style="color: var(--main-pink);"></i> প্রমো কোড ইউজ হিস্ট্রি</div>
+            <div class="list-container">
+                <div class="history-table-container" style="margin: 0; border: none; box-shadow: none;">
+                    <table class="history-table" style="font-size: 13px;">
+                        <thead>
+                            <tr>
+                                <th>ইউজার আইডি</th>
+                                <th>ব্যবহৃত কোড</th>
+                                <th>বোনাস পরিমাণ</th>
+                                <th>তারিখ ও সময়</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="badge-id">USER_XYZ</span></td>
+                                <td style="color: var(--main-pink); font-weight: 900;">PROMO50</td>
+                                <td>৳৫০.০০</td>
+                                <td>আজ, ১১:১৫ AM</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge-id">USER_ABC</span></td>
+                                <td style="color: var(--main-pink); font-weight: 900;">EID100</td>
+                                <td>৳১০০.০০</td>
+                                <td>গতকাল, ০৩:৩০ PM</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- মেইন এরিয়া -->
     <main class="main-content">
         <header class="topbar">
@@ -298,8 +381,8 @@
                 <!-- কার্ড ২ -->
                 <div class="menu-card" onclick="showSection('promoCodePage')">
                     <div class="menu-icon"><i class="fas fa-ticket-alt"></i></div>
-                    <h3>প্রমো কোড ও ইউজ হিস্ট্রি</h3>
-                    <p>প্রমো কোড তৈরি, ম্যানেজ ও ব্যবহারের হিস্ট্রি দেখুন</p>
+                    <h3>প্রমো কোড (Promo Code)</h3>
+                    <p>প্রমো কোড ম্যানেজ করুন ও ইউজ হিস্ট্রি দেখুন</p>
                 </div>
 
             </div>
@@ -307,8 +390,10 @@
             <!-- ================= স্ক্রিন ১: রেফার ও কমিশন সেটিং + হিস্ট্রি ================= -->
             <div id="referSettingsPage" class="page-section" style="display: none;">
                 <div class="section-header-bar">
-                    <button class="btn-back" onclick="showMainMenu()"><i class="fas fa-arrow-left"></i> পেছনে যান</button>
-                    <h2 style="margin: 0; color: var(--dark-blue); font-size: 20px;"><i class="fas fa-cog" style="color: var(--main-pink);"></i> রেফার ও কমিশন আপডেট</h2>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <button class="btn-back" onclick="showMainMenu()"><i class="fas fa-arrow-left"></i> পেছনে যান</button>
+                        <h2 style="margin: 0; color: var(--dark-blue); font-size: 20px;"><i class="fas fa-cog" style="color: var(--main-pink);"></i> রেফার ও কমিশন আপডেট</h2>
+                    </div>
                 </div>
                 
                 <!-- আপডেট ফর্ম -->
@@ -380,11 +465,20 @@
                 </div>
             </div>
 
-            <!-- ================= স্ক্রিন ২: প্রমো কোড + হিস্ট্রি ================= -->
+            <!-- ================= স্ক্রিন ২: প্রমো কোড ================= -->
             <div id="promoCodePage" class="page-section" style="display: none;">
+                
+                <!-- হেডার ও ডানদিকের হিস্ট্রি বাটন -->
                 <div class="section-header-bar">
-                    <button class="btn-back" onclick="showMainMenu()"><i class="fas fa-arrow-left"></i> পেছনে যান</button>
-                    <h2 style="margin: 0; color: var(--dark-blue); font-size: 20px;"><i class="fas fa-ticket-alt" style="color: var(--main-pink);"></i> প্রমো কোড ম্যানেজমেন্ট</h2>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <button class="btn-back" onclick="showMainMenu()"><i class="fas fa-arrow-left"></i> পেছনে যান</button>
+                        <h2 style="margin: 0; color: var(--dark-blue); font-size: 20px;"><i class="fas fa-ticket-alt" style="color: var(--main-pink);"></i> প্রমো কোড ম্যানেজমেন্ট</h2>
+                    </div>
+                    
+                    <!-- হিস্ট্রি আইকন (ওপরের ডান কোনায়) -->
+                    <button class="btn-history-icon" onclick="openModal('promoHistoryModal')" title="প্রমো কোড হিস্ট্রি দেখুন">
+                        <i class="fas fa-history"></i>
+                    </button>
                 </div>
 
                 <!-- নতুন কোড যুক্ত করার বক্স -->
@@ -400,70 +494,35 @@
                     </div>
                 </div>
 
-                <div style="display: flex; gap: 30px; flex-wrap: wrap;">
-                    
-                    <!-- অ্যাক্টিভ প্রমো কোড লিস্ট -->
-                    <div style="flex: 1; min-width: 300px;">
-                        <h3 style="color: var(--dark-blue); margin-bottom: 15px;"><i class="fas fa-check-circle" style="color: #27ae60;"></i> অ্যাক্টিভ প্রমো কোডসমূহ:</h3>
-                        <div id="promoCodeList">
-                            
-                            <!-- কোড ১ -->
-                            <div class="list-item" id="promo-1">
-                                <div style="display: flex; align-items: center; gap: 10px;">
-                                    <span><i class="fas fa-ticket-alt" style="color: var(--main-pink);"></i> PROMO50</span>
-                                    <span style="color: #27ae60; font-size: 11px; background: #e8f8f5; padding: 3px 8px; border-radius: 5px;">Active</span>
-                                </div>
-                                <button class="btn-delete-promo" onclick="deletePromo('promo-1')">
-                                    <i class="fas fa-trash-alt"></i> মুছুন
-                                </button>
+                <div style="max-width: 700px;">
+                    <h3 style="color: var(--dark-blue); margin-bottom: 15px;"><i class="fas fa-check-circle" style="color: #27ae60;"></i> অ্যাক্টিভ প্রমো কোডসমূহ:</h3>
+                    <div id="promoCodeList">
+                        
+                        <!-- কোড ১ -->
+                        <div class="list-item" id="promo-1">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <span><i class="fas fa-ticket-alt" style="color: var(--main-pink);"></i> PROMO50</span>
+                                <span style="color: #27ae60; font-size: 11px; background: #e8f8f5; padding: 3px 8px; border-radius: 5px;">Active</span>
                             </div>
+                            <button class="btn-delete-promo" onclick="deletePromo('promo-1')">
+                                <i class="fas fa-trash-alt"></i> মুছুন
+                            </button>
+                        </div>
 
-                            <!-- কোড ২ -->
-                            <div class="list-item" id="promo-2">
-                                <div style="display: flex; align-items: center; gap: 10px;">
-                                    <span><i class="fas fa-ticket-alt" style="color: var(--main-pink);"></i> EID100</span>
-                                    <span style="color: #27ae60; font-size: 11px; background: #e8f8f5; padding: 3px 8px; border-radius: 5px;">Active</span>
-                                </div>
-                                <button class="btn-delete-promo" onclick="deletePromo('promo-2')">
-                                    <i class="fas fa-trash-alt"></i> মুছুন
-                                </button>
+                        <!-- কোড ২ -->
+                        <div class="list-item" id="promo-2">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <span><i class="fas fa-ticket-alt" style="color: var(--main-pink);"></i> EID100</span>
+                                <span style="color: #27ae60; font-size: 11px; background: #e8f8f5; padding: 3px 8px; border-radius: 5px;">Active</span>
                             </div>
-
+                            <button class="btn-delete-promo" onclick="deletePromo('promo-2')">
+                                <i class="fas fa-trash-alt"></i> মুছুন
+                            </button>
                         </div>
-                    </div>
 
-                    <!-- প্রমো কোড ইউজ হিস্ট্রি -->
-                    <div style="flex: 2; min-width: 400px;">
-                        <h3 style="color: var(--dark-blue); margin-bottom: 15px;"><i class="fas fa-history" style="color: var(--main-pink);"></i> প্রমো কোড ইউজ হিস্ট্রি:</h3>
-                        <div class="history-table-container">
-                            <table class="history-table">
-                                <thead>
-                                    <tr>
-                                        <th>ইউজার আইডি</th>
-                                        <th>ব্যবহৃত কোড</th>
-                                        <th>বোনাস পরিমাণ</th>
-                                        <th>তারিখ ও সময়</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><span class="badge-id">USER_XYZ</span></td>
-                                        <td style="color: var(--main-pink); font-weight: 900;">PROMO50</td>
-                                        <td>৳৫০.০০</td>
-                                        <td>আজ, ১১:১৫ AM</td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="badge-id">USER_ABC</span></td>
-                                        <td style="color: var(--main-pink); font-weight: 900;">EID100</td>
-                                        <td>৳১০০.০০</td>
-                                        <td>গতকাল, ০৩:৩০ PM</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
                     </div>
-
                 </div>
+
             </div>
 
         </div>
@@ -484,20 +543,18 @@
             document.getElementById('mainMenu').style.display = 'none';
             document.querySelectorAll('.page-section').forEach(sec => sec.style.display = 'none');
             document.getElementById(sectionId).style.display = 'block';
-            window.location.hash = sectionId; // লিংক সেভ করা
+            window.location.hash = sectionId; 
         }
 
         function showMainMenu() {
             document.querySelectorAll('.page-section').forEach(sec => sec.style.display = 'none');
             document.getElementById('mainMenu').style.display = 'grid';
-            history.replaceState(null, null, ' '); // লিংক থেকে হ্যাশ রিমুভ করা
+            history.replaceState(null, null, ' '); 
         }
 
-        // পেজ রিলোড হলে অথবা ব্রাউজারের ব্যাক বাটন চাপলে আগের স্টেটে থাকার লজিক
         function checkHash() {
             const hash = window.location.hash.substring(1);
             if (hash && document.getElementById(hash)) {
-                // মেইন মেনু হাইড করে পেজ শো করবে
                 document.getElementById('mainMenu').style.display = 'none';
                 document.querySelectorAll('.page-section').forEach(sec => sec.style.display = 'none');
                 document.getElementById(hash).style.display = 'block';
@@ -509,7 +566,15 @@
         window.addEventListener('load', checkHash);
         window.addEventListener('hashchange', checkHash);
 
-        // --- ফর্ম ও ডিলিট লজিক ---
+        // --- মডাল ও অন্যান্য ফাংশন ---
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('show');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('show');
+        }
+
         function updateReferSettings() {
             const bonus = document.getElementById("referBonusInput").value;
             const comm = document.getElementById("referCommInput").value;
