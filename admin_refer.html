@@ -197,6 +197,56 @@
         }
         .btn-update-settings:hover { background: var(--bg-light); transform: translateY(-2px); }
 
+        /* --- টেবিল সেকশন স্টাইল --- */
+        .section-header {
+            font-size: 18px; font-weight: bold; color: var(--dark-blue);
+            margin-bottom: 15px; display: flex; align-items: center; gap: 10px;
+        }
+
+        .history-table-container {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+            overflow: hidden;
+            margin-bottom: 30px;
+            border: 1px solid #eaeaea;
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .history-table th {
+            background-color: var(--pink-transparent);
+            color: var(--main-pink);
+            padding: 15px 20px;
+            font-weight: 900;
+            border-bottom: 2px solid #eaeaea;
+        }
+
+        .history-table td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            color: var(--dark-blue);
+            font-weight: bold;
+        }
+
+        .history-table tr:hover {
+            background-color: #fafbfc;
+        }
+
+        .badge-id {
+            background-color: rgba(226, 0, 90, 0.1);
+            color: var(--main-pink);
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 900;
+        }
+
         /* --- পপ-আপ (Modal) ডিজাইন --- */
         .modal {
             display: none; position: fixed; z-index: 1000; left: 0; top: 0;
@@ -207,7 +257,7 @@
         
         .modal-content {
             background-color: #fff; padding: 25px; border-radius: 12px;
-            width: 90%; max-width: 500px; box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            width: 90%; max-width: 450px; box-shadow: 0 10px 40px rgba(0,0,0,0.2);
             position: relative; max-height: 80vh; display: flex; flex-direction: column;
             transform: translateY(20px); transition: transform 0.3s ease;
             border-top: 5px solid var(--main-pink);
@@ -232,15 +282,6 @@
         .list-container::-webkit-scrollbar { width: 5px; }
         .list-container::-webkit-scrollbar-thumb { background: rgba(226, 0, 90, 0.2); border-radius: 10px; }
 
-        /* পপ-আপের ভেতরে কার্ড স্টাইল */
-        .popup-card {
-            background: #fff; border: 1px solid #e0e0e0; border-radius: 10px; padding: 15px;
-            margin-bottom: 12px; display: flex; flex-direction: column; gap: 8px;
-            border-left: 4px solid var(--main-pink); box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-        }
-        .popup-card-header { display: flex; justify-content: space-between; font-weight: 900; color: var(--dark-blue); font-size: 15px; }
-        .popup-card-sub { display: flex; justify-content: space-between; font-size: 13px; color: var(--text-grey); font-weight: bold; }
-
         .list-item {
             background: #f8f9fa; padding: 12px; border-radius: 8px; margin-bottom: 10px;
             border-left: 4px solid var(--main-pink); font-size: 14px; color: var(--dark-blue);
@@ -263,7 +304,7 @@
 
     <!-- ২ নং বাটন: প্রমো কোড (Promo Code) পপ-আপ -->
     <div id="promoCodeModal" class="modal">
-        <div class="modal-content" style="max-width: 450px;">
+        <div class="modal-content">
             <span class="close-btn" onclick="closeModal('promoCodeModal')">&times;</span>
             <div class="modal-title"><i class="fas fa-ticket-alt" style="color: var(--main-pink);"></i> প্রমো কোড ম্যানেজমেন্ট</div>
             
@@ -287,66 +328,6 @@
                 <div class="list-item">
                     <span><i class="fas fa-ticket-alt" style="color: var(--main-pink); margin-right: 8px;"></i> EID100</span>
                     <span style="color: #27ae60; font-weight: bold; font-size: 11px;">Active</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ৩ নং বাটন: প্রমো কোড ইউজ হিস্ট্রি (Promo Code Use History) পপ-আপ -->
-    <div id="promoHistoryModal" class="modal">
-        <div class="modal-content" style="max-width: 500px;">
-            <span class="close-btn" onclick="closeModal('promoHistoryModal')">&times;</span>
-            <div class="modal-title"><i class="fas fa-history" style="color: var(--main-pink);"></i> প্রমো কোড ইউজ হিস্ট্রি</div>
-            <div class="list-container">
-                <div class="popup-card">
-                    <div class="popup-card-header">
-                        <span>USER_XYZ</span>
-                        <span style="color: var(--main-pink);">কোড: PROMO50</span>
-                    </div>
-                    <div class="popup-card-sub">
-                        <span>বোনাস: ৳৫০.০০</span>
-                        <span style="color: #888; font-size: 11px;">আজ, ১১:১৫ AM</span>
-                    </div>
-                </div>
-                <div class="popup-card">
-                    <div class="popup-card-header">
-                        <span>USER_ABC</span>
-                        <span style="color: var(--main-pink);">কোড: EID100</span>
-                    </div>
-                    <div class="popup-card-sub">
-                        <span>বোনাস: ৳১০০.০০</span>
-                        <span style="color: #888; font-size: 11px;">গতকাল, ০৩:৩০ PM</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ৪ নং বাটন: রেফার ও কমিশন হিস্ট্রি (Refer & Commission History) পপ-আপ -->
-    <div id="referCommissionHistoryModal" class="modal">
-        <div class="modal-content" style="max-width: 500px;">
-            <span class="close-btn" onclick="closeModal('referCommissionHistoryModal')">&times;</span>
-            <div class="modal-title"><i class="fas fa-gift" style="color: var(--main-pink);"></i> রেফার ও কমিশন হিস্ট্রি</div>
-            <div class="list-container">
-                <div class="popup-card">
-                    <div class="popup-card-header">
-                        <span>T9KZBTUBR1</span>
-                        <span style="color: var(--main-pink);">বোনাস: +৳২০ | কমিশন: +৳৫</span>
-                    </div>
-                    <div class="popup-card-sub">
-                        <span>রেফারকৃত আইডি: USER_A12</span>
-                        <span style="color: #888; font-size: 11px;">আজ, ১০:০০ AM</span>
-                    </div>
-                </div>
-                <div class="popup-card">
-                    <div class="popup-card-header">
-                        <span>M2LKBTYYY5</span>
-                        <span style="color: var(--main-pink);">বোনাস: +৳২০ | কমিশন: +৳১২</span>
-                    </div>
-                    <div class="popup-card-sub">
-                        <span>রেফারকৃত আইডি: NEW_55X</span>
-                        <span style="color: #888; font-size: 11px;">আজ, ০২:১৫ PM</span>
-                    </div>
                 </div>
             </div>
         </div>
@@ -387,21 +368,21 @@
 
         <div class="dashboard-body">
             
-            <!-- ১ নং অপশন: রেফার ও কমিশন আপডেট কার্ড এবং বাকি বাটনগুলো -->
+            <!-- ১ নং অপশন: রেফার ও কমিশন আপডেট কার্ড (যেখানে ৩টি বাটন রাখা হয়েছে) -->
             <div class="settings-card">
                 <div class="settings-header-flex">
                     <div class="settings-title"><i class="fas fa-cog"></i> রেফার ও কমিশন আপডেট করুন</div>
                     <div class="btn-action-group">
-                        <!-- ২ নং বাটন -->
+                        <!-- ২ নং বাটন: প্রমো কোড -->
                         <button class="btn-top-action" onclick="openModal('promoCodeModal')">
                             <i class="fas fa-ticket-alt"></i> প্রমো কোড
                         </button>
-                        <!-- ৩ নং বাটন -->
-                        <button class="btn-top-action" onclick="openModal('promoHistoryModal')">
+                        <!-- ৩ নং বাটন: প্রমো কোড ইউজ হিস্ট্রি -->
+                        <button class="btn-top-action" onclick="scrollToSection('promoHistorySection')">
                             <i class="fas fa-history"></i> প্রমো কোড ইউজ হিস্ট্রি
                         </button>
-                        <!-- ৪ নং বাটন -->
-                        <button class="btn-top-action" onclick="openModal('referCommissionHistoryModal')">
+                        <!-- ৪ নং বাটন: রেফার ও কমিশন হিস্ট্রি -->
+                        <button class="btn-top-action" onclick="scrollToSection('referHistorySection')">
                             <i class="fas fa-gift"></i> রেফার ও কমিশন হিস্ট্রি
                         </button>
                     </div>
@@ -430,6 +411,73 @@
                 </div>
             </div>
 
+            <!-- ৩ নং বাটন ক্লিক করলে এখানে স্ক্রল করে আসবে: প্রমো কোড ইউজ হিস্ট্রি টেবিল -->
+            <div id="promoHistorySection" class="section-header">
+                <i class="fas fa-history" style="color: var(--main-pink);"></i> প্রমো কোড ইউজ হিস্ট্রি (Promo Code Use History)
+            </div>
+
+            <div class="history-table-container">
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>ইউজার আইডি</th>
+                            <th>ব্যবহৃত কোড</th>
+                            <th>বোনাস পরিমাণ</th>
+                            <th>তারিখ ও সময়</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="badge-id">USER_XYZ</span></td>
+                            <td style="color: var(--main-pink); font-weight: 900;">PROMO50</td>
+                            <td>৳৫০.০০</td>
+                            <td>আজ, ১১:১৫ AM</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge-id">USER_ABC</span></td>
+                            <td style="color: var(--main-pink); font-weight: 900;">EID100</td>
+                            <td>৳১০০.০০</td>
+                            <td>গতকাল, ০৩:৩০ PM</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ৪ নং বাটন ক্লিক করলে এখানে স্ক্রল করে আসবে: রেফার ও কমিশন হিস্ট্রি টেবিল -->
+            <div id="referHistorySection" class="section-header" style="margin-top: 30px;">
+                <i class="fas fa-gift" style="color: var(--main-pink);"></i> রেফার ও কমিশন হিস্ট্রি (Refer & Commission History)
+            </div>
+
+            <div class="history-table-container">
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>রেফারকারী আইডি</th>
+                            <th>রেফারকৃত আইডি</th>
+                            <th>রেফার বোনাস</th>
+                            <th>টাস্ক কমিশন</th>
+                            <th>তারিখ ও সময়</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="badge-id">T9KZBTUBR1</span></td>
+                            <td><span class="badge-id" style="background-color: #e8f8f5; color: #27ae60;">USER_A12</span></td>
+                            <td style="color: var(--main-pink); font-weight: 900;">+৳২০.০০</td>
+                            <td style="color: #27ae60; font-weight: 900;">+৳৫.০০</td>
+                            <td>আজ, ১০:০০ AM</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge-id">M2LKBTYYY5</span></td>
+                            <td><span class="badge-id" style="background-color: #e8f8f5; color: #27ae60;">NEW_55X</span></td>
+                            <td style="color: var(--main-pink); font-weight: 900;">+৳২০.০০</td>
+                            <td style="color: #27ae60; font-weight: 900;">+৳১২.০০</td>
+                            <td>আজ, ০২:১৫ PM</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
     </main>
 
@@ -447,6 +495,10 @@
 
         function closeModal(modalId) {
             document.getElementById(modalId).classList.remove('show');
+        }
+
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
         }
 
         function updateReferSettings() {
