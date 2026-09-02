@@ -83,7 +83,7 @@
             background-color: var(--bg-light);
         }
 
-        /* টপবার */
+        /* টপবার (খালি রাখা হয়েছে) */
         .topbar {
             background-color: var(--main-white);
             padding: 15px 30px;
@@ -92,19 +92,8 @@
             align-items: center;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             z-index: 10;
+            height: 25px;
         }
-
-        .topbar-title { font-size: 18px; font-weight: bold; color: var(--dark-blue); }
-
-        .admin-profile { display: flex; align-items: center; gap: 15px; }
-        
-        .logout-btn {
-            background-color: #ffb3c6; color: var(--main-pink);
-            border: none; padding: 8px 18px; border-radius: 6px;
-            cursor: pointer; font-weight: bold; transition: 0.2s;
-            display: flex; align-items: center; gap: 8px;
-        }
-        .logout-btn:hover { background-color: var(--main-pink); color: white; }
 
         /* ড্যাশবোর্ড বডি */
         .dashboard-body {
@@ -139,7 +128,6 @@
             padding: 25px;
             box-shadow: 0 4px 15px rgba(226, 0, 90, 0.1);
             margin-bottom: 30px;
-            border-top: 5px solid var(--main-pink);
         }
 
         .form-title {
@@ -221,7 +209,7 @@
 
         .rule-text {
             font-size: 14px; color: #444; line-height: 1.6; margin: 0 0 20px 0;
-            white-space: pre-line; /* লাইন ব্রেক কাজ করার জন্য */
+            white-space: pre-line;
         }
 
         .rule-actions {
@@ -279,10 +267,7 @@
     <!-- মেইন এরিয়া -->
     <main class="main-content">
         <header class="topbar">
-            <div class="topbar-title">কাজের নিয়মাবলী ম্যানেজমেন্ট</div>
-            <div class="admin-profile">
-                <button class="logout-btn" id="adminLogout"><i class="fas fa-sign-out-alt"></i> লগআউট</button>
-            </div>
+            <!-- হেডার টাইটেল এবং লগআউট বাটন রিমুভ করা হয়েছে -->
         </header>
 
         <div class="dashboard-body">
@@ -334,21 +319,19 @@
 
             <div class="rules-grid">
                 
-                <!-- কার্ড ১ (ভিডিও সহ) -->
+                <!-- কার্ড ১ -->
                 <div class="rule-card" id="rule-1">
                     <div class="rule-header">
                         <i class="fab fa-google"></i> Google Account খোলার নিয়ম
                     </div>
                     
-                    <!-- ভিডিও কন্টেইনার -->
                     <div class="video-container">
-                        <!-- রিয়েল ওয়েবসাইটে এখানে আইফ্রেম (iframe) থাকবে -->
                         <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY" allowfullscreen></iframe>
                     </div>
 
                     <div class="rule-body">
                         <p class="rule-text">
-                            ১. প্রথমে একটি ফ্রেশ আইপি कनेक्ट করুন।
+                            ১. প্রথমে একটি ফ্রেশ আইপি connect করুন।
                             ২. ব্রাউজারের ডাটা ক্লিয়ার করে নিন।
                             ৩. আমাদের দেওয়া রিকভারি ইমেইল ব্যবহার করে নতুন একাউন্ট খুলুন।
                             ৪. পাসওয়ার্ড হিসেবে অবশ্যই "sakib@2026" ব্যবহার করবেন।
@@ -361,7 +344,7 @@
                     </div>
                 </div>
 
-                <!-- কার্ড ২ (ভিডিও ছাড়া) -->
+                <!-- কার্ড ২ -->
                 <div class="rule-card" id="rule-2">
                     <div class="rule-header">
                         <i class="fab fa-instagram"></i> Instagram Account এর নিয়ম
@@ -422,7 +405,6 @@
     </main>
 
     <script>
-        // টোস্ট মেসেজ
         function showToast(message, isError = false) {
             const toast = document.getElementById("toastBox");
             document.getElementById("toastText").innerText = message;
@@ -431,7 +413,6 @@
             setTimeout(() => { toast.classList.remove("show"); }, 3000);
         }
 
-        // রুল সেভ করার ফাংশন
         function saveRule() {
             const text = document.getElementById("rulesTextInput").value;
             
@@ -442,17 +423,14 @@
 
             showToast("নতুন নিয়ম এবং ভিডিও সফলভাবে সেভ হয়েছে!");
             
-            // ইনপুট ক্লিয়ার
             document.getElementById("videoUrlInput").value = '';
             document.getElementById("rulesTextInput").value = '';
         }
 
-        // এডিট বাটনের ডামি ফাংশন
         function editRule() {
             alert("এই অপশনটি সার্ভারের সাথে কানেক্ট করার পর কাজ করবে।");
         }
 
-        // ডিলিট করার ফাংশন
         function deleteRule(cardId) {
             if(confirm("আপনি কি নিশ্চিত যে এই নিয়মটি মুছে ফেলতে চান?")) {
                 const card = document.getElementById(cardId);
@@ -464,10 +442,6 @@
                 }, 300);
             }
         }
-
-        document.getElementById("adminLogout").addEventListener("click", () => {
-            window.location.href = "login.html"; 
-        });
     </script>
 </body>
 </html>
