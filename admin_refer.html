@@ -104,8 +104,6 @@
         }
         .topbar-title i { color: var(--main-pink); }
 
-        .admin-profile { display: flex; align-items: center; gap: 15px; }
-
         /* ড্যাশবোর্ড বডি */
         .dashboard-body {
             padding: 30px;
@@ -114,7 +112,7 @@
             position: relative;
         }
 
-        /* --- বড় মেনু কার্ড ডিজাইন (Big Menu Buttons) --- */
+        /* --- বড় মেনু কার্ড ডিজাইন --- */
         .menu-card-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -123,70 +121,40 @@
         }
 
         .menu-card {
-            background: #fff;
-            border: 1px solid #eaeaea;
-            border-radius: 12px;
-            padding: 35px 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: 0.3s;
-            border-bottom: 5px solid var(--main-pink);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            background: #fff; border: 1px solid #eaeaea; border-radius: 12px;
+            padding: 35px 20px; text-align: center; cursor: pointer; transition: 0.3s;
+            border-bottom: 5px solid var(--main-pink); box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
 
         .menu-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(226, 0, 90, 0.15);
+            transform: translateY(-5px); box-shadow: 0 10px 25px rgba(226, 0, 90, 0.15);
             border-color: var(--main-pink);
         }
 
         .menu-icon {
-            width: 80px;
-            height: 80px;
-            background: rgba(226, 0, 90, 0.08);
-            color: var(--main-pink);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 35px;
-            margin: 0 auto 20px;
-            transition: 0.3s;
+            width: 80px; height: 80px; background: rgba(226, 0, 90, 0.08); color: var(--main-pink);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 35px; margin: 0 auto 20px; transition: 0.3s;
         }
 
         .menu-card:hover .menu-icon {
-            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
-            color: #fff;
-            transform: scale(1.1);
+            background: linear-gradient(135deg, var(--main-pink), var(--light-pink)); color: #fff; transform: scale(1.1);
         }
 
         .menu-card h3 { color: var(--dark-blue); margin: 0 0 10px; font-size: 18px; font-weight: 900; }
         .menu-card p { color: var(--text-grey); margin: 0; font-size: 13px; font-weight: bold; }
 
-        /* --- পেইজ সেকশন স্টাইল (Page Section Styles) --- */
-        .page-section {
-            animation: fadeIn 0.3s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        /* --- পেইজ সেকশন স্টাইল --- */
+        .page-section { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .section-header-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;
         }
 
         .btn-back {
-            background: rgba(226, 0, 90, 0.1);
-            color: var(--main-pink);
+            background: rgba(226, 0, 90, 0.1); color: var(--main-pink);
             border: none; padding: 10px 20px; border-radius: 8px;
             font-size: 14px; font-weight: bold; cursor: pointer; transition: 0.2s;
             display: flex; align-items: center; gap: 8px;
@@ -324,14 +292,14 @@
                 <div class="menu-card" onclick="showSection('referSettingsPage')">
                     <div class="menu-icon"><i class="fas fa-cog"></i></div>
                     <h3>রেফার ও কমিশন আপডেট করুন</h3>
-                    <p>রেফার বোনাস এবং কমিশন আপডেট ও হিস্ট্রি দেখুন</p>
+                    <p>রেফার বোনাস, কমিশন আপডেট ও বিস্তারিত হিস্ট্রি দেখুন</p>
                 </div>
 
                 <!-- কার্ড ২ -->
                 <div class="menu-card" onclick="showSection('promoCodePage')">
                     <div class="menu-icon"><i class="fas fa-ticket-alt"></i></div>
-                    <h3>প্রমো কোড (Promo Code)</h3>
-                    <p>প্রমো কোড ম্যানেজ করুন ও ইউজ হিস্ট্রি দেখুন</p>
+                    <h3>প্রমো কোড ও ইউজ হিস্ট্রি</h3>
+                    <p>প্রমো কোড তৈরি, ম্যানেজ ও ব্যবহারের হিস্ট্রি দেখুন</p>
                 </div>
 
             </div>
