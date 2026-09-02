@@ -83,7 +83,7 @@
             background-color: var(--bg-light);
         }
 
-        /* টপবার */
+        /* টপবার (গোলাপি লেখা এবং লোগো সহ) */
         .topbar {
             background-color: var(--main-white);
             padding: 15px 30px;
@@ -92,7 +92,15 @@
             align-items: center;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             z-index: 10;
-            height: 25px;
+        }
+
+        .topbar-title { 
+            font-size: 20px; 
+            font-weight: 900; 
+            color: var(--main-pink); 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
         }
 
         /* ড্যাশবোর্ড বডি */
@@ -246,12 +254,12 @@
     <!-- মেইন এরিয়া -->
     <main class="main-content">
         <header class="topbar">
+            <!-- আপনার পছন্দমতো টপবারে গোলাপি রঙের লেখা এবং লোগো যুক্ত করা হয়েছে -->
+            <div class="topbar-title"><i class="fas fa-file-alt"></i> কাজের নিয়মাবলী</div>
         </header>
 
         <div class="dashboard-body">
             
-            <!-- গোলাপি বক্সটি এখান থেকে পুরোপুরি রিমুভ করা হয়েছে -->
-
             <!-- নিয়ম যোগ করার ফর্ম -->
             <div class="rules-form-card">
                 <div class="form-title"><i class="fas fa-plus-circle" style="color: var(--main-pink);"></i> নতুন নিয়ম বা টিউটোরিয়াল যোগ করুন</div>
