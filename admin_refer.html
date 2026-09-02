@@ -156,7 +156,7 @@
         .btn-back {
             background: rgba(226, 0, 90, 0.1); color: var(--main-pink);
             border: none; padding: 10px 20px; border-radius: 8px;
-            font-size: 14px; font-weight: bold; cursor: pointer; transition: 0.2s;
+            font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.2s;
             display: flex; align-items: center; gap: 8px;
         }
         .btn-back:hover { background: var(--main-pink); color: white; }
@@ -372,30 +372,6 @@
 
     <div id="toastBox" class="toast-msg"><i class="fas fa-check-circle"></i> <span id="toastText">আপডেট সফল হয়েছে!</span></div>
 
-    <!-- সাইডবার -->
-    <aside class="sidebar">
-        <div class="sidebar-header">
-            <h2><i class="fas fa-paper-plane"></i> Send bKash</h2>
-            <p>অ্যাডমিন কন্ট্রোল প্যানেল</p>
-        </div>
-        <ul class="nav-links">
-            <li><a href="admin_dashboard.html" class="nav-link"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
-            <li><a href="admin_history.html" class="nav-link"><i class="fas fa-history"></i> কাজের হিস্ট্রি</a></li>
-            <li><a href="admin_cash_in.html" class="nav-link"><i class="fas fa-wallet"></i> ক্যাশ ইন</a></li>
-            <li><a href="admin_simple_users.html" class="nav-link"><i class="fas fa-user"></i> সাধারণ ইউজার</a></li>
-            <li><a href="admin_vip_users.html" class="nav-link"><i class="fas fa-user-tie"></i> VIP ইউজার</a></li>
-            <li><a href="admin_withdraw.html" class="nav-link"><i class="fas fa-file-invoice-dollar"></i> উইথড্র রিকোয়েস্ট</a></li>
-            <li><a href="admin_account_verify.html" class="nav-link"><i class="fas fa-user-check"></i> অ্যাকাউন্ট যাচাই</a></li>
-            <li><a href="admin_task_rates.html" class="nav-link"><i class="fas fa-tasks"></i> কাজের রেট</a></li>
-            <li><a href="admin_number.html" class="nav-link"><i class="fas fa-sim-card"></i> নাম্বার ম্যানেজমেন্ট</a></li>
-            <li><a href="admin_vip_settings.html" class="nav-link"><i class="fas fa-crown"></i> VIP প্যাকেজ সেটিং</a></li>
-            <li><a href="admin_refer.html" class="nav-link active"><i class="fas fa-user-plus"></i> রেফার সেটিং</a></li>
-            <li><a href="admin_notification.html" class="nav-link"><i class="fas fa-bell"></i> নোটিফিকেশন ও নোটিশ</a></li>
-            <li><a href="admin_rules.html" class="nav-link"><i class="fas fa-file-alt"></i> কাজের নিয়মাবলী</a></li>
-            <li><a href="admin_support.html" class="nav-link"><i class="fas fa-headset"></i> হেল্প সাপোর্ট</a></li>
-        </ul>
-    </aside>
-
     <!-- প্রমো কোড ইউজ হিস্ট্রি পপ-আপ (Modal) -->
     <div id="promoHistoryModal" class="modal">
         <div class="modal-content">
@@ -471,13 +447,10 @@
 
             </div>
 
-            <!-- ================= স্ক্রিন ১: রেফার ও কমিশন সেটিং + হিস্ট্রি ================= -->
+            <!-- ================= স্ক্রিন ১: রেফার ও কমিশন সেটিং ================= -->
             <div id="referSettingsPage" class="page-section" style="display: none;">
                 <div class="section-header-bar">
-                    <div style="display: flex; align-items: center; gap: 15px;">
-                        <button class="btn-back" onclick="showMainMenu()"><i class="fas fa-arrow-left"></i> পেছনে যান</button>
-                        <h2 style="margin: 0; color: var(--dark-blue); font-size: 20px;"><i class="fas fa-cog" style="color: var(--main-pink);"></i> রেফার ও কমিশন আপডেট</h2>
-                    </div>
+                    <button class="btn-back" onclick="showMainMenu()"><i class="fas fa-arrow-left"></i> রেফার</button>
                 </div>
                 
                 <!-- আপডেট ফর্ম -->
@@ -598,41 +571,6 @@
                         ])"><i class="fas fa-list"></i> রেফার লিস্ট দেখুন</button>
                     </div>
                 </div>
-
-                <!-- হিস্ট্রি টেবিল (একই পেজে নিচে) -->
-                <div class="section-header">
-                    <i class="fas fa-history" style="color: var(--main-pink);"></i> সম্পূর্ণ রেফার ও কমিশন হিস্ট্রি (Refer & Commission History)
-                </div>
-
-                <div class="history-table-container">
-                    <table class="history-table">
-                        <thead>
-                            <tr>
-                                <th>রেফারকারী আইডি</th>
-                                <th>রেফারকৃত আইডি</th>
-                                <th>রেফার বোনাস</th>
-                                <th>টাস্ক কমিশন</th>
-                                <th>তারিখ ও সময়</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><span class="badge-id">T9KZBTUBR1</span></td>
-                                <td><span class="badge-id" style="background-color: #e8f8f5; color: #27ae60;">USER_A12</span></td>
-                                <td style="color: var(--main-pink); font-weight: 900;">+৳২০.০০</td>
-                                <td style="color: #27ae60; font-weight: 900;">+৳৫.০০</td>
-                                <td>আজ, ১০:০০ AM</td>
-                            </tr>
-                            <tr>
-                                <td><span class="badge-id">M2LKBTYYY5</span></td>
-                                <td><span class="badge-id" style="background-color: #e8f8f5; color: #27ae60;">NEW_55X</span></td>
-                                <td style="color: var(--main-pink); font-weight: 900;">+৳২০.০০</td>
-                                <td style="color: #27ae60; font-weight: 900;">+৳১২.০০</td>
-                                <td>আজ, ০২:১৫ PM</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
             </div>
 
             <!-- ================= স্ক্রিন ২: প্রমো কোড + হিস্ট্রি ================= -->
@@ -640,10 +578,7 @@
                 
                 <!-- হেডার ও ডানদিকের হিস্ট্রি বাটন -->
                 <div class="section-header-bar">
-                    <div style="display: flex; align-items: center; gap: 15px;">
-                        <button class="btn-back" onclick="showMainMenu()"><i class="fas fa-arrow-left"></i> পেছনে যান</button>
-                        <h2 style="margin: 0; color: var(--dark-blue); font-size: 20px;"><i class="fas fa-ticket-alt" style="color: var(--main-pink);"></i> প্রমো কোড ম্যানেজমেন্ট</h2>
-                    </div>
+                    <button class="btn-back" onclick="showMainMenu()"><i class="fas fa-arrow-left"></i> প্রমো</button>
                     
                     <!-- হিস্ট্রি আইকন (ওপরের ডান কোনায়) -->
                     <button class="btn-history-icon" onclick="openModal('promoHistoryModal')" title="প্রমো কোড ইউজ হিস্ট্রি দেখুন">
