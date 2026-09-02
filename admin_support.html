@@ -96,6 +96,21 @@
 
         .topbar-title { font-size: 20px; font-weight: 900; color: var(--main-pink); display: flex; align-items: center; gap: 10px; }
 
+        /* হিস্ট্রি বাটন (শুধু আইকন) */
+        .btn-history {
+            background: transparent;
+            color: var(--main-pink);
+            border: none;
+            padding: 0;
+            font-size: 24px;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-history:hover { transform: scale(1.1); }
+
         .admin-profile { display: flex; align-items: center; gap: 15px; }
         
         /* ড্যাশবোর্ড বডি */
@@ -105,7 +120,7 @@
             flex-grow: 1;
         }
 
-        /* --- সাপোর্ট লিংক সেটিং কার্ড (ওপরের বর্ডার রিমুভ করা হয়েছে) --- */
+        /* --- সাপোর্ট লিংক সেটিং কার্ড --- */
         .support-settings-card {
             background: #fff; border-radius: 12px; padding: 25px;
             box-shadow: 0 4px 15px rgba(226, 0, 90, 0.1); margin-bottom: 30px;
@@ -149,7 +164,7 @@
         }
         .btn-save-settings:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(226, 0, 90, 0.3); }
 
-        /* --- ইউজারদের মেসেজ কার্ড (Tickets) --- */
+        /* --- ইউজারদের মেসেজ কার্ড (বামপাশের লাল দাগ রিমুভ করা হয়েছে) --- */
         .ticket-grid {
             display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; padding-bottom: 30px;
         }
@@ -157,7 +172,6 @@
         .ticket-card {
             background: #fff; border: 1px solid #e0e0e0; border-radius: 12px; padding: 20px;
             display: flex; flex-direction: column; transition: 0.3s; position: relative;
-            border-left: 5px solid var(--main-pink);
         }
 
         .ticket-card:hover { box-shadow: 0 8px 25px rgba(226, 0, 90, 0.15); transform: translateY(-3px); }
@@ -284,114 +298,132 @@
     <!-- মেইন এরিয়া -->
     <main class="main-content">
         <header class="topbar">
-            <div class="topbar-title"><i class="fas fa-headset"></i> হেল্প ও সাপোর্ট</div>
-            <div class="admin-profile"></div>
+            <div class="topbar-title" id="mainTitle"><i class="fas fa-headset"></i> হেল্প ও সাপোর্ট</div>
+            <div class="admin-profile">
+                <!-- হিস্ট্রি বাটন (আইকন) -->
+                <button class="btn-history" id="toggleViewBtn" onclick="toggleView()" title="হিস্ট্রি দেখুন">
+                    <i class="fas fa-history"></i>
+                </button>
+            </div>
         </header>
 
         <div class="dashboard-body">
             
-            <!-- সাপোর্ট লিংক সেটিং -->
-            <div class="support-settings-card">
-                <div class="section-title"><i class="fas fa-link" style="color: var(--main-pink);"></i> আপনার সাপোর্ট কন্টাক্ট সেটিং</div>
-                
-                <div class="form-grid">
-                    <div class="input-group">
-                        <label>Telegram লিংক</label>
-                        <div class="input-with-icon">
-                            <span class="input-prefix"><i class="fab fa-telegram-plane"></i></span>
-                            <input type="text" id="tgLink" class="form-control" value="https://t.me/sendbkash_support">
+            <!-- মূল সাপোর্ট ভিউ -->
+            <div id="mainView">
+                <!-- সাপোর্ট লিংক সেটিং -->
+                <div class="support-settings-card">
+                    <div class="section-title"><i class="fas fa-link" style="color: var(--main-pink);"></i> আপনার সাপোর্ট কন্টাক্ট সেটিং</div>
+                    
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label>Telegram লিংক</label>
+                            <div class="input-with-icon">
+                                <span class="input-prefix"><i class="fab fa-telegram-plane"></i></span>
+                                <input type="text" id="tgLink" class="form-control" value="https://t.me/sendbkash_support">
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label>WhatsApp নাম্বার</label>
+                            <div class="input-with-icon">
+                                <span class="input-prefix"><i class="fab fa-whatsapp"></i></span>
+                                <input type="text" id="waLink" class="form-control" value="+8801700000000">
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label>Email এড্রেস</label>
+                            <div class="input-with-icon">
+                                <span class="input-prefix"><i class="fas fa-envelope"></i></span>
+                                <input type="email" id="emailLink" class="form-control" value="support@sendbkash.com">
+                            </div>
+                        </div>
+                        <button class="btn-save-settings" onclick="updateSupportInfo()">
+                            <i class="fas fa-save"></i> সেভ করুন
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ইউজারদের সাপোর্ট মেসেজ/টিকেট -->
+                <div class="section-title"><i class="fas fa-envelope-open-text" style="color: var(--main-pink);"></i> ইউজারদের মেসেজ (Support Tickets)</div>
+
+                <div class="ticket-grid">
+                    
+                    <!-- টিকেট ১ -->
+                    <div class="ticket-card" id="ticket-1">
+                        <div class="ticket-header">
+                            <div class="ticket-user-info">
+                                <div class="ticket-avatar"><i class="fas fa-user"></i></div>
+                                <div>
+                                    <h4>T9KZBTUBR1</h4>
+                                    <p>আজ, ১০:১৫ AM</p>
+                                </div>
+                            </div>
+                            <div class="status-badge status-pending" id="badge-1">Pending</div>
+                        </div>
+                        <h3 class="ticket-subject">উইথড্র সমস্যা</h3>
+                        <div class="ticket-message">
+                            ভাইয়া, আমি গতকাল উইথড্র দিয়েছিলাম কিন্তু এখনো টাকা পাইনি। বিকাশ নাম্বার ঠিক আছে, দয়া করে একটু চেক করবেন।
+                        </div>
+                        <div class="ticket-actions">
+                            <button class="btn-reply" onclick="openReplyModal('T9KZBTUBR1', 'উইথড্র সমস্যা')"><i class="fas fa-reply"></i> রিপ্লাই দিন</button>
+                            <button class="btn-resolve" id="btn-res-1" onclick="markResolved('ticket-1', 'badge-1', 'btn-res-1')"><i class="fas fa-check"></i> সমাধান হয়েছে</button>
                         </div>
                     </div>
-                    <div class="input-group">
-                        <label>WhatsApp নাম্বার</label>
-                        <div class="input-with-icon">
-                            <span class="input-prefix"><i class="fab fa-whatsapp"></i></span>
-                            <input type="text" id="waLink" class="form-control" value="+8801700000000">
+
+                    <!-- টিকেট ২ -->
+                    <div class="ticket-card" id="ticket-2">
+                        <div class="ticket-header">
+                            <div class="ticket-user-info">
+                                <div class="ticket-avatar"><i class="fas fa-user"></i></div>
+                                <div>
+                                    <h4>M2LKBTYYY5</h4>
+                                    <p>গতকাল, ০৪:৩০ PM</p>
+                                </div>
+                            </div>
+                            <div class="status-badge status-pending" id="badge-2">Pending</div>
+                        </div>
+                        <h3 class="ticket-subject">কাজের রেট নিয়ে প্রশ্ন</h3>
+                        <div class="ticket-message">
+                            অ্যাডমিন ভাই, আমি VIP 2 প্যাকেজ কিনেছি কিন্তু আমার জিমেইলের রেট এখনো আগেরটাই দেখাচ্ছে। এটা কি আপডেট হবে?
+                        </div>
+                        <div class="ticket-actions">
+                            <button class="btn-reply" onclick="openReplyModal('M2LKBTYYY5', 'কাজের রেট নিয়ে প্রশ্ন')"><i class="fas fa-reply"></i> রিপ্লাই দিন</button>
+                            <button class="btn-resolve" id="btn-res-2" onclick="markResolved('ticket-2', 'badge-2', 'btn-res-2')"><i class="fas fa-check"></i> সমাধান হয়েছে</button>
                         </div>
                     </div>
-                    <div class="input-group">
-                        <label>Email এড্রেস</label>
-                        <div class="input-with-icon">
-                            <span class="input-prefix"><i class="fas fa-envelope"></i></span>
-                            <input type="email" id="emailLink" class="form-control" value="support@sendbkash.com">
+
+                    <!-- টিকেট ৩ (ইতিমধ্যেই সমাধান করা) -->
+                    <div class="ticket-card">
+                        <div class="ticket-header">
+                            <div class="ticket-user-info">
+                                <div class="ticket-avatar"><i class="fas fa-user"></i></div>
+                                <div>
+                                    <h4>X7ABCTUBR9</h4>
+                                    <p>২৫ আগস্ট, ১১:০০ AM</p>
+                                </div>
+                            </div>
+                            <div class="status-badge status-resolved">Resolved</div>
+                        </div>
+                        <h3 class="ticket-subject">পাসওয়ার্ড ভুলে গেছি</h3>
+                        <div class="ticket-message">
+                            আমি আমার একাউন্টের পাসওয়ার্ড ভুলে গেছি, কীভাবে রিকভার করতে পারি?
+                        </div>
+                        <div class="ticket-actions">
+                            <button class="btn-resolve done" disabled><i class="fas fa-check-double"></i> সমাধান করা হয়েছে</button>
                         </div>
                     </div>
-                    <button class="btn-save-settings" onclick="updateSupportInfo()">
-                        <i class="fas fa-save"></i> সেভ করুন
-                    </button>
+
                 </div>
             </div>
 
-            <!-- ইউজারদের সাপোর্ট মেসেজ/টিকেট -->
-            <div class="section-title"><i class="fas fa-envelope-open-text" style="color: var(--main-pink);"></i> ইউজারদের মেসেজ (Support Tickets)</div>
-
-            <div class="ticket-grid">
-                
-                <!-- টিকেট ১ -->
-                <div class="ticket-card" id="ticket-1">
-                    <div class="ticket-header">
-                        <div class="ticket-user-info">
-                            <div class="ticket-avatar"><i class="fas fa-user"></i></div>
-                            <div>
-                                <h4>T9KZBTUBR1</h4>
-                                <p>আজ, ১০:১৫ AM</p>
-                            </div>
-                        </div>
-                        <div class="status-badge status-pending" id="badge-1">Pending</div>
-                    </div>
-                    <h3 class="ticket-subject">উইথড্র সমস্যা</h3>
-                    <div class="ticket-message">
-                        ভাইয়া, আমি গতকাল উইথড্র দিয়েছিলাম কিন্তু এখনো টাকা পাইনি। বিকাশ নাম্বার ঠিক আছে, দয়া করে একটু চেক করবেন।
-                    </div>
-                    <div class="ticket-actions">
-                        <button class="btn-reply" onclick="openReplyModal('T9KZBTUBR1', 'উইথড্র সমস্যা')"><i class="fas fa-reply"></i> রিপ্লাই দিন</button>
-                        <button class="btn-resolve" id="btn-res-1" onclick="markResolved('ticket-1', 'badge-1', 'btn-res-1')"><i class="fas fa-check"></i> সমাধান হয়েছে</button>
+            <!-- হিস্ট্রি ভিউ (লুকানো থাকবে) -->
+            <div id="historyView" style="display: none;">
+                <div class="support-settings-card">
+                    <div class="section-title" style="margin-bottom: 20px;"><i class="fas fa-history"></i> সাপোর্ট মেসেজ হিস্ট্রি</div>
+                    <div style="color: #666; font-size: 14px; font-weight: bold; padding: 20px; text-align: center; background: #f8f9fa; border-radius: 8px;">
+                        পূর্বে সমাধানকৃত সকল সাপোর্ট টিকিটের হিস্ট্রি এখানে সংরক্ষিত থাকবে।
                     </div>
                 </div>
-
-                <!-- টিকেট ২ -->
-                <div class="ticket-card" id="ticket-2">
-                    <div class="ticket-header">
-                        <div class="ticket-user-info">
-                            <div class="ticket-avatar"><i class="fas fa-user"></i></div>
-                            <div>
-                                <h4>M2LKBTYYY5</h4>
-                                <p>গতকাল, ০৪:৩০ PM</p>
-                            </div>
-                        </div>
-                        <div class="status-badge status-pending" id="badge-2">Pending</div>
-                    </div>
-                    <h3 class="ticket-subject">কাজের রেট নিয়ে প্রশ্ন</h3>
-                    <div class="ticket-message">
-                        অ্যাডমিন ভাই, আমি VIP 2 প্যাকেজ কিনেছি কিন্তু আমার জিমেইলের রেট এখনো আগেরটাই দেখাচ্ছে। এটা কি আপডেট হবে?
-                    </div>
-                    <div class="ticket-actions">
-                        <button class="btn-reply" onclick="openReplyModal('M2LKBTYYY5', 'কাজের রেট নিয়ে প্রশ্ন')"><i class="fas fa-reply"></i> রিপ্লাই দিন</button>
-                        <button class="btn-resolve" id="btn-res-2" onclick="markResolved('ticket-2', 'badge-2', 'btn-res-2')"><i class="fas fa-check"></i> সমাধান হয়েছে</button>
-                    </div>
-                </div>
-
-                <!-- টিকেট ৩ (ইতিমধ্যেই সমাধান করা) -->
-                <div class="ticket-card">
-                    <div class="ticket-header">
-                        <div class="ticket-user-info">
-                            <div class="ticket-avatar"><i class="fas fa-user"></i></div>
-                            <div>
-                                <h4>X7ABCTUBR9</h4>
-                                <p>২৫ আগস্ট, ১১:০০ AM</p>
-                            </div>
-                        </div>
-                        <div class="status-badge status-resolved">Resolved</div>
-                    </div>
-                    <h3 class="ticket-subject">পাসওয়ার্ড ভুলে গেছি</h3>
-                    <div class="ticket-message">
-                        আমি আমার একাউন্টের পাসওয়ার্ড ভুলে গেছি, কীভাবে রিকভার করতে পারি?
-                    </div>
-                    <div class="ticket-actions">
-                        <button class="btn-resolve done" disabled><i class="fas fa-check-double"></i> সমাধান করা হয়েছে</button>
-                    </div>
-                </div>
-
             </div>
 
         </div>
@@ -404,6 +436,24 @@
             document.getElementById("toastText").innerText = message;
             toast.classList.add("show");
             setTimeout(() => { toast.classList.remove("show"); }, 3000);
+        }
+
+        let isHistoryView = false;
+
+        // ভিউ টগল করার লজিক
+        function toggleView() {
+            isHistoryView = !isHistoryView;
+            if(isHistoryView) {
+                document.getElementById('mainView').style.display = 'none';
+                document.getElementById('historyView').style.display = 'block';
+                document.getElementById('mainTitle').innerHTML = '<i class="fas fa-history"></i> সাপোর্ট হিস্ট্রি';
+                document.getElementById('toggleViewBtn').title = "ফিরে যান";
+            } else {
+                document.getElementById('historyView').style.display = 'none';
+                document.getElementById('mainView').style.display = 'block';
+                document.getElementById('mainTitle').innerHTML = '<i class="fas fa-headset"></i> হেল্প ও সাপোর্ট';
+                document.getElementById('toggleViewBtn').title = "হিস্ট্রি দেখুন";
+            }
         }
 
         // সাপোর্ট লিংক আপডেট
