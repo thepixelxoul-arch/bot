@@ -136,38 +136,50 @@
             position: relative;
         }
 
-        /* --- বড় মেনু কার্ড ডিজাইন --- */
+        /* --- মোবাইল স্টাইল বড় মেনু বাটন (Full Pink) --- */
         .menu-card-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
             padding-top: 10px;
+            max-width: 800px; /* বাটনগুলো যেন অতিরিক্ত চওড়া না হয়ে যায় */
         }
 
         .menu-card {
-            background: #fff; border: 1px solid #eaeaea; border-radius: 12px;
-            padding: 35px 20px; text-align: center; cursor: pointer; transition: 0.3s;
-            border-bottom: 5px solid var(--main-pink); box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
+            border-radius: 16px;
+            padding: 30px 20px; 
+            text-align: center; 
+            cursor: pointer; 
+            transition: 0.3s;
+            box-shadow: 0 6px 15px rgba(226, 0, 90, 0.25);
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center;
+            border: none;
+            color: white;
         }
 
         .menu-card:hover {
-            transform: translateY(-5px); box-shadow: 0 10px 25px rgba(226, 0, 90, 0.15);
-            border-color: var(--main-pink);
+            transform: translateY(-5px); 
+            box-shadow: 0 10px 25px rgba(226, 0, 90, 0.35);
         }
 
         .menu-icon {
-            width: 80px; height: 80px; background: rgba(226, 0, 90, 0.08); color: var(--main-pink);
+            width: 70px; height: 70px; 
+            background: rgba(255, 255, 255, 0.2); 
+            color: white;
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 35px; margin: 0 auto 20px; transition: 0.3s;
+            font-size: 30px; margin: 0 auto 15px; transition: 0.3s;
         }
 
         .menu-card:hover .menu-icon {
-            background: linear-gradient(135deg, var(--main-pink), var(--light-pink)); color: #fff; transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.3); transform: scale(1.1);
         }
 
-        .menu-card h3 { color: var(--dark-blue); margin: 0 0 10px; font-size: 18px; font-weight: 900; }
-        .menu-card p { color: var(--text-grey); margin: 0; font-size: 13px; font-weight: bold; }
+        .menu-card h3 { color: #ffffff; margin: 0 0 8px; font-size: 18px; font-weight: 900; }
+        .menu-card p { color: rgba(255, 255, 255, 0.85); margin: 0; font-size: 13px; font-weight: bold; }
 
         /* --- পেইজ সেকশন স্টাইল --- */
         .page-section { animation: fadeIn 0.3s ease-in-out; }
@@ -240,6 +252,15 @@
             margin-top: 5px;
         }
         .btn-delete-promo:hover { background: var(--main-pink); color: white; }
+
+        /* --- অ্যাড কোড বাটন (সলিড পিংক) --- */
+        .btn-add-promo {
+            background-color: var(--main-pink); color: #ffffff; padding: 12px 30px; border: none; 
+            border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; display: flex; 
+            align-items: center; gap: 8px; transition: 0.2s; box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2); 
+            white-space: nowrap; justify-content: center;
+        }
+        .btn-add-promo:hover { background-color: #c4004e; transform: translateY(-2px); }
 
         /* --- রেফার বক্স (User Cards) --- */
         .section-header {
@@ -767,7 +788,7 @@
             
             newItem.innerHTML = `
                 <div class="promo-card-header">
-                    <div class="promo-code-title"><i class="fas fa-ticket-alt" style="color: var(--main-pink);"></i> ${codeVal}</div>
+                    <div class="promo-code-title"><i class="fas fa-ticket-alt" style="color: var(--main-pink); margin-right: 8px;"></i> ${codeVal}</div>
                     <span class="promo-badge">Active</span>
                 </div>
                 <button class="btn-delete-promo" onclick="deletePromo('${newId}')">
