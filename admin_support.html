@@ -12,7 +12,7 @@
             --light-pink: #ff3377;
             --main-white: #ffffff; 
             --text-grey: #888888; 
-            --bg-light: #f4f6f9; /* অন্যান্য পেজের মতো পারফেক্ট ব্যাকগ্রাউন্ড */
+            --bg-light: #f4f6f9;
             --dark-blue: #2c3e50;
         }
 
@@ -25,7 +25,7 @@
             overflow: hidden;
         }
 
-        /* সাইডবার (অন্যান্য পেজের সাথে ১০০% মিলানো) */
+        /* সাইডবার */
         .sidebar {
             width: 260px;
             background: linear-gradient(180deg, var(--main-pink), var(--light-pink));
@@ -43,7 +43,6 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             flex-shrink: 0;
         }
-        /* লোগোর সাইজ ও স্টাইল অন্যান্য পেজের মতো ১০০% সেম করা হয়েছে */
         .sidebar-header h2 { margin: 0; font-size: 22px; font-weight: 900; letter-spacing: 1px;}
         .sidebar-header p { margin: 5px 0 0 0; font-size: 12px; color: #ffe6f0; }
 
@@ -95,43 +94,16 @@
             z-index: 10;
         }
 
-        .topbar-title { font-size: 18px; font-weight: bold; color: var(--dark-blue); }
+        .topbar-title { font-size: 20px; font-weight: 900; color: var(--main-pink); display: flex; align-items: center; gap: 10px; }
 
         .admin-profile { display: flex; align-items: center; gap: 15px; }
         
-        .logout-btn {
-            background-color: rgba(226, 0, 90, 0.1); color: var(--main-pink);
-            border: none; padding: 8px 18px; border-radius: 6px;
-            cursor: pointer; font-weight: bold; transition: 0.2s;
-            display: flex; align-items: center; gap: 8px;
-        }
-        .logout-btn:hover { background-color: var(--main-pink); color: white; }
-
         /* ড্যাশবোর্ড বডি */
         .dashboard-body {
             padding: 30px;
             overflow-y: auto;
             flex-grow: 1;
         }
-
-        .card-header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
-            padding: 20px 25px;
-            border-radius: 12px;
-            color: white;
-            box-shadow: 0 5px 15px rgba(226, 0, 90, 0.2);
-        }
-
-        .card-header-title {
-            font-size: 20px; font-weight: bold;
-            display: flex; align-items: center; gap: 10px; color: white;
-        }
-
-        .card-header-subtitle { font-size: 13px; color: #ffe0e9; margin-top: 5px; }
 
         /* --- সাপোর্ট লিংক সেটিং কার্ড --- */
         .support-settings-card {
@@ -313,23 +285,12 @@
     <!-- মেইন এরিয়া -->
     <main class="main-content">
         <header class="topbar">
-            <div class="topbar-title">হেল্প ও সাপোর্ট ম্যানেজমেন্ট</div>
-            <div class="admin-profile">
-                <button class="logout-btn" id="adminLogout"><i class="fas fa-sign-out-alt"></i> লগআউট</button>
-            </div>
+            <div class="topbar-title"><i class="fas fa-headset"></i> হেল্প ও সাপোর্ট</div>
+            <div class="admin-profile"></div>
         </header>
 
         <div class="dashboard-body">
             
-            <div class="card-header-container">
-                <div>
-                    <div class="card-header-title">
-                        <i class="fas fa-headset"></i> হেল্প ও সাপোর্ট সিস্টেম
-                    </div>
-                    <div class="card-header-subtitle">ইউজারদের সাপোর্ট মেসেজ চেক করুন এবং আপনার সাপোর্ট লিংকগুলো আপডেট করুন।</div>
-                </div>
-            </div>
-
             <!-- সাপোর্ট লিংক সেটিং -->
             <div class="support-settings-card">
                 <div class="section-title"><i class="fas fa-link" style="color: var(--main-pink);"></i> আপনার সাপোর্ট কন্টাক্ট সেটিং</div>
@@ -495,10 +456,6 @@
 
             showToast("এই মেসেজটি সমাধান হয়েছে হিসেবে মার্ক করা হয়েছে!");
         }
-
-        document.getElementById("adminLogout").addEventListener("click", () => {
-            window.location.href = "login.html"; 
-        });
     </script>
 </body>
 </html>
