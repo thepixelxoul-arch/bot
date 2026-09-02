@@ -106,13 +106,14 @@
             transition: 0.3s;
         }
 
-        /* ডাইনামিক ব্যাক বাটনের হোভার ইফেক্ট */
         .topbar-back-btn {
             display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.2s;
         }
         .topbar-back-btn:hover {
             transform: translateX(-5px);
         }
+
+        .admin-profile { display: flex; align-items: center; gap: 15px; }
 
         /* ড্যাশবোর্ড বডি */
         .dashboard-body {
@@ -158,6 +159,10 @@
         /* --- পেইজ সেকশন স্টাইল --- */
         .page-section { animation: fadeIn 0.3s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .section-header-bar {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;
+        }
 
         /* ডানদিকের কোনার হিস্ট্রি বাটন */
         .btn-history-icon {
@@ -352,7 +357,7 @@
 
         .list-item {
             background: #f8f9fa; padding: 12px; border-radius: 8px; margin-bottom: 10px;
-            border-left: 4px solid var(--main-pink); font-size: 14px; color: var(--dark-blue);
+            font-size: 14px; color: var(--dark-blue);
             display: flex; justify-content: space-between; align-items: center; font-weight: bold;
         }
 
@@ -369,30 +374,6 @@
 <body>
 
     <div id="toastBox" class="toast-msg"><i class="fas fa-check-circle"></i> <span id="toastText">আপডেট সফল হয়েছে!</span></div>
-
-    <!-- সাইডবার -->
-    <aside class="sidebar">
-        <div class="sidebar-header">
-            <h2><i class="fas fa-paper-plane"></i> Send bKash</h2>
-            <p>অ্যাডমিন কন্ট্রোল প্যানেল</p>
-        </div>
-        <ul class="nav-links">
-            <li><a href="admin_dashboard.html" class="nav-link"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
-            <li><a href="admin_history.html" class="nav-link"><i class="fas fa-history"></i> কাজের হিস্ট্রি</a></li>
-            <li><a href="admin_cash_in.html" class="nav-link"><i class="fas fa-wallet"></i> ক্যাশ ইন</a></li>
-            <li><a href="admin_simple_users.html" class="nav-link"><i class="fas fa-user"></i> সাধারণ ইউজার</a></li>
-            <li><a href="admin_vip_users.html" class="nav-link"><i class="fas fa-user-tie"></i> VIP ইউজার</a></li>
-            <li><a href="admin_withdraw.html" class="nav-link"><i class="fas fa-file-invoice-dollar"></i> উইথড্র রিকোয়েস্ট</a></li>
-            <li><a href="admin_account_verify.html" class="nav-link"><i class="fas fa-user-check"></i> অ্যাকাউন্ট যাচাই</a></li>
-            <li><a href="admin_task_rates.html" class="nav-link"><i class="fas fa-tasks"></i> কাজের রেট</a></li>
-            <li><a href="admin_number.html" class="nav-link"><i class="fas fa-sim-card"></i> নাম্বার ম্যানেজমেন্ট</a></li>
-            <li><a href="admin_vip_settings.html" class="nav-link"><i class="fas fa-crown"></i> VIP প্যাকেজ সেটিং</a></li>
-            <li><a href="admin_refer.html" class="nav-link active"><i class="fas fa-user-plus"></i> রেফার সেটিং</a></li>
-            <li><a href="admin_notification.html" class="nav-link"><i class="fas fa-bell"></i> নোটিফিকেশন ও নোটিশ</a></li>
-            <li><a href="admin_rules.html" class="nav-link"><i class="fas fa-file-alt"></i> কাজের নিয়মাবলী</a></li>
-            <li><a href="admin_support.html" class="nav-link"><i class="fas fa-headset"></i> হেল্প ও সাপোর্ট</a></li>
-        </ul>
-    </aside>
 
     <!-- প্রমো কোড ইউজ হিস্ট্রি পপ-আপ (Modal) -->
     <div id="promoHistoryModal" class="modal">
@@ -430,9 +411,9 @@
         </div>
     </div>
 
-    <!-- নির্দিষ্ট ইউজারের রেফার লিস্ট পপ-আপ -->
+    <!-- নির্দিষ্ট ইউজারের রেফার লিস্ট পপ-আপ (ফোনের সাইজে ছোট করা হয়েছে) -->
     <div id="referListModal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content" style="max-width: 400px;">
             <span class="close-btn" onclick="closeModal('referListModal')">&times;</span>
             <div class="modal-title" id="rm-title"><i class="fas fa-users" style="color: var(--main-pink);"></i> রেফার করা ইউজারদের তালিকা</div>
             <div class="list-container" id="rm-list"></div>
@@ -591,9 +572,10 @@
                         ])"><i class="fas fa-list"></i> রেফার লিস্ট দেখুন</button>
                     </div>
                 </div>
+
             </div>
 
-            <!-- ================= স্ক্রিন ২: প্রমো কোড + হিস্ট্রি ================= -->
+            <!-- ================= স্ক্রিন ২: প্রমো কোড ================= -->
             <div id="promoCodePage" class="page-section" style="display: none;">
                 
                 <!-- প্রমো কোড ম্যানেজমেন্ট হেডার এবং হিস্ট্রি বাটন -->
