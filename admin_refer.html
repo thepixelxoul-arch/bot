@@ -173,7 +173,7 @@
         .page-section { animation: fadeIn 0.3s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* সেটিংস কার্ড */
+        /* সেটিংস কার্ড (Full Pink Background) */
         .settings-card {
             background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
             border-radius: 12px; padding: 25px; box-shadow: 0 4px 15px rgba(226, 0, 90, 0.2);
@@ -197,6 +197,7 @@
             font-size: 16px; font-weight: bold; color: var(--main-pink); outline: none;
         }
 
+        /* বাটনের ডিজাইন (সাদা ব্যাকগ্রাউন্ড, পিংক টেক্সট) */
         .btn-update-settings {
             background: var(--main-white); color: var(--main-pink);
             border: none; padding: 14px 25px; border-radius: 8px;
@@ -215,7 +216,7 @@
             padding: 25px; display: flex; flex-direction: column; gap: 15px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.03);
             transition: 0.3s; width: 300px; 
-            text-align: left; align-items: flex-start; /* বামদিকে এলাইনমেন্ট */
+            text-align: left; align-items: flex-start;
         }
 
         .promo-card:hover { box-shadow: 0 8px 25px rgba(226, 0, 90, 0.1); transform: translateY(-3px); }
@@ -241,15 +242,6 @@
         }
         .btn-delete-promo:hover { background: var(--main-pink); color: white; }
 
-        /* --- অ্যাড কোড বাটন (সলিড পিংক) --- */
-        .btn-add-promo {
-            background-color: var(--main-pink); color: #ffffff; padding: 12px 30px; border: none; 
-            border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; display: flex; 
-            align-items: center; gap: 8px; transition: 0.2s; box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2); 
-            white-space: nowrap; justify-content: center;
-        }
-        .btn-add-promo:hover { background-color: #c4004e; transform: translateY(-2px); }
-
         /* --- রেফার বক্স (User Cards) --- */
         .section-header {
             font-size: 18px; font-weight: bold; color: var(--dark-blue);
@@ -264,7 +256,6 @@
             background: #fff; border: 1px solid #e0e0e0; border-radius: 12px; padding: 20px;
             display: flex; flex-direction: column; transition: box-shadow 0.2s, transform 0.2s;
             position: relative; box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-            border-left: 5px solid var(--main-pink);
         }
 
         .user-card:hover { box-shadow: 0 8px 25px rgba(226, 0, 90, 0.15); transform: translateY(-3px); }
@@ -360,6 +351,13 @@
         }
         .list-container::-webkit-scrollbar { width: 5px; }
         .list-container::-webkit-scrollbar-thumb { background: rgba(226, 0, 90, 0.2); border-radius: 10px; }
+
+        .list-item {
+            background: #f8f9fa; padding: 12px; border-radius: 8px; margin-bottom: 10px;
+            font-size: 14px; color: var(--dark-blue);
+            display: flex; justify-content: space-between; align-items: center; font-weight: bold;
+            border: 1px solid #eaeaea; transition: 0.3s;
+        }
 
         /* টোস্ট মেসেজ */
         .toast-msg {
@@ -606,20 +604,21 @@
             <!-- ================= স্ক্রিন ২: প্রমো কোড ================= -->
             <div id="promoCodePage" class="page-section" style="display: none;">
 
-                <!-- নতুন কোড যুক্ত করার বক্স -->
-                <div style="background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border: 1px solid #eaeaea; margin-bottom: 30px;">
+                <!-- নতুন কোড যুক্ত করার বক্স (Full Pink Box) -->
+                <div class="settings-card" style="margin-bottom: 30px;">
+                    <div style="font-size: 16px; font-weight: bold; margin-bottom: 15px; color: white;">নতুন প্রমো কোড তৈরি করুন</div>
                     <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-                        <div style="display: flex; align-items: center; background-color: #f8f9fa; border: 2px solid #eaeaea; border-radius: 8px; padding: 5px 15px; flex-grow: 1;">
+                        <div class="input-with-icon" style="flex-grow: 1; padding: 8px 15px;">
                             <i class="fas fa-ticket-alt" style="color: var(--main-pink); margin-right: 8px; font-size: 18px;"></i>
                             <input type="text" id="newPromoCode" class="form-control" style="font-size: 18px; text-transform: uppercase;" placeholder="নতুন প্রমো কোড লিখুন...">
                         </div>
-                        <button class="btn-add-promo" onclick="addPromoCode()">
+                        <button class="btn-update-settings" style="padding: 12px 30px; font-size: 16px; justify-content: center;" onclick="addPromoCode()">
                             <i class="fas fa-plus"></i> অ্যাড কোড
                         </button>
                     </div>
                 </div>
 
-                <!-- প্রমো কোড কার্ডস (বামদিক থেকে এলাইন করা) -->
+                <!-- প্রমো কোড কার্ডস -->
                 <div class="promo-grid" id="promoCodeList">
                     
                     <!-- কার্ড ১ -->
