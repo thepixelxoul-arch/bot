@@ -173,7 +173,7 @@
         .page-section { animation: fadeIn 0.3s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* সেটিংস কার্ড (Full Pink Background) */
+        /* সেটিংস কার্ড */
         .settings-card {
             background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
             border-radius: 12px; padding: 25px; box-shadow: 0 4px 15px rgba(226, 0, 90, 0.2);
@@ -197,7 +197,6 @@
             font-size: 16px; font-weight: bold; color: var(--main-pink); outline: none;
         }
 
-        /* বাটনের ডিজাইন (সাদা ব্যাকগ্রাউন্ড, পিংক টেক্সট) */
         .btn-update-settings {
             background: var(--main-white); color: var(--main-pink);
             border: none; padding: 14px 25px; border-radius: 8px;
@@ -256,6 +255,7 @@
             background: #fff; border: 1px solid #e0e0e0; border-radius: 12px; padding: 20px;
             display: flex; flex-direction: column; transition: box-shadow 0.2s, transform 0.2s;
             position: relative; box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            border-left: 5px solid var(--main-pink);
         }
 
         .user-card:hover { box-shadow: 0 8px 25px rgba(226, 0, 90, 0.15); transform: translateY(-3px); }
@@ -482,7 +482,6 @@
                 
                 <!-- আপডেট ফর্ম -->
                 <div class="settings-card">
-                    <div class="settings-title" style="margin-bottom: 20px;">নতুন পরিমাণ নির্ধারণ করুন</div>
                     <div class="form-grid">
                         <div class="input-group">
                             <label>প্রতি রেফারে বোনাস (Referral Bonus)</label>
@@ -604,21 +603,20 @@
             <!-- ================= স্ক্রিন ২: প্রমো কোড ================= -->
             <div id="promoCodePage" class="page-section" style="display: none;">
 
-                <!-- নতুন কোড যুক্ত করার বক্স (Full Pink Box) -->
-                <div class="settings-card" style="margin-bottom: 30px;">
-                    <div style="font-size: 16px; font-weight: bold; margin-bottom: 15px; color: white;">নতুন প্রমো কোড তৈরি করুন</div>
+                <!-- নতুন কোড যুক্ত করার বক্স (Slim Pink Box) -->
+                <div class="settings-card" style="padding: 15px 25px; margin-bottom: 30px; border-top: none;">
                     <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-                        <div class="input-with-icon" style="flex-grow: 1; padding: 8px 15px;">
+                        <div class="input-with-icon" style="flex-grow: 1; padding: 5px 15px; border-radius: 8px;">
                             <i class="fas fa-ticket-alt" style="color: var(--main-pink); margin-right: 8px; font-size: 18px;"></i>
-                            <input type="text" id="newPromoCode" class="form-control" style="font-size: 18px; text-transform: uppercase;" placeholder="নতুন প্রমো কোড লিখুন...">
+                            <input type="text" id="newPromoCode" class="form-control" style="font-size: 16px; text-transform: uppercase;" placeholder="নতুন প্রমো কোড লিখুন...">
                         </div>
-                        <button class="btn-update-settings" style="padding: 12px 30px; font-size: 16px; justify-content: center;" onclick="addPromoCode()">
+                        <button class="btn-update-settings" style="padding: 10px 25px; font-size: 16px; justify-content: center; min-width: 150px;" onclick="addPromoCode()">
                             <i class="fas fa-plus"></i> অ্যাড কোড
                         </button>
                     </div>
                 </div>
 
-                <!-- প্রমো কোড কার্ডস -->
+                <!-- প্রমো কোড কার্ডস (বামদিক থেকে এলাইন করা) -->
                 <div class="promo-grid" id="promoCodeList">
                     
                     <!-- কার্ড ১ -->
