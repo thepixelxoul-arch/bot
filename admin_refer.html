@@ -147,7 +147,7 @@
         .menu-card {
             background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
             border-radius: 16px;
-            padding: 45px 30px; /* বক্সের সাইজ অনুযায়ী প্যাডিং বাড়ানো হয়েছে */
+            padding: 45px 30px;
             text-align: center; 
             cursor: pointer; 
             transition: 0.3s;
@@ -158,9 +158,9 @@
             justify-content: center;
             border: none;
             color: white;
-            flex: 1; /* রেসপন্সিভ হওয়ার জন্য */
+            flex: 1; 
             min-width: 300px;
-            max-width: 480px; /* অতিরিক্ত চওড়া হওয়া রোধ করবে */
+            max-width: 480px; 
         }
 
         .menu-card:hover {
@@ -169,7 +169,7 @@
         }
 
         .menu-icon {
-            width: 90px; height: 90px; /* আইকন আরও বড় করা হয়েছে */
+            width: 90px; height: 90px;
             background: rgba(255, 255, 255, 0.2); 
             color: white;
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
@@ -180,7 +180,7 @@
             background: rgba(255, 255, 255, 0.3); transform: scale(1.1);
         }
 
-        .menu-card h3 { color: #ffffff; margin: 0 0 10px; font-size: 24px; font-weight: 900; } /* টেক্সট বড় করা হয়েছে */
+        .menu-card h3 { color: #ffffff; margin: 0 0 10px; font-size: 24px; font-weight: 900; }
         .menu-card p { color: rgba(255, 255, 255, 0.9); margin: 0; font-size: 15px; font-weight: bold; line-height: 1.4; }
 
         /* --- পেইজ সেকশন স্টাইল --- */
@@ -219,7 +219,7 @@
         }
         .btn-update-settings:hover { background: var(--bg-light); transform: translateY(-2px); }
 
-        /* --- প্রমো কোড কার্ড (বামদিক থেকে এলাইন করা) --- */
+        /* --- প্রমো কোড কার্ড --- */
         .promo-grid {
             display: flex; flex-wrap: wrap; gap: 25px; margin-bottom: 30px;
         }
@@ -318,28 +318,6 @@
         }
         .btn-view-referrals:hover { background: linear-gradient(135deg, var(--main-pink), var(--light-pink)); color: white; }
 
-        /* টেবিল সেকশন স্টাইল */
-        .history-table-container {
-            background: #fff; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.04);
-            overflow: hidden; border: 1px solid #eaeaea; margin-bottom: 30px;
-        }
-
-        .history-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; }
-        .history-table th {
-            background-color: rgba(226, 0, 90, 0.05); color: var(--main-pink);
-            padding: 15px 20px; font-weight: 900; border-bottom: 2px solid #eaeaea; white-space: nowrap;
-        }
-        .history-table td {
-            padding: 15px 20px; border-bottom: 1px solid #f0f0f0; color: var(--dark-blue);
-            font-weight: bold; white-space: nowrap;
-        }
-        .history-table tr:hover { background-color: #fafbfc; }
-
-        .badge-id {
-            background-color: rgba(226, 0, 90, 0.1); color: var(--main-pink);
-            padding: 5px 10px; border-radius: 6px; font-size: 12px; font-weight: 900;
-        }
-
         /* --- পপ-আপ (Modal) ডিজাইন --- */
         .modal {
             display: none; position: fixed; z-index: 1000; left: 0; top: 0;
@@ -422,36 +400,35 @@
 
     <!-- প্রমো কোড ইউজ হিস্ট্রি পপ-আপ (Modal) -->
     <div id="promoHistoryModal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content" style="max-width: 400px;">
             <span class="close-btn" onclick="closeModal('promoHistoryModal')">&times;</span>
             <div class="modal-title"><i class="fas fa-history" style="color: var(--main-pink);"></i> প্রমো কোড ইউজ হিস্ট্রি</div>
             <div class="list-container">
-                <div class="history-table-container" style="margin: 0; border: none; box-shadow: none;">
-                    <table class="history-table" style="font-size: 13px;">
-                        <thead>
-                            <tr>
-                                <th>ইউজার আইডি</th>
-                                <th>ব্যবহৃত কোড</th>
-                                <th>বোনাস পরিমাণ</th>
-                                <th>তারিখ ও সময়</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><span class="badge-id">USER_XYZ</span></td>
-                                <td style="color: var(--main-pink); font-weight: 900;">PROMO50</td>
-                                <td>৳৫০.০০</td>
-                                <td>আজ, ১১:১৫ AM</td>
-                            </tr>
-                            <tr>
-                                <td><span class="badge-id">USER_ABC</span></td>
-                                <td style="color: var(--main-pink); font-weight: 900;">EID100</td>
-                                <td>৳১০০.০০</td>
-                                <td>গতকাল, ০৩:৩০ PM</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                
+                <!-- হিস্ট্রি কার্ড ১ -->
+                <div style="background: #f8f9fa; border: 1px solid #eaeaea; border-radius: 8px; padding: 15px; margin-bottom: 12px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <span style="font-size: 13px; background-color: rgba(226, 0, 90, 0.1); color: var(--main-pink); padding: 5px 10px; border-radius: 6px; font-weight: 900;">USER_XYZ</span>
+                        <span style="color: var(--main-pink); font-weight: 900; font-size: 15px;">PROMO50</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--text-grey);">
+                        <span>বোনাস: <strong style="color: var(--dark-blue);">৳৫০.০০</strong></span>
+                        <span><i class="far fa-clock"></i> আজ, ১১:১৫ AM</span>
+                    </div>
                 </div>
+
+                <!-- হিস্ট্রি কার্ড ২ -->
+                <div style="background: #f8f9fa; border: 1px solid #eaeaea; border-radius: 8px; padding: 15px; margin-bottom: 12px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <span style="font-size: 13px; background-color: rgba(226, 0, 90, 0.1); color: var(--main-pink); padding: 5px 10px; border-radius: 6px; font-weight: 900;">USER_ABC</span>
+                        <span style="color: var(--main-pink); font-weight: 900; font-size: 15px;">EID100</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--text-grey);">
+                        <span>বোনাস: <strong style="color: var(--dark-blue);">৳১০০.০০</strong></span>
+                        <span><i class="far fa-clock"></i> গতকাল, ০৩:৩০ PM</span>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -468,12 +445,10 @@
     <!-- মেইন এরিয়া -->
     <main class="main-content">
         <header class="topbar">
-            <!-- এই লেখাটি ডাইনামিক্যালি পরিবর্তন হবে -->
             <div class="topbar-title" id="dynamicTopbarTitle">
                 <i class="fas fa-user-plus"></i> রেফার ও প্রমো ম্যানেজমেন্ট
             </div>
             
-            <!-- টপবারের ডানদিকের অ্যাকশন এরিয়া -->
             <div class="topbar-actions" id="dynamicTopbarActions">
                 <!-- ডাইনামিক হিস্ট্রি বাটন এখানে বসবে -->
             </div>
@@ -481,21 +456,35 @@
 
         <div class="dashboard-body">
             
-            <!-- মূল ২টি কার্ড মেনু (Home View) -->
+            <!-- মূল ৪টি কার্ড মেনু (Home View) -->
             <div id="mainMenu" class="menu-card-grid">
                 
                 <!-- কার্ড ১ -->
                 <div class="menu-card" onclick="showSection('referSettingsPage')">
                     <div class="menu-icon"><i class="fas fa-cog"></i></div>
-                    <h3>রেফার ও কমিশন আপডেট করুন</h3>
-                    <p>রেফার বোনাস, কমিশন আপডেট ও বিস্তারিত হিস্ট্রি দেখুন</p>
+                    <h3>রেফার ও কমিশন আপডেট</h3>
+                    <p>রেফার বোনাস, কমিশন আপডেট ও বিস্তারিত হিস্ট্রি</p>
                 </div>
 
                 <!-- কার্ড ২ -->
                 <div class="menu-card" onclick="showSection('promoCodePage')">
                     <div class="menu-icon"><i class="fas fa-ticket-alt"></i></div>
-                    <h3>প্রমো কোড ও ইউজ হিস্ট্রি</h3>
-                    <p>প্রমো কোড তৈরি, ম্যানেজ ও ব্যবহারের হিস্ট্রি দেখুন</p>
+                    <h3>প্রমো কোড ও হিস্ট্রি</h3>
+                    <p>প্রমো কোড তৈরি, ম্যানেজ ও ব্যবহারের হিস্ট্রি</p>
+                </div>
+
+                <!-- কার্ড ৩ (নতুন) -->
+                <div class="menu-card" onclick="window.location.href='admin_notification.html'">
+                    <div class="menu-icon"><i class="fas fa-bell"></i></div>
+                    <h3>নোটিফিকেশন ও নোটিশ</h3>
+                    <p>অ্যাপে নতুন নোটিশ এবং নোটিফিকেশন দিন</p>
+                </div>
+
+                <!-- কার্ড ৪ (নতুন) -->
+                <div class="menu-card" onclick="window.location.href='admin_rules.html'">
+                    <div class="menu-icon"><i class="fas fa-file-alt"></i></div>
+                    <h3>কাজের নিয়মাবলী</h3>
+                    <p>ইউজারদের জন্য কাজের নিয়ম ও শর্তাবলী আপডেট</p>
                 </div>
 
             </div>
