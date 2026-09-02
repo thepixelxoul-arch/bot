@@ -83,7 +83,7 @@
             background-color: var(--bg-light);
         }
 
-        /* টপবার (খালি রাখা হয়েছে) */
+        /* টপবার */
         .topbar {
             background-color: var(--main-white);
             padding: 15px 30px;
@@ -101,25 +101,6 @@
             overflow-y: auto;
             flex-grow: 1;
         }
-
-        .card-header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
-            padding: 20px 25px;
-            border-radius: 12px;
-            color: white;
-            box-shadow: 0 5px 15px rgba(226, 0, 90, 0.2);
-        }
-
-        .card-header-title {
-            font-size: 20px; font-weight: bold;
-            display: flex; align-items: center; gap: 10px; color: white;
-        }
-
-        .card-header-subtitle { font-size: 13px; color: #ffe0e9; margin-top: 5px; }
 
         /* --- নিয়ম অ্যাড করার ফর্ম --- */
         .rules-form-card {
@@ -265,20 +246,11 @@
     <!-- মেইন এরিয়া -->
     <main class="main-content">
         <header class="topbar">
-            <!-- শুধু ওপরের টপবার খালি রাখা হয়েছে -->
         </header>
 
         <div class="dashboard-body">
             
-            <!-- গোলাপি বক্স (আপনার দেওয়া স্ক্রিনশটের মতো ঠিক রাখা হয়েছে) -->
-            <div class="card-header-container">
-                <div>
-                    <div class="card-header-title">
-                        <i class="fas fa-clipboard-list"></i> কাজের নিয়ম এবং টিউটোরিয়াল
-                    </div>
-                    <div class="card-header-subtitle">ইউজারদের কাজ শেখানোর জন্য এখানে ভিডিও লিংক এবং কাজের বিস্তারিত নিয়মাবলী যুক্ত করুন।</div>
-                </div>
-            </div>
+            <!-- গোলাপি বক্সটি এখান থেকে পুরোপুরি রিমুভ করা হয়েছে -->
 
             <!-- নিয়ম যোগ করার ফর্ম -->
             <div class="rules-form-card">
