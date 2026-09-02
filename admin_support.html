@@ -164,7 +164,7 @@
         }
         .btn-save-settings:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(226, 0, 90, 0.3); }
 
-        /* --- ইউজারদের মেসেজ কার্ড (বামপাশের লাল দাগ রিমুভ করা হয়েছে) --- */
+        /* --- ইউজারদের মেসেজ কার্ড (Tickets) --- */
         .ticket-grid {
             display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; padding-bottom: 30px;
         }
@@ -190,9 +190,8 @@
 
         .status-badge {
             padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: bold;
+            background-color: #ffe0e9; color: var(--main-pink);
         }
-        .status-pending { background-color: #fff3cd; color: #856404; }
-        .status-resolved { background-color: #d4edda; color: #155724; }
 
         .ticket-subject { font-size: 15px; font-weight: bold; color: var(--dark-blue); margin: 0 0 10px 0; }
         .ticket-message {
@@ -200,16 +199,24 @@
             background: #f8f9fa; padding: 12px; border-radius: 8px; border: 1px solid #eee;
         }
 
-        .ticket-actions { display: flex; gap: 10px; margin-top: auto; }
-        .ticket-actions button {
-            flex: 1; border: none; padding: 10px; border-radius: 6px; cursor: pointer;
-            font-weight: bold; font-size: 13px; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px;
+        .ticket-actions { display: flex; margin-top: auto; }
+        .btn-reply {
+            width: 100%; border: none; padding: 12px; border-radius: 6px; cursor: pointer;
+            font-weight: bold; font-size: 14px; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
+            background: linear-gradient(135deg, var(--main-pink), var(--light-pink)); color: white;
+            box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);
         }
-        .btn-reply { background: linear-gradient(135deg, var(--main-pink), var(--light-pink)); color: white; }
-        .btn-reply:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2); }
-        .btn-resolve { background-color: #f0f0f0; color: #333; }
-        .btn-resolve:hover { background-color: #27ae60; color: white; }
-        .btn-resolve.done { background-color: #27ae60; color: white; cursor: not-allowed; }
+        .btn-reply:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(226, 0, 90, 0.3); }
+
+        /* হিস্ট্রি আইটেম ডিজাইন */
+        .history-item {
+            background: #fff; border: 1px solid #eee; border-radius: 10px; padding: 15px 20px; margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+        .hi-title { font-size: 15px; font-weight: bold; color: var(--dark-blue); margin: 0 0 5px 0; }
+        .hi-target { font-size: 12px; font-weight: bold; color: var(--main-pink); background: #ffe0e9; padding: 3px 8px; border-radius: 4px; display: inline-block; margin-bottom: 8px; }
+        .hi-body { font-size: 13px; color: #555; margin: 0 0 8px 0; line-height: 1.4; }
+        .hi-time { font-size: 11px; color: #aaa; font-weight: bold; }
 
         /* --- রিপ্লাই পপ-আপ (Modal) --- */
         .modal {
@@ -247,9 +254,9 @@
 
         /* টোস্ট মেসেজ */
         .toast-msg {
-            visibility: hidden; background-color: #27ae60; color: #fff; text-align: center;
+            visibility: hidden; background-color: var(--main-pink); color: #fff; text-align: center;
             border-radius: 8px; padding: 15px 25px; position: fixed; z-index: 9999; right: 30px; top: 30px;
-            font-size: 14px; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            font-size: 14px; font-weight: bold; box-shadow: 0 4px 15px rgba(226, 0, 90, 0.3);
             opacity: 0; transition: opacity 0.3s, top 0.3s;
         }
         .toast-msg.show { visibility: visible; opacity: 1; top: 50px; }
@@ -349,7 +356,7 @@
                 <div class="ticket-grid">
                     
                     <!-- টিকেট ১ -->
-                    <div class="ticket-card" id="ticket-1">
+                    <div class="ticket-card">
                         <div class="ticket-header">
                             <div class="ticket-user-info">
                                 <div class="ticket-avatar"><i class="fas fa-user"></i></div>
@@ -358,7 +365,7 @@
                                     <p>আজ, ১০:১৫ AM</p>
                                 </div>
                             </div>
-                            <div class="status-badge status-pending" id="badge-1">Pending</div>
+                            <div class="status-badge">Pending</div>
                         </div>
                         <h3 class="ticket-subject">উইথড্র সমস্যা</h3>
                         <div class="ticket-message">
@@ -366,12 +373,11 @@
                         </div>
                         <div class="ticket-actions">
                             <button class="btn-reply" onclick="openReplyModal('T9KZBTUBR1', 'উইথড্র সমস্যা')"><i class="fas fa-reply"></i> রিপ্লাই দিন</button>
-                            <button class="btn-resolve" id="btn-res-1" onclick="markResolved('ticket-1', 'badge-1', 'btn-res-1')"><i class="fas fa-check"></i> সমাধান হয়েছে</button>
                         </div>
                     </div>
 
                     <!-- টিকেট ২ -->
-                    <div class="ticket-card" id="ticket-2">
+                    <div class="ticket-card">
                         <div class="ticket-header">
                             <div class="ticket-user-info">
                                 <div class="ticket-avatar"><i class="fas fa-user"></i></div>
@@ -380,7 +386,7 @@
                                     <p>গতকাল, ০৪:৩০ PM</p>
                                 </div>
                             </div>
-                            <div class="status-badge status-pending" id="badge-2">Pending</div>
+                            <div class="status-badge">Pending</div>
                         </div>
                         <h3 class="ticket-subject">কাজের রেট নিয়ে প্রশ্ন</h3>
                         <div class="ticket-message">
@@ -388,11 +394,10 @@
                         </div>
                         <div class="ticket-actions">
                             <button class="btn-reply" onclick="openReplyModal('M2LKBTYYY5', 'কাজের রেট নিয়ে প্রশ্ন')"><i class="fas fa-reply"></i> রিপ্লাই দিন</button>
-                            <button class="btn-resolve" id="btn-res-2" onclick="markResolved('ticket-2', 'badge-2', 'btn-res-2')"><i class="fas fa-check"></i> সমাধান হয়েছে</button>
                         </div>
                     </div>
 
-                    <!-- টিকেট ৩ (ইতিমধ্যেই সমাধান করা) -->
+                    <!-- টিকেট ৩ -->
                     <div class="ticket-card">
                         <div class="ticket-header">
                             <div class="ticket-user-info">
@@ -402,26 +407,33 @@
                                     <p>২৫ আগস্ট, ১১:০০ AM</p>
                                 </div>
                             </div>
-                            <div class="status-badge status-resolved">Resolved</div>
+                            <div class="status-badge">Resolved</div>
                         </div>
                         <h3 class="ticket-subject">পাসওয়ার্ড ভুলে গেছি</h3>
                         <div class="ticket-message">
                             আমি আমার একাউন্টের পাসওয়ার্ড ভুলে গেছি, কীভাবে রিকভার করতে পারি?
                         </div>
                         <div class="ticket-actions">
-                            <button class="btn-resolve done" disabled><i class="fas fa-check-double"></i> সমাধান করা হয়েছে</button>
+                            <button class="btn-reply" onclick="openReplyModal('X7ABCTUBR9', 'পাসওয়ার্ড ভুলে গেছি')"><i class="fas fa-reply"></i> রিপ্লাই দিন</button>
                         </div>
                     </div>
 
                 </div>
             </div>
 
-            <!-- হিস্ট্রি ভিউ (লুকানো থাকবে) -->
+            <!-- হিস্ট্রি ভিউ -->
             <div id="historyView" style="display: none;">
                 <div class="support-settings-card">
-                    <div class="section-title" style="margin-bottom: 20px;"><i class="fas fa-history"></i> সাপোর্ট মেসেজ হিস্ট্রি</div>
-                    <div style="color: #666; font-size: 14px; font-weight: bold; padding: 20px; text-align: center; background: #f8f9fa; border-radius: 8px;">
-                        পূর্বে সমাধানকৃত সকল সাপোর্ট টিকিটের হিস্ট্রি এখানে সংরক্ষিত থাকবে।
+                    <div class="section-title" style="margin-bottom: 20px;"><i class="fas fa-history"></i> পাঠানো রিপ্লাই হিস্ট্রি</div>
+                    
+                    <div id="historyList">
+                        <!-- ডেমো হিস্ট্রি আইটেম -->
+                        <div class="history-item">
+                            <p class="hi-title">উইথড্র সমস্যা (রিপ্লাই)</p>
+                            <span class="hi-target"><i class="fas fa-user"></i> ইউজার: T9KZBTUBR1</span>
+                            <p class="hi-body">আপনার পেমেন্টটি চেক করা হচ্ছে, খুব শীঘ্রই একাউন্টে যোগ হবে।</p>
+                            <span class="hi-time">পাঠানো হয়েছে: আজ, ১০:৩০ AM</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -470,8 +482,10 @@
 
         // রিপ্লাই পপ-আপ ওপেন করা
         let currentReplyUser = "";
+        let currentSubject = "";
         function openReplyModal(userId, subject) {
             currentReplyUser = userId;
+            currentSubject = subject;
             document.getElementById("replyModalTitle").innerHTML = `<i class="fas fa-reply"></i> Reply to ${userId}`;
             document.getElementById("replyMessageText").value = "";
             document.getElementById("replyModal").classList.add("show");
@@ -482,28 +496,29 @@
             document.getElementById("replyModal").classList.remove("show");
         }
 
-        // রিপ্লাই সেন্ড করা
+        // রিপ্লাই সেন্ড করা এবং হিস্ট্রিতে যোগ করা
         function sendReply() {
             const msg = document.getElementById("replyMessageText").value;
             if(msg.trim() === "") {
                 alert("দয়া করে রিপ্লাই মেসেজ লিখুন!");
                 return;
             }
+
+            // হিস্ট্রি লিস্টে নতুন রিপ্লাই যোগ করা
+            const timeStr = new Date().toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit', hour12: true });
+            const historyList = document.getElementById("historyList");
+            const newItem = document.createElement("div");
+            newItem.className = "history-item";
+            newItem.innerHTML = `
+                <p class="hi-title">${currentSubject} (রিপ্লাই)</p>
+                <span class="hi-target"><i class="fas fa-user"></i> ইউজার: ${currentReplyUser}</span>
+                <p class="hi-body">${msg}</p>
+                <span class="hi-time">পাঠানো হয়েছে: আজ, ${timeStr}</span>
+            `;
+            historyList.prepend(newItem);
+
             showToast(`সাফল্য! ${currentReplyUser} কে মেসেজটি পাঠানো হয়েছে।`);
             closeReplyModal();
-        }
-
-        // সমস্যা সমাধান হিসেবে মার্ক করা
-        function markResolved(cardId, badgeId, btnId) {
-            document.getElementById(badgeId).className = "status-badge status-resolved";
-            document.getElementById(badgeId).innerText = "Resolved";
-            
-            const btn = document.getElementById(btnId);
-            btn.className = "btn-resolve done";
-            btn.innerHTML = '<i class="fas fa-check-double"></i> সমাধান করা হয়েছে';
-            btn.disabled = true;
-
-            showToast("এই মেসেজটি সমাধান হয়েছে হিসেবে মার্ক করা হয়েছে!");
         }
     </script>
 </body>
