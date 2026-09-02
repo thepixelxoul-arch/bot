@@ -479,18 +479,37 @@
             setTimeout(() => { toast.classList.remove("show"); }, 3000);
         }
 
-        // --- পেজ নেভিগেশন স্ক্রিপ্ট ---
+        // --- পেজ নেভিগেশন ও URL Hash স্ক্রিপ্ট ---
         function showSection(sectionId) {
             document.getElementById('mainMenu').style.display = 'none';
             document.querySelectorAll('.page-section').forEach(sec => sec.style.display = 'none');
             document.getElementById(sectionId).style.display = 'block';
+            window.location.hash = sectionId; // লিংক সেভ করা
         }
 
         function showMainMenu() {
             document.querySelectorAll('.page-section').forEach(sec => sec.style.display = 'none');
             document.getElementById('mainMenu').style.display = 'grid';
+            history.replaceState(null, null, ' '); // লিংক থেকে হ্যাশ রিমুভ করা
         }
 
+        // পেজ রিলোড হলে অথবা ব্রাউজারের ব্যাক বাটন চাপলে আগের স্টেটে থাকার লজিক
+        function checkHash() {
+            const hash = window.location.hash.substring(1);
+            if (hash && document.getElementById(hash)) {
+                // মেইন মেনু হাইড করে পেজ শো করবে
+                document.getElementById('mainMenu').style.display = 'none';
+                document.querySelectorAll('.page-section').forEach(sec => sec.style.display = 'none');
+                document.getElementById(hash).style.display = 'block';
+            } else {
+                showMainMenu();
+            }
+        }
+
+        window.addEventListener('load', checkHash);
+        window.addEventListener('hashchange', checkHash);
+
+        // --- ফর্ম ও ডিলিট লজিক ---
         function updateReferSettings() {
             const bonus = document.getElementById("referBonusInput").value;
             const comm = document.getElementById("referCommInput").value;
@@ -503,7 +522,6 @@
             showToast(`সাফল্য! রেফার বোনাস ৳${bonus} এবং কমিশন ${comm}% সেভ হয়েছে।`);
         }
 
-        // --- প্রমো কোড ফাংশন ---
         function addPromoCode() {
             const codeInput = document.getElementById("newPromoCode");
             const codeVal = codeInput.value.trim().toUpperCase();
