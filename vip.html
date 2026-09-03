@@ -41,15 +41,64 @@
 
         .content { flex-grow: 1; padding: 15px; overflow-y: auto; padding-bottom: 80px; }
         
-        .current-vip-card {
-            background: linear-gradient(135deg, #2c3e50, #34495e);
-            border-radius: 8px; padding: 20px;
-            color: white; text-align: center; margin-bottom: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        /* নতুন গোলাপি ভিআইপি কার্ড স্টাইল */
+        .vip-huge-card {
+            background: linear-gradient(135deg, var(--main-pink), #ff3377);
+            border-radius: 12px;
+            padding: 35px 20px;
+            margin-bottom: 25px; 
+            color: white;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(226, 0, 90, 0.3);
+            width: 100%;
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
         }
-        .current-vip-card i { font-size: 30px; color: var(--vip-gold); margin-bottom: 8px; }
-        .current-vip-card h3 { margin: 0 0 5px 0; font-size: 14px; font-weight: normal; color: #dcdde1; }
-        .current-vip-card .level-name { font-size: 20px; font-weight: bold; color: var(--vip-gold); }
+
+        .vip-upgrade-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: #ffcc00;
+            color: #333;
+            font-size: 11px;
+            font-weight: 900;
+            padding: 5px 12px;
+            border-radius: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            text-transform: uppercase;
+        }
+
+        .vip-icon-circle {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin: 0 auto 15px auto;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .vip-huge-card h3 {
+            font-size: 24px; 
+            font-weight: 900;
+            margin: 0 0 8px 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.15);
+        }
+
+        .vip-huge-card p {
+            font-size: 14px; 
+            color: #ffe6f0;
+            margin: 0;
+            font-weight: 600;
+            line-height: 1.6;
+            padding: 0 10px;
+        }
 
         .vip-package {
             background-color: var(--main-white); border-radius: 10px; padding: 20px;
@@ -128,7 +177,7 @@
             background-color: rgba(226, 0, 90, 0.03) !important;
         }
         .pink-vip-card .vip-features li i {
-            color: var(--main-pink) !important; /* চেক মার্কগুলো এখন পিংক */
+            color: var(--main-pink) !important;
         }
         .pink-vip-card .bonus-btn.active-bonus {
             background: linear-gradient(135deg, var(--main-pink), #ff3377) !important;
@@ -176,10 +225,13 @@
         </div>
 
         <div class="content">
-            <div class="current-vip-card">
-                <i class="fas fa-crown"></i>
-                <h3>আপনার বর্তমান লেভেল</h3>
-                <div class="level-name" id="currentVipDisplay">VIP 0</div>
+            
+            <!-- নতুন গোলাপি কারেন্ট VIP কার্ড -->
+            <div class="vip-huge-card">
+                <div class="vip-upgrade-badge">UPGRADE</div>
+                <div class="vip-icon-circle"><i class="fas fa-crown" id="vipIcon"></i></div>
+                <h3 id="currentVipDisplay">VIP 0</h3>
+                <p id="vipDescText">Loading...</p>
             </div>
 
             <!-- VIP 0 -->
@@ -405,7 +457,7 @@
                 </div>
                 <ul class="vip-features">
                     <li><i class="fas fa-check-circle"></i> দৈনিক কাজ: ২০০ টি জিমেইল</li>
-                    <li><i class="fas fa-check-circle"></i> দৈনিক কাজ: ১৮০ টি ইনস্টাগ্রাম</li>
+                    <li><i class="fas fa-check-circle"></i> দৈনিক কাজ: ১৮0 টি ইনস্টাগ্রাম</li>
                 </ul>
                 <div class="btn-group">
                     <button class="send-bkash-btn" onclick="requestUpgrade('Send bKash Member', 2000)">৳২০০০ দিয়ে কিনুন</button>
@@ -413,7 +465,7 @@
                 <button class="bonus-btn" id="bonus-btn-sendbkash" onclick="claimBonus('Send bKash Member', 100)"><i class="fas fa-gift"></i> সাপ্তাহিক বোনাস: ৳১০০</button>
             </div>
 
-            <!-- Send bKash Member 2 (শুধুমাত্র পিংক থিম) -->
+            <!-- Send bKash Member 2 -->
             <div class="vip-package pink-vip-card">
                 <div class="vip-header">
                     <div class="vip-title"><i class="fas fa-star" style="color: var(--main-pink);"></i> Send bKash Member 2</div>
@@ -429,7 +481,7 @@
                 <button class="bonus-btn" id="bonus-btn-sendbkash2" onclick="claimBonus('Send bKash Member 2', 150)"><i class="fas fa-gift"></i> সাপ্তাহিক বোনাস: ৳১৫০</button>
             </div>
 
-            <!-- Send bKash Member 3 (শুধুমাত্র পিংক থিম) -->
+            <!-- Send bKash Member 3 -->
             <div class="vip-package pink-vip-card">
                 <div class="vip-header">
                     <div class="vip-title"><i class="fas fa-star" style="color: var(--main-pink);"></i> Send bKash Member 3</div>
@@ -445,7 +497,7 @@
                 <button class="bonus-btn" id="bonus-btn-sendbkash3" onclick="claimBonus('Send bKash Member 3', 200)"><i class="fas fa-gift"></i> সাপ্তাহিক বোনাস: ৳২০০</button>
             </div>
 
-            <!-- Send bKash Member 4 (শুধুমাত্র পিংক থিম) -->
+            <!-- Send bKash Member 4 -->
             <div class="vip-package pink-vip-card">
                 <div class="vip-header">
                     <div class="vip-title"><i class="fas fa-star" style="color: var(--main-pink);"></i> Send bKash Member 4</div>
@@ -461,7 +513,7 @@
                 <button class="bonus-btn" id="bonus-btn-sendbkash4" onclick="claimBonus('Send bKash Member 4', 250)"><i class="fas fa-gift"></i> সাপ্তাহিক বোনাস: ৳২৫০</button>
             </div>
 
-            <!-- Send bKash Member 5 (শুধুমাত্র পিংক থিম) -->
+            <!-- Send bKash Member 5 -->
             <div class="vip-package pink-vip-card">
                 <div class="vip-header">
                     <div class="vip-title"><i class="fas fa-star" style="color: var(--main-pink);"></i> Send bKash Member 5</div>
@@ -504,12 +556,71 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
+        // জাভাস্ক্রিপ্টে সব ভিআইপি প্যাকেজের তথ্য দেওয়া হলো
+        const vipInfoMap = {
+            "VIP 0": "দৈনিক ১০টি জিমেইল ও ৫টি ইনস্টাগ্রাম কাজ।",
+            "VIP 1": "দৈনিক ২০টি জিমেইল ও ১০টি ইনস্টাগ্রাম কাজ।",
+            "VIP 2": "দৈনিক ৩০টি জিমেইল ও ২০টি ইনস্টাগ্রাম কাজ।",
+            "VIP 3": "দৈনিক ৪০টি জিমেইল ও ৩০টি ইনস্টাগ্রাম কাজ।",
+            "VIP 4": "দৈনিক ৫০টি জিমেইল ও ৪০টি ইনস্টাগ্রাম কাজ।",
+            "VIP 5": "দৈনিক ৬০টি জিমেইল ও ৫০টি ইনস্টাগ্রাম কাজ।",
+            "VIP 6": "দৈনিক ৭০টি জিমেইল ও ৬০টি ইনস্টাগ্রাম কাজ।",
+            "VIP 7": "দৈনিক ৮০টি জিমেইল ও ৭০টি ইনস্টাগ্রাম কাজ।",
+            "VIP 8": "দৈনিক ৯০টি জিমেইল ও ৮০টি ইনস্টাগ্রাম কাজ।",
+            "VIP 9": "দৈনিক ১০০টি জিমেইল ও ৯০টি ইনস্টাগ্রাম কাজ।",
+            "VIP 10": "দৈনিক ১১০টি জিমেইল ও ১০০টি ইনস্টাগ্রাম কাজ।",
+            "Send bKash Member": "দৈনিক ২০০টি জিমেইল ও ১৮০টি ইনস্টাগ্রাম কাজ।",
+            "Send bKash Member 2": "দৈনিক ৩০০টি জিমেইল ও ২৮০টি ইনস্টাগ্রাম কাজ।",
+            "Send bKash Member 3": "দৈনিক ৪০০টি জিমেইল ও ৩৮০টি ইনস্টাগ্রাম কাজ।",
+            "Send bKash Member 4": "দৈনিক ৫০০টি জিমেইল ও ৪৮০টি ইনস্টাগ্রাম কাজ।",
+            "Send bKash Member 5": "দৈনিক ৬০০টি জিমেইল ও ৫৮০টি ইনস্টাগ্রাম কাজ।"
+        };
+
+        const vipBonusMap = {
+            "VIP 0": "০",
+            "VIP 1": "৯",
+            "VIP 2": "১৮",
+            "VIP 3": "২৭",
+            "VIP 4": "৩৬",
+            "VIP 5": "৪৫",
+            "VIP 6": "৫৪",
+            "VIP 7": "৬৩",
+            "VIP 8": "৭২",
+            "VIP 9": "৮১",
+            "VIP 10": "৯০",
+            "Send bKash Member": "১০০",
+            "Send bKash Member 2": "১৫০",
+            "Send bKash Member 3": "২০০",
+            "Send bKash Member 4": "২৫০",
+            "Send bKash Member 5": "৩০০"
+        };
+
         onAuthStateChanged(auth, (user) => {
             if (!user) {
                 window.location.href = "login.html";
             } else {
                 const currentVip = localStorage.getItem('userVipLevel') || "VIP 0";
+                
+                // নতুন কার্ডে ইউজারের লেভেল দেখানো
                 document.getElementById("currentVipDisplay").innerText = currentVip;
+                
+                const descElem = document.getElementById("vipDescText");
+                const iconElem = document.getElementById("vipIcon");
+                
+                if (currentVip === "VIP 0") {
+                    iconElem.className = "fas fa-crown";
+                } else if (currentVip.includes("Send bKash Member")) {
+                    iconElem.className = "fas fa-star";
+                } else {
+                    iconElem.className = "fas fa-crown";
+                }
+
+                const taskDesc = vipInfoMap[currentVip] || "স্পেশাল VIP অফার একটিভ আছে।";
+                const bonusAmount = vipBonusMap[currentVip] || "০";
+                
+                if (descElem) {
+                    descElem.innerHTML = `সাপ্তাহিক বোনাস: ৳${bonusAmount} <br> ${taskDesc}`;
+                }
                 
                 checkBonusStatus(); 
             }
