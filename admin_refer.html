@@ -136,13 +136,12 @@
             position: relative;
         }
 
-        /* --- ২x২ গ্রিড স্টাইল বড় মেনু বাটন (Full Pink & Balanced Size) --- */
+        /* --- ২x২ গ্রিড স্টাইল বড় মেনু বাটন (Full Width) --- */
         .menu-card-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr); /* পাশাপাশি ২টি করে বাটন */
             gap: 25px;
             padding-top: 10px;
-            max-width: 950px; /* অতিরিক্ত বড় হওয়া রোধ করবে */
             margin-bottom: 40px;
         }
 
@@ -429,36 +428,35 @@
 
     <!-- প্রমো কোড ইউজ হিস্ট্রি পপ-আপ (Modal) -->
     <div id="promoHistoryModal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content" style="max-width: 400px;">
             <span class="close-btn" onclick="closeModal('promoHistoryModal')">&times;</span>
             <div class="modal-title"><i class="fas fa-history" style="color: var(--main-pink);"></i> প্রমো কোড ইউজ হিস্ট্রি</div>
             <div class="list-container">
-                <div class="history-table-container" style="margin: 0; border: none; box-shadow: none;">
-                    <table class="history-table" style="font-size: 13px;">
-                        <thead>
-                            <tr>
-                                <th>ইউজার আইডি</th>
-                                <th>ব্যবহৃত কোড</th>
-                                <th>বোনাস পরিমাণ</th>
-                                <th>তারিখ ও সময়</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><span class="badge-id">USER_XYZ</span></td>
-                                <td style="color: var(--main-pink); font-weight: 900;">PROMO50</td>
-                                <td>৳৫০.০০</td>
-                                <td>আজ, ১১:১৫ AM</td>
-                            </tr>
-                            <tr>
-                                <td><span class="badge-id">USER_ABC</span></td>
-                                <td style="color: var(--main-pink); font-weight: 900;">EID100</td>
-                                <td>৳১০০.০০</td>
-                                <td>গতকাল, ০৩:৩০ PM</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                
+                <!-- হিস্ট্রি কার্ড ১ -->
+                <div style="background: #f8f9fa; border: 1px solid #eaeaea; border-radius: 8px; padding: 15px; margin-bottom: 12px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <span style="font-size: 13px; background-color: rgba(226, 0, 90, 0.1); color: var(--main-pink); padding: 5px 10px; border-radius: 6px; font-weight: 900;">USER_XYZ</span>
+                        <span style="color: var(--main-pink); font-weight: 900; font-size: 15px;">PROMO50</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--text-grey);">
+                        <span>বোনাস: <strong style="color: var(--dark-blue);">৳৫০.০০</strong></span>
+                        <span><i class="far fa-clock"></i> আজ, ১১:১৫ AM</span>
+                    </div>
                 </div>
+
+                <!-- হিস্ট্রি কার্ড ২ -->
+                <div style="background: #f8f9fa; border: 1px solid #eaeaea; border-radius: 8px; padding: 15px; margin-bottom: 12px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <span style="font-size: 13px; background-color: rgba(226, 0, 90, 0.1); color: var(--main-pink); padding: 5px 10px; border-radius: 6px; font-weight: 900;">USER_ABC</span>
+                        <span style="color: var(--main-pink); font-weight: 900; font-size: 15px;">EID100</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--text-grey);">
+                        <span>বোনাস: <strong style="color: var(--dark-blue);">৳১০০.০০</strong></span>
+                        <span><i class="far fa-clock"></i> গতকাল, ০৩:৩০ PM</span>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -488,7 +486,7 @@
 
         <div class="dashboard-body">
             
-            <!-- মূল ৫টি কার্ড মেনু (Home View - ২x২ গ্রিড) -->
+            <!-- মূল ৫টি কার্ড মেনু (Home View - ২x২ গ্রিড ফুল পেজ জুড়ে) -->
             <div id="mainMenu" class="menu-card-grid">
                 
                 <!-- কার্ড ১ -->
@@ -519,7 +517,7 @@
                     <p>ইউজারদের জন্য কাজের নিয়ম ও শর্তাবলী আপডেট</p>
                 </div>
 
-                <!-- কার্ড ৫ (নতুন) -->
+                <!-- কার্ড ৫ -->
                 <div class="menu-card" onclick="window.location.href='admin_support.html'">
                     <div class="menu-icon"><i class="fas fa-headset"></i></div>
                     <h3>হেল্প ও সাপোর্ট</h3>
