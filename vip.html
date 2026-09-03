@@ -9,11 +9,11 @@
     <style>
         :root { 
             --main-pink: #e2005a; 
+            --light-pink: #ff3377;
             --main-white: #ffffff; 
             --text-grey: #888888; 
             --bg-light: #f4f6f9; 
-            --vip-gold: #f39c12;
-            --free-green: #27ae60;
+            --dark-blue: #2c3e50;
         }
 
         body { 
@@ -41,9 +41,9 @@
 
         .content { flex-grow: 1; padding: 15px; overflow-y: auto; padding-bottom: 80px; }
         
-        /* নতুন গোলাপি ভিআইপি কার্ড স্টাইল */
+        /* ওপরের বিশাল পিংক কার্ড */
         .vip-huge-card {
-            background: linear-gradient(135deg, var(--main-pink), #ff3377);
+            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
             border-radius: 12px;
             padding: 35px 20px;
             margin-bottom: 25px; 
@@ -54,20 +54,6 @@
             box-sizing: border-box;
             position: relative;
             overflow: hidden;
-        }
-
-        .vip-upgrade-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background-color: #ffcc00;
-            color: #333;
-            font-size: 11px;
-            font-weight: 900;
-            padding: 5px 12px;
-            border-radius: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-            text-transform: uppercase;
         }
 
         .vip-icon-circle {
@@ -100,15 +86,23 @@
             padding: 0 10px;
         }
 
+        /* সমস্ত VIP প্যাকেজের পিংক ডিজাইন */
         .vip-package {
-            background-color: var(--main-white); border-radius: 10px; padding: 20px;
-            border: 1px solid #eaeaea; box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            background-color: rgba(226, 0, 90, 0.02); 
+            border-radius: 12px; padding: 20px;
+            border: 2px solid rgba(226, 0, 90, 0.15); 
+            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.05);
             margin-bottom: 20px;
+            transition: 0.3s;
+        }
+        .vip-package:hover {
+            border-color: var(--main-pink);
+            box-shadow: 0 8px 25px rgba(226, 0, 90, 0.15);
         }
         
-        .vip-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f1f2f6; padding-bottom: 15px; margin-bottom: 15px; }
-        .vip-title { font-size: 18px; font-weight: bold; color: #2c3e50; display: flex; align-items: center; gap: 8px; }
-        .vip-title i { color: var(--vip-gold); font-size: 16px; }
+        .vip-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(226, 0, 90, 0.1); padding-bottom: 15px; margin-bottom: 15px; }
+        .vip-title { font-size: 20px; font-weight: 900; color: var(--dark-blue); display: flex; align-items: center; gap: 8px; }
+        .vip-title i { color: var(--main-pink); font-size: 18px; }
         
         .vip-price { font-size: 18px; font-weight: bold; color: var(--main-pink); display: flex; align-items: center; }
         .old-price { 
@@ -117,85 +111,55 @@
         }
 
         .vip-features { list-style: none; padding: 0; margin: 0 0 15px 0; }
-        .vip-features li { font-size: 14px; color: var(--text-grey); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; font-weight: bold;}
-        .vip-features li i { color: var(--free-green); font-size: 14px; }
+        .vip-features li { font-size: 14px; color: var(--dark-blue); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-weight: bold;}
+        .vip-features li i { color: var(--main-pink); font-size: 16px; }
 
         .condition-box {
-            background-color: #fcf8e3;
-            border: 1px dashed #faebcc;
+            background-color: rgba(226, 0, 90, 0.05);
+            border: 1px dashed rgba(226, 0, 90, 0.3);
             border-radius: 6px;
             padding: 12px;
             font-size: 13px;
-            color: #8a6d3b;
+            color: var(--dark-blue);
             margin-bottom: 15px;
             line-height: 1.5;
         }
-        .condition-box strong { color: #d35400; font-size: 13px; margin-right: 5px;}
+        .condition-box strong { color: var(--main-pink); font-size: 13px; margin-right: 5px;}
 
         .btn-group { display: flex; gap: 10px; }
+        
         .upgrade-btn {
-            flex: 1; background-color: var(--main-pink); color: white; border: none;
-            padding: 12px; border-radius: 6px; font-size: 14px; font-weight: bold;
-            cursor: pointer; transition: background 0.2s; text-align: center;
+            flex: 1; background: linear-gradient(135deg, var(--main-pink), var(--light-pink)); 
+            color: white; border: none;
+            padding: 12px; border-radius: 8px; font-size: 14px; font-weight: bold;
+            cursor: pointer; transition: 0.2s; text-align: center;
+            box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);
         }
-        .upgrade-btn:hover { background-color: #c4004e; }
+        .upgrade-btn:hover { background: linear-gradient(135deg, #c4004e, var(--main-pink)); transform: translateY(-2px); }
         
         .free-btn {
-            flex: 1; background-color: var(--free-green); color: white; border: none;
-            padding: 12px; border-radius: 6px; font-size: 14px; font-weight: bold;
-            cursor: pointer; transition: background 0.2s; text-align: center;
+            flex: 1; background-color: rgba(226, 0, 90, 0.1); color: var(--main-pink); border: none;
+            padding: 12px; border-radius: 8px; font-size: 14px; font-weight: bold;
+            cursor: pointer; transition: 0.2s; text-align: center;
         }
-        .free-btn:hover { background-color: #219653; }
-
-        .btn-current { 
-            background-color: var(--free-green); 
-            color: white; border: none; padding: 12px; 
-            border-radius: 6px; font-size: 14px; font-weight: bold; 
-            width: 100%; cursor: default; 
-        }
+        .free-btn:hover { background-color: var(--main-pink); color: white; transform: translateY(-2px); }
 
         .bonus-btn {
             background-color: #f1f2f6; color: #a4b0be; border: 1px solid #dcdde1; 
-            padding: 12px; border-radius: 6px; font-size: 14px; font-weight: bold; 
-            width: 100%; cursor: not-allowed; margin-top: 12px; transition: 0.2s; 
+            padding: 12px; border-radius: 8px; font-size: 14px; font-weight: bold; 
+            width: 100%; cursor: not-allowed; margin-top: 15px; transition: 0.2s; 
             display: flex; align-items: center; justify-content: center; gap: 8px;
             outline: none;
         }
         .bonus-btn i { font-size: 16px; color: #a4b0be; }
 
         .bonus-btn.active-bonus {
-            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
-            color: #d35400; border: none; cursor: pointer;
-            box-shadow: 0 4px 10px rgba(253, 160, 133, 0.2);
-        }
-        .bonus-btn.active-bonus:hover { background: linear-gradient(135deg, #fda085 0%, #f6d365 100%); }
-        .bonus-btn.active-bonus i { color: #e67e22; }
-
-        /* স্পেশাল Send bKash Member এর সম্পূর্ণ পিংক স্টাইল */
-        .pink-vip-card {
-            border: 2px solid var(--main-pink) !important; 
-            background-color: rgba(226, 0, 90, 0.03) !important;
-        }
-        .pink-vip-card .vip-features li i {
-            color: var(--main-pink) !important;
-        }
-        .pink-vip-card .bonus-btn.active-bonus {
-            background: linear-gradient(135deg, var(--main-pink), #ff3377) !important;
-            color: white !important; 
-            box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2) !important;
-        }
-        .pink-vip-card .bonus-btn.active-bonus i {
-            color: white !important;
-        }
-
-        .send-bkash-btn {
-            background: linear-gradient(135deg, #e2005a, #c4004e);
-            color: white; border: none;
-            padding: 12px; border-radius: 6px; font-size: 14px; font-weight: bold;
-            cursor: pointer; transition: background 0.2s; text-align: center; flex: 1;
+            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
+            color: white; border: none; cursor: pointer;
             box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);
         }
-        .send-bkash-btn:hover { background: linear-gradient(135deg, #c4004e, #96003b); }
+        .bonus-btn.active-bonus:hover { transform: translateY(-2px); }
+        .bonus-btn.active-bonus i { color: white; }
 
         .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: sticky; bottom: 0; z-index: 100; }
         .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); text-decoration: none; flex: 1; }
@@ -226,27 +190,11 @@
 
         <div class="content">
             
-            <!-- নতুন গোলাপি কারেন্ট VIP কার্ড -->
+            <!-- ইউজারের বর্তমান লেভেলের কার্ড -->
             <div class="vip-huge-card">
-                <div class="vip-upgrade-badge">UPGRADE</div>
                 <div class="vip-icon-circle"><i class="fas fa-crown" id="vipIcon"></i></div>
-                <h3 id="currentVipDisplay">VIP 0</h3>
-                <p id="vipDescText">Loading...</p>
-            </div>
-
-            <!-- VIP 0 -->
-            <div class="vip-package">
-                <div class="vip-header">
-                    <div class="vip-title"><i class="fas fa-medal"></i> VIP 0</div>
-                    <div class="vip-price">ফ্রি</div>
-                </div>
-                <ul class="vip-features">
-                    <li><i class="fas fa-check-circle"></i> দৈনিক কাজ: ১০ টি জিমেইল</li>
-                    <li><i class="fas fa-check-circle"></i> দৈনিক কাজ: ৫ টি ইনস্টাগ্রাম</li>
-                </ul>
-                <div class="btn-group">
-                    <button class="btn-current">আপনার বর্তমান প্যাকেজ</button>
-                </div>
+                <h3 id="currentVipDisplay">প্যাকেজ লোড হচ্ছে...</h3>
+                <p id="vipDescText">দয়া করে অপেক্ষা করুন...</p>
             </div>
 
             <!-- VIP 1 -->
@@ -332,7 +280,7 @@
             <!-- VIP 5 -->
             <div class="vip-package">
                 <div class="vip-header">
-                    <div class="vip-title"><i class="fas fa-crown" style="color: #e74c3c;"></i> VIP 5</div>
+                    <div class="vip-title"><i class="fas fa-crown"></i> VIP 5</div>
                     <div class="vip-price"><span class="old-price">৳৬০০</span> ৳৪৯৯</div>
                 </div>
                 <ul class="vip-features">
@@ -352,7 +300,7 @@
             <!-- VIP 6 -->
             <div class="vip-package">
                 <div class="vip-header">
-                    <div class="vip-title"><i class="fas fa-crown" style="color: #e74c3c;"></i> VIP 6</div>
+                    <div class="vip-title"><i class="fas fa-crown"></i> VIP 6</div>
                     <div class="vip-price"><span class="old-price">৳৭০০</span> ৳৫৯৯</div>
                 </div>
                 <ul class="vip-features">
@@ -372,7 +320,7 @@
             <!-- VIP 7 -->
             <div class="vip-package">
                 <div class="vip-header">
-                    <div class="vip-title"><i class="fas fa-crown" style="color: #e74c3c;"></i> VIP 7</div>
+                    <div class="vip-title"><i class="fas fa-crown"></i> VIP 7</div>
                     <div class="vip-price"><span class="old-price">৳৮০০</span> ৳৬৯৯</div>
                 </div>
                 <ul class="vip-features">
@@ -392,7 +340,7 @@
             <!-- VIP 8 -->
             <div class="vip-package">
                 <div class="vip-header">
-                    <div class="vip-title"><i class="fas fa-crown" style="color: #e74c3c;"></i> VIP 8</div>
+                    <div class="vip-title"><i class="fas fa-crown"></i> VIP 8</div>
                     <div class="vip-price"><span class="old-price">৳৯০০</span> ৳৭৯৯</div>
                 </div>
                 <ul class="vip-features">
@@ -412,7 +360,7 @@
             <!-- VIP 9 -->
             <div class="vip-package">
                 <div class="vip-header">
-                    <div class="vip-title"><i class="fas fa-crown" style="color: #e74c3c;"></i> VIP 9</div>
+                    <div class="vip-title"><i class="fas fa-crown"></i> VIP 9</div>
                     <div class="vip-price"><span class="old-price">৳১০০০</span> ৳৮৯৯</div>
                 </div>
                 <ul class="vip-features">
@@ -432,7 +380,7 @@
             <!-- VIP 10 -->
             <div class="vip-package">
                 <div class="vip-header">
-                    <div class="vip-title"><i class="fas fa-crown" style="color: #e74c3c;"></i> VIP 10</div>
+                    <div class="vip-title"><i class="fas fa-crown"></i> VIP 10</div>
                     <div class="vip-price"><span class="old-price">৳১১০০</span> ৳৯৯৯</div>
                 </div>
                 <ul class="vip-features">
@@ -449,26 +397,26 @@
                 <button class="bonus-btn" id="bonus-btn-10" onclick="claimBonus('VIP 10', 90)"><i class="fas fa-gift"></i> সাপ্তাহিক বোনাস: ৳৯০</button>
             </div>
 
-            <!-- Send bKash Member (শুধুমাত্র পিংক থিম) -->
-            <div class="vip-package pink-vip-card">
+            <!-- Send bKash Member -->
+            <div class="vip-package">
                 <div class="vip-header">
-                    <div class="vip-title"><i class="fas fa-star" style="color: var(--main-pink);"></i> Send bKash Member</div>
+                    <div class="vip-title"><i class="fas fa-star"></i> Send bKash Member</div>
                     <div class="vip-price"><span class="old-price">৳২৫০০</span> ৳২০০০</div>
                 </div>
                 <ul class="vip-features">
                     <li><i class="fas fa-check-circle"></i> দৈনিক কাজ: ২০০ টি জিমেইল</li>
-                    <li><i class="fas fa-check-circle"></i> দৈনিক কাজ: ১৮0 টি ইনস্টাগ্রাম</li>
+                    <li><i class="fas fa-check-circle"></i> দৈনিক কাজ: ১৮০ টি ইনস্টাগ্রাম</li>
                 </ul>
                 <div class="btn-group">
-                    <button class="send-bkash-btn" onclick="requestUpgrade('Send bKash Member', 2000)">৳২০০০ দিয়ে কিনুন</button>
+                    <button class="upgrade-btn" onclick="requestUpgrade('Send bKash Member', 2000)" style="width: 100%;">৳২০০০ দিয়ে কিনুন</button>
                 </div>
                 <button class="bonus-btn" id="bonus-btn-sendbkash" onclick="claimBonus('Send bKash Member', 100)"><i class="fas fa-gift"></i> সাপ্তাহিক বোনাস: ৳১০০</button>
             </div>
 
             <!-- Send bKash Member 2 -->
-            <div class="vip-package pink-vip-card">
+            <div class="vip-package">
                 <div class="vip-header">
-                    <div class="vip-title"><i class="fas fa-star" style="color: var(--main-pink);"></i> Send bKash Member 2</div>
+                    <div class="vip-title"><i class="fas fa-star"></i> Send bKash Member 2</div>
                     <div class="vip-price"><span class="old-price">৳৩৫০০</span> ৳৩০০০</div>
                 </div>
                 <ul class="vip-features">
@@ -476,15 +424,15 @@
                     <li><i class="fas fa-check-circle"></i> দৈনিক কাজ: ২৮০ টি ইনস্টাগ্রাম</li>
                 </ul>
                 <div class="btn-group">
-                    <button class="send-bkash-btn" onclick="requestUpgrade('Send bKash Member 2', 3000)">৳৩০০০ দিয়ে কিনুন</button>
+                    <button class="upgrade-btn" onclick="requestUpgrade('Send bKash Member 2', 3000)" style="width: 100%;">৳৩০০০ দিয়ে কিনুন</button>
                 </div>
                 <button class="bonus-btn" id="bonus-btn-sendbkash2" onclick="claimBonus('Send bKash Member 2', 150)"><i class="fas fa-gift"></i> সাপ্তাহিক বোনাস: ৳১৫০</button>
             </div>
 
             <!-- Send bKash Member 3 -->
-            <div class="vip-package pink-vip-card">
+            <div class="vip-package">
                 <div class="vip-header">
-                    <div class="vip-title"><i class="fas fa-star" style="color: var(--main-pink);"></i> Send bKash Member 3</div>
+                    <div class="vip-title"><i class="fas fa-star"></i> Send bKash Member 3</div>
                     <div class="vip-price"><span class="old-price">৳৪৫০০</span> ৳৪০০০</div>
                 </div>
                 <ul class="vip-features">
@@ -492,15 +440,15 @@
                     <li><i class="fas fa-check-circle"></i> দৈনিক কাজ: ৩৮০ টি ইনস্টাগ্রাম</li>
                 </ul>
                 <div class="btn-group">
-                    <button class="send-bkash-btn" onclick="requestUpgrade('Send bKash Member 3', 4000)">৳৪০০০ দিয়ে কিনুন</button>
+                    <button class="upgrade-btn" onclick="requestUpgrade('Send bKash Member 3', 4000)" style="width: 100%;">৳৪০০০ দিয়ে কিনুন</button>
                 </div>
                 <button class="bonus-btn" id="bonus-btn-sendbkash3" onclick="claimBonus('Send bKash Member 3', 200)"><i class="fas fa-gift"></i> সাপ্তাহিক বোনাস: ৳২০০</button>
             </div>
 
             <!-- Send bKash Member 4 -->
-            <div class="vip-package pink-vip-card">
+            <div class="vip-package">
                 <div class="vip-header">
-                    <div class="vip-title"><i class="fas fa-star" style="color: var(--main-pink);"></i> Send bKash Member 4</div>
+                    <div class="vip-title"><i class="fas fa-star"></i> Send bKash Member 4</div>
                     <div class="vip-price"><span class="old-price">৳৫৫০০</span> ৳৫০০০</div>
                 </div>
                 <ul class="vip-features">
@@ -508,15 +456,15 @@
                     <li><i class="fas fa-check-circle"></i> দৈনিক কাজ: ৪৮০ টি ইনস্টাগ্রাম</li>
                 </ul>
                 <div class="btn-group">
-                    <button class="send-bkash-btn" onclick="requestUpgrade('Send bKash Member 4', 5000)">৳৫০০০ দিয়ে কিনুন</button>
+                    <button class="upgrade-btn" onclick="requestUpgrade('Send bKash Member 4', 5000)" style="width: 100%;">৳৫০০০ দিয়ে কিনুন</button>
                 </div>
                 <button class="bonus-btn" id="bonus-btn-sendbkash4" onclick="claimBonus('Send bKash Member 4', 250)"><i class="fas fa-gift"></i> সাপ্তাহিক বোনাস: ৳২৫০</button>
             </div>
 
             <!-- Send bKash Member 5 -->
-            <div class="vip-package pink-vip-card">
+            <div class="vip-package">
                 <div class="vip-header">
-                    <div class="vip-title"><i class="fas fa-star" style="color: var(--main-pink);"></i> Send bKash Member 5</div>
+                    <div class="vip-title"><i class="fas fa-star"></i> Send bKash Member 5</div>
                     <div class="vip-price"><span class="old-price">৳৬৫০০</span> ৳৬০০০</div>
                 </div>
                 <ul class="vip-features">
@@ -524,7 +472,7 @@
                     <li><i class="fas fa-check-circle"></i> দৈনিক কাজ: ৫৮০ টি ইনস্টাগ্রাম</li>
                 </ul>
                 <div class="btn-group">
-                    <button class="send-bkash-btn" onclick="requestUpgrade('Send bKash Member 5', 6000)">৳৬০০০ দিয়ে কিনুন</button>
+                    <button class="upgrade-btn" onclick="requestUpgrade('Send bKash Member 5', 6000)" style="width: 100%;">৳৬০০০ দিয়ে কিনুন</button>
                 </div>
                 <button class="bonus-btn" id="bonus-btn-sendbkash5" onclick="claimBonus('Send bKash Member 5', 300)"><i class="fas fa-gift"></i> সাপ্তাহিক বোনাস: ৳৩০০</button>
             </div>
@@ -532,10 +480,10 @@
         </div>
 
         <div class="bottom-nav">
-            <a href="index.html" class="nav-item active"><i class="fas fa-home"></i>Home</a>
+            <a href="index.html" class="nav-item"><i class="fas fa-home"></i>Home</a>
             <a href="withdraw.html" class="nav-item"><i class="fas fa-wallet"></i>Withdraw</a>
             <a href="refer.html" class="nav-item"><i class="fas fa-users"></i>Refer</a>
-            <a href="profile.html" class="nav-item"><i class="fas fa-user"></i>Profile</a>
+            <a href="profile.html" class="nav-item active"><i class="fas fa-user"></i>Profile</a>
         </div>
     </div>
 
@@ -556,7 +504,6 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // জাভাস্ক্রিপ্টে সব ভিআইপি প্যাকেজের তথ্য দেওয়া হলো
         const vipInfoMap = {
             "VIP 0": "দৈনিক ১০টি জিমেইল ও ৫টি ইনস্টাগ্রাম কাজ।",
             "VIP 1": "দৈনিক ২০টি জিমেইল ও ১০টি ইনস্টাগ্রাম কাজ।",
@@ -573,7 +520,7 @@
             "Send bKash Member 2": "দৈনিক ৩০০টি জিমেইল ও ২৮০টি ইনস্টাগ্রাম কাজ।",
             "Send bKash Member 3": "দৈনিক ৪০০টি জিমেইল ও ৩৮০টি ইনস্টাগ্রাম কাজ।",
             "Send bKash Member 4": "দৈনিক ৫০০টি জিমেইল ও ৪৮০টি ইনস্টাগ্রাম কাজ।",
-            "Send bKash Member 5": "দৈনিক ৬০০টি জিমেইল ও ৫৮০টি ইনস্টাগ্রাম কাজ।"
+            "Send bKash Member 5": "দৈনিক ৬০০টি জিমেইল ও ৫৮০টি ইনস্টাগ্রাম কাজ。"
         };
 
         const vipBonusMap = {
@@ -599,27 +546,35 @@
             if (!user) {
                 window.location.href = "login.html";
             } else {
-                const currentVip = localStorage.getItem('userVipLevel') || "VIP 0";
+                let currentVip = localStorage.getItem('userVipLevel');
                 
-                // নতুন কার্ডে ইউজারের লেভেল দেখানো
+                // যদি ইউজারের কোনো প্যাকেজ সেট না করা থাকে, তাহলে বাই ডিফল্ট "VIP 0" ধরবে
+                if (!currentVip || currentVip === "VIP 0") {
+                    currentVip = "প্যাকেজ নেই"; 
+                }
+                
                 document.getElementById("currentVipDisplay").innerText = currentVip;
                 
                 const descElem = document.getElementById("vipDescText");
                 const iconElem = document.getElementById("vipIcon");
                 
-                if (currentVip === "VIP 0") {
-                    iconElem.className = "fas fa-crown";
-                } else if (currentVip.includes("Send bKash Member")) {
+                if (currentVip.includes("Send bKash Member")) {
                     iconElem.className = "fas fa-star";
+                } else if (currentVip === "প্যাকেজ নেই") {
+                    iconElem.className = "fas fa-user";
                 } else {
                     iconElem.className = "fas fa-crown";
                 }
 
-                const taskDesc = vipInfoMap[currentVip] || "স্পেশাল VIP অফার একটিভ আছে।";
+                const taskDesc = vipInfoMap[currentVip] || "অ্যাকাউন্টে কোনো প্যাকেজ নেই, প্যাকেজ কিনুন।";
                 const bonusAmount = vipBonusMap[currentVip] || "০";
                 
                 if (descElem) {
-                    descElem.innerHTML = `সাপ্তাহিক বোনাস: ৳${bonusAmount} <br> ${taskDesc}`;
+                    if(currentVip === "প্যাকেজ নেই"){
+                        descElem.innerHTML = `${taskDesc}`;
+                    }else{
+                        descElem.innerHTML = `সাপ্তাহিক বোনাস: ৳${bonusAmount} <br> ${taskDesc}`;
+                    }
                 }
                 
                 checkBonusStatus(); 
