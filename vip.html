@@ -39,33 +39,75 @@
         .header-title { font-size: 18px; font-weight: bold; display: flex; align-items: center; }
         .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 20px; }
 
-        .content { flex-grow: 1; padding: 15px; overflow-y: auto; padding-bottom: 80px; }
+        .content { flex-grow: 1; padding: 15px 0; overflow-y: auto; padding-bottom: 80px; }
         
-        /* সম্পূর্ণ পিংক ভিআইপি কার্ড স্টাইল (বড় ও সুন্দর সাইজ) */
+        /* সম্পূর্ণ পিংক ভিআইপি কার্ড স্টাইল (ATM Card Size & Side Margins) */
         .vip-huge-card {
             background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
             border-radius: 16px;
-            padding: 40px 20px 30px 20px;
-            margin-bottom: 25px; 
+            padding: 20px;
+            margin: 0 auto 20px auto; 
             color: white;
-            box-shadow: 0 8px 25px rgba(226, 0, 90, 0.25);
-            width: 100%;
+            box-shadow: 0 6px 15px rgba(226, 0, 90, 0.25);
+            width: 92%; /* দুই পাশে ফাঁকা জায়গা রাখার জন্য */
             box-sizing: border-box;
             position: relative;
             overflow: hidden;
             border: none;
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* কার্ডের ওপরের অংশ (আইকন এবং টেক্সট) */
+        .card-top-row {
+            display: flex;
             align-items: center;
-            text-align: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-right: 60px; /* ডানদিকের প্রাইসের সাথে যেন না লাগে */
+        }
+
+        .vip-icon-circle {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            flex-shrink: 0;
+        }
+
+        .card-text-content {
+            flex-grow: 1;
+            text-align: left;
+        }
+
+        .card-text-content h3 {
+            font-size: 20px;
+            font-weight: 900;
+            margin: 0 0 5px 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.15);
+        }
+
+        .card-text-content p {
+            font-size: 13px;
+            color: #ffe6f0;
+            margin: 0;
+            font-weight: 600;
+            line-height: 1.4;
         }
 
         /* ডানদিকের ওপরের কোনায় প্রাইস */
-        .vip-huge-card .price-section {
+        .price-tag {
             position: absolute;
             top: 20px;
             right: 20px;
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 900;
             display: flex;
             align-items: center;
@@ -73,46 +115,17 @@
             text-shadow: 1px 1px 2px rgba(0,0,0,0.15);
         }
 
-        .vip-huge-card .old-price {
+        .price-tag .old-price {
             text-decoration: line-through; 
-            color: rgba(255, 255, 255, 0.7); 
-            font-size: 14px; 
+            color: rgba(255, 255, 255, 0.6); 
+            font-size: 13px; 
             font-weight: normal;
-        }
-
-        .vip-icon-circle {
-            background-color: rgba(255, 255, 255, 0.2);
-            color: white;
-            width: 65px;
-            height: 65px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 30px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            margin-bottom: 15px;
-        }
-
-        .vip-huge-card h3 {
-            font-size: 26px; 
-            font-weight: 900;
-            margin: 0 0 10px 0;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.15);
-        }
-
-        .vip-huge-card p {
-            font-size: 15px; 
-            color: #ffe6f0;
-            margin: 0 0 25px 0;
-            font-weight: 600;
-            line-height: 1.5;
         }
 
         /* বাটনের গ্রিড */
         .card-actions {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             width: 100%;
         }
 
@@ -121,9 +134,9 @@
             background-color: var(--main-white);
             color: var(--main-pink);
             border: none;
-            padding: 14px 10px;
+            padding: 12px 5px;
             border-radius: 8px;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 900;
             flex: 1;
             cursor: pointer;
@@ -142,9 +155,9 @@
             background-color: rgba(255, 255, 255, 0.15);
             color: rgba(255, 255, 255, 0.9);
             border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 14px 10px;
+            padding: 12px 5px;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: bold;
             flex: 1;
             cursor: not-allowed;
@@ -197,19 +210,25 @@
         <div class="content">
             
             <!-- ইউজারের বর্তমান লেভেলের কার্ড -->
-            <div class="vip-huge-card" style="margin-bottom: 35px; border-bottom: 4px dashed rgba(255,255,255,0.3); padding-top: 30px; padding-bottom: 30px;">
-                <div style="font-size: 12px; font-weight: bold; background: rgba(255,255,255,0.2); display: inline-block; padding: 6px 18px; border-radius: 20px; margin-bottom: 15px;">আপনার বর্তমান লেভেল</div>
-                <div class="vip-icon-circle"><i class="fas fa-user" id="vipIcon"></i></div>
-                <h3 id="currentVipDisplay">প্যাকেজ লোড হচ্ছে...</h3>
-                <p id="vipDescText" style="margin-bottom: 0;">দয়া করে অপেক্ষা করুন...</p>
+            <div class="vip-huge-card" style="align-items: center; text-align: center; padding-top: 25px; padding-bottom: 25px; border-bottom: 4px dashed rgba(255,255,255,0.3); margin-bottom: 35px;">
+                <div style="font-size: 12px; font-weight: bold; background: rgba(255,255,255,0.2); display: inline-block; padding: 5px 15px; border-radius: 20px; margin-bottom: 15px;">আপনার বর্তমান লেভেল</div>
+                <div class="vip-icon-circle" style="margin: 0 auto 10px auto;"><i class="fas fa-user" id="vipIcon"></i></div>
+                <div class="card-text-content" style="text-align: center;">
+                    <h3 id="currentVipDisplay" style="font-size: 22px;">প্যাকেজ লোড হচ্ছে...</h3>
+                    <p id="vipDescText" style="padding: 0 10px;">দয়া করে অপেক্ষা করুন...</p>
+                </div>
             </div>
 
             <!-- VIP 1 -->
             <div class="vip-huge-card">
-                <div class="price-section"><span class="old-price">৳২০০</span> ৳৯৯</div>
-                <div class="vip-icon-circle"><i class="fas fa-crown"></i></div>
-                <h3>VIP 1</h3>
-                <p>দৈনিক ২০টি জিমেইল ও ১০টি ইনস্টাগ্রাম কাজ।</p>
+                <div class="price-tag"><span class="old-price">৳২০০</span> ৳৯৯</div>
+                <div class="card-top-row">
+                    <div class="vip-icon-circle"><i class="fas fa-crown"></i></div>
+                    <div class="card-text-content">
+                        <h3>VIP 1</h3>
+                        <p>দৈনিক ২০টি জিমেইল ও ১০টি ইনস্টাগ্রাম কাজ।</p>
+                    </div>
+                </div>
                 <div class="card-actions">
                     <button class="buy-btn-white" onclick="requestUpgrade('VIP 1', 99)">৳৯৯ দিয়ে কিনুন</button>
                     <button class="bonus-btn-pink" id="bonus-btn-1" onclick="claimBonus('VIP 1', 9)"><i class="fas fa-gift"></i> বোনাস: ৳৯</button>
@@ -218,10 +237,14 @@
 
             <!-- VIP 2 -->
             <div class="vip-huge-card">
-                <div class="price-section"><span class="old-price">৳৩০০</span> ৳১৯৯</div>
-                <div class="vip-icon-circle"><i class="fas fa-crown"></i></div>
-                <h3>VIP 2</h3>
-                <p>দৈনিক ৩০টি জিমেইল ও ২০টি ইনস্টাগ্রাম কাজ।</p>
+                <div class="price-tag"><span class="old-price">৳৩০০</span> ৳১৯৯</div>
+                <div class="card-top-row">
+                    <div class="vip-icon-circle"><i class="fas fa-crown"></i></div>
+                    <div class="card-text-content">
+                        <h3>VIP 2</h3>
+                        <p>দৈনিক ৩০টি জিমেইল ও ২০টি ইনস্টাগ্রাম কাজ।</p>
+                    </div>
+                </div>
                 <div class="card-actions">
                     <button class="buy-btn-white" onclick="requestUpgrade('VIP 2', 199)">৳১৯৯ দিয়ে কিনুন</button>
                     <button class="bonus-btn-pink" id="bonus-btn-2" onclick="claimBonus('VIP 2', 18)"><i class="fas fa-gift"></i> বোনাস: ৳১৮</button>
@@ -230,10 +253,14 @@
 
             <!-- VIP 3 -->
             <div class="vip-huge-card">
-                <div class="price-section"><span class="old-price">৳৪০০</span> ৳২৯৯</div>
-                <div class="vip-icon-circle"><i class="fas fa-crown"></i></div>
-                <h3>VIP 3</h3>
-                <p>দৈনিক ৪০টি জিমেইল ও ৩০টি ইনস্টাগ্রাম কাজ।</p>
+                <div class="price-tag"><span class="old-price">৳৪০০</span> ৳২৯৯</div>
+                <div class="card-top-row">
+                    <div class="vip-icon-circle"><i class="fas fa-crown"></i></div>
+                    <div class="card-text-content">
+                        <h3>VIP 3</h3>
+                        <p>দৈনিক ৪০টি জিমেইল ও ৩০টি ইনস্টাগ্রাম কাজ।</p>
+                    </div>
+                </div>
                 <div class="card-actions">
                     <button class="buy-btn-white" onclick="requestUpgrade('VIP 3', 299)">৳২৯৯ দিয়ে কিনুন</button>
                     <button class="bonus-btn-pink" id="bonus-btn-3" onclick="claimBonus('VIP 3', 27)"><i class="fas fa-gift"></i> বোনাস: ৳২৭</button>
@@ -242,10 +269,14 @@
 
             <!-- VIP 4 -->
             <div class="vip-huge-card">
-                <div class="price-section"><span class="old-price">৳৫০০</span> ৳৩৯৯</div>
-                <div class="vip-icon-circle"><i class="fas fa-crown"></i></div>
-                <h3>VIP 4</h3>
-                <p>দৈনিক ৫০টি জিমেইল ও ৪০টি ইনস্টাগ্রাম কাজ।</p>
+                <div class="price-tag"><span class="old-price">৳৫০০</span> ৳৩৯৯</div>
+                <div class="card-top-row">
+                    <div class="vip-icon-circle"><i class="fas fa-crown"></i></div>
+                    <div class="card-text-content">
+                        <h3>VIP 4</h3>
+                        <p>দৈনিক ৫০টি জিমেইল ও ৪০টি ইনস্টাগ্রাম কাজ।</p>
+                    </div>
+                </div>
                 <div class="card-actions">
                     <button class="buy-btn-white" onclick="requestUpgrade('VIP 4', 399)">৳৩৯৯ দিয়ে কিনুন</button>
                     <button class="bonus-btn-pink" id="bonus-btn-4" onclick="claimBonus('VIP 4', 36)"><i class="fas fa-gift"></i> বোনাস: ৳৩৬</button>
@@ -254,10 +285,14 @@
 
             <!-- VIP 5 -->
             <div class="vip-huge-card">
-                <div class="price-section"><span class="old-price">৳৬০০</span> ৳৪৯৯</div>
-                <div class="vip-icon-circle"><i class="fas fa-crown"></i></div>
-                <h3>VIP 5</h3>
-                <p>দৈনিক ৬০টি জিমেইল ও ৫০টি ইনস্টাগ্রাম কাজ।</p>
+                <div class="price-tag"><span class="old-price">৳৬০০</span> ৳৪৯৯</div>
+                <div class="card-top-row">
+                    <div class="vip-icon-circle"><i class="fas fa-crown"></i></div>
+                    <div class="card-text-content">
+                        <h3>VIP 5</h3>
+                        <p>দৈনিক ৬০টি জিমেইল ও ৫০টি ইনস্টাগ্রাম কাজ।</p>
+                    </div>
+                </div>
                 <div class="card-actions">
                     <button class="buy-btn-white" onclick="requestUpgrade('VIP 5', 499)">৳৪৯৯ দিয়ে কিনুন</button>
                     <button class="bonus-btn-pink" id="bonus-btn-5" onclick="claimBonus('VIP 5', 45)"><i class="fas fa-gift"></i> বোনাস: ৳৪৫</button>
@@ -266,10 +301,14 @@
 
             <!-- VIP 6 -->
             <div class="vip-huge-card">
-                <div class="price-section"><span class="old-price">৳৭০০</span> ৳৫৯৯</div>
-                <div class="vip-icon-circle"><i class="fas fa-crown"></i></div>
-                <h3>VIP 6</h3>
-                <p>দৈনিক ৭০টি জিমেইল ও ৬০টি ইনস্টাগ্রাম কাজ।</p>
+                <div class="price-tag"><span class="old-price">৳৭০০</span> ৳৫৯৯</div>
+                <div class="card-top-row">
+                    <div class="vip-icon-circle"><i class="fas fa-crown"></i></div>
+                    <div class="card-text-content">
+                        <h3>VIP 6</h3>
+                        <p>দৈনিক ৭০টি জিমেইল ও ৬০টি ইনস্টাগ্রাম কাজ।</p>
+                    </div>
+                </div>
                 <div class="card-actions">
                     <button class="buy-btn-white" onclick="requestUpgrade('VIP 6', 599)">৳৫৯৯ দিয়ে কিনুন</button>
                     <button class="bonus-btn-pink" id="bonus-btn-6" onclick="claimBonus('VIP 6', 54)"><i class="fas fa-gift"></i> বোনাস: ৳৫৪</button>
@@ -278,10 +317,14 @@
 
             <!-- VIP 7 -->
             <div class="vip-huge-card">
-                <div class="price-section"><span class="old-price">৳৮০০</span> ৳৬৯৯</div>
-                <div class="vip-icon-circle"><i class="fas fa-crown"></i></div>
-                <h3>VIP 7</h3>
-                <p>দৈনিক ৮০টি জিমেইল ও ৭০টি ইনস্টাগ্রাম কাজ।</p>
+                <div class="price-tag"><span class="old-price">৳৮০০</span> ৳৬৯৯</div>
+                <div class="card-top-row">
+                    <div class="vip-icon-circle"><i class="fas fa-crown"></i></div>
+                    <div class="card-text-content">
+                        <h3>VIP 7</h3>
+                        <p>দৈনিক ৮০টি জিমেইল ও ৭০টি ইনস্টাগ্রাম কাজ।</p>
+                    </div>
+                </div>
                 <div class="card-actions">
                     <button class="buy-btn-white" onclick="requestUpgrade('VIP 7', 699)">৳৬৯৯ দিয়ে কিনুন</button>
                     <button class="bonus-btn-pink" id="bonus-btn-7" onclick="claimBonus('VIP 7', 63)"><i class="fas fa-gift"></i> বোনাস: ৳৬৩</button>
@@ -290,10 +333,14 @@
 
             <!-- VIP 8 -->
             <div class="vip-huge-card">
-                <div class="price-section"><span class="old-price">৳৯০০</span> ৳৭৯৯</div>
-                <div class="vip-icon-circle"><i class="fas fa-crown"></i></div>
-                <h3>VIP 8</h3>
-                <p>দৈনিক ৯০টি জিমেইল ও ৮০টি ইনস্টাগ্রাম কাজ।</p>
+                <div class="price-tag"><span class="old-price">৳৯০০</span> ৳৭৯৯</div>
+                <div class="card-top-row">
+                    <div class="vip-icon-circle"><i class="fas fa-crown"></i></div>
+                    <div class="card-text-content">
+                        <h3>VIP 8</h3>
+                        <p>দৈনিক ৯০টি জিমেইল ও ৮০টি ইনস্টাগ্রাম কাজ।</p>
+                    </div>
+                </div>
                 <div class="card-actions">
                     <button class="buy-btn-white" onclick="requestUpgrade('VIP 8', 799)">৳৭৯৯ দিয়ে কিনুন</button>
                     <button class="bonus-btn-pink" id="bonus-btn-8" onclick="claimBonus('VIP 8', 72)"><i class="fas fa-gift"></i> বোনাস: ৳৭২</button>
@@ -302,10 +349,14 @@
 
             <!-- VIP 9 -->
             <div class="vip-huge-card">
-                <div class="price-section"><span class="old-price">৳১০০০</span> ৳৮৯৯</div>
-                <div class="vip-icon-circle"><i class="fas fa-crown"></i></div>
-                <h3>VIP 9</h3>
-                <p>দৈনিক ১০০টি জিমেইল ও ৯০টি ইনস্টাগ্রাম কাজ।</p>
+                <div class="price-tag"><span class="old-price">৳১০০০</span> ৳৮৯৯</div>
+                <div class="card-top-row">
+                    <div class="vip-icon-circle"><i class="fas fa-crown"></i></div>
+                    <div class="card-text-content">
+                        <h3>VIP 9</h3>
+                        <p>দৈনিক ১০০টি জিমেইল ও ৯০টি ইনস্টাগ্রাম কাজ।</p>
+                    </div>
+                </div>
                 <div class="card-actions">
                     <button class="buy-btn-white" onclick="requestUpgrade('VIP 9', 899)">৳৮৯৯ দিয়ে কিনুন</button>
                     <button class="bonus-btn-pink" id="bonus-btn-9" onclick="claimBonus('VIP 9', 81)"><i class="fas fa-gift"></i> বোনাস: ৳৮১</button>
@@ -314,10 +365,14 @@
 
             <!-- VIP 10 -->
             <div class="vip-huge-card">
-                <div class="price-section"><span class="old-price">৳১১০০</span> ৳৯৯৯</div>
-                <div class="vip-icon-circle"><i class="fas fa-crown"></i></div>
-                <h3>VIP 10</h3>
-                <p>দৈনিক ১১০টি জিমেইল ও ১০০টি ইনস্টাগ্রাম কাজ।</p>
+                <div class="price-tag"><span class="old-price">৳১১০০</span> ৳৯৯৯</div>
+                <div class="card-top-row">
+                    <div class="vip-icon-circle"><i class="fas fa-crown"></i></div>
+                    <div class="card-text-content">
+                        <h3>VIP 10</h3>
+                        <p>দৈনিক ১১০টি জিমেইল ও ১০০টি ইনস্টাগ্রাম কাজ।</p>
+                    </div>
+                </div>
                 <div class="card-actions">
                     <button class="buy-btn-white" onclick="requestUpgrade('VIP 10', 999)">৳৯৯৯ দিয়ে কিনুন</button>
                     <button class="bonus-btn-pink" id="bonus-btn-10" onclick="claimBonus('VIP 10', 90)"><i class="fas fa-gift"></i> বোনাস: ৳৯০</button>
@@ -326,10 +381,14 @@
 
             <!-- Send bKash Member 1 -->
             <div class="vip-huge-card">
-                <div class="price-section"><span class="old-price">৳২৫০০</span> ৳২০০০</div>
-                <div class="vip-icon-circle"><i class="fas fa-star"></i></div>
-                <h3>Send bKash Member</h3>
-                <p>দৈনিক ২০০টি জিমেইল ও ১৮০টি ইনস্টাগ্রাম কাজ।</p>
+                <div class="price-tag"><span class="old-price">৳২৫০০</span> ৳২০০০</div>
+                <div class="card-top-row">
+                    <div class="vip-icon-circle"><i class="fas fa-star"></i></div>
+                    <div class="card-text-content">
+                        <h3>Send bKash Member</h3>
+                        <p>দৈনিক ২০০টি জিমেইল ও ১৮০টি ইনস্টাগ্রাম কাজ।</p>
+                    </div>
+                </div>
                 <div class="card-actions">
                     <button class="buy-btn-white" onclick="requestUpgrade('Send bKash Member', 2000)">৳২০০০ দিয়ে কিনুন</button>
                     <button class="bonus-btn-pink" id="bonus-btn-sendbkash" onclick="claimBonus('Send bKash Member', 100)"><i class="fas fa-gift"></i> বোনাস: ৳১০০</button>
@@ -338,10 +397,14 @@
 
             <!-- Send bKash Member 2 -->
             <div class="vip-huge-card">
-                <div class="price-section"><span class="old-price">৳৩৫০০</span> ৳৩০০০</div>
-                <div class="vip-icon-circle"><i class="fas fa-star"></i></div>
-                <h3>Send bKash Member 2</h3>
-                <p>দৈনিক ৩০০টি জিমেইল ও ২৮০টি ইনস্টাগ্রাম কাজ।</p>
+                <div class="price-tag"><span class="old-price">৳৩৫০০</span> ৳৩০০০</div>
+                <div class="card-top-row">
+                    <div class="vip-icon-circle"><i class="fas fa-star"></i></div>
+                    <div class="card-text-content">
+                        <h3>bKash Member 2</h3>
+                        <p>দৈনিক ৩০০টি জিমেইল ও ২৮০টি ইনস্টাগ্রাম কাজ।</p>
+                    </div>
+                </div>
                 <div class="card-actions">
                     <button class="buy-btn-white" onclick="requestUpgrade('Send bKash Member 2', 3000)">৳৩০০০ দিয়ে কিনুন</button>
                     <button class="bonus-btn-pink" id="bonus-btn-sendbkash2" onclick="claimBonus('Send bKash Member 2', 150)"><i class="fas fa-gift"></i> বোনাস: ৳১৫০</button>
@@ -350,10 +413,14 @@
 
             <!-- Send bKash Member 3 -->
             <div class="vip-huge-card">
-                <div class="price-section"><span class="old-price">৳৪৫০০</span> ৳৪০০০</div>
-                <div class="vip-icon-circle"><i class="fas fa-star"></i></div>
-                <h3>Send bKash Member 3</h3>
-                <p>দৈনিক ৪০০টি জিমেইল ও ৩৮০টি ইনস্টাগ্রাম কাজ।</p>
+                <div class="price-tag"><span class="old-price">৳৪৫০০</span> ৳৪০০০</div>
+                <div class="card-top-row">
+                    <div class="vip-icon-circle"><i class="fas fa-star"></i></div>
+                    <div class="card-text-content">
+                        <h3>bKash Member 3</h3>
+                        <p>দৈনিক ৪০০টি জিমেইল ও ৩৮০টি ইনস্টাগ্রাম কাজ।</p>
+                    </div>
+                </div>
                 <div class="card-actions">
                     <button class="buy-btn-white" onclick="requestUpgrade('Send bKash Member 3', 4000)">৳৪০০০ দিয়ে কিনুন</button>
                     <button class="bonus-btn-pink" id="bonus-btn-sendbkash3" onclick="claimBonus('Send bKash Member 3', 200)"><i class="fas fa-gift"></i> বোনাস: ৳২০০</button>
@@ -362,10 +429,14 @@
 
             <!-- Send bKash Member 4 -->
             <div class="vip-huge-card">
-                <div class="price-section"><span class="old-price">৳৫৫০০</span> ৳৫০০০</div>
-                <div class="vip-icon-circle"><i class="fas fa-star"></i></div>
-                <h3>Send bKash Member 4</h3>
-                <p>দৈনিক ৫০০টি জিমেইল ও ৪৮০টি ইনস্টাগ্রাম কাজ।</p>
+                <div class="price-tag"><span class="old-price">৳৫৫০০</span> ৳৫০০০</div>
+                <div class="card-top-row">
+                    <div class="vip-icon-circle"><i class="fas fa-star"></i></div>
+                    <div class="card-text-content">
+                        <h3>bKash Member 4</h3>
+                        <p>দৈনিক ৫০০টি জিমেইল ও ৪৮০টি ইনস্টাগ্রাম কাজ।</p>
+                    </div>
+                </div>
                 <div class="card-actions">
                     <button class="buy-btn-white" onclick="requestUpgrade('Send bKash Member 4', 5000)">৳৫০০০ দিয়ে কিনুন</button>
                     <button class="bonus-btn-pink" id="bonus-btn-sendbkash4" onclick="claimBonus('Send bKash Member 4', 250)"><i class="fas fa-gift"></i> বোনাস: ৳২৫০</button>
@@ -374,10 +445,14 @@
 
             <!-- Send bKash Member 5 -->
             <div class="vip-huge-card">
-                <div class="price-section"><span class="old-price">৳৬৫০০</span> ৳৬০০০</div>
-                <div class="vip-icon-circle"><i class="fas fa-star"></i></div>
-                <h3>Send bKash Member 5</h3>
-                <p>দৈনিক ৬০০টি জিমেইল ও ৫৮০টি ইনস্টাগ্রাম কাজ।</p>
+                <div class="price-tag"><span class="old-price">৳৬৫০০</span> ৳৬০০০</div>
+                <div class="card-top-row">
+                    <div class="vip-icon-circle"><i class="fas fa-star"></i></div>
+                    <div class="card-text-content">
+                        <h3>bKash Member 5</h3>
+                        <p>দৈনিক ৬০০টি জিমেইল ও ৫৮০টি ইনস্টাগ্রাম কাজ।</p>
+                    </div>
+                </div>
                 <div class="card-actions">
                     <button class="buy-btn-white" onclick="requestUpgrade('Send bKash Member 5', 6000)">৳৬০০০ দিয়ে কিনুন</button>
                     <button class="bonus-btn-pink" id="bonus-btn-sendbkash5" onclick="claimBonus('Send bKash Member 5', 300)"><i class="fas fa-gift"></i> বোনাস: ৳৩০০</button>
@@ -456,7 +531,6 @@
             } else {
                 let currentVip = localStorage.getItem('userVipLevel');
                 
-                // যদি ইউজারের কোনো প্যাকেজ সেট না করা থাকে, তাহলে বাই ডিফল্ট "প্যাকেজ নেই" দেখাবে
                 if (!currentVip || currentVip === "VIP 0") {
                     currentVip = "প্যাকেজ নেই"; 
                 }
@@ -466,7 +540,7 @@
                 const descElem = document.getElementById("vipDescText");
                 const iconElem = document.getElementById("vipIcon");
                 
-                if (currentVip.includes("Send bKash Member")) {
+                if (currentVip.includes("bKash Member")) {
                     iconElem.className = "fas fa-star";
                 } else if (currentVip === "প্যাকেজ নেই") {
                     iconElem.className = "fas fa-user";
