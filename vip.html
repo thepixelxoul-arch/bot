@@ -35,12 +35,27 @@
             color: var(--main-white); box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); z-index: 10; 
             position: sticky; top: 0;
         }
+        .header-left { display: flex; align-items: center; }
         .header-title { font-size: 18px; font-weight: bold; display: flex; align-items: center; }
         .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 20px; }
+        
+        /* হেডারের ডানদিকের কোণায় বর্তমান প্যাকেজ দেখানোর ব্যাজ */
+        .header-vip-badge {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            white-space: nowrap;
+        }
 
         .content { flex-grow: 1; padding: 20px 0; overflow-y: auto; padding-bottom: 80px; }
         
-        /* স্ক্রিনশটের মতো সেন্টার্ড পিংক কার্ড */
+        /* পিংক ভিআইপি কার্ড স্টাইল */
         .vip-huge-card {
             background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
             border-radius: 12px;
@@ -48,7 +63,7 @@
             margin: 0 auto 20px auto; 
             color: white;
             box-shadow: 0 6px 15px rgba(226, 0, 90, 0.25);
-            width: 92%; /* দুই পাশে ফাঁকা জায়গা রাখার জন্য */
+            width: 92%; 
             box-sizing: border-box;
             position: relative;
             display: flex;
@@ -57,7 +72,6 @@
             text-align: center;
         }
 
-        /* ডানদিকের ওপরের হলুদ ব্যাজ */
         .vip-badge {
             position: absolute;
             top: 15px;
@@ -101,14 +115,12 @@
             padding: 0 5px;
         }
 
-        /* বাটনের গ্রিড */
         .card-actions {
             display: flex;
             gap: 10px;
             width: 100%;
         }
 
-        /* কেনার বাটন */
         .buy-btn-white {
             background-color: var(--main-white);
             color: var(--main-pink);
@@ -129,7 +141,6 @@
             transform: translateY(-2px);
         }
 
-        /* বোনাস বাটন ডিজাইন */
         .bonus-btn-pink {
             background-color: rgba(255, 255, 255, 0.15);
             color: rgba(255, 255, 255, 0.9);
@@ -179,23 +190,21 @@
     <div id="toastBox" class="toast-msg"></div>
 
     <div class="app-container">
+        <!-- Header Section -->
         <div class="header">
-            <div class="header-title">
+            <div class="header-left">
                 <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
-                VIP Packages
+                <div class="header-title">VIP Packages</div>
+            </div>
+            
+            <!-- ডানদিকের কোণায় বর্তমান প্যাকেজ দেখানোর ব্যাজ -->
+            <div id="headerVipBadge" class="header-vip-badge">
+                <i class="fas fa-user"></i> <span id="headerVipText">লোড হচ্ছে...</span>
             </div>
         </div>
 
         <div class="content">
             
-            <!-- ইউজারের বর্তমান লেভেলের কার্ড -->
-            <div class="vip-huge-card" style="margin-bottom: 35px; border-bottom: 4px dashed rgba(255,255,255,0.3); padding-top: 25px;">
-                <div style="font-size: 12px; font-weight: bold; background: rgba(255,255,255,0.2); display: inline-block; padding: 5px 15px; border-radius: 20px; margin-bottom: 15px;">আপনার বর্তমান লেভেল</div>
-                <div class="vip-icon-circle" style="margin: 0 auto 10px auto;"><i class="fas fa-user" id="vipIcon"></i></div>
-                <h3 id="currentVipDisplay" style="font-size: 22px;">প্যাকেজ লোড হচ্ছে...</h3>
-                <p id="vipDescText" style="margin-bottom: 0;">দয়া করে অপেক্ষা করুন...</p>
-            </div>
-
             <!-- VIP 1 -->
             <div class="vip-huge-card">
                 <div class="vip-badge">সুবিধা</div>
@@ -403,42 +412,6 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        const vipInfoMap = {
-            "VIP 1": "দৈনিক ২০টি জিমেইল ও ১০টি ইনস্টাগ্রাম কাজ।",
-            "VIP 2": "দৈনিক ৩০টি জিমেইল ও ২০টি ইনস্টাগ্রাম কাজ।",
-            "VIP 3": "দৈনিক ৪০টি জিমেইল ও ৩০টি ইনস্টাগ্রাম কাজ।",
-            "VIP 4": "দৈনিক ৫০টি জিমেইল ও ৪০টি ইনস্টাগ্রাম কাজ।",
-            "VIP 5": "দৈনিক ৬০টি জিমেইল ও ৫০টি ইনস্টাগ্রাম কাজ।",
-            "VIP 6": "দৈনিক ৭০টি জিমেইল ও ৬০টি ইনস্টাগ্রাম কাজ।",
-            "VIP 7": "দৈনিক ৮০টি জিমেইল ও ৭০টি ইনস্টাগ্রাম কাজ।",
-            "VIP 8": "দৈনিক ৯০টি জিমেইল ও ৮০টি ইনস্টাগ্রাম কাজ।",
-            "VIP 9": "দৈনিক ১০০টি জিমেইল ও ৯০টি ইনস্টাগ্রাম কাজ।",
-            "VIP 10": "দৈনিক ১১০টি জিমেইল ও ১০০টি ইনস্টাগ্রাম কাজ।",
-            "Send bKash Member": "দৈনিক ২০০টি জিমেইল ও ১৮০টি ইনস্টাগ্রাম কাজ।",
-            "Send bKash Member 2": "দৈনিক ৩০০টি জিমেইল ও ২৮০টি ইনস্টাগ্রাম কাজ।",
-            "Send bKash Member 3": "দৈনিক ৪০০টি জিমেইল ও ৩৮০টি ইনস্টাগ্রাম কাজ।",
-            "Send bKash Member 4": "দৈনিক ৫০০টি জিমেইল ও ৪৮০টি ইনস্টাগ্রাম কাজ।",
-            "Send bKash Member 5": "দৈনিক ৬০০টি জিমেইল ও ৫৮০টি ইনস্টাগ্রাম কাজ।"
-        };
-
-        const vipBonusMap = {
-            "VIP 1": "৯",
-            "VIP 2": "১৮",
-            "VIP 3": "২৭",
-            "VIP 4": "৩৬",
-            "VIP 5": "৪৫",
-            "VIP 6": "৫৪",
-            "VIP 7": "৬৩",
-            "VIP 8": "৭২",
-            "VIP 9": "৮১",
-            "VIP 10": "৯০",
-            "Send bKash Member": "১০০",
-            "Send bKash Member 2": "১৫০",
-            "Send bKash Member 3": "২০০",
-            "Send bKash Member 4": "২৫০",
-            "Send bKash Member 5": "৩০০"
-        };
-
         onAuthStateChanged(auth, (user) => {
             if (!user) {
                 window.location.href = "login.html";
@@ -449,28 +422,18 @@
                     currentVip = "প্যাকেজ নেই"; 
                 }
                 
-                document.getElementById("currentVipDisplay").innerText = currentVip;
-                
-                const descElem = document.getElementById("vipDescText");
-                const iconElem = document.getElementById("vipIcon");
-                
-                if (currentVip.includes("bKash Member")) {
-                    iconElem.className = "fas fa-star";
-                } else if (currentVip === "প্যাকেজ নেই") {
-                    iconElem.className = "fas fa-user";
-                } else {
-                    iconElem.className = "fas fa-crown";
-                }
+                // হেডারের ডানদিকের কোণায় প্যাকেজের নাম আপডেট করা হচ্ছে
+                const headerBadgeText = document.getElementById("headerVipText");
+                const headerBadgeIcon = document.querySelector("#headerVipBadge i");
 
-                const taskDesc = vipInfoMap[currentVip] || "অ্যাকাউন্টে কোনো প্যাকেজ নেই, প্যাকেজ কিনুন।";
-                const bonusAmount = vipBonusMap[currentVip] || "০";
-                
-                if (descElem) {
-                    if(currentVip === "প্যাকেজ নেই"){
-                        descElem.innerHTML = `${taskDesc}`;
-                    }else{
-                        descElem.innerHTML = `সাপ্তাহিক বোনাস: ৳${bonusAmount} <br> ${taskDesc}`;
-                    }
+                if(headerBadgeText) headerBadgeText.innerText = currentVip;
+
+                if (currentVip.includes("bKash Member")) {
+                    if(headerBadgeIcon) headerBadgeIcon.className = "fas fa-star";
+                } else if (currentVip === "প্যাকেজ নেই") {
+                    if(headerBadgeIcon) headerBadgeIcon.className = "fas fa-user";
+                } else {
+                    if(headerBadgeIcon) headerBadgeIcon.className = "fas fa-crown";
                 }
                 
                 checkBonusStatus(); 
