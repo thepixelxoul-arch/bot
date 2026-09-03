@@ -220,16 +220,6 @@
 
         <div class="content">
             
-            <!-- ইউজারের বর্তমান লেভেলের কার্ড -->
-            <div class="vip-huge-card" style="margin-bottom: 35px; border-bottom: 4px dashed rgba(255,255,255,0.3); padding-top: 25px;">
-                <div style="font-size: 12px; font-weight: bold; background: rgba(255,255,255,0.2); display: inline-block; padding: 5px 15px; border-radius: 20px; margin-bottom: 15px;">আপনার বর্তমান লেভেল</div>
-                <div class="vip-icon-circle" style="margin: 0 auto 10px auto;"><i class="fas fa-user" id="vipIcon"></i></div>
-                <div style="text-align: center; width: 100%;">
-                    <h3 id="currentVipDisplay" style="font-size: 22px;">প্যাকেজ লোড হচ্ছে...</h3>
-                    <div id="vipDescText" style="padding: 0 10px; font-size: 14px; font-weight: bold; line-height: 1.6;">দয়া করে অপেক্ষা করুন...</div>
-                </div>
-            </div>
-
             <!-- ডায়নামিক প্যাকেজগুলো এখানে লোড হবে -->
             <div id="vipPackagesContainer"></div>
 
@@ -327,28 +317,12 @@
                 const headerBadgeIcon = document.querySelector("#headerVipBadge i");
                 if(headerBadgeText) headerBadgeText.innerText = currentVip;
 
-                // বর্তমান লেভেল কার্ড আপডেট
-                document.getElementById("currentVipDisplay").innerText = currentVip;
-                const descElem = document.getElementById("vipDescText");
-                const iconElem = document.getElementById("vipIcon");
-                
                 if (currentVip.includes("bKash Member")) {
                     if(headerBadgeIcon) headerBadgeIcon.className = "fas fa-star";
-                    if(iconElem) iconElem.className = "fas fa-star";
                 } else if (currentVip === "প্যাকেজ নেই") {
                     if(headerBadgeIcon) headerBadgeIcon.className = "fas fa-user";
-                    if(iconElem) iconElem.className = "fas fa-user";
                 } else {
                     if(headerBadgeIcon) headerBadgeIcon.className = "fas fa-crown";
-                    if(iconElem) iconElem.className = "fas fa-crown";
-                }
-
-                // ডাটাবেস থেকে ইউজারের লেভেলের বিবরণ ফেচ করা
-                const activePkg = window.adminVipData.find(p => p.id === currentVip);
-                if (activePkg) {
-                    descElem.innerHTML = `সাপ্তাহিক বোনাস: ৳${activePkg.bonus} <br> দৈনিক কাজ: ${activePkg.emails}টি জিমেইল ও ${activePkg.instas}টি ইনস্টাগ্রাম।`;
-                } else {
-                    descElem.innerHTML = "অ্যাকাউন্টে কোনো প্যাকেজ নেই, প্যাকেজ কিনুন।";
                 }
                 
                 window.checkBonusStatus(); 
