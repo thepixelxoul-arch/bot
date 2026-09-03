@@ -61,7 +61,6 @@
         .vip-title { font-size: 18px; font-weight: bold; color: #2c3e50; display: flex; align-items: center; gap: 8px; }
         .vip-title i { color: var(--vip-gold); font-size: 16px; }
         
-        /* অফার প্রাইস স্টাইল */
         .vip-price { font-size: 18px; font-weight: bold; color: var(--main-pink); display: flex; align-items: center; }
         .old-price { 
             text-decoration: line-through; color: #a4b0be; 
@@ -123,7 +122,23 @@
         .bonus-btn.active-bonus:hover { background: linear-gradient(135deg, #fda085 0%, #f6d365 100%); }
         .bonus-btn.active-bonus i { color: #e67e22; }
 
-        /* স্পেশাল Send bKash Member বাটন স্টাইল */
+        /* স্পেশাল Send bKash Member এর সম্পূর্ণ পিংক স্টাইল */
+        .pink-vip-card {
+            border: 2px solid var(--main-pink) !important; 
+            background-color: rgba(226, 0, 90, 0.03) !important;
+        }
+        .pink-vip-card .vip-features li i {
+            color: var(--main-pink) !important; /* চেক মার্কগুলো এখন পিংক */
+        }
+        .pink-vip-card .bonus-btn.active-bonus {
+            background: linear-gradient(135deg, var(--main-pink), #ff3377) !important;
+            color: white !important; 
+            box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2) !important;
+        }
+        .pink-vip-card .bonus-btn.active-bonus i {
+            color: white !important;
+        }
+
         .send-bkash-btn {
             background: linear-gradient(135deg, #e2005a, #c4004e);
             color: white; border: none;
@@ -382,8 +397,8 @@
                 <button class="bonus-btn" id="bonus-btn-10" onclick="claimBonus('VIP 10', 90)"><i class="fas fa-gift"></i> সাপ্তাহিক বোনাস: ৳৯০</button>
             </div>
 
-            <!-- Send bKash Member (স্পেশাল পিংক থিম) -->
-            <div class="vip-package" style="border: 2px solid var(--main-pink); background-color: rgba(226, 0, 90, 0.03);">
+            <!-- Send bKash Member (শুধুমাত্র পিংক থিম) -->
+            <div class="vip-package pink-vip-card">
                 <div class="vip-header">
                     <div class="vip-title"><i class="fas fa-star" style="color: var(--main-pink);"></i> Send bKash Member</div>
                     <div class="vip-price"><span class="old-price">৳২৫০০</span> ৳২০০০</div>
@@ -392,11 +407,74 @@
                     <li><i class="fas fa-check-circle"></i> দৈনিক কাজ: ২০০ টি জিমেইল</li>
                     <li><i class="fas fa-check-circle"></i> দৈনিক কাজ: ১৮০ টি ইনস্টাগ্রাম</li>
                 </ul>
-                <!-- ফ্রি নেওয়ার শর্ত এখান থেকে মুছে ফেলা হয়েছে -->
                 <div class="btn-group">
                     <button class="send-bkash-btn" onclick="requestUpgrade('Send bKash Member', 2000)">৳২০০০ দিয়ে কিনুন</button>
                 </div>
                 <button class="bonus-btn" id="bonus-btn-sendbkash" onclick="claimBonus('Send bKash Member', 100)"><i class="fas fa-gift"></i> সাপ্তাহিক বোনাস: ৳১০০</button>
+            </div>
+
+            <!-- Send bKash Member 2 (শুধুমাত্র পিংক থিম) -->
+            <div class="vip-package pink-vip-card">
+                <div class="vip-header">
+                    <div class="vip-title"><i class="fas fa-star" style="color: var(--main-pink);"></i> Send bKash Member 2</div>
+                    <div class="vip-price"><span class="old-price">৳৩৫০০</span> ৳৩০০০</div>
+                </div>
+                <ul class="vip-features">
+                    <li><i class="fas fa-check-circle"></i> দৈনিক কাজ: ৩০০ টি জিমেইল</li>
+                    <li><i class="fas fa-check-circle"></i> দৈনিক কাজ: ২৮০ টি ইনস্টাগ্রাম</li>
+                </ul>
+                <div class="btn-group">
+                    <button class="send-bkash-btn" onclick="requestUpgrade('Send bKash Member 2', 3000)">৳৩০০০ দিয়ে কিনুন</button>
+                </div>
+                <button class="bonus-btn" id="bonus-btn-sendbkash2" onclick="claimBonus('Send bKash Member 2', 150)"><i class="fas fa-gift"></i> সাপ্তাহিক বোনাস: ৳১৫০</button>
+            </div>
+
+            <!-- Send bKash Member 3 (শুধুমাত্র পিংক থিম) -->
+            <div class="vip-package pink-vip-card">
+                <div class="vip-header">
+                    <div class="vip-title"><i class="fas fa-star" style="color: var(--main-pink);"></i> Send bKash Member 3</div>
+                    <div class="vip-price"><span class="old-price">৳৪৫০০</span> ৳৪০০০</div>
+                </div>
+                <ul class="vip-features">
+                    <li><i class="fas fa-check-circle"></i> দৈনিক কাজ: ৪০০ টি জিমেইল</li>
+                    <li><i class="fas fa-check-circle"></i> দৈনিক কাজ: ৩৮০ টি ইনস্টাগ্রাম</li>
+                </ul>
+                <div class="btn-group">
+                    <button class="send-bkash-btn" onclick="requestUpgrade('Send bKash Member 3', 4000)">৳৪০০০ দিয়ে কিনুন</button>
+                </div>
+                <button class="bonus-btn" id="bonus-btn-sendbkash3" onclick="claimBonus('Send bKash Member 3', 200)"><i class="fas fa-gift"></i> সাপ্তাহিক বোনাস: ৳২০০</button>
+            </div>
+
+            <!-- Send bKash Member 4 (শুধুমাত্র পিংক থিম) -->
+            <div class="vip-package pink-vip-card">
+                <div class="vip-header">
+                    <div class="vip-title"><i class="fas fa-star" style="color: var(--main-pink);"></i> Send bKash Member 4</div>
+                    <div class="vip-price"><span class="old-price">৳৫৫০০</span> ৳৫০০০</div>
+                </div>
+                <ul class="vip-features">
+                    <li><i class="fas fa-check-circle"></i> দৈনিক কাজ: ৫০০ টি জিমেইল</li>
+                    <li><i class="fas fa-check-circle"></i> দৈনিক কাজ: ৪৮০ টি ইনস্টাগ্রাম</li>
+                </ul>
+                <div class="btn-group">
+                    <button class="send-bkash-btn" onclick="requestUpgrade('Send bKash Member 4', 5000)">৳৫০০০ দিয়ে কিনুন</button>
+                </div>
+                <button class="bonus-btn" id="bonus-btn-sendbkash4" onclick="claimBonus('Send bKash Member 4', 250)"><i class="fas fa-gift"></i> সাপ্তাহিক বোনাস: ৳২৫০</button>
+            </div>
+
+            <!-- Send bKash Member 5 (শুধুমাত্র পিংক থিম) -->
+            <div class="vip-package pink-vip-card">
+                <div class="vip-header">
+                    <div class="vip-title"><i class="fas fa-star" style="color: var(--main-pink);"></i> Send bKash Member 5</div>
+                    <div class="vip-price"><span class="old-price">৳৬৫০০</span> ৳৬০০০</div>
+                </div>
+                <ul class="vip-features">
+                    <li><i class="fas fa-check-circle"></i> দৈনিক কাজ: ৬০০ টি জিমেইল</li>
+                    <li><i class="fas fa-check-circle"></i> দৈনিক কাজ: ৫৮০ টি ইনস্টাগ্রাম</li>
+                </ul>
+                <div class="btn-group">
+                    <button class="send-bkash-btn" onclick="requestUpgrade('Send bKash Member 5', 6000)">৳৬০০০ দিয়ে কিনুন</button>
+                </div>
+                <button class="bonus-btn" id="bonus-btn-sendbkash5" onclick="claimBonus('Send bKash Member 5', 300)"><i class="fas fa-gift"></i> সাপ্তাহিক বোনাস: ৳৩০০</button>
             </div>
 
         </div>
@@ -454,8 +532,8 @@
         function checkBonusStatus() {
             const currentVip = localStorage.getItem('userVipLevel') || "VIP 0";
             
-            const allVips = ['VIP 1', 'VIP 2', 'VIP 3', 'VIP 4', 'VIP 5', 'VIP 6', 'VIP 7', 'VIP 8', 'VIP 9', 'VIP 10', 'Send bKash Member'];
-            const btnIds = ['bonus-btn-1', 'bonus-btn-2', 'bonus-btn-3', 'bonus-btn-4', 'bonus-btn-5', 'bonus-btn-6', 'bonus-btn-7', 'bonus-btn-8', 'bonus-btn-9', 'bonus-btn-10', 'bonus-btn-sendbkash'];
+            const allVips = ['VIP 1', 'VIP 2', 'VIP 3', 'VIP 4', 'VIP 5', 'VIP 6', 'VIP 7', 'VIP 8', 'VIP 9', 'VIP 10', 'Send bKash Member', 'Send bKash Member 2', 'Send bKash Member 3', 'Send bKash Member 4', 'Send bKash Member 5'];
+            const btnIds = ['bonus-btn-1', 'bonus-btn-2', 'bonus-btn-3', 'bonus-btn-4', 'bonus-btn-5', 'bonus-btn-6', 'bonus-btn-7', 'bonus-btn-8', 'bonus-btn-9', 'bonus-btn-10', 'bonus-btn-sendbkash', 'bonus-btn-sendbkash2', 'bonus-btn-sendbkash3', 'bonus-btn-sendbkash4', 'bonus-btn-sendbkash5'];
             
             for (let i = 0; i < allVips.length; i++) {
                 const vipName = allVips[i];
