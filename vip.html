@@ -39,6 +39,7 @@
         .header-title { font-size: 18px; font-weight: bold; display: flex; align-items: center; }
         .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 20px; }
         
+        /* হেডারের ডানদিকের কোণায় বর্তমান প্যাকেজ দেখানোর ব্যাজ */
         .header-vip-badge {
             background-color: rgba(255, 255, 255, 0.2);
             padding: 5px 12px;
@@ -179,12 +180,8 @@
             white-space: nowrap;
         }
 
-        /* হলুদ রঙের অ্যাক্টিভ বোনাস বাটন */
         .bonus-btn-pink.active-bonus {
-            background: #ffcc00; 
-            color: #333; 
-            border: none; 
-            cursor: pointer;
+            background: #ffcc00; color: #333; border: none; cursor: pointer;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
         .bonus-btn-pink.active-bonus i { color: #d35400; }
@@ -224,16 +221,6 @@
 
         <div class="content">
             
-            <!-- ইউজারের বর্তমান লেভেলের কার্ড -->
-            <div class="vip-huge-card" style="margin-bottom: 35px; border-bottom: 4px dashed rgba(255,255,255,0.3); padding-top: 25px;">
-                <div style="font-size: 12px; font-weight: bold; background: rgba(255,255,255,0.2); display: inline-block; padding: 5px 15px; border-radius: 20px; margin-bottom: 15px;">আপনার বর্তমান লেভেল</div>
-                <div class="vip-icon-circle" style="margin: 0 auto 10px auto;"><i class="fas fa-user" id="vipIcon"></i></div>
-                <div style="text-align: center; width: 100%;">
-                    <h3 id="currentVipDisplay" style="font-size: 22px;">প্যাকেজ লোড হচ্ছে...</h3>
-                    <div id="vipDescText" style="padding: 0 10px; font-size: 14px; font-weight: bold; line-height: 1.6;">দয়া করে অপেক্ষা করুন...</div>
-                </div>
-            </div>
-
             <!-- ডায়নামিক প্যাকেজগুলো এখানে লোড হবে -->
             <div id="vipPackagesContainer"></div>
 
@@ -264,6 +251,9 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
+        // ==========================================
+        // অ্যাডমিন প্যানেল ডাটাবেস (Dynamic Package Control)
+        // ==========================================
         const defaultPackages = [
             { id: "VIP 1", oldPrice: 200, price: 99, emails: 20, instas: 10, bonus: 9, icon: "fa-crown", btnId: "bonus-btn-1" },
             { id: "VIP 2", oldPrice: 300, price: 199, emails: 30, instas: 20, bonus: 18, icon: "fa-crown", btnId: "bonus-btn-2" },
@@ -345,28 +335,12 @@
                 const headerBadgeIcon = document.querySelector("#headerVipBadge i");
                 if(headerBadgeText) headerBadgeText.innerText = currentVip;
 
-                // বর্তমান লেভেল কার্ড আপডেট
-                document.getElementById("currentVipDisplay").innerText = currentVip;
-                const descElem = document.getElementById("vipDescText");
-                const iconElem = document.getElementById("vipIcon");
-                
                 if (currentVip.includes("bKash Member")) {
                     if(headerBadgeIcon) headerBadgeIcon.className = "fas fa-star";
-                    if(iconElem) iconElem.className = "fas fa-star";
                 } else if (currentVip === "প্যাকেজ নেই") {
                     if(headerBadgeIcon) headerBadgeIcon.className = "fas fa-user";
-                    if(iconElem) iconElem.className = "fas fa-user";
                 } else {
                     if(headerBadgeIcon) headerBadgeIcon.className = "fas fa-crown";
-                    if(iconElem) iconElem.className = "fas fa-crown";
-                }
-
-                // ডাটাবেস থেকে ইউজারের লেভেলের বিবরণ ফেচ করা
-                const activePkg = window.adminVipData.find(p => p.id === currentVip);
-                if (activePkg) {
-                    descElem.innerHTML = `সাপ্তাহিক বোনাস: ৳${activePkg.bonus} <br> দৈনিক কাজ: ${activePkg.emails}টি জিমেইল ও ${activePkg.instas}টি ইনস্টাগ্রাম।`;
-                } else {
-                    descElem.innerHTML = "অ্যাকাউন্টে কোনো প্যাকেজ নেই, প্যাকেজ কিনুন।";
                 }
             }
         });
