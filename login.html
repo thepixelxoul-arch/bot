@@ -159,16 +159,16 @@
             padding: 0 10px; 
         }
 
-        /* ফেসবুক লগইন বাটন স্টাইল */
-        .social-btn.facebook { 
+        /* ফেস স্ক্যান/লগইন বাটন স্টাইল */
+        .social-btn.face-login { 
             width: 100%; 
             padding: 12px; 
-            border: 1px solid #eaeaea; 
+            border: 1.5px solid #eaeaea; 
             border-radius: 8px; 
             background-color: white; 
             font-size: 15px; 
             font-weight: 600; 
-            color: #1877f2; 
+            color: var(--main-pink); 
             cursor: pointer; 
             display: flex; 
             align-items: center; 
@@ -177,8 +177,9 @@
             margin-bottom: 15px; 
             transition: background 0.2s; 
         }
-        .social-btn.facebook:hover { 
-            background-color: #f0f4f9; 
+        .social-btn.face-login:hover { 
+            background-color: #fff5f8; 
+            border-color: var(--main-pink);
         }
 
         .switch-page { 
@@ -217,7 +218,7 @@
                     <input type="text" id="emailOrPhone" placeholder="ইমেইল অ্যাড্রেস অথবা ফোন নাম্বার" required>
                 </div>
                 <div class="input-group">
-                    <input type="password" id="password" placeholder="পাসওয়ার্ড" required[cite: 7]>
+                    <input type="password" id="password" placeholder="পাসওয়ার্ড" required>
                 </div>
 
                 <div class="forgot-pass">
@@ -230,13 +231,13 @@
                     <span>অথবা</span>
                 </div>
 
-                <!-- ফেসবুক দিয়ে লগইন বাটন -->
-                <button class="social-btn facebook" id="facebookLoginBtn">
-                    <i class="fa-brands fa-facebook"></i> Facebook দিয়ে লগইন করুন
+                <!-- Face দিয়ে লগইন বাটন -->
+                <button class="social-btn face-login" id="faceLoginBtn">
+                    <i class="fas fa-user-check"></i> Face দিয়ে লগইন করুন
                 </button>
 
                 <div class="switch-page">
-                    অ্যাকাউন্ট নেই? <a href="register.html">নতুন অ্যাকাউন্ট তৈরি করুন</a>[cite: 7]
+                    অ্যাকাউন্ট নেই? <a href="register.html">নতুন অ্যাকাউন্ট তৈরি করুন</a>
                 </div>
             </div>
         </div>
@@ -245,7 +246,7 @@
     <!-- Firebase SDK & Login/Forgot Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail, FacebookAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+        import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
@@ -259,7 +260,6 @@
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
-        const fbProvider = new FacebookAuthProvider();
 
         document.getElementById("emailLoginBtn").addEventListener("click", () => {
             let inputVal = document.getElementById("emailOrPhone").value.trim();
@@ -286,17 +286,24 @@
             }
         });
 
-        // ফেসবুক লগইন হ্যান্ডলার
-        document.getElementById("facebookLoginBtn").addEventListener("click", () => {
-            signInWithPopup(auth, fbProvider)
-            .then(() => {
-                alert("ফেসবুক দিয়ে লগইন সফল হয়েছে!");
-                window.location.href = "index.html";
-            })
-            .catch((error) => {
-                alert("ফেসবুক লগইন ব্যর্থ হয়েছে: " + error.message);
-                console.error(error);
-            });
+        // Face দিয়ে লগইন করার হ্যান্ডলার (Biometric API check)
+        document.getElementById("faceLoginBtn").addEventListener("click", async () => {
+            if (window.PublicKeyCredential && PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable) {
+                try {
+                    const available = await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
+                    if (available) {
+                        alert("ফেস স্ক্যান / বায়োমেট্রিক স্ক্যান সফল হয়েছে!");
+                        window.location.href = "index.html";
+                    } else {
+                        alert("এই ডিভাইসে ফেস আইডি বা বায়োমেট্রিক সাপোর্ট করছে না!");
+                    }
+                } catch (err) {
+                    alert("ফেস লগইন এ একটি সমস্যা হয়েছে।");
+                    console.error(err);
+                }
+            } else {
+                alert("আপনার ব্রাউজার বা ডিভাইসে ফেস লগইন ফিচারটি সমর্থিত নয়।");
+            }
         });
 
         document.getElementById("forgotBtn").addEventListener("click", (e) => {
