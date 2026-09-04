@@ -70,18 +70,15 @@
             border: 1px solid var(--border-color); border-radius: 8px; padding: 12px 5px;
             text-align: center; cursor: pointer; transition: 0.2s; background-color: var(--main-white);
         }
-        .method-box i { font-size: 22px; margin-bottom: 5px; display: block; }
-        .method-box span { font-size: 11px; font-weight: bold; color: #2c3e50; }
+        
+        /* সব ওয়ালেট আইকন এখন পিংক কালারের হবে */
+        .method-box i { font-size: 22px; margin-bottom: 5px; display: block; color: var(--main-pink); }
+        .method-box span { font-size: 11px; font-weight: bold; color: #2c3e50; transition: 0.2s; }
         
         .method-box.active {
             border: 2px solid var(--main-pink); background-color: rgba(226, 0, 90, 0.05);
         }
         .method-box.active span { color: var(--main-pink); }
-
-        .c-bkash { color: #e2136e; }
-        .c-nagad { color: #f39c12; }
-        .c-rocket { color: #8e44ad; }
-        .c-upay { color: #2980b9; }
 
         .admin-number-box {
             background-color: var(--main-white); border: 1px dashed var(--main-pink); border-radius: 8px;
@@ -135,7 +132,6 @@
         .status-success { background-color: #d4edda; color: #155724; }
         .status-rejected { background-color: #f8d7da; color: #721c24; }
 
-        /* টোস্ট মেসেজ */
         .toast-msg {
             visibility: hidden; min-width: 200px; 
             background-color: var(--main-pink);
@@ -146,7 +142,6 @@
         }
         .toast-msg.show { visibility: visible; opacity: 1; top: 40px; }
 
-        /* কাস্টম পপআপ (Modal) ডিজাইন */
         .modal-overlay {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
             background-color: rgba(0, 0, 0, 0.5);
@@ -184,7 +179,6 @@
             <i class="fas fa-check-circle modal-icon"></i>
             <div class="modal-title">সফল হয়েছে!</div>
             <div class="modal-text" id="modalMessage">আপনার পেমেন্ট রিকোয়েস্ট জমা হয়েছে।</div>
-            <!-- ওকে বাটনে ক্লিক করলে কন্ডিশন অনুযায়ী সঠিক পেজে নিয়ে যাবে -->
             <button class="modal-btn" onclick="closeModalAndRedirect()">ওকে</button>
         </div>
     </div>
@@ -206,26 +200,26 @@
                 <div class="section-title">পেমেন্ট মেথড সিলেক্ট করুন</div>
                 <div class="method-grid">
                     <div class="method-box active" onclick="selectMethod(this, 'bKash')">
-                        <i class="fas fa-wallet c-bkash"></i>
+                        <i class="fas fa-wallet"></i>
                         <span>bKash</span>
                     </div>
                     <div class="method-box" onclick="selectMethod(this, 'Nagad')">
-                        <i class="fas fa-wallet c-nagad"></i>
+                        <i class="fas fa-wallet"></i>
                         <span>Nagad</span>
                     </div>
                     <div class="method-box" onclick="selectMethod(this, 'Rocket')">
-                        <i class="fas fa-wallet c-rocket"></i>
+                        <i class="fas fa-wallet"></i>
                         <span>Rocket</span>
                     </div>
                     <div class="method-box" onclick="selectMethod(this, 'Upay')">
-                        <i class="fas fa-wallet c-upay"></i>
+                        <i class="fas fa-wallet"></i>
                         <span>Upay</span>
                     </div>
                 </div>
 
                 <div class="admin-number-box">
                     <div class="admin-info">
-                        আমাদের <strong id="methodName" style="color: #e2136e;">bKash</strong> (Personal) নাম্বার:
+                        আমাদের <strong id="methodName" style="color: var(--main-pink);">bKash</strong> (Personal) নাম্বার:
                         <span id="adminNumber">01700000000</span>
                     </div>
                     <button class="copy-btn" onclick="copyNumber()">কপি</button>
@@ -289,14 +283,12 @@
             selectedVip = urlParams.get('vip');
             payAmount = urlParams.get('amount');
 
-            // URL থেকে এমাউন্ট সেট করা
             if (payAmount) {
                 document.getElementById('amountField').value = "৳ " + payAmount;
             } else {
                 document.getElementById('amountField').value = "৳ 0";
             }
 
-            // যদি ভেরিফিকেশনের জন্য আসে, ব্যাক বাটনও ভেরিফিকেশনে নিয়ে যাবে
             if(selectedVip === 'Verification') {
                 document.getElementById('backBtn').href = "verification.html";
             } else {
@@ -311,11 +303,12 @@
             'Upay': '01600000000'
         };
 
+        // মেথডের নামগুলোর কালারও এখন সব পিংক করা হয়েছে
         const methodColors = {
-            'bKash': '#e2136e',
-            'Nagad': '#f39c12',
-            'Rocket': '#8e44ad',
-            'Upay': '#2980b9'
+            'bKash': '#e2005a',
+            'Nagad': '#e2005a',
+            'Rocket': '#e2005a',
+            'Upay': '#e2005a'
         };
 
         function selectMethod(element, methodName) {
@@ -385,15 +378,13 @@
             document.getElementById('trxId').value = '';
         }
 
-        // মডাল ক্লোজ করে সঠিক পেজে রিডাইরেক্ট করা
         function closeModalAndRedirect() {
             document.getElementById('successModal').classList.remove('show');
             
-            // চেক করা হচ্ছে ইউজার VIP আপগ্রেড করেছে নাকি Verification ফি দিয়েছে
             if (selectedVip === 'Verification') {
                 window.location.href = "verification.html";
             } else {
-                window.location.href = "vip.html"; // VIP এর ক্ষেত্রে vip.html এ যাবে
+                window.location.href = "vip.html"; 
             }
         }
     </script>
