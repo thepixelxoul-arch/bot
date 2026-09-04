@@ -9,6 +9,7 @@
     <style>
         :root { 
             --main-pink: #e2005a; 
+            --light-pink: #ff3377;
             --main-white: #ffffff; 
             --text-grey: #888888; 
             --bg-light: #f4f6f9; 
@@ -109,7 +110,6 @@
             box-shadow: 0 0 0 3px rgba(226, 0, 90, 0.1);
         }
 
-        /* পাসওয়ার্ড ভুলে গেছেন লিংক স্টাইল */
         .forgot-pass {
             text-align: right;
             margin-bottom: 15px;
@@ -142,8 +142,47 @@
             background-color: #c4004e; 
         }
 
+        .divider { 
+            display: flex; 
+            align-items: center; 
+            text-align: center; 
+            color: var(--text-grey); 
+            margin-bottom: 15px; 
+            font-size: 13px;
+        }
+        .divider::before, .divider::after { 
+            content: ''; 
+            flex: 1; 
+            border-bottom: 1px solid #eaeaea; 
+        }
+        .divider span { 
+            padding: 0 10px; 
+        }
+
+        /* ফেসবুক লগইন বাটন স্টাইল */
+        .social-btn.facebook { 
+            width: 100%; 
+            padding: 12px; 
+            border: 1px solid #eaeaea; 
+            border-radius: 8px; 
+            background-color: white; 
+            font-size: 15px; 
+            font-weight: 600; 
+            color: #1877f2; 
+            cursor: pointer; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 10px; 
+            margin-bottom: 15px; 
+            transition: background 0.2s; 
+        }
+        .social-btn.facebook:hover { 
+            background-color: #f0f4f9; 
+        }
+
         .switch-page { 
-            margin-top: 15px; 
+            margin-top: 10px; 
             font-size: 14px; 
             color: var(--text-grey); 
         }
@@ -181,12 +220,20 @@
                     <input type="password" id="password" placeholder="পাসওয়ার্ড" required[cite: 7]>
                 </div>
 
-                <!-- পাসওয়ার্ড ভুলে গেছেন অপশন -->
                 <div class="forgot-pass">
                     <a href="#" id="forgotBtn">পাসওয়ার্ড ভুলে গেছেন?</a>
                 </div>
 
                 <button class="login-btn" id="emailLoginBtn">লগইন করুন</button>
+
+                <div class="divider">
+                    <span>অথবা</span>
+                </div>
+
+                <!-- ফেসবুক দিয়ে লগইন বাটন -->
+                <button class="social-btn facebook" id="facebookLoginBtn">
+                    <i class="fa-brands fa-facebook"></i> Facebook দিয়ে লগইন করুন
+                </button>
 
                 <div class="switch-page">
                     অ্যাকাউন্ট নেই? <a href="register.html">নতুন অ্যাকাউন্ট তৈরি করুন</a>[cite: 7]
@@ -198,7 +245,7 @@
     <!-- Firebase SDK & Login/Forgot Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+        import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail, FacebookAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
@@ -212,6 +259,7 @@
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
+        const fbProvider = new FacebookAuthProvider();
 
         document.getElementById("emailLoginBtn").addEventListener("click", () => {
             let inputVal = document.getElementById("emailOrPhone").value.trim();
@@ -238,7 +286,19 @@
             }
         });
 
-        // পাসওয়ার্ড রিসেট করার ফাংশন
+        // ফেসবুক লগইন হ্যান্ডলার
+        document.getElementById("facebookLoginBtn").addEventListener("click", () => {
+            signInWithPopup(auth, fbProvider)
+            .then(() => {
+                alert("ফেসবুক দিয়ে লগইন সফল হয়েছে!");
+                window.location.href = "index.html";
+            })
+            .catch((error) => {
+                alert("ফেসবুক লগইন ব্যর্থ হয়েছে: " + error.message);
+                console.error(error);
+            });
+        });
+
         document.getElementById("forgotBtn").addEventListener("click", (e) => {
             e.preventDefault();
             let inputVal = document.getElementById("emailOrPhone").value.trim();
