@@ -70,20 +70,6 @@
         .data-group { margin-bottom: 18px; }
         .data-group label { display: block; font-size: 14px; font-weight: bold; color: #2c3e50; margin-bottom: 10px; }
         
-        /* ব্যালেন্সের নতুন ডিজাইন (ডানদিকের ছোট ব্যাজ) */
-        .mini-balance {
-            background-color: rgba(226, 0, 90, 0.1);
-            color: var(--main-pink);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: bold;
-            border: 1px solid rgba(226, 0, 90, 0.2);
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
-
         .method-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -239,15 +225,8 @@
             </div>
 
             <div class="task-card">
-                <!-- ব্যালেন্স এবং মেথড টাইটেল পাশাপাশি -->
                 <div class="data-group">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                        <label style="margin-bottom: 0;">পেমেন্ট মেথড সিলেক্ট করুন</label>
-                        <div class="mini-balance">
-                            <i class="fas fa-wallet"></i> ৳৫০০.০০
-                        </div>
-                    </div>
-                    
+                    <label>পেমেন্ট মেথড সিলেক্ট করুন</label>
                     <div class="method-grid">
                         <div class="method-box selected" onclick="selectMethod(this, 'bKash')">
                             <i class="fas fa-wallet"></i>
@@ -278,7 +257,7 @@
                     <input type="number" id="withdrawAmount" class="whatsapp-input" placeholder="৳ পরিমাণ লিখুন">
                 </div>
 
-                <!-- নতুন পাসওয়ার্ড বক্স (অন্য বক্সের মতো সাধারণ ডিজাইন) -->
+                <!-- পাসওয়ার্ড বক্স -->
                 <div class="data-group">
                     <label>অ্যাকাউন্ট পাসওয়ার্ড</label>
                     <input type="password" id="withdrawPassword" class="whatsapp-input" placeholder="আপনার পাসওয়ার্ড দিন">
@@ -326,8 +305,7 @@
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
-
-        // গ্লোবাল ভেরিয়েবলে সেট করা হচ্ছে যেন অন্য ফাংশন থেকে এক্সেস করা যায়
+        
         window.currentUser = null;
         window.EmailAuthProvider = EmailAuthProvider;
         window.reauthenticateWithCredential = reauthenticateWithCredential;
@@ -375,7 +353,6 @@
             document.getElementById('historyScreen').classList.remove('active');
         }
 
-        // ফায়ারবেস সিকিউরিটি যুক্ত উইথড্র ফাংশন
         async function submitWithdraw() {
             const number = document.getElementById('accNumber').value.trim();
             const amount = document.getElementById('withdrawAmount').value.trim();
@@ -401,11 +378,9 @@
             btn.innerText = "যাচাই করা হচ্ছে...";
 
             try {
-                // পাসওয়ার্ড যাচাই করা হচ্ছে
                 const credential = window.EmailAuthProvider.credential(window.currentUser.email, password);
                 await window.reauthenticateWithCredential(window.currentUser, credential);
                 
-                // সব ঠিক থাকলে ডাটা সেভ হবে
                 let history = JSON.parse(localStorage.getItem('withdrawHistory')) || [];
                 
                 const newEntry = {
@@ -419,7 +394,6 @@
 
                 showToast("উইথড্র রিকোয়েস্ট সফলভাবে জমা হয়েছে!");
                 
-                // বক্স খালি করে দেওয়া হচ্ছে
                 document.getElementById('accNumber').value = '';
                 document.getElementById('withdrawAmount').value = '';
                 document.getElementById('withdrawPassword').value = '';
