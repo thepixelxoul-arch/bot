@@ -58,23 +58,9 @@
         .notice-box {
             background: linear-gradient(135deg, #fff3cd, #ffeeba); 
             border: 1px solid #ffeeba; border-left: 5px solid #ffc107;
-            padding: 12px 15px; border-radius: 6px; margin-bottom: 15px; color: #856404;
+            padding: 12px 15px; border-radius: 6px; margin-bottom: 20px; color: #856404;
             font-size: 13px; line-height: 1.5; box-shadow: 0 2px 8px rgba(0,0,0,0.03);
         }
-
-        .balance-card {
-            background: linear-gradient(135deg, var(--main-pink), #ff3377);
-            border-radius: 10px;
-            padding: 20px 15px;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 6px 15px rgba(226, 0, 90, 0.25);
-            color: white;
-        }
-        .balance-title { font-size: 14px; color: rgba(255, 255, 255, 0.9); font-weight: bold; display: flex; align-items: center; gap: 8px; }
-        .balance-amount { font-size: 22px; font-weight: 900; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
 
         .task-card {
             background-color: var(--main-white); border-radius: 10px; padding: 20px;
@@ -84,6 +70,20 @@
         .data-group { margin-bottom: 18px; }
         .data-group label { display: block; font-size: 14px; font-weight: bold; color: #2c3e50; margin-bottom: 10px; }
         
+        /* ব্যালেন্সের নতুন ডিজাইন (ডানদিকের ছোট ব্যাজ) */
+        .mini-balance {
+            background-color: rgba(226, 0, 90, 0.1);
+            color: var(--main-pink);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            border: 1px solid rgba(226, 0, 90, 0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
         .method-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -142,35 +142,6 @@
             transition: 0.3s;
         }
         .whatsapp-input:focus { border-color: var(--main-pink); background-color: white; box-shadow: 0 0 0 3px rgba(226, 0, 90, 0.1); }
-
-        /* স্পেশাল সিকিউরিটি পাসওয়ার্ড ফিল্ড */
-        .security-input-group {
-            background-color: #fff5f8;
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px dashed #ffd6e4;
-            margin-bottom: 20px;
-        }
-        .security-input-group label {
-            display: block; font-size: 14px; font-weight: bold; color: var(--main-pink); margin-bottom: 10px;
-        }
-        .pass-input-wrapper {
-            position: relative;
-        }
-        .pass-input-wrapper input {
-            width: 100%; padding: 14px 14px 14px 40px; border: 1.5px solid #eaeaea;
-            border-radius: 8px; box-sizing: border-box; font-size: 14px; outline: none;
-            color: #2c3e50; background-color: white; font-weight: 500;
-            transition: 0.3s;
-        }
-        .pass-input-wrapper input:focus {
-            border-color: var(--main-pink); box-shadow: 0 0 0 3px rgba(226, 0, 90, 0.1);
-        }
-        .pass-input-wrapper i {
-            position: absolute; left: 15px; top: 50%; transform: translateY(-50%);
-            color: #a4b0be; font-size: 14px; transition: 0.3s;
-        }
-        .pass-input-wrapper input:focus + i { color: var(--main-pink); }
 
         .submit-btn {
             background-color: var(--main-pink); color: white; border: none;
@@ -267,15 +238,16 @@
                 <i class="fas fa-info-circle"></i> ন্যূনতম উইথড্র পরিমাণ ৳১০০ টাকা। ২৪ ঘণ্টার মধ্যে পেমেন্ট কমপ্লিট করা হবে।
             </div>
 
-            <!-- एकदम স্থির ব্যালেন্স কার্ড -->
-            <div class="balance-card">
-                <div class="balance-title"><i class="fas fa-wallet"></i> আপনার মূল ব্যালেন্স:</div>
-                <div class="balance-amount">৳৫০০.০০</div>
-            </div>
-
             <div class="task-card">
+                <!-- ব্যালেন্স এবং মেথড টাইটেল পাশাপাশি -->
                 <div class="data-group">
-                    <label>পেমেন্ট মেথড সিলেক্ট করুন</label>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <label style="margin-bottom: 0;">পেমেন্ট মেথড সিলেক্ট করুন</label>
+                        <div class="mini-balance">
+                            <i class="fas fa-wallet"></i> ৳৫০০.০০
+                        </div>
+                    </div>
+                    
                     <div class="method-grid">
                         <div class="method-box selected" onclick="selectMethod(this, 'bKash')">
                             <i class="fas fa-wallet"></i>
@@ -306,14 +278,11 @@
                     <input type="number" id="withdrawAmount" class="whatsapp-input" placeholder="৳ পরিমাণ লিখুন">
                 </div>
 
-                <!-- নতুন পাসওয়ার্ড সিকিউরিটি ফিল্ড -->
-                <div class="security-input-group">
-                    <label><i class="fas fa-shield-alt"></i> অ্যাকাউন্ট পাসওয়ার্ড</label>
-                    <div class="pass-input-wrapper">
-                        <input type="password" id="withdrawPassword" placeholder="আপনার পাসওয়ার্ড দিন">
-                        <i class="fas fa-lock"></i>
-                    </div>
-                    <div style="font-size: 11px; color: var(--text-grey); margin-top: 8px; text-align: center;">টাকা উত্তোলনের জন্য আপনার বর্তমান পাসওয়ার্ডটি প্রয়োজন।</div>
+                <!-- নতুন পাসওয়ার্ড বক্স (অন্য বক্সের মতো সাধারণ ডিজাইন) -->
+                <div class="data-group">
+                    <label>অ্যাকাউন্ট পাসওয়ার্ড</label>
+                    <input type="password" id="withdrawPassword" class="whatsapp-input" placeholder="আপনার পাসওয়ার্ড দিন">
+                    <small style="color: var(--text-grey); font-size: 11px; display: block; margin-top: 6px;">টাকা উত্তোলনের জন্য আপনার বর্তমান পাসওয়ার্ডটি প্রয়োজন।</small>
                 </div>
 
                 <button class="submit-btn" onclick="submitWithdraw()">উইথড্র করুন</button>
@@ -357,7 +326,7 @@
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
-        
+
         // গ্লোবাল ভেরিয়েবলে সেট করা হচ্ছে যেন অন্য ফাংশন থেকে এক্সেস করা যায়
         window.currentUser = null;
         window.EmailAuthProvider = EmailAuthProvider;
@@ -406,7 +375,7 @@
             document.getElementById('historyScreen').classList.remove('active');
         }
 
-        // Firebase Re-authentication যুক্ত করে উইথড্র ফাংশন আপডেট করা হলো
+        // ফায়ারবেস সিকিউরিটি যুক্ত উইথড্র ফাংশন
         async function submitWithdraw() {
             const number = document.getElementById('accNumber').value.trim();
             const amount = document.getElementById('withdrawAmount').value.trim();
@@ -428,16 +397,15 @@
                 return;
             }
 
-            // বাটন লোডিং স্টেটে নিয়ে যাওয়া
             btn.disabled = true;
             btn.innerText = "যাচাই করা হচ্ছে...";
 
             try {
-                // ইউজারের দেওয়া পাসওয়ার্ড ফায়ারবেস দিয়ে চেক করা হচ্ছে
+                // পাসওয়ার্ড যাচাই করা হচ্ছে
                 const credential = window.EmailAuthProvider.credential(window.currentUser.email, password);
                 await window.reauthenticateWithCredential(window.currentUser, credential);
                 
-                // পাসওয়ার্ড ঠিক থাকলে হিস্ট্রি সেভ হবে
+                // সব ঠিক থাকলে ডাটা সেভ হবে
                 let history = JSON.parse(localStorage.getItem('withdrawHistory')) || [];
                 
                 const newEntry = {
@@ -451,7 +419,7 @@
 
                 showToast("উইথড্র রিকোয়েস্ট সফলভাবে জমা হয়েছে!");
                 
-                // ইনপুট বক্স খালি করা
+                // বক্স খালি করে দেওয়া হচ্ছে
                 document.getElementById('accNumber').value = '';
                 document.getElementById('withdrawAmount').value = '';
                 document.getElementById('withdrawPassword').value = '';
