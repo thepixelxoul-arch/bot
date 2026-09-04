@@ -14,40 +14,46 @@
             --text-grey: #888888; 
             --bg-light: #f4f6f9; 
             --dark-blue: #2c3e50;
-            --danger-red: #e74c3c;
-            /* Added yellow variable for warning */
             --warning-yellow: #f39c12;
-            --light-yellow: #fef9e7;
         }
 
-        body { 
+        /* বডি এবং মেইন ফ্রেম ফিক্সড করার কোড (যেন পুরো ওয়েবসাইট স্ক্রল না হয়) */
+        body, html { 
             margin: 0; padding: 0; 
             background-color: #e9ecef; 
             font-family: 'Segoe UI', Tahoma, sans-serif; 
             display: flex; justify-content: center; 
+            height: 100vh; 
+            overflow: hidden; /* পুরো পেজের বাউন্স বা স্ক্রল বন্ধ করা হলো */
         }
 
         .app-container { 
-            width: 100%; max-width: 450px; min-height: 100vh; 
+            width: 100%; max-width: 450px; height: 100vh; 
             background-color: var(--bg-light); color: var(--main-pink); 
             box-shadow: 0 0 25px rgba(0,0,0,0.1); 
             display: flex; flex-direction: column; position: relative; 
+            overflow: hidden; /* অ্যাপ ফ্রেম স্থির রাখা হলো */
         }
 
         .header { 
             background-color: var(--main-pink); padding: 15px 20px; 
             display: flex; justify-content: space-between; align-items: center; 
             color: var(--main-white); box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); z-index: 10; 
-            position: sticky; top: 0;
+            flex-shrink: 0;
         }
         .header-left { display: flex; align-items: center; }
         .header-title { font-size: 18px; font-weight: bold; display: flex; align-items: center; }
         .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 20px; transition: 0.2s; }
         .back-btn:hover { transform: translateX(-3px); }
 
-        .content { flex-grow: 1; padding: 20px; overflow-y: auto; padding-bottom: 80px; }
+        /* শুধু এই অংশটুকু স্ক্রল হবে */
+        .content { 
+            flex-grow: 1; padding: 20px; 
+            overflow-y: auto; /* ভেতরের কন্টেন্ট স্ক্রল চালু */
+            padding-bottom: 80px; 
+            -webkit-overflow-scrolling: touch; /* মোবাইলে স্মুথ স্ক্রলিং */
+        }
         
-        /* Updated notice box to yellow warning style with smooth border */
         .notice-box {
             background: linear-gradient(135deg, #fffbf0, #fff4ce); 
             border: 1px solid #fae5b6; 
@@ -57,19 +63,16 @@
             font-weight: bold;
         }
 
-        /* রুলস কার্ড স্টাইল */
         .rule-card {
             background-color: var(--main-white);
             border-radius: 12px;
             padding: 20px;
             margin-bottom: 20px;
-            border: 1px solid #eaeaea; /* Ensure basic border is smooth */
+            border: 1px solid #eaeaea; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.03);
         }
 
-        /* ব্যান কার্ডের জন্য আলাদা রেড বর্ডার - now removed left border */
         .rule-card.danger {
-            /* border-left: 4px solid var(--danger-red); Removed this line */
             background-color: rgba(231, 76, 60, 0.02);
         }
 
@@ -94,7 +97,6 @@
             font-size: 18px;
         }
         
-        /* Changed danger icon color from red to pink to avoid red text/icons as requested */
         .rule-card.danger .rule-icon {
             background: linear-gradient(135deg, rgba(226, 0, 90, 0.1), rgba(255, 51, 119, 0.1));
             color: var(--main-pink);
@@ -107,7 +109,6 @@
             margin: 0;
         }
         
-        /* Changed danger title color from red to dark-blue to avoid red text */
         .rule-card.danger .rule-title {
             color: var(--dark-blue);
         }
@@ -137,20 +138,21 @@
             margin-top: 2px;
         }
 
-        /* Changed danger list icon color from red to pink */
         .rule-card.danger .rule-list li i {
             color: var(--main-pink);
         }
 
+        /* ফিক্স করা বাটন ডিজাইন */
         .support-btn {
             background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
             color: white;
             border: none;
-            padding: 12px;
+            padding: 14px; /* প্যাডিং একটু বাড়িয়ে সাইজ ঠিক করা হয়েছে */
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 15px; /* ফন্ট সাইজ মানানসই করা হয়েছে */
             font-weight: bold;
             width: 100%;
+            box-sizing: border-box; /* ওভারফ্লো বন্ধ করতে */
             cursor: pointer;
             transition: 0.2s;
             box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);
@@ -163,7 +165,7 @@
         }
         .support-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(226, 0, 90, 0.3); }
 
-        .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: sticky; bottom: 0; z-index: 100; }
+        .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: absolute; bottom: 0; width: 100%; z-index: 100; }
         .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); text-decoration: none; flex: 1; }
         .nav-item i { font-size: 18px; margin-bottom: 4px; display: block; }
         .nav-item.active { color: var(--main-pink); font-weight: bold; }
@@ -182,7 +184,6 @@
         </div>
 
         <div class="content">
-            <!-- Updated to yellow notice box -->
             <div class="notice-box">
                 <i class="fas fa-bullhorn" style="color: var(--warning-yellow); margin-right: 5px;"></i> 
                 সতর্কতা: অ্যাকাউন্ট সুরক্ষিত রাখতে এবং নিয়মিত পেমেন্ট পেতে নিচের নিয়মগুলো মনোযোগ দিয়ে পড়ুন ও মেনে চলুন।
@@ -197,7 +198,7 @@
                 <ul class="rule-list">
                     <li><i class="fas fa-check-circle"></i> প্রতিটি জিমেইল ও অন্যান্য টাস্ক ১০০% সঠিক ও ভেরিফাইড হতে হবে।</li>
                     <li><i class="fas fa-check-circle"></i> জিমেইল খোলার সময় অবশ্যই আপনার দেওয়া পাসওয়ার্ড এবং ইউজারনেম সঠিক রাখতে হবে।</li>
-                    <li><i class="fas fa-check-circle"></i> প্রতিদিনের কাজ প্রতিদিন শেষ করার চেষ্টা করতে হবে। প্যাকেজের লিমিটের অতিরিক্ত কাজ করা যাবে পণ্ডিত করা যাবে না।</li>
+                    <li><i class="fas fa-check-circle"></i> প্রতিদিনের কাজ প্রতিদিন শেষ করার চেষ্টা করতে হবে। প্যাকেজের লিমিটের অতিরিক্ত কাজ করা যাবে না।</li>
                 </ul>
             </div>
 
@@ -214,7 +215,7 @@
                 </ul>
             </div>
 
-            <!-- অ্যাকাউন্ট ব্যান হওয়ার কারণ (Removed left red border and red text) -->
+            <!-- অ্যাকাউন্ট ব্যান হওয়ার কারণ -->
             <div class="rule-card danger">
                 <div class="rule-header">
                     <div class="rule-icon"><i class="fas fa-ban"></i></div>
