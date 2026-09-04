@@ -130,51 +130,6 @@
             background-color: #c4004e; 
         }
 
-        .divider { 
-            display: flex; 
-            align-items: center; 
-            text-align: center; 
-            color: var(--text-grey); 
-            margin-bottom: 15px; 
-            font-size: 13px;
-        }
-        
-        .divider::before, .divider::after { 
-            content: ''; 
-            flex: 1; 
-            border-bottom: 1px solid #eaeaea; 
-        }
-        
-        .divider span { 
-            padding: 0 10px; 
-        }
-
-        .social-btn { 
-            width: 100%; 
-            padding: 12px; 
-            border: 1px solid #eaeaea; 
-            border-radius: 8px; 
-            background-color: white; 
-            font-size: 15px; 
-            font-weight: 600; 
-            color: #2c3e50; 
-            cursor: pointer; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            gap: 10px; 
-            margin-bottom: 10px; 
-            transition: background 0.2s; 
-        }
-
-        .social-btn:hover { 
-            background-color: #f8f9fa; 
-        }
-
-        .social-btn.google i { 
-            color: #ea4335; 
-        }
-
         .switch-page { 
             margin-top: 15px; 
             font-size: 14px; 
@@ -207,24 +162,17 @@
                 </div>
                 <h2>Send bKash এ স্বাগতম</h2>
 
+                <!-- ইমেইল বা ফোন নাম্বার দেওয়ার বক্স -->
                 <div class="input-group">
-                    <input type="email" id="email" placeholder="ইমেইল অ্যাড্রেস" required>
+                    <input type="text" id="emailOrPhone" placeholder="ইমেইল অ্যাড্রেস অথবা ফোন নাম্বার" required>
                 </div>
                 <div class="input-group">
-                    <input type="password" id="password" placeholder="পাসওয়ার্ড" required>
+                    <input type="password" id="password" placeholder="পাসওয়ার্ড" required[cite: 7]>
                 </div>
                 <button class="login-btn" id="emailLoginBtn">লগইন করুন</button>
 
-                <div class="divider">
-                    <span>অথবা</span>
-                </div>
-
-                <button class="social-btn google" id="googleLoginBtn">
-                    <i class="fa-brands fa-google"></i> Google দিয়ে লগইন করুন
-                </button>
-
                 <div class="switch-page">
-                    অ্যাকাউন্ট নেই? <a href="register.html">নতুন অ্যাকাউন্ট তৈরি করুন</a>
+                    অ্যাকাউন্ট নেই? <a href="register.html">নতুন অ্যাকাউন্ট তৈরি করুন</a>[cite: 7]
                 </div>
             </div>
         </div>
@@ -233,7 +181,7 @@
     <!-- Firebase SDK & Login Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
@@ -247,36 +195,31 @@
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
-        const provider = new GoogleAuthProvider();
 
         document.getElementById("emailLoginBtn").addEventListener("click", () => {
-            const email = document.getElementById("email").value;
+            let inputVal = document.getElementById("emailOrPhone").value.trim();
             const password = document.getElementById("password").value;
             
-            if(email && password) {
-                signInWithEmailAndPassword(auth, email, password)
+            if(inputVal && password) {
+                // ইউজার যদি ফোন নাম্বার দিয়ে থাকে, তবে সেটাকে রেজিস্টারের নিয়মে ইমেইলে রূপান্তর করা
+                let finalEmail = inputVal;
+                let isPhone = /^\d+$/.test(inputVal);
+                if(isPhone) {
+                    finalEmail = inputVal + "@sendbkash.com";
+                }
+
+                signInWithEmailAndPassword(auth, finalEmail, password)
                 .then(() => {
                     alert("লগইন সফল হয়েছে!");
                     window.location.href = "index.html";
                 })
                 .catch((error) => {
-                    alert("লগইন ব্যর্থ! ইমেইল বা পাসওয়ার্ড ভুল হতে পারে।");
+                    alert("লগইন ব্যর্থ! ইমেইল/ফোন নাম্বার বা পাসওয়ার্ড ভুল হতে পারে।");
                     console.error(error);
                 });
             } else {
-                alert("দয়া করে ইমেইল এবং পাসওয়ার্ড লিখুন!");
+                alert("দয়া করে ইমেইল/ফোন নাম্বার এবং পাসওয়ার্ড লিখুন!");
             }
-        });
-
-        document.getElementById("googleLoginBtn").addEventListener("click", () => {
-            signInWithPopup(auth, provider)
-            .then(() => {
-                alert("গুগল লগইন সফল হয়েছে!");
-                window.location.href = "index.html";
-            }).catch((error) => {
-                alert("লগইন বাতিল করা হয়েছে বা সমস্যা হয়েছে।");
-                console.error(error);
-            });
         });
     </script>
 </body>
