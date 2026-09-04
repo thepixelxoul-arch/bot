@@ -9,143 +9,180 @@
     <style>
         :root { 
             --main-pink: #e2005a; 
-            --light-pink: #ff3377;
             --main-white: #ffffff; 
             --text-grey: #888888; 
             --bg-light: #f4f6f9; 
-            --dark-blue: #2c3e50;
-            --border-color: #dcdde1;
         }
 
-        body, html { 
-            margin: 0; padding: 0; 
+        body { 
+            margin: 0; 
+            padding: 0; 
             background-color: #e9ecef; 
             font-family: 'Segoe UI', Tahoma, sans-serif; 
-            display: flex; justify-content: center; 
-            height: 100vh; 
-            overflow: hidden; 
+            display: flex; 
+            justify-content: center; 
         }
 
         .app-container { 
-            width: 100%; max-width: 450px; height: 100vh; 
-            background-color: var(--bg-light); color: var(--main-pink); 
+            width: 100%; 
+            max-width: 450px; 
+            min-height: 100vh; 
+            background-color: var(--bg-light); 
+            color: var(--main-pink); 
             box-shadow: 0 0 25px rgba(0,0,0,0.1); 
-            display: flex; flex-direction: column; position: relative; 
-            overflow: hidden; 
+            display: flex; 
+            flex-direction: column; 
+            position: relative; 
         }
 
         .header { 
-            background-color: var(--main-pink); padding: 15px 20px; 
-            display: flex; align-items: center; 
-            color: var(--main-white); box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); z-index: 10; 
-            flex-shrink: 0;
+            background-color: var(--main-pink); 
+            padding: 15px 20px; 
+            display: flex; 
+            align-items: center; 
+            color: var(--main-white); 
+            box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); 
+            z-index: 10; 
         }
-        .header-title { font-size: 18px; font-weight: bold; margin-left: 15px; }
-        .back-btn { color: white; text-decoration: none; font-size: 20px; }
+
+        .header-title { 
+            font-size: 20px; 
+            font-weight: bold; 
+            display: flex; 
+            align-items: center; 
+        }
+
+        .back-btn { 
+            color: white; 
+            text-decoration: none; 
+            margin-right: 15px; 
+            font-size: 22px; 
+        }
 
         .content { 
-            flex-grow: 1; padding: 20px; 
-            overflow-y: auto; 
-            display: flex; flex-direction: column; justify-content: center;
+            flex-grow: 1; 
+            padding: 20px; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center;
         }
 
-        .register-card {
-            background-color: var(--main-white); border-radius: 12px; padding: 25px 20px;
-            border: 1px solid #eaeaea; box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            text-align: center;
+        .login-card { 
+            background-color: var(--main-white); 
+            border-radius: 15px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03); 
+            padding: 25px 20px; 
+            border: 1px solid #eaeaea;
+            text-align: center; 
         }
 
-        .register-icon {
-            font-size: 40px; color: var(--main-pink); margin-bottom: 10px;
+        .logo-area { 
+            color: var(--main-pink); 
+            font-size: 35px; 
+            margin-bottom: 10px; 
         }
 
-        .section-title {
-            font-size: 18px; font-weight: 900; color: var(--dark-blue); margin: 0 0 20px 0;
+        h2 { 
+            margin: 0 0 20px 0; 
+            color: #2c3e50; 
+            font-size: 20px;
         }
 
-        .input-group { margin-bottom: 15px; text-align: left; }
-        .input-label { display: block; font-size: 13px; font-weight: bold; color: var(--text-grey); margin-bottom: 6px; }
-        
-        .input-box {
-            width: 100%; padding: 13px 15px; border: 1.5px solid var(--border-color); border-radius: 8px;
-            font-size: 14px; box-sizing: border-box; outline: none; transition: 0.3s;
-            color: var(--dark-blue); background-color: #fcfcfc;
+        .input-group { 
+            margin-bottom: 15px; 
+            text-align: left; 
         }
-        .input-box:focus { border-color: var(--main-pink); background-color: white; box-shadow: 0 0 0 3px rgba(226, 0, 90, 0.1); }
 
-        .submit-btn {
-            background: linear-gradient(135deg, var(--main-pink), var(--light-pink)); color: white; border: none;
-            padding: 14px; border-radius: 8px; font-size: 15px; font-weight: bold;
-            width: 100%; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 12px rgba(226, 0, 90, 0.25);
-            margin-top: 10px;
+        .input-group input { 
+            width: 100%; 
+            padding: 14px; 
+            border: 1px solid #dcdde1; 
+            border-radius: 8px; 
+            font-size: 15px; 
+            box-sizing: border-box; 
+            outline: none; 
+            transition: border-color 0.2s; 
         }
-        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(226, 0, 90, 0.35); }
 
-        .login-link {
-            margin-top: 15px; font-size: 13px; color: var(--text-grey); font-weight: bold;
+        .input-group input:focus { 
+            border-color: var(--main-pink); 
+            box-shadow: 0 0 0 3px rgba(226, 0, 90, 0.1);
         }
-        .login-link a { color: var(--main-pink); text-decoration: none; }
 
-        .toast-msg {
-            visibility: hidden; min-width: 250px; background-color: var(--main-pink);
-            color: #fff; text-align: center; border-radius: 30px; padding: 12px 20px;
-            position: fixed; z-index: 9999; left: 50%; transform: translateX(-50%);
-            top: 20px; font-size: 13px; font-weight: bold;
-            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.4); opacity: 0; transition: opacity 0.3s, top 0.3s;
+        .login-btn { 
+            width: 100%; 
+            padding: 14px; 
+            background-color: var(--main-pink); 
+            color: var(--main-white); 
+            border: none; 
+            border-radius: 8px; 
+            font-size: 16px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            margin-bottom: 15px; 
+            transition: background 0.3s; 
         }
-        .toast-msg.show { visibility: visible; opacity: 1; top: 40px; }
-        .toast-error { background-color: #e74c3c; }
+
+        .login-btn:hover { 
+            background-color: #c4004e; 
+        }
+
+        .switch-page { 
+            margin-top: 15px; 
+            font-size: 14px; 
+            color: var(--text-grey); 
+        }
+
+        .switch-page a { 
+            color: var(--main-pink); 
+            font-weight: bold; 
+            text-decoration: none; 
+        }
     </style>
 </head>
 <body>
 
-    <div id="toastBox" class="toast-msg"></div>
-
     <div class="app-container">
+        <!-- Header with Back Button -->
         <div class="header">
-            <a href="login.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
-            <div class="header-title">Register</div>
+            <div class="header-title">
+                <a href="login.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+                Register
+            </div>
         </div>
 
+        <!-- Content Area inside Phone Container -->
         <div class="content">
-            <div class="register-card">
-                <div class="register-icon"><i class="fas fa-user-plus"></i></div>
-                <h3 class="section-title">নতুন অ্যাকাউন্ট তৈরি করুন</h3>
+            <div class="login-card">
+                <div class="logo-area">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <h2>নতুন অ্যাকাউন্ট তৈরি করুন</h2>
 
                 <div class="input-group">
-                    <label class="input-label">আপনার পুরো নাম</label>
-                    <input type="text" id="fullName" class="input-box" placeholder="নাম লিখুন">
+                    <input type="text" id="name" placeholder="আপনার পুরো নাম" required[cite: 6]>
                 </div>
-
+                <!-- ইমেইল বা ফোন নাম্বার ইনপুট ফিল্ড -->
                 <div class="input-group">
-                    <label class="input-label">ফোন নাম্বার (Phone Number)</label>
-                    <input type="number" id="phoneNumber" class="input-box" placeholder="আপনার মোবাইল নাম্বার দিন">
+                    <input type="text" id="emailOrPhone" placeholder="ইমেইল অ্যাড্রেস অথবা ফোন নাম্বার" required>
                 </div>
-
                 <div class="input-group">
-                    <label class="input-label">ইমেইল অ্যাড্রেস</label>
-                    <input type="email" id="email" class="input-box" placeholder="ইমেইল দিন">
+                    <input type="password" id="password" placeholder="পাসওয়ার্ড দিন (অন্তত ৬ অক্ষর)" required[cite: 6]>
                 </div>
+                
+                <button class="login-btn" id="registerBtn">অ্যাকাউন্ট খুলুন</button>
 
-                <div class="input-group">
-                    <label class="input-label">পাসওয়ার্ড (কমপক্ষে ৬ অক্ষর)</label>
-                    <input type="password" id="password" class="input-box" placeholder="পাসওয়ার্ড দিন">
-                </div>
-
-                <button class="submit-btn" id="registerBtn" onclick="registerUser()">অ্যাকাউন্ট খুলুন</button>
-
-                <div class="login-link">
-                    আগে থেকেই অ্যাকাউন্ট আছে? <a href="login.html">লগইন করুন</a>
+                <div class="switch-page">
+                    আগে থেকেই অ্যাকাউন্ট আছে? <a href="login.html">লগইন করুন</a>[cite: 6]
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Firebase Script -->
+    <!-- Firebase SDK & Registration Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
         import { getAuth, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
-        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
@@ -153,86 +190,55 @@
             projectId: "send-bkash",
             storageBucket: "send-bkash.firebasestorage.app",
             messagingSenderId: "306247423891",
-            appId: "1:306247423891:web:bb4fb6634043e6755afa66"
+            appId: "1:306247423891:web:bb4fb6634043e6755afa66",
+            measurementId: "G-ZSRNS5RPV5"
         };
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
-        const db = getFirestore(app);
 
-        window.registerUser = async function() {
-            const name = document.getElementById("fullName").value.trim();
-            const phone = document.getElementById("phoneNumber").value.trim();
-            const email = document.getElementById("email").value.trim();
+        document.getElementById("registerBtn").addEventListener("click", () => {
+            let inputVal = document.getElementById("emailOrPhone").value.trim();
             const password = document.getElementById("password").value;
-            const btn = document.getElementById("registerBtn");
-
-            if (!name || !phone || !email || !password) {
-                showToast("দয়া করে সবগুলো ফিল্ড পূরণ করুন!", true);
-                return;
-            }
-
-            if (phone.length < 11) {
-                showToast("সঠিক মোবাইল নাম্বার দিন!", true);
-                return;
-            }
-
-            if (password.length < 6) {
-                showToast("পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে!", true);
-                return;
-            }
-
-            btn.disabled = true;
-            btn.innerText = "তৈরি হচ্ছে...";
-
-            try {
-                // ফায়ারবেস Auth এ একাউন্ট তৈরি
-                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                const user = userCredential.user;
-
-                // ইউজারের নাম প্রোফাইলে সেট করা
-                await updateProfile(user, { displayName: name });
-
-                // Firestore ডেটাবেজে ফোন নাম্বার এবং অন্যান্য তথ্য সেভ করা
-                await setDoc(doc(db, "users", user.uid), {
-                    name: name,
-                    phone: phone,
-                    email: email,
-                    balance: 0,
-                    createdAt: new Date().toISOString()
-                });
-
-                showToast("অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে!");
-                setTimeout(() => {
-                    window.location.href = "index.html";
-                }, 1500);
-
-            } catch (error) {
-                console.error(error);
-                if (error.code === 'auth/email-already-in-use') {
-                    showToast("এই ইমেইল দিয়ে আগেই অ্যাকাউন্ট খোলা হয়েছে!", true);
-                } else if (error.code === 'auth/invalid-email') {
-                    showToast("সঠিক ইমেইল অ্যাড্রেস দিন!", true);
-                } else {
-                    showToast("রেজিস্ট্রেশন ব্যর্থ হয়েছে! আবার চেষ্টা করুন।", true);
+            const name = document.getElementById("name").value.trim();
+            
+            if(inputVal && password && name) {
+                if(password.length < 6) {
+                    alert("পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে!");[cite: 6]
+                    return;
                 }
-            } finally {
-                btn.disabled = false;
-                btn.innerText = "অ্যাকাউন্ট খুলুন";
-            }
-        };
 
-        function showToast(message, isError = false) {
-            const toast = document.getElementById("toastBox");
-            toast.innerText = message;
-            if(isError) {
-                toast.classList.add("toast-error");
+                // ইউজার যদি ফোন নাম্বার দেয় (শুধু সংখ্যা হয়), তবে সেটাকে ইমেইলে রূপান্তর করা
+                let finalEmail = inputVal;
+                let isPhone = /^\d+$/.test(inputVal); // চেক করা নাম্বার কিনা
+                if(isPhone) {
+                    if(inputVal.length < 11) {
+                        alert("সঠিক মোবাইল নাম্বার দিন!");
+                        return;
+                    }
+                    finalEmail = inputVal + "@sendbkash.com";
+                }
+                
+                createUserWithEmailAndPassword(auth, finalEmail, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    
+                    updateProfile(user, {
+                        displayName: name
+                    }).then(() => {
+                        localStorage.setItem('userName', name);
+                        alert("সফলভাবে অ্যাকাউন্ট তৈরি হয়েছে!");[cite: 6]
+                        window.location.href = "index.html";[cite: 6]
+                    });
+                })
+                .catch((error) => {
+                    alert("অ্যাকাউন্ট তৈরি করা যায়নি: " + error.message);[cite: 6]
+                    console.error(error);[cite: 6]
+                });
             } else {
-                toast.classList.remove("toast-error");
+                alert("দয়া করে সবগুলো ঘর পূরণ করুন!");[cite: 6]
             }
-            toast.classList.add("show");
-            setTimeout(() => { toast.classList.remove("show"); }, 3000);
-        }
+        });
     </script>
 </body>
 </html>
