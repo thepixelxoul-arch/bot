@@ -15,51 +15,54 @@
             --bg-light: #f4f6f9; 
             --dark-blue: #2c3e50;
             --border-color: #dcdde1;
+            --warning-yellow: #f39c12;
         }
 
-        body { 
+        /* পুরো পেজ ফিক্সড রাখার জন্য */
+        body, html { 
             margin: 0; padding: 0; 
             background-color: #e9ecef; 
             font-family: 'Segoe UI', Tahoma, sans-serif; 
             display: flex; justify-content: center; 
+            height: 100vh; 
+            overflow: hidden; 
         }
 
         .app-container { 
-            width: 100%; max-width: 450px; min-height: 100vh; 
+            width: 100%; max-width: 450px; height: 100vh; 
             background-color: var(--bg-light); color: var(--main-pink); 
             box-shadow: 0 0 25px rgba(0,0,0,0.1); 
             display: flex; flex-direction: column; position: relative; 
+            overflow: hidden; 
         }
 
         .header { 
             background-color: var(--main-pink); padding: 15px 20px; 
             display: flex; justify-content: space-between; align-items: center; 
             color: var(--main-white); box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); z-index: 10; 
-            position: sticky; top: 0;
+            flex-shrink: 0;
         }
         .header-left { display: flex; align-items: center; }
         .header-title { font-size: 18px; font-weight: bold; display: flex; align-items: center; }
         .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 20px; transition: 0.2s; }
         .back-btn:hover { transform: translateX(-3px); }
 
-        .content { flex-grow: 1; padding: 20px; overflow-y: auto; padding-bottom: 80px; }
+        /* শুধু ভেতরের অংশ স্ক্রল হবে */
+        .content { 
+            flex-grow: 1; padding: 20px; 
+            overflow-y: auto; 
+            padding-bottom: 80px; 
+            -webkit-overflow-scrolling: touch; 
+        }
         
-        /* ওয়ার্নিং (Warning) বক্স স্টাইল (কাটা দাগ মুছে স্মুথ বর্ডার দেওয়া হয়েছে) */
         .notice-box {
             background: linear-gradient(135deg, #fffbf0, #fff4ce); 
             border: 1px solid #fae5b6; 
-            border-left: 4px solid #f39c12;
-            padding: 15px; 
-            border-radius: 8px; 
-            margin-bottom: 25px; 
-            color: #b9770e;
-            font-size: 13px; 
-            line-height: 1.5; 
-            box-shadow: 0 4px 10px rgba(243, 156, 18, 0.1);
+            border-left: 4px solid var(--warning-yellow);
+            padding: 15px; border-radius: 8px; margin-bottom: 20px; color: #b9770e;
+            font-size: 13px; line-height: 1.5; box-shadow: 0 2px 8px rgba(0,0,0,0.02);
             font-weight: bold;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
+            display: flex; align-items: flex-start; gap: 10px;
         }
 
         .security-card {
@@ -78,17 +81,19 @@
         .input-group { margin-bottom: 18px; position: relative; }
         .input-label { display: block; font-size: 13px; font-weight: bold; color: var(--text-grey); margin-bottom: 8px; }
         
+        /* ইনপুট বক্স (বামপাশে কোনো আইকন নেই, তাই প্যাডিং কম করা হয়েছে) */
         .input-box {
-            width: 100%; padding: 14px 15px 14px 40px; border: 1.5px solid var(--border-color); border-radius: 8px;
+            width: 100%; padding: 14px 45px 14px 15px; border: 1.5px solid var(--border-color); border-radius: 8px;
             font-size: 14px; box-sizing: border-box; outline: none; transition: 0.3s;
             color: var(--dark-blue); background-color: #fcfcfc;
         }
         .input-box:focus { border-color: var(--main-pink); background-color: white; box-shadow: 0 0 0 3px rgba(226, 0, 90, 0.1); }
         
-        .input-icon {
-            position: absolute; left: 15px; top: 38px; color: #a4b0be; font-size: 14px; transition: 0.3s;
+        /* ডানদিকের চোখ (Eye) আইকন */
+        .eye-icon {
+            position: absolute; right: 15px; top: 38px; color: #a4b0be; font-size: 16px; cursor: pointer; transition: 0.2s;
         }
-        .input-box:focus + .input-icon, .input-box:not(:placeholder-shown) + .input-icon { color: var(--main-pink); }
+        .eye-icon:hover { color: var(--main-pink); }
 
         .submit-btn {
             background: linear-gradient(135deg, var(--main-pink), var(--light-pink)); color: white; border: none;
@@ -99,7 +104,7 @@
         .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(226, 0, 90, 0.35); }
         .submit-btn:disabled { background: #dcdde1; cursor: not-allowed; box-shadow: none; transform: none; }
 
-        .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: sticky; bottom: 0; z-index: 100; }
+        .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: absolute; bottom: 0; width: 100%; z-index: 100; }
         .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); text-decoration: none; flex: 1; }
         .nav-item i { font-size: 18px; margin-bottom: 4px; display: block; }
         .nav-item.active { color: var(--main-pink); font-weight: bold; }
@@ -142,19 +147,19 @@
                 <div class="input-group">
                     <label class="input-label">বর্তমান পাসওয়ার্ড</label>
                     <input type="password" id="currentPass" class="input-box" placeholder="আপনার বর্তমান পাসওয়ার্ড দিন">
-                    <i class="fas fa-key input-icon"></i>
+                    <i class="fas fa-eye-slash eye-icon" onclick="togglePassword('currentPass', this)"></i>
                 </div>
 
                 <div class="input-group">
                     <label class="input-label">নতুন পাসওয়ার্ড</label>
                     <input type="password" id="newPass" class="input-box" placeholder="নতুন পাসওয়ার্ড লিখুন">
-                    <i class="fas fa-lock input-icon"></i>
+                    <i class="fas fa-eye-slash eye-icon" onclick="togglePassword('newPass', this)"></i>
                 </div>
 
                 <div class="input-group">
                     <label class="input-label">নতুন পাসওয়ার্ড কনফার্ম করুন</label>
                     <input type="password" id="confirmNewPass" class="input-box" placeholder="নতুন পাসওয়ার্ডটি আবার লিখুন">
-                    <i class="fas fa-check-circle input-icon"></i>
+                    <i class="fas fa-eye-slash eye-icon" onclick="togglePassword('confirmNewPass', this)"></i>
                 </div>
 
                 <button class="submit-btn" id="changePassBtn" onclick="updateUserPassword()">পাসওয়ার্ড পরিবর্তন করুন</button>
@@ -194,6 +199,20 @@
                 currentUser = user;
             }
         });
+
+        // পাসওয়ার্ড দেখানোর বা লুকানোর ফাংশন (Eye toggle)
+        window.togglePassword = function(fieldId, iconElement) {
+            const inputField = document.getElementById(fieldId);
+            if (inputField.type === "password") {
+                inputField.type = "text";
+                iconElement.classList.remove("fa-eye-slash");
+                iconElement.classList.add("fa-eye");
+            } else {
+                inputField.type = "password";
+                iconElement.classList.remove("fa-eye");
+                iconElement.classList.add("fa-eye-slash");
+            }
+        };
 
         window.updateUserPassword = async function() {
             const currentPass = document.getElementById("currentPass").value;
@@ -250,15 +269,14 @@
             toast.innerText = message;
             
             if(isError) {
-                toast.classList.add("toast-error");
+                toast.classList.et ? toast.classList.add("toast-error") : toast.classList.add("toast-error"); // fallback
+                toast.className = "toast-msg show toast-error";
             } else {
-                toast.classList.remove("toast-error");
+                toast.className = "toast-msg show";
             }
 
-            toast.classList.add("show");
-
             setTimeout(() => {
-                toast.classList.remove("show");
+                toast.className = "toast-msg";
             }, 3000);
         }
     </script>
