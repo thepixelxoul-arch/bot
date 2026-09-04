@@ -73,6 +73,14 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.03);
         }
 
+        /* ব্যান কার্ডের জন্য একটু আলাদা সফট পিংক ডিজাইন */
+        .rule-card.danger {
+            background-color: #fff5f8; /* খুব হালকা গোলাপি ব্যাকগ্রাউন্ড */
+            border: 1px solid #ffd6e4;
+            border-left: 4px solid var(--main-pink); /* শুধু পিংক কালারের বর্ডার */
+            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.05);
+        }
+
         .rule-header {
             display: flex;
             align-items: center;
@@ -80,6 +88,10 @@
             margin-bottom: 15px;
             border-bottom: 1px solid #f1f2f6;
             padding-bottom: 12px;
+        }
+
+        .rule-card.danger .rule-header {
+            border-bottom: 1px solid #ffd6e4; /* আলাদা কার্ডের জন্য বর্ডার কালার */
         }
 
         .rule-icon {
@@ -205,8 +217,8 @@
                 </ul>
             </div>
 
-            <!-- অ্যাকাউন্ট ব্যান হওয়ার কারণ (এখন সাধারণ কার্ডের মতো) -->
-            <div class="rule-card">
+            <!-- অ্যাকাউন্ট ব্যান হওয়ার কারণ (একটু আলাদা সফট পিংক ডিজাইন) -->
+            <div class="rule-card danger">
                 <div class="rule-header">
                     <div class="rule-icon"><i class="fas fa-ban"></i></div>
                     <h3 class="rule-title">যেসব কারণে অ্যাকাউন্ট ব্যান হবে</h3>
