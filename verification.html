@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Verification - Send bKash</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root { 
+            --main-pink: #e2005a; 
+            --light-pink: #ff3377;
+            --main-white: #ffffff; 
+            --text-grey: #888888; 
+            --bg-light: #f4f6f9; 
+            --dark-blue: #2c3e50;
+            --border-color: #dcdde1;
+            --success-green: #27ae60;
+        }
+
+        /* বডি এবং মেইন ফ্রেম ফিক্সড করার কোড */
+        body, html { 
+            margin: 0; padding: 0; 
+            background-color: #e9ecef; 
+            font-family: 'Segoe UI', Tahoma, sans-serif; 
+            display: flex; justify-content: center; 
+            height: 100vh; 
+            overflow: hidden; 
+        }
+
+        .app-container { 
+            width: 100%; max-width: 450px; height: 100vh; 
+            background-color: var(--bg-light); color: var(--main-pink); 
+            box-shadow: 0 0 25px rgba(0,0,0,0.1); 
+            display: flex; flex-direction: column; position: relative; 
+            overflow: hidden; 
+        }
+
+        .header { 
+            background-color: var(--main-pink); padding: 15px 20px; 
+            display: flex; justify-content: space-between; align-items: center; 
+            color: var(--main-white); box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); z-index: 10; 
+            flex-shrink: 0;
+        }
+        .header-left { display: flex; align-items: center; }
+        .header-title { font-size: 18px; font-weight: bold; display: flex; align-items: center; margin-left: 15px; }
+        .back-btn { color: white; text-decoration: none; font-size: 20px; transition: 0.2s; }
+        .back-btn:hover { transform: translateX(-3px); }
+
+        /* শুধু ভেতরের অংশ স্ক্রল হবে */
+        .content { 
+            flex-grow: 1; padding: 20px; 
+            overflow-y: auto; 
+            padding-bottom: 80px; 
+            -webkit-overflow-scrolling: touch; 
+        }
+
+        .notice-box {
+            background: linear-gradient(135deg, #fffbf0, #fff4ce); 
+            border: 1px solid #fae5b6; 
+            border-left: 4px solid #f39c12;
+            padding: 12px 15px; border-radius: 8px; margin-bottom: 20px; color: #b9770e;
+            font-size: 13px; line-height: 1.5; font-weight: bold;
+        }
+
+        .verify-card {
+            background-color: var(--main-white); border-radius: 12px; padding: 20px;
+            border: 1px solid #eaeaea; box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            margin-bottom: 20px; text-align: center;
+        }
+
+        /* ফেস স্ক্যানার এরিয়া */
+        .face-scanner-box {
+            width: 120px; height: 120px; border: 2px dashed var(--main-pink);
+            border-radius: 15px; margin: 0 auto 15px auto; display: flex;
+            align-items: center; justify-content: center; font-size: 50px;
+            color: var(--main-pink); position: relative; background-color: #fff5f8;
+            transition: 0.3s;
+        }
+        .face-scanner-box.success {
+            border-color: var(--success-green); color: var(--success-green);
+            background-color: #eafaf1;
+        }
+
+        .scan-btn {
+            background: white; color: var(--main-pink); border: 1.5px solid var(--main-pink);
+            padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: bold;
+            cursor: pointer; transition: 0.2s; margin-bottom: 15px;
+        }
+        .scan-btn:hover { background: var(--main-pink); color: white; }
+        
+        .scan-btn.success {
+            background: var(--success-green); color: white; border-color: var(--success-green);
+            pointer-events: none;
+        }
+
+        /* ফি এবং কুপন এরিয়া */
+        .fee-details {
+            display: flex; justify-content: space-between; align-items: center;
+            background-color: #f8f9fa; padding: 15px; border-radius: 8px;
+            border: 1px solid #eaeaea; margin-bottom: 15px; font-weight: bold;
+            color: var(--dark-blue);
+        }
+        .fee-amount { font-size: 18px; color: var(--main-pink); }
+        .fee-amount.free { color: var(--success-green); text-decoration: line-through; margin-right: 5px; }
+
+        .coupon-group {
+            display: flex; gap: 10px; margin-bottom: 20px;
+        }
+        .coupon-input {
+            flex: 1; padding: 12px 15px; border: 1.5px solid var(--border-color);
+            border-radius: 8px; font-size: 14px; outline: none; transition: 0.3s;
+        }
+        .coupon-input:focus { border-color: var(--main-pink); }
+        
+        .coupon-btn {
+            background: var(--dark-blue); color: white; border: none;
+            padding: 0 15px; border-radius: 8px; font-weight: bold; cursor: pointer;
+            transition: 0.2s;
+        }
+        .coupon-btn:hover { background: #1a252f; }
+
+        .submit-btn {
+            background: linear-gradient(135deg, var(--main-pink), var(--light-pink)); color: white; border: none;
+            padding: 15px; border-radius: 8px; font-size: 16px; font-weight: bold;
+            width: 100%; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 12px rgba(226, 0, 90, 0.25);
+        }
+        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(226, 0, 90, 0.35); }
+        .submit-btn:disabled { background: #dcdde1; cursor: not-allowed; box-shadow: none; transform: none; }
+
+        .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: absolute; bottom: 0; width: 100%; z-index: 100; }
+        .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); text-decoration: none; flex: 1; }
+        .nav-item i { font-size: 18px; margin-bottom: 4px; display: block; }
+        .nav-item.active { color: var(--main-pink); font-weight: bold; }
+
+        .toast-msg {
+            visibility: hidden; min-width: 250px; background-color: var(--main-pink);
+            color: #fff; text-align: center; border-radius: 30px; padding: 12px 20px;
+            position: fixed; z-index: 9999; left: 50%; transform: translateX(-50%);
+            top: 20px; font-size: 13px; font-weight: bold; line-height: 1.4;
+            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.4); opacity: 0; transition: opacity 0.3s, top 0.3s;
+        }
+        .toast-msg.show { visibility: visible; opacity: 1; top: 40px; }
+        .toast-success { background-color: var(--success-green); }
+    </style>
+</head>
+<body>
+
+    <div id="toastBox" class="toast-msg"></div>
+
+    <div class="app-container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="header-left">
+                <a href="profile.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+                <div class="header-title">একাউন্ট ভেরিফিকেশন</div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="notice-box">
+                <i class="fas fa-shield-alt"></i> 
+                অ্যাকাউন্ট সম্পূর্ণ নিরাপদ রাখতে এবং উইথড্র সচল রাখতে আপনার ফেস ভেরিফাই করুন।
+            </div>
+
+            <div class="verify-card">
+                <!-- Face Scanner Box -->
+                <div class="face-scanner-box" id="scannerBox">
+                    <i class="fas fa-user-circle" id="scannerIcon"></i>
+                </div>
+                
+                <button class="scan-btn" id="scanBtn" onclick="startFaceScan()">
+                    <i class="fas fa-camera"></i> ফেস স্ক্যান করুন
+                </button>
+
+                <!-- Fee Display -->
+                <div class="fee-details">
+                    <span>ভেরিফিকেশন ফি:</span>
+                    <div>
+                        <span id="oldFee" class="fee-amount" style="display:none; color: #888;">৳২০</span>
+                        <span id="feeAmount" class="fee-amount">৳২০</span>
+                    </div>
+                </div>
+
+                <!-- Coupon System -->
+                <div class="coupon-group">
+                    <input type="text" id="couponInput" class="coupon-input" placeholder="কুপন কোড (যদি থাকে)">
+                    <button class="coupon-btn" onclick="applyCoupon()">Apply</button>
+                </div>
+
+                <!-- Final Submit Button -->
+                <button class="submit-btn" id="verifySubmitBtn" onclick="completeVerification()">ভেরিফিকেশন সম্পন্ন করুন</button>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <a href="index.html" class="nav-item"><i class="fas fa-home"></i>Home</a>
+            <a href="withdraw.html" class="nav-item"><i class="fas fa-wallet"></i>Withdraw</a>
+            <a href="refer.html" class="nav-item"><i class="fas fa-users"></i>Refer</a>
+            <a href="profile.html" class="nav-item active"><i class="fas fa-user"></i>Profile</a>
+        </div>
+    </div>
+
+    <script>
+        let isFaceScanned = false;
+        let verifyFee = 20;
+
+        function showToast(message, isSuccess = false) {
+            const toast = document.getElementById("toastBox");
+            toast.innerText = message;
+            
+            if(isSuccess) {
+                toast.classList.add("toast-success");
+            } else {
+                toast.classList.remove("toast-success");
+            }
+
+            toast.classList.add("show");
+            setTimeout(() => { toast.classList.remove("show"); }, 3000);
+        }
+
+        // ফেস স্ক্যান সিমুলেশন
+        function startFaceScan() {
+            const btn = document.getElementById("scanBtn");
+            const icon = document.getElementById("scannerIcon");
+            const box = document.getElementById("scannerBox");
+
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> স্ক্যান হচ্ছে...';
+            btn.disabled = true;
+
+            // ২ সেকেন্ড পর স্ক্যান সফল হবে
+            setTimeout(() => {
+                isFaceScanned = true;
+                icon.className = "fas fa-check-circle";
+                box.classList.add("success");
+                btn.classList.add("success");
+                btn.innerHTML = '<i class="fas fa-check"></i> ফেস স্ক্যান সম্পন্ন';
+                showToast("আপনার ফেস সফলভাবে স্ক্যান হয়েছে!", true);
+            }, 2000);
+        }
+
+        // কুপন কোড চেক করার ফাংশন
+        function applyCoupon() {
+            const couponCode = document.getElementById("couponInput").value.trim().toUpperCase();
+            
+            if(!couponCode) {
+                showToast("দয়া করে কুপন কোড লিখুন!");
+                return;
+            }
+
+            // 'FREE20' কুপন দিলে ফি ০ টাকা হবে
+            if(couponCode === "FREE20") {
+                verifyFee = 0;
+                
+                document.getElementById("oldFee").style.display = "inline";
+                document.getElementById("oldFee").classList.add("free");
+                
+                document.getElementById("feeAmount").innerText = "৳০ (ফ্রি)";
+                document.getElementById("feeAmount").style.color = "var(--success-green)";
+                
+                showToast("কুপন সফলভাবে যুক্ত হয়েছে! ফি এখন ০ টাকা।", true);
+            } else {
+                showToast("ভুল কুপন কোড! আবার চেষ্টা করুন।");
+            }
+        }
+
+        // ফাইনাল সাবমিট
+        function completeVerification() {
+            if(!isFaceScanned) {
+                showToast("প্রথমে আপনার ফেস স্ক্যান সম্পন্ন করুন!");
+                return;
+            }
+
+            const btn = document.getElementById("verifySubmitBtn");
+            btn.disabled = true;
+            btn.innerText = "প্রসেসিং হচ্ছে...";
+
+            // ডেটাবেস প্রসেসিং সিমুলেশন
+            setTimeout(() => {
+                let msg = verifyFee === 0 ? "বিনামূল্যে আপনার একাউন্ট ভেরিফাই হয়েছে!" : `৳${verifyFee} ফি কেটে একাউন্ট ভেরিফাই হয়েছে!`;
+                alert(msg);
+                window.location.href = "profile.html"; // প্রোফাইল পেজে নিয়ে যাবে
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
