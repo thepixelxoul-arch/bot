@@ -15,6 +15,9 @@
             --bg-light: #f4f6f9; 
             --dark-blue: #2c3e50;
             --danger-red: #e74c3c;
+            /* Added yellow variable for warning */
+            --warning-yellow: #f39c12;
+            --light-yellow: #fef9e7;
         }
 
         body { 
@@ -44,10 +47,12 @@
 
         .content { flex-grow: 1; padding: 20px; overflow-y: auto; padding-bottom: 80px; }
         
+        /* Updated notice box to yellow warning style with smooth border */
         .notice-box {
-            background: linear-gradient(135deg, rgba(226, 0, 90, 0.05), rgba(255, 51, 119, 0.05)); 
-            border: 1px dashed rgba(226, 0, 90, 0.3); border-left: 4px solid var(--main-pink);
-            padding: 15px; border-radius: 8px; margin-bottom: 20px; color: var(--dark-blue);
+            background: linear-gradient(135deg, #fffbf0, #fff4ce); 
+            border: 1px solid #fae5b6; 
+            border-left: 4px solid var(--warning-yellow);
+            padding: 15px; border-radius: 8px; margin-bottom: 20px; color: #b9770e;
             font-size: 13px; line-height: 1.5; box-shadow: 0 2px 8px rgba(0,0,0,0.02);
             font-weight: bold;
         }
@@ -58,13 +63,13 @@
             border-radius: 12px;
             padding: 20px;
             margin-bottom: 20px;
-            border: 1px solid #eaeaea;
+            border: 1px solid #eaeaea; /* Ensure basic border is smooth */
             box-shadow: 0 4px 15px rgba(0,0,0,0.03);
         }
 
-        /* ব্যান কার্ডের জন্য আলাদা রেড বর্ডার */
+        /* ব্যান কার্ডের জন্য আলাদা রেড বর্ডার - now removed left border */
         .rule-card.danger {
-            border-left: 4px solid var(--danger-red);
+            /* border-left: 4px solid var(--danger-red); Removed this line */
             background-color: rgba(231, 76, 60, 0.02);
         }
 
@@ -89,9 +94,10 @@
             font-size: 18px;
         }
         
+        /* Changed danger icon color from red to pink to avoid red text/icons as requested */
         .rule-card.danger .rule-icon {
-            background: rgba(231, 76, 60, 0.1);
-            color: var(--danger-red);
+            background: linear-gradient(135deg, rgba(226, 0, 90, 0.1), rgba(255, 51, 119, 0.1));
+            color: var(--main-pink);
         }
 
         .rule-title {
@@ -99,6 +105,11 @@
             font-weight: 900;
             color: var(--dark-blue);
             margin: 0;
+        }
+        
+        /* Changed danger title color from red to dark-blue to avoid red text */
+        .rule-card.danger .rule-title {
+            color: var(--dark-blue);
         }
 
         .rule-list {
@@ -126,8 +137,9 @@
             margin-top: 2px;
         }
 
+        /* Changed danger list icon color from red to pink */
         .rule-card.danger .rule-list li i {
-            color: var(--danger-red);
+            color: var(--main-pink);
         }
 
         .support-btn {
@@ -170,8 +182,9 @@
         </div>
 
         <div class="content">
+            <!-- Updated to yellow notice box -->
             <div class="notice-box">
-                <i class="fas fa-bullhorn" style="color: var(--main-pink); margin-right: 5px;"></i> 
+                <i class="fas fa-bullhorn" style="color: var(--warning-yellow); margin-right: 5px;"></i> 
                 সতর্কতা: অ্যাকাউন্ট সুরক্ষিত রাখতে এবং নিয়মিত পেমেন্ট পেতে নিচের নিয়মগুলো মনোযোগ দিয়ে পড়ুন ও মেনে চলুন।
             </div>
 
@@ -184,7 +197,7 @@
                 <ul class="rule-list">
                     <li><i class="fas fa-check-circle"></i> প্রতিটি জিমেইল ও অন্যান্য টাস্ক ১০০% সঠিক ও ভেরিফাইড হতে হবে।</li>
                     <li><i class="fas fa-check-circle"></i> জিমেইল খোলার সময় অবশ্যই আপনার দেওয়া পাসওয়ার্ড এবং ইউজারনেম সঠিক রাখতে হবে।</li>
-                    <li><i class="fas fa-check-circle"></i> প্রতিদিনের কাজ প্রতিদিন শেষ করার চেষ্টা করতে হবে। প্যাকেজের লিমিটের অতিরিক্ত কাজ করা যাবে না।</li>
+                    <li><i class="fas fa-check-circle"></i> প্রতিদিনের কাজ প্রতিদিন শেষ করার চেষ্টা করতে হবে। প্যাকেজের লিমিটের অতিরিক্ত কাজ করা যাবে পণ্ডিত করা যাবে না।</li>
                 </ul>
             </div>
 
@@ -201,11 +214,11 @@
                 </ul>
             </div>
 
-            <!-- অ্যাকাউন্ট ব্যান হওয়ার কারণ (Danger) -->
+            <!-- অ্যাকাউন্ট ব্যান হওয়ার কারণ (Removed left red border and red text) -->
             <div class="rule-card danger">
                 <div class="rule-header">
                     <div class="rule-icon"><i class="fas fa-ban"></i></div>
-                    <h3 class="rule-title" style="color: var(--danger-red);">যেসব কারণে অ্যাকাউন্ট ব্যান হবে</h3>
+                    <h3 class="rule-title">যেসব কারণে অ্যাকাউন্ট ব্যান হবে</h3>
                 </div>
                 <ul class="rule-list">
                     <li><i class="fas fa-times-circle"></i> <b>মাল্টিপল অ্যাকাউন্ট:</b> একই মোবাইল বা ডিভাইসে একাধিক অ্যাকাউন্ট খুলে কাজ করলে সবগুলো অ্যাকাউন্ট ব্যান করা হবে।</li>
