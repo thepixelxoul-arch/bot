@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Center - Send bKash</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root { 
+            --main-pink: #e2005a; 
+            --light-pink: #ff3377;
+            --main-white: #ffffff; 
+            --text-grey: #888888; 
+            --bg-light: #f4f6f9; 
+            --dark-blue: #2c3e50;
+            --telegram-blue: #0088cc;
+            --whatsapp-green: #25D366;
+        }
+
+        body { 
+            margin: 0; padding: 0; 
+            background-color: #e9ecef; 
+            font-family: 'Segoe UI', Tahoma, sans-serif; 
+            display: flex; justify-content: center; 
+        }
+
+        .app-container { 
+            width: 100%; max-width: 450px; min-height: 100vh; 
+            background-color: var(--bg-light); color: var(--main-pink); 
+            box-shadow: 0 0 25px rgba(0,0,0,0.1); 
+            display: flex; flex-direction: column; position: relative; 
+        }
+
+        .header { 
+            background-color: var(--main-pink); padding: 15px 20px; 
+            display: flex; justify-content: space-between; align-items: center; 
+            color: var(--main-white); box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); z-index: 10; 
+            position: sticky; top: 0;
+        }
+        .header-left { display: flex; align-items: center; }
+        .header-title { font-size: 18px; font-weight: bold; display: flex; align-items: center; }
+        .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 20px; transition: 0.2s; }
+        .back-btn:hover { transform: translateX(-3px); }
+
+        .content { flex-grow: 1; padding: 20px; overflow-y: auto; padding-bottom: 80px; }
+        
+        .notice-box {
+            background: linear-gradient(135deg, rgba(226, 0, 90, 0.05), rgba(255, 51, 119, 0.05)); 
+            border: 1px dashed rgba(226, 0, 90, 0.3); border-left: 4px solid var(--main-pink);
+            padding: 15px; border-radius: 8px; margin-bottom: 25px; color: var(--dark-blue);
+            font-size: 13px; line-height: 1.5; box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            font-weight: bold; text-align: center;
+        }
+
+        /* সাপোর্ট কার্ড স্টাইল */
+        .support-card {
+            background-color: var(--main-white);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #eaeaea;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            text-align: center;
+            transition: 0.3s;
+        }
+        .support-card:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            transform: translateY(-3px);
+        }
+
+        .support-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            margin: 0 auto 15px auto;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        /* আলাদা আলাদা সোশ্যাল মিডিয়ার কালার */
+        .icon-telegram { background: linear-gradient(135deg, #38A1D8, var(--telegram-blue)); }
+        .icon-whatsapp { background: linear-gradient(135deg, #4FCE5D, var(--whatsapp-green)); }
+        .icon-email { background: linear-gradient(135deg, var(--main-pink), var(--light-pink)); }
+
+        .support-title {
+            font-size: 18px;
+            font-weight: 900;
+            color: var(--dark-blue);
+            margin: 0 0 8px 0;
+        }
+
+        .support-desc {
+            font-size: 13px;
+            color: var(--text-grey);
+            margin: 0 0 15px 0;
+            line-height: 1.5;
+            font-weight: 600;
+        }
+
+        /* লিংক বাটন */
+        .support-btn {
+            display: inline-block;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: none;
+            width: 100%;
+            box-sizing: border-box;
+            transition: 0.2s;
+        }
+        
+        .btn-telegram { background-color: var(--telegram-blue); box-shadow: 0 4px 10px rgba(0, 136, 204, 0.3); }
+        .btn-telegram:hover { background-color: #0077b5; }
+        
+        .btn-whatsapp { background-color: var(--whatsapp-green); box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3); }
+        .btn-whatsapp:hover { background-color: #20b858; }
+
+        .btn-email { background-color: var(--main-pink); box-shadow: 0 4px 10px rgba(226, 0, 90, 0.3); }
+        .btn-email:hover { background-color: #c4004e; }
+
+        .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: sticky; bottom: 0; z-index: 100; }
+        .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); text-decoration: none; flex: 1; }
+        .nav-item i { font-size: 18px; margin-bottom: 4px; display: block; }
+        .nav-item.active { color: var(--main-pink); font-weight: bold; }
+
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="header-left">
+                <a href="profile.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+                <div class="header-title">সাপোর্ট সেন্টার</div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="notice-box">
+                <i class="fas fa-headset" style="font-size: 24px; display: block; margin-bottom: 10px;"></i>
+                যেকোনো সমস্যা, পেমেন্ট সংক্রান্ত প্রশ্ন বা প্যাকেজ আপগ্রেড করার জন্য সরাসরি এডমিনের সাথে যোগাযোগ করুন। আমরা দ্রুত সমাধান দেওয়ার চেষ্টা করব।
+            </div>
+
+            <!-- Telegram Support -->
+            <div class="support-card">
+                <div class="support-icon icon-telegram"><i class="fab fa-telegram-plane"></i></div>
+                <h3 class="support-title">টেলিগ্রাম সাপোর্ট</h3>
+                <p class="support-desc">আমাদের টেলিগ্রাম সাপোর্টে মেসেজ দিন। খুব দ্রুত রিপ্লাই পেতে টেলিগ্রাম ব্যবহার করুন।</p>
+                <!-- আপনার টেলিগ্রাম ইউজারনেম এখানে দিন -->
+                <a href="https://t.me/your_telegram_username" target="_blank" class="support-btn btn-telegram">
+                    <i class="fab fa-telegram-plane"></i> টেলিগ্রামে মেসেজ দিন
+                </a>
+            </div>
+
+            <!-- WhatsApp Support -->
+            <div class="support-card">
+                <div class="support-icon icon-whatsapp"><i class="fab fa-whatsapp"></i></div>
+                <h3 class="support-title">হোয়াটসঅ্যাপ সাপোর্ট</h3>
+                <p class="support-desc">পেমেন্ট বা অ্যাকাউন্ট সংক্রান্ত জরুরি যেকোনো সহায়তার জন্য হোয়াটসঅ্যাপে যোগাযোগ করতে পারেন।</p>
+                <!-- আপনার হোয়াটসঅ্যাপ নাম্বার এখানে দিন (যেমন: 8801XXXXXXXXX) -->
+                <a href="https://wa.me/8801XXXXXXXXX" target="_blank" class="support-btn btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> হোয়াটসঅ্যাপ করুন
+                </a>
+            </div>
+
+            <!-- Email Support (Optional) -->
+            <div class="support-card">
+                <div class="support-icon icon-email"><i class="fas fa-envelope"></i></div>
+                <h3 class="support-title">ইমেইল সাপোর্ট</h3>
+                <p class="support-desc">আপনার কোনো অভিযোগ বা মতামত থাকলে আমাদের সরাসরি ইমেইল করতে পারেন।</p>
+                <!-- আপনার ইমেইল অ্যাড্রেস এখানে দিন -->
+                <a href="mailto:admin@sendbkash.com" class="support-btn btn-email">
+                    <i class="fas fa-envelope"></i> ইমেইল করুন
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <a href="index.html" class="nav-item"><i class="fas fa-home"></i>Home</a>
+            <a href="withdraw.html" class="nav-item"><i class="fas fa-wallet"></i>Withdraw</a>
+            <a href="refer.html" class="nav-item"><i class="fas fa-users"></i>Refer</a>
+            <a href="profile.html" class="nav-item active"><i class="fas fa-user"></i>Profile</a>
+        </div>
+    </div>
+
+    <!-- Firebase Script -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
+            authDomain: "send-bkash.firebaseapp.com",
+            projectId: "send-bkash",
+            storageBucket: "send-bkash.firebasestorage.app",
+            messagingSenderId: "306247423891",
+            appId: "1:306247423891:web:bb4fb6634043e6755afa66"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                window.location.href = "login.html";
+            }
+        });
+    </script>
+</body>
+</html>

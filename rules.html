@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rules & Regulations - Send bKash</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root { 
+            --main-pink: #e2005a; 
+            --light-pink: #ff3377;
+            --main-white: #ffffff; 
+            --text-grey: #888888; 
+            --bg-light: #f4f6f9; 
+            --dark-blue: #2c3e50;
+            --danger-red: #e74c3c;
+        }
+
+        body { 
+            margin: 0; padding: 0; 
+            background-color: #e9ecef; 
+            font-family: 'Segoe UI', Tahoma, sans-serif; 
+            display: flex; justify-content: center; 
+        }
+
+        .app-container { 
+            width: 100%; max-width: 450px; min-height: 100vh; 
+            background-color: var(--bg-light); color: var(--main-pink); 
+            box-shadow: 0 0 25px rgba(0,0,0,0.1); 
+            display: flex; flex-direction: column; position: relative; 
+        }
+
+        .header { 
+            background-color: var(--main-pink); padding: 15px 20px; 
+            display: flex; justify-content: space-between; align-items: center; 
+            color: var(--main-white); box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); z-index: 10; 
+            position: sticky; top: 0;
+        }
+        .header-left { display: flex; align-items: center; }
+        .header-title { font-size: 18px; font-weight: bold; display: flex; align-items: center; }
+        .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 20px; transition: 0.2s; }
+        .back-btn:hover { transform: translateX(-3px); }
+
+        .content { flex-grow: 1; padding: 20px; overflow-y: auto; padding-bottom: 80px; }
+        
+        .notice-box {
+            background: linear-gradient(135deg, rgba(226, 0, 90, 0.05), rgba(255, 51, 119, 0.05)); 
+            border: 1px dashed rgba(226, 0, 90, 0.3); border-left: 4px solid var(--main-pink);
+            padding: 15px; border-radius: 8px; margin-bottom: 20px; color: var(--dark-blue);
+            font-size: 13px; line-height: 1.5; box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            font-weight: bold;
+        }
+
+        /* রুলস কার্ড স্টাইল */
+        .rule-card {
+            background-color: var(--main-white);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #eaeaea;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+
+        /* ব্যান কার্ডের জন্য আলাদা রেড বর্ডার */
+        .rule-card.danger {
+            border-left: 4px solid var(--danger-red);
+            background-color: rgba(231, 76, 60, 0.02);
+        }
+
+        .rule-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #f1f2f6;
+            padding-bottom: 12px;
+        }
+
+        .rule-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(226, 0, 90, 0.1), rgba(255, 51, 119, 0.1));
+            color: var(--main-pink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+        
+        .rule-card.danger .rule-icon {
+            background: rgba(231, 76, 60, 0.1);
+            color: var(--danger-red);
+        }
+
+        .rule-title {
+            font-size: 16px;
+            font-weight: 900;
+            color: var(--dark-blue);
+            margin: 0;
+        }
+
+        .rule-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .rule-list li {
+            font-size: 13px;
+            color: var(--text-grey);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            line-height: 1.5;
+            font-weight: 600;
+        }
+
+        .rule-list li:last-child { margin-bottom: 0; }
+
+        .rule-list li i {
+            color: #27ae60;
+            font-size: 14px;
+            margin-top: 2px;
+        }
+
+        .rule-card.danger .rule-list li i {
+            color: var(--danger-red);
+        }
+
+        .support-btn {
+            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            width: 100%;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        .support-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(226, 0, 90, 0.3); }
+
+        .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: sticky; bottom: 0; z-index: 100; }
+        .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); text-decoration: none; flex: 1; }
+        .nav-item i { font-size: 18px; margin-bottom: 4px; display: block; }
+        .nav-item.active { color: var(--main-pink); font-weight: bold; }
+
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="header-left">
+                <a href="profile.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+                <div class="header-title">কাজের নিয়মাবলী</div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="notice-box">
+                <i class="fas fa-bullhorn" style="color: var(--main-pink); margin-right: 5px;"></i> 
+                সতর্কতা: অ্যাকাউন্ট সুরক্ষিত রাখতে এবং নিয়মিত পেমেন্ট পেতে নিচের নিয়মগুলো মনোযোগ দিয়ে পড়ুন ও মেনে চলুন।
+            </div>
+
+            <!-- সাধারণ নিয়ম -->
+            <div class="rule-card">
+                <div class="rule-header">
+                    <div class="rule-icon"><i class="fas fa-tasks"></i></div>
+                    <h3 class="rule-title">সাধারণ কাজের নিয়ম</h3>
+                </div>
+                <ul class="rule-list">
+                    <li><i class="fas fa-check-circle"></i> প্রতিটি জিমেইল ও অন্যান্য টাস্ক ১০০% সঠিক ও ভেরিফাইড হতে হবে।</li>
+                    <li><i class="fas fa-check-circle"></i> জিমেইল খোলার সময় অবশ্যই আপনার দেওয়া পাসওয়ার্ড এবং ইউজারনেম সঠিক রাখতে হবে।</li>
+                    <li><i class="fas fa-check-circle"></i> প্রতিদিনের কাজ প্রতিদিন শেষ করার চেষ্টা করতে হবে। প্যাকেজের লিমিটের অতিরিক্ত কাজ করা যাবে না।</li>
+                </ul>
+            </div>
+
+            <!-- পেমেন্ট ও উইথড্র নিয়ম -->
+            <div class="rule-card">
+                <div class="rule-header">
+                    <div class="rule-icon"><i class="fas fa-wallet"></i></div>
+                    <h3 class="rule-title">পেমেন্ট ও উইথড্র নিয়ম</h3>
+                </div>
+                <ul class="rule-list">
+                    <li><i class="fas fa-check-circle"></i> ন্যূনতম ১০০ টাকা হলে যেকোনো সময় উইথড্র রিকোয়েস্ট দেওয়া যাবে।</li>
+                    <li><i class="fas fa-check-circle"></i> উইথড্র রিকোয়েস্ট দেওয়ার ২৪ ঘণ্টার মধ্যে পেমেন্ট কমপ্লিট করা হবে।</li>
+                    <li><i class="fas fa-check-circle"></i> পেমেন্ট মেথড (bKash/Nagad) এবং একাউন্ট নাম্বার দেওয়ার সময় অবশ্যই সতর্ক থাকবেন। ভুল নাম্বারে টাকা গেলে এডমিন দায়ী থাকবে না।</li>
+                </ul>
+            </div>
+
+            <!-- অ্যাকাউন্ট ব্যান হওয়ার কারণ (Danger) -->
+            <div class="rule-card danger">
+                <div class="rule-header">
+                    <div class="rule-icon"><i class="fas fa-ban"></i></div>
+                    <h3 class="rule-title" style="color: var(--danger-red);">যেসব কারণে অ্যাকাউন্ট ব্যান হবে</h3>
+                </div>
+                <ul class="rule-list">
+                    <li><i class="fas fa-times-circle"></i> <b>মাল্টিপল অ্যাকাউন্ট:</b> একই মোবাইল বা ডিভাইসে একাধিক অ্যাকাউন্ট খুলে কাজ করলে সবগুলো অ্যাকাউন্ট ব্যান করা হবে।</li>
+                    <li><i class="fas fa-times-circle"></i> <b>ফেক রেফার:</b> ভুয়া রেফার করে বোনাস নেওয়ার চেষ্টা করলে অ্যাকাউন্ট পার্মানেন্টলি ব্যান করা হবে।</li>
+                    <li><i class="fas fa-times-circle"></i> <b>ভুল টাস্ক জমা:</b> বারবার ভুল জিমেইল বা পাসওয়ার্ড দিয়ে টাস্ক কমপ্লিট করার চেষ্টা করলে।</li>
+                    <li><i class="fas fa-times-circle"></i> <b>এডমিনের সাথে প্রতারণা:</b> ভুয়া TrxID বা ভুয়া স্ক্রিনশট দিয়ে প্যাকেজ আপগ্রেড করার চেষ্টা করলে সরাসরি ব্যান।</li>
+                </ul>
+            </div>
+
+            <!-- সমস্যা হলে করণীয় -->
+            <div class="rule-card">
+                <div class="rule-header">
+                    <div class="rule-icon"><i class="fas fa-headset"></i></div>
+                    <h3 class="rule-title">যেকোনো সমস্যায় করণীয়</h3>
+                </div>
+                <ul class="rule-list">
+                    <li><i class="fas fa-info-circle" style="color: var(--main-pink);"></i> ২৪ ঘণ্টার মধ্যে পেমেন্ট না পেলে এডমিনকে আপনার উইথড্র হিস্ট্রির স্ক্রিনশটসহ ইনবক্স করুন।</li>
+                    <li><i class="fas fa-info-circle" style="color: var(--main-pink);"></i> প্যাকেজ আপগ্রেড করার পর আধা ঘণ্টার মধ্যে অ্যাক্টিভ না হলে পেমেন্টের স্ক্রিনশট এডমিনকে দিন।</li>
+                    <li><i class="fas fa-info-circle" style="color: var(--main-pink);"></i> অ্যাপ বা টাস্কে কোনো বাগ/সমস্যা পেলে সাথে সাথে সাপোর্টে যোগাযোগ করুন।</li>
+                </ul>
+                <a href="support.html" class="support-btn">
+                    <i class="fas fa-comments"></i> সাপোর্ট সেন্টারে যান
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <a href="index.html" class="nav-item"><i class="fas fa-home"></i>Home</a>
+            <a href="withdraw.html" class="nav-item"><i class="fas fa-wallet"></i>Withdraw</a>
+            <a href="refer.html" class="nav-item"><i class="fas fa-users"></i>Refer</a>
+            <a href="profile.html" class="nav-item active"><i class="fas fa-user"></i>Profile</a>
+        </div>
+    </div>
+
+    <!-- Firebase Script -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
+            authDomain: "send-bkash.firebaseapp.com",
+            projectId: "send-bkash",
+            storageBucket: "send-bkash.firebasestorage.app",
+            messagingSenderId: "306247423891",
+            appId: "1:306247423891:web:bb4fb6634043e6755afa66"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                window.location.href = "login.html";
+            }
+        });
+    </script>
+</body>
+</html>

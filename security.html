@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security - Send bKash</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root { 
+            --main-pink: #e2005a; 
+            --light-pink: #ff3377;
+            --main-white: #ffffff; 
+            --text-grey: #888888; 
+            --bg-light: #f4f6f9; 
+            --dark-blue: #2c3e50;
+            --border-color: #dcdde1;
+        }
+
+        body { 
+            margin: 0; padding: 0; 
+            background-color: #e9ecef; 
+            font-family: 'Segoe UI', Tahoma, sans-serif; 
+            display: flex; justify-content: center; 
+        }
+
+        .app-container { 
+            width: 100%; max-width: 450px; min-height: 100vh; 
+            background-color: var(--bg-light); color: var(--main-pink); 
+            box-shadow: 0 0 25px rgba(0,0,0,0.1); 
+            display: flex; flex-direction: column; position: relative; 
+        }
+
+        .header { 
+            background-color: var(--main-pink); padding: 15px 20px; 
+            display: flex; justify-content: space-between; align-items: center; 
+            color: var(--main-white); box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); z-index: 10; 
+            position: sticky; top: 0;
+        }
+        .header-left { display: flex; align-items: center; }
+        .header-title { font-size: 18px; font-weight: bold; display: flex; align-items: center; }
+        .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 20px; transition: 0.2s; }
+        .back-btn:hover { transform: translateX(-3px); }
+
+        .content { flex-grow: 1; padding: 20px; overflow-y: auto; padding-bottom: 80px; }
+        
+        .notice-box {
+            background: linear-gradient(135deg, rgba(226, 0, 90, 0.05), rgba(255, 51, 119, 0.05)); 
+            border: 1px dashed rgba(226, 0, 90, 0.3); border-left: 4px solid var(--main-pink);
+            padding: 15px; border-radius: 8px; margin-bottom: 25px; color: var(--dark-blue);
+            font-size: 13px; line-height: 1.5; box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            font-weight: bold;
+        }
+
+        .security-card {
+            background-color: var(--main-white); border-radius: 12px; padding: 25px 20px;
+            border: 1px solid #eaeaea; box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+
+        .section-icon {
+            text-align: center; font-size: 40px; color: var(--main-pink); margin-bottom: 15px;
+        }
+
+        .section-title {
+            text-align: center; font-size: 18px; font-weight: 900; color: var(--dark-blue); margin: 0 0 20px 0;
+        }
+
+        .input-group { margin-bottom: 18px; position: relative; }
+        .input-label { display: block; font-size: 13px; font-weight: bold; color: var(--text-grey); margin-bottom: 8px; }
+        
+        .input-box {
+            width: 100%; padding: 14px 15px 14px 40px; border: 1.5px solid var(--border-color); border-radius: 8px;
+            font-size: 14px; box-sizing: border-box; outline: none; transition: 0.3s;
+            color: var(--dark-blue); background-color: #fcfcfc;
+        }
+        .input-box:focus { border-color: var(--main-pink); background-color: white; box-shadow: 0 0 0 3px rgba(226, 0, 90, 0.1); }
+        
+        .input-icon {
+            position: absolute; left: 15px; top: 38px; color: #a4b0be; font-size: 14px; transition: 0.3s;
+        }
+        .input-box:focus + .input-icon, .input-box:not(:placeholder-shown) + .input-icon { color: var(--main-pink); }
+
+        .submit-btn {
+            background: linear-gradient(135deg, var(--main-pink), var(--light-pink)); color: white; border: none;
+            padding: 15px; border-radius: 8px; font-size: 16px; font-weight: bold;
+            width: 100%; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 12px rgba(226, 0, 90, 0.25);
+            margin-top: 10px;
+        }
+        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(226, 0, 90, 0.35); }
+        .submit-btn:disabled { background: #dcdde1; cursor: not-allowed; box-shadow: none; transform: none; }
+
+        .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: sticky; bottom: 0; z-index: 100; }
+        .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); text-decoration: none; flex: 1; }
+        .nav-item i { font-size: 18px; margin-bottom: 4px; display: block; }
+        .nav-item.active { color: var(--main-pink); font-weight: bold; }
+
+        .toast-msg {
+            visibility: hidden; min-width: 250px; background-color: var(--main-pink);
+            color: #fff; text-align: center; border-radius: 30px; padding: 12px 20px;
+            position: fixed; z-index: 9999; left: 50%; transform: translateX(-50%);
+            top: 20px; font-size: 13px; font-weight: bold; line-height: 1.4;
+            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.4); opacity: 0; transition: opacity 0.3s, top 0.3s;
+        }
+        .toast-msg.show { visibility: visible; opacity: 1; top: 40px; }
+        .toast-error { background-color: #e74c3c; box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4); }
+    </style>
+</head>
+<body>
+
+    <div id="toastBox" class="toast-msg"></div>
+
+    <div class="app-container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="header-left">
+                <a href="profile.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+                <div class="header-title">প্রোফাইল সুরক্ষা</div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="notice-box">
+                <i class="fas fa-shield-alt" style="color: var(--main-pink); margin-right: 5px;"></i> অ্যাকাউন্ট সুরক্ষিত রাখতে আপনার পাসওয়ার্ড পরিবর্তন করুন। পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে।
+            </div>
+
+            <div class="security-card">
+                <div class="section-icon"><i class="fas fa-lock"></i></div>
+                <h3 class="section-title">পাসওয়ার্ড পরিবর্তন</h3>
+
+                <div class="input-group">
+                    <label class="input-label">বর্তমান পাসওয়ার্ড</label>
+                    <input type="password" id="currentPass" class="input-box" placeholder="আপনার বর্তমান পাসওয়ার্ড দিন">
+                    <i class="fas fa-key input-icon"></i>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">নতুন পাসওয়ার্ড</label>
+                    <input type="password" id="newPass" class="input-box" placeholder="নতুন পাসওয়ার্ড লিখুন">
+                    <i class="fas fa-lock input-icon"></i>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">নতুন পাসওয়ার্ড কনফার্ম করুন</label>
+                    <input type="password" id="confirmNewPass" class="input-box" placeholder="নতুন পাসওয়ার্ডটি আবার লিখুন">
+                    <i class="fas fa-check-circle input-icon"></i>
+                </div>
+
+                <button class="submit-btn" id="changePassBtn" onclick="updateUserPassword()">পাসওয়ার্ড পরিবর্তন করুন</button>
+            </div>
+        </div>
+
+        <div class="bottom-nav">
+            <a href="index.html" class="nav-item"><i class="fas fa-home"></i>Home</a>
+            <a href="withdraw.html" class="nav-item"><i class="fas fa-wallet"></i>Withdraw</a>
+            <a href="refer.html" class="nav-item"><i class="fas fa-users"></i>Refer</a>
+            <a href="profile.html" class="nav-item active"><i class="fas fa-user"></i>Profile</a>
+        </div>
+    </div>
+
+    <!-- Firebase Script -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, updatePassword, EmailAuthProvider, reauthenticateWithCredential } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
+            authDomain: "send-bkash.firebaseapp.com",
+            projectId: "send-bkash",
+            storageBucket: "send-bkash.firebasestorage.app",
+            messagingSenderId: "306247423891",
+            appId: "1:306247423891:web:bb4fb6634043e6755afa66"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        let currentUser = null;
+
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                window.location.href = "login.html";
+            } else {
+                currentUser = user;
+            }
+        });
+
+        // গ্লোবালি ফাংশনটি কল করার জন্য
+        window.updateUserPassword = async function() {
+            const currentPass = document.getElementById("currentPass").value;
+            const newPass = document.getElementById("newPass").value;
+            const confirmNewPass = document.getElementById("confirmNewPass").value;
+            const btn = document.getElementById("changePassBtn");
+
+            if (!currentPass || !newPass || !confirmNewPass) {
+                showToast("দয়া করে সবগুলো ফিল্ড পূরণ করুন!", true);
+                return;
+            }
+
+            if (newPass !== confirmNewPass) {
+                showToast("নতুন পাসওয়ার্ড এবং কনফার্ম পাসওয়ার্ড মিলছে না!", true);
+                return;
+            }
+
+            if (newPass.length < 6) {
+                showToast("নতুন পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে!", true);
+                return;
+            }
+
+            if (!currentUser) return;
+
+            btn.disabled = true;
+            btn.innerText = "পরিবর্তন হচ্ছে...";
+
+            // ফায়ারবেস Re-authentication 
+            const credential = EmailAuthProvider.credential(currentUser.email, currentPass);
+
+            try {
+                // প্রথমে প্রমাণ করতে হবে যে ইউজার সঠিক বর্তমান পাসওয়ার্ড দিয়েছে
+                await reauthenticateWithCredential(currentUser, credential);
+                
+                // যদি সঠিক হয়, তবে নতুন পাসওয়ার্ড সেট হবে
+                await updatePassword(currentUser, newPass);
+                
+                showToast("আপনার পাসওয়ার্ড সফলভাবে পরিবর্তন হয়েছে!");
+                
+                // ফিল্ডগুলো ক্লিয়ার করে দেওয়া
+                document.getElementById("currentPass").value = "";
+                document.getElementById("newPass").value = "";
+                document.getElementById("confirmNewPass").value = "";
+                
+            } catch (error) {
+                console.error(error);
+                if (error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
+                    showToast("আপনার বর্তমান পাসওয়ার্ডটি ভুল হয়েছে!", true);
+                } else {
+                    showToast("পাসওয়ার্ড পরিবর্তন ব্যর্থ হয়েছে! আবার লগইন করে চেষ্টা করুন।", true);
+                }
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "পাসওয়ার্ড পরিবর্তন করুন";
+            }
+        };
+
+        function showToast(message, isError = false) {
+            const toast = document.getElementById("toastBox");
+            toast.innerText = message;
+            
+            if(isError) {
+                toast.classList.add("toast-error");
+            } else {
+                toast.classList.remove("toast-error");
+            }
+
+            toast.classList.add("show");
+
+            setTimeout(() => {
+                toast.classList.remove("show");
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
