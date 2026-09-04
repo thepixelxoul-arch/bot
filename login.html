@@ -23,7 +23,6 @@
             justify-content: center; 
         }
 
-        /* হোমপেজের মতো অ্যাপ কন্টেইনার */
         .app-container { 
             width: 100%; 
             max-width: 450px; 
@@ -36,7 +35,6 @@
             position: relative; 
         }
 
-        /* হেডার ডিজাইন (হোমপেজের সাথে মিল রেখে) */
         .header { 
             background-color: var(--main-pink); 
             padding: 15px 20px; 
@@ -61,7 +59,6 @@
             font-size: 22px; 
         }
 
-        /* কন্টেন্ট এরিয়া */
         .content { 
             flex-grow: 1; 
             padding: 20px; 
@@ -110,6 +107,21 @@
         .input-group input:focus { 
             border-color: var(--main-pink); 
             box-shadow: 0 0 0 3px rgba(226, 0, 90, 0.1);
+        }
+
+        /* পাসওয়ার্ড ভুলে গেছেন লিংক স্টাইল */
+        .forgot-pass {
+            text-align: right;
+            margin-bottom: 15px;
+            font-size: 13px;
+        }
+        .forgot-pass a {
+            color: var(--text-grey);
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .forgot-pass a:hover {
+            color: var(--main-pink);
         }
 
         .login-btn { 
@@ -162,13 +174,18 @@
                 </div>
                 <h2>Send bKash এ স্বাগতম</h2>
 
-                <!-- ইমেইল বা ফোন নাম্বার দেওয়ার বক্স -->
                 <div class="input-group">
                     <input type="text" id="emailOrPhone" placeholder="ইমেইল অ্যাড্রেস অথবা ফোন নাম্বার" required>
                 </div>
                 <div class="input-group">
                     <input type="password" id="password" placeholder="পাসওয়ার্ড" required[cite: 7]>
                 </div>
+
+                <!-- পাসওয়ার্ড ভুলে গেছেন অপশন -->
+                <div class="forgot-pass">
+                    <a href="#" id="forgotBtn">পাসওয়ার্ড ভুলে গেছেন?</a>
+                </div>
+
                 <button class="login-btn" id="emailLoginBtn">লগইন করুন</button>
 
                 <div class="switch-page">
@@ -178,10 +195,10 @@
         </div>
     </div>
 
-    <!-- Firebase SDK & Login Logic -->
+    <!-- Firebase SDK & Login/Forgot Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+        import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
@@ -201,7 +218,6 @@
             const password = document.getElementById("password").value;
             
             if(inputVal && password) {
-                // ইউজার যদি ফোন নাম্বার দিয়ে থাকে, তবে সেটাকে রেজিস্টারের নিয়মে ইমেইলে রূপান্তর করা
                 let finalEmail = inputVal;
                 let isPhone = /^\d+$/.test(inputVal);
                 if(isPhone) {
@@ -220,6 +236,32 @@
             } else {
                 alert("দয়া করে ইমেইল/ফোন নাম্বার এবং পাসওয়ার্ড লিখুন!");
             }
+        });
+
+        // পাসওয়ার্ড রিসেট করার ফাংশন
+        document.getElementById("forgotBtn").addEventListener("click", (e) => {
+            e.preventDefault();
+            let inputVal = document.getElementById("emailOrPhone").value.trim();
+            
+            if(!inputVal) {
+                alert("প্রথমে ওপরের বক্সে আপনার রেজিস্টার্ড ইমেইল অথবা ফোন নাম্বারটি লিখুন!");
+                return;
+            }
+
+            let finalEmail = inputVal;
+            let isPhone = /^\d+$/.test(inputVal);
+            if(isPhone) {
+                finalEmail = inputVal + "@sendbkash.com";
+            }
+
+            sendPasswordResetEmail(auth, finalEmail)
+            .then(() => {
+                alert("পাসওয়ার্ড রিসেট করার লিংক আপনার ইমেইলে পাঠানো হয়েছে। ইনবক্স চেক করুন!");
+            })
+            .catch((error) => {
+                alert("রিসেট লিংক পাঠানো যায়নি: " + error.message);
+                console.error(error);
+            });
         });
     </script>
 </body>
