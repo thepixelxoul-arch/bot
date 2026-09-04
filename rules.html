@@ -24,7 +24,7 @@
             font-family: 'Segoe UI', Tahoma, sans-serif; 
             display: flex; justify-content: center; 
             height: 100vh; 
-            overflow: hidden; /* পুরো পেজের বাউন্স বা স্ক্রল বন্ধ করা হলো */
+            overflow: hidden; 
         }
 
         .app-container { 
@@ -32,7 +32,7 @@
             background-color: var(--bg-light); color: var(--main-pink); 
             box-shadow: 0 0 25px rgba(0,0,0,0.1); 
             display: flex; flex-direction: column; position: relative; 
-            overflow: hidden; /* অ্যাপ ফ্রেম স্থির রাখা হলো */
+            overflow: hidden; 
         }
 
         .header { 
@@ -49,9 +49,9 @@
         /* শুধু এই অংশটুকু স্ক্রল হবে */
         .content { 
             flex-grow: 1; padding: 20px; 
-            overflow-y: auto; /* ভেতরের কন্টেন্ট স্ক্রল চালু */
+            overflow-y: auto; 
             padding-bottom: 80px; 
-            -webkit-overflow-scrolling: touch; /* মোবাইলে স্মুথ স্ক্রলিং */
+            -webkit-overflow-scrolling: touch; 
         }
         
         .notice-box {
@@ -63,6 +63,7 @@
             font-weight: bold;
         }
 
+        /* সবার জন্য একই কার্ড স্টাইল */
         .rule-card {
             background-color: var(--main-white);
             border-radius: 12px;
@@ -70,10 +71,6 @@
             margin-bottom: 20px;
             border: 1px solid #eaeaea; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-        }
-
-        .rule-card.danger {
-            background-color: rgba(231, 76, 60, 0.02);
         }
 
         .rule-header {
@@ -96,21 +93,12 @@
             justify-content: center;
             font-size: 18px;
         }
-        
-        .rule-card.danger .rule-icon {
-            background: linear-gradient(135deg, rgba(226, 0, 90, 0.1), rgba(255, 51, 119, 0.1));
-            color: var(--main-pink);
-        }
 
         .rule-title {
             font-size: 16px;
             font-weight: 900;
             color: var(--dark-blue);
             margin: 0;
-        }
-        
-        .rule-card.danger .rule-title {
-            color: var(--dark-blue);
         }
 
         .rule-list {
@@ -132,13 +120,15 @@
 
         .rule-list li:last-child { margin-bottom: 0; }
 
+        /* সঠিক নিয়মের জন্য সবুজ টিক চিহ্ন */
         .rule-list li i {
             color: #27ae60;
             font-size: 14px;
             margin-top: 2px;
         }
 
-        .rule-card.danger .rule-list li i {
+        /* ভুল নিয়মের জন্য পিংক ক্রস চিহ্ন */
+        .rule-list li .fa-times-circle {
             color: var(--main-pink);
         }
 
@@ -147,12 +137,12 @@
             background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
             color: white;
             border: none;
-            padding: 14px; /* প্যাডিং একটু বাড়িয়ে সাইজ ঠিক করা হয়েছে */
+            padding: 14px;
             border-radius: 8px;
-            font-size: 15px; /* ফন্ট সাইজ মানানসই করা হয়েছে */
+            font-size: 15px; 
             font-weight: bold;
             width: 100%;
-            box-sizing: border-box; /* ওভারফ্লো বন্ধ করতে */
+            box-sizing: border-box; 
             cursor: pointer;
             transition: 0.2s;
             box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);
@@ -215,8 +205,8 @@
                 </ul>
             </div>
 
-            <!-- অ্যাকাউন্ট ব্যান হওয়ার কারণ -->
-            <div class="rule-card danger">
+            <!-- অ্যাকাউন্ট ব্যান হওয়ার কারণ (এখন সাধারণ কার্ডের মতো) -->
+            <div class="rule-card">
                 <div class="rule-header">
                     <div class="rule-icon"><i class="fas fa-ban"></i></div>
                     <h3 class="rule-title">যেসব কারণে অ্যাকাউন্ট ব্যান হবে</h3>
