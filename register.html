@@ -160,20 +160,20 @@
                 <h2>নতুন অ্যাকাউন্ট তৈরি করুন</h2>
 
                 <div class="input-group">
-                    <input type="text" id="name" placeholder="আপনার পুরো নাম" required[cite: 6]>
+                    <input type="text" id="name" placeholder="আপনার পুরো নাম" required>
                 </div>
                 <!-- ইমেইল বা ফোন নাম্বার ইনপুট ফিল্ড -->
                 <div class="input-group">
                     <input type="text" id="emailOrPhone" placeholder="ইমেইল অ্যাড্রেস অথবা ফোন নাম্বার" required>
                 </div>
                 <div class="input-group">
-                    <input type="password" id="password" placeholder="পাসওয়ার্ড দিন (অন্তত ৬ অক্ষর)" required[cite: 6]>
+                    <input type="password" id="password" placeholder="পাসওয়ার্ড দিন (অন্তত ৬ অক্ষর)" required>
                 </div>
                 
                 <button class="login-btn" id="registerBtn">অ্যাকাউন্ট খুলুন</button>
 
                 <div class="switch-page">
-                    আগে থেকেই অ্যাকাউন্ট আছে? <a href="login.html">লগইন করুন</a>[cite: 6]
+                    আগে থেকেই অ্যাকাউন্ট আছে? <a href="login.html">লগইন করুন</a>
                 </div>
             </div>
         </div>
@@ -204,7 +204,7 @@
             
             if(inputVal && password && name) {
                 if(password.length < 6) {
-                    alert("পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে!");[cite: 6]
+                    alert("পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে!");
                     return;
                 }
 
@@ -227,16 +227,16 @@
                         displayName: name
                     }).then(() => {
                         localStorage.setItem('userName', name);
-                        alert("সফলভাবে অ্যাকাউন্ট তৈরি হয়েছে!");[cite: 6]
-                        window.location.href = "index.html";[cite: 6]
+                        alert("সফলভাবে অ্যাকাউন্ট তৈরি হয়েছে!");
+                        window.location.href = "index.html";
                     });
                 })
                 .catch((error) => {
-                    alert("অ্যাকাউন্ট তৈরি করা যায়নি: " + error.message);[cite: 6]
-                    console.error(error);[cite: 6]
+                    alert("অ্যাকাউন্ট তৈরি করা যায়নি: " + error.message);
+                    console.error(error);
                 });
             } else {
-                alert("দয়া করে সবগুলো ঘর পূরণ করুন!");[cite: 6]
+                alert("দয়া করে সবগুলো ঘর পূরণ করুন!");
             }
         });
     </script>
