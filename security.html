@@ -44,12 +44,22 @@
 
         .content { flex-grow: 1; padding: 20px; overflow-y: auto; padding-bottom: 80px; }
         
+        /* ওয়ার্নিং (Warning) বক্স স্টাইল */
         .notice-box {
-            background: linear-gradient(135deg, rgba(226, 0, 90, 0.05), rgba(255, 51, 119, 0.05)); 
-            border: 1px dashed rgba(226, 0, 90, 0.3); border-left: 4px solid var(--main-pink);
-            padding: 15px; border-radius: 8px; margin-bottom: 25px; color: var(--dark-blue);
-            font-size: 13px; line-height: 1.5; box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            background: linear-gradient(135deg, #fffbf0, #fff4ce); 
+            border: 1px dashed #f39c12; 
+            border-left: 4px solid #f39c12;
+            padding: 15px; 
+            border-radius: 8px; 
+            margin-bottom: 25px; 
+            color: #b9770e;
+            font-size: 13px; 
+            line-height: 1.5; 
+            box-shadow: 0 4px 10px rgba(243, 156, 18, 0.1);
             font-weight: bold;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
         }
 
         .security-card {
@@ -119,8 +129,10 @@
         </div>
 
         <div class="content">
+            <!-- ওয়ার্নিং মেসেজ বক্স -->
             <div class="notice-box">
-                <i class="fas fa-shield-alt" style="color: var(--main-pink); margin-right: 5px;"></i> অ্যাকাউন্ট সুরক্ষিত রাখতে আপনার পাসওয়ার্ড পরিবর্তন করুন। পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে।
+                <i class="fas fa-exclamation-triangle" style="font-size: 18px; color: #f39c12; margin-top: 2px;"></i> 
+                <div>অ্যাকাউন্ট সুরক্ষিত রাখতে আপনার পাসওয়ার্ড পরিবর্তন করুন। পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে।</div>
             </div>
 
             <div class="security-card">
