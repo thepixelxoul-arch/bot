@@ -43,7 +43,6 @@
         .header-left { display: flex; align-items: center; }
         .header-title { font-size: 18px; font-weight: bold; display: flex; align-items: center; margin-left: 15px; }
         .back-btn { color: white; text-decoration: none; font-size: 20px; transition: 0.2s; }
-        .back-btn:hover { transform: translateX(-3px); }
 
         .content { 
             flex-grow: 1; padding: 20px; 
@@ -52,7 +51,7 @@
             -webkit-overflow-scrolling: touch; 
         }
 
-        /* ওয়ার্নিং নোটিশ (হলুদ রঙের প্রফেশনাল ডিজাইন) */
+        /* ওয়ার্নিং নোটিশ (হলুদ রঙের) */
         .strict-warning-box {
             background-color: #fff9e6; 
             border: 1px solid #ffeeba; 
@@ -65,7 +64,6 @@
             margin: 0 0 8px 0; font-size: 15px; color: #d35400;
             display: flex; align-items: center; gap: 6px;
         }
-        .strict-warning-box strong { color: #d35400; }
 
         .verify-card {
             background-color: var(--main-white); border-radius: 12px; padding: 25px 20px;
@@ -73,7 +71,7 @@
             margin-bottom: 20px; text-align: center;
         }
 
-        /* এটিএম কার্ডের মতো বড় ফেস স্ক্যান বাটন (Full Pink) */
+        /* এটিএম কার্ডের মতো বড় ফেস স্ক্যান বাটন */
         .scan-card-btn {
             width: 100%; height: 130px; 
             display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
@@ -86,21 +84,38 @@
         }
         .scan-card-btn i { font-size: 40px; }
         
-        .scan-card-btn::after {
-            content: ''; position: absolute; top: -50%; right: -50%;
-            width: 100px; height: 100px; background: rgba(255,255,255,0.1);
-            border-radius: 50%;
+        /* সাকসেস স্টেট এখন সম্পূর্ণ পিংক! */
+        .scan-card-btn.success {
+            background: linear-gradient(135deg, var(--main-pink), var(--light-pink)); 
+            box-shadow: 0 8px 20px rgba(226, 0, 90, 0.3);
+            pointer-events: none; border: 2px solid white;
         }
 
-        .scan-card-btn:hover { 
-            transform: translateY(-3px); box-shadow: 0 12px 25px rgba(226, 0, 90, 0.4); 
+        /* লাইভ ক্যামেরা কন্টেইনার */
+        .camera-container {
+            display: none; width: 100%; height: 250px; 
+            border-radius: 15px; overflow: hidden; 
+            border: 3px solid var(--main-pink); margin-bottom: 15px; 
+            position: relative; background-color: #000;
+            box-shadow: 0 5px 15px rgba(226, 0, 90, 0.2);
         }
-        
-        .scan-card-btn.success {
-            background: linear-gradient(135deg, #27ae60, #2ecc71); 
-            box-shadow: 0 8px 20px rgba(39, 174, 96, 0.3);
+        .camera-container video {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+        /* ক্যামেরার উপর ফেস স্ক্যানিং এর মতো গ্রাডিয়েন্ট ফ্রেম */
+        .camera-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, transparent 50%, rgba(226, 0, 90, 0.6) 100%);
             pointer-events: none;
         }
+
+        .capture-btn {
+            display: none; background: white; color: var(--main-pink); 
+            border: 2px solid var(--main-pink); padding: 12px; border-radius: 8px; 
+            font-size: 15px; font-weight: bold; width: 100%; cursor: pointer; 
+            margin-bottom: 25px; transition: 0.2s;
+        }
+        .capture-btn:hover { background: var(--main-pink); color: white; }
 
         .fee-details {
             display: flex; justify-content: space-between; align-items: center;
@@ -111,36 +126,29 @@
         .fee-amount { font-size: 18px; color: var(--main-pink); }
         .fee-amount.free { color: var(--text-grey); text-decoration: line-through; margin-right: 5px; font-size: 14px;}
 
-        /* কুপন বক্স (হালকা গোলাপি বর্ডার) */
         .coupon-group {
             display: flex; gap: 10px; margin-bottom: 25px;
         }
         .coupon-input {
             flex: 1; padding: 12px 15px; 
-            border: 1.5px solid #ffb8d2; /* হালকা গোলাপি বর্ডার */
-            background-color: #fffafb; /* হালকা গোলাপি আভা */
+            border: 1.5px solid #ffb8d2; background-color: #fffafb; 
             border-radius: 8px; font-size: 14px; outline: none; transition: 0.3s;
-            color: var(--dark-blue);
         }
         .coupon-input:focus { 
-            border-color: var(--main-pink); 
-            background-color: #ffffff;
+            border-color: var(--main-pink); background-color: #ffffff;
             box-shadow: 0 0 0 3px rgba(226, 0, 90, 0.1); 
         }
         
         .coupon-btn {
             background: var(--dark-blue); color: white; border: none;
             padding: 0 15px; border-radius: 8px; font-weight: bold; cursor: pointer;
-            transition: 0.2s;
         }
-        .coupon-btn:hover { background: #1a252f; }
 
         .submit-btn {
             background-color: var(--main-pink); color: white; border: none;
             padding: 15px; border-radius: 8px; font-size: 16px; font-weight: bold;
             width: 100%; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2);
         }
-        .submit-btn:hover { background-color: #c4004e; }
         .submit-btn:disabled { background: #dcdde1; cursor: not-allowed; box-shadow: none; }
 
         .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: absolute; bottom: 0; width: 100%; z-index: 100; }
@@ -163,7 +171,6 @@
     <div id="toastBox" class="toast-msg"></div>
 
     <div class="app-container">
-        <!-- Header Section -->
         <div class="header">
             <div class="header-left">
                 <a href="profile.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
@@ -172,8 +179,6 @@
         </div>
 
         <div class="content">
-            
-            <!-- বড় এবং হলুদ রঙের কড়া ওয়ার্নিং নোটিশ -->
             <div class="strict-warning-box">
                 <h4><i class="fas fa-exclamation-triangle"></i> জরুরি সতর্কতা</h4>
                 অ্যাকাউন্ট ভেরিফিকেশন সম্পন্ন না করা পর্যন্ত আপনি <strong>কোনো কাজ (টাস্ক) বা উইথড্র</strong> করতে পারবেন না। প্ল্যাটফর্মের নিরাপত্তা নিশ্চিত করতে অবশ্যই নিচে ক্লিক করে আপনার নিজের ফেস স্ক্যান করুন।
@@ -181,10 +186,21 @@
 
             <div class="verify-card">
                 
-                <!-- এটিএম কার্ডের মতো বড় ফেস স্ক্যান বাটন -->
-                <button class="scan-card-btn" id="scanBtn" onclick="startFaceScan()">
+                <!-- মেইন ফেস স্ক্যান বাটন -->
+                <button class="scan-card-btn" id="scanBtn" onclick="openCamera()">
                     <i class="fas fa-camera"></i> 
                     <span>ফেস স্ক্যান করুন</span>
+                </button>
+
+                <!-- লাইভ ক্যামেরা ভিউ (লুকানো থাকবে প্রথমে) -->
+                <div class="camera-container" id="cameraContainer">
+                    <video id="videoFeed" autoplay playsinline></video>
+                    <div class="camera-overlay"></div>
+                </div>
+                
+                <!-- ছবি তোলার বাটন -->
+                <button class="capture-btn" id="captureBtn" onclick="captureFace()">
+                    <i class="fas fa-camera-retro"></i> ছবি তুলুন
                 </button>
 
                 <div class="fee-details">
@@ -195,18 +211,15 @@
                     </div>
                 </div>
 
-                <!-- কুপন বক্স (হালকা গোলাপি বর্ডার) -->
                 <div class="coupon-group">
                     <input type="text" id="couponInput" class="coupon-input" placeholder="কুপন কোড (যদি থাকে)">
                     <button class="coupon-btn" onclick="applyCoupon()">Apply</button>
                 </div>
 
-                <!-- পেমেন্ট বাটন -->
                 <button class="submit-btn" id="verifySubmitBtn" onclick="completeVerification()">৳২০ পেমেন্ট করুন</button>
             </div>
         </div>
 
-        <!-- Bottom Navigation -->
         <div class="bottom-nav">
             <a href="index.html" class="nav-item"><i class="fas fa-home"></i>Home</a>
             <a href="withdraw.html" class="nav-item"><i class="fas fa-wallet"></i>Withdraw</a>
@@ -218,6 +231,7 @@
     <script>
         let isFaceScanned = false;
         let verifyFee = 20;
+        let mediaStream = null;
 
         function showToast(message) {
             const toast = document.getElementById("toastBox");
@@ -226,21 +240,51 @@
             setTimeout(() => { toast.classList.remove("show"); }, 3000);
         }
 
-        // ফেস স্ক্যান অ্যানিমেশন
-        function startFaceScan() {
+        // ক্যামেরা চালু করার ফাংশন
+        async function openCamera() {
             const btn = document.getElementById("scanBtn");
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>স্ক্যান হচ্ছে...</span>';
-            btn.disabled = true;
+            const cameraContainer = document.getElementById("cameraContainer");
+            const captureBtn = document.getElementById("captureBtn");
+            const video = document.getElementById("videoFeed");
 
-            setTimeout(() => {
-                isFaceScanned = true;
-                btn.classList.add("success");
-                btn.innerHTML = '<i class="fas fa-check-circle"></i><span>ফেস স্ক্যান সম্পন্ন</span>';
-                showToast("আপনার ফেস সফলভাবে স্ক্যান হয়েছে!");
-            }, 2500);
+            try {
+                // ব্রাউজার থেকে সামনের ক্যামেরা (Front Camera) অ্যাক্সেস নেওয়া
+                mediaStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
+                video.srcObject = mediaStream;
+                
+                // বড় বাটন হাইড করে লাইভ ক্যামেরা এবং ছবি তোলার বাটন দেখানো
+                btn.style.display = "none";
+                cameraContainer.style.display = "block";
+                captureBtn.style.display = "block";
+                
+            } catch (error) {
+                console.error("Camera error:", error);
+                alert("ক্যামেরা ওপেন করা যাচ্ছে না! আপনার ব্রাউজারে ক্যামেরার পারমিশন অন করুন।");
+            }
         }
 
-        // কুপন কোড ফাংশন
+        // ছবি তোলার (ক্যামেরা বন্ধ করার) ফাংশন
+        function captureFace() {
+            const btn = document.getElementById("scanBtn");
+            const cameraContainer = document.getElementById("cameraContainer");
+            const captureBtn = document.getElementById("captureBtn");
+
+            // ক্যামেরা স্ট্রিমিং বন্ধ করা
+            if (mediaStream) {
+                mediaStream.getTracks().forEach(track => track.stop());
+            }
+
+            // ক্যামেরা হাইড করে আবার বাটনটি দেখানো (পিংক সাকসেস ডিজাইন সহ)
+            cameraContainer.style.display = "none";
+            captureBtn.style.display = "none";
+            btn.style.display = "flex";
+            
+            isFaceScanned = true;
+            btn.classList.add("success"); 
+            btn.innerHTML = '<i class="fas fa-check-circle" style="font-size: 35px;"></i><span>ফেস স্ক্যান সম্পন্ন</span>';
+            showToast("আপনার ফেস সফলভাবে স্ক্যান হয়েছে!");
+        }
+
         function applyCoupon() {
             const couponCode = document.getElementById("couponInput").value.trim().toUpperCase();
             
@@ -249,17 +293,14 @@
                 return;
             }
 
-            // 'FREE20' কুপন দিলে ফি ০ টাকা হবে
             if(couponCode === "FREE20") {
                 verifyFee = 0;
-                
                 document.getElementById("oldFee").style.display = "inline";
                 document.getElementById("oldFee").classList.add("free");
                 
                 document.getElementById("feeAmount").innerText = "৳০ (ফ্রি)";
-                document.getElementById("feeAmount").style.color = "#27ae60"; // ফ্রি হলে সবুজ দেখাবে
+                document.getElementById("feeAmount").style.color = "var(--main-pink)"; // জিরো হলেও পিংক দেখাবে
                 
-                // বাটন টেক্সট আপডেট
                 document.getElementById("verifySubmitBtn").innerText = "ফ্রি ভেরিফিকেশন সম্পন্ন করুন";
                 
                 showToast("কুপন সফলভাবে যুক্ত হয়েছে! ফি এখন ০ টাকা।");
@@ -268,7 +309,6 @@
             }
         }
 
-        // ফাইনাল সাবমিট
         function completeVerification() {
             if(!isFaceScanned) {
                 showToast("প্রথমে আপনার ফেস স্ক্যান সম্পন্ন করুন!");
@@ -281,10 +321,8 @@
 
             setTimeout(() => {
                 if (verifyFee > 0) {
-                    // ফি থাকলে payment.html পেজে নিয়ে যাবে
                     window.location.href = `payment.html?amount=${verifyFee}&vip=Verification`;
                 } else {
-                    // ফ্রি হলে সরাসরি ভেরিফাই হয়ে যাবে
                     alert("বিনামূল্যে আপনার একাউন্ট ভেরিফাই হয়েছে!");
                     window.location.href = "profile.html"; 
                 }
