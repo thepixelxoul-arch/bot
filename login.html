@@ -13,6 +13,8 @@
             --main-white: #ffffff; 
             --text-grey: #888888; 
             --bg-light: #f4f6f9; 
+            --dark-blue: #2c3e50;
+            --border-color: #dcdde1;
         }
 
         body { 
@@ -136,10 +138,13 @@
             cursor: pointer; 
             margin-bottom: 15px; 
             transition: background 0.3s; 
+            box-shadow: 0 4px 12px rgba(226, 0, 90, 0.25);
         }
 
         .login-btn:hover { 
             background-color: #c4004e; 
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 15px rgba(226, 0, 90, 0.35);
         }
 
         .divider { 
@@ -159,15 +164,15 @@
             padding: 0 10px; 
         }
 
-        /* ফেস স্ক্যান/লগইন বাটন স্টাইল */
+        /* নতুন ফেস লগইন বাটন ডিজাইন (আউটলাইন স্টাইল) */
         .social-btn.face-login { 
             width: 100%; 
-            padding: 12px; 
-            border: 1.5px solid #eaeaea; 
+            padding: 14px; 
+            border: 1.5px solid var(--main-pink); 
             border-radius: 8px; 
             background-color: white; 
             font-size: 15px; 
-            font-weight: 600; 
+            font-weight: bold; 
             color: var(--main-pink); 
             cursor: pointer; 
             display: flex; 
@@ -175,11 +180,17 @@
             justify-content: center; 
             gap: 10px; 
             margin-bottom: 15px; 
-            transition: background 0.2s; 
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(226, 0, 90, 0.1);
+        }
+        .social-btn.face-login i {
+            font-size: 18px;
         }
         .social-btn.face-login:hover { 
-            background-color: #fff5f8; 
-            border-color: var(--main-pink);
+            background-color: var(--main-pink); 
+            color: white;
+            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.3);
+            transform: translateY(-2px);
         }
 
         .switch-page { 
@@ -231,7 +242,7 @@
                     <span>অথবা</span>
                 </div>
 
-                <!-- Face দিয়ে লগইন বাটন -->
+                <!-- নতুন ডিজাইনের Face দিয়ে লগইন বাটন -->
                 <button class="social-btn face-login" id="faceLoginBtn">
                     <i class="fas fa-user-check"></i> Face দিয়ে লগইন করুন
                 </button>
@@ -286,7 +297,7 @@
             }
         });
 
-        // Face দিয়ে লগইন করার হ্যান্ডলার (Biometric API check)
+        // Face দিয়ে লগইন করার হ্যান্ডলার
         document.getElementById("faceLoginBtn").addEventListener("click", async () => {
             if (window.PublicKeyCredential && PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable) {
                 try {
