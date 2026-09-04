@@ -44,10 +44,10 @@
 
         .content { flex-grow: 1; padding: 20px; overflow-y: auto; padding-bottom: 80px; }
         
-        /* ওয়ার্নিং (Warning) বক্স স্টাইল */
+        /* ওয়ার্নিং (Warning) বক্স স্টাইল (কাটা দাগ মুছে স্মুথ বর্ডার দেওয়া হয়েছে) */
         .notice-box {
             background: linear-gradient(135deg, #fffbf0, #fff4ce); 
-            border: 1px dashed #f39c12; 
+            border: 1px solid #fae5b6; 
             border-left: 4px solid #f39c12;
             padding: 15px; 
             border-radius: 8px; 
@@ -195,7 +195,6 @@
             }
         });
 
-        // গ্লোবালি ফাংশনটি কল করার জন্য
         window.updateUserPassword = async function() {
             const currentPass = document.getElementById("currentPass").value;
             const newPass = document.getElementById("newPass").value;
@@ -222,19 +221,13 @@
             btn.disabled = true;
             btn.innerText = "পরিবর্তন হচ্ছে...";
 
-            // ফায়ারবেস Re-authentication 
             const credential = EmailAuthProvider.credential(currentUser.email, currentPass);
 
             try {
-                // প্রথমে প্রমাণ করতে হবে যে ইউজার সঠিক বর্তমান পাসওয়ার্ড দিয়েছে
                 await reauthenticateWithCredential(currentUser, credential);
-                
-                // যদি সঠিক হয়, তবে নতুন পাসওয়ার্ড সেট হবে
                 await updatePassword(currentUser, newPass);
-                
                 showToast("আপনার পাসওয়ার্ড সফলভাবে পরিবর্তন হয়েছে!");
                 
-                // ফিল্ডগুলো ক্লিয়ার করে দেওয়া
                 document.getElementById("currentPass").value = "";
                 document.getElementById("newPass").value = "";
                 document.getElementById("confirmNewPass").value = "";
