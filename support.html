@@ -45,85 +45,90 @@
 
         .content { flex-grow: 1; padding: 20px; overflow-y: auto; padding-bottom: 80px; }
         
+        /* নোটিশ বক্স (কাটা দাগ মুছে স্মুথ বর্ডার দেওয়া হয়েছে) */
         .notice-box {
             background: linear-gradient(135deg, rgba(226, 0, 90, 0.05), rgba(255, 51, 119, 0.05)); 
-            border: 1px dashed rgba(226, 0, 90, 0.3); border-left: 4px solid var(--main-pink);
+            border: 1px solid rgba(226, 0, 90, 0.15); 
+            border-left: 4px solid var(--main-pink);
             padding: 15px; border-radius: 8px; margin-bottom: 25px; color: var(--dark-blue);
             font-size: 13px; line-height: 1.5; box-shadow: 0 2px 8px rgba(0,0,0,0.02);
             font-weight: bold; text-align: center;
         }
 
-        /* সাপোর্ট কার্ড স্টাইল */
+        /* সাপোর্ট কার্ড স্টাইল (সম্পূর্ণ পিংক থিম) */
         .support-card {
-            background-color: var(--main-white);
+            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
             border-radius: 12px;
-            padding: 20px;
+            padding: 30px 20px;
             margin-bottom: 20px;
-            border: 1px solid #eaeaea;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            border: none;
+            box-shadow: 0 6px 15px rgba(226, 0, 90, 0.25);
             text-align: center;
             transition: 0.3s;
+            color: white;
         }
         .support-card:hover {
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 8px 20px rgba(226, 0, 90, 0.35);
             transform: translateY(-3px);
         }
 
         .support-icon {
-            width: 60px;
-            height: 60px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 30px;
+            font-size: 32px;
             margin: 0 auto 15px auto;
             color: white;
+            background-color: rgba(255, 255, 255, 0.2);
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        /* আলাদা আলাদা সোশ্যাল মিডিয়ার কালার */
-        .icon-telegram { background: linear-gradient(135deg, #38A1D8, var(--telegram-blue)); }
-        .icon-whatsapp { background: linear-gradient(135deg, #4FCE5D, var(--whatsapp-green)); }
-        .icon-email { background: linear-gradient(135deg, var(--main-pink), var(--light-pink)); }
-
         .support-title {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 900;
-            color: var(--dark-blue);
-            margin: 0 0 8px 0;
+            color: white;
+            margin: 0 0 10px 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.15);
         }
 
         .support-desc {
             font-size: 13px;
-            color: var(--text-grey);
-            margin: 0 0 15px 0;
+            color: #ffe6f0;
+            margin: 0 0 20px 0;
             line-height: 1.5;
             font-weight: 600;
+            padding: 0 10px;
         }
 
-        /* লিংক বাটন */
+        /* লিংক বাটন (সাদা ব্যাকগ্রাউন্ড, কালারফুল টেক্সট) */
         .support-btn {
-            display: inline-block;
-            color: white;
-            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background-color: var(--main-white);
+            padding: 14px 20px;
             border-radius: 8px;
-            font-size: 14px;
-            font-weight: bold;
+            font-size: 15px;
+            font-weight: 900;
             text-decoration: none;
             width: 100%;
             box-sizing: border-box;
             transition: 0.2s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
         
-        .btn-telegram { background-color: var(--telegram-blue); box-shadow: 0 4px 10px rgba(0, 136, 204, 0.3); }
-        .btn-telegram:hover { background-color: #0077b5; }
+        .btn-telegram { color: var(--telegram-blue); }
+        .btn-telegram:hover { background-color: var(--bg-light); transform: translateY(-2px); }
         
-        .btn-whatsapp { background-color: var(--whatsapp-green); box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3); }
-        .btn-whatsapp:hover { background-color: #20b858; }
+        .btn-whatsapp { color: var(--whatsapp-green); }
+        .btn-whatsapp:hover { background-color: var(--bg-light); transform: translateY(-2px); }
 
-        .btn-email { background-color: var(--main-pink); box-shadow: 0 4px 10px rgba(226, 0, 90, 0.3); }
-        .btn-email:hover { background-color: #c4004e; }
+        .btn-email { color: var(--main-pink); }
+        .btn-email:hover { background-color: var(--bg-light); transform: translateY(-2px); }
 
         .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: sticky; bottom: 0; z-index: 100; }
         .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); text-decoration: none; flex: 1; }
@@ -145,13 +150,13 @@
 
         <div class="content">
             <div class="notice-box">
-                <i class="fas fa-headset" style="font-size: 24px; display: block; margin-bottom: 10px;"></i>
+                <i class="fas fa-headset" style="font-size: 24px; display: block; margin-bottom: 10px; color: var(--main-pink);"></i>
                 যেকোনো সমস্যা, পেমেন্ট সংক্রান্ত প্রশ্ন বা প্যাকেজ আপগ্রেড করার জন্য সরাসরি এডমিনের সাথে যোগাযোগ করুন। আমরা দ্রুত সমাধান দেওয়ার চেষ্টা করব।
             </div>
 
             <!-- Telegram Support -->
             <div class="support-card">
-                <div class="support-icon icon-telegram"><i class="fab fa-telegram-plane"></i></div>
+                <div class="support-icon"><i class="fab fa-telegram-plane"></i></div>
                 <h3 class="support-title">টেলিগ্রাম সাপোর্ট</h3>
                 <p class="support-desc">আমাদের টেলিগ্রাম সাপোর্টে মেসেজ দিন। খুব দ্রুত রিপ্লাই পেতে টেলিগ্রাম ব্যবহার করুন।</p>
                 <!-- আপনার টেলিগ্রাম ইউজারনেম এখানে দিন -->
@@ -162,7 +167,7 @@
 
             <!-- WhatsApp Support -->
             <div class="support-card">
-                <div class="support-icon icon-whatsapp"><i class="fab fa-whatsapp"></i></div>
+                <div class="support-icon"><i class="fab fa-whatsapp"></i></div>
                 <h3 class="support-title">হোয়াটসঅ্যাপ সাপোর্ট</h3>
                 <p class="support-desc">পেমেন্ট বা অ্যাকাউন্ট সংক্রান্ত জরুরি যেকোনো সহায়তার জন্য হোয়াটসঅ্যাপে যোগাযোগ করতে পারেন।</p>
                 <!-- আপনার হোয়াটসঅ্যাপ নাম্বার এখানে দিন (যেমন: 8801XXXXXXXXX) -->
@@ -173,7 +178,7 @@
 
             <!-- Email Support (Optional) -->
             <div class="support-card">
-                <div class="support-icon icon-email"><i class="fas fa-envelope"></i></div>
+                <div class="support-icon"><i class="fas fa-envelope"></i></div>
                 <h3 class="support-title">ইমেইল সাপোর্ট</h3>
                 <p class="support-desc">আপনার কোনো অভিযোগ বা মতামত থাকলে আমাদের সরাসরি ইমেইল করতে পারেন।</p>
                 <!-- আপনার ইমেইল অ্যাড্রেস এখানে দিন -->
