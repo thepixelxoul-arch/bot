@@ -16,32 +16,42 @@
             --dark-blue: #2c3e50;
         }
 
-        body { 
+        /* বডি এবং মেইন ফ্রেম ফিক্সড করার কোড (যেন পুরো ওয়েবসাইট স্ক্রল না হয়) */
+        body, html { 
             margin: 0; padding: 0; 
             background-color: #e9ecef; 
             font-family: 'Segoe UI', Tahoma, sans-serif; 
             display: flex; justify-content: center; 
+            height: 100vh; 
+            overflow: hidden; 
         }
 
         .app-container { 
-            width: 100%; max-width: 450px; min-height: 100vh; 
+            width: 100%; max-width: 450px; height: 100vh; 
             background-color: var(--bg-light); color: var(--main-pink); 
             box-shadow: 0 0 25px rgba(0,0,0,0.1); 
             display: flex; flex-direction: column; position: relative; 
+            overflow: hidden; 
         }
 
         .header { 
             background-color: var(--main-pink); padding: 15px 20px; 
             display: flex; justify-content: space-between; align-items: center; 
             color: var(--main-white); box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); z-index: 10; 
-            position: sticky; top: 0;
+            flex-shrink: 0;
         }
         .header-left { display: flex; align-items: center; }
         .header-title { font-size: 18px; font-weight: bold; display: flex; align-items: center; }
         .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 20px; transition: 0.2s; }
         .back-btn:hover { transform: translateX(-3px); }
 
-        .content { flex-grow: 1; padding: 20px; overflow-y: auto; padding-bottom: 80px; }
+        /* শুধু এই অংশটুকু স্ক্রল হবে */
+        .content { 
+            flex-grow: 1; padding: 20px; 
+            overflow-y: auto; 
+            padding-bottom: 80px; 
+            -webkit-overflow-scrolling: touch; 
+        }
         
         /* হলুদ রঙের নোটিশ বক্স (স্মুথ বর্ডার) */
         .notice-box {
@@ -75,7 +85,7 @@
             transform: translateY(-3px);
         }
 
-        /* সব আইকন (লোগো) এখন পিংক কালারের */
+        /* সব আইকন (লোগো) পিংক কালারের */
         .support-icon {
             width: 60px;
             height: 60px;
@@ -105,7 +115,7 @@
             font-weight: 600;
         }
 
-        /* সব বাটন এখন পিংক কালারের */
+        /* সব বাটন পিংক কালারের */
         .support-btn {
             display: inline-block;
             background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
@@ -125,7 +135,8 @@
             box-shadow: 0 6px 15px rgba(226, 0, 90, 0.4);
         }
 
-        .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: sticky; bottom: 0; z-index: 100; }
+        /* বটম মেন্যু ফিক্স করা হয়েছে */
+        .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: absolute; bottom: 0; width: 100%; z-index: 100; }
         .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); text-decoration: none; flex: 1; }
         .nav-item i { font-size: 18px; margin-bottom: 4px; display: block; }
         .nav-item.active { color: var(--main-pink); font-weight: bold; }
