@@ -17,7 +17,6 @@
             --warning-yellow: #f39c12;
         }
 
-        /* বডি এবং মেইন ফ্রেম ফিক্সড করার কোড (যেন পুরো ওয়েবসাইট স্ক্রল না হয়) */
         body, html { 
             margin: 0; padding: 0; 
             background-color: #e9ecef; 
@@ -46,7 +45,6 @@
         .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 20px; transition: 0.2s; }
         .back-btn:hover { transform: translateX(-3px); }
 
-        /* শুধু এই অংশটুকু স্ক্রল হবে */
         .content { 
             flex-grow: 1; padding: 20px; 
             overflow-y: auto; 
@@ -63,7 +61,6 @@
             font-weight: bold;
         }
 
-        /* সবার জন্য একই কার্ড স্টাইল */
         .rule-card {
             background-color: var(--main-white);
             border-radius: 12px;
@@ -73,7 +70,6 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.03);
         }
 
-        /* ব্যান কার্ডের ডিজাইন (বামদিকের মোটা দাগ মুছে দেওয়া হয়েছে) */
         .rule-card.danger {
             background-color: #fff5f8; 
             border: 1px solid #ffd6e4;
@@ -131,19 +127,20 @@
 
         .rule-list li:last-child { margin-bottom: 0; }
 
-        /* সঠিক নিয়মের জন্য সবুজ টিক চিহ্ন */
-        .rule-list li i {
-            color: #27ae60;
+        /* টিক চিহ্নগুলো এখন পিংক কালারের করা হয়েছে */
+        .rule-list li .fa-check-circle {
+            color: var(--main-pink);
             font-size: 14px;
             margin-top: 2px;
         }
 
-        /* ভুল নিয়মের জন্য পিংক ক্রস চিহ্ন */
+        /* ক্রস চিহ্নগুলোও পিংক কালারের */
         .rule-list li .fa-times-circle {
             color: var(--main-pink);
+            font-size: 14px;
+            margin-top: 2px;
         }
 
-        /* ফিক্স করা বাটন ডিজাইন */
         .support-btn {
             background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
             color: white;
@@ -237,9 +234,9 @@
                     <h3 class="rule-title">যেকোনো সমস্যায় করণীয়</h3>
                 </div>
                 <ul class="rule-list">
-                    <li><i class="fas fa-info-circle" style="color: var(--main-pink);"></i> ২৪ ঘণ্টার মধ্যে পেমেন্ট না পেলে এডমিনকে আপনার উইথড্র হিস্ট্রির স্ক্রিনশটসহ ইনবক্স করুন।</li>
-                    <li><i class="fas fa-info-circle" style="color: var(--main-pink);"></i> প্যাকেজ আপগ্রেড করার পর আধা ঘণ্টার মধ্যে অ্যাক্টিভ না হলে পেমেন্টের স্ক্রিনশট এডমিনকে দিন।</li>
-                    <li><i class="fas fa-info-circle" style="color: var(--main-pink);"></i> অ্যাপ বা টাস্কে কোনো বাগ/সমস্যা পেলে সাথে সাথে সাপোর্টে যোগাযোগ করুন।</li>
+                    <li><i class="fas fa-check-circle"></i> ২৪ ঘণ্টার মধ্যে পেমেন্ট না পেলে এডমিনকে আপনার উইথড্র হিস্ট্রির স্ক্রিনশটসহ ইনবক্স করুন।</li>
+                    <li><i class="fas fa-check-circle"></i> প্যাকেজ আপগ্রেড করার পর আধা ঘণ্টার মধ্যে অ্যাক্টিভ না হলে পেমেন্টের স্ক্রিনশট এডমিনকে দিন।</li>
+                    <li><i class="fas fa-check-circle"></i> অ্যাপ বা টাস্কে কোনো বাগ/সমস্যা পেলে সাথে সাথে সাপোর্টে যোগাযোগ করুন।</li>
                 </ul>
                 <a href="support.html" class="support-btn">
                     <i class="fas fa-comments"></i> সাপোর্ট সেন্টারে যান
