@@ -14,8 +14,6 @@
             --text-grey: #888888; 
             --bg-light: #f4f6f9; 
             --dark-blue: #2c3e50;
-            --telegram-blue: #0088cc;
-            --whatsapp-green: #25D366;
         }
 
         body { 
@@ -61,7 +59,7 @@
             text-align: center;
         }
 
-        /* সাপোর্ট কার্ড স্টাইল (আগের মতো সাদা থিম) */
+        /* সাপোর্ট কার্ড স্টাইল (সাদা থিম) */
         .support-card {
             background-color: var(--main-white);
             border-radius: 12px;
@@ -77,6 +75,7 @@
             transform: translateY(-3px);
         }
 
+        /* সব আইকন (লোগো) এখন পিংক কালারের */
         .support-icon {
             width: 60px;
             height: 60px;
@@ -87,13 +86,9 @@
             font-size: 30px;
             margin: 0 auto 15px auto;
             color: white;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
+            box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);
         }
-
-        /* আলাদা আলাদা সোশ্যাল মিডিয়ার কালার */
-        .icon-telegram { background: linear-gradient(135deg, #38A1D8, var(--telegram-blue)); }
-        .icon-whatsapp { background: linear-gradient(135deg, #4FCE5D, var(--whatsapp-green)); }
-        .icon-email { background: linear-gradient(135deg, var(--main-pink), var(--light-pink)); }
 
         .support-title {
             font-size: 18px;
@@ -110,9 +105,10 @@
             font-weight: 600;
         }
 
-        /* লিংক বাটন (আগের মতো বড় ও কালারফুল) */
+        /* সব বাটন এখন পিংক কালারের */
         .support-btn {
             display: inline-block;
+            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
             color: white;
             padding: 12px 20px;
             border-radius: 8px;
@@ -122,16 +118,12 @@
             width: 100%;
             box-sizing: border-box;
             transition: 0.2s;
+            box-shadow: 0 4px 10px rgba(226, 0, 90, 0.3);
         }
-        
-        .btn-telegram { background-color: var(--telegram-blue); box-shadow: 0 4px 10px rgba(0, 136, 204, 0.3); }
-        .btn-telegram:hover { background-color: #0077b5; transform: translateY(-2px); }
-        
-        .btn-whatsapp { background-color: var(--whatsapp-green); box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3); }
-        .btn-whatsapp:hover { background-color: #20b858; transform: translateY(-2px); }
-
-        .btn-email { background-color: var(--main-pink); box-shadow: 0 4px 10px rgba(226, 0, 90, 0.3); }
-        .btn-email:hover { background-color: #c4004e; transform: translateY(-2px); }
+        .support-btn:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 15px rgba(226, 0, 90, 0.4);
+        }
 
         .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: sticky; bottom: 0; z-index: 100; }
         .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); text-decoration: none; flex: 1; }
@@ -160,33 +152,33 @@
 
             <!-- Telegram Support -->
             <div class="support-card">
-                <div class="support-icon icon-telegram"><i class="fab fa-telegram-plane"></i></div>
+                <div class="support-icon"><i class="fab fa-telegram-plane"></i></div>
                 <h3 class="support-title">টেলিগ্রাম সাপোর্ট</h3>
                 <p class="support-desc">আমাদের টেলিগ্রাম সাপোর্টে মেসেজ দিন। খুব দ্রুত রিপ্লাই পেতে টেলিগ্রাম ব্যবহার করুন।</p>
                 <!-- আপনার টেলিগ্রাম ইউজারনেম এখানে দিন -->
-                <a href="https://t.me/your_telegram_username" target="_blank" class="support-btn btn-telegram">
+                <a href="https://t.me/your_telegram_username" target="_blank" class="support-btn">
                     <i class="fab fa-telegram-plane"></i> টেলিগ্রামে মেসেজ দিন
                 </a>
             </div>
 
             <!-- WhatsApp Support -->
             <div class="support-card">
-                <div class="support-icon icon-whatsapp"><i class="fab fa-whatsapp"></i></div>
+                <div class="support-icon"><i class="fab fa-whatsapp"></i></div>
                 <h3 class="support-title">হোয়াটসঅ্যাপ সাপোর্ট</h3>
                 <p class="support-desc">পেমেন্ট বা অ্যাকাউন্ট সংক্রান্ত জরুরি যেকোনো সহায়তার জন্য হোয়াটসঅ্যাপে যোগাযোগ করতে পারেন।</p>
                 <!-- আপনার হোয়াটসঅ্যাপ নাম্বার এখানে দিন (যেমন: 8801XXXXXXXXX) -->
-                <a href="https://wa.me/8801XXXXXXXXX" target="_blank" class="support-btn btn-whatsapp">
+                <a href="https://wa.me/8801XXXXXXXXX" target="_blank" class="support-btn">
                     <i class="fab fa-whatsapp"></i> হোয়াটসঅ্যাপ করুন
                 </a>
             </div>
 
-            <!-- Email Support (Optional) -->
+            <!-- Email Support -->
             <div class="support-card">
-                <div class="support-icon icon-email"><i class="fas fa-envelope"></i></div>
+                <div class="support-icon"><i class="fas fa-envelope"></i></div>
                 <h3 class="support-title">ইমেইল সাপোর্ট</h3>
                 <p class="support-desc">আপনার কোনো অভিযোগ বা মতামত থাকলে আমাদের সরাসরি ইমেইল করতে পারেন।</p>
                 <!-- আপনার ইমেইল অ্যাড্রেস এখানে দিন -->
-                <a href="mailto:admin@sendbkash.com" class="support-btn btn-email">
+                <a href="mailto:admin@sendbkash.com" class="support-btn">
                     <i class="fas fa-envelope"></i> ইমেইল করুন
                 </a>
             </div>
