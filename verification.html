@@ -66,7 +66,6 @@
             margin-bottom: 20px; text-align: center;
         }
 
-        /* ফেস স্ক্যান বাটন - এখন পুরোটা জুড়ে (লম্বা) থাকবে */
         .scan-btn {
             width: 100%;
             display: flex; align-items: center; justify-content: center; gap: 8px;
@@ -151,7 +150,6 @@
 
             <div class="verify-card">
                 
-                <!-- ফেস স্ক্যান বাটন (এখন লম্বা করে দেওয়া হয়েছে) -->
                 <button class="scan-btn" id="scanBtn" onclick="startFaceScan()">
                     <i class="fas fa-camera"></i> ফেস স্ক্যান করুন
                 </button>
@@ -169,7 +167,7 @@
                     <button class="coupon-btn" onclick="applyCoupon()">Apply</button>
                 </div>
 
-                <!-- পেমেন্ট বাটন (ডিফল্টভাবে ৳২০ দেখাবে) -->
+                <!-- পেমেন্ট বাটন -->
                 <button class="submit-btn" id="verifySubmitBtn" onclick="completeVerification()">৳২০ পেমেন্ট করুন</button>
             </div>
         </div>
@@ -194,7 +192,6 @@
             setTimeout(() => { toast.classList.remove("show"); }, 3000);
         }
 
-        // ফেস স্ক্যান সিমুলেশন
         function startFaceScan() {
             const btn = document.getElementById("scanBtn");
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> স্ক্যান হচ্ছে...';
@@ -208,7 +205,6 @@
             }, 2000);
         }
 
-        // কুপন কোড চেক করার ফাংশন
         function applyCoupon() {
             const couponCode = document.getElementById("couponInput").value.trim().toUpperCase();
             
@@ -217,7 +213,6 @@
                 return;
             }
 
-            // 'FREE20' কুপন দিলে ফি ০ টাকা হবে
             if(couponCode === "FREE20") {
                 verifyFee = 0;
                 
@@ -225,8 +220,6 @@
                 document.getElementById("oldFee").classList.add("free");
                 
                 document.getElementById("feeAmount").innerText = "৳০ (ফ্রি)";
-                
-                // বাটন টেক্সট আপডেট
                 document.getElementById("verifySubmitBtn").innerText = "ফ্রি ভেরিফিকেশন সম্পন্ন করুন";
                 
                 showToast("কুপন সফলভাবে যুক্ত হয়েছে! ফি এখন ০ টাকা।");
@@ -235,7 +228,6 @@
             }
         }
 
-        // ফাইনাল সাবমিট
         function completeVerification() {
             if(!isFaceScanned) {
                 showToast("প্রথমে আপনার ফেস স্ক্যান সম্পন্ন করুন!");
@@ -246,12 +238,16 @@
             btn.disabled = true;
             btn.innerText = "প্রসেসিং হচ্ছে...";
 
-            // ডেটাবেস প্রসেসিং সিমুলেশন
             setTimeout(() => {
-                let msg = verifyFee === 0 ? "বিনামূল্যে আপনার একাউন্ট ভেরিফাই হয়েছে!" : `৳${verifyFee} ফি পেমেন্ট করে একাউন্ট ভেরিফাই হয়েছে!`;
-                alert(msg);
-                window.location.href = "profile.html"; 
-            }, 1500);
+                if (verifyFee > 0) {
+                    // ফি থাকলে payment.html পেজে নিয়ে যাবে এবং ২০ টাকা সেট করে দিবে
+                    window.location.href = `payment.html?amount=${verifyFee}&vip=Verification`;
+                } else {
+                    // ফ্রি হলে সরাসরি ভেরিফাই হয়ে যাবে
+                    alert("বিনামূল্যে আপনার একাউন্ট ভেরিফাই হয়েছে!");
+                    window.location.href = "profile.html"; 
+                }
+            }, 800);
         }
     </script>
 </body>
