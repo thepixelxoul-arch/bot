@@ -16,6 +16,7 @@
             --dark-blue: #2c3e50;
             --telegram-blue: #0088cc;
             --whatsapp-green: #25D366;
+            --warning-yellow: #ffcc00;
         }
 
         body { 
@@ -45,33 +46,40 @@
 
         .content { flex-grow: 1; padding: 20px; overflow-y: auto; padding-bottom: 80px; }
         
-        /* নোটিশ বক্স (কাটা দাগ মুছে স্মুথ বর্ডার দেওয়া হয়েছে) */
+        /* নতুন নোটিশ বক্স (সলিড পিংক ব্যাকগ্রাউন্ড) */
         .notice-box {
-            background: linear-gradient(135deg, rgba(226, 0, 90, 0.05), rgba(255, 51, 119, 0.05)); 
-            border: 1px solid rgba(226, 0, 90, 0.15); 
+            background-color: #fce4ec; /* Very light pink background */
+            border: 1px solid var(--main-pink);
             border-left: 4px solid var(--main-pink);
-            padding: 15px; border-radius: 8px; margin-bottom: 25px; color: var(--dark-blue);
-            font-size: 13px; line-height: 1.5; box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-            font-weight: bold; text-align: center;
+            padding: 15px; 
+            border-radius: 8px; 
+            margin-bottom: 25px; 
+            color: var(--dark-blue);
+            font-size: 14px; 
+            line-height: 1.6; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            font-weight: bold; 
+            text-align: center;
         }
 
-        /* সাপোর্ট কার্ড স্টাইল (সম্পূর্ণ পিংক থিম) */
+        /* সাপোর্ট কার্ড স্টাইল (সাদা থিম, বর্ডার সহ) */
         .support-card {
-            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
+            background-color: var(--main-white);
             border-radius: 12px;
             padding: 30px 20px;
             margin-bottom: 20px;
-            border: none;
-            box-shadow: 0 6px 15px rgba(226, 0, 90, 0.25);
+            border: 1px solid #eaeaea;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
             text-align: center;
             transition: 0.3s;
-            color: white;
+            position: relative; /* To contain absolute elements if needed */
         }
         .support-card:hover {
-            box-shadow: 0 8px 20px rgba(226, 0, 90, 0.35);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
             transform: translateY(-3px);
         }
 
+        /* আইকনের স্টাইল (পিংক সার্কেল) */
         .support-icon {
             width: 65px;
             height: 65px;
@@ -82,53 +90,60 @@
             font-size: 32px;
             margin: 0 auto 15px auto;
             color: white;
-            background-color: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            background-color: var(--main-pink);
+            box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);
         }
 
         .support-title {
             font-size: 20px;
             font-weight: 900;
-            color: white;
+            color: var(--dark-blue);
             margin: 0 0 10px 0;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.15);
+            text-shadow: none; /* Removed text shadow for cleaner look on white */
         }
 
         .support-desc {
             font-size: 13px;
-            color: #ffe6f0;
+            color: var(--text-grey);
             margin: 0 0 20px 0;
             line-height: 1.5;
             font-weight: 600;
             padding: 0 10px;
         }
 
-        /* লিংক বাটন (সাদা ব্যাকগ্রাউন্ড, কালারফুল টেক্সট) */
+        /* লিংক বাটন (সাদা ব্যাকগ্রাউন্ড, নীল টেক্সট, বর্ডার) */
         .support-btn {
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
             background-color: var(--main-white);
-            padding: 14px 20px;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: 900;
+            color: var(--telegram-blue);
+            border: 2px solid var(--border-color); /* Light grey border */
+            padding: 10px 20px; /* Reduced padding to make it smaller */
+            border-radius: 20px; /* Rounded corners */
+            font-size: 14px;
+            font-weight: bold;
             text-decoration: none;
-            width: 100%;
+            width: auto; /* Allow button to size to content */
+            min-width: 150px;
             box-sizing: border-box;
             transition: 0.2s;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: none; /* Removed box shadow */
+            cursor: pointer;
         }
         
-        .btn-telegram { color: var(--telegram-blue); }
-        .btn-telegram:hover { background-color: var(--bg-light); transform: translateY(-2px); }
+        .support-btn:hover { 
+            background-color: var(--bg-light); 
+            border-color: var(--telegram-blue); /* Highlight border on hover */
+        }
         
+        /* Optional: specific button styling if needed later */
         .btn-whatsapp { color: var(--whatsapp-green); }
-        .btn-whatsapp:hover { background-color: var(--bg-light); transform: translateY(-2px); }
-
+        .btn-whatsapp:hover { border-color: var(--whatsapp-green); }
         .btn-email { color: var(--main-pink); }
-        .btn-email:hover { background-color: var(--bg-light); transform: translateY(-2px); }
+        .btn-email:hover { border-color: var(--main-pink); }
+
 
         .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: sticky; bottom: 0; z-index: 100; }
         .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); text-decoration: none; flex: 1; }
