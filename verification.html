@@ -39,60 +39,68 @@
             display: flex; flex-direction: column; height: 100%; width: 100%;
         }
 
+        /* হেডার ডিজাইন (অ্যারো ঠিক করা হয়েছে) */
         .header { 
             background-color: var(--main-pink); padding: 15px 20px; 
-            display: flex; justify-content: space-between; align-items: center; 
+            display: flex; align-items: center; 
             color: var(--main-white); box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); z-index: 10; 
             flex-shrink: 0;
         }
-        .header-title { font-size: 18px; font-weight: bold; display: flex; align-items: center; margin-left: 15px; }
-        .back-btn { color: white; text-decoration: none; font-size: 20px; transition: 0.2s; }
+        .back-btn { color: white; text-decoration: none; font-size: 20px; margin-right: 15px; display: flex; align-items: center; }
+        .header-title { font-size: 18px; font-weight: bold; }
 
         .content { 
             flex-grow: 1; padding: 20px; 
             overflow-y: auto; 
             padding-bottom: 80px; 
+            -webkit-overflow-scrolling: touch;
         }
 
-        /* প্রফেশনাল নোটিশ কার্ড */
+        /* ওয়ার্নিং কার্ড */
         .notice-card {
             background-color: #fff8eb; border: 1px solid #ffeeba; border-radius: 12px;
-            padding: 16px; margin-bottom: 20px; display: flex; gap: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            padding: 16px; margin-bottom: 20px; display: flex; gap: 12px; align-items: flex-start;
         }
-        .notice-icon { color: #f39c12; font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+        .notice-icon { color: #f39c12; font-size: 20px; margin-top: 2px; }
         .notice-text { font-size: 13px; color: #444; line-height: 1.5; }
         .notice-text strong { color: #d35400; }
 
-        /* প্রফেশনাল ফেস স্ক্যান এরিয়া */
+        /* নতুন ফেস স্ক্যান এরিয়া (গোল আইকন) */
         .scan-action-card {
             background-color: var(--main-white);
-            border: 2px dashed #ffb8d2;
             border-radius: 16px;
-            padding: 35px 20px;
+            padding: 30px 20px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s ease;
             margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.05);
-        }
-        .scan-action-card:hover {
-            border-color: var(--main-pink);
-            background-color: #fffafb;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            border: 1px solid #eaeaea;
         }
         .scan-icon-wrapper {
-            width: 70px; height: 70px;
-            background: rgba(226, 0, 90, 0.08);
+            width: 80px; height: 80px;
+            background: #fff5f8;
             color: var(--main-pink);
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-size: 30px; margin: 0 auto 15px auto;
+            font-size: 35px; margin: 0 auto 15px auto;
             transition: 0.3s;
         }
-        .scan-title { font-size: 17px; font-weight: 900; color: var(--dark-blue); margin-bottom: 6px; }
+        .scan-title { font-size: 18px; font-weight: 900; color: var(--dark-blue); margin-bottom: 6px; }
         .scan-subtitle { font-size: 13px; color: var(--text-grey); }
+        
+        /* সাকসেস স্টেট */
+        .scan-action-card.success {
+            border: 2px solid var(--main-pink);
+        }
+        .scan-action-card.success .scan-icon-wrapper {
+            background: var(--main-pink);
+            color: white;
+        }
+        .scan-action-card.success .scan-title {
+            color: var(--main-pink);
+        }
 
-        /* পেমেন্ট সামারি এবং কুপন কার্ড */
+        /* পেমেন্ট সামারি কার্ড */
         .summary-card {
             background: var(--main-white); border-radius: 16px; padding: 20px;
             border: 1px solid #eaeaea; box-shadow: 0 4px 15px rgba(0,0,0,0.03);
@@ -107,80 +115,71 @@
         .fee-amount { font-size: 18px; font-weight: 900; color: var(--main-pink); }
         .fee-amount.free { font-size: 14px; color: var(--text-grey); text-decoration: line-through; margin-right: 6px; font-weight: normal; }
 
-        /* কুপন ইনপুট (সংযুক্ত ডিজাইন) */
         .coupon-wrapper {
             display: flex; height: 48px; border-radius: 8px; overflow: hidden; 
-            border: 1.5px solid var(--border-color); transition: 0.3s;
+            border: 1px solid var(--border-color);
         }
-        .coupon-wrapper:focus-within { border-color: var(--main-pink); box-shadow: 0 0 0 3px rgba(226, 0, 90, 0.1); }
         .coupon-wrapper input {
-            flex: 1; border: none; padding: 0 15px; font-size: 14px; outline: none; background: transparent; color: var(--dark-blue);
+            flex: 1; border: none; padding: 0 15px; font-size: 14px; outline: none; color: var(--dark-blue);
         }
         .coupon-wrapper button {
             background: var(--dark-blue); color: white; border: none; padding: 0 20px; 
-            font-weight: bold; font-size: 14px; cursor: pointer; transition: 0.2s;
+            font-weight: bold; font-size: 14px; cursor: pointer;
         }
-        .coupon-wrapper button:hover { background: #1a252f; }
 
-        /* মেইন সাবমিট বাটন */
         .submit-btn {
-            background: linear-gradient(135deg, var(--main-pink), var(--light-pink)); color: white; border: none;
+            background-color: var(--main-pink); color: white; border: none;
             padding: 16px; border-radius: 12px; font-size: 16px; font-weight: bold;
-            width: 100%; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 15px rgba(226, 0, 90, 0.25);
+            width: 100%; cursor: pointer; margin-bottom: 10px;
         }
-        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(226, 0, 90, 0.35); }
-        .submit-btn:disabled { background: #dcdde1; cursor: not-allowed; box-shadow: none; transform: none; }
 
         .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: absolute; bottom: 0; width: 100%; z-index: 100; }
         .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); text-decoration: none; flex: 1; }
         .nav-item i { font-size: 18px; margin-bottom: 4px; display: block; }
         .nav-item.active { color: var(--main-pink); font-weight: bold; }
 
-        /* --- Auto Face Scan Virtual Page --- */
+        /* --- বিকাশের মতো রিয়েল ফেস স্ক্যানার পেজ --- */
         #scanPage {
             display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100vh;
-            background-color: #000000; z-index: 999; flex-direction: column; align-items: center;
+            background-color: var(--main-white); z-index: 999; flex-direction: column; align-items: center;
         }
 
         .scan-header {
-            width: 100%; padding: 20px; display: flex; align-items: center; color: white; box-sizing: border-box;
+            width: 100%; padding: 15px 20px; display: flex; align-items: center; 
+            background-color: var(--main-pink); color: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        .scan-close { font-size: 24px; color: white; cursor: pointer; margin-right: 15px; }
+        .scan-close { font-size: 20px; color: white; cursor: pointer; margin-right: 15px; }
+        .scan-header-title { font-size: 18px; font-weight: bold; }
 
-        .scanner-title { color: white; font-size: 22px; font-weight: bold; margin-top: 20px; margin-bottom: 10px; }
-        .scanner-subtitle { color: #aaaaaa; font-size: 14px; margin-bottom: 40px; text-align: center; padding: 0 20px;}
-
-        /* বড় চারকোনা স্ক্রিন */
-        .camera-box {
-            width: 300px; height: 340px; border: 4px solid var(--main-pink); border-radius: 20px;
-            position: relative; overflow: hidden; background-color: #111; box-shadow: 0 0 30px rgba(226, 0, 90, 0.5);
+        .scanner-instruction {
+            color: var(--main-pink); font-size: 18px; font-weight: bold; margin-top: 40px; margin-bottom: 30px;
         }
-        .camera-box video { width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); }
+
+        /* গোল ক্যামেরা ফ্রেম (Circle) */
+        .camera-circle-box {
+            width: 280px; height: 280px; border-radius: 50%;
+            border: 4px solid #eaeaea;
+            position: relative; overflow: hidden; background-color: #000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        /* স্ক্যানিং এর সময় বর্ডার পিংক হবে */
+        .camera-circle-box.active {
+            border-color: var(--main-pink);
+        }
         
-        /* অটো স্ক্যানিং লাইন অ্যানিমেশন */
-        .scan-line {
-            position: absolute; top: 0; left: 0; width: 100%; height: 5px; background-color: var(--main-pink);
-            box-shadow: 0 0 15px var(--main-pink), 0 0 30px var(--main-pink);
-            animation: scanAnim 2s infinite linear; display: none;
+        .camera-circle-box video {
+            width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1);
         }
 
-        @keyframes scanAnim {
-            0% { top: 0; }
-            50% { top: 100%; }
-            100% { top: 0; }
-        }
-
-        /* ফেস ডিটেকশন মেসেজ */
         .ai-message {
-            margin-top: 30px; padding: 12px 25px; border-radius: 30px; font-size: 16px; font-weight: bold;
-            background-color: rgba(255,255,255,0.1); color: white; transition: 0.3s; text-align: center;
+            margin-top: 40px; font-size: 16px; font-weight: bold; color: var(--dark-blue); text-align: center;
         }
 
         .toast-msg {
             visibility: hidden; min-width: 250px; background-color: var(--main-pink);
             color: #fff; text-align: center; border-radius: 30px; padding: 12px 20px;
             position: fixed; z-index: 99999; left: 50%; transform: translateX(-50%);
-            top: 20px; font-size: 13px; font-weight: bold; line-height: 1.4;
+            top: 20px; font-size: 13px; font-weight: bold;
             box-shadow: 0 4px 15px rgba(226, 0, 90, 0.4); opacity: 0; transition: opacity 0.3s, top 0.3s;
         }
         .toast-msg.show { visibility: visible; opacity: 1; top: 40px; }
@@ -195,23 +194,20 @@
         <!-- ================= MAIN VIEW ================= -->
         <div id="mainView">
             <div class="header">
-                <div class="header-left">
-                    <a href="profile.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
-                    <div class="header-title">একাউন্ট ভেরিফিকেশন</div>
-                </div>
+                <a href="profile.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+                <div class="header-title">একাউন্ট ভেরিফিকেশন</div>
             </div>
 
             <div class="content">
                 
-                <!-- প্রফেশনাল ওয়ার্নিং কার্ড -->
                 <div class="notice-card">
                     <div class="notice-icon"><i class="fas fa-exclamation-circle"></i></div>
                     <div class="notice-text">
-                        অ্যাকাউন্ট ভেরিফিকেশন সম্পন্ন না করা পর্যন্ত আপনি <strong>কোনো কাজ (টাস্ক) বা উইথড্র</strong> করতে পারবেন না। নিরাপত্তা নিশ্চিত করতে আপনার ফেস স্ক্যান করুন।
+                        অ্যাকাউন্ট ভেরিফিকেশন সম্পন্ন না করা পর্যন্ত আপনি <strong>কোনো কাজ (টাস্ক) বা উইথড্র</strong> করতে পারবেন না। নিরাপত্তা নিশ্চিত করতে আপনার নিজের ফেস স্ক্যান করুন।
                     </div>
                 </div>
 
-                <!-- অফিশিয়াল ফেস স্ক্যান এরিয়া -->
+                <!-- নতুন গোল ফেস স্ক্যান বাটন -->
                 <div class="scan-action-card" id="mainScanBtn" onclick="openFaceScannerPage()">
                     <div class="scan-icon-wrapper" id="scanIconWrap">
                         <i class="fas fa-expand" id="scanIcon"></i>
@@ -220,10 +216,9 @@
                     <div class="scan-subtitle" id="scanSub">ক্যামেরার সামনে আপনার চেহারা ধরুন</div>
                 </div>
 
-                <!-- পেমেন্ট সামারি কার্ড -->
                 <div class="summary-card">
                     <div class="fee-row">
-                        <div class="fee-title">ভেরিফিকেশন ফি</div>
+                        <div class="fee-title">ভেরিফিকেশন ফি:</div>
                         <div>
                             <span id="oldFee" class="fee-amount free" style="display:none;">৳২০</span>
                             <span id="feeAmount" class="fee-amount">৳২০</span>
@@ -252,20 +247,17 @@
         <div id="scanPage">
             <div class="scan-header">
                 <i class="fas fa-arrow-left scan-close" onclick="closeFaceScannerPage()"></i>
-                <span style="font-size: 18px; font-weight: bold; margin-left: 10px;">Face Verification</span>
+                <div class="scan-header-title">নিজের চেহারার ছবি তুলুন</div>
             </div>
 
-            <div class="scanner-title">আপনার চেহারা স্ক্যান করুন</div>
-            <div class="scanner-subtitle">ক্যামেরার দিকে সরাসরি তাকান এবং পর্যাপ্ত আলোতে থাকুন। স্বয়ংক্রিয়ভাবে স্ক্যান হবে।</div>
+            <div class="scanner-instruction" id="scanInstruction">চেহারা সামনে আনুন</div>
 
-            <!-- বড় চারকোনা স্ক্রিন -->
-            <div class="camera-box">
+            <!-- বিকাশের মতো গোল ক্যামেরা স্ক্রিন -->
+            <div class="camera-circle-box" id="cameraBox">
                 <video id="autoVideoFeed" autoplay playsinline></video>
-                <div class="scan-line" id="scanLineAnim"></div>
             </div>
 
-            <!-- এআই মেসেজ -->
-            <div class="ai-message" id="aiMessage">ক্যামেরা চালু হচ্ছে...</div>
+            <div class="ai-message" id="aiMessage">ক্যামেরা প্রস্তুত হচ্ছে...</div>
         </div>
 
     </div>
@@ -283,7 +275,7 @@
             setTimeout(() => { toast.classList.remove("show"); }, 3000);
         }
 
-        // ভার্চুয়াল পেজ ওপেন এবং ক্যামেরা চালু করা
+        // ক্যামেরা ওপেন করা
         async function openFaceScannerPage() {
             if(isFaceScanned) {
                 showToast("আপনার ফেস ইতিমধ্যেই স্ক্যান করা হয়েছে!");
@@ -294,17 +286,18 @@
             document.getElementById("scanPage").style.display = "flex";
             const video = document.getElementById("autoVideoFeed");
             const aiMsg = document.getElementById("aiMessage");
-            const scanLine = document.getElementById("scanLineAnim");
+            const instruction = document.getElementById("scanInstruction");
+            const cameraBox = document.getElementById("cameraBox");
+
+            instruction.innerText = "চেহারা সামনে আনুন";
+            aiMsg.innerText = "দয়া করে স্থির থাকুন...";
+            cameraBox.classList.remove("active");
 
             try {
                 mediaStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
                 video.srcObject = mediaStream;
                 
-                aiMsg.innerText = "ফ্রেমের ভেতর আপনার চেহারা রাখুন";
-                aiMsg.style.color = "white";
-                scanLine.style.display = "block"; 
-
-                // অটোমেটিক স্ক্যান লজিক
+                // অটোমেটিক স্ক্যান শুরু
                 startAutoDetection();
 
             } catch (error) {
@@ -316,7 +309,6 @@
         function closeFaceScannerPage() {
             document.getElementById("scanPage").style.display = "none";
             document.getElementById("mainView").style.display = "flex";
-            document.getElementById("scanLineAnim").style.display = "none";
             
             if (mediaStream) {
                 mediaStream.getTracks().forEach(track => track.stop());
@@ -327,6 +319,9 @@
         function startAutoDetection() {
             const video = document.getElementById('autoVideoFeed');
             const aiMsg = document.getElementById('aiMessage');
+            const instruction = document.getElementById('scanInstruction');
+            const cameraBox = document.getElementById('cameraBox');
+            
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
             
@@ -346,13 +341,15 @@
                     let avgBrightness = totalBrightness / (canvas.width * canvas.height);
 
                     if (avgBrightness < 30) {
-                        aiMsg.innerText = "মানুষের চেহারা পাওয়া যাচ্ছে না! আলোতে আসুন।";
-                        aiMsg.style.color = "#ff4757"; 
+                        instruction.innerText = "আলোতে আসুন";
+                        aiMsg.innerText = "চেহারা পরিষ্কার বোঝা যাচ্ছে না!";
+                        cameraBox.classList.remove("active");
                         progress = 0; 
                     } else {
-                        progress += 25;
-                        aiMsg.innerText = `মানুষের চেহারা শনাক্ত হচ্ছে... ${progress}%`;
-                        aiMsg.style.color = "var(--main-pink)";
+                        progress += 20;
+                        cameraBox.classList.add("active"); // স্ক্যান হলে বর্ডার পিংক হবে
+                        instruction.innerText = "স্ক্যান হচ্ছে...";
+                        aiMsg.innerText = `দয়া করে চোখ পলক ফেলুন... ${progress}%`;
 
                         if (progress >= 100) {
                             clearInterval(scanInterval);
@@ -360,16 +357,16 @@
                         }
                     }
                 }
-            }, 800);
+            }, 1000);
         }
 
-        // স্ক্যান ১০০% সম্পন্ন হলে (সম্পূর্ণ পিংক থিমে আপডেট)
+        // স্ক্যান সম্পন্ন হলে
         function finishScanning() {
+            const instruction = document.getElementById('scanInstruction');
             const aiMsg = document.getElementById('aiMessage');
-            document.getElementById("scanLineAnim").style.display = "none";
             
-            aiMsg.innerText = "স্ক্যান সম্পন্ন হয়েছে!";
-            aiMsg.style.color = "var(--main-pink)"; 
+            instruction.innerText = "ধন্যবাদ!";
+            aiMsg.innerText = "স্ক্যান সফলভাবে সম্পন্ন হয়েছে।";
 
             setTimeout(() => {
                 closeFaceScannerPage();
@@ -377,20 +374,14 @@
                 isFaceScanned = true;
                 const mainBtn = document.getElementById("mainScanBtn");
                 
-                // সাকসেস ডিজাইন (কোনো সবুজ রং নেই, সব পিংক)
-                mainBtn.style.border = "2px solid var(--main-pink)";
-                mainBtn.style.backgroundColor = "#fff5f8";
+                // সাকসেস ডিজাইন আপডেট (পুরোটাই পিংক)
+                mainBtn.classList.add("success");
                 
-                document.getElementById("scanIconWrap").style.backgroundColor = "var(--main-pink)";
-                document.getElementById("scanIconWrap").style.color = "white";
                 document.getElementById("scanIcon").className = "fas fa-check";
-                
                 document.getElementById("scanTitle").innerText = "ফেস স্ক্যান সম্পন্ন";
-                document.getElementById("scanTitle").style.color = "var(--main-pink)";
                 document.getElementById("scanSub").innerText = "আপনার ভেরিফিকেশন প্রোফাইল আপডেট করা হয়েছে";
                 
-                showToast("আপনার ফেস সফলভাবে স্ক্যান হয়েছে!");
-            }, 1000);
+            }, 1500);
         }
 
         function applyCoupon() {
