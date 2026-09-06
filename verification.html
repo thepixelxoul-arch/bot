@@ -17,7 +17,7 @@
             --border-color: #dcdde1;
         }
 
-        body, html { 
+        body { 
             margin: 0; padding: 0; 
             background-color: #e9ecef; 
             font-family: 'Segoe UI', Tahoma, sans-serif; 
@@ -30,30 +30,28 @@
             width: 100%; max-width: 450px; height: 100vh; 
             background-color: var(--bg-light); color: var(--main-pink); 
             box-shadow: 0 0 25px rgba(0,0,0,0.1); 
-            position: relative; overflow: hidden; 
+            position: relative; display: flex; flex-direction: column;
         }
 
-        /* --- দুটো পেজের সাইজ হুবহু এক রাখার জন্য ফিক্সড কোড --- */
+        /* --- দুটো পেজের জন্য সেম লেআউট (কোনো Absolute পজিশন নেই) --- */
         #mainView, #scanPage {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            display: flex; flex-direction: column;
+            display: flex; flex-direction: column; height: 100%; width: 100%;
             background-color: var(--bg-light);
         }
-        #scanPage { display: none; z-index: 50; }
+        #scanPage { display: none; }
 
-        /* কমন হেডার (দুটো পেজেই সেম সাইজ এবং ডিজাইন) */
+        /* কমন হেডার (দুটো পেজেই সেম) */
         .header { 
             width: 100%; box-sizing: border-box;
             background-color: var(--main-pink); padding: 15px 20px; 
             display: flex; align-items: center; 
             color: var(--main-white); box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); 
-            z-index: 10; flex-shrink: 0;
+            flex-shrink: 0;
         }
-        .header-left { display: flex; align-items: center; }
         .back-btn { color: white; text-decoration: none; font-size: 20px; margin-right: 15px; cursor: pointer; }
         .header-title { font-size: 18px; font-weight: bold; }
 
-        /* কমন কন্টেন্ট এরিয়া */
+        /* কমন কন্টেন্ট (দুটো পেজেই সেম প্যাডিং) */
         .content { 
             flex-grow: 1; padding: 20px; 
             overflow-y: auto; padding-bottom: 80px; 
@@ -119,21 +117,15 @@
         .nav-item.active { color: var(--main-pink); font-weight: bold; }
 
         /* --- Auto Face Scan Components --- */
-        .camera-card {
-            background-color: var(--main-white); border-radius: 16px; padding: 40px 20px;
-            text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 1px solid #eaeaea;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            width: 100%; box-sizing: border-box;
-        }
-
         .scanner-instruction {
-            color: var(--main-pink); font-size: 18px; font-weight: bold; margin-bottom: 30px;
+            color: var(--main-pink); font-size: 18px; font-weight: bold; margin-bottom: 30px; text-align: center; margin-top: 20px;
         }
 
         .camera-circle-box {
             width: 260px; height: 260px; border-radius: 50%;
             border: 4px solid #eaeaea; position: relative; overflow: hidden; 
             background-color: #f4f6f9; display: flex; justify-content: center; align-items: center;
+            margin: 0 auto;
         }
         .camera-circle-box.active { border-color: var(--main-pink); }
         
@@ -172,10 +164,8 @@
         <!-- ================= MAIN VIEW ================= -->
         <div id="mainView">
             <div class="header">
-                <div class="header-left">
-                    <a href="profile.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
-                    <div class="header-title">একাউন্ট ভেরিফিকেশন</div>
-                </div>
+                <a href="profile.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+                <div class="header-title">একাউন্ট ভেরিফিকেশন</div>
             </div>
 
             <div class="content">
@@ -222,25 +212,22 @@
 
         <!-- ================= AUTO FACE SCAN PAGE ================= -->
         <div id="scanPage">
+            <!-- মেইন পেজের মতো হুবহু একই হেডার -->
             <div class="header">
-                <div class="header-left">
-                    <a href="#" class="back-btn" onclick="closeFaceScannerPage(); return false;"><i class="fas fa-arrow-left"></i></a>
-                    <div class="header-title">নিজের চেহারার ছবি তুলুন</div>
-                </div>
+                <a href="#" class="back-btn" onclick="closeFaceScannerPage(); return false;"><i class="fas fa-arrow-left"></i></a>
+                <div class="header-title">নিজের চেহারার ছবি তুলুন</div>
             </div>
 
-            <!-- কন্টেন্ট এরিয়া (মেইন পেজের মতই সেম প্যাডিং এবং গ্রে ব্যাকগ্রাউন্ড) -->
+            <!-- মেইন পেজের মতো হুবহু একই কন্টেন্ট বক্স -->
             <div class="content" style="display: flex; flex-direction: column; justify-content: center;">
-                <div class="camera-card">
-                    <div class="scanner-instruction" id="scanInstruction">চেহারা সামনে আনুন</div>
+                <div class="scanner-instruction" id="scanInstruction">চেহারা সামনে আনুন</div>
 
-                    <div class="camera-circle-box" id="cameraBox">
-                        <i class="fas fa-user camera-fallback-icon"></i>
-                        <video id="autoVideoFeed" autoplay playsinline muted></video>
-                    </div>
-
-                    <div class="ai-message" id="aiMessage">ক্যামেরা প্রস্তুত হচ্ছে...</div>
+                <div class="camera-circle-box" id="cameraBox">
+                    <i class="fas fa-user camera-fallback-icon"></i>
+                    <video id="autoVideoFeed" autoplay playsinline muted></video>
                 </div>
+
+                <div class="ai-message" id="aiMessage">ক্যামেরা প্রস্তুত হচ্ছে...</div>
             </div>
         </div>
 
