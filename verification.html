@@ -22,41 +22,26 @@
             background-color: #e9ecef; 
             font-family: 'Segoe UI', Tahoma, sans-serif; 
             display: flex; justify-content: center; 
-            align-items: center; /* ল্যাপটপে স্ক্রিনের ঠিক মাঝখানে রাখার জন্য */
             height: 100vh; 
             overflow: hidden; 
         }
 
-        /* অ্যাপ কন্টেইনার (মোবাইল সাইজ) */
+        /* মোবাইলের অরিজিনাল সাইজ (৪৫০ পিক্সেল) */
         .app-container { 
-            width: 100%; 
-            max-width: 420px; 
-            height: 100%; 
-            max-height: 850px; /* ল্যাপটপে অতিরিক্ত লম্বা হওয়া ঠেকাতে লিমিট */
-            background-color: var(--bg-light); 
-            color: var(--main-pink); 
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15); 
-            position: relative; 
-            overflow: hidden; 
-            display: flex;
-            flex-direction: column;
+            width: 100%; max-width: 450px; height: 100vh; 
+            background-color: var(--bg-light); color: var(--main-pink); 
+            box-shadow: 0 0 25px rgba(0,0,0,0.1); 
+            position: relative; overflow: hidden; 
         }
 
-        /* ল্যাপটপের জন্য স্পেশাল ফোন ফ্রেম (উপরে-নিচে বর্ডার) */
-        @media (min-width: 500px) {
-            .app-container {
-                border-radius: 35px;
-                border: 10px solid #2c3e50; /* ফোনের কালো ফ্রেম */
-                height: 90vh;
-            }
-        }
-
-        /* --- Main View Styles --- */
-        #mainView {
+        /* মেইন পেজ এবং স্ক্যান পেজ দুটোরই ব্যাকগ্রাউন্ড এবং লেআউট সেম করা হয়েছে */
+        #mainView, #scanPage {
             display: flex; flex-direction: column; height: 100%; width: 100%;
             background-color: var(--bg-light);
         }
+        #scanPage { display: none; } /* শুরুতে স্ক্যান পেজ লুকানো থাকবে */
 
+        /* কমন হেডার (দুটো পেজেই একই হেডার থাকবে) */
         .header { 
             background-color: var(--main-pink); padding: 15px 20px; 
             display: flex; align-items: center; 
@@ -66,6 +51,7 @@
         .back-btn { color: white; text-decoration: none; font-size: 20px; margin-right: 15px; display: flex; align-items: center; cursor: pointer; }
         .header-title { font-size: 18px; font-weight: bold; }
 
+        /* কমন কন্টেন্ট এরিয়া (দুটো পেজেই চারপাশের প্যাডিং সেম থাকবে) */
         .content { 
             flex-grow: 1; padding: 20px; 
             overflow-y: auto; 
@@ -73,6 +59,7 @@
             -webkit-overflow-scrolling: touch;
         }
 
+        /* --- Main View Components --- */
         .notice-card {
             background-color: #fff8eb; border: 1px solid #ffeeba; border-radius: 12px;
             padding: 16px; margin-bottom: 20px; display: flex; gap: 12px; align-items: flex-start;
@@ -129,35 +116,19 @@
         .nav-item i { font-size: 18px; margin-bottom: 4px; display: block; }
         .nav-item.active { color: var(--main-pink); font-weight: bold; }
 
-        /* --- বিকাশের মতো রিয়েল ফেস স্ক্যানার পেজ --- */
-        #scanPage {
-            display: none; flex-direction: column; height: 100%; width: 100%;
-            background-color: var(--main-white); z-index: 999;
-        }
-
-        .scan-header {
-            width: 100%; padding: 15px 20px; display: flex; align-items: center; justify-content: center;
-            background-color: var(--main-pink); color: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: relative; flex-shrink: 0; box-sizing: border-box;
-        }
-        .scan-header .back-btn {
-            position: absolute; left: 20px; color: white; text-decoration: none; font-size: 20px; cursor: pointer; margin: 0;
-        }
-        .scan-header .header-title {
-            font-size: 18px; font-weight: bold; text-align: center;
-        }
-
-        .scan-body {
-            flex-grow: 1; display: flex; flex-direction: column; align-items: center; padding-top: 40px;
+        /* --- Auto Face Scan Components --- */
+        .camera-card {
+            background-color: var(--main-white); border-radius: 16px; padding: 40px 20px;
+            text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 1px solid #eaeaea;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
 
         .scanner-instruction {
             color: var(--main-pink); font-size: 18px; font-weight: bold; margin-bottom: 30px;
         }
 
-        /* গোল ক্যামেরা ফ্রেম */
         .camera-circle-box {
-            width: 280px; height: 280px; border-radius: 50%;
+            width: 260px; height: 260px; border-radius: 50%;
             border: 4px solid #eaeaea; position: relative; overflow: hidden; 
             background-color: #f4f6f9; display: flex; justify-content: center; align-items: center;
         }
@@ -168,17 +139,15 @@
         }
 
         .camera-circle-box video {
-            position: absolute;
-            top: 0; left: 0;
+            position: absolute; top: 0; left: 0;
             width: 100%; height: 100%; 
             object-fit: cover !important; 
-            transform: rotateY(180deg);
-            -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg); -webkit-transform: rotateY(180deg);
             z-index: 2;
         }
 
         .ai-message {
-            margin-top: 40px; font-size: 16px; font-weight: bold; color: var(--dark-blue); text-align: center;
+            margin-top: 30px; font-size: 16px; font-weight: bold; color: var(--dark-blue); text-align: center;
         }
 
         .toast-msg {
@@ -248,20 +217,23 @@
 
         <!-- ================= AUTO FACE SCAN PAGE ================= -->
         <div id="scanPage">
-            <div class="scan-header">
-                <i class="fas fa-arrow-left back-btn" onclick="closeFaceScannerPage()"></i>
+            <div class="header">
+                <a href="#" class="back-btn" onclick="closeFaceScannerPage(); return false;"><i class="fas fa-arrow-left"></i></a>
                 <div class="header-title">নিজের চেহারার ছবি তুলুন</div>
             </div>
 
-            <div class="scan-body">
-                <div class="scanner-instruction" id="scanInstruction">চেহারা সামনে আনুন</div>
+            <!-- কন্টেন্ট এরিয়া মেইন পেজের মতোই গ্রে ব্যাকগ্রাউন্ড এবং সেম প্যাডিং পাবে -->
+            <div class="content" style="display: flex; flex-direction: column; justify-content: center;">
+                <div class="camera-card">
+                    <div class="scanner-instruction" id="scanInstruction">চেহারা সামনে আনুন</div>
 
-                <div class="camera-circle-box" id="cameraBox">
-                    <i class="fas fa-user camera-fallback-icon"></i>
-                    <video id="autoVideoFeed" autoplay playsinline muted></video>
+                    <div class="camera-circle-box" id="cameraBox">
+                        <i class="fas fa-user camera-fallback-icon"></i>
+                        <video id="autoVideoFeed" autoplay playsinline muted></video>
+                    </div>
+
+                    <div class="ai-message" id="aiMessage">ক্যামেরা প্রস্তুত হচ্ছে...</div>
                 </div>
-
-                <div class="ai-message" id="aiMessage">ক্যামেরা প্রস্তুত হচ্ছে...</div>
             </div>
         </div>
 
