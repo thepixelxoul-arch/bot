@@ -26,7 +26,6 @@
             overflow: hidden; 
         }
 
-        /* মোবাইলের অরিজিনাল সাইজ (৪৫০ পিক্সেল) */
         .app-container { 
             width: 100%; max-width: 450px; height: 100vh; 
             background-color: var(--bg-light); color: var(--main-pink); 
@@ -34,28 +33,31 @@
             position: relative; overflow: hidden; 
         }
 
-        /* মেইন পেজ এবং স্ক্যান পেজ দুটোরই ব্যাকগ্রাউন্ড এবং লেআউট সেম করা হয়েছে */
+        /* --- দুটো পেজের সাইজ হুবহু এক রাখার জন্য ফিক্সড কোড --- */
         #mainView, #scanPage {
-            display: flex; flex-direction: column; height: 100%; width: 100%;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; flex-direction: column;
             background-color: var(--bg-light);
         }
-        #scanPage { display: none; } /* শুরুতে স্ক্যান পেজ লুকানো থাকবে */
+        #scanPage { display: none; z-index: 50; }
 
-        /* কমন হেডার (দুটো পেজেই একই হেডার থাকবে) */
+        /* কমন হেডার (দুটো পেজেই সেম সাইজ এবং ডিজাইন) */
         .header { 
+            width: 100%; box-sizing: border-box;
             background-color: var(--main-pink); padding: 15px 20px; 
             display: flex; align-items: center; 
-            color: var(--main-white); box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); z-index: 10; 
-            flex-shrink: 0;
+            color: var(--main-white); box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); 
+            z-index: 10; flex-shrink: 0;
         }
-        .back-btn { color: white; text-decoration: none; font-size: 20px; margin-right: 15px; display: flex; align-items: center; cursor: pointer; }
+        .header-left { display: flex; align-items: center; }
+        .back-btn { color: white; text-decoration: none; font-size: 20px; margin-right: 15px; cursor: pointer; }
         .header-title { font-size: 18px; font-weight: bold; }
 
-        /* কমন কন্টেন্ট এরিয়া (দুটো পেজেই চারপাশের প্যাডিং সেম থাকবে) */
+        /* কমন কন্টেন্ট এরিয়া */
         .content { 
             flex-grow: 1; padding: 20px; 
-            overflow-y: auto; 
-            padding-bottom: 80px; 
+            overflow-y: auto; padding-bottom: 80px; 
+            width: 100%; box-sizing: border-box;
             -webkit-overflow-scrolling: touch;
         }
 
@@ -121,6 +123,7 @@
             background-color: var(--main-white); border-radius: 16px; padding: 40px 20px;
             text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 1px solid #eaeaea;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
+            width: 100%; box-sizing: border-box;
         }
 
         .scanner-instruction {
@@ -169,8 +172,10 @@
         <!-- ================= MAIN VIEW ================= -->
         <div id="mainView">
             <div class="header">
-                <a href="profile.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
-                <div class="header-title">একাউন্ট ভেরিফিকেশন</div>
+                <div class="header-left">
+                    <a href="profile.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+                    <div class="header-title">একাউন্ট ভেরিফিকেশন</div>
+                </div>
             </div>
 
             <div class="content">
@@ -218,11 +223,13 @@
         <!-- ================= AUTO FACE SCAN PAGE ================= -->
         <div id="scanPage">
             <div class="header">
-                <a href="#" class="back-btn" onclick="closeFaceScannerPage(); return false;"><i class="fas fa-arrow-left"></i></a>
-                <div class="header-title">নিজের চেহারার ছবি তুলুন</div>
+                <div class="header-left">
+                    <a href="#" class="back-btn" onclick="closeFaceScannerPage(); return false;"><i class="fas fa-arrow-left"></i></a>
+                    <div class="header-title">নিজের চেহারার ছবি তুলুন</div>
+                </div>
             </div>
 
-            <!-- কন্টেন্ট এরিয়া মেইন পেজের মতোই গ্রে ব্যাকগ্রাউন্ড এবং সেম প্যাডিং পাবে -->
+            <!-- কন্টেন্ট এরিয়া (মেইন পেজের মতই সেম প্যাডিং এবং গ্রে ব্যাকগ্রাউন্ড) -->
             <div class="content" style="display: flex; flex-direction: column; justify-content: center;">
                 <div class="camera-card">
                     <div class="scanner-instruction" id="scanInstruction">চেহারা সামনে আনুন</div>
