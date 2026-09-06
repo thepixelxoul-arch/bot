@@ -52,6 +52,7 @@
             flex-grow: 1; padding: 20px; 
             overflow-y: auto; 
             padding-bottom: 80px; 
+            -webkit-overflow-scrolling: touch;
         }
 
         .notice-card {
@@ -125,15 +126,22 @@
             color: var(--main-pink); font-size: 18px; font-weight: bold; margin-bottom: 30px;
         }
 
-        /* গোল ক্যামেরা ফ্রেম (Circle) */
+        /* গোল ক্যামেরা ফ্রেম */
         .camera-circle-box {
             width: 280px; height: 280px; border-radius: 50%;
-            border: 4px solid #eaeaea; position: relative; overflow: hidden; background-color: #f4f6f9;
+            border: 4px solid #eaeaea; position: relative; overflow: hidden; 
+            background-color: #f4f6f9; display: flex; justify-content: center; align-items: center;
         }
         .camera-circle-box.active { border-color: var(--main-pink); }
         
+        /* ক্যামেরা লোড না হওয়া পর্যন্ত একটি আইকন দেখাবে */
+        .camera-fallback-icon {
+            position: absolute; font-size: 50px; color: #ccc; z-index: 1;
+        }
+
         .camera-circle-box video {
             width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1);
+            position: relative; z-index: 2;
         }
 
         .ai-message {
@@ -216,7 +224,9 @@
                 <div class="scanner-instruction" id="scanInstruction">চেহারা সামনে আনুন</div>
 
                 <div class="camera-circle-box" id="cameraBox">
-                    <video id="autoVideoFeed" autoplay playsinline></video>
+                    <i class="fas fa-user camera-fallback-icon"></i>
+                    <!-- muted অ্যাট্রিবিউট যুক্ত করা হয়েছে যেন ব্রাউজার ব্লক না করে -->
+                    <video id="autoVideoFeed" autoplay playsinline muted></video>
                 </div>
 
                 <div class="ai-message" id="aiMessage">ক্যামেরা প্রস্তুত হচ্ছে...</div>
@@ -238,14 +248,12 @@
             setTimeout(() => { toast.classList.remove("show"); }, 3000);
         }
 
-        // ক্যামেরা ওপেন করা
         async function openFaceScannerPage() {
             if(isFaceScanned) {
                 showToast("আপনার ফেস ইতিমধ্যেই স্ক্যান করা হয়েছে!");
                 return;
             }
 
-            // মেইন ভিউ হাইড করে স্ক্যান পেজটি ফ্লেক্স করা হলো (যাতে সাদা পেজ না আসে)
             document.getElementById("mainView").style.display = "none";
             document.getElementById("scanPage").style.display = "flex";
             
@@ -259,14 +267,20 @@
             cameraBox.classList.remove("active");
 
             try {
+                // ক্যামেরা এক্সেস নেওয়া
                 mediaStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
                 video.srcObject = mediaStream;
+                
+                // ভিডিও লোড হলে জোর করে প্লে করা
+                video.onloadedmetadata = () => {
+                    video.play();
+                };
                 
                 startAutoDetection();
             } catch (error) {
                 console.error(error);
                 closeFaceScannerPage();
-                alert("ক্যামেরা ওপেন করা যাচ্ছে না! আপনার ব্রাউজারে বা ডিভাইসে ক্যামেরার পারমিশন অন করুন।");
+                alert("ক্যামেরা ওপেন করা যাচ্ছে না! আপনার ব্রাউজারে বা ডিভাইসে ক্যামেরার পারমিশন দিন।");
             }
         }
 
