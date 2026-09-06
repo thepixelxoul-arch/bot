@@ -26,9 +26,9 @@
             overflow: hidden; 
         }
 
-        /* স্ক্রিন সাইজ 100% করা হয়েছে যেন চাপা না দেখায় */
+        /* মোবাইলের মতো সাইজ (450px) করে দেওয়া হয়েছে */
         .app-container { 
-            width: 100%; max-width: 100%; height: 100%; 
+            width: 100%; max-width: 450px; height: 100vh; 
             background-color: var(--bg-light); color: var(--main-pink); 
             box-shadow: 0 0 25px rgba(0,0,0,0.1); 
             position: relative; overflow: hidden; 
@@ -59,7 +59,6 @@
         .notice-card {
             background-color: #fff8eb; border: 1px solid #ffeeba; border-radius: 12px;
             padding: 16px; margin-bottom: 20px; display: flex; gap: 12px; align-items: flex-start;
-            max-width: 600px; margin-left: auto; margin-right: auto;
         }
         .notice-icon { color: #f39c12; font-size: 20px; margin-top: 2px; }
         .notice-text { font-size: 13px; color: #444; line-height: 1.5; }
@@ -70,7 +69,6 @@
             text-align: center; cursor: pointer; margin-bottom: 20px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 1px solid #eaeaea;
             transition: 0.3s;
-            max-width: 600px; margin-left: auto; margin-right: auto;
         }
         .scan-icon-wrapper {
             width: 80px; height: 80px; background: #fff5f8; color: var(--main-pink);
@@ -87,7 +85,6 @@
         .summary-card {
             background: var(--main-white); border-radius: 16px; padding: 20px;
             border: 1px solid #eaeaea; margin-bottom: 20px;
-            max-width: 600px; margin-left: auto; margin-right: auto;
         }
         
         .fee-row {
@@ -104,14 +101,10 @@
         .coupon-wrapper input { flex: 1; border: none; padding: 0 15px; font-size: 14px; outline: none; color: var(--dark-blue); }
         .coupon-wrapper button { background: var(--dark-blue); color: white; border: none; padding: 0 20px; font-weight: bold; cursor: pointer; }
 
-        .submit-btn-wrapper {
-            max-width: 600px; margin: 0 auto 10px auto;
-        }
-
         .submit-btn {
             background-color: var(--main-pink); color: white; border: none;
             padding: 16px; border-radius: 12px; font-size: 16px; font-weight: bold;
-            width: 100%; cursor: pointer;
+            width: 100%; cursor: pointer; margin-bottom: 10px;
         }
 
         .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: absolute; bottom: 0; width: 100%; z-index: 100; }
@@ -208,9 +201,7 @@
                     </div>
                 </div>
 
-                <div class="submit-btn-wrapper">
-                    <button class="submit-btn" id="verifySubmitBtn" onclick="completeVerification()">৳২০ পেমেন্ট করুন</button>
-                </div>
+                <button class="submit-btn" id="verifySubmitBtn" onclick="completeVerification()">৳২০ পেমেন্ট করুন</button>
             </div>
 
             <div class="bottom-nav">
@@ -233,7 +224,6 @@
 
                 <div class="camera-circle-box" id="cameraBox">
                     <i class="fas fa-user camera-fallback-icon"></i>
-                    <!-- muted অ্যাট্রিবিউট যুক্ত করা হয়েছে যেন ব্রাউজার ব্লক না করে -->
                     <video id="autoVideoFeed" autoplay playsinline muted></video>
                 </div>
 
