@@ -64,25 +64,40 @@
         .notice-text { font-size: 13px; color: #444; line-height: 1.5; }
         .notice-text strong { color: #d35400; }
 
+        /* --- আপডেট করা হালকা গোলাপি ফেস স্ক্যান বক্স --- */
         .scan-action-card {
-            background-color: var(--main-white); border-radius: 16px; padding: 30px 20px;
-            text-align: center; cursor: pointer; margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 1px solid #eaeaea;
-            transition: 0.3s;
+            background-color: #fff4f7; /* হালকা গোলাপি ব্যাকগ্রাউন্ড */
+            border-radius: 16px; 
+            padding: 30px 20px;
+            text-align: center; 
+            cursor: pointer; 
+            margin-bottom: 20px;
+            box-shadow: 0 6px 20px rgba(226, 0, 90, 0.06); /* হালকা গোলাপি শ্যাডো */
+            border: 1.5px dashed #ffb3c6; /* ড্যাশড বর্ডার স্ক্যানার লুকের জন্য */
+            transition: all 0.3s ease;
+        }
+        .scan-action-card:hover {
+            background-color: #ffe8ee;
+            border-color: var(--main-pink);
+            transform: translateY(-2px);
         }
         .scan-icon-wrapper {
-            width: 80px; height: 80px; background: #fff5f8; color: var(--main-pink);
+            width: 80px; height: 80px; 
+            background: var(--main-white); /* আইকনের ব্যাকগ্রাউন্ড সাদা */
+            color: var(--main-pink);
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
             font-size: 35px; margin: 0 auto 15px auto; transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(226, 0, 90, 0.08);
         }
         
-        /* ফেস স্ক্যান করুন লেখাটি পিংক করা হয়েছে */
         .scan-title { font-size: 18px; font-weight: 900; color: var(--main-pink); margin-bottom: 6px; }
         .scan-subtitle { font-size: 13px; color: var(--text-grey); }
         
-        .scan-action-card.success { border: 2px solid var(--main-pink); }
+        .scan-action-card.success { border: 2px solid var(--main-pink); border-style: solid; }
         .scan-action-card.success .scan-icon-wrapper { background: var(--main-pink); color: white; }
         .scan-action-card.success .scan-title { color: var(--main-pink); }
+
+        /* ------------------------------------------- */
 
         .summary-card {
             background: var(--main-white); border-radius: 16px; padding: 20px;
@@ -101,25 +116,16 @@
             display: flex; height: 48px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color);
         }
         .coupon-wrapper input { flex: 1; border: none; padding: 0 15px; font-size: 14px; outline: none; color: var(--dark-blue); }
-        
         .coupon-wrapper button { 
-            background: var(--main-pink); 
-            color: white; 
-            border: none; 
-            padding: 0 20px; 
-            font-weight: bold; 
-            cursor: pointer; 
-            transition: 0.2s;
+            background: var(--main-pink); color: white; border: none; 
+            padding: 0 20px; font-weight: bold; cursor: pointer; transition: 0.2s;
         }
-        .coupon-wrapper button:hover {
-            background: #c4004e;
-        }
+        .coupon-wrapper button:hover { background: #c4004e; }
 
         .submit-btn {
             background-color: var(--main-pink); color: white; border: none;
             padding: 16px; border-radius: 12px; font-size: 16px; font-weight: bold;
-            width: 100%; cursor: pointer; margin-bottom: 10px;
-            transition: background 0.2s;
+            width: 100%; cursor: pointer; margin-bottom: 10px; transition: background 0.2s;
         }
         .submit-btn:hover { background-color: #c4004e; }
         .submit-btn:disabled { background: #dcdde1; cursor: not-allowed; }
@@ -185,7 +191,7 @@
                 <div class="notice-card">
                     <div class="notice-icon"><i class="fas fa-exclamation-circle"></i></div>
                     <div class="notice-text">
-                        অ্যাকাউন্ট ভেরিফিকেশন সম্পন্ন না করা পর্যন্ত আপনি <strong>কোনো কাজ (টাস্ক) বা উইথড্র</strong> করতে পারবেন বিদ্যা। নিরাপত্তা নিশ্চিত করতে আপনার নিজের ফেস স্ক্যান করুন।
+                        অ্যাকাউন্ট ভেরিফিকেশন সম্পন্ন না করা পর্যন্ত আপনি <strong>কোনো কাজ (টাস্ক) বা উইথড্র</strong> করতে পারবেন না। নিরাপত্তা নিশ্চিত করতে আপনার নিজের ফেস স্ক্যান করুন।
                     </div>
                 </div>
 
@@ -193,7 +199,6 @@
                     <div class="scan-icon-wrapper" id="scanIconWrap">
                         <i class="fas fa-expand" id="scanIcon"></i>
                     </div>
-                    <!-- টাইটেল পিংক করা হয়েছে -->
                     <div class="scan-title" id="scanTitle">ফেস স্ক্যান করুন</div>
                     <div class="scan-subtitle" id="scanSub">ক্যামেরার সামনে আপনার চেহারা ধরুন</div>
                 </div>
