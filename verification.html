@@ -64,22 +64,21 @@
         .notice-text { font-size: 13px; color: #444; line-height: 1.5; }
         .notice-text strong { color: #d35400; }
 
-        /* --- আপডেট করা হালকা গোলাপি ফেস স্ক্যান বক্স --- */
+        /* --- আপডেট করা ফুল পিংক ফেস স্ক্যান বক্স --- */
         .scan-action-card {
-            background-color: #fff4f7; /* হালকা গোলাপি ব্যাকগ্রাউন্ড */
+            background: linear-gradient(135deg, var(--main-pink), var(--light-pink)); /* ফুল পিংক ব্যাকগ্রাউন্ড */
             border-radius: 16px; 
             padding: 30px 20px;
             text-align: center; 
             cursor: pointer; 
             margin-bottom: 20px;
-            box-shadow: 0 6px 20px rgba(226, 0, 90, 0.06); /* হালকা গোলাপি শ্যাডো */
-            border: 1.5px dashed #ffb3c6; /* ড্যাশড বর্ডার স্ক্যানার লুকের জন্য */
+            box-shadow: 0 6px 20px rgba(226, 0, 90, 0.25); /* পিংক শ্যাডো */
+            border: none;
             transition: all 0.3s ease;
         }
         .scan-action-card:hover {
-            background-color: #ffe8ee;
-            border-color: var(--main-pink);
             transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(226, 0, 90, 0.35);
         }
         .scan-icon-wrapper {
             width: 80px; height: 80px; 
@@ -87,15 +86,21 @@
             color: var(--main-pink);
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
             font-size: 35px; margin: 0 auto 15px auto; transition: 0.3s;
-            box-shadow: 0 4px 10px rgba(226, 0, 90, 0.08);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
         
-        .scan-title { font-size: 18px; font-weight: 900; color: var(--main-pink); margin-bottom: 6px; }
-        .scan-subtitle { font-size: 13px; color: var(--text-grey); }
+        .scan-title { font-size: 18px; font-weight: 900; color: var(--main-white); margin-bottom: 6px; }
+        .scan-subtitle { font-size: 13px; color: rgba(255, 255, 255, 0.85); }
         
-        .scan-action-card.success { border: 2px solid var(--main-pink); border-style: solid; }
+        /* স্ক্যান সাকসেস হলে বক্সের কালার পরিবর্তন হয়ে সাদা ও পিংক বর্ডার হবে */
+        .scan-action-card.success { 
+            background: var(--main-white); 
+            border: 2px solid var(--main-pink); 
+            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.05);
+        }
         .scan-action-card.success .scan-icon-wrapper { background: var(--main-pink); color: white; }
         .scan-action-card.success .scan-title { color: var(--main-pink); }
+        .scan-action-card.success .scan-subtitle { color: var(--text-grey); }
 
         /* ------------------------------------------- */
 
