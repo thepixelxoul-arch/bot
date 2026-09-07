@@ -138,9 +138,21 @@
             font-weight: bold; 
             text-decoration: none; 
         }
+
+        /* সুন্দর প্রফেশনাল টোস্ট মেসেজ ডিজাইন */
+        .toast-msg {
+            visibility: hidden; min-width: 250px; background-color: var(--main-pink);
+            color: #fff; text-align: center; border-radius: 30px; padding: 12px 20px;
+            position: fixed; z-index: 99999; left: 50%; transform: translateX(-50%);
+            top: 20px; font-size: 13px; font-weight: bold;
+            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.4); opacity: 0; transition: opacity 0.3s, top 0.3s;
+        }
+        .toast-msg.show { visibility: visible; opacity: 1; top: 40px; }
     </style>
 </head>
 <body>
+
+    <div id="toastBox" class="toast-msg"></div>
 
     <div class="app-container">
         <!-- Header with Back Button -->
@@ -197,6 +209,20 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
+        // কাস্টম টোস্ট মেসেজ ফাংশন
+        function showToast(message, redirectUrl = null) {
+            const toast = document.getElementById("toastBox");
+            toast.innerText = message;
+            toast.classList.add("show");
+            
+            setTimeout(() => { 
+                toast.classList.remove("show"); 
+                if(redirectUrl) {
+                    window.location.href = redirectUrl;
+                }
+            }, 1500); // ১.৫ সেকেন্ড পর রিডাইরেক্ট হবে
+        }
+
         document.getElementById("registerBtn").addEventListener("click", () => {
             let inputVal = document.getElementById("emailOrPhone").value.trim();
             const password = document.getElementById("password").value;
@@ -204,7 +230,7 @@
             
             if(inputVal && password && name) {
                 if(password.length < 6) {
-                    alert("পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে!");
+                    showToast("পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে!");
                     return;
                 }
 
@@ -213,12 +239,16 @@
                 let isPhone = /^\d+$/.test(inputVal); // চেক করা নাম্বার কিনা
                 if(isPhone) {
                     if(inputVal.length < 11) {
-                        alert("সঠিক মোবাইল নাম্বার দিন!");
+                        showToast("সঠিক মোবাইল নাম্বার দিন!");
                         return;
                     }
                     finalEmail = inputVal + "@sendbkash.com";
                 }
                 
+                const btn = document.getElementById("registerBtn");
+                btn.innerText = "প্রসেসিং হচ্ছে...";
+                btn.disabled = true;
+
                 createUserWithEmailAndPassword(auth, finalEmail, password)
                 .then((userCredential) => {
                     const user = userCredential.user;
@@ -227,18 +257,19 @@
                         displayName: name
                     }).then(() => {
                         localStorage.setItem('userName', name);
-                        alert("সফলভাবে অ্যাকাউন্ট তৈরি হয়েছে!");
                         
-                        // সরাসরি ভেরিফিকেশন পেজে রিডাইরেক্ট করা হলো
-                        window.location.href = "verification.html";
+                        // ব্রাউজার অ্যালার্টের বদলে সুন্দর টোস্ট মেসেজ এবং রিডাইরেক্ট
+                        showToast("সফলভাবে অ্যাকাউন্ট তৈরি হয়েছে!", "verification.html");
                     });
                 })
                 .catch((error) => {
-                    alert("অ্যাকাউন্ট তৈরি করা যায়নি: " + error.message);
+                    showToast("অ্যাকাউন্ট তৈরি করা যায়নি: " + error.message);
+                    btn.innerText = "অ্যাকাউন্ট খুলুন";
+                    btn.disabled = false;
                     console.error(error);
                 });
             } else {
-                alert("দয়া করে সবগুলো ঘর পূরণ করুন!");
+                showToast("দয়া করে সবগুলো ঘর পূরণ করুন!");
             }
         });
     </script>
