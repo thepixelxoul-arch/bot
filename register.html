@@ -228,7 +228,9 @@
                     }).then(() => {
                         localStorage.setItem('userName', name);
                         alert("সফলভাবে অ্যাকাউন্ট তৈরি হয়েছে!");
-                        window.location.href = "index.html";
+                        
+                        // সরাসরি ভেরিফিকেশন পেজে রিডাইরেক্ট করা হলো
+                        window.location.href = "verification.html";
                     });
                 })
                 .catch((error) => {
