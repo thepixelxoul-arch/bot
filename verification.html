@@ -75,7 +75,9 @@
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
             font-size: 35px; margin: 0 auto 15px auto; transition: 0.3s;
         }
-        .scan-title { font-size: 18px; font-weight: 900; color: var(--dark-blue); margin-bottom: 6px; }
+        
+        /* ফেস স্ক্যান করুন লেখাটি পিংক করা হয়েছে */
+        .scan-title { font-size: 18px; font-weight: 900; color: var(--main-pink); margin-bottom: 6px; }
         .scan-subtitle { font-size: 13px; color: var(--text-grey); }
         
         .scan-action-card.success { border: 2px solid var(--main-pink); }
@@ -100,7 +102,6 @@
         }
         .coupon-wrapper input { flex: 1; border: none; padding: 0 15px; font-size: 14px; outline: none; color: var(--dark-blue); }
         
-        /* Apply বাটন পিংক এবং সাদা করা হয়েছে */
         .coupon-wrapper button { 
             background: var(--main-pink); 
             color: white; 
@@ -184,7 +185,7 @@
                 <div class="notice-card">
                     <div class="notice-icon"><i class="fas fa-exclamation-circle"></i></div>
                     <div class="notice-text">
-                        অ্যাকাউন্ট ভেরিফিকেশন সম্পন্ন না করা পর্যন্ত আপনি <strong>কোনো কাজ (টাস্ক) বা উইথড্র</strong> করতে পারবেন না। নিরাপত্তা নিশ্চিত করতে আপনার নিজের ফেস স্ক্যান করুন।
+                        অ্যাকাউন্ট ভেরিফিকেশন সম্পন্ন না করা পর্যন্ত আপনি <strong>কোনো কাজ (টাস্ক) বা উইথড্র</strong> করতে পারবেন বিদ্যা। নিরাপত্তা নিশ্চিত করতে আপনার নিজের ফেস স্ক্যান করুন।
                     </div>
                 </div>
 
@@ -192,6 +193,7 @@
                     <div class="scan-icon-wrapper" id="scanIconWrap">
                         <i class="fas fa-expand" id="scanIcon"></i>
                     </div>
+                    <!-- টাইটেল পিংক করা হয়েছে -->
                     <div class="scan-title" id="scanTitle">ফেস স্ক্যান করুন</div>
                     <div class="scan-subtitle" id="scanSub">ক্যামেরার সামনে আপনার চেহারা ধরুন</div>
                 </div>
@@ -224,7 +226,6 @@
 
         <!-- ================= AUTO FACE SCAN PAGE ================= -->
         <div id="scanPage">
-            <!-- মেইন পেজের মতো হুবহু একই হেডার -->
             <div class="header">
                 <a href="#" class="back-btn" onclick="closeFaceScannerPage(); return false;"><i class="fas fa-arrow-left"></i></a>
                 <div class="header-title">নিজের চেহারার ছবি তুলুন</div>
