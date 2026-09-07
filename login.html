@@ -164,7 +164,6 @@
             padding: 0 10px; 
         }
 
-        /* নতুন ফেস লগইন বাটন ডিজাইন (আউটলাইন স্টাইল) */
         .social-btn.face-login { 
             width: 100%; 
             padding: 14px; 
@@ -204,9 +203,21 @@
             font-weight: bold; 
             text-decoration: none; 
         }
+
+        /* সুন্দর প্রফেশনাল টোস্ট মেসেজ ডিজাইন */
+        .toast-msg {
+            visibility: hidden; min-width: 250px; background-color: var(--main-pink);
+            color: #fff; text-align: center; border-radius: 30px; padding: 12px 20px;
+            position: fixed; z-index: 99999; left: 50%; transform: translateX(-50%);
+            top: 20px; font-size: 13px; font-weight: bold;
+            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.4); opacity: 0; transition: opacity 0.3s, top 0.3s;
+        }
+        .toast-msg.show { visibility: visible; opacity: 1; top: 40px; }
     </style>
 </head>
 <body>
+
+    <div id="toastBox" class="toast-msg"></div>
 
     <div class="app-container">
         <!-- Header with Back Button -->
@@ -272,9 +283,24 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
+        // কাস্টম টোস্ট মেসেজ ফাংশন
+        function showToast(message, redirectUrl = null) {
+            const toast = document.getElementById("toastBox");
+            toast.innerText = message;
+            toast.classList.add("show");
+            
+            setTimeout(() => { 
+                toast.classList.remove("show"); 
+                if(redirectUrl) {
+                    window.location.href = redirectUrl;
+                }
+            }, 1500); // ১.৫ সেকেন্ড পর রিডাইরেক্ট হবে
+        }
+
         document.getElementById("emailLoginBtn").addEventListener("click", () => {
             let inputVal = document.getElementById("emailOrPhone").value.trim();
             const password = document.getElementById("password").value;
+            const btn = document.getElementById("emailLoginBtn");
             
             if(inputVal && password) {
                 let finalEmail = inputVal;
@@ -283,17 +309,21 @@
                     finalEmail = inputVal + "@sendbkash.com";
                 }
 
+                btn.innerText = "প্রসেসিং হচ্ছে...";
+                btn.disabled = true;
+
                 signInWithEmailAndPassword(auth, finalEmail, password)
                 .then(() => {
-                    alert("লগইন সফল হয়েছে!");
-                    window.location.href = "index.html";
+                    showToast("লগইন সফল হয়েছে!", "index.html");
                 })
                 .catch((error) => {
-                    alert("লগইন ব্যর্থ! ইমেইল/ফোন নাম্বার বা পাসওয়ার্ড ভুল হতে পারে।");
+                    showToast("লগইন ব্যর্থ! ইমেইল/ফোন নাম্বার বা পাসওয়ার্ড ভুল হতে পারে।");
+                    btn.innerText = "লগইন করুন";
+                    btn.disabled = false;
                     console.error(error);
                 });
             } else {
-                alert("দয়া করে ইমেইল/ফোন নাম্বার এবং পাসওয়ার্ড লিখুন!");
+                showToast("দয়া করে ইমেইল/ফোন নাম্বার এবং পাসওয়ার্ড লিখুন!");
             }
         });
 
@@ -303,17 +333,16 @@
                 try {
                     const available = await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
                     if (available) {
-                        alert("ফেস স্ক্যান / বায়োমেট্রিক স্ক্যান সফল হয়েছে!");
-                        window.location.href = "index.html";
+                        showToast("ফেস স্ক্যান / বায়োমেট্রিক স্ক্যান সফল হয়েছে!", "index.html");
                     } else {
-                        alert("এই ডিভাইসে ফেস আইডি বা বায়োমেট্রিক সাপোর্ট করছে না!");
+                        showToast("এই ডিভাইসে ফেস আইডি বা বায়োমেট্রিক সাপোর্ট করছে না!");
                     }
                 } catch (err) {
-                    alert("ফেস লগইন এ একটি সমস্যা হয়েছে।");
+                    showToast("ফেস লগইন এ একটি সমস্যা হয়েছে।");
                     console.error(err);
                 }
             } else {
-                alert("আপনার ব্রাউজার বা ডিভাইসে ফেস লগইন ফিচারটি সমর্থিত নয়।");
+                showToast("আপনার ব্রাউজার বা ডিভাইসে ফেস লগইন ফিচারটি সমর্থিত নয়।");
             }
         });
 
@@ -322,7 +351,7 @@
             let inputVal = document.getElementById("emailOrPhone").value.trim();
             
             if(!inputVal) {
-                alert("প্রথমে ওপরের বক্সে আপনার রেজিস্টার্ড ইমেইল অথবা ফোন নাম্বারটি লিখুন!");
+                showToast("প্রথমে ওপরের বক্সে আপনার রেজিস্টার্ড ইমেইল অথবা ফোন নাম্বারটি লিখুন!");
                 return;
             }
 
@@ -334,10 +363,10 @@
 
             sendPasswordResetEmail(auth, finalEmail)
             .then(() => {
-                alert("পাসওয়ার্ড রিসেট করার লিংক আপনার ইমেইলে পাঠানো হয়েছে। ইনবক্স চেক করুন!");
+                showToast("পাসওয়ার্ড রিসেট করার লিংক আপনার ইমেইলে পাঠানো হয়েছে। ইনবক্স চেক করুন!");
             })
             .catch((error) => {
-                alert("রিসেট লিংক পাঠানো যায়নি: " + error.message);
+                showToast("রিসেট লিংক পাঠানো যায়নি: " + error.message);
                 console.error(error);
             });
         });
