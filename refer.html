@@ -115,11 +115,11 @@
         .stat-num { font-size: 18px; font-weight: 900; color: var(--main-pink); margin-bottom: 5px; white-space: nowrap; }
         .stat-label { font-size: 12px; color: var(--text-grey); font-weight: bold; }
 
-        /* --- আপডেট করা স্পিন অপশন ডিজাইন (পিংক থিম) --- */
+        /* --- আপডেট করা স্লিম স্পিন অপশন ডিজাইন --- */
         .spin-promo-card {
             background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
             border-radius: 12px;
-            padding: 18px 15px;
+            padding: 12px 15px; /* প্যাডিং কমানো হয়েছে যাতে মোটা না লাগে */
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -134,18 +134,18 @@
         }
         .spin-info { flex: 1; }
         .spin-info h4 { 
-            margin: 0 0 5px 0; color: var(--main-white); font-size: 17px; 
+            margin: 0 0 2px 0; color: var(--main-white); font-size: 16px; /* সাইজ এবং গ্যাপ কমানো হয়েছে */
             font-weight: 900; display: flex; align-items: center; gap: 8px; 
         }
-        .spin-info h4 i { color: #ffcc00; /* স্পিনের চাকার আইকনটা সোনালী রাখা হলো যাতে ফুটে ওঠে */ }
-        .spin-info p { margin: 0; color: rgba(255, 255, 255, 0.9); font-size: 13px; font-weight: 500; }
+        .spin-info h4 i { color: #ffcc00; }
+        .spin-info p { margin: 0; color: rgba(255, 255, 255, 0.9); font-size: 12px; font-weight: 500; }
         .spin-action-icon {
             background-color: var(--main-white);
             color: var(--main-pink);
-            width: 42px; height: 42px;
+            width: 36px; height: 36px; /* ডানদিকের গোল আইকন ছোট করা হয়েছে */
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-size: 18px; font-weight: bold;
+            font-size: 16px; font-weight: bold;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
@@ -253,7 +253,7 @@
                 </div>
             </div>
 
-            <!-- আপডেট করা স্পিন অপশন -->
+            <!-- স্লিম স্পিন অপশন -->
             <div class="spin-promo-card" onclick="window.location.href='spin.html'">
                 <div class="spin-info">
                     <h4><i class="fas fa-dharmachakra fa-spin"></i> স্পিন করে জিতুন</h4>
