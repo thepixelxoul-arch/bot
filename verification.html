@@ -236,7 +236,7 @@
         <!-- ================= AUTO FACE SCAN PAGE ================= -->
         <div id="scanPage">
             <div class="header">
-                <a href="#" class="back-btn" onclick="closeFaceScannerPage(); return false;"><i class="fas fa-arrow-left"></i></a>
+                <a href="#" class="back-btn" onclick="closeFaceScannerPage(false); return false;"><i class="fas fa-arrow-left"></i></a>
                 <div class="header-title">নিজের চেহারার ছবি তুলুন</div>
             </div>
 
@@ -260,7 +260,21 @@
         let mediaStream = null;
         let scanInterval = null;
         let modelsLoaded = false;
-        let useAI = true; // AI কাজ না করলে ফলব্যাক মেথড ব্যবহার করবে
+        let useAI = true; 
+
+        // পেজ লোড হওয়ার সময় চেক করবে URL এ #scan আছে কিনা
+        window.addEventListener('load', () => {
+            if(window.location.hash === '#scan') {
+                openFaceScannerPage(true); // সরাসরি স্ক্যানার অন করবে
+            }
+        });
+
+        // মোবাইলের ব্যাক বাটন চাপলে স্ক্যানার বন্ধ হবে
+        window.addEventListener('popstate', (event) => {
+            if(window.location.hash !== '#scan') {
+                closeFaceScannerPage(true); // স্ক্যানার লুকিয়ে ফেলবে
+            }
+        });
 
         function showToast(message) {
             const toast = document.getElementById("toastBox");
@@ -269,25 +283,28 @@
             setTimeout(() => { toast.classList.remove("show"); }, 3000);
         }
 
-        // AI ফেস ডিটেকশন মডেল লোড করা (ডাইরেক্ট ভার্সনড লিংক)
         async function loadAIModels() {
             if (modelsLoaded) return true;
             try {
-                // সবচেয়ে ফাস্ট এবং অফিশিয়াল CDN
                 await faceapi.nets.tinyFaceDetector.loadFromUri('https://cdn.jsdelivr.net/npm/@vladmandic/face-api@1.7.12/model/');
                 modelsLoaded = true;
                 return true;
             } catch (error) {
                 console.error("AI মডেল লোড হতে ব্যর্থ হয়েছে, ফলব্যাক ব্যবহার করা হবে:", error);
-                useAI = false; // ইন্টারনেট বা CORS সমস্যা হলে AI অফ করে ব্যাকআপ মেথড চলবে
+                useAI = false; 
                 return true; 
             }
         }
 
-        async function openFaceScannerPage() {
+        async function openFaceScannerPage(isFromLoad = false) {
             if(isFaceScanned) {
                 showToast("আপনার ফেস ইতিমধ্যেই স্ক্যান করা হয়েছে!");
                 return;
+            }
+
+            // বাটনে ক্লিক করে ওপেন করলে URL এ #scan যুক্ত করবে
+            if(!isFromLoad) {
+                history.pushState(null, null, '#scan');
             }
 
             document.getElementById("mainView").style.display = "none";
@@ -302,7 +319,6 @@
             aiMsg.innerText = "স্ক্যানার লোড হচ্ছে...";
             cameraBox.classList.remove("active");
 
-            // এআই মডেল লোড বা ব্যাকআপ প্রস্তুত করা
             await loadAIModels();
 
             instruction.innerText = "চেহারা সামনে আনুন";
@@ -324,10 +340,15 @@
             }
         }
 
-        function closeFaceScannerPage() {
+        function closeFaceScannerPage(isFromPopState = false) {
             document.getElementById("scanPage").style.display = "none";
             document.getElementById("mainView").style.display = "flex";
             
+            // ব্যাক বাটন চাপলে URL থেকে #scan মুছে ফেলবে
+            if(!isFromPopState) {
+                history.replaceState(null, null, window.location.pathname);
+            }
+
             if (mediaStream) {
                 mediaStream.getTracks().forEach(track => track.stop());
             }
@@ -364,7 +385,6 @@
                         cameraBox.classList.remove("active");
                         progress = 0; 
                     } else {
-                        // যদি AI ঠিকমতো লোড হয়, তবে মানুষের চেহারা চেক করবে
                         if (useAI) {
                             try {
                                 const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions({ scoreThreshold: 0.4 }));
@@ -380,11 +400,10 @@
                                     progress = 0;
                                 }
                             } catch (e) {
-                                useAI = false; // রানটাইম এরর হলে সাথে সাথে ফলব্যাকে চলে যাবে
+                                useAI = false; 
                             }
                         } 
                         
-                        // যদি AI লোড হতে ব্যর্থ হয়, তবে স্মার্ট ফলব্যাক স্ক্যানার কাজ করবে (যেন ইউজার আটকে না যায়)
                         if (!useAI) {
                             progress += 25;
                             cameraBox.classList.add("active"); 
