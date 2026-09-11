@@ -6,6 +6,9 @@
     <title>Account Verification - Send bKash</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- Real AI Face Detection Library যুক্ত করা হলো -->
+    <script src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api/dist/face-api.min.js"></script>
+
     <style>
         :root { 
             --main-pink: #e2005a; 
@@ -64,15 +67,15 @@
         .notice-text { font-size: 13px; color: #444; line-height: 1.5; }
         .notice-text strong { color: #d35400; }
 
-        /* --- আপডেট করা ফুল পিংক ফেস স্ক্যান বক্স --- */
+        /* ফুল পিংক ফেস স্ক্যান বক্স */
         .scan-action-card {
-            background: linear-gradient(135deg, var(--main-pink), var(--light-pink)); /* ফুল পিংক ব্যাকগ্রাউন্ড */
+            background: linear-gradient(135deg, var(--main-pink), var(--light-pink)); 
             border-radius: 16px; 
             padding: 30px 20px;
             text-align: center; 
             cursor: pointer; 
             margin-bottom: 20px;
-            box-shadow: 0 6px 20px rgba(226, 0, 90, 0.25); /* পিংক শ্যাডো */
+            box-shadow: 0 6px 20px rgba(226, 0, 90, 0.25); 
             border: none;
             transition: all 0.3s ease;
         }
@@ -82,7 +85,7 @@
         }
         .scan-icon-wrapper {
             width: 80px; height: 80px; 
-            background: var(--main-white); /* আইকনের ব্যাকগ্রাউন্ড সাদা */
+            background: var(--main-white); 
             color: var(--main-pink);
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
             font-size: 35px; margin: 0 auto 15px auto; transition: 0.3s;
@@ -92,7 +95,6 @@
         .scan-title { font-size: 18px; font-weight: 900; color: var(--main-white); margin-bottom: 6px; }
         .scan-subtitle { font-size: 13px; color: rgba(255, 255, 255, 0.85); }
         
-        /* স্ক্যান সাকসেস হলে বক্সের কালার পরিবর্তন হয়ে সাদা ও পিংক বর্ডার হবে */
         .scan-action-card.success { 
             background: var(--main-white); 
             border: 2px solid var(--main-pink); 
@@ -101,8 +103,6 @@
         .scan-action-card.success .scan-icon-wrapper { background: var(--main-pink); color: white; }
         .scan-action-card.success .scan-title { color: var(--main-pink); }
         .scan-action-card.success .scan-subtitle { color: var(--text-grey); }
-
-        /* ------------------------------------------- */
 
         .summary-card {
             background: var(--main-white); border-radius: 16px; padding: 20px;
@@ -260,12 +260,26 @@
         let verifyFee = 20;
         let mediaStream = null;
         let scanInterval = null;
+        let modelsLoaded = false;
 
         function showToast(message) {
             const toast = document.getElementById("toastBox");
             toast.innerText = message;
             toast.classList.add("show");
             setTimeout(() => { toast.classList.remove("show"); }, 3000);
+        }
+
+        // AI ফেস ডিটেকশন মডেল লোড করা
+        async function loadAIModels() {
+            if (modelsLoaded) return true;
+            try {
+                await faceapi.nets.tinyFaceDetector.loadFromUri('https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model/');
+                modelsLoaded = true;
+                return true;
+            } catch (error) {
+                console.error("মডেল লোড হতে সমস্যা হচ্ছে:", error);
+                return false;
+            }
         }
 
         async function openFaceScannerPage() {
@@ -282,9 +296,19 @@
             const instruction = document.getElementById("scanInstruction");
             const cameraBox = document.getElementById("cameraBox");
 
-            instruction.innerText = "চেহারা সামনে আনুন";
-            aiMsg.innerText = "দয়া করে স্থির থাকুন...";
+            instruction.innerText = "অপেক্ষা করুন...";
+            aiMsg.innerText = "এআই (AI) স্ক্যানার লোড হচ্ছে...";
             cameraBox.classList.remove("active");
+
+            // এআই মডেল লোড
+            const isLoaded = await loadAIModels();
+            if(!isLoaded) {
+                aiMsg.innerText = "ইন্টারনেট সমস্যা! স্ক্যানার চালু করা যাচ্ছে না।";
+                return;
+            }
+
+            instruction.innerText = "চেহারা সামনে আনুন";
+            aiMsg.innerText = "ক্যামেরার দিকে তাকান...";
 
             try {
                 mediaStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
@@ -294,11 +318,11 @@
                     video.play();
                 };
                 
-                startAutoDetection();
+                startRealFaceDetection();
             } catch (error) {
                 console.error(error);
                 closeFaceScannerPage();
-                alert("ক্যামেরা ওপেন করা যাচ্ছে না! আপনার ব্রাউজারে বা ডিভাইসে ক্যামেরার পারমিশন দিন।");
+                alert("ক্যামেরা ওপেন করা যাচ্ছে না! আপনার ব্রাউজারে ক্যামেরার পারমিশন দিন।");
             }
         }
 
@@ -312,7 +336,7 @@
             if(scanInterval) clearInterval(scanInterval);
         }
 
-        function startAutoDetection() {
+        function startRealFaceDetection() {
             const video = document.getElementById('autoVideoFeed');
             const aiMsg = document.getElementById('aiMessage');
             const instruction = document.getElementById('scanInstruction');
@@ -323,12 +347,13 @@
             
             let progress = 0;
 
-            scanInterval = setInterval(() => {
+            scanInterval = setInterval(async () => {
                 if (video.readyState === video.HAVE_ENOUGH_DATA && video.videoWidth > 0) {
+                    
+                    // ১. প্রথমে ব্রাইটনেস চেক (অন্ধকারে কাজ করবে না)
                     canvas.width = video.videoWidth;
                     canvas.height = video.videoHeight;
                     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-                    
                     let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
                     let totalBrightness = 0;
                     for(let i=0; i<imgData.length; i+=4) {
@@ -338,22 +363,34 @@
 
                     if (avgBrightness < 30) {
                         instruction.innerText = "আলোতে আসুন";
-                        aiMsg.innerText = "চেহারা পরিষ্কার বোঝা যাচ্ছে না!";
+                        aiMsg.innerText = "খুব অন্ধকার! চেহারা বোঝা যাচ্ছে না।";
                         cameraBox.classList.remove("active");
                         progress = 0; 
                     } else {
-                        progress += 20;
-                        cameraBox.classList.add("active"); 
-                        instruction.innerText = "স্ক্যান হচ্ছে...";
-                        aiMsg.innerText = `দয়া করে চোখ পলক ফেলুন... ${progress}%`;
+                        // ২. আসল এআই ফেস ডিটেকশন (মানুষের চেহারা কিনা যাচাই করা)
+                        const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions({ scoreThreshold: 0.4 }));
+                        
+                        if (detections.length > 0) {
+                            // মানুষের চেহারা পাওয়া গেছে
+                            progress += 20;
+                            cameraBox.classList.add("active"); 
+                            instruction.innerText = "স্ক্যান হচ্ছে...";
+                            aiMsg.innerText = `মানুষের চেহারা শনাক্ত হয়েছে... ${progress}%`;
 
-                        if (progress >= 100) {
-                            clearInterval(scanInterval);
-                            finishScanning();
+                            if (progress >= 100) {
+                                clearInterval(scanInterval);
+                                finishScanning();
+                            }
+                        } else {
+                            // মানুষের চেহারা নেই (অন্য বস্তু বা ফাঁকা)
+                            instruction.innerText = "চেহারা সামনে আনুন";
+                            aiMsg.innerText = "মানুষের চেহারা খুঁজে পাওয়া যাচ্ছে না!";
+                            cameraBox.classList.remove("active");
+                            progress = 0;
                         }
                     }
                 }
-            }, 1000);
+            }, 1000); // প্রতি ১ সেকেন্ড পরপর চেক করবে
         }
 
         function finishScanning() {
@@ -361,7 +398,7 @@
             const aiMsg = document.getElementById('aiMessage');
             
             instruction.innerText = "ধন্যবাদ!";
-            aiMsg.innerText = "স্ক্যান সফলভাবে সম্পন্ন হয়েছে।";
+            aiMsg.innerText = "মানুষের চেহারা সফলভাবে ভেরিফাই হয়েছে।";
 
             setTimeout(() => {
                 closeFaceScannerPage();
