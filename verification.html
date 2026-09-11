@@ -18,6 +18,7 @@
             --bg-light: #f4f6f9; 
             --dark-blue: #2c3e50;
             --border-color: #dcdde1;
+            --success-green: #27ae60; /* ভেরিফাই সম্পন্ন হওয়ার সবুজ রঙ */
         }
 
         body { 
@@ -96,11 +97,11 @@
         
         .scan-action-card.success { 
             background: var(--main-white); 
-            border: 2px solid var(--main-pink); 
-            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.05);
+            border: 2px solid var(--success-green); /* সাকসেস হলে সবুজ বর্ডার */
+            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.1);
         }
-        .scan-action-card.success .scan-icon-wrapper { background: var(--main-pink); color: white; }
-        .scan-action-card.success .scan-title { color: var(--main-pink); }
+        .scan-action-card.success .scan-icon-wrapper { background: var(--success-green); color: white; }
+        .scan-action-card.success .scan-title { color: var(--success-green); }
         .scan-action-card.success .scan-subtitle { color: var(--text-grey); }
 
         .summary-card {
@@ -132,7 +133,7 @@
             width: 100%; cursor: pointer; margin-bottom: 10px; transition: background 0.2s;
         }
         .submit-btn:hover { background-color: #c4004e; }
-        .submit-btn:disabled { background: #dcdde1; cursor: not-allowed; }
+        .submit-btn:disabled { background: var(--success-green); cursor: not-allowed; box-shadow: none; }
 
         .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: absolute; bottom: 0; width: 100%; z-index: 100; }
         .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); text-decoration: none; flex: 1; }
@@ -192,9 +193,9 @@
             </div>
 
             <div class="content">
-                <div class="notice-card">
+                <div class="notice-card" id="noticeBox">
                     <div class="notice-icon"><i class="fas fa-exclamation-circle"></i></div>
-                    <div class="notice-text">
+                    <div class="notice-text" id="noticeText">
                         অ্যাকাউন্ট ভেরিফিকেশন সম্পন্ন না করা পর্যন্ত আপনি <strong>কোনো কাজ (টাস্ক) বা উইথড্র</strong> করতে পারবেন না। নিরাপত্তা নিশ্চিত করতে আপনার নিজের ফেস স্ক্যান করুন।
                     </div>
                 </div>
@@ -207,7 +208,7 @@
                     <div class="scan-subtitle" id="scanSub">ক্যামেরার সামনে আপনার চেহারা ধরুন</div>
                 </div>
 
-                <div class="summary-card">
+                <div class="summary-card" id="feeSummaryBox">
                     <div class="fee-row">
                         <div class="fee-title">ভেরিফিকেশন ফি:</div>
                         <div>
@@ -222,6 +223,7 @@
                     </div>
                 </div>
 
+                <!-- এই বাটনটি পেমেন্ট শেষে পরিবর্তন হবে -->
                 <button class="submit-btn" id="verifySubmitBtn" onclick="completeVerification()">৳২০ পেমেন্ট করুন</button>
             </div>
 
@@ -262,17 +264,44 @@
         let modelsLoaded = false;
         let useAI = true; 
 
-        // পেজ লোড হওয়ার সময় চেক করবে URL এ #scan আছে কিনা
+        // পেজ লোড হওয়ার সময় চেক করবে
         window.addEventListener('load', () => {
-            if(window.location.hash === '#scan') {
-                openFaceScannerPage(true); // সরাসরি স্ক্যানার অন করবে
+            const urlParams = new URLSearchParams(window.location.search);
+            const paymentStatus = urlParams.get('payment');
+
+            // যদি পেমেন্ট সাকসেস হয়ে ফিরে আসে
+            if(paymentStatus === 'success' || localStorage.getItem('isVerified') === 'true') {
+                localStorage.setItem('isVerified', 'true'); // ভেরিফাইড স্ট্যাটাস সেভ করে রাখা হলো
+                isFaceScanned = true;
+
+                // ১. সাবমিট বাটন পরিবর্তন করে সবুজ করা হলো
+                const submitBtn = document.getElementById("verifySubmitBtn");
+                submitBtn.innerText = "ভেরিফিকেশন সম্পন্ন হয়েছে ✔";
+                submitBtn.disabled = true;
+
+                // ২. ফেস স্ক্যান বক্স আপডেট করা হলো
+                const mainBtn = document.getElementById("mainScanBtn");
+                mainBtn.classList.add("success");
+                mainBtn.onclick = null; // স্ক্যান বাটনের ক্লিক অফ করা হলো
+                document.getElementById("scanIcon").className = "fas fa-check";
+                document.getElementById("scanTitle").innerText = "অ্যাকাউন্ট ভেরিফাইড";
+                document.getElementById("scanSub").innerText = "আপনার ফেস এবং পেমেন্ট ভেরিফাই হয়েছে";
+
+                // ৩. ফি বক্স হাইড করে দেওয়া হলো
+                document.getElementById("feeSummaryBox").style.display = "none";
+                document.getElementById("noticeText").innerHTML = "আপনার অ্যাকাউন্টটি সফলভাবে ভেরিফাই করা হয়েছে। এখন আপনি কাজ (টাস্ক) এবং উইথড্র করতে পারবেন।";
+                document.getElementById("noticeBox").style.backgroundColor = "#e8f8f5";
+                document.getElementById("noticeBox").style.borderColor = "#27ae60";
+                document.querySelector(".notice-icon").style.color = "#27ae60";
+            }
+            else if(window.location.hash === '#scan') {
+                openFaceScannerPage(true); 
             }
         });
 
-        // মোবাইলের ব্যাক বাটন চাপলে স্ক্যানার বন্ধ হবে
         window.addEventListener('popstate', (event) => {
             if(window.location.hash !== '#scan') {
-                closeFaceScannerPage(true); // স্ক্যানার লুকিয়ে ফেলবে
+                closeFaceScannerPage(true); 
             }
         });
 
@@ -290,7 +319,6 @@
                 modelsLoaded = true;
                 return true;
             } catch (error) {
-                console.error("AI মডেল লোড হতে ব্যর্থ হয়েছে, ফলব্যাক ব্যবহার করা হবে:", error);
                 useAI = false; 
                 return true; 
             }
@@ -302,7 +330,6 @@
                 return;
             }
 
-            // বাটনে ক্লিক করে ওপেন করলে URL এ #scan যুক্ত করবে
             if(!isFromLoad) {
                 history.pushState(null, null, '#scan');
             }
@@ -344,7 +371,6 @@
             document.getElementById("scanPage").style.display = "none";
             document.getElementById("mainView").style.display = "flex";
             
-            // ব্যাক বাটন চাপলে URL থেকে #scan মুছে ফেলবে
             if(!isFromPopState) {
                 history.replaceState(null, null, window.location.pathname);
             }
@@ -471,8 +497,8 @@
                 if (verifyFee > 0) {
                     window.location.href = `payment.html?amount=${verifyFee}&vip=Verification`;
                 } else {
-                    alert("বিনামূল্যে আপনার একাউন্ট ভেরিফাই হয়েছে!");
-                    window.location.href = "profile.html"; 
+                    // ফ্রি হলে সরাসরি ভেরিফাই সাকসেস লিংকে যাবে
+                    window.location.href = "verification.html?payment=success"; 
                 }
             }, 800);
         }
