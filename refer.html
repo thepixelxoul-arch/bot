@@ -9,6 +9,7 @@
     <style>
         :root { 
             --main-pink: #e2005a; 
+            --light-pink: #ff3377;
             --main-white: #ffffff; 
             --text-grey: #888888; 
             --bg-light: #f4f6f9; 
@@ -73,7 +74,7 @@
         
         .refer-card i.main-icon { 
             font-size: 45px; 
-            background: -webkit-linear-gradient(135deg, var(--main-pink), #ff3377);
+            background: -webkit-linear-gradient(135deg, var(--main-pink), var(--light-pink));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 15px; 
@@ -97,7 +98,7 @@
         }
         
         .copy-btn {
-            background: linear-gradient(135deg, var(--main-pink), #ff3377);
+            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
             color: white; border: none;
             padding: 14px 20px; font-weight: bold; font-size: 14px; cursor: pointer;
             transition: background 0.2s; white-space: nowrap;
@@ -114,32 +115,38 @@
         .stat-num { font-size: 18px; font-weight: 900; color: var(--main-pink); margin-bottom: 5px; white-space: nowrap; }
         .stat-label { font-size: 12px; color: var(--text-grey); font-weight: bold; }
 
-        /* --- নতুন স্পিন অপশন ডিজাইন --- */
+        /* --- আপডেট করা স্পিন অপশন ডিজাইন (পিংক থিম) --- */
         .spin-promo-card {
-            background: linear-gradient(135deg, #ffe066, #ffcc00);
+            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
             border-radius: 12px;
-            padding: 15px;
+            padding: 18px 15px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            box-shadow: 0 4px 12px rgba(255, 204, 0, 0.3);
+            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.25);
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s;
             margin-bottom: 10px;
         }
-        .spin-promo-card:hover { transform: translateY(-2px); }
+        .spin-promo-card:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 6px 20px rgba(226, 0, 90, 0.35); 
+        }
         .spin-info { flex: 1; }
-        .spin-info h4 { margin: 0 0 5px 0; color: #333; font-size: 16px; font-weight: 900; display: flex; align-items: center; gap: 6px; }
-        .spin-info h4 i { color: var(--main-pink); }
-        .spin-info p { margin: 0; color: #555; font-size: 12px; font-weight: bold; }
+        .spin-info h4 { 
+            margin: 0 0 5px 0; color: var(--main-white); font-size: 17px; 
+            font-weight: 900; display: flex; align-items: center; gap: 8px; 
+        }
+        .spin-info h4 i { color: #ffcc00; /* স্পিনের চাকার আইকনটা সোনালী রাখা হলো যাতে ফুটে ওঠে */ }
+        .spin-info p { margin: 0; color: rgba(255, 255, 255, 0.9); font-size: 13px; font-weight: 500; }
         .spin-action-icon {
             background-color: var(--main-white);
             color: var(--main-pink);
-            width: 40px; height: 40px;
+            width: 42px; height: 42px;
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             font-size: 18px; font-weight: bold;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         .history-screen {
@@ -167,7 +174,7 @@
             min-width: 45px; height: 45px; border-radius: 6px; 
             display: flex; align-items: center; justify-content: center; 
             font-size: 20px; color: white; 
-            background: linear-gradient(135deg, var(--main-pink), #ff3377);
+            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
             box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);
         }
 
@@ -246,7 +253,7 @@
                 </div>
             </div>
 
-            <!-- নতুন স্পিন অপশন যুক্ত করা হলো -->
+            <!-- আপডেট করা স্পিন অপশন -->
             <div class="spin-promo-card" onclick="window.location.href='spin.html'">
                 <div class="spin-info">
                     <h4><i class="fas fa-dharmachakra fa-spin"></i> স্পিন করে জিতুন</h4>
