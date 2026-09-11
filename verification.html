@@ -6,7 +6,7 @@
     <title>Account Verification - Send bKash</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Real AI Face Detection Library যুক্ত করা হলো -->
+    <!-- Real AI Face Detection Library -->
     <script src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api/dist/face-api.min.js"></script>
 
     <style>
@@ -67,7 +67,6 @@
         .notice-text { font-size: 13px; color: #444; line-height: 1.5; }
         .notice-text strong { color: #d35400; }
 
-        /* ফুল পিংক ফেস স্ক্যান বক্স */
         .scan-action-card {
             background: linear-gradient(135deg, var(--main-pink), var(--light-pink)); 
             border-radius: 16px; 
@@ -269,11 +268,11 @@
             setTimeout(() => { toast.classList.remove("show"); }, 3000);
         }
 
-        // AI ফেস ডিটেকশন মডেল লোড করা
+        // AI ফেস ডিটেকশন মডেল লোড করা (আপডেট করা অফিশিয়াল লিংক)
         async function loadAIModels() {
             if (modelsLoaded) return true;
             try {
-                await faceapi.nets.tinyFaceDetector.loadFromUri('https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model/');
+                await faceapi.nets.tinyFaceDetector.loadFromUri('https://vladmandic.github.io/face-api/model/');
                 modelsLoaded = true;
                 return true;
             } catch (error) {
@@ -350,7 +349,6 @@
             scanInterval = setInterval(async () => {
                 if (video.readyState === video.HAVE_ENOUGH_DATA && video.videoWidth > 0) {
                     
-                    // ১. প্রথমে ব্রাইটনেস চেক (অন্ধকারে কাজ করবে না)
                     canvas.width = video.videoWidth;
                     canvas.height = video.videoHeight;
                     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -367,11 +365,9 @@
                         cameraBox.classList.remove("active");
                         progress = 0; 
                     } else {
-                        // ২. আসল এআই ফেস ডিটেকশন (মানুষের চেহারা কিনা যাচাই করা)
                         const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions({ scoreThreshold: 0.4 }));
                         
                         if (detections.length > 0) {
-                            // মানুষের চেহারা পাওয়া গেছে
                             progress += 20;
                             cameraBox.classList.add("active"); 
                             instruction.innerText = "স্ক্যান হচ্ছে...";
@@ -382,7 +378,6 @@
                                 finishScanning();
                             }
                         } else {
-                            // মানুষের চেহারা নেই (অন্য বস্তু বা ফাঁকা)
                             instruction.innerText = "চেহারা সামনে আনুন";
                             aiMsg.innerText = "মানুষের চেহারা খুঁজে পাওয়া যাচ্ছে না!";
                             cameraBox.classList.remove("active");
@@ -390,7 +385,7 @@
                         }
                     }
                 }
-            }, 1000); // প্রতি ১ সেকেন্ড পরপর চেক করবে
+            }, 1000); 
         }
 
         function finishScanning() {
