@@ -96,7 +96,7 @@
 
         .topbar-title { font-size: 20px; font-weight: 900; color: var(--main-pink); display: flex; align-items: center; gap: 10px; }
 
-        /* হিস্ট্রি বাটন (শুধু আইকন) */
+        /* হিস্ট্রি বাটন */
         .btn-history {
             background: transparent;
             color: var(--main-pink);
@@ -113,14 +113,13 @@
 
         .admin-profile { display: flex; align-items: center; gap: 15px; }
         
-        /* ড্যাশবোর্ড বডি */
         .dashboard-body {
             padding: 30px;
             overflow-y: auto;
             flex-grow: 1;
         }
 
-        /* --- সাপোর্ট লিংক সেটিং কার্ড --- */
+        /* সাপোর্ট সেটিং কার্ড */
         .support-settings-card {
             background: #fff; border-radius: 12px; padding: 25px;
             box-shadow: 0 4px 15px rgba(226, 0, 90, 0.1); margin-bottom: 30px;
@@ -164,7 +163,7 @@
         }
         .btn-save-settings:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(226, 0, 90, 0.3); }
 
-        /* --- ইউজারদের মেসেজ কার্ড (Tickets) --- */
+        /* ইউজারদের মেসেজ কার্ড */
         .ticket-grid {
             display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; padding-bottom: 30px;
         }
@@ -186,7 +185,7 @@
             color: var(--dark-blue); display: flex; align-items: center; justify-content: center; font-size: 18px;
         }
         .ticket-user-info h4 { margin: 0; font-size: 15px; color: var(--dark-blue); }
-        .ticket-user-info p { margin: 2px 0 0 0; font-size: 11px; color: #888; }
+        .ticket-user-info p { margin: 2px 0 0 0; font-size: 11px; color: #888; font-weight: bold;}
 
         .status-badge {
             padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: bold;
@@ -196,7 +195,7 @@
         .ticket-subject { font-size: 15px; font-weight: bold; color: var(--dark-blue); margin: 0 0 10px 0; }
         .ticket-message {
             font-size: 13px; color: #555; line-height: 1.5; margin: 0 0 20px 0;
-            background: #f8f9fa; padding: 12px; border-radius: 8px; border: 1px solid #eee;
+            background: #f8f9fa; padding: 12px; border-radius: 8px; border: 1px solid #eee; font-weight: bold;
         }
 
         .ticket-actions { display: flex; margin-top: auto; }
@@ -211,14 +210,14 @@
         /* হিস্ট্রি আইটেম ডিজাইন */
         .history-item {
             background: #fff; border: 1px solid #eee; border-radius: 10px; padding: 15px 20px; margin-bottom: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03); border-left: 4px solid var(--main-pink);
         }
         .hi-title { font-size: 15px; font-weight: bold; color: var(--dark-blue); margin: 0 0 5px 0; }
         .hi-target { font-size: 12px; font-weight: bold; color: var(--main-pink); background: #ffe0e9; padding: 3px 8px; border-radius: 4px; display: inline-block; margin-bottom: 8px; }
-        .hi-body { font-size: 13px; color: #555; margin: 0 0 8px 0; line-height: 1.4; }
+        .hi-body { font-size: 13px; color: #555; margin: 0 0 8px 0; line-height: 1.4; font-weight: bold;}
         .hi-time { font-size: 11px; color: #aaa; font-weight: bold; }
 
-        /* --- রিপ্লাই পপ-আপ (Modal) --- */
+        /* রিপ্লাই পপ-আপ (Modal) */
         .modal {
             display: none; position: fixed; z-index: 1000; left: 0; top: 0;
             width: 100%; height: 100%; background-color: rgba(0,0,0,0.6);
@@ -248,7 +247,7 @@
         .btn-send-reply {
             width: 100%; background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
             color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold;
-            cursor: pointer; font-size: 15px; transition: 0.2s;
+            cursor: pointer; font-size: 15px; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
         }
         .btn-send-reply:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(226, 0, 90, 0.3); }
 
@@ -272,7 +271,7 @@
             <span class="close-btn" onclick="closeReplyModal()">&times;</span>
             <div class="modal-title" id="replyModalTitle">ইউজারকে রিপ্লাই দিন</div>
             <textarea id="replyMessageText" class="reply-box" placeholder="আপনার রিপ্লাই এখানে লিখুন..."></textarea>
-            <button class="btn-send-reply" onclick="sendReply()">
+            <button class="btn-send-reply" id="btnSendReply" onclick="sendReply()">
                 <i class="fas fa-paper-plane"></i> রিপ্লাই সেন্ড করুন
             </button>
         </div>
@@ -295,16 +294,16 @@
             <li><a href="admin_task_rates.html" class="nav-link"><i class="fas fa-tasks"></i> কাজের রেট</a></li>
             <li><a href="admin_number.html" class="nav-link"><i class="fas fa-sim-card"></i> নাম্বার ম্যানেজমেন্ট</a></li>
             <li><a href="admin_vip_settings.html" class="nav-link"><i class="fas fa-crown"></i> VIP প্যাকেজ সেটিং</a></li>
-            <li><a href="admin_settings.html" class="nav-link active"><i class="fas fa-user-plus"></i> সেটিং</a></li>
+            <li><a href="admin_settings.html" class="nav-link"><i class="fas fa-user-plus"></i> সেটিং</a></li>
+            <li><a href="admin_support.html" class="nav-link active"><i class="fas fa-headset"></i> হেল্প ও সাপোর্ট</a></li>
         </ul>
     </aside>
 
-    <!-- মেইন এরিয়া -->
     <main class="main-content">
         <header class="topbar">
             <div class="topbar-title" id="mainTitle"><i class="fas fa-headset"></i> হেল্প ও সাপোর্ট</div>
             <div class="admin-profile">
-                <!-- হিস্ট্রি বাটন (আইকন) -->
+                <!-- হিস্ট্রি বাটন -->
                 <button class="btn-history" id="toggleViewBtn" onclick="toggleView()" title="হিস্ট্রি দেখুন">
                     <i class="fas fa-history"></i>
                 </button>
@@ -313,7 +312,6 @@
 
         <div class="dashboard-body">
             
-            <!-- মূল সাপোর্ট ভিউ -->
             <div id="mainView">
                 <!-- সাপোর্ট লিংক সেটিং -->
                 <div class="support-settings-card">
@@ -324,97 +322,33 @@
                             <label>Telegram লিংক</label>
                             <div class="input-with-icon">
                                 <span class="input-prefix"><i class="fab fa-telegram-plane"></i></span>
-                                <input type="text" id="tgLink" class="form-control" value="https://t.me/sendbkash_support">
+                                <input type="text" id="tgLink" class="form-control" placeholder="যেমন: https://t.me/your_id">
                             </div>
                         </div>
                         <div class="input-group">
                             <label>WhatsApp নাম্বার</label>
                             <div class="input-with-icon">
                                 <span class="input-prefix"><i class="fab fa-whatsapp"></i></span>
-                                <input type="text" id="waLink" class="form-control" value="+8801700000000">
+                                <input type="text" id="waLink" class="form-control" placeholder="যেমন: +8801700000000">
                             </div>
                         </div>
                         <div class="input-group">
                             <label>Email এড্রেস</label>
                             <div class="input-with-icon">
                                 <span class="input-prefix"><i class="fas fa-envelope"></i></span>
-                                <input type="email" id="emailLink" class="form-control" value="support@sendbkash.com">
+                                <input type="email" id="emailLink" class="form-control" placeholder="যেমন: support@email.com">
                             </div>
                         </div>
-                        <button class="btn-save-settings" onclick="updateSupportInfo()">
+                        <button class="btn-save-settings" id="btnSaveContact" onclick="updateSupportInfo()">
                             <i class="fas fa-save"></i> সেভ করুন
                         </button>
                     </div>
                 </div>
 
-                <!-- ইউজারদের সাপোর্ট মেসেজ/টিকেট -->
                 <div class="section-title"><i class="fas fa-envelope-open-text" style="color: var(--main-pink);"></i> ইউজারদের মেসেজ (Support Tickets)</div>
 
-                <div class="ticket-grid">
-                    
-                    <!-- টিকেট ১ -->
-                    <div class="ticket-card">
-                        <div class="ticket-header">
-                            <div class="ticket-user-info">
-                                <div class="ticket-avatar"><i class="fas fa-user"></i></div>
-                                <div>
-                                    <h4>T9KZBTUBR1</h4>
-                                    <p>আজ, ১০:১৫ AM</p>
-                                </div>
-                            </div>
-                            <div class="status-badge">Pending</div>
-                        </div>
-                        <h3 class="ticket-subject">উইথড্র সমস্যা</h3>
-                        <div class="ticket-message">
-                            ভাইয়া, আমি গতকাল উইথড্র দিয়েছিলাম কিন্তু এখনো টাকা পাইনি। বিকাশ নাম্বার ঠিক আছে, দয়া করে একটু চেক করবেন।
-                        </div>
-                        <div class="ticket-actions">
-                            <button class="btn-reply" onclick="openReplyModal('T9KZBTUBR1', 'উইথড্র সমস্যা')"><i class="fas fa-reply"></i> রিপ্লাই দিন</button>
-                        </div>
-                    </div>
-
-                    <!-- টিকেট ২ -->
-                    <div class="ticket-card">
-                        <div class="ticket-header">
-                            <div class="ticket-user-info">
-                                <div class="ticket-avatar"><i class="fas fa-user"></i></div>
-                                <div>
-                                    <h4>M2LKBTYYY5</h4>
-                                    <p>গতকাল, ০৪:৩০ PM</p>
-                                </div>
-                            </div>
-                            <div class="status-badge">Pending</div>
-                        </div>
-                        <h3 class="ticket-subject">কাজের রেট নিয়ে প্রশ্ন</h3>
-                        <div class="ticket-message">
-                            অ্যাডমিন ভাই, আমি VIP 2 প্যাকেজ কিনেছি কিন্তু আমার জিমেইলের রেট এখনো আগেরটাই দেখাচ্ছে। এটা কি আপডেট হবে?
-                        </div>
-                        <div class="ticket-actions">
-                            <button class="btn-reply" onclick="openReplyModal('M2LKBTYYY5', 'কাজের রেট নিয়ে প্রশ্ন')"><i class="fas fa-reply"></i> রিপ্লাই দিন</button>
-                        </div>
-                    </div>
-
-                    <!-- টিকেট ৩ -->
-                    <div class="ticket-card">
-                        <div class="ticket-header">
-                            <div class="ticket-user-info">
-                                <div class="ticket-avatar"><i class="fas fa-user"></i></div>
-                                <div>
-                                    <h4>X7ABCTUBR9</h4>
-                                    <p>২৫ আগস্ট, ১১:০০ AM</p>
-                                </div>
-                            </div>
-                            <div class="status-badge">Resolved</div>
-                        </div>
-                        <h3 class="ticket-subject">পাসওয়ার্ড ভুলে গেছি</h3>
-                        <div class="ticket-message">
-                            আমি আমার একাউন্টের পাসওয়ার্ড ভুলে গেছি, কীভাবে রিকভার করতে পারি?
-                        </div>
-                        <div class="ticket-actions">
-                            <button class="btn-reply" onclick="openReplyModal('X7ABCTUBR9', 'পাসওয়ার্ড ভুলে গেছি')"><i class="fas fa-reply"></i> রিপ্লাই দিন</button>
-                        </div>
-                    </div>
-
+                <div class="ticket-grid" id="ticketGridContainer">
+                    <p style="text-align:center; color:#888; width:100%; grid-column: 1 / -1; padding:30px;"><i class="fas fa-spinner fa-spin"></i> লোড হচ্ছে...</p>
                 </div>
             </div>
 
@@ -423,14 +357,8 @@
                 <div class="support-settings-card">
                     <div class="section-title" style="margin-bottom: 20px;"><i class="fas fa-history"></i> পাঠানো রিপ্লাই হিস্ট্রি</div>
                     
-                    <div id="historyList">
-                        <!-- ডেমো হিস্ট্রি আইটেম -->
-                        <div class="history-item">
-                            <p class="hi-title">উইথড্র সমস্যা (রিপ্লাই)</p>
-                            <span class="hi-target"><i class="fas fa-user"></i> ইউজার: T9KZBTUBR1</span>
-                            <p class="hi-body">আপনার পেমেন্টটি চেক করা হচ্ছে, খুব শীঘ্রই একাউন্টে যোগ হবে।</p>
-                            <span class="hi-time">পাঠানো হয়েছে: আজ, ১০:৩০ AM</span>
-                        </div>
+                    <div id="historyListContainer">
+                        <p style="text-align:center; color:#888; padding:30px;"><i class="fas fa-spinner fa-spin"></i> লোড হচ্ছে...</p>
                     </div>
                 </div>
             </div>
@@ -438,8 +366,137 @@
         </div>
     </main>
 
+    <!-- Firebase SDK & Real-time Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, collection, onSnapshot, query, where, orderBy, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
+            authDomain: "send-bkash.firebaseapp.com",
+            projectId: "send-bkash",
+            storageBucket: "send-bkash.firebasestorage.app",
+            messagingSenderId: "306247423891",
+            appId: "1:306247423891:web:bb4fb6634043e6755afa66"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        window.db = db;
+        window.doc = doc;
+        window.setDoc = setDoc;
+        window.updateDoc = updateDoc;
+        window.serverTimestamp = serverTimestamp;
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                const userRef = doc(db, "users", user.uid);
+                const docSnap = await getDoc(userRef);
+                
+                if (docSnap.exists() && (docSnap.data().role === "admin" || user.email === "sakibbinsalam.admin@gmail.com")) {
+                    loadSupportSettings();
+                    loadTickets();
+                    loadHistory();
+                } else {
+                    window.location.href = "login.html"; 
+                }
+            } else {
+                window.location.href = "login.html";
+            }
+        });
+
+        function loadSupportSettings() {
+            onSnapshot(doc(db, "admin_settings", "support_settings"), (docSnap) => {
+                if(docSnap.exists()) {
+                    document.getElementById('tgLink').value = docSnap.data().telegram || "";
+                    document.getElementById('waLink').value = docSnap.data().whatsapp || "";
+                    document.getElementById('emailLink').value = docSnap.data().email || "";
+                }
+            });
+        }
+
+        function loadTickets() {
+            const q = query(collection(db, "support_tickets"), where("status", "==", "pending"), orderBy("timestamp", "desc"));
+            onSnapshot(q, (snapshot) => {
+                const grid = document.getElementById("ticketGridContainer");
+                grid.innerHTML = "";
+                
+                if(snapshot.empty) {
+                    grid.innerHTML = '<p style="text-align:center; color:#888; width:100%; grid-column: 1 / -1; padding:30px;">কোনো পেন্ডিং মেসেজ নেই।</p>';
+                    return;
+                }
+
+                snapshot.forEach(docSnap => {
+                    const data = docSnap.data();
+                    const ticketId = docSnap.id;
+                    const dateObj = data.timestamp ? data.timestamp.toDate() : new Date();
+                    const dateStr = dateObj.toLocaleDateString('bn-BD') + ", " + dateObj.toLocaleTimeString('bn-BD', {hour: '2-digit', minute:'2-digit'});
+
+                    // লাইন ব্রেক ঠিক করার জন্য
+                    const formattedMsg = data.message ? data.message.replace(/\n/g, '<br>') : '';
+                    const safeSubject = data.subject ? data.subject.replace(/'/g, "\\'").replace(/"/g, '&quot;') : 'Support';
+
+                    grid.innerHTML += `
+                        <div class="ticket-card" id="${ticketId}">
+                            <div class="ticket-header">
+                                <div class="ticket-user-info">
+                                    <div class="ticket-avatar"><i class="fas fa-user"></i></div>
+                                    <div>
+                                        <h4>${data.userId ? data.userId.substring(0,8).toUpperCase() : 'UNKNOWN'}</h4>
+                                        <p>${dateStr}</p>
+                                    </div>
+                                </div>
+                                <div class="status-badge">Pending</div>
+                            </div>
+                            <h3 class="ticket-subject">${data.subject || 'সাপোর্ট রিকোয়েস্ট'}</h3>
+                            <div class="ticket-message">${formattedMsg}</div>
+                            <div class="ticket-actions">
+                                <button class="btn-reply" onclick="openReplyModal('${ticketId}', '${data.userId}', '${safeSubject}')">
+                                    <i class="fas fa-reply"></i> রিপ্লাই দিন
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+            });
+        }
+
+        function loadHistory() {
+            const q = query(collection(db, "support_tickets"), where("status", "==", "resolved"), orderBy("replyTime", "desc"));
+            onSnapshot(q, (snapshot) => {
+                const list = document.getElementById("historyListContainer");
+                list.innerHTML = "";
+                
+                if(snapshot.empty) {
+                    list.innerHTML = '<p style="text-align:center; color:#888; padding:30px;">কোনো হিস্ট্রি পাওয়া যায়নি।</p>';
+                    return;
+                }
+
+                snapshot.forEach(docSnap => {
+                    const data = docSnap.data();
+                    const dateObj = data.replyTime ? data.replyTime.toDate() : new Date();
+                    const dateStr = dateObj.toLocaleDateString('bn-BD') + ", " + dateObj.toLocaleTimeString('bn-BD', {hour: '2-digit', minute:'2-digit'});
+                    
+                    const formattedMsg = data.replyMessage ? data.replyMessage.replace(/\n/g, '<br>') : '';
+
+                    list.innerHTML += `
+                        <div class="history-item">
+                            <p class="hi-title">${data.subject || 'সাপোর্ট'} (রিপ্লাই)</p>
+                            <span class="hi-target"><i class="fas fa-user"></i> ইউজার: ${data.userId ? data.userId.substring(0,8).toUpperCase() : 'UNKNOWN'}</span>
+                            <p class="hi-body">${formattedMsg}</p>
+                            <span class="hi-time">পাঠানো হয়েছে: ${dateStr}</span>
+                        </div>
+                    `;
+                });
+            });
+        }
+    </script>
+
+    <!-- UI Scripts -->
     <script>
-        // টোস্ট মেসেজ
         function showToast(message) {
             const toast = document.getElementById("toastBox");
             document.getElementById("toastText").innerText = message;
@@ -448,9 +505,7 @@
         }
 
         let isHistoryView = false;
-
-        // ভিউ টগল করার লজিক
-        function toggleView() {
+        window.toggleView = function() {
             isHistoryView = !isHistoryView;
             if(isHistoryView) {
                 document.getElementById('mainView').style.display = 'none';
@@ -465,57 +520,75 @@
             }
         }
 
-        // সাপোর্ট লিংক আপডেট
-        function updateSupportInfo() {
-            const tg = document.getElementById("tgLink").value;
-            const wa = document.getElementById("waLink").value;
+        window.updateSupportInfo = async function() {
+            const tg = document.getElementById("tgLink").value.trim();
+            const wa = document.getElementById("waLink").value.trim();
+            const email = document.getElementById("emailLink").value.trim();
             
-            if(tg === "" && wa === "") {
-                alert("দয়া করে যেকোনো একটি সাপোর্ট কন্টাক্ট প্রদান করুন!");
-                return;
+            const btn = document.getElementById("btnSaveContact");
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> সেভ হচ্ছে...';
+            btn.disabled = true;
+
+            try {
+                await window.setDoc(window.doc(window.db, "admin_settings", "support_settings"), {
+                    telegram: tg,
+                    whatsapp: wa,
+                    email: email
+                }, { merge: true });
+                showToast("সাপোর্ট কন্টাক্ট ইনফরমেশন সফলভাবে সেভ হয়েছে!");
+            } catch(e) {
+                console.error(e);
+                alert("সেভ করতে সমস্যা হয়েছে!");
+            } finally {
+                btn.innerHTML = '<i class="fas fa-save"></i> সেভ করুন';
+                btn.disabled = false;
             }
-            showToast("আপনার সাপোর্ট কন্টাক্ট ইনফরমেশন সেভ হয়েছে!");
         }
 
-        // রিপ্লাই পপ-আপ ওপেন করা
-        let currentReplyUser = "";
-        let currentSubject = "";
-        function openReplyModal(userId, subject) {
-            currentReplyUser = userId;
-            currentSubject = subject;
-            document.getElementById("replyModalTitle").innerHTML = `<i class="fas fa-reply"></i> Reply to ${userId}`;
+        let currentTicketId = "";
+        let currentUserId = "";
+
+        window.openReplyModal = function(ticketId, userId, subject) {
+            currentTicketId = ticketId;
+            currentUserId = userId;
+            const displayId = userId ? userId.substring(0,8).toUpperCase() : 'UNKNOWN';
+            document.getElementById("replyModalTitle").innerHTML = `<i class="fas fa-reply" style="color: var(--main-pink);"></i> Reply to ${displayId}`;
             document.getElementById("replyMessageText").value = "";
             document.getElementById("replyModal").classList.add("show");
         }
 
-        // পপ-আপ ক্লোজ করা
-        function closeReplyModal() {
+        window.closeReplyModal = function() {
             document.getElementById("replyModal").classList.remove("show");
         }
 
-        // রিপ্লাই সেন্ড করা এবং হিস্ট্রিতে যোগ করা
-        function sendReply() {
-            const msg = document.getElementById("replyMessageText").value;
-            if(msg.trim() === "") {
+        window.sendReply = async function() {
+            const msg = document.getElementById("replyMessageText").value.trim();
+            if(msg === "") {
                 alert("দয়া করে রিপ্লাই মেসেজ লিখুন!");
                 return;
             }
 
-            // হিস্ট্রি লিস্টে নতুন রিপ্লাই যোগ করা
-            const timeStr = new Date().toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit', hour12: true });
-            const historyList = document.getElementById("historyList");
-            const newItem = document.createElement("div");
-            newItem.className = "history-item";
-            newItem.innerHTML = `
-                <p class="hi-title">${currentSubject} (রিপ্লাই)</p>
-                <span class="hi-target"><i class="fas fa-user"></i> ইউজার: ${currentReplyUser}</span>
-                <p class="hi-body">${msg}</p>
-                <span class="hi-time">পাঠানো হয়েছে: আজ, ${timeStr}</span>
-            `;
-            historyList.prepend(newItem);
+            const btn = document.getElementById("btnSendReply");
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> পাঠানো হচ্ছে...';
+            btn.disabled = true;
 
-            showToast(`সাফল্য! ${currentReplyUser} কে মেসেজটি পাঠানো হয়েছে।`);
-            closeReplyModal();
+            try {
+                // ফায়ারবেসে টিকেটের স্ট্যাটাস আপডেট এবং রিপ্লাই যুক্ত করা
+                await window.updateDoc(window.doc(window.db, "support_tickets", currentTicketId), {
+                    status: "resolved",
+                    replyMessage: msg,
+                    replyTime: window.serverTimestamp()
+                });
+                
+                showToast(`সাফল্য! মেসেজটি পাঠানো হয়েছে।`);
+                closeReplyModal();
+            } catch(e) {
+                console.error(e);
+                alert("রিপ্লাই পাঠাতে সমস্যা হয়েছে!");
+            } finally {
+                btn.innerHTML = '<i class="fas fa-paper-plane"></i> রিপ্লাই সেন্ড করুন';
+                btn.disabled = false;
+            }
         }
     </script>
 </body>
