@@ -169,7 +169,7 @@
         .lbl-pink { color: var(--main-pink); font-weight: bold; font-size: 12px;}
         .val-text { color: var(--dark-blue); font-weight: 900;}
 
-        /* হিস্ট্রি স্ট্যাটাস ব্যাজ (সম্পূর্ণ পিংক থিম) */
+        /* হিস্ট্রি স্ট্যাটাস ব্যাজ */
         .status-box {
             width: 100%;
             padding: 10px; 
@@ -244,84 +244,107 @@
 
         <div class="dashboard-body">
             
-            <!-- হিস্ট্রি গ্রিড -->
-            <div class="product-grid">
-                
-                <!-- Accepted কার্ড ১ -->
-                <div class="product-card">
-                    <div class="product-img">
-                        <i class="fab fa-google"></i>
-                    </div>
-                    <h4 class="product-title">Google Account</h4>
-                    <p class="product-desc">
-                        <span class="lbl-pink">ইউজার:</span> <span class="val-text">X7ABCTUBR9</span><br>
-                        <span class="lbl-pink">ইমেইল:</span> <span class="val-text">salam_pro@gmail.com</span><br>
-                        <span class="lbl-pink">সময়:</span> <span class="val-text">আজ, ১০:২০ AM</span>
-                    </p>
-                    <div class="status-box status-accepted"><i class="fas fa-check-circle"></i> Accepted</div>
-                </div>
-
-                <!-- Accepted কার্ড ২ -->
-                <div class="product-card">
-                    <div class="product-img">
-                        <i class="fab fa-instagram"></i>
-                    </div>
-                    <h4 class="product-title">Instagram Account</h4>
-                    <p class="product-desc">
-                        <span class="lbl-pink">ইউজার:</span> <span class="val-text">T9KZBTUBR1</span><br>
-                        <span class="lbl-pink">ইউজারনেম:</span> <span class="val-text">insta_sakib99</span><br>
-                        <span class="lbl-pink">সময়:</span> <span class="val-text">গতকাল, ০৫:৪৫ PM</span>
-                    </p>
-                    <div class="status-box status-accepted"><i class="fas fa-check-circle"></i> Accepted</div>
-                </div>
-
-                <!-- Rejected কার্ড ১ -->
-                <div class="product-card">
-                    <div class="product-img">
-                        <i class="fab fa-whatsapp"></i>
-                    </div>
-                    <h4 class="product-title">WhatsApp Account</h4>
-                    <p class="product-desc">
-                        <span class="lbl-pink">ইউজার:</span> <span class="val-text">M2LKBTYYY5</span><br>
-                        <span class="lbl-pink">নম্বর:</span> <span class="val-text">+8801999887766</span><br>
-                        <span class="lbl-pink">সময়:</span> <span class="val-text">গতকাল, ০২:১০ PM</span>
-                    </p>
-                    <div class="status-box status-rejected"><i class="fas fa-times-circle"></i> Rejected</div>
-                    <div class="reject-reason">কারণ: ওটিপি কোড ভুল ছিল।</div>
-                </div>
-
-                <!-- Accepted কার্ড ৩ -->
-                <div class="product-card">
-                    <div class="product-img">
-                        <i class="fab fa-telegram-plane"></i>
-                    </div>
-                    <h4 class="product-title">Telegram Account</h4>
-                    <p class="product-desc">
-                        <span class="lbl-pink">ইউজার:</span> <span class="val-text">A4JKMTUZR8</span><br>
-                        <span class="lbl-pink">নম্বর:</span> <span class="val-text">+8801811223344</span><br>
-                        <span class="lbl-pink">সময়:</span> <span class="val-text">২৫ আগস্ট, ১১:৩০ AM</span>
-                    </p>
-                    <div class="status-box status-accepted"><i class="fas fa-check-circle"></i> Accepted</div>
-                </div>
-
-                <!-- Rejected কার্ড ২ -->
-                <div class="product-card">
-                    <div class="product-img">
-                        <i class="fab fa-google"></i>
-                    </div>
-                    <h4 class="product-title">Google Account</h4>
-                    <p class="product-desc">
-                        <span class="lbl-pink">ইউজার:</span> <span class="val-text">R9XZBTUBR2</span><br>
-                        <span class="lbl-pink">ইমেইল:</span> <span class="val-text">wrong_mail@gmail.com</span><br>
-                        <span class="lbl-pink">সময়:</span> <span class="val-text">২৪ আগস্ট, ০৯:১৫ AM</span>
-                    </p>
-                    <div class="status-box status-rejected"><i class="fas fa-times-circle"></i> Rejected</div>
-                    <div class="reject-reason">কারণ: পাসওয়ার্ড ম্যাচ করেনি।</div>
-                </div>
-
+            <!-- হিস্ট্রি গ্রিড (ফায়ারবেস থেকে লোড হবে) -->
+            <div class="product-grid" id="historyGridContainer">
+                <p style="text-align:center; color:#888; width:100%; grid-column: 1 / -1; padding:30px;"><i class="fas fa-spinner fa-spin"></i> ডাটা লোড হচ্ছে...</p>
             </div>
             
         </div>
     </main>
+
+    <!-- Firebase SDK & Real-time Database Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc, collection, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
+            authDomain: "send-bkash.firebaseapp.com",
+            projectId: "send-bkash",
+            storageBucket: "send-bkash.firebasestorage.app",
+            messagingSenderId: "306247423891",
+            appId: "1:306247423891:web:bb4fb6634043e6755afa66"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                const userRef = doc(db, "users", user.uid);
+                const docSnap = await getDoc(userRef);
+                
+                if (docSnap.exists() && (docSnap.data().role === "admin" || user.email === "sakibbinsalam.admin@gmail.com")) {
+                    loadTaskHistory();
+                } else {
+                    window.location.href = "login.html"; // Admin নয়
+                }
+            } else {
+                window.location.href = "login.html";
+            }
+        });
+
+        function loadTaskHistory() {
+            const q = query(collection(db, "tasks"), orderBy("timestamp", "desc"));
+            
+            onSnapshot(q, (snapshot) => {
+                const grid = document.getElementById("historyGridContainer");
+                grid.innerHTML = '';
+                
+                let count = 0;
+
+                snapshot.forEach((docSnap) => {
+                    const data = docSnap.data();
+                    
+                    // শুধুমাত্র Approved বা Rejected স্ট্যাটাসগুলো হিস্ট্রিতে দেখাবে
+                    if (data.status === 'approved' || data.status === 'rejected') {
+                        count++;
+                        const dateObj = data.timestamp ? data.timestamp.toDate() : new Date();
+                        const dateStr = dateObj.toLocaleDateString('bn-BD') + ", " + dateObj.toLocaleTimeString('bn-BD', {hour: '2-digit', minute:'2-digit'});
+
+                        let iconClass = "fas fa-tasks";
+                        if(data.platform === "Gmail" || data.platform === "Google Account") iconClass = "fab fa-google";
+                        else if(data.platform === "Instagram" || data.platform === "Instagram Account") iconClass = "fab fa-instagram";
+                        else if(data.platform === "WhatsApp" || data.platform === "WhatsApp Account") iconClass = "fab fa-whatsapp";
+                        else if(data.platform === "Telegram" || data.platform === "Telegram Account") iconClass = "fab fa-telegram-plane";
+
+                        let statusHtml = '';
+                        if(data.status === 'approved') {
+                            statusHtml = '<div class="status-box status-accepted"><i class="fas fa-check-circle"></i> Accepted</div>';
+                        } else {
+                            statusHtml = `
+                                <div class="status-box status-rejected"><i class="fas fa-times-circle"></i> Rejected</div>
+                                <div class="reject-reason">কারণ: ${data.rejectReason || 'অজানা'}</div>
+                            `;
+                        }
+
+                        // ডিটেইলস (যেমন ইমেইল, নাম্বার ইত্যাদি)
+                        const shortDetails = data.details ? data.details.substring(0, 30) + "..." : "N/A";
+
+                        grid.innerHTML += `
+                            <div class="product-card">
+                                <div class="product-img">
+                                    <i class="${iconClass}"></i>
+                                </div>
+                                <h4 class="product-title">${data.platform || 'Account'}</h4>
+                                <p class="product-desc">
+                                    <span class="lbl-pink">ইউজার:</span> <span class="val-text">${data.userId ? data.userId.substring(0,8).toUpperCase() : 'UNKNOWN'}</span><br>
+                                    <span class="lbl-pink">ডিটেইলস:</span> <span class="val-text">${shortDetails}</span><br>
+                                    <span class="lbl-pink">সময়:</span> <span class="val-text">${dateStr}</span>
+                                </p>
+                                ${statusHtml}
+                            </div>
+                        `;
+                    }
+                });
+
+                if (count === 0) {
+                    grid.innerHTML = '<p style="text-align:center; color:#888; width:100%; grid-column: 1 / -1; padding:30px;">কোনো কাজের হিস্ট্রি পাওয়া যায়নি।</p>';
+                }
+            });
+        }
+    </script>
 </body>
 </html>
