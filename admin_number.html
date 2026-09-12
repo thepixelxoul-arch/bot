@@ -76,7 +76,7 @@
 
         .nav-links a i { width: 20px; text-align: center; font-size: 18px; }
 
-        /* মেইন কন্টেন্ট এরিয়া */
+        /* মেইন কন্টেন্ট এরিয়া */
         .main-content {
             flex-grow: 1;
             display: flex;
@@ -96,7 +96,6 @@
             z-index: 10;
         }
 
-        /* টপবার টাইটেল */
         .topbar-title { 
             font-size: 20px; 
             font-weight: 900; 
@@ -105,18 +104,16 @@
             align-items: center; 
             gap: 10px; 
         }
-        .topbar-title i { color: var(--main-pink); }
 
         .admin-profile { display: flex; align-items: center; gap: 15px; }
 
-        /* ড্যাশবোর্ড বডি */
         .dashboard-body {
             padding: 30px;
             overflow-y: auto;
             flex-grow: 1;
         }
 
-        /* --- নতুন নাম্বার যোগ করার ফর্ম (Full Pink Box) --- */
+        /* নতুন নাম্বার যোগ করার ফর্ম */
         .add-number-card {
             background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
             border-radius: 12px;
@@ -139,80 +136,32 @@
         }
 
         .add-number-card .input-group label {
-            display: block;
-            font-size: 13px;
-            font-weight: 900;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 8px;
+            display: block; font-size: 13px; font-weight: 900; color: rgba(255, 255, 255, 0.9); margin-bottom: 8px;
         }
 
-        /* ইনপুট বক্সের স্টাইল */
         .add-number-card .modal-input {
-            width: 100%;
-            height: 46px; 
-            padding: 0 15px;
-            border: 2px solid transparent;
-            background-color: var(--main-white);
-            border-radius: 6px;
-            font-size: 14px;
-            outline: none;
-            box-sizing: border-box;
-            transition: 0.3s;
-            font-family: inherit;
-            font-weight: bold;
-            color: var(--dark-blue);
+            width: 100%; height: 46px; padding: 0 15px; border: 2px solid transparent; background-color: var(--main-white); border-radius: 6px; font-size: 14px; outline: none; box-sizing: border-box; transition: 0.3s; font-family: inherit; font-weight: bold; color: var(--dark-blue);
         }
 
         .add-number-card .modal-input:focus {
             box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
         }
 
-        /* ফর্মের যোগ করুন বাটন */
         .btn-add-submit {
-            background: var(--main-white);
-            color: var(--main-pink);
-            border: none;
-            height: 46px; 
-            padding: 0 25px;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 900;
-            cursor: pointer;
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            white-space: nowrap;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            box-sizing: border-box;
+            background: var(--main-white); color: var(--main-pink); border: none; height: 46px; padding: 0 25px; border-radius: 6px; font-size: 14px; font-weight: 900; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; white-space: nowrap; box-shadow: 0 4px 10px rgba(0,0,0,0.1); box-sizing: border-box;
         }
 
         .btn-add-submit:hover {
-            background: var(--bg-light);
-            transform: translateY(-2px);
+            background: var(--bg-light); transform: translateY(-2px);
         }
 
-        /* --- যোগ করা নাম্বার গ্রিড --- */
+        /* যোগ করা নাম্বার গ্রিড */
         .number-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;
         }
 
         .number-card {
-            background: var(--main-white);
-            border: 1px solid #eaeaea;
-            border-radius: 12px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-            transition: 0.3s;
-            position: relative;
-            overflow: hidden;
-            animation: fadeIn 0.4s ease-out; /* নতুন কার্ড আসার এনিমেশন */
+            background: var(--main-white); border: 1px solid #eaeaea; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); transition: 0.3s; position: relative; overflow: hidden; animation: fadeIn 0.4s ease-out;
         }
 
         @keyframes fadeIn {
@@ -221,106 +170,48 @@
         }
 
         .number-card:hover {
-            box-shadow: 0 8px 20px rgba(226, 0, 90, 0.1);
-            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(226, 0, 90, 0.1); transform: translateY(-2px);
         }
 
         .card-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
+            display: flex; justify-content: space-between; align-items: flex-start;
         }
 
         .platform-name {
-            font-size: 12px;
-            font-weight: 900;
-            color: var(--text-grey);
-            display: block;
-            margin-bottom: 5px;
+            font-size: 12px; font-weight: 900; color: var(--text-grey); display: block; margin-bottom: 5px;
         }
 
         .the-number {
-            font-size: 20px;
-            font-weight: 900;
-            color: var(--dark-blue);
-            margin: 0;
-            letter-spacing: 0.5px;
+            font-size: 20px; font-weight: 900; color: var(--dark-blue); margin: 0; letter-spacing: 0.5px;
         }
 
-        /* প্ল্যাটফর্ম আইকন (পিংক ব্যাকগ্রাউন্ড) */
         .platform-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 18px;
-            flex-shrink: 0;
-            background-color: var(--main-pink);
-            box-shadow: 0 3px 8px rgba(226, 0, 90, 0.3);
+            width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; flex-shrink: 0; background-color: var(--main-pink); box-shadow: 0 3px 8px rgba(226, 0, 90, 0.3);
         }
 
         .card-mid {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            display: flex; align-items: center; gap: 10px;
         }
 
         .country-badge {
-            background-color: #f1f3f5;
-            color: var(--dark-blue);
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: bold;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
+            background-color: #f1f3f5; color: var(--dark-blue); padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: bold; display: inline-flex; align-items: center; gap: 5px;
         }
 
-        /* দামের ব্যাজ (পিংক থিম) */
         .price-badge {
-            background-color: var(--pink-transparent);
-            color: var(--main-pink);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 900;
-            border: 1px dashed var(--main-pink);
+            background-color: var(--pink-transparent); color: var(--main-pink); padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 900; border: 1px dashed var(--main-pink);
         }
 
         /* OTP বক্স */
         .otp-group {
-            display: flex;
-            border: 1px solid #eaeaea;
-            border-radius: 6px;
-            overflow: hidden;
-            background-color: #f8f9fa;
+            display: flex; border: 1px solid #eaeaea; border-radius: 6px; overflow: hidden; background-color: #f8f9fa;
         }
 
         .otp-input {
-            flex: 1;
-            border: none;
-            padding: 12px 15px;
-            font-size: 13px;
-            outline: none;
-            background: transparent;
-            font-weight: bold;
-            color: var(--dark-blue);
+            flex: 1; border: none; padding: 12px 15px; font-size: 13px; outline: none; background: transparent; font-weight: bold; color: var(--dark-blue);
         }
 
         .btn-send-otp {
-            background-color: var(--main-pink);
-            color: white;
-            border: none;
-            padding: 0 18px;
-            cursor: pointer;
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background-color: var(--main-pink); color: white; border: none; padding: 0 18px; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center;
         }
 
         .btn-send-otp:hover {
@@ -329,34 +220,16 @@
 
         /* নাম্বার মুছুন বাটন */
         .btn-delete-num {
-            width: 100%;
-            background-color: var(--pink-transparent);
-            color: var(--main-pink);
-            border: 1px dashed var(--main-pink);
-            padding: 12px;
-            border-radius: 6px;
-            font-size: 13px;
-            font-weight: 900;
-            cursor: pointer;
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
+            width: 100%; background-color: var(--pink-transparent); color: var(--main-pink); border: 1px dashed var(--main-pink); padding: 12px; border-radius: 6px; font-size: 13px; font-weight: 900; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px;
         }
 
         .btn-delete-num:hover {
-            background-color: var(--main-pink);
-            color: white;
-            border-style: solid;
+            background-color: var(--main-pink); color: white; border-style: solid;
         }
 
         /* টোস্ট মেসেজ */
         .toast-msg {
-            visibility: hidden; background-color: var(--main-pink); color: #fff; text-align: center;
-            border-radius: 8px; padding: 15px 25px; position: fixed; z-index: 9999; right: 30px; top: 30px;
-            font-size: 14px; font-weight: bold; box-shadow: 0 4px 15px rgba(226, 0, 90, 0.3);
-            opacity: 0; transition: opacity 0.3s, top 0.3s;
+            visibility: hidden; background-color: var(--main-pink); color: #fff; text-align: center; border-radius: 8px; padding: 15px 25px; position: fixed; z-index: 9999; right: 30px; top: 30px; font-size: 14px; font-weight: bold; box-shadow: 0 4px 15px rgba(226, 0, 90, 0.3); opacity: 0; transition: opacity 0.3s, top 0.3s;
         }
         .toast-msg.show { visibility: visible; opacity: 1; top: 50px; }
 
@@ -384,13 +257,14 @@
             <li><a href="admin_number.html" class="nav-link active"><i class="fas fa-sim-card"></i> নাম্বার ম্যানেজমেন্ট</a></li>
             <li><a href="admin_vip_settings.html" class="nav-link"><i class="fas fa-crown"></i> VIP প্যাকেজ সেটিং</a></li>
             <li><a href="admin_settings.html" class="nav-link"><i class="fas fa-user-plus"></i> সেটিং</a></li>
+            <li><a href="admin_rules.html" class="nav-link"><i class="fas fa-file-alt"></i> কাজের নিয়মাবলী</a></li>
+            <li><a href="admin_support.html" class="nav-link"><i class="fas fa-headset"></i> হেল্প ও সাপোর্ট</a></li>
+            <li><a href="admin_notification.html" class="nav-link"><i class="fas fa-bell"></i> নোটিফিকেশন ও নোটিশ</a></li>
         </ul>
     </aside>
 
-    <!-- মেইন এরিয়া -->
     <main class="main-content">
         <header class="topbar">
-            <!-- টপবার টাইটেল -->
             <div class="topbar-title">
                 <i class="fas fa-sim-card"></i> নাম্বার ম্যানেজমেন্ট
             </div>
@@ -399,9 +273,7 @@
 
         <div class="dashboard-body">
             
-            <!-- নতুন নাম্বার যোগ করার ফর্ম -->
             <div class="add-number-card">
-                
                 <div class="add-number-form">
                     <div class="input-group">
                         <label>কাজের ধরন (Platform)</label>
@@ -428,89 +300,115 @@
                         <label>দাম (Price)</label>
                         <input type="number" class="modal-input" id="priceInput" placeholder="যেমন: 25">
                     </div>
-                    <button class="btn-add-submit" onclick="addNumber()">
+                    <button class="btn-add-submit" id="btnAddNum" onclick="addNumberToDB()">
                         <i class="fas fa-save"></i> যোগ করুন
                     </button>
                 </div>
             </div>
             
-            <!-- নাম্বার কার্ড গ্রিড -->
-            <div class="number-grid" id="numberGrid">
-                
-                <!-- WhatsApp Card -->
-                <div class="number-card" id="num-card-1">
-                    <div class="card-top">
-                        <div class="num-details">
-                            <span class="platform-name">WhatsApp Number</span>
-                            <h3 class="the-number">+880 1711-223344</h3>
-                        </div>
-                        <div class="platform-icon"><i class="fab fa-whatsapp"></i></div>
-                    </div>
-                    <div class="card-mid">
-                        <span class="country-badge">🇧🇩 Bangladesh</span>
-                        <span class="price-badge">দাম: ৳২৫.০০</span>
-                    </div>
-                    <div class="otp-group">
-                        <input type="text" class="otp-input" placeholder="OTP/কোড লিখুন...">
-                        <button class="btn-send-otp" onclick="sendOtp()"><i class="fas fa-paper-plane"></i></button>
-                    </div>
-                    <button class="btn-delete-num" onclick="deleteNumber('num-card-1')">
-                        <i class="fas fa-trash-alt"></i> নাম্বারটি মুছুন
-                    </button>
-                </div>
-
-                <!-- Gmail Card -->
-                <div class="number-card" id="num-card-2">
-                    <div class="card-top">
-                        <div class="num-details">
-                            <span class="platform-name">Gmail Verification</span>
-                            <h3 class="the-number">+1 202-555-0199</h3>
-                        </div>
-                        <div class="platform-icon"><i class="fab fa-google"></i></div>
-                    </div>
-                    <div class="card-mid">
-                        <span class="country-badge">🇺🇸 USA</span>
-                        <span class="price-badge">দাম: ৳১৫.০০</span>
-                    </div>
-                    <div class="otp-group">
-                        <input type="text" class="otp-input" placeholder="OTP/কোড লিখুন...">
-                        <button class="btn-send-otp" onclick="sendOtp()"><i class="fas fa-paper-plane"></i></button>
-                    </div>
-                    <button class="btn-delete-num" onclick="deleteNumber('num-card-2')">
-                        <i class="fas fa-trash-alt"></i> নাম্বারটি মুছুন
-                    </button>
-                </div>
-
-                <!-- Telegram Card -->
-                <div class="number-card" id="num-card-3">
-                    <div class="card-top">
-                        <div class="num-details">
-                            <span class="platform-name">Telegram Number</span>
-                            <h3 class="the-number">+91 98765 43210</h3>
-                        </div>
-                        <div class="platform-icon"><i class="fab fa-telegram-plane"></i></div>
-                    </div>
-                    <div class="card-mid">
-                        <span class="country-badge">🇮🇳 India</span>
-                        <span class="price-badge">দাম: ৳৩৫.০০</span>
-                    </div>
-                    <div class="otp-group">
-                        <input type="text" class="otp-input" placeholder="OTP/কোড লিখুন...">
-                        <button class="btn-send-otp" onclick="sendOtp()"><i class="fas fa-paper-plane"></i></button>
-                    </div>
-                    <button class="btn-delete-num" onclick="deleteNumber('num-card-3')">
-                        <i class="fas fa-trash-alt"></i> নাম্বারটি মুছুন
-                    </button>
-                </div>
-
+            <div class="number-grid" id="numberGridContainer">
+                <p style="text-align:center; color:#888; width:100%; grid-column: 1 / -1; padding:30px;"><i class="fas fa-spinner fa-spin"></i> ডাটা লোড হচ্ছে...</p>
             </div>
 
         </div>
     </main>
 
-    <script>
-        let cardCounter = 4; // নতুন আইডি জেনারেট করার জন্য
+    <!-- Firebase SDK & Database Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, deleteDoc, doc, updateDoc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
+        const firebaseConfig = {
+            apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
+            authDomain: "send-bkash.firebaseapp.com",
+            projectId: "send-bkash",
+            storageBucket: "send-bkash.firebasestorage.app",
+            messagingSenderId: "306247423891",
+            appId: "1:306247423891:web:bb4fb6634043e6755afa66"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        window.db = db;
+        window.doc = doc;
+        window.addDoc = addDoc;
+        window.collection = collection;
+        window.deleteDoc = deleteDoc;
+        window.updateDoc = updateDoc;
+        window.serverTimestamp = serverTimestamp;
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                const userRef = doc(db, "users", user.uid);
+                const docSnap = await getDoc(userRef);
+                
+                if (docSnap.exists() && (docSnap.data().role === "admin" || user.email === "sakibbinsalam.admin@gmail.com")) {
+                    loadNumbers();
+                } else {
+                    window.location.href = "login.html"; 
+                }
+            } else {
+                window.location.href = "login.html";
+            }
+        });
+
+        function loadNumbers() {
+            const q = query(collection(db, "available_numbers"), orderBy("timestamp", "desc"));
+            onSnapshot(q, (snapshot) => {
+                const grid = document.getElementById("numberGridContainer");
+                grid.innerHTML = "";
+                
+                if (snapshot.empty) {
+                    grid.innerHTML = '<p style="text-align:center; color:#888; width:100%; grid-column: 1 / -1; padding:30px;">কোনো নাম্বার স্টকে নেই।</p>';
+                    return;
+                }
+
+                snapshot.forEach(docSnap => {
+                    const data = docSnap.data();
+                    const numId = docSnap.id;
+                    
+                    let iconClass = "";
+                    let platformName = "";
+
+                    if(data.platform === "Gmail") { iconClass = "fab fa-google"; platformName = "Gmail Verification"; }
+                    else if(data.platform === "WhatsApp") { iconClass = "fab fa-whatsapp"; platformName = "WhatsApp Number"; }
+                    else if(data.platform === "Telegram") { iconClass = "fab fa-telegram-plane"; platformName = "Telegram Number"; }
+                    else if(data.platform === "Instagram") { iconClass = "fab fa-instagram"; platformName = "Instagram Account"; }
+
+                    const formattedPrice = parseFloat(data.price).toLocaleString('bn-BD', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+                    grid.innerHTML += `
+                        <div class="number-card" id="${numId}">
+                            <div class="card-top">
+                                <div class="num-details">
+                                    <span class="platform-name">${platformName}</span>
+                                    <h3 class="the-number">${data.number}</h3>
+                                </div>
+                                <div class="platform-icon"><i class="${iconClass}"></i></div>
+                            </div>
+                            <div class="card-mid">
+                                <span class="country-badge">${data.country}</span>
+                                <span class="price-badge">দাম: ৳${formattedPrice}</span>
+                            </div>
+                            <div class="otp-group">
+                                <input type="text" class="otp-input" id="otp-${numId}" placeholder="${data.otp ? 'Sent: ' + data.otp : 'OTP/কোড লিখুন...'}">
+                                <button class="btn-send-otp" onclick="sendOtpToUser('${numId}')"><i class="fas fa-paper-plane"></i></button>
+                            </div>
+                            <button class="btn-delete-num" onclick="deleteNumberDB('${numId}')">
+                                <i class="fas fa-trash-alt"></i> নাম্বারটি মুছুন
+                            </button>
+                        </div>
+                    `;
+                });
+            });
+        }
+    </script>
+
+    <!-- UI Scripts -->
+    <script>
         function showToast(msg) {
             const toast = document.getElementById("toastBox");
             document.getElementById("toastText").innerText = msg;
@@ -518,81 +416,70 @@
             setTimeout(() => { toast.classList.remove("show"); }, 3000);
         }
 
-        // নতুন নাম্বার যোগ করার ডাইনামিক ফাংশন
-        function addNumber() {
+        window.addNumberToDB = async function() {
             const platform = document.getElementById('platformSelect').value;
             const country = document.getElementById('countrySelect').value;
             const numberVal = document.getElementById('numberInput').value.trim();
             const priceVal = document.getElementById('priceInput').value.trim();
+            const btn = document.getElementById('btnAddNum');
 
             if(numberVal === "" || priceVal === "") {
                 alert("দয়া করে নাম্বার এবং দাম সঠিকভাবে দিন!");
                 return;
             }
 
-            let iconClass = "";
-            let platformName = "";
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            btn.disabled = true;
 
-            if(platform === "Gmail") { iconClass = "fab fa-google"; platformName = "Gmail Verification"; }
-            else if(platform === "WhatsApp") { iconClass = "fab fa-whatsapp"; platformName = "WhatsApp Number"; }
-            else if(platform === "Telegram") { iconClass = "fab fa-telegram-plane"; platformName = "Telegram Number"; }
-            else if(platform === "Instagram") { iconClass = "fab fa-instagram"; platformName = "Instagram Account"; }
+            try {
+                await window.addDoc(window.collection(window.db, "available_numbers"), {
+                    platform: platform,
+                    country: country,
+                    number: numberVal,
+                    price: parseFloat(priceVal),
+                    otp: "",
+                    status: "available",
+                    timestamp: window.serverTimestamp()
+                });
 
-            // দামকে বাংলা (bn-BD) ফরম্যাটে কনভার্ট করা
-            const formattedPrice = parseFloat(priceVal).toLocaleString('bn-BD', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-            
-            const newCardId = 'num-card-' + cardCounter++;
-
-            // নতুন কার্ডের HTML ডিজাইন
-            const cardHtml = `
-                <div class="number-card" id="${newCardId}">
-                    <div class="card-top">
-                        <div class="num-details">
-                            <span class="platform-name">${platformName}</span>
-                            <h3 class="the-number">${numberVal}</h3>
-                        </div>
-                        <div class="platform-icon"><i class="${iconClass}"></i></div>
-                    </div>
-                    <div class="card-mid">
-                        <span class="country-badge">${country}</span>
-                        <span class="price-badge">দাম: ৳${formattedPrice}</span>
-                    </div>
-                    <div class="otp-group">
-                        <input type="text" class="otp-input" placeholder="OTP/কোড লিখুন...">
-                        <button class="btn-send-otp" onclick="sendOtp()"><i class="fas fa-paper-plane"></i></button>
-                    </div>
-                    <button class="btn-delete-num" onclick="deleteNumber('${newCardId}')">
-                        <i class="fas fa-trash-alt"></i> নাম্বারটি মুছুন
-                    </button>
-                </div>
-            `;
-
-            // গ্রিডের একদম শুরুতে (উপরে) নতুন কার্ড যোগ করা
-            const grid = document.getElementById('numberGrid');
-            grid.insertAdjacentHTML('afterbegin', cardHtml);
-
-            // ইনপুট বক্স ক্লিয়ার করা
-            document.getElementById('numberInput').value = '';
-            document.getElementById('priceInput').value = '';
-
-            showToast("নতুন নাম্বার সফলভাবে যোগ করা হয়েছে!");
+                document.getElementById('numberInput').value = '';
+                document.getElementById('priceInput').value = '';
+                showToast("নতুন নাম্বার সফলভাবে লাইভ করা হয়েছে!");
+            } catch(e) {
+                console.error(e);
+                alert("নাম্বার যোগ করতে সমস্যা হয়েছে!");
+            } finally {
+                btn.innerHTML = '<i class="fas fa-save"></i> যোগ করুন';
+                btn.disabled = false;
+            }
         }
 
-        function sendOtp() {
-            showToast("OTP কোড ইউজারকে পাঠানো হয়েছে!");
+        window.sendOtpToUser = async function(id) {
+            const otpInput = document.getElementById('otp-'+id).value.trim();
+            if(otpInput === "") {
+                alert("দয়া করে OTP কোড লিখুন!");
+                return;
+            }
+
+            try {
+                await window.updateDoc(window.doc(window.db, "available_numbers", id), {
+                    otp: otpInput
+                });
+                showToast("OTP কোড ইউজারের কাছে রিয়েল-টাইমে পাঠানো হয়েছে!");
+            } catch(e) {
+                console.error(e);
+                alert("OTP পাঠাতে সমস্যা হয়েছে!");
+            }
         }
 
-        // কার্ড ডিলিট করার ফাংশন
-        function deleteNumber(cardId) {
-            if(confirm("আপনি কি নিশ্চিত যে এই নাম্বারটি মুছে ফেলতে চান?")) {
-                const card = document.getElementById(cardId);
-                if(card) {
-                    card.style.opacity = '0';
-                    card.style.transform = 'scale(0.9)';
-                    setTimeout(() => { 
-                        card.remove(); // পুরোপুরি রিমুভ করে দেওয়া
-                        showToast("নাম্বারটি সফলভাবে মুছে ফেলা হয়েছে!");
-                    }, 300);
+        window.deleteNumberDB = async function(id) {
+            if(confirm("আপনি কি নিশ্চিত যে এই নাম্বারটি মুছে ফেলতে চান? এটি ডাটাবেস থেকে ডিলিট হয়ে যাবে।")) {
+                try {
+                    await window.deleteDoc(window.doc(window.db, "available_numbers", id));
+                    showToast("নাম্বারটি সফলভাবে মুছে ফেলা হয়েছে!");
+                } catch(e) {
+                    console.error(e);
+                    alert("ডিলিট করতে সমস্যা হয়েছে!");
                 }
             }
         }
