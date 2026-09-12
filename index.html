@@ -71,9 +71,9 @@
         .header-balance { 
             background-color: rgba(255, 255, 255, 0.2); padding: 6px 12px; border-radius: 4px; 
             font-size: 15px; font-weight: bold; display: flex; align-items: center; gap: 6px; 
+            transition: 0.3s;
         }
 
-        /* নোটিফিকেশন আইকন স্টাইল */
         .notification-btn {
             color: var(--main-white);
             font-size: 22px;
@@ -120,7 +120,6 @@
             display: none; 
         }
         
-        /* স্লাইডার স্টাইল */
         .ad-slider-wrapper {
             background: linear-gradient(135deg, var(--main-pink), #ff3377); 
             border-radius: 12px;
@@ -196,7 +195,6 @@
         .section-title { color: #2c3e50; font-size: 16px; margin: 5px 0 15px 0; font-weight: bold; }
         .service-list { display: flex; flex-direction: column; gap: 12px; }
         
-        /* VIP অপশন */
         .vip-card {
             background-color: var(--main-white); 
             border: 1px solid #eaeaea; 
@@ -225,7 +223,6 @@
         }
         .vip-btn:hover { background-color: var(--main-pink); color: white; }
 
-        /* সাধারণ কাজ কার্ড */
         .service-card { 
             background-color: var(--main-white); border: 1px solid #eaeaea; border-radius: 6px; 
             padding: 12px 15px; display: flex; align-items: center; justify-content: space-between; 
@@ -251,7 +248,6 @@
         }
         .service-btn:hover { background-color: var(--main-pink); color: white; }
 
-        /* বটম নেভবার */
         .bottom-nav { 
             background-color: var(--main-white); display: flex; justify-content: space-around; 
             padding: 10px 0; border-top: 1px solid #eaeaea; z-index: 100; 
@@ -272,32 +268,29 @@
             
             <!-- ব্যালেন্স এবং নোটিফিকেশন সেকশন -->
             <div class="header-auth" id="authSection">
-                <a href="login.html" class="auth-btn">Login</a>
-                <a href="register.html" class="auth-btn register">Sign Up</a>
+                <!-- লোডিং দেখাবে ডাটা আসার আগে -->
+                <div class="header-balance"><i class="fas fa-spinner fa-spin"></i></div>
             </div>
         </div>
 
         <!-- Main Content -->
         <div class="content">
             
-            <!-- স্লাইডার ব্যানার অ্যাড -->
             <div class="ad-slider-wrapper" onclick="window.location.href='vip.html'">
                 <div class="ad-badge">HOT OFFER 🔥</div>
                 <div class="ad-slider-track" id="adSliderTrack">
-                    <!-- জাভাস্ক্রিপ্ট দিয়ে স্লাইডগুলো এখানে তৈরি হবে -->
+                    <!-- স্লাইডগুলো JS দিয়ে লোড হবে -->
                 </div>
             </div>
 
             <h3 class="section-title">কাজ নির্বাচন করুন</h3>
             
             <div class="service-list">
-                <!-- VIP আপগ্রেড -->
                 <div class="vip-card">
                     <div class="vip-left"><i class="fas fa-crown"></i> VIP আপগ্রেড</div>
                     <button class="vip-btn task-btn" onclick="window.location.href='vip.html'">চেক করুন</button>
                 </div>
 
-                <!-- Gmail কার্ড -->
                 <div class="service-card">
                     <div class="service-info">
                         <div class="service-icon"><i class="fa-brands fa-google"></i></div>
@@ -306,7 +299,6 @@
                     <button class="service-btn task-btn" onclick="window.location.href='gmail.html'">তৈরি করুন</button>
                 </div>
 
-                <!-- WhatsApp কার্ড -->
                 <div class="service-card">
                     <div class="service-info">
                         <div class="service-icon"><i class="fa-brands fa-whatsapp"></i></div>
@@ -315,7 +307,6 @@
                     <button class="service-btn task-btn" onclick="window.location.href='whatsapp.html'">জমা দিন</button>
                 </div>
 
-                <!-- Telegram কার্ড -->
                 <div class="service-card">
                     <div class="service-info">
                         <div class="service-icon"><i class="fa-brands fa-telegram"></i></div>
@@ -324,7 +315,6 @@
                     <button class="service-btn task-btn" onclick="window.location.href='telegram.html'">জমা দিন</button>
                 </div>
 
-                <!-- Instagram কার্ড -->
                 <div class="service-card">
                     <div class="service-info">
                         <div class="service-icon"><i class="fa-brands fa-instagram"></i></div>
@@ -333,7 +323,6 @@
                     <button class="service-btn task-btn" onclick="window.location.href='instagram.html'">জমা দিন</button>
                 </div>
 
-                <!-- নাম্বার কিনুন কার্ড -->
                 <div class="service-card">
                     <div class="service-info">
                         <div class="service-icon"><i class="fas fa-sim-card"></i></div>
@@ -344,7 +333,6 @@
             </div>
         </div>
 
-        <!-- Bottom Navigation -->
         <div class="bottom-nav">
             <a href="index.html" class="nav-item active"><i class="fas fa-home"></i>Home</a>
             <a href="withdraw.html" class="nav-item protected-link"><i class="fas fa-wallet"></i>Withdraw</a>
@@ -353,10 +341,11 @@
         </div>
     </div>
 
-    <!-- Firebase Script -->
+    <!-- Firebase SDK & Real-time Database Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+        import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
@@ -369,6 +358,7 @@
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
+        const db = getFirestore(app);
 
         onAuthStateChanged(auth, (user) => {
             const authSection = document.getElementById("authSection");
@@ -376,13 +366,31 @@
             const taskBtns = document.querySelectorAll(".task-btn");
             
             if (user) {
-                authSection.innerHTML = `
-                    <div class="header-balance"><i class="fas fa-wallet"></i> ৳৫০.০০</div>
-                    <a href="notification.html" class="notification-btn" title="Notifications">
-                        <i class="fas fa-bell"></i>
-                        <span class="notif-badge">2</span>
-                    </a>
-                `;
+                // রিয়েল-টাইম ব্যালেন্স লিসেনার
+                const userDocRef = doc(db, "users", user.uid);
+                
+                onSnapshot(userDocRef, (docSnap) => {
+                    if (docSnap.exists()) {
+                        const userData = docSnap.data();
+                        const currentBalance = userData.balance !== undefined ? parseFloat(userData.balance).toFixed(2) : "0.00";
+                        
+                        authSection.innerHTML = `
+                            <div class="header-balance" id="headerBalanceBox"><i class="fas fa-wallet"></i> ৳${currentBalance}</div>
+                            <a href="notification.html" class="notification-btn" title="Notifications">
+                                <i class="fas fa-bell"></i>
+                                <span class="notif-badge">1</span>
+                            </a>
+                        `;
+                        
+                        // ব্যালেন্স আপডেটের সময় ছোট্ট একটা ইফেক্ট দেওয়ার জন্য
+                        const balanceBox = document.getElementById("headerBalanceBox");
+                        if(balanceBox) {
+                            balanceBox.style.transform = "scale(1.1)";
+                            setTimeout(() => { balanceBox.style.transform = "scale(1)"; }, 200);
+                        }
+                    }
+                });
+
             } else {
                 authSection.innerHTML = `<a href="login.html" class="auth-btn">Login</a><a href="register.html" class="auth-btn register">Sign Up</a>`;
                 
@@ -411,18 +419,11 @@
             { icon: "fa-crown", title: "VIP 2 স্পেশাল অফার", desc: "মাত্র ৳১৯৯ টাকায় কিনুন! দৈনিক ৩০টি জিমেইল ও ২০টি ইনস্টাগ্রাম কাজ।" },
             { icon: "fa-crown", title: "VIP 3 স্পেশাল অফার", desc: "মাত্র ৳২৯৯ টাকায় কিনুন! দৈনিক ৪০টি জিমেইল ও ৩০টি ইনস্টাগ্রাম কাজ।" },
             { icon: "fa-crown", title: "VIP 4 স্পেশাল অফার", desc: "মাত্র ৳৩৯৯ টাকায় কিনুন! দৈনিক ৫০টি জিমেইল ও ৪০টি ইনস্টাগ্রাম কাজ।" },
-            { icon: "fa-crown", title: "VIP 5 স্পেশাল অফার", desc: "মাত্র ৳৪৯৯ টাকায় কিনুন! দৈনিক ৬০টি জিমেইল ও ৫০টি ইনস্টাগ্রাম কাজ।" },
-            { icon: "fa-crown", title: "VIP 6 স্পেশাল অফার", desc: "মাত্র ৳৫৯৯ টাকায় কিনুন! দৈনিক ৭০টি জিমেইল ও ৬০টি ইনস্টাগ্রাম কাজ।" },
-            { icon: "fa-crown", title: "VIP 7 স্পেশাল অফার", desc: "মাত্র ৳৬৯৯ টাকায় কিনুন! দৈনিক ৮০টি জিমেইল ও ৭০টি ইনস্টাগ্রাম কাজ।" },
-            { icon: "fa-crown", title: "VIP 8 স্পেশাল অফার", desc: "মাত্র ৳৭৯৯ টাকায় কিনুন! দৈনিক ৯০টি জিমেইল ও ৮০টি ইনস্টাগ্রাম কাজ।" },
-            { icon: "fa-crown", title: "VIP 9 স্পেশাল অফার", desc: "মাত্র ৳৮৯৯ টাকায় কিনুন! দৈনিক ১০০টি জিমেইল ও ৯০টি ইনস্টাগ্রাম কাজ।" },
-            { icon: "fa-crown", title: "VIP 10 স্পেশাল অফার", desc: "মাত্র ৳৯৯৯ টাকায় কিনুন! দৈনিক ১১০টি জিমেইল ও ১০০টি ইনস্টাগ্রাম কাজ।" },
             { icon: "fa-star", title: "Send bKash Member", desc: "মাত্র ৳২০০০ টাকায় কিনুন! দৈনিক ২০০টি জিমেইল ও ১৮০টি ইনস্টাগ্রাম কাজ।" }
         ];
 
         const track = document.getElementById('adSliderTrack');
         
-        // ডাইনামিকভাবে স্লাইডগুলো তৈরি করা
         ads.forEach(ad => {
             const slide = document.createElement('div');
             slide.className = 'ad-slide';
@@ -438,24 +439,17 @@
         });
 
         let currentAd = 0;
-        
         function slideNext() {
             currentAd++;
-            
             if (currentAd >= ads.length) {
                 currentAd = 0;
                 track.style.transition = 'none';
                 track.style.transform = `translateX(0%)`;
-                
-                setTimeout(() => {
-                    track.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1)';
-                }, 50);
+                setTimeout(() => { track.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1)'; }, 50);
                 return;
             }
-            
             track.style.transform = `translateX(-${currentAd * 100}%)`;
         }
-
         setInterval(slideNext, 3500);
     </script>
 </body>
