@@ -94,7 +94,7 @@
             padding: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;
         }
         .history-info p { margin: 0; font-size: 13px; color: #2c3e50; font-weight: 500; }
-        .history-info small { color: var(--text-grey); font-size: 11px; }
+        .history-info small { color: var(--text-grey); font-size: 11px; display: block; margin-top: 3px; }
 
         .status-badge { padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: bold; }
         .status-pending { background-color: #fff3cd; color: #856404; }
@@ -125,37 +125,19 @@
         .nav-item i { font-size: 18px; margin-bottom: 4px; display: block; }
         .nav-item.active { color: var(--main-pink); font-weight: bold; }
 
-        /* ওয়েবসাইটের থিমের সাথে মানানসই কাস্টম টোস্ট মেসেজ */
         .toast-msg {
-            visibility: hidden;
-            min-width: 200px;
-            background-color: var(--main-pink); /* গোলাপি ব্যাকগ্রাউন্ড */
-            color: #fff;
-            text-align: center;
-            border-radius: 30px;
-            padding: 10px 20px;
-            position: fixed;
-            z-index: 9999;
-            left: 50%;
-            transform: translateX(-50%);
-            top: 20px;
-            font-size: 14px;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.4); /* গোলাপি শ্যাডো */
-            opacity: 0;
-            transition: opacity 0.3s, top 0.3s;
+            visibility: hidden; min-width: 200px; background-color: var(--main-pink); 
+            color: #fff; text-align: center; border-radius: 30px; padding: 10px 20px;
+            position: fixed; z-index: 9999; left: 50%; transform: translateX(-50%);
+            top: 20px; font-size: 14px; font-weight: bold;
+            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.4); opacity: 0; transition: opacity 0.3s, top 0.3s;
         }
-        .toast-msg.show {
-            visibility: visible;
-            opacity: 1;
-            top: 40px; 
-        }
+        .toast-msg.show { visibility: visible; opacity: 1; top: 40px; }
         .toast-error { background-color: #e74c3c; box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4); }
     </style>
 </head>
 <body>
 
-    <!-- কাস্টম টোস্ট মেসেজ বক্স -->
     <div id="toastBox" class="toast-msg"></div>
 
     <div class="app-container">
@@ -203,14 +185,14 @@
                     <i class="fas fa-sync-alt"></i> নতুন নাম ও জিমেইল নিন
                 </button>
 
-                <button class="submit-btn" onclick="submitGmail()">তৈরি করেছি, জমা দিন</button>
+                <button class="submit-btn" id="submitAutoBtn" onclick="submitGmail()">তৈরি করেছি, জমা দিন</button>
             </div>
 
             <!-- হিস্ট্রি সেকশন -->
             <div class="history-section">
                 <div class="history-title">Gmail জমার হিস্ট্রি</div>
                 <div id="historyList">
-                    <!-- জাভাস্ক্রিপ্ট দিয়ে হিস্ট্রি এখানে লোড হবে -->
+                    <p style="text-align:center; color:#888; font-size:12px;"><i class="fas fa-spinner fa-spin"></i> ডাটা লোড হচ্ছে...</p>
                 </div>
             </div>
         </div>
@@ -223,7 +205,7 @@
         </div>
     </div>
 
-    <!-- ম্যানুয়াল জমা পপআপ (Modal) -->
+    <!-- ম্যানুয়াল জমা পপআপ -->
     <div class="modal-overlay" id="manualModal">
         <div class="modal-box">
             <h3 class="modal-title">ম্যানুয়াল জিমেইল জমা দিন</h3>
@@ -232,38 +214,118 @@
             
             <div class="modal-actions">
                 <button class="modal-btn btn-cancel" onclick="closeModal()">বাতিল</button>
-                <button class="modal-btn btn-submit-modal" onclick="submitCustomGmail()">জমা দিন</button>
+                <button class="modal-btn btn-submit-modal" id="submitManualBtn" onclick="submitCustomGmail()">জমা দিন</button>
             </div>
         </div>
     </div>
 
+    <!-- Firebase SDK & Real-time Database Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, where, orderBy, doc, updateDoc, increment, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
+            authDomain: "send-bkash.firebaseapp.com",
+            projectId: "send-bkash",
+            storageBucket: "send-bkash.firebasestorage.app",
+            messagingSenderId: "306247423891",
+            appId: "1:306247423891:web:bb4fb6634043e6755afa66"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // গ্লোবাল ভেরিয়েবল
+        window.db = db;
+        window.auth = auth;
+        window.addDoc = addDoc;
+        window.collection = collection;
+        window.updateDoc = updateDoc;
+        window.doc = doc;
+        window.increment = increment;
+        window.serverTimestamp = serverTimestamp;
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                window.currentUser = user;
+                loadTaskHistory();
+            } else {
+                window.location.href = "login.html";
+            }
+        });
+
+        function loadTaskHistory() {
+            if(!window.currentUser) return;
+            
+            const q = query(
+                collection(db, "tasks"), 
+                where("userId", "==", window.currentUser.uid),
+                where("platform", "==", "Gmail"),
+                orderBy("timestamp", "desc")
+            );
+            
+            onSnapshot(q, (snapshot) => {
+                const historyList = document.getElementById('historyList');
+                historyList.innerHTML = ''; 
+
+                if(snapshot.empty) {
+                    historyList.innerHTML = '<p style="text-align:center; color:#888; font-size:12px;">কোনো হিস্ট্রি পাওয়া যায়নি।</p>';
+                    return;
+                }
+
+                snapshot.forEach(docSnap => {
+                    const item = docSnap.data();
+                    let statusClass, statusText;
+                    
+                    if(item.status === 'pending') {
+                        statusClass = 'status-pending'; statusText = 'Pending';
+                    } else if(item.status === 'approved') {
+                        statusClass = 'status-approved'; statusText = 'Approved';
+                    } else {
+                        statusClass = 'status-rejected'; statusText = 'Rejected';
+                    }
+
+                    const dateObj = item.timestamp ? item.timestamp.toDate() : new Date();
+                    const dateStr = dateObj.toLocaleDateString('bn-BD', {hour: '2-digit', minute:'2-digit'});
+
+                    // ডিটেইলস থেকে ইমেইল বের করে দেখানো (যদি থাকে)
+                    let displayInfo = item.details.includes('Email:') ? item.details.split(',')[1] || item.details : item.details;
+
+                    historyList.innerHTML += `
+                        <div class="history-card">
+                            <div class="history-info">
+                                <p style="font-size:12px; font-weight: bold; color: var(--main-pink);">${displayInfo}</p>
+                                <small>তারিখ: ${dateStr}</small>
+                            </div>
+                            <div class="status-badge ${statusClass}">${statusText}</div>
+                        </div>
+                    `;
+                });
+            });
+        }
+    </script>
+
+    <!-- UI Scripts -->
     <script>
         const firstNames = ["Rahim", "Karim", "Jamal", "Kamal", "Hasan", "Tariq", "Sadia", "Nusrat", "Farhana", "Ayesha"];
         let currentEmail = "";
 
-        // কাস্টম টোস্ট দেখানোর ফাংশন (এখন গোলাপি রঙের)
         function showToast(message, isError = false) {
             const toast = document.getElementById("toastBox");
             toast.innerText = message;
+            if(isError) toast.classList.add("toast-error");
+            else toast.classList.remove("toast-error");
             
-            if(isError) {
-                toast.classList.add("toast-error");
-            } else {
-                toast.classList.remove("toast-error");
-            }
-
             toast.classList.add("show");
-
-            // ২.৫ সেকেন্ড পর হাইড হবে
-            setTimeout(function(){
-                toast.classList.remove("show");
-            }, 2500);
+            setTimeout(() => { toast.classList.remove("show"); }, 2500);
         }
 
-        function generateNewData() {
+        window.generateNewData = function() {
             const randomName = firstNames[Math.floor(Math.random() * firstNames.length)];
             const randomNum = Math.floor(10000 + Math.random() * 90000); 
-            
             const generatedEmail = `${randomName.toLowerCase()}${randomNum}@gmail.com`;
             currentEmail = generatedEmail;
 
@@ -271,24 +333,56 @@
             document.getElementById('emailDisplay').innerText = generatedEmail;
         }
 
-        function copyText(elementId) {
+        window.copyText = function(elementId) {
             const text = document.getElementById(elementId).innerText;
             navigator.clipboard.writeText(text);
-            // এখন মেসেজটা ছোট করা হয়েছে
             showToast("কপি করা হয়েছে!");
         }
 
-        function submitGmail() {
-            if(!currentEmail) return;
-            saveToHistory(currentEmail);
-            showToast("সফলভাবে জমা দেওয়া হয়েছে!");
-            generateNewData(); 
+        window.openModal = function() { document.getElementById('manualModal').style.display = 'flex'; }
+        window.closeModal = function() { document.getElementById('manualModal').style.display = 'none'; }
+
+        window.submitGmail = async function() {
+            if(!currentEmail || !window.currentUser) {
+                showToast("দয়া করে অপেক্ষা করুন বা আবার লগইন করুন।", true);
+                return;
+            }
+            
+            const btn = document.getElementById('submitAutoBtn');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> প্রসেসিং...';
+            btn.disabled = true;
+            
+            const fName = document.getElementById('fNameDisplay').innerText;
+            const pass = document.getElementById('passDisplay').innerText;
+            const detailsText = `Name: ${fName}, Email: ${currentEmail}, Pass: ${pass}`;
+            
+            try {
+                // ১. ফায়ারবেসে টাস্ক সেভ করা
+                await window.addDoc(window.collection(window.db, "tasks"), {
+                    userId: window.currentUser.uid,
+                    platform: "Gmail",
+                    details: detailsText,
+                    status: "pending",
+                    timestamp: window.serverTimestamp()
+                });
+                
+                // ২. ইউজারের totalTasks আপডেট করা
+                await window.updateDoc(window.doc(window.db, "users", window.currentUser.uid), {
+                    totalTasks: window.increment(1)
+                });
+                
+                showToast("সফলভাবে কাজ জমা দেওয়া হয়েছে!");
+                generateNewData(); 
+            } catch(e) {
+                console.error(e);
+                showToast("জমা দিতে সমস্যা হয়েছে!", true);
+            } finally {
+                btn.innerText = "তৈরি করেছি, জমা দিন";
+                btn.disabled = false;
+            }
         }
 
-        function openModal() { document.getElementById('manualModal').style.display = 'flex'; }
-        function closeModal() { document.getElementById('manualModal').style.display = 'none'; }
-
-        function submitCustomGmail() {
+        window.submitCustomGmail = async function() {
             const email = document.getElementById('customEmail').value.trim();
             const pass = document.getElementById('customPass').value.trim();
 
@@ -296,66 +390,43 @@
                 showToast("দয়া করে জিমেইল এবং পাসওয়ার্ড লিখুন!", true);
                 return;
             }
-
-            saveToHistory(email);
-            showToast("ম্যানুয়াল জিমেইল সফলভাবে জমা হয়েছে!");
             
-            document.getElementById('customEmail').value = '';
-            document.getElementById('customPass').value = '';
-            closeModal();
-        }
+            if(!window.currentUser) return;
 
-        function saveToHistory(emailToSave) {
-            let history = JSON.parse(localStorage.getItem('gmailHistory')) || [];
-            
-            const newEntry = {
-                email: emailToSave,
-                date: new Date().toLocaleDateString('bn-BD'),
-                status: 'pending' 
-            };
-            
-            history.unshift(newEntry); 
-            localStorage.setItem('gmailHistory', JSON.stringify(history));
-            loadHistory(); 
-        }
+            const btn = document.getElementById('submitManualBtn');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> প্রসেসিং...';
+            btn.disabled = true;
 
-        function loadHistory() {
-            const historyList = document.getElementById('historyList');
-            const history = JSON.parse(localStorage.getItem('gmailHistory')) || [];
+            const detailsText = `Email: ${email}, Pass: ${pass}`;
 
-            historyList.innerHTML = ''; 
-
-            if(history.length === 0) {
-                historyList.innerHTML = '<p style="text-align:center; color:#888; font-size:12px;">কোনো হিস্ট্রি পাওয়া যায়নি।</p>';
-                return;
-            }
-
-            history.forEach(item => {
-                let statusClass, statusText;
+            try {
+                await window.addDoc(window.collection(window.db, "tasks"), {
+                    userId: window.currentUser.uid,
+                    platform: "Gmail",
+                    details: detailsText,
+                    status: "pending",
+                    timestamp: window.serverTimestamp()
+                });
                 
-                if(item.status === 'pending') {
-                    statusClass = 'status-pending'; statusText = 'Pending';
-                } else if(item.status === 'approved') {
-                    statusClass = 'status-approved'; statusText = 'Approved';
-                } else {
-                    statusClass = 'status-rejected'; statusText = 'Rejected';
-                }
+                await window.updateDoc(window.doc(window.db, "users", window.currentUser.uid), {
+                    totalTasks: window.increment(1)
+                });
 
-                historyList.innerHTML += `
-                    <div class="history-card">
-                        <div class="history-info">
-                            <p>${item.email}</p>
-                            <small>তারিখ: ${item.date}</small>
-                        </div>
-                        <div class="status-badge ${statusClass}">${statusText}</div>
-                    </div>
-                `;
-            });
+                showToast("ম্যানুয়াল জিমেইল সফলভাবে জমা হয়েছে!");
+                document.getElementById('customEmail').value = '';
+                document.getElementById('customPass').value = '';
+                closeModal();
+            } catch(e) {
+                console.error(e);
+                showToast("জমা দিতে সমস্যা হয়েছে!", true);
+            } finally {
+                btn.innerText = "জমা দিন";
+                btn.disabled = false;
+            }
         }
 
         window.onload = () => {
             generateNewData();
-            loadHistory();
         };
     </script>
 </body>
