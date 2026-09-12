@@ -106,7 +106,7 @@
             flex-grow: 1;
         }
 
-        /* হিস্ট্রি বাটন (শুধু আইকন) */
+        /* হিস্ট্রি বাটন */
         .btn-history {
             background: transparent;
             color: var(--main-pink);
@@ -120,11 +120,8 @@
             justify-content: center;
         }
 
-        .btn-history:hover {
-            transform: scale(1.1);
-        }
+        .btn-history:hover { transform: scale(1.1); }
 
-        /* --- নোটিফিকেশন বক্স গ্রিড --- */
         .notify-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -136,7 +133,6 @@
             .notify-grid { grid-template-columns: 1fr; } 
         }
 
-        /* কার্ডের ডিজাইন এবং হোভার ইফেক্ট */
         .settings-card {
             background: #fff;
             border-radius: 12px;
@@ -180,30 +176,21 @@
         }
         .btn-submit:hover { background: #b0124c; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(226, 0, 90, 0.3); }
 
-        /* হিস্ট্রি কার্ড ডিজাইন */
         .history-card {
             background: #fff; border-radius: 12px; padding: 25px;
             box-shadow: 0 4px 15px rgba(226, 0, 90, 0.1); 
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .history-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(226, 0, 90, 0.15);
         }
 
         .history-item {
             background: #fdfdfd; border: 1px solid #eee; border-left: 4px solid var(--main-pink);
             border-radius: 8px; padding: 15px; margin-bottom: 15px;
         }
-        .history-item:last-child { margin-bottom: 0; }
 
         .hi-title { font-size: 16px; font-weight: bold; color: var(--dark-blue); margin: 0 0 5px 0;}
         .hi-target { font-size: 12px; font-weight: bold; color: var(--main-pink); background: #ffe0e9; padding: 3px 8px; border-radius: 4px; display: inline-block; margin-bottom: 8px;}
         .hi-body { font-size: 14px; color: #555; margin: 0 0 8px 0; line-height: 1.4; font-weight: bold;}
         .hi-time { font-size: 11px; color: #aaa; font-weight: bold; }
 
-        /* টোস্ট মেসেজ */
         .toast-msg {
             visibility: hidden; background-color: var(--main-pink); color: #fff; text-align: center;
             border-radius: 8px; padding: 15px 25px; position: fixed; z-index: 9999; right: 30px; top: 30px;
@@ -211,7 +198,7 @@
             opacity: 0; transition: opacity 0.3s, top 0.3s, background-color 0.3s;
         }
         .toast-msg.show { visibility: visible; opacity: 1; top: 50px; }
-
+        .toast-error { background-color: #e74c3c !important; }
     </style>
 </head>
 <body>
@@ -273,12 +260,12 @@
                             <textarea id="globalMessage" class="form-control form-textarea" style="height: 100%; min-height: 160px;" placeholder="হোম পেজে বা সবার ড্যাশবোর্ডে দেখানোর জন্য নোটিশ লিখুন..."></textarea>
                         </div>
 
-                        <button class="btn-submit" onclick="sendGlobalNotice()">
+                        <button class="btn-submit" id="btnGlobal" onclick="sendGlobalNotice()">
                             <i class="fas fa-paper-plane"></i> নোটিশ পাবলিশ করুন
                         </button>
                     </div>
 
-                    <!-- পুশ নোটিফিকেশন ফর্ম (নির্দিষ্ট ইউজারের জন্য) -->
+                    <!-- পুশ নোটিফিকেশন ফর্ম -->
                     <div class="settings-card">
                         <div class="settings-title"><i class="fas fa-comment-dots"></i> নির্দিষ্ট ইউজারকে নোটিফিকেশন পাঠান</div>
                         
@@ -297,7 +284,7 @@
                             <textarea id="directMessage" class="form-control form-textarea" style="min-height: 90px;" placeholder="বিস্তারিত নোটিফিকেশন মেসেজ লিখুন..."></textarea>
                         </div>
 
-                        <button class="btn-submit" onclick="sendDirectNotice()">
+                        <button class="btn-submit" id="btnDirect" onclick="sendDirectNotice()">
                             <i class="fas fa-share-square"></i> নোটিফিকেশন পাঠান
                         </button>
                     </div>
@@ -305,19 +292,13 @@
                 </div>
             </div>
 
-            <!-- হিস্ট্রি ভিউ -->
+            <!-- হিস্ট্রি ভিউ (ফায়ারবেস থেকে আসবে) -->
             <div id="historyView" style="display: none;">
                 <div class="history-card">
                     <div class="settings-title" style="margin-bottom: 20px;"><i class="fas fa-history"></i> পাঠানো নোটিশের হিস্ট্রি</div>
                     
                     <div id="historyList">
-                        <!-- ডেমো হিস্ট্রি -->
-                        <div class="history-item">
-                            <p class="hi-title">সার্ভার মেইনটেন্যান্স অ্যালার্ট</p>
-                            <span class="hi-target"><i class="fas fa-users"></i> সবার জন্য (Global)</span>
-                            <p class="hi-body">আজ রাত ১২টা থেকে ২টা পর্যন্ত সার্ভারের আপডেট কাজ চলবে। এই সময়ে কাজ জমা দেওয়া থেকে বিরত থাকুন।</p>
-                            <span class="hi-time">পাঠানো হয়েছে: আজ, ১০:৩০ AM</span>
-                        </div>
+                        <p style="text-align:center; color:#888; padding:30px;"><i class="fas fa-spinner fa-spin"></i> ডাটা লোড হচ্ছে...</p>
                     </div>
                 </div>
             </div>
@@ -325,8 +306,82 @@
         </div>
     </main>
 
+    <!-- Firebase SDK & Database Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, doc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
+            authDomain: "send-bkash.firebaseapp.com",
+            projectId: "send-bkash",
+            storageBucket: "send-bkash.firebasestorage.app",
+            messagingSenderId: "306247423891",
+            appId: "1:306247423891:web:bb4fb6634043e6755afa66"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        window.db = db;
+        window.addDoc = addDoc;
+        window.collection = collection;
+        window.serverTimestamp = serverTimestamp;
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                const userRef = doc(db, "users", user.uid);
+                const docSnap = await getDoc(userRef);
+                
+                if (docSnap.exists() && (docSnap.data().role === "admin" || user.email === "sakibbinsalam.admin@gmail.com")) {
+                    loadNotificationsHistory();
+                } else {
+                    window.location.href = "login.html"; 
+                }
+            } else {
+                window.location.href = "login.html";
+            }
+        });
+
+        function loadNotificationsHistory() {
+            const q = query(collection(db, "notifications"), orderBy("timestamp", "desc"));
+            onSnapshot(q, (snapshot) => {
+                const historyList = document.getElementById("historyList");
+                historyList.innerHTML = "";
+
+                if (snapshot.empty) {
+                    historyList.innerHTML = '<p style="text-align:center; color:#888; padding:30px;">কোনো হিস্ট্রি পাওয়া যায়নি।</p>';
+                    return;
+                }
+
+                snapshot.forEach(docSnap => {
+                    const data = docSnap.data();
+                    const dateObj = data.timestamp ? data.timestamp.toDate() : new Date();
+                    const dateStr = dateObj.toLocaleDateString('bn-BD') + " " + dateObj.toLocaleTimeString('bn-BD', {hour: '2-digit', minute:'2-digit'});
+
+                    let targetHTML = "";
+                    if (data.type === "global") {
+                        targetHTML = `<i class="fas fa-users"></i> সবার জন্য (Global)`;
+                    } else {
+                        targetHTML = `<i class="fas fa-user"></i> ইউজার: ${data.userId}`;
+                    }
+
+                    historyList.innerHTML += `
+                        <div class="history-item">
+                            <p class="hi-title">${data.title}</p>
+                            <span class="hi-target">${targetHTML}</span>
+                            <p class="hi-body">${data.message}</p>
+                            <span class="hi-time">পাঠানো হয়েছে: ${dateStr}</span>
+                        </div>
+                    `;
+                });
+            });
+        }
+    </script>
+
     <script>
-        // টোস্ট মেসেজ ফাংশন
         function showToast(message, isError = false) {
             const toast = document.getElementById("toastBox");
             const text = document.getElementById("toastText");
@@ -335,10 +390,10 @@
             text.innerText = message;
             
             if(isError) {
-                toast.style.backgroundColor = "#e74c3c"; 
+                toast.classList.add("toast-error"); 
                 icon.className = "fas fa-exclamation-triangle";
             } else {
-                toast.style.backgroundColor = "var(--main-pink)"; 
+                toast.classList.remove("toast-error"); 
                 icon.className = "fas fa-check-circle";
             }
 
@@ -346,7 +401,6 @@
             setTimeout(() => { toast.classList.remove("show"); }, 3500);
         }
 
-        // পেজ লোড হওয়ার সময় চেক করবে আগে কোথায় ছিল (LocalStorage ব্যবহার করে)
         window.onload = function() {
             const savedView = localStorage.getItem("admin_active_view");
             if (savedView === "history") {
@@ -357,8 +411,7 @@
             }
         };
 
-        // পেজ বা ভিউ পাল্টানোর লজিক
-        function toggleView() {
+        window.toggleView = function() {
             const mainView = document.getElementById('mainView');
             const historyView = document.getElementById('historyView');
             const mainTitle = document.getElementById('mainTitle');
@@ -369,63 +422,83 @@
                 historyView.style.display = 'block';
                 mainTitle.innerHTML = '<i class="fas fa-history"></i> নোটিশ ও নোটিফিকেশন হিস্ট্রি';
                 toggleBtn.title = "ফিরে যান";
-                localStorage.setItem("admin_active_view", "history"); // স্টেট সেভ করা হলো
+                localStorage.setItem("admin_active_view", "history");
             } else {
                 historyView.style.display = 'none';
                 mainView.style.display = 'block';
                 mainTitle.innerHTML = '<i class="fas fa-bell"></i> নোটিফিকেশন ও নোটিশ';
                 toggleBtn.title = "হিস্ট্রি দেখুন";
-                localStorage.setItem("admin_active_view", "main"); // স্টেট সেভ করা হলো
+                localStorage.setItem("admin_active_view", "main");
             }
         }
 
-        // হিস্ট্রি লিস্টে আইটেম যোগ করার ফাংশন
-        function addHistoryItem(title, targetHTML, message) {
-            const timeStr = new Date().toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit', hour12: true });
-            const historyList = document.getElementById("historyList");
-            const newItem = document.createElement("div");
-            newItem.className = "history-item";
-            newItem.innerHTML = `
-                <p class="hi-title">${title}</p>
-                <span class="hi-target">${targetHTML}</span>
-                <p class="hi-body">${message}</p>
-                <span class="hi-time">পাঠানো হয়েছে: আজ, ${timeStr}</span>
-            `;
-            historyList.prepend(newItem);
-        }
-
-        function sendGlobalNotice() {
-            const title = document.getElementById("globalTitle").value;
-            const message = document.getElementById("globalMessage").value;
+        window.sendGlobalNotice = async function() {
+            const title = document.getElementById("globalTitle").value.trim();
+            const message = document.getElementById("globalMessage").value.trim();
+            const btn = document.getElementById("btnGlobal");
             
-            if (title.trim() === "" || message.trim() === "") {
+            if (title === "" || message === "") {
                 showToast("দয়া করে নোটিশের টাইটেল এবং মেসেজ দুটিই লিখুন!", true);
                 return;
             }
-            
-            addHistoryItem(title, '<i class="fas fa-users"></i> সবার জন্য (Global)', message);
-            showToast("গ্লোবাল নোটিশ সফলভাবে পাবলিশ হয়েছে!", false);
-            
-            document.getElementById("globalTitle").value = "";
-            document.getElementById("globalMessage").value = "";
+
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> পাবলিশ হচ্ছে...';
+            btn.disabled = true;
+
+            try {
+                await window.addDoc(window.collection(window.db, "notifications"), {
+                    type: "global",
+                    title: title,
+                    message: message,
+                    timestamp: window.serverTimestamp()
+                });
+                
+                showToast("গ্লোবাল নোটিশ সফলভাবে পাবলিশ হয়েছে!", false);
+                document.getElementById("globalTitle").value = "";
+                document.getElementById("globalMessage").value = "";
+            } catch (error) {
+                console.error(error);
+                showToast("নোটিশ পাঠাতে সমস্যা হয়েছে!", true);
+            } finally {
+                btn.innerHTML = '<i class="fas fa-paper-plane"></i> নোটিশ পাবলিশ করুন';
+                btn.disabled = false;
+            }
         }
 
-        function sendDirectNotice() {
-            const userId = document.getElementById("directUserId").value;
-            const title = document.getElementById("directTitle").value;
-            const msg = document.getElementById("directMessage").value;
+        window.sendDirectNotice = async function() {
+            const userId = document.getElementById("directUserId").value.trim();
+            const title = document.getElementById("directTitle").value.trim();
+            const message = document.getElementById("directMessage").value.trim();
+            const btn = document.getElementById("btnDirect");
             
-            if (userId.trim() === "" || title.trim() === "" || msg.trim() === "") {
+            if (userId === "" || title === "" || message === "") {
                 showToast("দয়া করে ইউজার আইডি, শিরোনাম এবং বিস্তারিত বার্তা সম্পূর্ণ পূরণ করুন!", true);
                 return;
             }
 
-            addHistoryItem(title, `<i class="fas fa-user"></i> ${userId} এর জন্য`, msg);
-            showToast(`সাফল্য! ${userId} এর কাছে নোটিফিকেশন পাঠানো হয়েছে।`, false);
-            
-            document.getElementById("directUserId").value = "";
-            document.getElementById("directTitle").value = "";
-            document.getElementById("directMessage").value = "";
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> পাঠানো হচ্ছে...';
+            btn.disabled = true;
+
+            try {
+                await window.addDoc(window.collection(window.db, "notifications"), {
+                    type: "direct",
+                    userId: userId,
+                    title: title,
+                    message: message,
+                    timestamp: window.serverTimestamp()
+                });
+                
+                showToast(`সাফল্য! ${userId} এর কাছে নোটিফিকেশন পাঠানো হয়েছে।`, false);
+                document.getElementById("directUserId").value = "";
+                document.getElementById("directTitle").value = "";
+                document.getElementById("directMessage").value = "";
+            } catch (error) {
+                console.error(error);
+                showToast("নোটিফিকেশন পাঠাতে সমস্যা হয়েছে!", true);
+            } finally {
+                btn.innerHTML = '<i class="fas fa-share-square"></i> নোটিফিকেশন পাঠান';
+                btn.disabled = false;
+            }
         }
     </script>
 </body>
