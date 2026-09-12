@@ -83,7 +83,7 @@
             background-color: var(--bg-light);
         }
 
-        /* টপবার (গোলাপি লেখা এবং লোগো সহ) */
+        /* টপবার */
         .topbar {
             background-color: var(--main-white);
             padding: 15px 30px;
@@ -103,14 +103,12 @@
             gap: 10px; 
         }
 
-        /* ড্যাশবোর্ড বডি */
         .dashboard-body {
             padding: 30px;
             overflow-y: auto;
             flex-grow: 1;
         }
 
-        /* --- নিয়ম অ্যাড করার ফর্ম --- */
         .rules-form-card {
             background: #fff;
             border-radius: 15px;
@@ -146,7 +144,6 @@
         }
         .btn-save-rule:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(226, 0, 90, 0.3); }
 
-        /* --- সেভ করা নিয়মগুলোর গ্রিড --- */
         .rules-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -168,52 +165,30 @@
         }
 
         .video-container {
-            width: 100%;
-            height: 180px;
-            background-color: #000;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
+            width: 100%; height: 180px; background-color: #000; position: relative;
+            display: flex; align-items: center; justify-content: center; color: white;
         }
 
-        .video-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
+        .video-container iframe { width: 100%; height: 100%; border: none; }
 
         .no-video {
             font-size: 14px; color: #888; display: flex; flex-direction: column; align-items: center; gap: 10px;
             background: #f8f9fa; width: 100%; height: 100%; justify-content: center; font-weight: bold;
         }
 
-        .rule-body {
-            padding: 20px;
-            flex-grow: 1;
-        }
+        .rule-body { padding: 20px; flex-grow: 1; }
+        .rule-text { font-size: 14px; color: #444; line-height: 1.6; margin: 0 0 20px 0; white-space: pre-line; }
 
-        .rule-text {
-            font-size: 14px; color: #444; line-height: 1.6; margin: 0 0 20px 0;
-            white-space: pre-line;
-        }
+        .rule-actions { display: flex; gap: 10px; padding: 0 20px 20px 20px; }
 
-        .rule-actions {
-            display: flex; gap: 10px; padding: 0 20px 20px 20px;
-        }
-
-        .btn-edit, .btn-delete {
+        .btn-delete {
             flex: 1; border: none; padding: 10px; border-radius: 6px; cursor: pointer;
             font-weight: bold; font-size: 14px; transition: 0.2s;
             display: flex; align-items: center; justify-content: center; gap: 6px;
+            background-color: #ffe0e9; color: var(--main-pink);
         }
-        .btn-edit { background-color: #f8f9fa; color: var(--dark-blue); border: 1px solid #ddd; }
-        .btn-edit:hover { background-color: #eaeaea; }
-        .btn-delete { background-color: #ffe0e9; color: var(--main-pink); }
         .btn-delete:hover { background-color: var(--main-pink); color: white; }
 
-        /* টোস্ট মেসেজ */
         .toast-msg {
             visibility: hidden; background-color: #27ae60; color: #fff; text-align: center;
             border-radius: 8px; padding: 15px 25px; position: fixed; z-index: 9999; right: 30px; top: 30px;
@@ -221,6 +196,7 @@
             opacity: 0; transition: opacity 0.3s, top 0.3s;
         }
         .toast-msg.show { visibility: visible; opacity: 1; top: 50px; }
+        .toast-error { background-color: #e74c3c !important; }
     </style>
 </head>
 <body>
@@ -234,7 +210,7 @@
             <p>অ্যাডমিন কন্ট্রোল প্যানেল</p>
         </div>
         <ul class="nav-links">
-            <li><a href="admin.html" class="nav-link"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
+            <li><a href="admin_dashboard.html" class="nav-link"><i class="fas fa-home"></i> ড্যাশবোর্ড</a></li>
             <li><a href="admin_history.html" class="nav-link"><i class="fas fa-history"></i> কাজের হিস্ট্রি</a></li>
             <li><a href="admin_cash_in.html" class="nav-link"><i class="fas fa-wallet"></i> ক্যাশ ইন</a></li>
             <li><a href="admin_simple_users.html" class="nav-link"><i class="fas fa-user"></i> সাধারণ ইউজার</a></li>
@@ -244,20 +220,19 @@
             <li><a href="admin_task_rates.html" class="nav-link"><i class="fas fa-tasks"></i> কাজের রেট</a></li>
             <li><a href="admin_number.html" class="nav-link"><i class="fas fa-sim-card"></i> নাম্বার ম্যানেজমেন্ট</a></li>
             <li><a href="admin_vip_settings.html" class="nav-link"><i class="fas fa-crown"></i> VIP প্যাকেজ সেটিং</a></li>
-            <li><a href="admin_settings.html" class="nav-link active"><i class="fas fa-user-plus"></i> সেটিং</a></li>
+            <li><a href="admin_settings.html" class="nav-link"><i class="fas fa-user-plus"></i> সেটিং</a></li>
+            <li><a href="admin_rules.html" class="nav-link active"><i class="fas fa-file-alt"></i> কাজের নিয়মাবলী</a></li>
         </ul>
     </aside>
 
     <!-- মেইন এরিয়া -->
     <main class="main-content">
         <header class="topbar">
-            <!-- আপনার পছন্দমতো টপবারে গোলাপি রঙের লেখা এবং লোগো যুক্ত করা হয়েছে -->
             <div class="topbar-title"><i class="fas fa-file-alt"></i> কাজের নিয়মাবলী</div>
         </header>
 
         <div class="dashboard-body">
             
-            <!-- নিয়ম যোগ করার ফর্ম -->
             <div class="rules-form-card">
                 <div class="form-title"><i class="fas fa-plus-circle" style="color: var(--main-pink);"></i> নতুন নিয়ম বা টিউটোরিয়াল যোগ করুন</div>
                 
@@ -274,7 +249,7 @@
 
                     <div class="input-group">
                         <label>ভিডিও লিংক (YouTube URL / ঐচ্ছিক)</label>
-                        <input type="text" id="videoUrlInput" class="form-control" placeholder="যেমন: https://www.youtube.com/embed/xxxxxx">
+                        <input type="text" id="videoUrlInput" class="form-control" placeholder="যেমন: https://youtu.be/xxxxxx">
                     </div>
                 </div>
 
@@ -283,139 +258,185 @@
                     <textarea id="rulesTextInput" class="form-control" placeholder="কাজটি কীভাবে করতে হবে তার নিয়মগুলো ধাপে ধাপে লিখুন..."></textarea>
                 </div>
 
-                <button class="btn-save-rule" onclick="saveRule()">
+                <button class="btn-save-rule" id="saveRuleBtn" onclick="saveRuleToDB()">
                     <i class="fas fa-save"></i> সেভ করুন এবং পাবলিশ করুন
                 </button>
             </div>
 
-            <!-- সেভ করা নিয়মগুলোর কার্ড গ্রিড -->
             <div style="font-size: 18px; font-weight: bold; color: var(--dark-blue); margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
                 <i class="fas fa-list-alt" style="color: var(--main-pink);"></i> বর্তমান নিয়মাবলীসমূহ
             </div>
 
-            <div class="rules-grid">
-                
-                <!-- কার্ড ১ -->
-                <div class="rule-card" id="rule-1">
-                    <div class="rule-header">
-                        <i class="fab fa-google"></i> Google Account খোলার নিয়ম
-                    </div>
-                    
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY" allowfullscreen></iframe>
-                    </div>
-
-                    <div class="rule-body">
-                        <p class="rule-text">
-                            ১. প্রথমে একটি ফ্রেশ আইপি connect করুন।
-                            ২. ব্রাউজারের ডাটা ক্লিয়ার করে নিন।
-                            ৩. আমাদের দেওয়া রিকভারি ইমেইল ব্যবহার করে নতুন একাউন্ট খুলুন।
-                            ৪. পাসওয়ার্ড হিসেবে অবশ্যই "sakib@2026" ব্যবহার করবেন।
-                        </p>
-                    </div>
-
-                    <div class="rule-actions">
-                        <button class="btn-edit" onclick="editRule()"><i class="fas fa-edit"></i> এডিট</button>
-                        <button class="btn-delete" onclick="deleteRule('rule-1')"><i class="fas fa-trash-alt"></i> ডিলিট</button>
-                    </div>
-                </div>
-
-                <!-- কার্ড ২ -->
-                <div class="rule-card" id="rule-2">
-                    <div class="rule-header">
-                        <i class="fab fa-instagram"></i> Instagram Account এর নিয়ম
-                    </div>
-                    
-                    <div class="video-container">
-                        <div class="no-video">
-                            <i class="fas fa-video-slash" style="font-size: 30px; color: #ccc;"></i>
-                            <span>কোনো ভিডিও যোগ করা হয়নি</span>
-                        </div>
-                    </div>
-
-                    <div class="rule-body">
-                        <p class="rule-text">
-                            ১. ইন্সটাগ্রাম অ্যাপের ডাটা ক্লিয়ার করুন।
-                            ২. নতুন ইমেইল দিয়ে সাইন আপ করুন।
-                            ৩. প্রোফাইল পিকচার এবং বায়ো সেট করা বাধ্যতামূলক।
-                            ৪. কাজ শেষে ইউজারনেম এবং পাসওয়ার্ড জমা দিন।
-                        </p>
-                    </div>
-
-                    <div class="rule-actions">
-                        <button class="btn-edit" onclick="editRule()"><i class="fas fa-edit"></i> এডিট</button>
-                        <button class="btn-delete" onclick="deleteRule('rule-2')"><i class="fas fa-trash-alt"></i> ডিলিট</button>
-                    </div>
-                </div>
-
-                <!-- কার্ড ৩ -->
-                <div class="rule-card" id="rule-3">
-                    <div class="rule-header">
-                        <i class="fab fa-whatsapp"></i> WhatsApp Number এর নিয়ম
-                    </div>
-                    
-                    <div class="video-container">
-                        <div class="no-video">
-                            <i class="fas fa-video-slash" style="font-size: 30px; color: #ccc;"></i>
-                            <span>কোনো ভিডিও যোগ করা হয়নি</span>
-                        </div>
-                    </div>
-
-                    <div class="rule-body">
-                        <p class="rule-text">
-                            ১. আমাদের দেওয়া কান্ট্রি কোড সিলেক্ট করুন।
-                            ২. নাম্বারটি হোয়াটসঅ্যাপে বসিয়ে সেন্ড কোড দিন।
-                            ৩. ওয়েবসাইটের ড্যাশবোর্ডে ওটিপি (OTP) পেলে তা বসিয়ে একাউন্ট তৈরি করুন।
-                        </p>
-                    </div>
-
-                    <div class="rule-actions">
-                        <button class="btn-edit" onclick="editRule()"><i class="fas fa-edit"></i> এডিট</button>
-                        <button class="btn-delete" onclick="deleteRule('rule-3')"><i class="fas fa-trash-alt"></i> ডিলিট</button>
-                    </div>
-                </div>
-
+            <!-- সেভ করা নিয়মগুলো ফায়ারবেস থেকে এখানে লোড হবে -->
+            <div class="rules-grid" id="rulesGridContainer">
+                <p style="text-align:center; color:#888; width:100%; grid-column: 1 / -1; padding:30px;"><i class="fas fa-spinner fa-spin"></i> ডাটা লোড হচ্ছে...</p>
             </div>
 
         </div>
     </main>
 
+    <!-- Firebase SDK & Real-time Database Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, getDoc, serverTimestamp, orderBy, query } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
+            authDomain: "send-bkash.firebaseapp.com",
+            projectId: "send-bkash",
+            storageBucket: "send-bkash.firebasestorage.app",
+            messagingSenderId: "306247423891",
+            appId: "1:306247423891:web:bb4fb6634043e6755afa66"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        window.db = db;
+        window.doc = doc;
+        window.deleteDoc = deleteDoc;
+        window.addDoc = addDoc;
+        window.collection = collection;
+        window.serverTimestamp = serverTimestamp;
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                const userRef = doc(db, "users", user.uid);
+                const docSnap = await getDoc(userRef);
+                
+                if (docSnap.exists() && (docSnap.data().role === "admin" || user.email === "sakibbinsalam.admin@gmail.com")) {
+                    loadRulesFromDB();
+                } else {
+                    window.location.href = "login.html"; 
+                }
+            } else {
+                window.location.href = "login.html";
+            }
+        });
+
+        function loadRulesFromDB() {
+            const q = query(collection(db, "task_rules"), orderBy("createdAt", "desc"));
+            
+            onSnapshot(q, (snapshot) => {
+                const rulesGrid = document.getElementById("rulesGridContainer");
+                rulesGrid.innerHTML = '';
+                
+                if(snapshot.empty) {
+                    rulesGrid.innerHTML = '<p style="text-align:center; color:#888; width:100%; grid-column: 1 / -1; padding:30px;">কোনো নিয়ম যোগ করা হয়নি।</p>';
+                    return;
+                }
+
+                snapshot.forEach(docSnap => {
+                    const data = docSnap.data();
+                    const id = docSnap.id;
+
+                    let iconClass = "fas fa-tasks";
+                    if(data.platform === "Google Account") iconClass = "fab fa-google";
+                    else if(data.platform === "Instagram Account") iconClass = "fab fa-instagram";
+                    else if(data.platform === "WhatsApp Account") iconClass = "fab fa-whatsapp";
+                    else if(data.platform === "Telegram Account") iconClass = "fab fa-telegram-plane";
+
+                    let videoHTML = "";
+                    if (data.videoUrl) {
+                        videoHTML = `<div class="video-container"><iframe src="${data.videoUrl}" allowfullscreen></iframe></div>`;
+                    } else {
+                        videoHTML = `<div class="video-container"><div class="no-video"><i class="fas fa-video-slash" style="font-size: 30px; color: #ccc;"></i><span>কোনো ভিডিও যোগ করা হয়নি</span></div></div>`;
+                    }
+
+                    // লাইন ব্রেক ঠিক করার জন্য
+                    const formattedText = data.rulesText.replace(/\n/g, '<br>');
+
+                    rulesGrid.innerHTML += `
+                        <div class="rule-card" id="rule-${id}">
+                            <div class="rule-header">
+                                <i class="${iconClass}"></i> ${data.platform} এর নিয়ম
+                            </div>
+                            
+                            ${videoHTML}
+
+                            <div class="rule-body">
+                                <p class="rule-text">${formattedText}</p>
+                            </div>
+
+                            <div class="rule-actions">
+                                <button class="btn-delete" onclick="deleteRuleDB('${id}')"><i class="fas fa-trash-alt"></i> ডিলিট</button>
+                            </div>
+                        </div>
+                    `;
+                });
+            });
+        }
+    </script>
+
+    <!-- UI Scripts -->
     <script>
         function showToast(message, isError = false) {
             const toast = document.getElementById("toastBox");
             document.getElementById("toastText").innerText = message;
-            toast.style.backgroundColor = isError ? "#e74c3c" : "#27ae60";
+            if (isError) {
+                toast.classList.add("toast-error");
+            } else {
+                toast.classList.remove("toast-error");
+            }
             toast.classList.add("show");
             setTimeout(() => { toast.classList.remove("show"); }, 3000);
         }
 
-        function saveRule() {
-            const text = document.getElementById("rulesTextInput").value;
+        window.saveRuleToDB = async function() {
+            const platform = document.getElementById("platformSelect").value;
+            const videoUrl = document.getElementById("videoUrlInput").value.trim();
+            const rulesText = document.getElementById("rulesTextInput").value.trim();
+            const btn = document.getElementById("saveRuleBtn");
             
-            if (text.trim() === "") {
+            if (rulesText === "") {
                 alert("দয়া করে নিয়মাবলী লিখুন!");
                 return;
             }
 
-            showToast("নতুন নিয়ম এবং ভিডিও সফলভাবে সেভ হয়েছে!");
-            
-            document.getElementById("videoUrlInput").value = '';
-            document.getElementById("rulesTextInput").value = '';
+            // YouTube লিংকে সরাসরি embed ফরম্যাট করার ব্যবস্থা
+            let finalVideoUrl = videoUrl;
+            if (videoUrl.includes('watch?v=')) {
+                finalVideoUrl = videoUrl.replace('watch?v=', 'embed/');
+            } else if (videoUrl.includes('youtu.be/')) {
+                finalVideoUrl = videoUrl.replace('youtu.be/', 'www.youtube.com/embed/');
+            }
+
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> সেভ হচ্ছে...';
+            btn.disabled = true;
+
+            try {
+                await window.addDoc(window.collection(window.db, "task_rules"), {
+                    platform: platform,
+                    videoUrl: finalVideoUrl,
+                    rulesText: rulesText,
+                    createdAt: window.serverTimestamp()
+                });
+                
+                showToast("নতুন নিয়ম এবং ভিডিও সফলভাবে সেভ হয়েছে!");
+                
+                // ইনপুট বক্স ক্লিয়ার করা
+                document.getElementById("videoUrlInput").value = '';
+                document.getElementById("rulesTextInput").value = '';
+            } catch (error) {
+                console.error(error);
+                showToast("নিয়ম সেভ করতে সমস্যা হয়েছে!", true);
+            } finally {
+                btn.innerHTML = '<i class="fas fa-save"></i> সেভ করুন এবং পাবলিশ করুন';
+                btn.disabled = false;
+            }
         }
 
-        function editRule() {
-            alert("এই অপশনটি সার্ভারের সাথে কানেক্ট করার পর কাজ করবে।");
-        }
-
-        function deleteRule(cardId) {
+        window.deleteRuleDB = async function(id) {
             if(confirm("আপনি কি নিশ্চিত যে এই নিয়মটি মুছে ফেলতে চান?")) {
-                const card = document.getElementById(cardId);
-                card.style.opacity = '0';
-                card.style.transform = 'scale(0.9)';
-                setTimeout(() => {
-                    card.style.display = 'none';
-                    showToast("নিয়মটি সফলভাবে মুছে ফেলা হয়েছে!", true);
-                }, 300);
+                try {
+                    await window.deleteDoc(window.doc(window.db, "task_rules", id));
+                    showToast("নিয়মটি সফলভাবে মুছে ফেলা হয়েছে!");
+                } catch(e) {
+                    console.error(e);
+                    showToast("ডিলিট করতে সমস্যা হয়েছে!", true);
+                }
             }
         }
     </script>
