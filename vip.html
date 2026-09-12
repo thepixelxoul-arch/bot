@@ -39,7 +39,6 @@
         .header-title { font-size: 18px; font-weight: bold; display: flex; align-items: center; }
         .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 20px; }
         
-        /* হেডারের ডানদিকের কোণায় বর্তমান প্যাকেজ দেখানোর ব্যাজ */
         .header-vip-badge {
             background-color: rgba(255, 255, 255, 0.2);
             padding: 5px 12px;
@@ -55,7 +54,6 @@
 
         .content { flex-grow: 1; padding: 20px 0; overflow-y: auto; padding-bottom: 80px; }
         
-        /* পিংক ভিআইপি কার্ড স্টাইল */
         .vip-huge-card {
             background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
             border-radius: 12px;
@@ -72,7 +70,6 @@
             text-align: center;
         }
 
-        /* বামদিকের ওপরের হলুদ ব্যাজ */
         .vip-badge {
             position: absolute;
             top: 15px;
@@ -86,7 +83,6 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
 
-        /* ডানদিকের কোণায় থাকা প্রাইস ট্যাগ */
         .vip-price-tag {
             position: absolute;
             top: 15px;
@@ -128,7 +124,6 @@
             text-shadow: 1px 1px 2px rgba(0,0,0,0.15);
         }
 
-        /* প্যারাগ্রাফ স্টাইল */
         .vip-huge-card p {
             font-size: 13px;
             color: #ffffff;
@@ -136,6 +131,7 @@
             font-weight: bold;
             line-height: 1.5;
             padding: 0 5px;
+            white-space: pre-line;
         }
 
         .card-actions {
@@ -200,6 +196,7 @@
             box-shadow: 0 4px 15px rgba(226, 0, 90, 0.4); opacity: 0; transition: opacity 0.3s, top 0.3s;
         }
         .toast-msg.show { visibility: visible; opacity: 1; top: 40px; }
+        .toast-error { background-color: #e74c3c; box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4); }
     </style>
 </head>
 <body>
@@ -215,14 +212,15 @@
             </div>
             
             <div id="headerVipBadge" class="header-vip-badge">
-                <i class="fas fa-user"></i> <span id="headerVipText">লোড হচ্ছে...</span>
+                <i class="fas fa-spinner fa-spin" id="headerIcon"></i> <span id="headerVipText">লোড হচ্ছে...</span>
             </div>
         </div>
 
         <div class="content">
             
-            <!-- ডায়নামিক প্যাকেজগুলো এখানে লোড হবে -->
-            <div id="vipPackagesContainer"></div>
+            <div id="vipPackagesContainer">
+                <p style="text-align:center; color:#888; padding:30px;"><i class="fas fa-spinner fa-spin"></i> প্যাকেজ লোড হচ্ছে...</p>
+            </div>
 
         </div>
 
@@ -234,10 +232,11 @@
         </div>
     </div>
 
-    <!-- Firebase Script & Dynamic Rendering Logic -->
+    <!-- Firebase SDK & Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+        import { getFirestore, doc, onSnapshot, updateDoc, increment } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
@@ -250,123 +249,147 @@
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
+        const db = getFirestore(app);
 
-        // ==========================================
-        // অ্যাডমিন প্যানেল ডাটাবেস (Dynamic Package Control)
-        // ==========================================
+        window.db = db;
+        window.updateDoc = updateDoc;
+        window.doc = doc;
+        window.increment = increment;
+        
+        window.currentUser = null;
+        window.userData = {};
+
         const defaultPackages = [
-            { id: "VIP 1", oldPrice: 200, price: 99, emails: 20, instas: 10, bonus: 9, icon: "fa-crown", btnId: "bonus-btn-1" },
-            { id: "VIP 2", oldPrice: 300, price: 199, emails: 30, instas: 20, bonus: 18, icon: "fa-crown", btnId: "bonus-btn-2" },
-            { id: "VIP 3", oldPrice: 400, price: 299, emails: 40, instas: 30, bonus: 27, icon: "fa-crown", btnId: "bonus-btn-3" },
-            { id: "VIP 4", oldPrice: 500, price: 399, emails: 50, instas: 40, bonus: 36, icon: "fa-crown", btnId: "bonus-btn-4" },
-            { id: "VIP 5", oldPrice: 600, price: 499, emails: 60, instas: 50, bonus: 45, icon: "fa-crown", btnId: "bonus-btn-5" },
-            { id: "VIP 6", oldPrice: 700, price: 599, emails: 70, instas: 60, bonus: 54, icon: "fa-crown", btnId: "bonus-btn-6" },
-            { id: "VIP 7", oldPrice: 800, price: 699, emails: 80, instas: 70, bonus: 63, icon: "fa-crown", btnId: "bonus-btn-7" },
-            { id: "VIP 8", oldPrice: 900, price: 799, emails: 90, instas: 80, bonus: 72, icon: "fa-crown", btnId: "bonus-btn-8" },
-            { id: "VIP 9", oldPrice: 1000, price: 899, emails: 100, instas: 90, bonus: 81, icon: "fa-crown", btnId: "bonus-btn-9" },
-            { id: "VIP 10", oldPrice: 1100, price: 999, emails: 110, instas: 100, bonus: 90, icon: "fa-crown", btnId: "bonus-btn-10" },
-            { id: "Send bKash Member", oldPrice: 2500, price: 2000, emails: 200, instas: 180, bonus: 100, icon: "fa-star", btnId: "bonus-btn-sendbkash" },
-            { id: "Send bKash Member 2", oldPrice: 3500, price: 3000, emails: 300, instas: 280, bonus: 150, icon: "fa-star", btnId: "bonus-btn-sendbkash2" },
-            { id: "Send bKash Member 3", oldPrice: 4500, price: 4000, emails: 400, instas: 380, bonus: 200, icon: "fa-star", btnId: "bonus-btn-sendbkash3" },
-            { id: "Send bKash Member 4", oldPrice: 5500, price: 5000, emails: 500, instas: 480, bonus: 250, icon: "fa-star", btnId: "bonus-btn-sendbkash4" },
-            { id: "Send bKash Member 5", oldPrice: 6500, price: 6000, emails: 600, instas: 580, bonus: 300, icon: "fa-star", btnId: "bonus-btn-sendbkash5" }
+            { id: "VIP 1", price: 500, bonus: 9, desc: "• প্রতিদিন ৫টি কাজ জমা দেওয়ার সুযোগ।\n• উইথড্র রিকোয়েস্ট ১২ ঘণ্টার মধ্যে।" },
+            { id: "VIP 2", price: 1000, bonus: 18, desc: "• প্রতিদিন ১০টি কাজ জমা দেওয়ার সুযোগ।\n• উইথড্র রিকোয়েস্ট ৬ ঘণ্টার মধ্যে।\n• ডেডিকেটেড সাপোর্ট।" },
+            { id: "VIP 3", price: 2000, bonus: 27, desc: "• আনলিমিটেড কাজ জমা দেওয়ার সুযোগ।\n• ইনস্ট্যান্ট উইথড্র (১ ঘন্টার মধ্যে)।\n• ডিরেক্ট এডমিন সাপোর্ট।" },
+            { id: "VIP 4", price: 5000, bonus: 36, desc: "• প্রতিদিন ২০০+ কাজের সুযোগ।\n• এক্সট্রা ১০% বোনাস প্রতি কাজে।\n• ইনস্ট্যান্ট উইথড্র।" },
+            { id: "VIP 5", price: 10000, bonus: 45, desc: "• প্রিমিয়াম লেভেল টাস্ক।\n• স্পেশাল উইকএন্ড বোনাস।\n• অটো-উইথড্র সিস্টেম।" },
+            { id: "VIP 6", price: 15000, bonus: 54, desc: "• এলিট মেম্বার ব্যাজ।\n• প্রতি রেফারে ডাবল ইনকাম।" },
+            { id: "VIP 7", price: 20000, bonus: 63, desc: "• হাইয়েস্ট রেট টাস্ক।\n• নো উইথড্র ফি।" },
+            { id: "VIP 8", price: 25000, bonus: 72, desc: "• স্পেশাল গিফট প্রতি মাসে।\n• প্রাইভেট টেলিগ্রাম গ্রুপ এক্সেস।" },
+            { id: "VIP 9", price: 30000, bonus: 81, desc: "• লাইফটাইম ভ্যালিডিটি।\n• সব ফিচারে ফুল এক্সেস।" },
+            { id: "VIP 10", price: 50000, bonus: 90, desc: "• কোম্পানির শেয়ার হোল্ডার প্রফিট।\n• ডিরেক্ট কল সাপোর্ট।\n• আনলিমিটেড সব কিছু!" },
+            { id: "Member 1", price: 7500, bonus: 50, desc: "• মেম্বারশিপ প্যাকেজ ১ এর বিশেষ সুবিধাসমূহ।" },
+            { id: "Member 2", price: 12500, bonus: 100, desc: "• মেম্বারশিপ প্যাকেজ ২ এর বিশেষ সুবিধাসমূহ।" },
+            { id: "Member 3", price: 9999, bonus: 12000, desc: "• মেম্বারশিপ প্যাকেজ ৩ এর স্পেশাল অফার।\n• লাইফটাইম সাপোর্ট।" },
+            { id: "Member 4", price: 14999, bonus: 18000, desc: "• মেম্বারশিপ প্যাকেজ ৪ এর স্পেশাল অফার।\n• এক্সট্রা বোনাস।" },
+            { id: "Member 5", price: 19999, bonus: 25000, desc: "• মেম্বারশিপ প্যাকেজ ৫ এর স্পেশাল অফার।\n• সর্বোচ্চ রেট।" }
         ];
 
-        // ডায়নামিক রেন্ডারিং এবং সর্টিং ফাংশন
-        function renderVipPackages() {
-            let currentVip = localStorage.getItem('userVipLevel');
-            if (!currentVip || currentVip === "VIP 0") {
-                currentVip = "প্যাকেজ নেই";
-            }
-
-            const adminPackages = JSON.parse(localStorage.getItem('adminVipPackages')) || defaultPackages;
-            window.adminVipData = adminPackages; 
-            
-            const container = document.getElementById('vipPackagesContainer');
-            container.innerHTML = '';
-
-            // যে প্যাকেজটি ইউজারের কেনা আছে, সেটি লিস্টের একদম ওপরে আনার লজিক
-            const sortedPackages = [...adminPackages].sort((a, b) => {
-                if (a.id === currentVip) return -1;
-                if (b.id === currentVip) return 1;
-                return 0;
-            });
-
-            sortedPackages.forEach(pkg => {
-                const titleText = pkg.id.includes("VIP") ? `${pkg.id} স্পেশাল অফার` : pkg.id;
-                
-                container.innerHTML += `
-                <div class="vip-huge-card">
-                    <div class="vip-badge">সুবিধা</div>
-                    <div class="vip-price-tag"><span class="old-price">৳${pkg.oldPrice}</span> ৳${pkg.price}</div>
-                    
-                    <div class="vip-icon-circle"><i class="fas ${pkg.icon}"></i></div>
-                    <h3>${titleText}</h3>
-                    <p>মাত্র ৳${pkg.price} টাকায় কিনুন! দৈনিক ${pkg.emails}টি জিমেইল ও ${pkg.instas}টি ইনস্টাগ্রাম কাজ।</p>
-                    
-                    <div class="card-actions">
-                        <button class="buy-btn-white" onclick="requestUpgrade('${pkg.id}', ${pkg.price})">৳${pkg.price} দিয়ে কিনুন</button>
-                        <button class="bonus-btn-pink" id="${pkg.btnId}" onclick="claimBonus('${pkg.id}', ${pkg.bonus})"><i class="fas fa-gift"></i> বোনাস: ৳${pkg.bonus}</button>
-                    </div>
-                </div>
-                `;
-            });
-
-            // রেন্ডার হওয়ার পর বাটন কালার চেক করবে
-            if(window.checkBonusStatus) {
-                window.checkBonusStatus();
-            }
-        }
-
         onAuthStateChanged(auth, (user) => {
-            if (!user) {
-                window.location.href = "login.html";
-            } else {
-                let currentVip = localStorage.getItem('userVipLevel');
-                if (!currentVip || currentVip === "VIP 0") {
-                    currentVip = "প্যাকেজ নেই"; 
-                }
+            if (user) {
+                window.currentUser = user;
                 
-                // প্রথমে প্যাকেজগুলো রেন্ডার করা (সর্টিং সহ)
-                renderVipPackages();
-
-                // হেডার আপডেট
-                const headerBadgeText = document.getElementById("headerVipText");
-                const headerBadgeIcon = document.querySelector("#headerVipBadge i");
-                if(headerBadgeText) headerBadgeText.innerText = currentVip;
-
-                if (currentVip.includes("bKash Member")) {
-                    if(headerBadgeIcon) headerBadgeIcon.className = "fas fa-star";
-                } else if (currentVip === "প্যাকেজ নেই") {
-                    if(headerBadgeIcon) headerBadgeIcon.className = "fas fa-user";
-                } else {
-                    if(headerBadgeIcon) headerBadgeIcon.className = "fas fa-crown";
-                }
+                // ইউজারের ডাটা ফায়ারবেস থেকে লোড করা
+                onSnapshot(doc(db, "users", user.uid), (docSnap) => {
+                    if (docSnap.exists()) {
+                        window.userData = docSnap.data();
+                        
+                        const currentVip = window.userData.vipLevel && window.userData.vipLevel !== "VIP 0" ? window.userData.vipLevel : "প্যাকেজ নেই";
+                        document.getElementById("headerVipText").innerText = currentVip;
+                        const icon = document.getElementById("headerIcon");
+                        icon.className = currentVip.includes("Member") ? "fas fa-star" : (currentVip === "প্যাকেজ নেই" ? "fas fa-user" : "fas fa-crown");
+                        
+                        loadVipPackages(currentVip);
+                    }
+                });
+            } else {
+                window.location.href = "login.html";
             }
         });
+
+        function loadVipPackages(userCurrentVip) {
+            onSnapshot(doc(db, "admin_settings", "vip_packages"), (docSnap) => {
+                const container = document.getElementById('vipPackagesContainer');
+                container.innerHTML = '';
+                
+                let dbData = docSnap.exists() ? docSnap.data() : {};
+                
+                // ইউজারের বর্তমান প্যাকেজটি সবার উপরে রাখার জন্য সর্টিং
+                const sortedPackages = [...defaultPackages].sort((a, b) => {
+                    let aIdMatch = a.id === userCurrentVip || (a.id.includes("Member") && userCurrentVip.includes(a.id));
+                    let bIdMatch = b.id === userCurrentVip || (b.id.includes("Member") && userCurrentVip.includes(b.id));
+                    
+                    if (aIdMatch) return -1;
+                    if (bIdMatch) return 1;
+                    return 0;
+                });
+
+                sortedPackages.forEach(pkg => {
+                    const priceId = pkg.id.replace(/\s+/g, '').toLowerCase(); // e.g., vip1, member1
+                    
+                    const currentPrice = dbData[priceId]?.price || pkg.price;
+                    const currentBonus = dbData[priceId]?.bonus || pkg.bonus;
+                    const currentDesc = dbData[priceId]?.desc || pkg.desc;
+                    const oldPriceCalc = currentPrice + (currentPrice * 0.2); // ডেমো Old Price (২০% বেশি)
+
+                    const iconClass = pkg.id.includes('Member') ? 'fa-star' : 'fa-crown';
+                    const titleText = pkg.id.includes('VIP') ? `${pkg.id} স্পেশাল অফার` : `Send bKash ${pkg.id}`;
+
+                    container.innerHTML += `
+                    <div class="vip-huge-card">
+                        <div class="vip-badge">সুবিধা</div>
+                        <div class="vip-price-tag"><span class="old-price">৳${oldPriceCalc.toFixed(0)}</span> ৳${currentPrice}</div>
+                        
+                        <div class="vip-icon-circle"><i class="fas ${iconClass}"></i></div>
+                        <h3>${titleText}</h3>
+                        <p>${currentDesc}</p>
+                        
+                        <div class="card-actions">
+                            <button class="buy-btn-white" onclick="requestUpgrade('${pkg.id}', ${currentPrice})">৳${currentPrice} দিয়ে কিনুন</button>
+                            <button class="bonus-btn-pink" id="bonus-btn-${priceId}" onclick="claimBonus('${pkg.id}', ${currentBonus}, '${priceId}')"><i class="fas fa-gift"></i> বোনাস: ৳${currentBonus}</button>
+                        </div>
+                    </div>
+                    `;
+                });
+
+                window.checkBonusStatus(userCurrentVip, dbData);
+            });
+        }
+
     </script>
 
+    <!-- UI Scripts -->
     <script>
-        function requestUpgrade(vipLevel, price) {
+        function showToast(message, isError = false) {
+            const toast = document.getElementById("toastBox");
+            toast.innerText = message;
+            if(isError) toast.classList.add("toast-error");
+            else toast.classList.remove("toast-error");
+            
+            toast.classList.add("show");
+            setTimeout(() => { toast.classList.remove("show"); }, 3500);
+        }
+
+        window.requestUpgrade = function(vipLevel, price) {
             window.location.href = `payment.html?vip=${encodeURIComponent(vipLevel)}&amount=${price}`;
         }
 
-        window.checkBonusStatus = function() {
-            const currentVip = localStorage.getItem('userVipLevel') || "VIP 0";
-            const adminPackages = window.adminVipData || [];
+        window.checkBonusStatus = function(userCurrentVip, dbData) {
+            if(!window.userData) return;
             
-            adminPackages.forEach(pkg => {
-                const btn = document.getElementById(pkg.btnId);
+            const adminPackages = [
+                "vip1", "vip2", "vip3", "vip4", "vip5", "vip6", "vip7", "vip8", "vip9", "vip10",
+                "member1", "member2", "member3", "member4", "member5"
+            ];
+            
+            adminPackages.forEach(priceId => {
+                const btn = document.getElementById(`bonus-btn-${priceId}`);
                 if (!btn) return;
                 
-                // যদি ইউজারের এই প্যাকেজটি কেনা থাকে
-                if (currentVip === pkg.id) {
-                    const lastClaim = localStorage.getItem(`lastBonusClaim_${pkg.id}`);
+                // ইউজারের লেভেল চেক করা
+                let isMatch = false;
+                if (userCurrentVip === priceId.toUpperCase().replace('VIP', 'VIP ')) isMatch = true;
+                if (userCurrentVip.includes(priceId.replace('member', 'Member '))) isMatch = true;
+                
+                if (isMatch) {
+                    const lastClaimKey = 'lastBonusClaim_' + priceId;
+                    const lastClaimTime = window.userData[lastClaimKey] || 0;
                     const now = new Date().getTime();
                     const oneWeek = 7 * 24 * 60 * 60 * 1000;
                     
-                    // যদি বোনাস নেওয়ার সময় হয়, তবে বাটনটি হলুদ (active-bonus) হয়ে যাবে
-                    if (!lastClaim || (now - parseInt(lastClaim)) >= oneWeek) {
+                    if ((now - lastClaimTime) >= oneWeek) {
                         btn.classList.add('active-bonus');
                     } else {
                         btn.classList.remove('active-bonus'); 
@@ -377,36 +400,49 @@
             });
         }
 
-        window.claimBonus = function(vipName, amount) {
-            const currentVip = localStorage.getItem('userVipLevel') || "VIP 0";
-            const toast = document.getElementById("toastBox");
-            toast.className = "toast-msg";
-
-            if (currentVip !== vipName) {
-                toast.innerText = `এই বোনাসটি শুধুমাত্র ${vipName} মেম্বারদের জন্য!`;
-                toast.classList.add("show");
-                setTimeout(() => { toast.classList.remove("show"); }, 3500);
+        window.claimBonus = async function(vipName, amount, priceId) {
+            if(!window.currentUser || !window.userData) {
+                showToast("অনুগ্রহ করে অপেক্ষা করুন...", true);
                 return;
             }
 
-            const lastClaimKey = 'lastBonusClaim_' + vipName;
-            const lastClaimTime = localStorage.getItem(lastClaimKey);
+            const userCurrentVip = window.userData.vipLevel || "VIP 0";
+            let isMatch = false;
+            if (userCurrentVip === vipName || userCurrentVip.includes(vipName)) isMatch = true;
+
+            if (!isMatch) {
+                showToast(`এই বোনাসটি শুধুমাত্র ${vipName} মেম্বারদের জন্য!`, true);
+                return;
+            }
+
+            const lastClaimKey = 'lastBonusClaim_' + priceId;
+            const lastClaimTime = window.userData[lastClaimKey] || 0;
             const currentTime = new Date().getTime();
             const oneWeek = 7 * 24 * 60 * 60 * 1000;
 
-            if (lastClaimTime && (currentTime - parseInt(lastClaimTime)) < oneWeek) {
-                toast.innerText = `আপনি ইতিমধ্যে এই সপ্তাহের বোনাস নিয়েছেন! আগামী সপ্তাহে আবার চেষ্টা করুন।`;
-                toast.classList.add("show");
-            } else {
-                localStorage.setItem(lastClaimKey, currentTime.toString());
-                
-                toast.innerText = `অভিনন্দন! আপনার একাউন্টে ৳${amount} সাপ্তাহিক বোনাস যুক্ত হয়েছে।`;
-                toast.classList.add("show");
-                
-                window.checkBonusStatus();
+            if ((currentTime - lastClaimTime) < oneWeek) {
+                showToast(`আপনি ইতিমধ্যে এই সপ্তাহের বোনাস নিয়েছেন! আগামী সপ্তাহে আবার চেষ্টা করুন।`, true);
+                return;
             }
-            
-            setTimeout(() => { toast.classList.remove("show"); }, 3500);
+
+            const btn = document.getElementById(`bonus-btn-${priceId}`);
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            btn.disabled = true;
+
+            try {
+                // ফায়ারবেসে ইউজারের ব্যালেন্স এবং ক্লেইম টাইম আপডেট করা
+                await window.updateDoc(window.doc(window.db, "users", window.currentUser.uid), {
+                    balance: window.increment(amount),
+                    [lastClaimKey]: currentTime
+                });
+                
+                showToast(`অভিনন্দন! আপনার একাউন্টে ৳${amount} সাপ্তাহিক বোনাস যুক্ত হয়েছে।`);
+            } catch(e) {
+                console.error(e);
+                showToast("বোনাস নিতে সমস্যা হয়েছে!", true);
+                btn.innerHTML = `<i class="fas fa-gift"></i> বোনাস: ৳${amount}`;
+                btn.disabled = false;
+            }
         }
     </script>
 </body>
