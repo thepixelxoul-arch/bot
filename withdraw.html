@@ -138,7 +138,6 @@
         .submit-btn:hover { background-color: #c4004e; transform: translateY(-1px); }
         .submit-btn:disabled { background-color: #dcdde1; cursor: not-allowed; box-shadow: none; transform: none; }
 
-        /* ফুল-স্ক্রিন হিস্ট্রি পেজ স্টাইল */
         .history-screen {
             position: absolute;
             top: 0; left: 0;
@@ -150,9 +149,7 @@
             transform: translateX(100%);
             transition: transform 0.3s ease-in-out;
         }
-        .history-screen.active {
-            transform: translateX(0);
-        }
+        .history-screen.active { transform: translateX(0); }
 
         .history-card {
             background-color: var(--main-white); border: 1px solid #eaeaea; border-radius: 8px; 
@@ -218,10 +215,9 @@
             </a>
         </div>
 
-        <!-- Main Content (উইথড্র ফর্ম) -->
         <div class="content">
             <div class="notice-box">
-                <i class="fas fa-info-circle"></i> ন্যূনতম উইথড্র পরিমাণ ৳১০০ টাকা। ২৪ ঘণ্টার মধ্যে পেমেন্ট কমপ্লিট করা হবে।
+                <i class="fas fa-info-circle"></i> ন্যূনতম উইথড্র পরিমাণ ৳১০০ টাকা। আপনার বর্তমান ব্যালেন্স: <b id="currentBalanceDisplay">৳0.00</b>
             </div>
 
             <div class="task-card">
@@ -257,14 +253,13 @@
                     <input type="number" id="withdrawAmount" class="whatsapp-input" placeholder="৳ পরিমাণ লিখুন">
                 </div>
 
-                <!-- পাসওয়ার্ড বক্স -->
                 <div class="data-group">
                     <label>অ্যাকাউন্ট পাসওয়ার্ড</label>
                     <input type="password" id="withdrawPassword" class="whatsapp-input" placeholder="আপনার পাসওয়ার্ড দিন">
                     <small style="color: var(--text-grey); font-size: 11px; display: block; margin-top: 6px;">টাকা উত্তোলনের জন্য আপনার বর্তমান পাসওয়ার্ডটি প্রয়োজন।</small>
                 </div>
 
-                <button class="submit-btn" onclick="submitWithdraw()">উইথড্র করুন</button>
+                <button class="submit-btn" id="withdrawBtn" onclick="submitWithdraw()">উইথড্র করুন</button>
             </div>
         </div>
 
@@ -284,15 +279,16 @@
                 </div>
             </div>
             <div class="content" id="historyList">
-                <!-- হিস্ট্রি এখানে লোড হবে -->
+                <p style="text-align:center; color:#888; font-size:14px; font-weight: bold; padding: 40px 10px;">লোড হচ্ছে...</p>
             </div>
         </div>
     </div>
 
-    <!-- Firebase Script -->
+    <!-- Firebase SDK & Database Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, EmailAuthProvider, reauthenticateWithCredential } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc, updateDoc, collection, addDoc, onSnapshot, query, where, orderBy } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
@@ -305,18 +301,76 @@
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
+        const db = getFirestore(app);
         
         window.currentUser = null;
+        window.userBalance = 0;
         window.EmailAuthProvider = EmailAuthProvider;
         window.reauthenticateWithCredential = reauthenticateWithCredential;
+        window.db = db;
 
         onAuthStateChanged(auth, (user) => {
             if (!user) {
                 window.location.href = "login.html";
             } else {
                 window.currentUser = user;
+                
+                // ইউজারের রিয়েল-টাইম ব্যালেন্স ফেচ করা
+                const userDocRef = doc(db, "users", user.uid);
+                onSnapshot(userDocRef, (docSnap) => {
+                    if (docSnap.exists()) {
+                        window.userBalance = docSnap.data().balance || 0;
+                        document.getElementById("currentBalanceDisplay").innerText = `৳${parseFloat(window.userBalance).toFixed(2)}`;
+                    }
+                });
+
+                // হিস্ট্রি লোড করা
+                loadHistoryFromDB(user.uid);
             }
         });
+
+        // ফায়ারবেস থেকে হিস্ট্রি লোড করার ফাংশন
+        function loadHistoryFromDB(uid) {
+            const q = query(collection(db, "withdraw_requests"), where("userId", "==", uid), orderBy("timestamp", "desc"));
+            onSnapshot(q, (snapshot) => {
+                const historyList = document.getElementById('historyList');
+                historyList.innerHTML = '';
+                
+                if (snapshot.empty) {
+                    historyList.innerHTML = '<p style="text-align:center; color:#888; font-size:14px; font-weight: bold; padding: 40px 10px;">কোনো হিস্ট্রি পাওয়া যায়নি।</p>';
+                    return;
+                }
+
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    let statusClass, statusText;
+                    
+                    if(data.status === 'pending') {
+                        statusClass = 'status-pending'; statusText = 'Pending';
+                    } else if(data.status === 'approved') {
+                        statusClass = 'status-approved'; statusText = 'Approved';
+                    } else {
+                        statusClass = 'status-rejected'; statusText = 'Rejected';
+                    }
+
+                    const dateObj = data.timestamp ? data.timestamp.toDate() : new Date();
+                    const dateStr = dateObj.toLocaleDateString('bn-BD') + " " + dateObj.toLocaleTimeString('bn-BD', {hour: '2-digit', minute:'2-digit'});
+
+                    historyList.innerHTML += `
+                        <div class="history-card">
+                            <div class="history-left-wrap">
+                                <div class="history-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+                                <div class="history-info">
+                                    <p>${data.method}: ${data.accountNumber} (৳${data.amount})</p>
+                                    <small><i class="far fa-calendar-alt"></i> ${dateStr}</small>
+                                </div>
+                            </div>
+                            <div class="status-badge ${statusClass}">${statusText}</div>
+                        </div>
+                    `;
+                });
+            });
+        }
     </script>
 
     <script>
@@ -345,7 +399,6 @@
         function openHistoryScreen(event) {
             event.preventDefault();
             document.getElementById('historyScreen').classList.add('active');
-            loadHistory();
         }
         
         function closeHistoryScreen(event) {
@@ -355,9 +408,9 @@
 
         async function submitWithdraw() {
             const number = document.getElementById('accNumber').value.trim();
-            const amount = document.getElementById('withdrawAmount').value.trim();
+            const amount = parseFloat(document.getElementById('withdrawAmount').value.trim());
             const password = document.getElementById('withdrawPassword').value;
-            const btn = document.querySelector('.submit-btn');
+            const btn = document.getElementById('withdrawBtn');
 
             if(!number || !amount || !password) {
                 showToast("দয়া করে সবগুলো ফিল্ড পূরণ করুন!", true);
@@ -366,6 +419,11 @@
 
             if(amount < 100) {
                 showToast("ন্যূনতম উইথড্র পরিমাণ ১০০ টাকা!", true);
+                return;
+            }
+
+            if(amount > window.userBalance) {
+                showToast("আপনার অ্যাকাউন্টে পর্যাপ্ত ব্যালেন্স নেই!", true);
                 return;
             }
 
@@ -378,19 +436,26 @@
             btn.innerText = "যাচাই করা হচ্ছে...";
 
             try {
+                // ১. পাসওয়ার্ড ভেরিফাই করা
                 const credential = window.EmailAuthProvider.credential(window.currentUser.email, password);
                 await window.reauthenticateWithCredential(window.currentUser, credential);
                 
-                let history = JSON.parse(localStorage.getItem('withdrawHistory')) || [];
-                
-                const newEntry = {
-                    details: `${selectedPaymentMethod}: ${number} (৳${amount})`,
-                    date: new Date().toLocaleDateString('bn-BD'),
-                    status: 'pending' 
-                };
-                
-                history.unshift(newEntry); 
-                localStorage.setItem('withdrawHistory', JSON.stringify(history));
+                // ২. ইউজারের ব্যালেন্স কেটে নেওয়া
+                const newBalance = window.userBalance - amount;
+                const { doc, updateDoc, collection, addDoc } = await import("https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js");
+                const userRef = doc(window.db, "users", window.currentUser.uid);
+                await updateDoc(userRef, { balance: newBalance });
+
+                // ৩. উইথড্র রিকোয়েস্ট ডাটাবেসে সেভ করা
+                await addDoc(collection(window.db, "withdraw_requests"), {
+                    userId: window.currentUser.uid,
+                    email: window.currentUser.email,
+                    method: selectedPaymentMethod,
+                    accountNumber: number,
+                    amount: amount,
+                    status: "pending",
+                    timestamp: new Date()
+                });
 
                 showToast("উইথড্র রিকোয়েস্ট সফলভাবে জমা হয়েছে!");
                 
@@ -403,49 +468,12 @@
                 if (error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
                     showToast("আপনার পাসওয়ার্ডটি ভুল হয়েছে! আবার চেষ্টা করুন।", true);
                 } else {
-                    showToast("উইথড্র রিকোয়েস্ট ব্যর্থ হয়েছে! আবার চেষ্টা করুন।", true);
+                    showToast("উইথড্র রিকোয়েস্ট ব্যর্থ হয়েছে! ডাটাবেস কানেকশন চেক করুন।", true);
                 }
             } finally {
                 btn.disabled = false;
                 btn.innerText = "উইথড্র করুন";
             }
-        }
-
-        function loadHistory() {
-            const historyList = document.getElementById('historyList');
-            const history = JSON.parse(localStorage.getItem('withdrawHistory')) || [];
-
-            historyList.innerHTML = ''; 
-
-            if(history.length === 0) {
-                historyList.innerHTML = '<p style="text-align:center; color:#888; font-size:14px; font-weight: bold; padding: 40px 10px;">কোনো হিস্ট্রি পাওয়া যায়নি।</p>';
-                return;
-            }
-
-            history.forEach(item => {
-                let statusClass, statusText;
-                
-                if(item.status === 'pending') {
-                    statusClass = 'status-pending'; statusText = 'Pending';
-                } else if(item.status === 'approved') {
-                    statusClass = 'status-approved'; statusText = 'Approved';
-                } else {
-                    statusClass = 'status-rejected'; statusText = 'Rejected';
-                }
-
-                historyList.innerHTML += `
-                    <div class="history-card">
-                        <div class="history-left-wrap">
-                            <div class="history-icon"><i class="fas fa-file-invoice-dollar"></i></div>
-                            <div class="history-info">
-                                <p>${item.details}</p>
-                                <small><i class="far fa-calendar-alt"></i> ${item.date}</small>
-                            </div>
-                        </div>
-                        <div class="status-badge ${statusClass}">${statusText}</div>
-                    </div>
-                `;
-            });
         }
     </script>
 </body>
