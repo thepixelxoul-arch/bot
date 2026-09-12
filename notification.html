@@ -43,7 +43,6 @@
 
         .content { flex-grow: 1; padding: 20px; overflow-y: auto; padding-bottom: 80px; }
         
-        /* নোটিফিকেশন কার্ড স্টাইল (বামদিকের দাগ মুছে ফেলা হয়েছে) */
         .notif-card {
             background-color: var(--main-white);
             border-radius: 12px;
@@ -100,7 +99,6 @@
             gap: 5px;
         }
 
-        /* কোনো নোটিফিকেশন না থাকলে (Empty State) */
         .empty-state {
             display: flex;
             flex-direction: column;
@@ -144,11 +142,9 @@
         </div>
 
         <div class="content" id="notificationContainer">
-            <!-- জাভাস্ক্রিপ্ট দিয়ে এখানে নোটিফিকেশন লোড হবে -->
             <div class="empty-state">
-                <i class="fas fa-bell-slash"></i>
-                <h3>কোনো নোটিফিকেশন নেই</h3>
-                <p>অ্যাডমিন থেকে কোনো নতুন আপডেট বা নোটিশ আসলে এখানে দেখতে পাবেন।</p>
+                <i class="fas fa-spinner fa-spin"></i>
+                <h3>নোটিফিকেশন লোড হচ্ছে...</h3>
             </div>
         </div>
 
@@ -165,6 +161,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+        import { getFirestore, collection, query, where, onSnapshot } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
@@ -177,57 +174,84 @@
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
+        const db = getFirestore(app);
 
-        // ডেমো হিসেবে অ্যাডমিনের পাঠানো কিছু নোটিফিকেশন (পরে এটা অ্যাডমিন প্যানেল থেকে আসবে)
-        const defaultAdminNotifications = [
-            {
-                title: "নতুন আপডেট! 🎉",
-                message: "Send bKash অ্যাপে নতুন জিমেইল টাস্ক যুক্ত করা হয়েছে। এখনই কাজ শুরু করুন।",
-                date: "আজ, সকাল ১০:৩০"
-            },
-            {
-                title: "অফার চলছে! 🔥",
-                message: "VIP প্যাকেজ কিনলেই পাচ্ছেন নিশ্চিত ৫০% ক্যাশব্যাক। অফারটি সীমিত সময়ের জন্য।",
-                date: "গতকাল, বিকাল ৩:৪৫"
-            }
-        ];
+        let globalNotifications = [];
+        let directNotifications = [];
 
-        function renderNotifications() {
+        function renderMergedNotifications() {
             const container = document.getElementById('notificationContainer');
-            // অ্যাডমিন প্যানেল থেকে পাঠানো নোটিফিকেশন লোকাল স্টোরেজ থেকে ফেচ করবে
-            let notifications = JSON.parse(localStorage.getItem('adminNotifications'));
+            // গ্লোবাল এবং ডিরেক্ট নোটিফিকেশন একত্র করে টাইমস্ট্যাম্প অনুযায়ী সাজানো (নতুনটা আগে)
+            let allNotifs = [...globalNotifications, ...directNotifications];
+            allNotifs.sort((a, b) => b.rawTime - a.rawTime);
 
-            // যদি লোকাল স্টোরেজে কিছু না থাকে, তবে ডেমো ডাটা দেখাবে (চেক করার জন্য)
-            if (!notifications || notifications.length === 0) {
-                notifications = defaultAdminNotifications;
+            if (allNotifs.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-bell-slash"></i>
+                        <h3>কোনো নোটিফিকেশন নেই</h3>
+                        <p>অ্যাডমিন থেকে কোনো নতুন আপডেট বা নোটিশ আসলে এখানে দেখতে পাবেন।</p>
+                    </div>
+                `;
+                return;
             }
 
-            if (notifications.length > 0) {
-                container.innerHTML = ''; // খালি করে নতুন করে লোড করা
-                
-                notifications.forEach(notif => {
-                    container.innerHTML += `
-                        <div class="notif-card">
-                            <div class="notif-icon"><i class="fas fa-bell"></i></div>
-                            <div class="notif-body">
-                                <h4 class="notif-title">${notif.title}</h4>
-                                <p class="notif-text">${notif.message}</p>
-                                <div class="notif-time"><i class="far fa-clock"></i> ${notif.date}</div>
-                            </div>
+            container.innerHTML = '';
+            allNotifs.forEach(notif => {
+                container.innerHTML += `
+                    <div class="notif-card">
+                        <div class="notif-icon"><i class="fas fa-bell"></i></div>
+                        <div class="notif-body">
+                            <h4 class="notif-title">${notif.title}</h4>
+                            <p class="notif-text">${notif.message}</p>
+                            <div class="notif-time"><i class="far fa-clock"></i> ${notif.dateStr}</div>
                         </div>
-                    `;
-                });
-            }
+                    </div>
+                `;
+            });
         }
 
         onAuthStateChanged(auth, (user) => {
             if (!user) {
                 window.location.href = "login.html";
             } else {
-                renderNotifications();
+                const uid = user.uid;
+
+                // ১. গ্লোবাল নোটিফিকেশন লোড করা
+                const qGlobal = query(collection(db, "notifications"), where("type", "==", "global"));
+                onSnapshot(qGlobal, (snapshot) => {
+                    globalNotifications = [];
+                    snapshot.forEach(doc => {
+                        const data = doc.data();
+                        const dateObj = data.timestamp ? data.timestamp.toDate() : new Date();
+                        globalNotifications.push({
+                            title: data.title,
+                            message: data.message,
+                            rawTime: dateObj.getTime(),
+                            dateStr: dateObj.toLocaleDateString('bn-BD') + " " + dateObj.toLocaleTimeString('bn-BD', {hour: '2-digit', minute:'2-digit'})
+                        });
+                    });
+                    renderMergedNotifications();
+                });
+
+                // ২. পার্সোনাল (Direct) নোটিফিকেশন লোড করা
+                const qDirect = query(collection(db, "notifications"), where("type", "==", "direct"), where("userId", "==", uid));
+                onSnapshot(qDirect, (snapshot) => {
+                    directNotifications = [];
+                    snapshot.forEach(doc => {
+                        const data = doc.data();
+                        const dateObj = data.timestamp ? data.timestamp.toDate() : new Date();
+                        directNotifications.push({
+                            title: data.title,
+                            message: data.message,
+                            rawTime: dateObj.getTime(),
+                            dateStr: dateObj.toLocaleDateString('bn-BD') + " " + dateObj.toLocaleTimeString('bn-BD', {hour: '2-digit', minute:'2-digit'})
+                        });
+                    });
+                    renderMergedNotifications();
+                });
             }
         });
     </script>
-
 </body>
 </html>
