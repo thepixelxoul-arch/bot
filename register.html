@@ -139,7 +139,7 @@
             text-decoration: none; 
         }
 
-        /* সুন্দর প্রফেশনাল টোস্ট মেসেজ ডিজাইন */
+        /* প্রফেশনাল টোস্ট মেসেজ ডিজাইন */
         .toast-msg {
             visibility: hidden; min-width: 250px; background-color: var(--main-pink);
             color: #fff; text-align: center; border-radius: 30px; padding: 12px 20px;
@@ -163,7 +163,6 @@
             </div>
         </div>
 
-        <!-- Content Area inside Phone Container -->
         <div class="content">
             <div class="login-card">
                 <div class="logo-area">
@@ -174,7 +173,6 @@
                 <div class="input-group">
                     <input type="text" id="name" placeholder="আপনার পুরো নাম" required>
                 </div>
-                <!-- ইমেইল বা ফোন নাম্বার ইনপুট ফিল্ড -->
                 <div class="input-group">
                     <input type="text" id="emailOrPhone" placeholder="ইমেইল অ্যাড্রেস অথবা ফোন নাম্বার" required>
                 </div>
@@ -191,10 +189,12 @@
         </div>
     </div>
 
-    <!-- Firebase SDK & Registration Logic -->
+    <!-- Firebase SDK & Registration + Firestore Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
         import { getAuth, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+        // Firestore ইম্পোর্ট করা হলো ডাটাবেসে ইউজার সেভ করার জন্য
+        import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
@@ -202,14 +202,13 @@
             projectId: "send-bkash",
             storageBucket: "send-bkash.firebasestorage.app",
             messagingSenderId: "306247423891",
-            appId: "1:306247423891:web:bb4fb6634043e6755afa66",
-            measurementId: "G-ZSRNS5RPV5"
+            appId: "1:306247423891:web:bb4fb6634043e6755afa66"
         };
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
+        const db = getFirestore(app); // ডাটাবেস ইনিশিয়ালাইজ
 
-        // কাস্টম টোস্ট মেসেজ ফাংশন
         function showToast(message, redirectUrl = null) {
             const toast = document.getElementById("toastBox");
             toast.innerText = message;
@@ -220,7 +219,12 @@
                 if(redirectUrl) {
                     window.location.href = redirectUrl;
                 }
-            }, 1500); // ১.৫ সেকেন্ড পর রিডাইরেক্ট হবে
+            }, 1500); 
+        }
+
+        // নিজের রেফার কোড জেনারেট করার ফাংশন
+        function generateReferCode() {
+            return Math.random().toString(36).substring(2, 8).toUpperCase();
         }
 
         document.getElementById("registerBtn").addEventListener("click", () => {
@@ -234,9 +238,8 @@
                     return;
                 }
 
-                // ইউজার যদি ফোন নাম্বার দেয় (শুধু সংখ্যা হয়), তবে সেটাকে ইমেইলে রূপান্তর করা
                 let finalEmail = inputVal;
-                let isPhone = /^\d+$/.test(inputVal); // চেক করা নাম্বার কিনা
+                let isPhone = /^\d+$/.test(inputVal); 
                 if(isPhone) {
                     if(inputVal.length < 11) {
                         showToast("সঠিক মোবাইল নাম্বার দিন!");
@@ -249,17 +252,46 @@
                 btn.innerText = "প্রসেসিং হচ্ছে...";
                 btn.disabled = true;
 
+                // URL এ রেফার কোড থাকলে সেটা ধরা
+                const urlParams = new URLSearchParams(window.location.search);
+                const referredBy = urlParams.get('ref') || "";
+
                 createUserWithEmailAndPassword(auth, finalEmail, password)
                 .then((userCredential) => {
                     const user = userCredential.user;
                     
                     updateProfile(user, {
                         displayName: name
-                    }).then(() => {
+                    }).then(async () => {
                         localStorage.setItem('userName', name);
                         
-                        // ব্রাউজার অ্যালার্টের বদলে সুন্দর টোস্ট মেসেজ এবং রিডাইরেক্ট
-                        showToast("সফলভাবে অ্যাকাউন্ট তৈরি হয়েছে!", "verification.html");
+                        // ফায়ারবেস ডাটাবেসে ইউজারের সব তথ্য সেভ করা হচ্ছে
+                        try {
+                            await setDoc(doc(db, "users", user.uid), {
+                                uid: user.uid,
+                                name: name,
+                                email: isPhone ? "" : finalEmail,
+                                phone: isPhone ? inputVal : "",
+                                balance: 0,
+                                totalEarned: 0,
+                                totalWithdraw: 0,
+                                vipLevel: "VIP 0",
+                                isVerified: false,
+                                totalTasks: 0,
+                                role: "user", // সাধারণ ইউজার
+                                status: "active",
+                                myReferCode: generateReferCode(),
+                                referredBy: referredBy,
+                                joinedAt: serverTimestamp()
+                            });
+                            
+                            showToast("সফলভাবে অ্যাকাউন্ট তৈরি হয়েছে!", "verification.html");
+                        } catch (e) {
+                            console.error("Error adding document: ", e);
+                            showToast("ডাটাবেস কানেকশনে সমস্যা হয়েছে!");
+                            btn.innerText = "অ্যাকাউন্ট খুলুন";
+                            btn.disabled = false;
+                        }
                     });
                 })
                 .catch((error) => {
