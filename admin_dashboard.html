@@ -27,7 +27,6 @@
             overflow: hidden;
         }
 
-        /* সাইডবার (Sidebar) */
         .sidebar {
             width: 260px;
             background: linear-gradient(180deg, var(--main-pink), var(--light-pink));
@@ -76,7 +75,6 @@
 
         .nav-links a i { width: 20px; text-align: center; font-size: 18px; }
 
-        /* মেইন কন্টেন্ট এরিয়া */
         .main-content {
             flex-grow: 1;
             display: flex;
@@ -85,7 +83,6 @@
             background-color: var(--bg-light); 
         }
 
-        /* টপবার */
         .topbar {
             background-color: var(--main-white);
             padding: 15px 30px;
@@ -96,7 +93,6 @@
             z-index: 10;
         }
 
-        /* টপবার টাইটেল স্টাইল */
         .topbar-title { 
             font-size: 20px; 
             font-weight: 900; 
@@ -105,11 +101,9 @@
             align-items: center; 
             gap: 10px; 
         }
-        .topbar-title i { color: var(--main-pink); }
 
         .admin-profile { display: flex; align-items: center; gap: 15px; }
 
-        /* টপবারের ডানদিকের ছোট হিস্ট্রি আইকন (সিম্পল পিংক আইকন, কোনো ব্যাকগ্রাউন্ড ছাড়া) */
         .topbar-history-btn {
             background: transparent;
             color: var(--main-pink);
@@ -128,14 +122,12 @@
             color: #c0004b;
         }
 
-        /* ড্যাশবোর্ড কন্টেন্ট */
         .dashboard-body {
             padding: 30px;
             overflow-y: auto;
             flex-grow: 1;
         }
 
-        /* স্ট্যাটাস বক্স */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -165,7 +157,6 @@
         .stat-info h3 { margin: 0 0 4px 0; font-size: 22px; color: var(--dark-blue); font-weight: 900; }
         .stat-info p { margin: 0; font-size: 12px; color: var(--text-grey); font-weight: bold; }
 
-        /* প্রোডাক্ট গ্রিড স্টাইল */
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); 
@@ -174,99 +165,42 @@
         }
 
         .product-card {
-            background: var(--main-white);
-            border: 1px solid #eaeaea;
-            border-radius: 12px; 
-            padding: 20px; 
-            display: flex;
-            flex-direction: column;
-            transition: box-shadow 0.3s, transform 0.3s;
-            /* ওপরের গোলাপি দাগ (border-top) রিমুভ করা হয়েছে */
+            background: var(--main-white); border: 1px solid #eaeaea; border-radius: 12px; 
+            padding: 20px; display: flex; flex-direction: column; transition: box-shadow 0.3s, transform 0.3s;
         }
 
-        /* হোভার করলে শুধু উপরে উঠবে */
         .product-card:hover {
-            box-shadow: 0 8px 25px rgba(226, 0, 90, 0.1);
-            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(226, 0, 90, 0.1); transform: translateY(-3px);
         }
 
-        /* কার্ডের লোগো বক্স */
         .product-img {
-            height: 100px; 
-            background-color: var(--pink-transparent);
-            color: var(--main-pink);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px; 
-            margin-bottom: 15px;
+            height: 100px; background-color: var(--pink-transparent); color: var(--main-pink);
+            border-radius: 8px; display: flex; align-items: center; justify-content: center;
+            font-size: 40px; margin-bottom: 15px;
         }
 
-        .product-title {
-            font-size: 16px;
-            font-weight: 900;
-            color: var(--dark-blue);
-            margin: 0 0 8px 0;
-        }
-
-        .product-desc {
-            font-size: 13px;
-            color: var(--text-grey);
-            line-height: 1.5;
-            margin: 0 0 12px 0;
-            flex-grow: 1;
-        }
+        .product-title { font-size: 16px; font-weight: 900; color: var(--dark-blue); margin: 0 0 8px 0; }
+        .product-desc { font-size: 13px; color: var(--text-grey); line-height: 1.5; margin: 0 0 12px 0; flex-grow: 1; }
 
         .lbl-pink { color: var(--main-pink); font-weight: bold; font-size: 12px;}
         .val-text { color: var(--dark-blue); font-weight: 900;}
 
-        /* স্ট্যাটাস ব্যাজ */
         .status-box {
-            width: 100%;
-            padding: 8px 0; 
-            border-radius: 6px;
-            text-align: center;
-            font-weight: 900;
-            font-size: 13px; 
-            margin-bottom: 15px;
-            box-sizing: border-box;
-            background-color: var(--pink-transparent); 
-            color: var(--main-pink); 
-            border: 1.5px dashed var(--main-pink);
+            width: 100%; padding: 8px 0; border-radius: 6px; text-align: center;
+            font-weight: 900; font-size: 13px; margin-bottom: 15px; box-sizing: border-box;
+            background-color: var(--pink-transparent); color: var(--main-pink); border: 1.5px dashed var(--main-pink);
         }
 
-        .status-rejected { 
-            background-color: var(--main-pink); 
-            color: white; 
-            border: 1.5px solid var(--main-pink); 
-        }
+        .product-actions { display: flex; width: 100%; }
 
-        .product-actions {
-            display: flex;
-            width: 100%;
-        }
-
-        /* View Details বাটন */
         .btn-view-details {
-            width: 100%;
-            background: var(--main-white);
-            border: 1.5px solid var(--main-pink);
-            border-radius: 6px;
-            padding: 10px; 
-            font-size: 13px;
-            font-weight: 900;
-            color: var(--main-pink);
-            cursor: pointer;
-            text-align: center;
-            transition: 0.2s;
+            width: 100%; background: var(--main-white); border: 1.5px solid var(--main-pink);
+            border-radius: 6px; padding: 10px; font-size: 13px; font-weight: 900;
+            color: var(--main-pink); cursor: pointer; text-align: center; transition: 0.2s;
         }
+        .btn-view-details:hover { background: var(--pink-hover); }
 
-        .btn-view-details:hover {
-            background: var(--pink-hover);
-        }
-
-        /* পপ-আপ (Modal) ডিজাইন */
+        /* পপ-আপ (Modal) */
         .modal {
             display: none; position: fixed; z-index: 1000; left: 0; top: 0;
             width: 100%; height: 100%; background-color: rgba(0,0,0,0.6);
@@ -282,33 +216,19 @@
         }
         .modal.show .modal-content { transform: translateY(0); }
 
-        .close-btn { 
-            position: absolute; top: 15px; right: 20px; font-size: 24px; 
-            cursor: pointer; color: #aaa; transition: 0.2s; 
-        }
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer; color: #aaa; transition: 0.2s; }
         .close-btn:hover { color: var(--main-pink); }
 
         .modal-title { font-size: 18px; font-weight: 900; color: var(--dark-blue); margin-bottom: 20px; border-bottom: 1px solid #eaeaea; padding-bottom: 12px; display: flex; align-items: center; gap: 10px; }
-        .modal-title i { color: var(--main-pink); }
-
         .detail-row { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 14px; }
         .detail-row span.label { color: var(--text-grey); font-weight: bold; }
         .detail-row span.value { color: var(--dark-blue); font-weight: bold; text-align: right; }
         
-        /* পপ-আপের ডটেড ডিটেইলস বক্স */
         .modal-details-box {
-            background-color: var(--pink-transparent);
-            color: var(--dark-blue);
-            border: 1.5px dashed var(--main-pink);
-            padding: 15px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: bold;
-            text-align: left;
-            margin-bottom: 20px;
+            background-color: var(--pink-transparent); color: var(--dark-blue); border: 1.5px dashed var(--main-pink);
+            padding: 15px; border-radius: 8px; font-size: 14px; font-weight: bold; text-align: left; margin-bottom: 20px;
         }
 
-        /* রিজেক্ট রিজন ইনপুট বক্স */
         .reject-reason-container { margin-bottom: 20px; }
         .reject-reason-container label { display: block; font-size: 13px; font-weight: bold; color: var(--dark-blue); margin-bottom: 8px; }
         .reject-reason-input {
@@ -320,24 +240,22 @@
         .modal-actions { display: flex; gap: 15px; }
         .modal-actions button { 
             flex: 1; padding: 12px; border: none; border-radius: 8px; font-size: 14px; 
-            font-weight: bold; cursor: pointer; transition: 0.2s; 
-            display: flex; align-items: center; justify-content: center; gap: 6px;
+            font-weight: bold; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px;
         }
-        .modal-actions button:hover { transform: translateY(-2px); }
         
-        /* Modal Buttons */
         .btn-accept { background: var(--main-pink); color: var(--main-white);}
+        .btn-accept:hover { background: #b0124c; }
         .btn-reject-modal { background: var(--main-white); color: var(--main-pink); border: 1.5px solid var(--main-pink); }
         .btn-reject-modal:hover { background: var(--pink-hover); }
 
-        /* টোস্ট মেসেজ */
         .toast-msg {
-            visibility: hidden; background-color: var(--main-pink); color: #fff; text-align: center;
-            border-radius: 8px; padding: 15px 25px; position: fixed; z-index: 9999; right: 30px; top: 30px;
-            font-size: 14px; font-weight: bold; box-shadow: 0 4px 15px rgba(226, 0, 90, 0.3);
-            opacity: 0; transition: opacity 0.3s, top 0.3s;
+            visibility: hidden; min-width: 200px; background-color: var(--main-pink);
+            color: #fff; text-align: center; border-radius: 30px; padding: 12px 20px;
+            position: fixed; z-index: 9999; left: 50%; transform: translateX(-50%);
+            top: 20px; font-size: 14px; font-weight: bold;
+            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.4); opacity: 0; transition: opacity 0.3s, top 0.3s;
         }
-        .toast-msg.show { visibility: visible; opacity: 1; top: 50px; }
+        .toast-msg.show { visibility: visible; opacity: 1; top: 40px; }
     </style>
 </head>
 <body>
@@ -352,17 +270,15 @@
             
             <div class="detail-row">
                 <span class="label">ইউজার আইডি:</span>
-                <span class="value" id="m-userId">T9KZBTUBR1</span>
+                <span class="value" id="m-userId">লোড হচ্ছে...</span>
             </div>
             <div class="detail-row">
                 <span class="label">সময়:</span>
-                <span class="value" id="m-time">আজ, ০৩:১৫ PM</span>
+                <span class="value" id="m-time">লোড হচ্ছে...</span>
             </div>
             
             <div style="color: var(--text-grey); font-weight: bold; font-size: 14px; margin-bottom: 8px;">একাউন্ট ডিটেইলস:</div>
-            <div class="modal-details-box" id="m-details">
-                sakib1@gmail.com<br>Pass: sakib@2026
-            </div>
+            <div class="modal-details-box" id="m-details">লোড হচ্ছে...</div>
 
             <!-- রিজেক্ট করার কারণ লেখার বক্স -->
             <div class="reject-reason-container">
@@ -377,7 +293,6 @@
         </div>
     </div>
 
-    <!-- সাইডবার -->
     <aside class="sidebar">
         <div class="sidebar-header">
             <h2><i class="fas fa-paper-plane"></i> Send bKash</h2>
@@ -398,15 +313,11 @@
         </ul>
     </aside>
 
-    <!-- মেইন এরিয়া -->
     <main class="main-content">
         <header class="topbar">
-            <!-- টপবার টাইটেল কালার ফুল পিংক এবং লোগো -->
             <div class="topbar-title">
                 <i class="fas fa-home"></i> ড্যাশবোর্ড ওভারভিউ
             </div>
-            
-            <!-- টপবারের ডানদিকের কোণায় শুধু পিংক আইকন -->
             <div class="admin-profile">
                 <a href="admin_history.html" class="topbar-history-btn" title="কাজের হিস্ট্রি">
                     <i class="fas fa-history"></i>
@@ -416,127 +327,164 @@
 
         <div class="dashboard-body">
             
-            <!-- স্ট্যাটাস বক্স -->
+            <!-- রিয়েল-টাইম স্ট্যাটাস বক্স -->
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-icon"><i class="fas fa-users"></i></div>
-                    <div class="stat-info"><h3>১,৪৫০</h3><p>মোট ইউজার</p></div>
+                    <div class="stat-info"><h3 id="statTotalUsers">০</h3><p>মোট ইউজার</p></div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon"><i class="fas fa-wallet"></i></div>
-                    <div class="stat-info"><h3>৳৪৫,২০০</h3><p>মোট পেমেন্ট</p></div>
+                    <div class="stat-info"><h3 id="statTotalPayment">৳০</h3><p>মোট পেমেন্ট</p></div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon"><i class="fas fa-clock"></i></div>
-                    <div class="stat-info"><h3>১২ টি</h3><p>পেন্ডিং উইথড্র</p></div>
+                    <div class="stat-info"><h3 id="statPendingWithdraw">০ টি</h3><p>পেন্ডিং উইথড্র</p></div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon"><i class="fas fa-crown"></i></div>
-                    <div class="stat-info"><h3>৩২০ জন</h3><p>VIP ইউজার</p></div>
+                    <div class="stat-info"><h3 id="statVipUsers">০ জন</h3><p>VIP ইউজার</p></div>
                 </div>
             </div>
             
-            <!-- টাস্ক গ্রিড -->
-            <div class="product-grid">
-                
-                <!-- জিমেইল কার্ড ১ -->
-                <div class="product-card" id="task-card-1">
-                    <div class="product-img">
-                        <i class="fab fa-google"></i>
-                    </div>
-                    <h4 class="product-title">Google Account</h4>
-                    <p class="product-desc">
-                        <span class="lbl-pink">ইউজার:</span> <span class="val-text">T9KZBTUBR1</span><br>
-                        <span class="lbl-pink">ইমেইল:</span> <span class="val-text">sakib1@gmail.com</span>
-                    </p>
-                    <div class="status-box status-pending"><i class="fas fa-spinner fa-spin"></i> Pending</div>
-                    <div class="product-actions">
-                        <button class="btn-view-details" onclick="openModal('Google Account', 'fab fa-google', 'T9KZBTUBR1', 'আজ, ০৩:১৫ PM', 'sakib1@gmail.com<br>Pass: sakib@2026', 'task-card-1')">View Details</button>
-                    </div>
-                </div>
-
-                <!-- জিমেইল কার্ড ২ -->
-                <div class="product-card" id="task-card-2">
-                    <div class="product-img">
-                        <i class="fab fa-google"></i>
-                    </div>
-                    <h4 class="product-title">Google Account</h4>
-                    <p class="product-desc">
-                        <span class="lbl-pink">ইউজার:</span> <span class="val-text">T9KZBTUBR1</span><br>
-                        <span class="lbl-pink">ইমেইল:</span> <span class="val-text">sakib2@gmail.com</span>
-                    </p>
-                    <div class="status-box status-pending"><i class="fas fa-spinner fa-spin"></i> Pending</div>
-                    <div class="product-actions">
-                        <button class="btn-view-details" onclick="openModal('Google Account', 'fab fa-google', 'T9KZBTUBR1', 'আজ, ০৩:১৬ PM', 'sakib2@gmail.com<br>Pass: sakib2@2026', 'task-card-2')">View Details</button>
-                    </div>
-                </div>
-
-                <!-- ইন্সটাগ্রাম কার্ড -->
-                <div class="product-card" id="task-card-3">
-                    <div class="product-img">
-                        <i class="fab fa-instagram"></i>
-                    </div>
-                    <h4 class="product-title">Instagram Account</h4>
-                    <p class="product-desc">
-                        <span class="lbl-pink">ইউজার:</span> <span class="val-text">X7ABCTUBR9</span><br>
-                        <span class="lbl-pink">ইউজারনেম:</span> <span class="val-text">insta_salam99</span>
-                    </p>
-                    <div class="status-box status-pending"><i class="fas fa-spinner fa-spin"></i> Pending</div>
-                    <div class="product-actions">
-                        <button class="btn-view-details" onclick="openModal('Instagram Account', 'fab fa-instagram', 'X7ABCTUBR9', 'আজ, ০২:৪৫ PM', 'insta_salam99<br>Pass: salam@pass', 'task-card-3')">View Details</button>
-                    </div>
-                </div>
-                
-                <!-- হোয়াটসঅ্যাপ কার্ড -->
-                <div class="product-card" id="task-card-4">
-                    <div class="product-img">
-                        <i class="fab fa-whatsapp"></i>
-                    </div>
-                    <h4 class="product-title">WhatsApp Account</h4>
-                    <p class="product-desc">
-                        <span class="lbl-pink">ইউজার:</span> <span class="val-text">M2LKBTYYY5</span><br>
-                        <span class="lbl-pink">নম্বর:</span> <span class="val-text">+8801711223344</span>
-                    </p>
-                    <div class="status-box status-rejected"><i class="fas fa-times-circle"></i> Rejected</div>
-                    <div class="product-actions">
-                        <button class="btn-view-details" onclick="openModal('WhatsApp Account', 'fab fa-whatsapp', 'M2LKBTYYY5', 'আজ, ০১:২০ PM', '+8801711223344', 'task-card-4')">View Details</button>
-                    </div>
-                </div>
-
-                <!-- টেলিগ্রাম কার্ড -->
-                <div class="product-card" id="task-card-5">
-                    <div class="product-img">
-                        <i class="fab fa-telegram-plane"></i>
-                    </div>
-                    <h4 class="product-title">Telegram Account</h4>
-                    <p class="product-desc">
-                        <span class="lbl-pink">ইউজার:</span> <span class="val-text">A4JKMTUZR8</span><br>
-                        <span class="lbl-pink">নম্বর:</span> <span class="val-text">+8801999887766</span>
-                    </p>
-                    <div class="status-box status-pending"><i class="fas fa-spinner fa-spin"></i> Pending</div>
-                    <div class="product-actions">
-                        <button class="btn-view-details" onclick="openModal('Telegram Account', 'fab fa-telegram-plane', 'A4JKMTUZR8', 'গতকাল, ১১:১০ AM', '+8801999887766', 'task-card-5')">View Details</button>
-                    </div>
-                </div>
-
+            <!-- টাস্ক গ্রিড (পেন্ডিং কাজগুলো এখানে আসবে) -->
+            <div class="product-grid" id="taskGridContainer">
+                <p style="text-align:center; color:#888; width:100%; grid-column: 1 / -1; padding:30px;">লোড হচ্ছে...</p>
             </div>
             
         </div>
     </main>
 
+    <!-- Firebase SDK & Real-time Database Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc, collection, onSnapshot, query, where, updateDoc } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
+            authDomain: "send-bkash.firebaseapp.com",
+            projectId: "send-bkash",
+            storageBucket: "send-bkash.firebasestorage.app",
+            messagingSenderId: "306247423891",
+            appId: "1:306247423891:web:bb4fb6634043e6755afa66"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        window.db = db;
+        window.doc = doc;
+        window.updateDoc = updateDoc;
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                const userRef = doc(db, "users", user.uid);
+                const docSnap = await getDoc(userRef);
+                
+                if (docSnap.exists() && (docSnap.data().role === "admin" || user.email === "sakibbinsalam.admin@gmail.com")) {
+                    loadAdminStats();
+                    loadPendingTasks();
+                } else {
+                    window.location.href = "login.html"; 
+                }
+            } else {
+                window.location.href = "login.html";
+            }
+        });
+
+        // স্ট্যাটাস বক্স ডাটা লোড
+        function loadAdminStats() {
+            // ১. মোট ইউজার এবং ভিআইপি ইউজার গোনা
+            onSnapshot(collection(db, "users"), (snapshot) => {
+                let total = 0;
+                let vips = 0;
+                snapshot.forEach(doc => {
+                    total++;
+                    if(doc.data().vipLevel && doc.data().vipLevel !== "VIP 0") vips++;
+                });
+                document.getElementById("statTotalUsers").innerText = total;
+                document.getElementById("statVipUsers").innerText = `${vips} জন`;
+            });
+
+            // ২. মোট পেমেন্ট (অ্যাপ্রুভড উইথড্র) এবং পেন্ডিং উইথড্র
+            onSnapshot(collection(db, "withdraw_requests"), (snapshot) => {
+                let pendingCount = 0;
+                let totalPaid = 0;
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    if(data.status === 'pending') {
+                        pendingCount++;
+                    } else if(data.status === 'approved') {
+                        totalPaid += parseFloat(data.amount || 0);
+                    }
+                });
+                document.getElementById("statPendingWithdraw").innerText = `${pendingCount} টি`;
+                document.getElementById("statTotalPayment").innerText = `৳${totalPaid.toLocaleString()}`;
+            });
+        }
+
+        // পেন্ডিং টাস্ক লোড
+        function loadPendingTasks() {
+            const q = query(collection(db, "tasks"), where("status", "==", "pending"));
+            onSnapshot(q, (snapshot) => {
+                const taskGrid = document.getElementById("taskGridContainer");
+                taskGrid.innerHTML = '';
+                
+                if (snapshot.empty) {
+                    taskGrid.innerHTML = '<p style="text-align:center; color:#888; width:100%; grid-column: 1 / -1; padding:30px;">কোনো পেন্ডিং কাজ নেই।</p>';
+                    return;
+                }
+
+                snapshot.forEach((docSnap) => {
+                    const data = docSnap.data();
+                    const taskId = docSnap.id;
+                    const dateObj = data.timestamp ? data.timestamp.toDate() : new Date();
+                    const dateStr = dateObj.toLocaleDateString('bn-BD') + ", " + dateObj.toLocaleTimeString('bn-BD', {hour: '2-digit', minute:'2-digit'});
+
+                    let iconClass = "fas fa-tasks";
+                    if(data.platform === "Gmail") iconClass = "fab fa-google";
+                    else if(data.platform === "Instagram") iconClass = "fab fa-instagram";
+                    else if(data.platform === "WhatsApp") iconClass = "fab fa-whatsapp";
+                    else if(data.platform === "Telegram") iconClass = "fab fa-telegram-plane";
+
+                    // ডিটেইলস টেক্সট তৈরি
+                    const detailsStr = data.details || "কোনো তথ্য দেওয়া হয়নি";
+                    
+                    // JSON Stringify করে ফাংশনে পাঠানোর জন্য সেফ করা
+                    const safeDetails = detailsStr.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+
+                    taskGrid.innerHTML += `
+                        <div class="product-card" id="${taskId}">
+                            <div class="product-img"><i class="${iconClass}"></i></div>
+                            <h4 class="product-title">${data.platform || 'Account'}</h4>
+                            <p class="product-desc">
+                                <span class="lbl-pink">ইউজার:</span> <span class="val-text">${data.userId ? data.userId.substring(0,8).toUpperCase() : 'UNKNOWN'}</span><br>
+                                <span class="lbl-pink">সময়:</span> <span class="val-text">${dateStr}</span>
+                            </p>
+                            <div class="status-box"><i class="fas fa-spinner fa-spin"></i> Pending</div>
+                            <div class="product-actions">
+                                <button class="btn-view-details" onclick="openModalTask('${data.platform}', '${iconClass}', '${data.userId}', '${dateStr}', '${safeDetails}', '${taskId}')">View Details</button>
+                            </div>
+                        </div>
+                    `;
+                });
+            });
+        }
+    </script>
+
     <script>
         let currentCardId = null;
 
-        function openModal(taskName, iconClass, userId, time, details, cardId) {
+        function openModalTask(taskName, iconClass, userId, time, details, cardId) {
             currentCardId = cardId;
             document.getElementById('modalTitle').innerHTML = `<i class="${iconClass}"></i> ${taskName}`;
-            document.getElementById('m-userId').innerText = userId;
+            document.getElementById('m-userId').innerText = userId.substring(0,8).toUpperCase();
             document.getElementById('m-time').innerText = time;
-            document.getElementById('m-details').innerHTML = details;
+            document.getElementById('m-details').innerHTML = details.replace(/\n/g, '<br>'); // লাইন ব্রেক ফিক্স
             
-            // রিজেক্ট বক্স ক্লিয়ার রাখা
             document.getElementById('rejectReason').value = '';
-            
             document.getElementById('taskModal').classList.add('show');
         }
 
@@ -544,31 +492,35 @@
             document.getElementById('taskModal').classList.remove('show');
         }
 
-        function actionTask(action, cardId = null) {
-            closeModal();
-            
-            const toast = document.getElementById("toastBox");
-            const reasonInput = document.getElementById('rejectReason');
-
-            if(action === 'accept') {
-                document.getElementById("toastText").innerText = "কাজটি Accept করা হয়েছে এবং হিস্ট্রিতে চলে গেছে!";
-            } else {
-                let reason = reasonInput.value.trim() !== "" ? ` কারণ: ${reasonInput.value}` : "";
-                document.getElementById("toastText").innerText = `কাজটি Reject করা হয়েছে এবং হিস্ট্রিতে চলে গেছে!${reason}`;
+        window.actionTask = async function(action) {
+            const reasonInput = document.getElementById('rejectReason').value.trim();
+            if(action === 'reject' && reasonInput === "") {
+                alert("দয়া করে রিজেক্ট করার কারণ লিখুন!");
+                return;
             }
 
-            toast.classList.add("show");
-            setTimeout(() => { toast.classList.remove("show"); }, 3500);
+            closeModal();
+            const toast = document.getElementById("toastBox");
+            
+            try {
+                // ফায়ারবেসে স্ট্যাটাস আপডেট
+                await window.updateDoc(window.doc(window.db, "tasks", currentCardId), {
+                    status: action === 'accept' ? 'approved' : 'rejected',
+                    rejectReason: action === 'reject' ? reasonInput : ""
+                });
 
-            // কার্ড রিমুভ করা (হিস্ট্রিতে চলে যাওয়ার ইফেক্ট)
-            let idToRemove = cardId || currentCardId;
-            if(idToRemove) {
-                const card = document.getElementById(idToRemove);
-                if(card) {
-                    card.style.opacity = '0';
-                    card.style.transform = 'scale(0.9)';
-                    setTimeout(() => { card.style.display = 'none'; }, 300);
+                if(action === 'accept') {
+                    document.getElementById("toastText").innerText = "কাজটি Accept করা হয়েছে!";
+                } else {
+                    document.getElementById("toastText").innerText = `কাজটি Reject করা হয়েছে!`;
                 }
+
+                toast.classList.add("show");
+                setTimeout(() => { toast.classList.remove("show"); }, 3500);
+
+            } catch (error) {
+                console.error(error);
+                alert("আপডেট করতে সমস্যা হয়েছে।");
             }
         }
     </script>
