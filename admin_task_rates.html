@@ -27,7 +27,6 @@
             overflow: hidden;
         }
 
-        /* সাইডবার */
         .sidebar {
             width: 260px;
             background: linear-gradient(180deg, var(--main-pink), var(--light-pink));
@@ -76,7 +75,6 @@
 
         .nav-links a i { width: 20px; text-align: center; font-size: 18px; }
 
-        /* মেইন কন্টেন্ট এরিয়া */
         .main-content {
             flex-grow: 1;
             display: flex;
@@ -85,7 +83,6 @@
             background-color: var(--bg-light); 
         }
 
-        /* টপবার */
         .topbar {
             background-color: var(--main-white);
             padding: 15px 30px;
@@ -96,7 +93,6 @@
             z-index: 10;
         }
 
-        /* টপবার টাইটেল - ফুল পিংক এবং লোগো */
         .topbar-title { 
             font-size: 20px; 
             font-weight: 900; 
@@ -105,18 +101,13 @@
             align-items: center; 
             gap: 10px; 
         }
-        .topbar-title i { color: var(--main-pink); }
 
-        .admin-profile { display: flex; align-items: center; gap: 15px; }
-
-        /* ড্যাশবোর্ড বডি */
         .dashboard-body {
             padding: 30px;
             overflow-y: auto;
             flex-grow: 1;
         }
 
-        /* প্রোডাক্ট গ্রিড স্টাইল (রেট কার্ডের জন্য) */
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); 
@@ -141,7 +132,6 @@
             border-color: var(--pink-transparent);
         }
 
-        /* কার্ডের লোগো বক্স */
         .product-img {
             height: 90px; 
             background-color: var(--pink-transparent);
@@ -161,7 +151,6 @@
             margin: 0 0 10px 0;
         }
 
-        /* বর্তমান রেট দেখানোর বক্স */
         .rate-display-box {
             background-color: var(--bg-light);
             border: 1.5px dashed var(--main-pink);
@@ -173,7 +162,6 @@
             margin-bottom: 20px;
         }
 
-        /* আপডেট বাটন */
         .btn-update-rate {
             width: 100%;
             background: var(--main-pink);
@@ -198,7 +186,6 @@
             transform: translateY(-2px);
         }
 
-        /* পপ-আপ (Modal) ডিজাইন */
         .modal {
             display: none; position: fixed; z-index: 1000; left: 0; top: 0;
             width: 100%; height: 100%; background-color: rgba(0,0,0,0.6);
@@ -218,7 +205,6 @@
         .close-btn:hover { color: var(--main-pink); }
 
         .modal-title { font-size: 18px; font-weight: 900; color: var(--dark-blue); margin-bottom: 20px; border-bottom: 1px solid #eaeaea; padding-bottom: 12px; display: flex; align-items: center; gap: 10px; }
-        .modal-title i { color: var(--main-pink); }
 
         .input-group { margin-bottom: 20px; }
         .input-group label { display: block; font-size: 13px; font-weight: bold; color: var(--dark-blue); margin-bottom: 8px; }
@@ -236,7 +222,6 @@
         }
         .btn-confirm-modal:hover { background: #b0124c; transform: translateY(-2px); }
 
-        /* টোস্ট মেসেজ */
         .toast-msg {
             visibility: hidden; background-color: var(--main-pink); color: #fff; text-align: center;
             border-radius: 8px; padding: 15px 25px; position: fixed; z-index: 9999; right: 30px; top: 30px;
@@ -244,7 +229,6 @@
             opacity: 0; transition: opacity 0.3s, top 0.3s;
         }
         .toast-msg.show { visibility: visible; opacity: 1; top: 50px; }
-
     </style>
 </head>
 <body>
@@ -255,14 +239,14 @@
     <div id="rateModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('rateModal')">&times;</span>
-            <div class="modal-title"><i class="fas fa-edit"></i> <span id="modalTaskName">কাজের রেট</span> আপডেট করুন</div>
+            <div class="modal-title"><i class="fas fa-edit" style="color: var(--main-pink);"></i> <span id="modalTaskName">কাজের রেট</span> আপডেট করুন</div>
             
             <div class="input-group">
                 <label>নতুন রেট নির্ধারণ করুন (৳):</label>
                 <input type="number" id="rateInput" class="modal-input" placeholder="যেমন: 10.50" step="0.01">
             </div>
             
-            <button class="btn-confirm-modal" onclick="saveRate()">
+            <button class="btn-confirm-modal" id="saveRateBtn" onclick="saveRate()">
                 <i class="fas fa-save"></i> সেভ করুন
             </button>
         </div>
@@ -289,57 +273,49 @@
         </ul>
     </aside>
 
-    <!-- মেইন এরিয়া -->
     <main class="main-content">
         <header class="topbar">
-            <!-- টপবার টাইটেল ফুল পিংক এবং লোগো -->
             <div class="topbar-title">
                 <i class="fas fa-tasks"></i> কাজের রেট ম্যানেজমেন্ট
             </div>
-            <div class="admin-profile"></div>
         </header>
 
         <div class="dashboard-body">
             
-            <!-- কাজের রেট কার্ড গ্রিড -->
             <div class="product-grid">
                 
-                <!-- জিমেইল রেট কার্ড -->
                 <div class="product-card">
                     <div class="product-img"><i class="fab fa-google"></i></div>
                     <h4 class="product-title">Gmail Account</h4>
-                    <div class="rate-display-box" id="rate-gmail">৳ ৭.৫০</div>
-                    <button class="btn-update-rate" onclick="openRateModal('Gmail Account', 'rate-gmail', '7.50')">
+                    <div class="rate-display-box" id="rate-gmail"><i class="fas fa-spinner fa-spin"></i></div>
+                    <button class="btn-update-rate" id="btn-gmail">
                         <i class="fas fa-edit"></i> রেট পরিবর্তন করুন
                     </button>
                 </div>
 
-                <!-- হোয়াটসঅ্যাপ রেট কার্ড -->
                 <div class="product-card">
                     <div class="product-img"><i class="fab fa-whatsapp"></i></div>
                     <h4 class="product-title">WhatsApp Account</h4>
-                    <div class="rate-display-box" id="rate-whatsapp">৳ ১৫.০০</div>
-                    <button class="btn-update-rate" onclick="openRateModal('WhatsApp Account', 'rate-whatsapp', '15.00')">
+                    <div class="rate-display-box" id="rate-whatsapp"><i class="fas fa-spinner fa-spin"></i></div>
+                    <button class="btn-update-rate" id="btn-whatsapp">
                         <i class="fas fa-edit"></i> রেট পরিবর্তন করুন
                     </button>
                 </div>
 
-                <!-- টেলিগ্রাম রেট কার্ড -->
                 <div class="product-card">
                     <div class="product-img"><i class="fab fa-telegram-plane"></i></div>
                     <h4 class="product-title">Telegram Account</h4>
-                    <div class="rate-display-box" id="rate-telegram">৳ ১২.০০</div>
-                    <button class="btn-update-rate" onclick="openRateModal('Telegram Account', 'rate-telegram', '12.00')">
+                    <div class="rate-display-box" id="rate-telegram"><i class="fas fa-spinner fa-spin"></i></div>
+                    <button class="btn-update-rate" id="btn-telegram">
                         <i class="fas fa-edit"></i> রেট পরিবর্তন করুন
                     </button>
                 </div>
 
-                <!-- ইন্সটাগ্রাম রেট কার্ড -->
                 <div class="product-card">
                     <div class="product-img"><i class="fab fa-instagram"></i></div>
                     <h4 class="product-title">Instagram Account</h4>
-                    <div class="rate-display-box" id="rate-instagram">৳ ১০.০০</div>
-                    <button class="btn-update-rate" onclick="openRateModal('Instagram Account', 'rate-instagram', '10.00')">
+                    <div class="rate-display-box" id="rate-instagram"><i class="fas fa-spinner fa-spin"></i></div>
+                    <button class="btn-update-rate" id="btn-instagram">
                         <i class="fas fa-edit"></i> রেট পরিবর্তন করুন
                     </button>
                 </div>
@@ -349,16 +325,81 @@
         </div>
     </main>
 
+    <!-- Firebase SDK & Firestore Database Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc, onSnapshot, updateDoc } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
+            authDomain: "send-bkash.firebaseapp.com",
+            projectId: "send-bkash",
+            storageBucket: "send-bkash.firebasestorage.app",
+            messagingSenderId: "306247423891",
+            appId: "1:306247423891:web:bb4fb6634043e6755afa66"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        window.db = db;
+        window.updateDoc = updateDoc;
+        window.doc = doc;
+        window.setDoc = setDoc;
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                const userRef = doc(db, "users", user.uid);
+                const docSnap = await getDoc(userRef);
+                
+                if (docSnap.exists() && (docSnap.data().role === "admin" || user.email === "sakibbinsalam.admin@gmail.com")) {
+                    loadTaskRates();
+                } else {
+                    window.location.href = "login.html"; // Admin নয়
+                }
+            } else {
+                window.location.href = "login.html";
+            }
+        });
+
+        function loadTaskRates() {
+            const ratesRef = doc(db, "admin_settings", "task_rates");
+            
+            // রিয়েল-টাইম লিসেনার
+            onSnapshot(ratesRef, (docSnap) => {
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    
+                    document.getElementById('rate-gmail').innerText = `৳ ${(data.gmail || 7.50).toFixed(2)}`;
+                    document.getElementById('rate-whatsapp').innerText = `৳ ${(data.whatsapp || 15.00).toFixed(2)}`;
+                    document.getElementById('rate-telegram').innerText = `৳ ${(data.telegram || 12.00).toFixed(2)}`;
+                    document.getElementById('rate-instagram').innerText = `৳ ${(data.instagram || 10.00).toFixed(2)}`;
+                    
+                    document.getElementById('btn-gmail').setAttribute('onclick', `openRateModal('Gmail Account', 'gmail', '${data.gmail || 7.50}')`);
+                    document.getElementById('btn-whatsapp').setAttribute('onclick', `openRateModal('WhatsApp Account', 'whatsapp', '${data.whatsapp || 15.00}')`);
+                    document.getElementById('btn-telegram').setAttribute('onclick', `openRateModal('Telegram Account', 'telegram', '${data.telegram || 12.00}')`);
+                    document.getElementById('btn-instagram').setAttribute('onclick', `openRateModal('Instagram Account', 'instagram', '${data.instagram || 10.00}')`);
+                } else {
+                    // ডাটাবেসে ডাটা না থাকলে ডিফল্ট ডাটা সেভ করা
+                    setDoc(ratesRef, {
+                        gmail: 7.50,
+                        whatsapp: 15.00,
+                        telegram: 12.00,
+                        instagram: 10.00
+                    });
+                }
+            });
+        }
+    </script>
+
+    <!-- UI Scripts -->
     <script>
-        let currentTargetRateId = "";
+        let currentTargetDbField = "";
 
-        function openModal(modalId) {
-            document.getElementById(modalId).classList.add('show');
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.remove('show');
-        }
+        function openModal(modalId) { document.getElementById(modalId).classList.add('show'); }
+        function closeModal(modalId) { document.getElementById(modalId).classList.remove('show'); }
 
         function showToast(msg) {
             const toast = document.getElementById("toastBox");
@@ -367,16 +408,14 @@
             setTimeout(() => { toast.classList.remove("show"); }, 3500);
         }
 
-        // রেট আপডেট করার পপ-আপ ওপেন করা
-        function openRateModal(taskName, targetId, currentRate) {
+        window.openRateModal = function(taskName, dbField, currentRate) {
             document.getElementById('modalTaskName').innerText = taskName;
             document.getElementById('rateInput').value = currentRate;
-            currentTargetRateId = targetId;
+            currentTargetDbField = dbField;
             openModal('rateModal');
         }
 
-        // রেট সেভ করা
-        function saveRate() {
+        window.saveRate = async function() {
             const newRateStr = document.getElementById('rateInput').value;
             const newRate = parseFloat(newRateStr);
 
@@ -385,11 +424,26 @@
                 return;
             }
 
-            // রেট আপডেট করা (bn-BD ব্যবহার করে ইংরেজি নাম্বারকে সরাসরি বাংলায় রূপান্তর করা হলো)
-            document.getElementById(currentTargetRateId).innerText = `৳ ${newRate.toLocaleString('bn-BD', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-            
-            closeModal('rateModal');
-            showToast("কাজের রেট সফলভাবে আপডেট করা হয়েছে!");
+            const btn = document.getElementById('saveRateBtn');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> সেভ হচ্ছে...';
+            btn.disabled = true;
+
+            try {
+                // ফায়ারবেস ডাটাবেসে আপডেট
+                const ratesRef = window.doc(window.db, "admin_settings", "task_rates");
+                await window.updateDoc(ratesRef, {
+                    [currentTargetDbField]: newRate
+                });
+
+                closeModal('rateModal');
+                showToast("কাজের রেট সফলভাবে আপডেট করা হয়েছে!");
+            } catch (error) {
+                console.error(error);
+                alert("আপডেট করতে সমস্যা হয়েছে।");
+            } finally {
+                btn.innerHTML = '<i class="fas fa-save"></i> সেভ করুন';
+                btn.disabled = false;
+            }
         }
     </script>
 </body>
