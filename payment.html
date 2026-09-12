@@ -71,7 +71,6 @@
             text-align: center; cursor: pointer; transition: 0.2s; background-color: var(--main-white);
         }
         
-        /* সব ওয়ালেট আইকন এখন পিংক কালারের হবে */
         .method-box i { font-size: 22px; margin-bottom: 5px; display: block; color: var(--main-pink); }
         .method-box span { font-size: 11px; font-weight: bold; color: #2c3e50; transition: 0.2s; }
         
@@ -129,8 +128,8 @@
         .h-status { font-size: 10px; font-weight: bold; padding: 4px 8px; border-radius: 4px; margin-top: 5px; display: inline-block; }
         
         .status-pending { background-color: #fff3cd; color: #856404; }
-        .status-success { background-color: #d4edda; color: #155724; }
-        .status-rejected { background-color: #f8d7da; color: #721c24; }
+        .status-success { background-color: rgba(39, 174, 96, 0.1); color: #27ae60; }
+        .status-rejected { background-color: rgba(231, 76, 60, 0.1); color: #e74c3c; }
 
         .toast-msg {
             visibility: hidden; min-width: 200px; 
@@ -240,40 +239,101 @@
                     <input type="text" id="trxId" class="input-box" placeholder="TrxID দিন">
                 </div>
 
-                <button class="submit-btn" onclick="submitPayment()">পেমেন্ট সাবমিট করুন</button>
+                <button class="submit-btn" id="payBtn" onclick="submitPayment()">পেমেন্ট সাবমিট করুন</button>
             </div>
 
             <div class="history-card">
                 <div class="section-title"><i class="fas fa-history"></i> পেমেন্ট হিস্ট্রি</div>
                 
                 <div class="history-list" id="historyContainer">
-                    <div class="history-item">
-                        <div class="history-left">
-                            <span class="h-title">VIP 1 আপগ্রেড (bKash)</span>
-                            <span class="h-date">23 Aug 2026, 02:30 PM</span>
-                        </div>
-                        <div class="history-right">
-                            <div class="h-amount">৳ ৫০০</div>
-                            <div class="h-status status-pending">Pending</div>
-                        </div>
-                    </div>
-                    
-                    <div class="history-item">
-                        <div class="history-left">
-                            <span class="h-title">VIP 2 আপগ্রেড (Nagad)</span>
-                            <span class="h-date">20 Aug 2026, 11:15 AM</span>
-                        </div>
-                        <div class="history-right">
-                            <div class="h-amount">৳ ১০০০</div>
-                            <div class="h-status status-success">Success</div>
-                        </div>
-                    </div>
+                    <p style="text-align:center; color:#888; font-size:13px; padding: 20px;">লোড হচ্ছে...</p>
                 </div>
             </div>
 
         </div>
     </div>
 
+    <!-- Firebase SDK & Real-time Database Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, where, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
+            authDomain: "send-bkash.firebaseapp.com",
+            projectId: "send-bkash",
+            storageBucket: "send-bkash.firebasestorage.app",
+            messagingSenderId: "306247423891",
+            appId: "1:306247423891:web:bb4fb6634043e6755afa66"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // গ্লোবাল ভেরিয়েবল হিসেবে সেট করা
+        window.currentUser = null;
+        window.db = db;
+        window.addDoc = addDoc;
+        window.collection = collection;
+        window.serverTimestamp = serverTimestamp;
+
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                window.location.href = "login.html";
+            } else {
+                window.currentUser = user;
+                loadPaymentHistory(user.uid);
+            }
+        });
+
+        // ফায়ারবেস থেকে পেমেন্ট হিস্ট্রি লোড
+        function loadPaymentHistory(uid) {
+            const q = query(collection(db, "cash_in_requests"), where("userId", "==", uid), orderBy("timestamp", "desc"));
+            onSnapshot(q, (snapshot) => {
+                const historyContainer = document.getElementById('historyContainer');
+                historyContainer.innerHTML = '';
+                
+                if (snapshot.empty) {
+                    historyContainer.innerHTML = '<p style="text-align:center; color:#888; font-size:13px; padding: 20px;">কোনো পেমেন্ট হিস্ট্রি নেই।</p>';
+                    return;
+                }
+
+                snapshot.forEach((docSnap) => {
+                    const data = docSnap.data();
+                    let statusClass, statusText;
+                    
+                    if(data.status === 'pending') {
+                        statusClass = 'status-pending'; statusText = 'Pending';
+                    } else if(data.status === 'approved') {
+                        statusClass = 'status-success'; statusText = 'Success';
+                    } else {
+                        statusClass = 'status-rejected'; statusText = 'Rejected';
+                    }
+
+                    const dateObj = data.timestamp ? data.timestamp.toDate() : new Date();
+                    const options = { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute:'2-digit' };
+                    const dateStr = dateObj.toLocaleDateString('en-GB', options).replace(',', '') || "কিছুক্ষণ আগে";
+
+                    historyContainer.innerHTML += `
+                        <div class="history-item">
+                            <div class="history-left">
+                                <span class="h-title">${data.purpose} (${data.method})</span>
+                                <span class="h-date">${dateStr}</span>
+                            </div>
+                            <div class="history-right">
+                                <div class="h-amount">৳ ${data.amount}</div>
+                                <div class="h-status ${statusClass}">${statusText}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+            });
+        }
+    </script>
+
+    <!-- UI Scripts -->
     <script>
         let selectedVip = "";
         let payAmount = "";
@@ -303,7 +363,6 @@
             'Upay': '01600000000'
         };
 
-        // মেথডের নামগুলোর কালারও এখন সব পিংক করা হয়েছে
         const methodColors = {
             'bKash': '#e2005a',
             'Nagad': '#e2005a',
@@ -337,45 +396,55 @@
             showToast("নাম্বার কপি করা হয়েছে!");
         }
 
-        function submitPayment() {
-            const userNum = document.getElementById('userNumber').value;
-            const trxId = document.getElementById('trxId').value;
+        window.submitPayment = async function() {
+            const userNum = document.getElementById('userNumber').value.trim();
+            const trxId = document.getElementById('trxId').value.trim();
             const methodName = document.getElementById('methodName').innerText;
+            const btn = document.getElementById('payBtn');
 
             if(!userNum || !trxId) {
                 showToast("অনুগ্রহ করে আপনার নাম্বার এবং TrxID দিন!");
                 return;
             }
 
-            const now = new Date();
-            const options = { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute:'2-digit' };
-            const formattedDate = now.toLocaleDateString('en-GB', options).replace(',', ''); 
+            if(!window.currentUser) {
+                showToast("অনুগ্রহ করে অপেক্ষা করুন বা আবার লগইন করুন।");
+                return;
+            }
 
-            const historyContainer = document.getElementById('historyContainer');
-            const newItem = document.createElement('div');
-            newItem.className = 'history-item';
-            
+            btn.innerText = "প্রসেসিং হচ্ছে...";
+            btn.disabled = true;
+
             const displayVip = selectedVip || 'প্যাকেজ';
-            const displayAmount = payAmount ? `৳ ${payAmount}` : `৳ 0`;
+            const requestAmount = payAmount ? parseFloat(payAmount) : 0;
 
-            newItem.innerHTML = `
-                <div class="history-left">
-                    <span class="h-title">${displayVip} আপগ্রেড (${methodName})</span>
-                    <span class="h-date">${formattedDate}</span>
-                </div>
-                <div class="history-right">
-                    <div class="h-amount">${displayAmount}</div>
-                    <div class="h-status status-pending">Pending</div>
-                </div>
-            `;
+            try {
+                // ফায়ারবেসে রিকোয়েস্ট পাঠানো
+                await window.addDoc(window.collection(window.db, "cash_in_requests"), {
+                    userId: window.currentUser.uid,
+                    email: window.currentUser.email || "",
+                    method: methodName,
+                    accountNumber: userNum,
+                    trxId: trxId,
+                    amount: requestAmount,
+                    purpose: displayVip + " আপগ্রেড",
+                    status: "pending",
+                    timestamp: window.serverTimestamp()
+                });
 
-            historyContainer.insertBefore(newItem, historyContainer.firstChild);
+                document.getElementById('modalMessage').innerText = `আপনার ${displayVip} এর পেমেন্ট রিকোয়েস্ট সফলভাবে জমা হয়েছে। এডমিন চেক করে আপগ্রেড করে দিবে!`;
+                document.getElementById('successModal').classList.add('show');
 
-            document.getElementById('modalMessage').innerText = `আপনার ${displayVip} এর পেমেন্ট রিকোয়েস্ট সফলভাবে জমা হয়েছে। এডমিন চেক করে আপগ্রেড করে দিবে!`;
-            document.getElementById('successModal').classList.add('show');
+                document.getElementById('userNumber').value = '';
+                document.getElementById('trxId').value = '';
 
-            document.getElementById('userNumber').value = '';
-            document.getElementById('trxId').value = '';
+            } catch (error) {
+                console.error(error);
+                showToast("পেমেন্ট রিকোয়েস্ট পাঠাতে সমস্যা হয়েছে।");
+            } finally {
+                btn.innerText = "পেমেন্ট সাবমিট করুন";
+                btn.disabled = false;
+            }
         }
 
         function closeModalAndRedirect() {
