@@ -18,7 +18,6 @@
             --warning-yellow: #f39c12;
         }
 
-        /* পুরো পেজ ফিক্সড রাখার জন্য */
         body, html { 
             margin: 0; padding: 0; 
             background-color: #e9ecef; 
@@ -47,7 +46,6 @@
         .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 20px; transition: 0.2s; }
         .back-btn:hover { transform: translateX(-3px); }
 
-        /* শুধু ভেতরের অংশ স্ক্রল হবে */
         .content { 
             flex-grow: 1; padding: 20px; 
             overflow-y: auto; 
@@ -81,7 +79,6 @@
         .input-group { margin-bottom: 18px; position: relative; }
         .input-label { display: block; font-size: 13px; font-weight: bold; color: var(--text-grey); margin-bottom: 8px; }
         
-        /* ইনপুট বক্স (বামপাশে কোনো আইকন নেই, তাই প্যাডিং কম করা হয়েছে) */
         .input-box {
             width: 100%; padding: 14px 45px 14px 15px; border: 1.5px solid var(--border-color); border-radius: 8px;
             font-size: 14px; box-sizing: border-box; outline: none; transition: 0.3s;
@@ -89,7 +86,6 @@
         }
         .input-box:focus { border-color: var(--main-pink); background-color: white; box-shadow: 0 0 0 3px rgba(226, 0, 90, 0.1); }
         
-        /* ডানদিকের চোখ (Eye) আইকন */
         .eye-icon {
             position: absolute; right: 15px; top: 38px; color: #a4b0be; font-size: 16px; cursor: pointer; transition: 0.2s;
         }
@@ -99,7 +95,7 @@
             background: linear-gradient(135deg, var(--main-pink), var(--light-pink)); color: white; border: none;
             padding: 15px; border-radius: 8px; font-size: 16px; font-weight: bold;
             width: 100%; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 12px rgba(226, 0, 90, 0.25);
-            margin-top: 10px;
+            margin-top: 10px; display: flex; justify-content: center; align-items: center; gap: 8px;
         }
         .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(226, 0, 90, 0.35); }
         .submit-btn:disabled { background: #dcdde1; cursor: not-allowed; box-shadow: none; transform: none; }
@@ -134,7 +130,6 @@
         </div>
 
         <div class="content">
-            <!-- ওয়ার্নিং মেসেজ বক্স -->
             <div class="notice-box">
                 <i class="fas fa-exclamation-triangle" style="font-size: 18px; color: #f39c12; margin-top: 2px;"></i> 
                 <div>অ্যাকাউন্ট সুরক্ষিত রাখতে আপনার পাসওয়ার্ড পরিবর্তন করুন। পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে।</div>
@@ -190,17 +185,40 @@
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
-        let currentUser = null;
+        
+        window.currentUser = null;
+        window.EmailAuthProvider = EmailAuthProvider;
+        window.reauthenticateWithCredential = reauthenticateWithCredential;
+        window.updatePassword = updatePassword;
 
         onAuthStateChanged(auth, (user) => {
             if (!user) {
                 window.location.href = "login.html";
             } else {
-                currentUser = user;
+                window.currentUser = user;
             }
         });
+    </script>
 
-        // পাসওয়ার্ড দেখানোর বা লুকানোর ফাংশন (Eye toggle)
+    <!-- UI Scripts -->
+    <script>
+        function showToast(message, isError = false) {
+            const toast = document.getElementById("toastBox");
+            toast.innerText = message;
+            
+            if(isError) {
+                toast.classList.add("toast-error");
+            } else {
+                toast.classList.remove("toast-error");
+            }
+
+            toast.classList.add("show");
+
+            setTimeout(() => {
+                toast.classList.remove("show");
+            }, 3000);
+        }
+
         window.togglePassword = function(fieldId, iconElement) {
             const inputField = document.getElementById(fieldId);
             if (inputField.type === "password") {
@@ -235,16 +253,20 @@
                 return;
             }
 
-            if (!currentUser) return;
+            if (!window.currentUser) {
+                showToast("অনুগ্রহ করে অপেক্ষা করুন বা আবার লগইন করুন।", true);
+                return;
+            }
 
             btn.disabled = true;
-            btn.innerText = "পরিবর্তন হচ্ছে...";
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> পরিবর্তন হচ্ছে...';
 
-            const credential = EmailAuthProvider.credential(currentUser.email, currentPass);
+            const credential = window.EmailAuthProvider.credential(window.currentUser.email, currentPass);
 
             try {
-                await reauthenticateWithCredential(currentUser, credential);
-                await updatePassword(currentUser, newPass);
+                await window.reauthenticateWithCredential(window.currentUser, credential);
+                await window.updatePassword(window.currentUser, newPass);
+                
                 showToast("আপনার পাসওয়ার্ড সফলভাবে পরিবর্তন হয়েছে!");
                 
                 document.getElementById("currentPass").value = "";
@@ -263,22 +285,6 @@
                 btn.innerText = "পাসওয়ার্ড পরিবর্তন করুন";
             }
         };
-
-        function showToast(message, isError = false) {
-            const toast = document.getElementById("toastBox");
-            toast.innerText = message;
-            
-            if(isError) {
-                toast.classList.et ? toast.classList.add("toast-error") : toast.classList.add("toast-error"); // fallback
-                toast.className = "toast-msg show toast-error";
-            } else {
-                toast.className = "toast-msg show";
-            }
-
-            setTimeout(() => {
-                toast.className = "toast-msg";
-            }, 3000);
-        }
     </script>
 </body>
 </html>
