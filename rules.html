@@ -75,6 +75,11 @@
             border: 1px solid #ffd6e4;
             box-shadow: 0 4px 15px rgba(226, 0, 90, 0.05);
         }
+        
+        .rule-card.dynamic-rule {
+            border: 2px solid var(--main-pink);
+            box-shadow: 0 6px 20px rgba(226, 0, 90, 0.1);
+        }
 
         .rule-header {
             display: flex;
@@ -99,6 +104,7 @@
             align-items: center;
             justify-content: center;
             font-size: 18px;
+            flex-shrink: 0;
         }
 
         .rule-title {
@@ -127,38 +133,15 @@
 
         .rule-list li:last-child { margin-bottom: 0; }
 
-        /* টিক চিহ্নগুলো এখন পিংক কালারের করা হয়েছে */
-        .rule-list li .fa-check-circle {
-            color: var(--main-pink);
-            font-size: 14px;
-            margin-top: 2px;
-        }
-
-        /* ক্রস চিহ্নগুলোও পিংক কালারের */
-        .rule-list li .fa-times-circle {
-            color: var(--main-pink);
-            font-size: 14px;
-            margin-top: 2px;
-        }
+        .rule-list li .fa-check-circle { color: var(--main-pink); font-size: 14px; margin-top: 2px; }
+        .rule-list li .fa-times-circle { color: var(--main-pink); font-size: 14px; margin-top: 2px; }
 
         .support-btn {
             background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
-            color: white;
-            border: none;
-            padding: 14px;
-            border-radius: 8px;
-            font-size: 15px; 
-            font-weight: bold;
-            width: 100%;
-            box-sizing: border-box; 
-            cursor: pointer;
-            transition: 0.2s;
-            box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);
-            margin-top: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+            color: white; border: none; padding: 14px; border-radius: 8px;
+            font-size: 15px; font-weight: bold; width: 100%; box-sizing: border-box; 
+            cursor: pointer; transition: 0.2s; box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);
+            margin-top: 15px; display: flex; align-items: center; justify-content: center; gap: 8px;
             text-decoration: none;
         }
         .support-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(226, 0, 90, 0.3); }
@@ -167,6 +150,17 @@
         .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); text-decoration: none; flex: 1; }
         .nav-item i { font-size: 18px; margin-bottom: 4px; display: block; }
         .nav-item.active { color: var(--main-pink); font-weight: bold; }
+
+        /* ডাইনামিক ভিডিও কন্টেইনার */
+        .video-wrapper {
+            width: 100%; height: 180px; margin-bottom: 15px; border-radius: 8px; 
+            overflow: hidden; background: #000; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .video-wrapper iframe { width: 100%; height: 100%; border: none; }
+        
+        .dynamic-rule-text {
+            font-size: 13px; color: var(--text-grey); line-height: 1.6; font-weight: 600; white-space: pre-line;
+        }
 
     </style>
 </head>
@@ -185,6 +179,15 @@
             <div class="notice-box">
                 <i class="fas fa-bullhorn" style="color: var(--warning-yellow); margin-right: 5px;"></i> 
                 সতর্কতা: অ্যাকাউন্ট সুরক্ষিত রাখতে এবং নিয়মিত পেমেন্ট পেতে নিচের নিয়মগুলো মনোযোগ দিয়ে পড়ুন ও মেনে চলুন।
+            </div>
+
+            <!-- ডাইনামিক কাজের নিয়ম ও ভিডিও টিউটোরিয়াল (ফায়ারবেস থেকে আসবে) -->
+            <div id="dynamicRulesContainer">
+                <!-- Data will be loaded here -->
+                <div style="text-align: center; padding: 20px; color: var(--text-grey);">
+                    <i class="fas fa-spinner fa-spin" style="font-size: 24px; color: var(--main-pink); margin-bottom: 10px;"></i>
+                    <p style="font-weight: bold; font-size: 12px;">টিউটোরিয়াল লোড হচ্ছে...</p>
+                </div>
             </div>
 
             <!-- সাধারণ নিয়ম -->
@@ -254,10 +257,11 @@
         </div>
     </div>
 
-    <!-- Firebase Script -->
+    <!-- Firebase Script & Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+        import { getFirestore, collection, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
@@ -270,12 +274,55 @@
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
+        const db = getFirestore(app);
 
         onAuthStateChanged(auth, (user) => {
             if (!user) {
                 window.location.href = "login.html";
+            } else {
+                loadTaskRules();
             }
         });
+
+        function loadTaskRules() {
+            const q = query(collection(db, "task_rules"), orderBy("createdAt", "desc"));
+            onSnapshot(q, (snapshot) => {
+                const container = document.getElementById("dynamicRulesContainer");
+                container.innerHTML = "";
+                
+                if(snapshot.empty) return; 
+
+                snapshot.forEach(docSnap => {
+                    const data = docSnap.data();
+                    
+                    let videoHTML = "";
+                    if(data.videoUrl) {
+                        videoHTML = `
+                            <div class="video-wrapper">
+                                <iframe src="${data.videoUrl}" allowfullscreen></iframe>
+                            </div>
+                        `;
+                    }
+
+                    let iconClass = "fas fa-tasks";
+                    if(data.platform === "Google Account") iconClass = "fab fa-google";
+                    else if(data.platform === "Instagram Account") iconClass = "fab fa-instagram";
+                    else if(data.platform === "WhatsApp Account") iconClass = "fab fa-whatsapp";
+                    else if(data.platform === "Telegram Account") iconClass = "fab fa-telegram-plane";
+
+                    container.innerHTML += `
+                        <div class="rule-card dynamic-rule">
+                            <div class="rule-header">
+                                <div class="rule-icon"><i class="${iconClass}"></i></div>
+                                <h3 class="rule-title">${data.platform} এর কাজ কীভাবে করবেন?</h3>
+                            </div>
+                            ${videoHTML}
+                            <div class="dynamic-rule-text">${data.rulesText}</div>
+                        </div>
+                    `;
+                });
+            });
+        }
     </script>
 </body>
 </html>
