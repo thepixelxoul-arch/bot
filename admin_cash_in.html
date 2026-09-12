@@ -270,7 +270,7 @@
             </div>
             <div class="admin-profile">
                 <!-- টপবারের ডানদিকের কোণায় হিস্ট্রি বাটন -->
-                <button class="topbar-history-btn" onclick="toggleHistory()" title="ক্যাশ ইন হিস্ট্রি">
+                <button class="topbar-history-btn" onclick="toggleHistory()" id="historyToggleBtn" title="ক্যাশ ইন হিস্ট্রি">
                     <i class="fas fa-history"></i>
                 </button>
             </div>
@@ -280,85 +280,7 @@
             
             <!-- পেন্ডিং রিকোয়েস্ট গ্রিড -->
             <div class="request-grid" id="pending-view">
-                
-                <!-- কার্ড ১ (VIP 1 প্যাকেজ) -->
-                <div class="request-card" id="req-1">
-                    <div class="card-header">
-                        <div class="user-info">
-                            <div class="user-icon"><i class="fas fa-user"></i></div>
-                            <div class="user-details">
-                                <h4>T9KZBTUBR1</h4>
-                                <p>আজ, ১০:১৫ AM</p>
-                            </div>
-                        </div>
-                        <div class="amount-badge">৳500</div>
-                    </div>
-                    
-                    <div class="req-details">
-                        <span class="lbl">মেথড:</span> <span class="val"><i class="fas fa-paper-plane"></i> bKash</span><br>
-                        <span class="lbl">নাম্বার:</span> <span class="val" style="color: var(--dark-blue);">01711223344</span><br>
-                        <span class="lbl">TrxID:</span> <span class="val-trx">8A7B6C5D4E</span><br>
-                        <!-- VIP লেভেল উল্লেখ করা হয়েছে -->
-                        <span class="purpose-badge"><i class="fas fa-crown"></i> VIP 1 প্যাকেজ ক্রয়</span>
-                    </div>
-
-                    <div class="action-buttons">
-                        <button class="btn-action btn-reject" onclick="handleRequest('req-1', 'reject')"><i class="fas fa-times"></i> Reject</button>
-                        <button class="btn-action btn-approve" onclick="handleRequest('req-1', 'approve')"><i class="fas fa-check"></i> Approve</button>
-                    </div>
-                </div>
-
-                <!-- কার্ড ২ (নাম্বার কেনা) -->
-                <div class="request-card" id="req-2">
-                    <div class="card-header">
-                        <div class="user-info">
-                            <div class="user-icon"><i class="fas fa-user"></i></div>
-                            <div class="user-details">
-                                <h4>M2LKBTYYY5</h4>
-                                <p>আজ, ০৯:২০ AM</p>
-                            </div>
-                        </div>
-                        <div class="amount-badge">৳50</div>
-                    </div>
-                    
-                    <div class="req-details">
-                        <span class="lbl">মেথড:</span> <span class="val"><i class="fas fa-mobile-alt"></i> Nagad</span><br>
-                        <span class="lbl">নাম্বার:</span> <span class="val" style="color: var(--dark-blue);">01999887766</span><br>
-                        <span class="lbl">TrxID:</span> <span class="val-trx">7X8Y9Z0A1B</span><br>
-                        <span class="purpose-badge"><i class="fas fa-sim-card"></i> নাম্বার কেনা</span>
-                    </div>
-
-                    <div class="action-buttons">
-                        <button class="btn-action btn-reject" onclick="handleRequest('req-2', 'reject')"><i class="fas fa-times"></i> Reject</button>
-                        <button class="btn-action btn-approve" onclick="handleRequest('req-2', 'approve')"><i class="fas fa-check"></i> Approve</button>
-                    </div>
-                </div>
-
-                <!-- কার্ড ৩ (অ্যাকাউন্ট ভেরিফিকেশন) -->
-                <div class="request-card" id="req-3">
-                    <div class="card-header">
-                        <div class="user-info">
-                            <div class="user-icon"><i class="fas fa-user"></i></div>
-                            <div class="user-details">
-                                <h4>X7ABCTUBR9</h4>
-                                <p>গতকাল, ১১:৪৫ PM</p>
-                            </div>
-                        </div>
-                        <div class="amount-badge">৳100</div>
-                    </div>
-                    
-                    <div class="req-details">
-                        <span class="lbl">মেথড:</span> <span class="val"><i class="fas fa-rocket"></i> Rocket</span><br>
-                        <span class="lbl">নাম্বার:</span> <span class="val" style="color: var(--dark-blue);">01888776655</span><br>
-                        <span class="lbl">TrxID:</span> <span class="val-trx">1A2B3C4D5E</span><br>
-                        <span class="purpose-badge"><i class="fas fa-user-check"></i> অ্যাকাউন্ট ভেরিফিকেশন</span>
-                    </div>
-
-                    <div class="action-buttons">
-                        <button class="btn-action btn-reject" onclick="handleRequest('req-3', 'reject')"><i class="fas fa-times"></i> Reject</button>
-                        <button class="btn-action btn-approve" onclick="handleRequest('req-3', 'approve')"><i class="fas fa-check"></i> Approve</button>
-                    </div>
-                </div>
+                <p style="text-align:center; color:#888; width:100%; grid-column: 1 / -1; padding:30px;">লোড হচ্ছে...</p>
             </div>
 
             <!-- হিস্ট্রি গ্রিড (প্রাথমিকভাবে লুকানো থাকবে) -->
@@ -369,6 +291,139 @@
         </div>
     </main>
 
+    <!-- Firebase SDK & Database Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+        import { getFirestore, collection, onSnapshot, doc, updateDoc, query, orderBy, getDoc } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
+            authDomain: "send-bkash.firebaseapp.com",
+            projectId: "send-bkash",
+            storageBucket: "send-bkash.firebasestorage.app",
+            messagingSenderId: "306247423891",
+            appId: "1:306247423891:web:bb4fb6634043e6755afa66"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        window.db = db;
+        window.updateDoc = updateDoc;
+        window.doc = doc;
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                const userRef = doc(db, "users", user.uid);
+                const docSnap = await getDoc(userRef);
+                
+                if (docSnap.exists() && (docSnap.data().role === "admin" || user.email === "sakibbinsalam.admin@gmail.com")) {
+                    loadCashInRequests();
+                } else {
+                    window.location.href = "login.html"; // Admin নয়
+                }
+            } else {
+                window.location.href = "login.html";
+            }
+        });
+
+        function loadCashInRequests() {
+            const q = query(collection(db, "cash_in_requests"), orderBy("timestamp", "desc"));
+            
+            onSnapshot(q, (snapshot) => {
+                const pendingView = document.getElementById('pending-view');
+                const historyView = document.getElementById('history-view');
+                
+                pendingView.innerHTML = '';
+                historyView.innerHTML = '';
+
+                let pendingCount = 0;
+                let historyCount = 0;
+
+                snapshot.forEach((docSnap) => {
+                    const data = docSnap.data();
+                    const reqId = docSnap.id;
+                    const dateObj = data.timestamp ? data.timestamp.toDate() : new Date();
+                    const dateStr = dateObj.toLocaleDateString('bn-BD') + ", " + dateObj.toLocaleTimeString('bn-BD', {hour: '2-digit', minute:'2-digit'});
+
+                    // মেথড আইকন নির্ধারণ
+                    let iconClass = "fas fa-wallet";
+                    if(data.method === "bKash") iconClass = "fas fa-paper-plane";
+                    else if(data.method === "Nagad") iconClass = "fas fa-mobile-alt";
+                    else if(data.method === "Rocket") iconClass = "fas fa-rocket";
+
+                    // পারপাস আইকন নির্ধারণ
+                    let purposeIcon = "fas fa-crown";
+                    if(data.purpose && data.purpose.includes("ভেরিফিকেশন")) purposeIcon = "fas fa-user-check";
+                    else if(data.purpose && data.purpose.includes("নাম্বার")) purposeIcon = "fas fa-sim-card";
+
+                    if(data.status === 'pending') {
+                        pendingCount++;
+                        pendingView.innerHTML += `
+                            <div class="request-card" id="${reqId}">
+                                <div class="card-header">
+                                    <div class="user-info">
+                                        <div class="user-icon"><i class="fas fa-user"></i></div>
+                                        <div class="user-details">
+                                            <h4>${data.userId ? data.userId.substring(0,8).toUpperCase() : "UNKNOWN"}</h4>
+                                            <p>${dateStr}</p>
+                                        </div>
+                                    </div>
+                                    <div class="amount-badge">৳${data.amount}</div>
+                                </div>
+                                
+                                <div class="req-details">
+                                    <span class="lbl">মেথড:</span> <span class="val"><i class="${iconClass}"></i> ${data.method}</span><br>
+                                    <span class="lbl">নাম্বার:</span> <span class="val" style="color: var(--dark-blue);">${data.accountNumber}</span><br>
+                                    <span class="lbl">TrxID:</span> <span class="val-trx">${data.trxId}</span><br>
+                                    <span class="purpose-badge"><i class="${purposeIcon}"></i> ${data.purpose || 'প্যাকেজ আপগ্রেড'}</span>
+                                </div>
+
+                                <div class="action-buttons" id="actions-${reqId}">
+                                    <button class="btn-action btn-reject" onclick="handleRequest('${reqId}', 'reject')"><i class="fas fa-times"></i> Reject</button>
+                                    <button class="btn-action btn-approve" onclick="handleRequest('${reqId}', 'approve')"><i class="fas fa-check"></i> Approve</button>
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        historyCount++;
+                        let statusClass = data.status === 'approved' ? 'status-accepted' : 'status-rejected';
+                        let statusIcon = data.status === 'approved' ? 'fa-check-circle' : 'fa-times-circle';
+                        let statusText = data.status === 'approved' ? 'Approved' : 'Rejected';
+
+                        historyView.innerHTML += `
+                            <div class="request-card">
+                                <div class="card-header">
+                                    <div class="user-info">
+                                        <div class="user-icon"><i class="fas fa-user"></i></div>
+                                        <div class="user-details">
+                                            <h4>${data.userId ? data.userId.substring(0,8).toUpperCase() : "UNKNOWN"}</h4>
+                                            <p>${dateStr}</p>
+                                        </div>
+                                    </div>
+                                    <div class="amount-badge">৳${data.amount}</div>
+                                </div>
+                                
+                                <div class="req-details">
+                                    <span class="lbl">মেথড:</span> <span class="val"><i class="${iconClass}"></i> ${data.method}</span><br>
+                                    <span class="lbl">নাম্বার:</span> <span class="val" style="color: var(--dark-blue);">${data.accountNumber}</span><br>
+                                    <span class="lbl">TrxID:</span> <span class="val-trx">${data.trxId}</span><br>
+                                    <span class="purpose-badge"><i class="${purposeIcon}"></i> ${data.purpose || 'প্যাকেজ আপগ্রেড'}</span>
+                                </div>
+                                <div class="status-box ${statusClass}"><i class="fas ${statusIcon}"></i> ${statusText}</div>
+                            </div>
+                        `;
+                    }
+                });
+
+                if(pendingCount === 0) pendingView.innerHTML = '<p style="text-align:center; color:#888; width:100%; grid-column: 1 / -1; padding:30px;">কোনো পেন্ডিং ক্যাশ ইন রিকোয়েস্ট নেই।</p>';
+                if(historyCount === 0) historyView.innerHTML = '<p style="text-align:center; color:#888; width:100%; grid-column: 1 / -1; padding:30px;">কোনো হিস্ট্রি নেই।</p>';
+            });
+        }
+    </script>
+
     <script>
         let showingHistory = false;
 
@@ -377,17 +432,21 @@
             showingHistory = !showingHistory;
             const pendingView = document.getElementById('pending-view');
             const historyView = document.getElementById('history-view');
+            const toggleBtn = document.getElementById('historyToggleBtn');
 
             if (showingHistory) {
                 pendingView.style.display = 'none';
                 historyView.style.display = 'grid'; 
+                toggleBtn.innerHTML = '<i class="fas fa-arrow-left"></i>';
+                document.querySelector('.topbar-title').innerHTML = '<i class="fas fa-history"></i> ক্যাশ ইন হিস্ট্রি';
             } else {
                 pendingView.style.display = 'grid';
                 historyView.style.display = 'none';
+                toggleBtn.innerHTML = '<i class="fas fa-history"></i>';
+                document.querySelector('.topbar-title').innerHTML = '<i class="fas fa-wallet"></i> ক্যাশ ইন রিকোয়েস্ট';
             }
         }
 
-        // টোস্ট মেসেজ দেখানোর ফাংশন
         function showToast(message, type) {
             const toast = document.getElementById("toastBox");
             const toastText = document.getElementById("toastText");
@@ -408,38 +467,22 @@
             setTimeout(() => { toast.classList.remove("show"); }, 3000);
         }
 
-        // Approve / Reject হ্যান্ডেল করার ফাংশন এবং হিস্ট্রিতে পাঠানো
-        function handleRequest(cardId, action) {
-            const card = document.getElementById(cardId);
-            const actionButtons = card.querySelector('.action-buttons');
-            
-            // বাটনের অংশটি সরিয়ে ফেলা
-            if(actionButtons) actionButtons.style.display = 'none';
+        // Approve / Reject হ্যান্ডেল করার ফাংশন
+        window.handleRequest = async function(reqId, action) {
+            const actionButtons = document.getElementById('actions-' + reqId);
+            if(actionButtons) {
+                actionButtons.innerHTML = '<p style="text-align:center; width:100%; color:var(--main-pink); font-weight:bold;"><i class="fas fa-spinner fa-spin"></i> Processing...</p>';
+            }
 
-            // হিস্ট্রি স্ট্যাটাস ব্যাজ অ্যাড করা
-            const statusDiv = document.createElement('div');
-            statusDiv.className = 'status-box ' + (action === 'approve' ? 'status-accepted' : 'status-rejected');
-            statusDiv.innerHTML = action === 'approve' ? '<i class="fas fa-check-circle"></i> Approved' : '<i class="fas fa-times-circle"></i> Rejected';
-            card.appendChild(statusDiv);
-
-            // কার্ড হাইড করার অ্যানিমেশন
-            card.style.transform = "scale(0.9)";
-            card.style.opacity = "0";
-            
-            setTimeout(() => {
-                // কার্ডটিকে পেন্ডিং থেকে সরিয়ে হিস্ট্রি সেকশনে যোগ করা
-                const historyView = document.getElementById('history-view');
-                historyView.prepend(card);
-                
-                // অ্যানিমেশন রিসেট করা
-                card.style.transform = "scale(1)";
-                card.style.opacity = "1";
-            }, 300);
-
-            if(action === 'approve') {
-                showToast("সফলভাবে Approve করা হয়েছে এবং হিস্ট্রিতে সেভ হয়েছে!", "approve");
-            } else {
-                showToast("Reject করা হয়েছে এবং হিস্ট্রিতে সেভ হয়েছে!", "reject");
+            try {
+                // ফায়ারবেসে স্ট্যাটাস আপডেট করা হলো
+                await window.updateDoc(window.doc(window.db, "cash_in_requests", reqId), {
+                    status: action === 'approve' ? 'approved' : 'rejected'
+                });
+                showToast(action === 'approve' ? "সফলভাবে Approve করা হয়েছে!" : "Reject করা হয়েছে!", action);
+            } catch (e) {
+                console.error(e);
+                showToast("আপডেট করতে সমস্যা হয়েছে।", "reject");
             }
         }
     </script>
