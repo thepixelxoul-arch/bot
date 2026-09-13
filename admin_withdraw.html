@@ -376,10 +376,11 @@
                 const userRef = doc(db, "users", user.uid);
                 const docSnap = await getDoc(userRef);
                 
-                if (docSnap.exists() && (docSnap.data().role === "admin" || user.email === "sakibbinsalam.admin@gmail.com")) {
+                // নতুন অ্যাডমিন ইমেইল চেক
+                if (docSnap.exists() && (docSnap.data().role === "admin" || user.email === "sendbkash.admin@gmail.com")) {
                     loadWithdrawRequests();
                 } else {
-                    window.location.href = "login.html"; // Admin নয়
+                    window.location.href = "index.html"; 
                 }
             } else {
                 window.location.href = "login.html";
@@ -535,13 +536,11 @@
             btn.disabled = true;
 
             try {
-                // ১. উইথড্র রিকোয়েস্টের স্ট্যাটাস পরিবর্তন
                 await window.updateDoc(window.doc(window.db, "withdraw_requests", currentRowId), {
                     status: 'approved',
                     txnId: txnId || "N/A"
                 });
 
-                // ২. ইউজারের totalWithdraw (মোট উইথড্র) আপডেট করা
                 await window.updateDoc(window.doc(window.db, "users", currentUserId), {
                     totalWithdraw: window.increment(currentAmount)
                 });
@@ -569,12 +568,10 @@
             btn.disabled = true;
 
             try {
-                // ১. ইউজারের ব্যালেন্সে টাকা রিফান্ড করা
                 await window.updateDoc(window.doc(window.db, "users", currentUserId), {
                     balance: window.increment(currentAmount)
                 });
 
-                // ২. রিকোয়েস্টের স্ট্যাটাস Reject করা
                 await window.updateDoc(window.doc(window.db, "withdraw_requests", currentRowId), {
                     status: 'rejected',
                     rejectReason: reason
