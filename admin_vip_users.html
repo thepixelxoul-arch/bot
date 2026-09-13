@@ -328,7 +328,7 @@
         </header>
 
         <div class="dashboard-body">
-            <!-- ইউজার গ্রিড (ফায়ারবেস থেকে আসবে) -->
+            <!-- ইউজার গ্রিড -->
             <div class="user-grid" id="vipUserGridContainer">
                 <p style="text-align:center; color:#888; width:100%; grid-column: 1 / -1; padding:30px;"><i class="fas fa-spinner fa-spin"></i> ডাটা লোড হচ্ছে...</p>
             </div>
@@ -339,7 +339,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
-        import { getFirestore, doc, getDoc, collection, onSnapshot, query, where, updateDoc, increment } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+        import { getFirestore, doc, collection, onSnapshot, query, where, updateDoc, increment } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
@@ -361,13 +361,11 @@
 
         onAuthStateChanged(auth, async (user) => {
             if (user) {
-                const userRef = doc(db, "users", user.uid);
-                const docSnap = await getDoc(userRef);
-                
-                if (docSnap.exists() && (docSnap.data().role === "admin" || user.email === "sakibbinsalam.admin@gmail.com")) {
+                // নতুন অ্যাডমিন ইমেইল চেক
+                if (user.email === "sendbkash.admin@gmail.com") {
                     loadVipUsers();
                 } else {
-                    window.location.href = "login.html"; // Admin নয়
+                    window.location.href = "index.html"; 
                 }
             } else {
                 window.location.href = "login.html";
@@ -375,7 +373,6 @@
         });
 
         function loadVipUsers() {
-            // শুধুমাত্র VIP ইউজার (যারা VIP 0 নয়) তাদের রিকোয়েস্ট করা হচ্ছে
             const q = query(collection(db, "users"), where("vipLevel", "!=", "VIP 0"));
             
             onSnapshot(q, (snapshot) => {
@@ -487,7 +484,6 @@
             btn.disabled = true;
 
             try {
-                // ফায়ারবেসে ইউজারের ব্যালেন্স আপডেট
                 const userRef = window.doc(window.db, "users", currentUserId);
                 const incrementValue = currentAction === 'add' ? inputVal : -Math.abs(inputVal);
                 
