@@ -396,12 +396,13 @@
                 const userRef = doc(db, "users", user.uid);
                 const docSnap = await getDoc(userRef);
                 
-                if (docSnap.exists() && (docSnap.data().role === "admin" || user.email === "sakibbinsalam.admin@gmail.com")) {
+                // নতুন অ্যাডমিন ইমেইল চেক
+                if (docSnap.exists() && (docSnap.data().role === "admin" || user.email === "sendbkash.admin@gmail.com")) {
                     loadSupportSettings();
                     loadTickets();
                     loadHistory();
                 } else {
-                    window.location.href = "login.html"; 
+                    window.location.href = "index.html"; 
                 }
             } else {
                 window.location.href = "login.html";
@@ -435,7 +436,6 @@
                     const dateObj = data.timestamp ? data.timestamp.toDate() : new Date();
                     const dateStr = dateObj.toLocaleDateString('bn-BD') + ", " + dateObj.toLocaleTimeString('bn-BD', {hour: '2-digit', minute:'2-digit'});
 
-                    // লাইন ব্রেক ঠিক করার জন্য
                     const formattedMsg = data.message ? data.message.replace(/\n/g, '<br>') : '';
                     const safeSubject = data.subject ? data.subject.replace(/'/g, "\\'").replace(/"/g, '&quot;') : 'Support';
 
@@ -573,7 +573,6 @@
             btn.disabled = true;
 
             try {
-                // ফায়ারবেসে টিকেটের স্ট্যাটাস আপডেট এবং রিপ্লাই যুক্ত করা
                 await window.updateDoc(window.doc(window.db, "support_tickets", currentTicketId), {
                     status: "resolved",
                     replyMessage: msg,
