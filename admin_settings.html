@@ -438,26 +438,22 @@
         window.doc = doc;
         window.setDoc = setDoc;
         window.deleteDoc = deleteDoc;
-        window.serverTimestamp = serverTimestamp;
-
-      onAuthStateChanged(auth, async (user) => {
+        window.serverTimestamp = serverTimestamp;   
+        
+    onAuthStateChanged(auth, (user) => {
     if (user) {
-        const userRef = doc(db, "users", user.uid);
-        const docSnap = await getDoc(userRef);
-
-        // নতুন অ্যাডমিন ইমেইল চেক
-        if (docSnap.exists() && (docSnap.data().role === "admin" || user.email === "sendbkash.admin@gmail.com")) {
+        if (user.email === "sendbkash.admin@gmail.com") {
             loadReferSettings();
             loadTopReferrers();
             loadPromoCodes();
         } else {
-            window.location.href = "index.html";
+            window.location.href = "index.html"; 
         }
     } else {
         window.location.href = "login.html";
     }
 });
-
+        
         function loadReferSettings() {
             const ref = doc(db, "admin_settings", "referral_settings");
             onSnapshot(ref, (docSnap) => {
