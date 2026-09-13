@@ -26,7 +26,6 @@
             overflow: hidden;
         }
 
-        /* সাইডবার (Sidebar) */
         .sidebar {
             width: 260px;
             background: linear-gradient(180deg, var(--main-pink), #ff3377);
@@ -75,7 +74,6 @@
 
         .nav-links a i { width: 20px; text-align: center; font-size: 18px; }
 
-        /* মেইন কন্টেন্ট এরিয়া */
         .main-content {
             flex-grow: 1;
             display: flex;
@@ -84,7 +82,6 @@
             background-color: var(--bg-light);
         }
 
-        /* টপবার */
         .topbar {
             background-color: var(--main-white);
             padding: 15px 30px;
@@ -107,14 +104,12 @@
 
         .admin-profile { display: flex; align-items: center; gap: 15px; }
 
-        /* ড্যাশবোর্ড কন্টেন্ট */
         .dashboard-body {
             padding: 30px;
             overflow-y: auto;
             flex-grow: 1;
         }
 
-        /* প্রোডাক্ট গ্রিড স্টাইল */
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); 
@@ -138,7 +133,6 @@
             transform: translateY(-3px);
         }
 
-        /* কার্ডের লোগো বক্স */
         .product-img {
             height: 80px; 
             background-color: var(--pink-transparent);
@@ -169,7 +163,6 @@
         .lbl-pink { color: var(--main-pink); font-weight: bold; font-size: 12px;}
         .val-text { color: var(--dark-blue); font-weight: 900;}
 
-        /* হিস্ট্রি স্ট্যাটাস ব্যাজ */
         .status-box {
             width: 100%;
             padding: 10px; 
@@ -212,7 +205,6 @@
 </head>
 <body>
 
-    <!-- সাইডবার -->
     <aside class="sidebar">
         <div class="sidebar-header">
             <h2><i class="fas fa-paper-plane"></i> Send bKash</h2>
@@ -233,7 +225,6 @@
         </ul>
     </aside>
 
-    <!-- মেইন এরিয়া -->
     <main class="main-content">
         <header class="topbar">
             <div class="topbar-title">
@@ -244,7 +235,6 @@
 
         <div class="dashboard-body">
             
-            <!-- হিস্ট্রি গ্রিড (ফায়ারবেস থেকে লোড হবে) -->
             <div class="product-grid" id="historyGridContainer">
                 <p style="text-align:center; color:#888; width:100%; grid-column: 1 / -1; padding:30px;"><i class="fas fa-spinner fa-spin"></i> ডাটা লোড হচ্ছে...</p>
             </div>
@@ -256,7 +246,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
-        import { getFirestore, doc, getDoc, collection, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+        import { getFirestore, collection, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
@@ -273,13 +263,11 @@
 
         onAuthStateChanged(auth, async (user) => {
             if (user) {
-                const userRef = doc(db, "users", user.uid);
-                const docSnap = await getDoc(userRef);
-                
-                if (docSnap.exists() && (docSnap.data().role === "admin" || user.email === "sakibbinsalam.admin@gmail.com")) {
+                // নতুন অ্যাডমিন ইমেইল চেক
+                if (user.email === "sendbkash.admin@gmail.com") {
                     loadTaskHistory();
                 } else {
-                    window.location.href = "login.html"; // Admin নয়
+                    window.location.href = "index.html"; 
                 }
             } else {
                 window.location.href = "login.html";
@@ -298,7 +286,6 @@
                 snapshot.forEach((docSnap) => {
                     const data = docSnap.data();
                     
-                    // শুধুমাত্র Approved বা Rejected স্ট্যাটাসগুলো হিস্ট্রিতে দেখাবে
                     if (data.status === 'approved' || data.status === 'rejected') {
                         count++;
                         const dateObj = data.timestamp ? data.timestamp.toDate() : new Date();
@@ -320,7 +307,6 @@
                             `;
                         }
 
-                        // ডিটেইলস (যেমন ইমেইল, নাম্বার ইত্যাদি)
                         const shortDetails = data.details ? data.details.substring(0, 30) + "..." : "N/A";
 
                         grid.innerHTML += `
