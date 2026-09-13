@@ -329,7 +329,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc, onSnapshot, updateDoc } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+        import { getFirestore, doc, setDoc, onSnapshot, updateDoc } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
@@ -351,13 +351,11 @@
 
         onAuthStateChanged(auth, async (user) => {
             if (user) {
-                const userRef = doc(db, "users", user.uid);
-                const docSnap = await getDoc(userRef);
-                
-                if (docSnap.exists() && (docSnap.data().role === "admin" || user.email === "sakibbinsalam.admin@gmail.com")) {
+                // নতুন অ্যাডমিন ইমেইল চেক
+                if (user.email === "sendbkash.admin@gmail.com") {
                     loadTaskRates();
                 } else {
-                    window.location.href = "login.html"; // Admin নয়
+                    window.location.href = "index.html"; 
                 }
             } else {
                 window.location.href = "login.html";
@@ -367,7 +365,6 @@
         function loadTaskRates() {
             const ratesRef = doc(db, "admin_settings", "task_rates");
             
-            // রিয়েল-টাইম লিসেনার
             onSnapshot(ratesRef, (docSnap) => {
                 if (docSnap.exists()) {
                     const data = docSnap.data();
@@ -382,7 +379,6 @@
                     document.getElementById('btn-telegram').setAttribute('onclick', `openRateModal('Telegram Account', 'telegram', '${data.telegram || 12.00}')`);
                     document.getElementById('btn-instagram').setAttribute('onclick', `openRateModal('Instagram Account', 'instagram', '${data.instagram || 10.00}')`);
                 } else {
-                    // ডাটাবেসে ডাটা না থাকলে ডিফল্ট ডাটা সেভ করা
                     setDoc(ratesRef, {
                         gmail: 7.50,
                         whatsapp: 15.00,
@@ -429,7 +425,6 @@
             btn.disabled = true;
 
             try {
-                // ফায়ারবেস ডাটাবেসে আপডেট
                 const ratesRef = window.doc(window.db, "admin_settings", "task_rates");
                 await window.updateDoc(ratesRef, {
                     [currentTargetDbField]: newRate
