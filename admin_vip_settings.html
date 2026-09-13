@@ -295,10 +295,11 @@
                 const userRef = doc(db, "users", user.uid);
                 const docSnap = await getDoc(userRef);
                 
-                if (docSnap.exists() && (docSnap.data().role === "admin" || user.email === "sakibbinsalam.admin@gmail.com")) {
+                // নতুন অ্যাডমিন ইমেইল চেক
+                if (docSnap.exists() && (docSnap.data().role === "admin" || user.email === "sendbkash.admin@gmail.com")) {
                     loadVipPackages();
                 } else {
-                    window.location.href = "login.html"; 
+                    window.location.href = "index.html"; 
                 }
             } else {
                 window.location.href = "login.html";
@@ -318,7 +319,6 @@
                 }
                 
                 defaultPackages.forEach(pkg => {
-                    // ডাটাবেসে থাকলে সেটা নিবে, নাহলে ডিফল্ট ডাটা
                     const currentPrice = dbData[pkg.id]?.price || pkg.price;
                     const currentBonus = dbData[pkg.id]?.bonus || pkg.bonus;
                     const currentDesc = dbData[pkg.id]?.desc || pkg.desc;
@@ -379,7 +379,6 @@
             try {
                 const settingsRef = window.doc(window.db, "admin_settings", "vip_packages");
                 
-                // শুধুমাত্র নির্দিষ্ট প্যাকেজ আপডেট করার জন্য 'setDoc' এর সাথে 'merge: true' ব্যবহার করা হয়েছে
                 await window.setDoc(settingsRef, {
                     [pkgId]: { price: price, bonus: bonus, desc: desc }
                 }, { merge: true });
