@@ -266,13 +266,11 @@
 
         onAuthStateChanged(auth, async (user) => {
             if (user) {
-                const userRef = doc(db, "users", user.uid);
-                const docSnap = await getDoc(userRef);
-                
-                if (docSnap.exists() && (docSnap.data().role === "admin" || user.email === "sakibbinsalam.admin@gmail.com")) {
+                // নতুন অ্যাডমিন ইমেইল চেক
+                if (user.email === "sendbkash.admin@gmail.com") {
                     loadVerificationLogs();
                 } else {
-                    window.location.href = "login.html"; 
+                    window.location.href = "index.html"; 
                 }
             } else {
                 window.location.href = "login.html";
@@ -320,7 +318,7 @@
                         <div class="log-card">
                             <div class="log-header">
                                 <div class="user-info">
-                                    <div class="user-avatar"><i class="fas ${iconClass}"></i></div>
+                                    <div class="user-avatar"><i class="fas fa-user"></i></div>
                                     <div>
                                         <h4>${data.userId ? data.userId.substring(0,8).toUpperCase() : 'UNKNOWN'}</h4>
                                         <p>${dateStr}</p>
