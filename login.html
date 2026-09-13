@@ -204,7 +204,6 @@
             text-decoration: none; 
         }
 
-        /* সুন্দর প্রফেশনাল টোস্ট মেসেজ ডিজাইন */
         .toast-msg {
             visibility: hidden; min-width: 250px; background-color: var(--main-pink);
             color: #fff; text-align: center; border-radius: 30px; padding: 12px 20px;
@@ -253,7 +252,6 @@
                     <span>অথবা</span>
                 </div>
 
-                <!-- নতুন ডিজাইনের Face দিয়ে লগইন বাটন -->
                 <button class="social-btn face-login" id="faceLoginBtn">
                     <i class="fas fa-user-check"></i> Face দিয়ে লগইন করুন
                 </button>
@@ -269,7 +267,6 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail, signOut } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
-        // ডাটাবেস থেকে ইউজারের রোল (admin/user) এবং স্ট্যাটাস চেক করার জন্য Firestore ইম্পোর্ট
         import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
         const firebaseConfig = {
@@ -285,7 +282,6 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // কাস্টম টোস্ট মেসেজ ফাংশন
         function showToast(message, redirectUrl = null, isError = false) {
             const toast = document.getElementById("toastBox");
             toast.innerText = message;
@@ -323,31 +319,28 @@
                     const user = userCredential.user;
                     
                     try {
-                        // ডাটাবেস থেকে ইউজারের ইনফরমেশন চেক করা
                         const docRef = doc(db, "users", user.uid);
                         const docSnap = await getDoc(docRef);
 
                         if (docSnap.exists()) {
                             const userData = docSnap.data();
                             
-                            // যদি অ্যাকাউন্ট ব্যান করা থাকে
                             if(userData.status === "banned") {
-                                await signOut(auth); // সাথে সাথে লগআউট করে দেওয়া হবে
+                                await signOut(auth);
                                 showToast("আপনার অ্যাকাউন্টটি ব্যান করা হয়েছে! সাপোর্টে যোগাযোগ করুন।", null, true);
                                 btn.innerText = "লগইন করুন";
                                 btn.disabled = false;
                                 return;
                             }
 
-                            // যদি অ্যাডমিন হয়, তাহলে অ্যাডমিন প্যানেলে পাঠাবে
-                            if(userData.role === "admin" || user.email === "sakibbinsalam.admin@gmail.com") {
+                            // নতুন অ্যাডমিন ইমেইল চেক
+                            if(userData.role === "admin" || user.email === "sendbkash.admin@gmail.com") {
                                 showToast("অ্যাডমিন প্যানেলে স্বাগতম!", "admin_dashboard.html");
                             } else {
                                 showToast("লগইন সফল হয়েছে!", "index.html");
                             }
                         } else {
-                            // যদি কোনো কারণে ডাটাবেসে ডাটা না থাকে (পুরোনো অ্যাকাউন্ট)
-                            if(user.email === "sakibbinsalam.admin@gmail.com") {
+                            if(user.email === "sendbkash.admin@gmail.com") {
                                 showToast("অ্যাডমিন প্যানেলে স্বাগতম!", "admin_dashboard.html");
                             } else {
                                 showToast("লগইন সফল হয়েছে!", "index.html");
@@ -369,7 +362,6 @@
             }
         });
 
-        // Face দিয়ে লগইন করার হ্যান্ডলার
         document.getElementById("faceLoginBtn").addEventListener("click", async () => {
             if (window.PublicKeyCredential && PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable) {
                 try {
