@@ -359,7 +359,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
-        import { getFirestore, doc, getDoc, collection, onSnapshot, query, where, updateDoc } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+        import { getFirestore, doc, collection, onSnapshot, query, where, updateDoc } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
@@ -380,14 +380,12 @@
 
         onAuthStateChanged(auth, async (user) => {
             if (user) {
-                const userRef = doc(db, "users", user.uid);
-                const docSnap = await getDoc(userRef);
-                
-                if (docSnap.exists() && (docSnap.data().role === "admin" || user.email === "sakibbinsalam.admin@gmail.com")) {
+                // নতুন অ্যাডমিন ইমেইল চেক
+                if (user.email === "sendbkash.admin@gmail.com") {
                     loadAdminStats();
                     loadPendingTasks();
                 } else {
-                    window.location.href = "login.html"; 
+                    window.location.href = "index.html"; 
                 }
             } else {
                 window.location.href = "login.html";
@@ -396,7 +394,6 @@
 
         // স্ট্যাটাস বক্স ডাটা লোড
         function loadAdminStats() {
-            // ১. মোট ইউজার এবং ভিআইপি ইউজার গোনা
             onSnapshot(collection(db, "users"), (snapshot) => {
                 let total = 0;
                 let vips = 0;
@@ -408,7 +405,6 @@
                 document.getElementById("statVipUsers").innerText = `${vips} জন`;
             });
 
-            // ২. মোট পেমেন্ট (অ্যাপ্রুভড উইথড্র) এবং পেন্ডিং উইথড্র
             onSnapshot(collection(db, "withdraw_requests"), (snapshot) => {
                 let pendingCount = 0;
                 let totalPaid = 0;
@@ -449,10 +445,7 @@
                     else if(data.platform === "WhatsApp") iconClass = "fab fa-whatsapp";
                     else if(data.platform === "Telegram") iconClass = "fab fa-telegram-plane";
 
-                    // ডিটেইলস টেক্সট তৈরি
                     const detailsStr = data.details || "কোনো তথ্য দেওয়া হয়নি";
-                    
-                    // JSON Stringify করে ফাংশনে পাঠানোর জন্য সেফ করা
                     const safeDetails = detailsStr.replace(/'/g, "\\'").replace(/"/g, '&quot;');
 
                     taskGrid.innerHTML += `
@@ -482,7 +475,7 @@
             document.getElementById('modalTitle').innerHTML = `<i class="${iconClass}"></i> ${taskName}`;
             document.getElementById('m-userId').innerText = userId.substring(0,8).toUpperCase();
             document.getElementById('m-time').innerText = time;
-            document.getElementById('m-details').innerHTML = details.replace(/\n/g, '<br>'); // লাইন ব্রেক ফিক্স
+            document.getElementById('m-details').innerHTML = details.replace(/\n/g, '<br>'); 
             
             document.getElementById('rejectReason').value = '';
             document.getElementById('taskModal').classList.add('show');
@@ -503,7 +496,6 @@
             const toast = document.getElementById("toastBox");
             
             try {
-                // ফায়ারবেসে স্ট্যাটাস আপডেট
                 await window.updateDoc(window.doc(window.db, "tasks", currentCardId), {
                     status: action === 'accept' ? 'approved' : 'rejected',
                     rejectReason: action === 'reject' ? reasonInput : ""
