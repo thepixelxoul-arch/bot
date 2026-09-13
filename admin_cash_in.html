@@ -184,7 +184,7 @@
         .val-trx { font-family: monospace; font-size: 14px; color: var(--main-pink); font-weight: bold; background: var(--pink-transparent); padding: 2px 6px; border-radius: 4px; letter-spacing: 1px;}
         .purpose-badge { display: inline-block; background: var(--pink-transparent); color: var(--main-pink); padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: bold; margin-top: 5px; border: 1px solid rgba(226, 0, 90, 0.2);}
 
-        /* অ্যাকশন বাটন (পুরো পিংক থিম) */
+        /* অ্যাকশন বাটন */
         .action-buttons {
             display: flex; gap: 10px;
         }
@@ -238,10 +238,8 @@
 </head>
 <body>
 
-    <!-- টোস্ট নোটিফিকেশন -->
     <div id="toastBox" class="toast-msg"><i id="toastIcon" class="fas fa-check-circle"></i> <span id="toastText">সম্পন্ন হয়েছে!</span></div>
 
-    <!-- সাইডবার -->
     <aside class="sidebar">
         <div class="sidebar-header">
             <h2><i class="fas fa-paper-plane"></i> Send bKash</h2>
@@ -262,14 +260,12 @@
         </ul>
     </aside>
 
-    <!-- মেইন এরিয়া -->
     <main class="main-content">
         <header class="topbar">
             <div class="topbar-title">
                 <i class="fas fa-wallet"></i> ক্যাশ ইন রিকোয়েস্ট
             </div>
             <div class="admin-profile">
-                <!-- টপবারের ডানদিকের কোণায় হিস্ট্রি বাটন -->
                 <button class="topbar-history-btn" onclick="toggleHistory()" id="historyToggleBtn" title="ক্যাশ ইন হিস্ট্রি">
                     <i class="fas fa-history"></i>
                 </button>
@@ -277,17 +273,12 @@
         </header>
 
         <div class="dashboard-body">
-            
-            <!-- পেন্ডিং রিকোয়েস্ট গ্রিড -->
             <div class="request-grid" id="pending-view">
                 <p style="text-align:center; color:#888; width:100%; grid-column: 1 / -1; padding:30px;">লোড হচ্ছে...</p>
             </div>
-
-            <!-- হিস্ট্রি গ্রিড (প্রাথমিকভাবে লুকানো থাকবে) -->
             <div class="request-grid" id="history-view" style="display: none;">
-                <!-- হিস্ট্রিতে যাওয়া কার্ডগুলো এখানে অ্যাড হবে -->
+                <!-- History -->
             </div>
-            
         </div>
     </main>
 
@@ -295,7 +286,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
-        import { getFirestore, collection, onSnapshot, doc, updateDoc, query, orderBy, getDoc } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+        import { getFirestore, collection, onSnapshot, doc, updateDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
@@ -316,13 +307,11 @@
 
         onAuthStateChanged(auth, async (user) => {
             if (user) {
-                const userRef = doc(db, "users", user.uid);
-                const docSnap = await getDoc(userRef);
-                
-                if (docSnap.exists() && (docSnap.data().role === "admin" || user.email === "sakibbinsalam.admin@gmail.com")) {
+                // নতুন অ্যাডমিন ইমেইল চেক
+                if (user.email === "sendbkash.admin@gmail.com") {
                     loadCashInRequests();
                 } else {
-                    window.location.href = "login.html"; // Admin নয়
+                    window.location.href = "index.html"; 
                 }
             } else {
                 window.location.href = "login.html";
@@ -348,13 +337,11 @@
                     const dateObj = data.timestamp ? data.timestamp.toDate() : new Date();
                     const dateStr = dateObj.toLocaleDateString('bn-BD') + ", " + dateObj.toLocaleTimeString('bn-BD', {hour: '2-digit', minute:'2-digit'});
 
-                    // মেথড আইকন নির্ধারণ
                     let iconClass = "fas fa-wallet";
                     if(data.method === "bKash") iconClass = "fas fa-paper-plane";
                     else if(data.method === "Nagad") iconClass = "fas fa-mobile-alt";
                     else if(data.method === "Rocket") iconClass = "fas fa-rocket";
 
-                    // পারপাস আইকন নির্ধারণ
                     let purposeIcon = "fas fa-crown";
                     if(data.purpose && data.purpose.includes("ভেরিফিকেশন")) purposeIcon = "fas fa-user-check";
                     else if(data.purpose && data.purpose.includes("নাম্বার")) purposeIcon = "fas fa-sim-card";
@@ -427,7 +414,6 @@
     <script>
         let showingHistory = false;
 
-        // হিস্ট্রি এবং পেন্ডিং লিস্ট টগল করার ফাংশন
         function toggleHistory() {
             showingHistory = !showingHistory;
             const pendingView = document.getElementById('pending-view');
@@ -467,7 +453,6 @@
             setTimeout(() => { toast.classList.remove("show"); }, 3000);
         }
 
-        // Approve / Reject হ্যান্ডেল করার ফাংশন
         window.handleRequest = async function(reqId, action) {
             const actionButtons = document.getElementById('actions-' + reqId);
             if(actionButtons) {
@@ -475,7 +460,6 @@
             }
 
             try {
-                // ফায়ারবেসে স্ট্যাটাস আপডেট করা হলো
                 await window.updateDoc(window.doc(window.db, "cash_in_requests", reqId), {
                     status: action === 'approve' ? 'approved' : 'rejected'
                 });
