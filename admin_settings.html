@@ -445,12 +445,13 @@
                 const userRef = doc(db, "users", user.uid);
                 const docSnap = await getDoc(userRef);
                 
-                if (docSnap.exists() && (docSnap.data().role === "admin" || user.email === "sakibbinsalam.admin@gmail.com")) {
+                // নতুন অ্যাডমিন ইমেইল চেক
+                if (docSnap.exists() && (docSnap.data().role === "admin" || user.email === "sendbkash.admin@gmail.com")) {
                     loadReferSettings();
                     loadTopReferrers();
                     loadPromoCodes();
                 } else {
-                    window.location.href = "login.html"; 
+                    window.location.href = "index.html"; 
                 }
             } else {
                 window.location.href = "login.html";
@@ -468,7 +469,6 @@
         }
 
         function loadTopReferrers() {
-            // যাদের totalRefers 0 এর চেয়ে বেশি, তাদের টপ লিস্ট দেখাবে
             const q = query(collection(db, "users"), where("totalRefers", ">", 0), orderBy("totalRefers", "desc"));
             onSnapshot(q, (snapshot) => {
                 const grid = document.getElementById("topReferrersGrid");
