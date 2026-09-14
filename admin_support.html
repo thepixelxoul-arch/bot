@@ -391,23 +391,19 @@
         window.updateDoc = updateDoc;
         window.serverTimestamp = serverTimestamp;
 
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                const userRef = doc(db, "users", user.uid);
-                const docSnap = await getDoc(userRef);
-                
-                // নতুন অ্যাডমিন ইমেইল চেক
-                if (docSnap.exists() && (docSnap.data().role === "admin" || user.email === "sendbkash.admin@gmail.com")) {
-                    loadSupportSettings();
-                    loadTickets();
-                    loadHistory();
-                } else {
-                    window.location.href = "index.html"; 
-                }
-            } else {
-                window.location.href = "login.html";
-            }
-        });
+ onAuthStateChanged(auth, (user) => {
+  if (user) {
+        if (user.email === "sendbkash.admin@gmail.com") {
+            loadReferSettings();
+            loadTopReferrers();
+            loadPromoCodes();
+        } else {
+            window.location.href = "index.html"; 
+        }
+    } else {
+        window.location.href = "login.html";
+    }
+});
 
         function loadSupportSettings() {
             onSnapshot(doc(db, "admin_settings", "support_settings"), (docSnap) => {
