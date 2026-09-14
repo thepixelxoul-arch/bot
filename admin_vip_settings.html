@@ -290,20 +290,19 @@
             { id: "member4", title: "Member 4", subtitle: "Send bKash Member 4", price: 14999, bonus: 18000, desc: "• মেম্বারশিপ প্যাকেজ ৪ এর স্পেশাল অফার।\n• এক্সট্রা বোনাস।" },
             { id: "member5", title: "Member 5", subtitle: "Send bKash Member 5", price: 19999, bonus: 25000, desc: "• মেম্বারশিপ প্যাকেজ ৫ এর স্পেশাল অফার।\n• সর্বোচ্চ রেট।" }
         ];
-
-        onAuthStateChanged(auth, (user) => {
-    if (user) {
-        if (user.email === "sendbkash.admin@gmail.com") {
-            loadReferSettings();
-            loadTopReferrers();
-            loadPromoCodes();
-        } else {
+        
+       onAuthStateChanged(auth, (user) => {
+         if (user) {
+          if (user.email === "sendbkash.admin@gmail.com") {
+            loadVipPackages();
+           } else {
             window.location.href = "index.html"; 
+           }
+          } else {
+         window.location.href = "login.html";
         }
-    } else {
-        window.location.href = "login.html";
-    }
-});
+     });
+        
         function loadVipPackages() {
             const settingsRef = doc(db, "admin_settings", "vip_packages");
             
