@@ -390,20 +390,20 @@
         window.setDoc = setDoc;
         window.updateDoc = updateDoc;
         window.serverTimestamp = serverTimestamp;
-
-        onAuthStateChanged(auth, (user) => {
+        
+          onAuthStateChanged(auth, (user) => {
             if (user) {
                 if (user.email === "sendbkash.admin@gmail.com") {
-                    loadSupportSettings();
-                    loadTickets();
+                  loadSupportSettings();
+                   loadTickets();
                     loadHistory();
-                } else {
-                    window.location.href = "index.html"; 
-                }
-               } else {
-                window.location.href = "login.html";
-            }
-        });
+                     } else {
+                     window.location.href = "index.html"; 
+                    }
+                   } else {
+                  window.location.href = "login.html";
+                 }
+               });
         
         function loadSupportSettings() {
             onSnapshot(doc(db, "admin_settings", "support_settings"), (docSnap) => {
