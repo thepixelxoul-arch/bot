@@ -338,11 +338,10 @@
         window.updateDoc = updateDoc;
         window.serverTimestamp = serverTimestamp;
 
-       onAuthStateChanged(auth, async (user) => {
+      onAuthStateChanged(auth, (user) => {
             if (user) {
-                // নতুন অ্যাডমিন ইমেইল চেক
                 if (user.email === "sendbkash.admin@gmail.com") {
-                    loadTaskHistory();
+                    loadNumbers();
                 } else {
                     window.location.href = "index.html"; 
                 }
