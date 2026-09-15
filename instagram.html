@@ -34,25 +34,33 @@
 
         .header { 
             background-color: var(--main-pink); padding: 15px 20px; 
-            display: flex; align-items: center; 
+            display: flex; align-items: center; justify-content: space-between;
             color: var(--main-white); box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); z-index: 10; flex-shrink: 0;
         }
-        .header-title { font-size: 18px; font-weight: bold; display: flex; align-items: center; }
-        .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 20px; }
+        
+        .header-left { display: flex; align-items: center; gap: 15px; }
+        .back-btn { color: white; text-decoration: none; font-size: 20px; }
+        .header-title { font-size: 18px; font-weight: bold; }
+        
+        .history-btn {
+            color: white; text-decoration: none; font-size: 20px; cursor: pointer; transition: 0.2s;
+        }
+        .history-btn:hover { transform: scale(1.1); color: #ffe6f0; }
 
         .content { 
             flex-grow: 1; padding: 20px; overflow-y: auto; padding-bottom: 80px; 
         }
 
-        .rate-card {
-            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
-            color: white; border-radius: 12px; padding: 15px 20px; display: flex;
-            justify-content: space-between; align-items: center; margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.2);
+        /* Notice Box */
+        .notice-box {
+            background-color: #fff3cd; border-left: 4px solid #ffc107; border-radius: 4px;
+            padding: 15px; margin-bottom: 20px; display: flex; gap: 10px; align-items: flex-start;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
         }
-        .rate-card h3 { margin: 0; font-size: 16px; font-weight: bold; }
-        .rate-card .amount { font-size: 22px; font-weight: 900; }
+        .notice-box i { color: #856404; font-size: 16px; margin-top: 2px; }
+        .notice-box p { margin: 0; font-size: 13px; color: #856404; line-height: 1.5; font-weight: bold;}
 
+        /* Form Card */
         .submit-card {
             background-color: #fff; border: 1px solid #eaeaea; border-radius: 12px;
             padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.03);
@@ -83,19 +91,7 @@
         }
         .btn-submit:hover { background-color: #c4004e; transform: translateY(-2px); }
 
-        .stats-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px;
-        }
-        .stat-box {
-            background: #fff; border: 1px solid #eaeaea; border-radius: 10px; padding: 15px 10px;
-            text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-        }
-        .stat-box .num { font-size: 18px; font-weight: 900; color: var(--dark-blue); margin-bottom: 5px; }
-        .stat-box .label { font-size: 11px; font-weight: bold; color: var(--text-grey); }
-        .stat-pending .num { color: #f39c12; }
-        .stat-approved .num { color: var(--success-green); }
-        .stat-rejected .num { color: #e74c3c; }
-
+        /* Rules Card */
         .rules-card {
             background-color: #fff; border: 1px solid #eaeaea; border-radius: 12px;
             padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.03);
@@ -112,13 +108,29 @@
         }
         .video-box iframe { width: 100%; height: 100%; border: none; }
 
-        /* বটম নেভবার */
+        /* History Card */
+        .history-card {
+            background: #fff; border: 1px solid #eaeaea; border-radius: 10px; padding: 15px;
+            margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+        .hi-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #f0f0f0; padding-bottom: 8px;}
+        .hi-date { font-size: 12px; color: var(--text-grey); font-weight: bold; }
+        
+        .status-badge { padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: bold; }
+        .status-badge.pending { background-color: #fff3cd; color: #856404; }
+        .status-badge.approved { background-color: #e8f8f5; color: var(--success-green); }
+        .status-badge.rejected { background-color: #ffe0e9; color: var(--main-pink); }
+
+        .hi-details { font-size: 13px; color: var(--dark-blue); font-weight: bold; line-height: 1.5; background: #f8f9fa; padding: 10px; border-radius: 6px;}
+        .hi-reason { font-size: 11px; color: var(--main-pink); font-weight: bold; margin-top: 8px; display: block; }
+
+        /* Bottom Nav */
         .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: absolute; bottom: 0; width: 100%; z-index: 100; }
         .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); text-decoration: none; flex: 1; }
         .nav-item i { font-size: 18px; margin-bottom: 4px; display: block; }
         .nav-item.active { color: var(--main-pink); font-weight: bold; }
 
-        /* টোস্ট মেসেজ */
+        /* Toast */
         .toast-msg {
             visibility: hidden; background-color: var(--main-pink); color: #fff; text-align: center; border-radius: 8px; padding: 12px 20px; position: fixed; z-index: 9999; top: 20px; left: 50%; transform: translateX(-50%); font-size: 13px; font-weight: bold; box-shadow: 0 4px 15px rgba(226, 0, 90, 0.3); opacity: 0; transition: opacity 0.3s, top 0.3s; min-width: 250px;
         }
@@ -131,63 +143,62 @@
 
     <div class="app-container">
         <div class="header">
-            <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
-            <div class="header-title">Instagram Account</div>
+            <div class="header-left">
+                <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+                <div class="header-title" id="pageTitle">Instagram Account</div>
+            </div>
+            <!-- History Icon Added Here -->
+            <a class="history-btn" onclick="toggleHistoryView()"><i class="fas fa-history"></i></a>
         </div>
 
         <div class="content">
             
-            <div class="rate-card">
-                <h3>প্রতিটি অ্যাকাউন্টের মূল্য:</h3>
-                <div class="amount" id="taskRateAmount"><i class="fas fa-spinner fa-spin"></i></div>
+            <!-- Main Submit View -->
+            <div id="mainSubmitView">
+                <div class="notice-box">
+                    <i class="fas fa-info-circle"></i>
+                    <p>সঠিক ইউজারনেম এবং পাসওয়ার্ড দিয়ে ইনস্টাগ্রাম অ্যাকাউন্ট জমা দিন। অ্যাকাউন্ট চেক করার পর আপনার ব্যালেন্সে টাকা যোগ করা হবে। ভুল তথ্য দিলে অ্যাকাউন্ট বাতিল করা হবে।</p>
+                </div>
+
+                <!-- Form Card -->
+                <div class="submit-card">
+                    <h3><i class="far fa-paper-plane" style="color: var(--main-pink);"></i> আপনার অ্যাকাউন্ট জমা দিন</h3>
+                    
+                    <div class="input-group">
+                        <label>ইনস্টাগ্রাম ইউজারনেম</label>
+                        <input type="text" id="igUsername" class="form-control" placeholder="যেমন: username">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>ইনস্টাগ্রাম পাসওয়ার্ড</label>
+                        <input type="text" id="igPassword" class="form-control" placeholder="........">
+                    </div>
+
+                    <div class="input-group">
+                        <label>2FA / রিকভারি কোড</label>
+                        <textarea id="ig2fa" class="form-control" placeholder="2FA বা ৮ ডিজিটের ব্যাকআপ কোডগুলো এখানে দিন..."></textarea>
+                    </div>
+
+                    <button class="btn-submit" id="btnSubmitTask" onclick="submitTask()">
+                        <i class="fas fa-upload"></i> জমা দিন
+                    </button>
+                </div>
+
+                <!-- Rules Card -->
+                <div class="rules-card" id="rulesCardBox" style="display: none;">
+                    <h3><i class="fas fa-list-alt" style="color: var(--main-pink);"></i> কাজের নিয়মাবলী</h3>
+                    <div class="video-box" id="ruleVideoBox">
+                        <iframe id="ruleVideo" src="" allowfullscreen></iframe>
+                    </div>
+                    <p id="ruleText">লোড হচ্ছে...</p>
+                </div>
             </div>
 
-            <div class="stats-grid">
-                <div class="stat-box stat-pending">
-                    <div class="num" id="statPending">0</div>
-                    <div class="label">Pending</div>
+            <!-- History View -->
+            <div id="historyView" style="display: none;">
+                <div id="historyGridContainer">
+                    <p style="text-align:center; color:#888; padding:30px;"><i class="fas fa-spinner fa-spin"></i> হিস্ট্রি লোড হচ্ছে...</p>
                 </div>
-                <div class="stat-box stat-approved">
-                    <div class="num" id="statApproved">0</div>
-                    <div class="label">Approved</div>
-                </div>
-                <div class="stat-box stat-rejected">
-                    <div class="num" id="statRejected">0</div>
-                    <div class="label">Rejected</div>
-                </div>
-            </div>
-
-            <!-- ফর্ম কার্ড -->
-            <div class="submit-card">
-                <h3><i class="far fa-paper-plane" style="color: var(--main-pink);"></i> আপনার অ্যাকাউন্ট জমা দিন</h3>
-                
-                <div class="input-group">
-                    <label>ইনস্টাগ্রাম ইউজারনেম</label>
-                    <input type="text" id="igUsername" class="form-control" placeholder="যেমন: username">
-                </div>
-                
-                <div class="input-group">
-                    <label>ইনস্টাগ্রাম পাসওয়ার্ড</label>
-                    <input type="text" id="igPassword" class="form-control" placeholder="........">
-                </div>
-
-                <div class="input-group">
-                    <label>2FA / রিকভারি কোড</label>
-                    <textarea id="ig2fa" class="form-control" placeholder="2FA বা ৮ ডিজিটের ব্যাকআপ কোডগুলো এখানে দিন..."></textarea>
-                </div>
-
-                <button class="btn-submit" id="btnSubmitTask" onclick="submitTask()">
-                    <i class="fas fa-upload"></i> জমা দিন
-                </button>
-            </div>
-
-            <!-- নিয়মাবলী কার্ড -->
-            <div class="rules-card" id="rulesCardBox" style="display: none;">
-                <h3><i class="fas fa-info-circle" style="color: var(--main-pink);"></i> কাজের নিয়মাবলী</h3>
-                <div class="video-box" id="ruleVideoBox">
-                    <iframe id="ruleVideo" src="" allowfullscreen></iframe>
-                </div>
-                <p id="ruleText">লোড হচ্ছে...</p>
             </div>
 
         </div>
@@ -204,7 +215,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
-        import { getFirestore, collection, addDoc, onSnapshot, query, where, doc, getDoc, updateDoc, increment, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, where, doc, getDoc, updateDoc, increment, serverTimestamp, orderBy } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
@@ -240,26 +251,14 @@
                         alert("আপনাকে প্রথমে অ্যাকাউন্ট ভেরিফাই করতে হবে!");
                         window.location.href = "verification.html";
                     } else {
-                        loadTaskRate();
                         loadTaskRules();
-                        loadUserStats();
+                        loadUserHistory();
                     }
                 });
             } else {
                 window.location.href = "login.html";
             }
         });
-
-        // রেট লোড করা (অ্যাডমিন ড্যাশবোর্ড থেকে)
-        function loadTaskRate() {
-            onSnapshot(doc(db, "admin_settings", "task_rates"), (docSnap) => {
-                if (docSnap.exists() && docSnap.data().instagram) {
-                    document.getElementById('taskRateAmount').innerText = `৳ ${parseFloat(docSnap.data().instagram).toFixed(2)}`;
-                } else {
-                    document.getElementById('taskRateAmount').innerText = `৳ 10.00`; 
-                }
-            });
-        }
 
         // নিয়মাবলী লোড করা (অ্যাডমিন ড্যাশবোর্ড থেকে)
         function loadTaskRules() {
@@ -282,21 +281,41 @@
             });
         }
 
-        // ইউজারের কাজের হিস্ট্রি (কয়টা পেন্ডিং/অ্যাপ্রুভড)
-        function loadUserStats() {
-            const q = query(collection(db, "tasks"), where("userId", "==", currentUserUid), where("platform", "==", "Instagram Account"));
+        // ইউজারের কাজের হিস্ট্রি লোড
+        function loadUserHistory() {
+            const q = query(collection(db, "tasks"), where("userId", "==", currentUserUid), where("platform", "==", "Instagram Account"), orderBy("timestamp", "desc"));
             onSnapshot(q, (snapshot) => {
-                let pending = 0, approved = 0, rejected = 0;
+                const grid = document.getElementById('historyGridContainer');
+                grid.innerHTML = '';
+
+                if(snapshot.empty) {
+                    grid.innerHTML = '<p style="text-align:center; color:#888; padding:30px;">কোনো কাজের হিস্ট্রি পাওয়া যায়নি।</p>';
+                    return;
+                }
+
                 snapshot.forEach(docSnap => {
-                    const status = docSnap.data().status;
-                    if(status === 'pending') pending++;
-                    else if(status === 'approved') approved++;
-                    else if(status === 'rejected') rejected++;
+                    const data = docSnap.data();
+                    const dateObj = data.timestamp ? data.timestamp.toDate() : new Date();
+                    const dateStr = dateObj.toLocaleDateString('bn-BD') + ", " + dateObj.toLocaleTimeString('bn-BD', {hour: '2-digit', minute:'2-digit'});
+
+                    let statusBadge = '';
+                    if(data.status === 'pending') statusBadge = '<span class="status-badge pending">Pending</span>';
+                    else if(data.status === 'approved') statusBadge = '<span class="status-badge approved">Approved</span>';
+                    else if(data.status === 'rejected') statusBadge = '<span class="status-badge rejected">Rejected</span>';
+
+                    grid.innerHTML += `
+                        <div class="history-card">
+                            <div class="hi-header">
+                                <div class="hi-date">${dateStr}</div>
+                                ${statusBadge}
+                            </div>
+                            <div class="hi-details">
+                                ${data.details.replace(/\n/g, '<br>')}
+                            </div>
+                            ${data.status === 'rejected' && data.rejectReason ? `<span class="hi-reason">কারণ: ${data.rejectReason}</span>` : ''}
+                        </div>
+                    `;
                 });
-                
-                document.getElementById('statPending').innerText = pending;
-                document.getElementById('statApproved').innerText = approved;
-                document.getElementById('statRejected').innerText = rejected;
             });
         }
 
@@ -318,7 +337,7 @@
             const details = `Username: ${username}\nPassword: ${password}\n2FA/Recovery: ${twoFA}`;
 
             try {
-                // ১. tasks কালেকশনে যোগ করা (যাতে অ্যাডমিন প্যানেলে যায়)
+                // tasks কালেকশনে যোগ করা (যাতে অ্যাডমিন প্যানেলে যায়)
                 await window.addDoc(window.collection(window.db, "tasks"), {
                     userId: currentUserUid,
                     platform: "Instagram Account",
@@ -328,7 +347,7 @@
                     timestamp: window.serverTimestamp()
                 });
 
-                // ২. ইউজারের totalTasks কাউন্ট বাড়ানো
+                // ইউজারের totalTasks কাউন্ট বাড়ানো
                 await window.updateDoc(window.doc(window.db, "users", currentUserUid), {
                     totalTasks: window.increment(1)
                 });
@@ -340,6 +359,9 @@
                 document.getElementById("igPassword").value = "";
                 document.getElementById("ig2fa").value = "";
 
+                // অটোমেটিক হিস্ট্রি পেজে নিয়ে যাওয়া
+                if(!isHistoryVisible) toggleHistoryView();
+
             } catch (error) {
                 console.error(error);
                 alert("জমা দিতে সমস্যা হয়েছে! আবার চেষ্টা করুন।");
@@ -348,12 +370,29 @@
                 btn.disabled = false;
             }
         }
+    </script>
 
+    <!-- UI Scripts -->
+    <script>
         function showToast(message) {
             const toast = document.getElementById("toastBox");
             document.getElementById("toastText").innerText = message;
             toast.classList.add("show");
             setTimeout(() => { toast.classList.remove("show"); }, 3000);
+        }
+
+        let isHistoryVisible = false;
+        window.toggleHistoryView = function() {
+            isHistoryVisible = !isHistoryVisible;
+            if(isHistoryVisible) {
+                document.getElementById('mainSubmitView').style.display = 'none';
+                document.getElementById('historyView').style.display = 'block';
+                document.getElementById('pageTitle').innerText = 'কাজের হিস্ট্রি';
+            } else {
+                document.getElementById('mainSubmitView').style.display = 'block';
+                document.getElementById('historyView').style.display = 'none';
+                document.getElementById('pageTitle').innerText = 'Instagram Account';
+            }
         }
     </script>
 </body>
