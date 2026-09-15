@@ -91,15 +91,15 @@
         }
         .form-control:focus { border-color: var(--main-pink); box-shadow: 0 0 0 2px rgba(226, 0, 90, 0.1); }
 
-        /* Full Width Get Code Button */
+        /* Full Width Get Code Button - Light Pink Theme */
         .btn-get-code {
-            background-color: var(--dark-blue); color: white; border: none; width: 100%;
+            background-color: rgba(226, 0, 90, 0.08); color: var(--main-pink); border: 1px solid var(--main-pink); width: 100%;
             padding: 14px; border-radius: 8px; font-size: 15px; font-weight: bold;
             cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 15px; margin-top: 20px;
+            margin-bottom: 15px; margin-top: 20px;
         }
-        .btn-get-code:hover { background-color: #1a252f; transform: translateY(-2px); }
-        .btn-get-code:disabled { background-color: #95a5a6; cursor: not-allowed; box-shadow: none; transform: none; }
+        .btn-get-code:hover { background-color: var(--main-pink); color: white; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2); }
+        .btn-get-code:disabled { background-color: #f8f9fa; color: #aaa; border: 1px dashed #ccc; cursor: not-allowed; box-shadow: none; transform: none; }
 
         .btn-submit {
             background-color: var(--main-pink); color: white; border: none; width: 100%;
@@ -197,6 +197,7 @@
                         <input type="text" id="waCode" class="form-control" placeholder="হোয়াটসঅ্যাপের কোড লিখুন...">
                     </div>
 
+                    <!-- Updated Light Pink Button -->
                     <button class="btn-get-code" id="btnGetCode" onclick="sendWhatsAppCode()">
                         <i class="fas fa-paper-plane"></i> কোড পাঠান
                     </button>
