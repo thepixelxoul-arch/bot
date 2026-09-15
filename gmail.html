@@ -9,9 +9,12 @@
     <style>
         :root { 
             --main-pink: #e2005a; 
+            --light-pink: #ff3377;
             --main-white: #ffffff; 
             --text-grey: #888888; 
             --bg-light: #f4f6f9; 
+            --dark-blue: #2c3e50;
+            --success-green: #27ae60;
         }
 
         body { 
@@ -19,60 +22,83 @@
             background-color: #e9ecef; 
             font-family: 'Segoe UI', Tahoma, sans-serif; 
             display: flex; justify-content: center; 
+            height: 100vh; overflow: hidden;
         }
 
         .app-container { 
-            width: 100%; max-width: 450px; min-height: 100vh; 
-            background-color: var(--bg-light); color: var(--main-pink); 
+            width: 100%; max-width: 450px; height: 100vh; 
+            background-color: var(--bg-light); color: var(--dark-blue); 
             box-shadow: 0 0 25px rgba(0,0,0,0.1); 
             display: flex; flex-direction: column; position: relative; 
         }
 
         .header { 
             background-color: var(--main-pink); padding: 15px 20px; 
-            display: flex; justify-content: space-between; align-items: center; 
-            color: var(--main-white); box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); z-index: 10; 
+            display: flex; align-items: center; justify-content: space-between;
+            color: var(--main-white); box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); z-index: 10; flex-shrink: 0;
         }
-        .header-title { font-size: 20px; font-weight: bold; display: flex; align-items: center; }
-        .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 22px; }
-
-        .content { flex-grow: 1; padding: 20px; overflow-y: auto; padding-bottom: 80px; }
         
+        .header-left { display: flex; align-items: center; gap: 15px; }
+        .back-btn { color: white; text-decoration: none; font-size: 20px; cursor: pointer; }
+        .header-title { font-size: 18px; font-weight: bold; }
+        
+        .history-btn {
+            color: white; text-decoration: none; font-size: 20px; cursor: pointer; transition: 0.2s;
+        }
+        .history-btn:hover { transform: scale(1.1); color: #ffe6f0; }
+
+        .content { 
+            flex-grow: 1; padding: 20px; overflow-y: auto; padding-bottom: 80px; 
+        }
+
+        /* Notice Box */
         .notice-box {
-            background: linear-gradient(135deg, #fff3cd, #ffeeba); 
-            border: 1px solid #ffeeba; border-left: 5px solid #ffc107;
-            padding: 12px 15px; border-radius: 4px; margin-bottom: 20px; color: #856404;
-            font-size: 13px; line-height: 1.5; box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            background-color: #fff3cd; border-left: 4px solid #ffc107; border-radius: 4px;
+            padding: 15px; margin-bottom: 15px; display: flex; gap: 10px; align-items: flex-start;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
         }
+        .notice-box i { color: #856404; font-size: 16px; margin-top: 2px; }
+        .notice-box p { margin: 0; font-size: 13px; color: #856404; line-height: 1.5; font-weight: bold;}
 
+        /* Task Rate Card */
+        .rate-display-card {
+            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
+            color: white; border-radius: 12px; padding: 15px 20px; display: flex;
+            justify-content: space-between; align-items: center; margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.2);
+        }
+        .rate-display-card h3 { margin: 0; font-size: 15px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
+        .rate-display-card .amount { font-size: 20px; font-weight: 900; background: rgba(255,255,255,0.2); padding: 5px 12px; border-radius: 8px; }
+
+        /* Form Card */
         .task-card {
-            background-color: var(--main-white); border-radius: 8px; padding: 20px;
-            border: 1px solid #eaeaea; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: relative;
+            background-color: #fff; border: 1px solid #eaeaea; border-radius: 12px;
+            padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); position: relative;
         }
-
+        
         .manual-btn {
-            position: absolute; top: 15px; right: 15px;
-            background: rgba(226, 0, 90, 0.1); color: var(--main-pink); border: none;
+            position: absolute; top: -15px; right: 15px;
+            background: var(--main-pink); color: white; border: none;
             padding: 6px 14px; border-radius: 20px; font-size: 11px;
             font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 5px;
-            box-shadow: 0 2px 5px rgba(226, 0, 90, 0.1); transition: background 0.2s, transform 0.2s;
+            box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2); transition: 0.2s;
         }
-        .manual-btn:hover { background: var(--main-pink); color: white; transform: translateY(-2px); }
+        .manual-btn:hover { background: #c4004e; transform: translateY(-2px); }
 
         .data-group { margin-bottom: 15px; }
         .data-group label { display: block; font-size: 13px; font-weight: bold; color: var(--text-grey); margin-bottom: 5px; }
         .data-box {
             display: flex; justify-content: space-between; align-items: center;
-            background-color: var(--main-white); border: 1px solid #dcdde1;
-            padding: 12px; border-radius: 6px;
+            background-color: #f8f9fa; border: 1px solid #dcdde1;
+            padding: 12px; border-radius: 8px;
         }
-        .data-box span { font-size: 14px; color: #2c3e50; font-weight: 500; word-break: break-all; }
+        .data-box span { font-size: 14px; color: var(--dark-blue); font-weight: bold; word-break: break-all; }
         .copy-icon { color: var(--main-pink); cursor: pointer; font-size: 18px; padding-left: 10px; transition: transform 0.2s; }
         .copy-icon:active { transform: scale(0.8); }
 
         .generate-btn {
-            background-color: #f1f2f6; color: #2c3e50; border: 1px solid #dcdde1;
-            padding: 12px; border-radius: 6px; font-size: 14px; font-weight: bold;
+            background-color: #f1f2f6; color: var(--dark-blue); border: 1px solid #dcdde1;
+            padding: 12px; border-radius: 8px; font-size: 14px; font-weight: bold;
             width: 100%; cursor: pointer; margin-bottom: 10px;
             display: flex; justify-content: center; align-items: center; gap: 8px;
             transition: all 0.2s;
@@ -81,120 +107,137 @@
 
         .submit-btn {
             background-color: var(--main-pink); color: white; border: none;
-            padding: 12px; border-radius: 6px; font-size: 15px; font-weight: bold;
-            width: 100%; cursor: pointer; box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);
+            padding: 14px; border-radius: 8px; font-size: 15px; font-weight: bold;
+            width: 100%; cursor: pointer; box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2); transition: 0.2s;
         }
-        .submit-btn:hover { background-color: #c4004e; }
+        .submit-btn:hover { background-color: #c4004e; transform: translateY(-2px); }
 
-        .history-section { margin-top: 30px; }
-        .history-title { font-size: 15px; font-weight: bold; color: #2c3e50; margin-bottom: 12px; border-bottom: 2px solid #eaeaea; padding-bottom: 5px; }
-        
+        /* History Card */
         .history-card {
-            background: var(--main-white); border: 1px solid #eaeaea; border-radius: 6px;
-            padding: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;
+            background: #fff; border: 1px solid #eaeaea; border-radius: 10px; padding: 15px;
+            margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.02);
         }
-        .history-info p { margin: 0; font-size: 13px; color: #2c3e50; font-weight: 500; }
-        .history-info small { color: var(--text-grey); font-size: 11px; display: block; margin-top: 3px; }
+        .hi-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #f0f0f0; padding-bottom: 8px;}
+        .hi-date { font-size: 12px; color: var(--text-grey); font-weight: bold; }
+        
+        .status-badge { padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: bold; }
+        .status-badge.pending { background-color: #fff3cd; color: #856404; }
+        .status-badge.approved { background-color: #e8f8f5; color: var(--success-green); }
+        .status-badge.rejected { background-color: #ffe0e9; color: var(--main-pink); }
 
-        .status-badge { padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: bold; }
-        .status-pending { background-color: #fff3cd; color: #856404; }
-        .status-approved { background-color: #d4edda; color: #155724; }
-        .status-rejected { background-color: #f8d7da; color: #721c24; }
+        .hi-details { font-size: 13px; color: var(--dark-blue); font-weight: bold; line-height: 1.5; background: #f8f9fa; padding: 10px; border-radius: 6px;}
+        .hi-reason { font-size: 11px; color: var(--main-pink); font-weight: bold; margin-top: 8px; display: block; }
 
+        /* Modal Overlay */
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); z-index: 200; justify-content: center; align-items: center;
+            background: rgba(0,0,0,0.6); z-index: 200; justify-content: center; align-items: center;
         }
         .modal-box {
-            background: white; width: 90%; max-width: 320px; border-radius: 8px;
-            padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            background: white; width: 90%; max-width: 320px; border-radius: 12px;
+            padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); border-top: 5px solid var(--main-pink);
         }
-        .modal-title { margin-top: 0; color: #2c3e50; font-size: 16px; margin-bottom: 15px; text-align: center; }
+        .modal-title { margin-top: 0; color: var(--dark-blue); font-size: 16px; font-weight: bold; margin-bottom: 15px; text-align: center; }
         .modal-input {
-            width: 100%; padding: 10px; margin-bottom: 12px; border: 1px solid #dcdde1;
-            border-radius: 4px; box-sizing: border-box; font-size: 13px; outline: none;
+            width: 100%; padding: 12px; margin-bottom: 12px; border: 1px solid #dcdde1;
+            border-radius: 8px; box-sizing: border-box; font-size: 14px; outline: none; font-weight: bold; color: var(--dark-blue);
         }
         .modal-input:focus { border-color: var(--main-pink); }
-        .modal-actions { display: flex; gap: 10px; }
-        .modal-btn { flex: 1; padding: 10px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; }
+        .modal-actions { display: flex; gap: 10px; margin-top: 10px; }
+        .modal-btn { flex: 1; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.2s; }
         .btn-cancel { background: #e0e0e0; color: #333; }
-        .btn-submit-modal { background: var(--main-pink); color: white; }
+        .btn-cancel:hover { background: #ccc; }
+        .btn-submit-modal { background: var(--main-pink); color: white; box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2); }
+        .btn-submit-modal:hover { background: #c4004e; transform: translateY(-2px); }
 
-        .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: sticky; bottom: 0; z-index: 100; }
+        /* Bottom Nav */
+        .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: absolute; bottom: 0; width: 100%; z-index: 100; }
         .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); text-decoration: none; flex: 1; }
         .nav-item i { font-size: 18px; margin-bottom: 4px; display: block; }
         .nav-item.active { color: var(--main-pink); font-weight: bold; }
 
+        /* Toast */
         .toast-msg {
-            visibility: hidden; min-width: 200px; background-color: var(--main-pink); 
-            color: #fff; text-align: center; border-radius: 30px; padding: 10px 20px;
-            position: fixed; z-index: 9999; left: 50%; transform: translateX(-50%);
-            top: 20px; font-size: 14px; font-weight: bold;
-            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.4); opacity: 0; transition: opacity 0.3s, top 0.3s;
+            visibility: hidden; background-color: var(--main-pink); color: #fff; text-align: center; border-radius: 8px; padding: 12px 20px; position: fixed; z-index: 9999; top: 20px; left: 50%; transform: translateX(-50%); font-size: 13px; font-weight: bold; box-shadow: 0 4px 15px rgba(226, 0, 90, 0.3); opacity: 0; transition: opacity 0.3s, top 0.3s; min-width: 250px;
         }
         .toast-msg.show { visibility: visible; opacity: 1; top: 40px; }
-        .toast-error { background-color: #e74c3c; box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4); }
     </style>
 </head>
 <body>
 
-    <div id="toastBox" class="toast-msg"></div>
+    <div id="toastBox" class="toast-msg"><i class="fas fa-check-circle"></i> <span id="toastText">সফল হয়েছে!</span></div>
 
     <div class="app-container">
         <div class="header">
-            <div class="header-title">
-                <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
-                Gmail Account
+            <div class="header-left">
+                <!-- ডাইনামিক ব্যাক বাটন -->
+                <a class="back-btn" onclick="handleBackBtn()"><i class="fas fa-arrow-left"></i></a>
+                <div class="header-title" id="pageTitle">Gmail Account</div>
             </div>
+            <!-- History Icon -->
+            <a class="history-btn" onclick="toggleHistoryView()"><i class="fas fa-history"></i></a>
         </div>
 
         <div class="content">
-            <div class="notice-box">
-                <i class="fas fa-info-circle"></i> নিচের নাম এবং পাসওয়ার্ড ব্যবহার করে একটি নতুন জিমেইল খুলুন। খোলা হয়ে গেলে <b>'জমা দিন'</b> বাটনে ক্লিক করুন।
+            
+            <!-- Main Submit View -->
+            <div id="mainSubmitView">
+                <div class="notice-box">
+                    <i class="fas fa-info-circle"></i>
+                    <p>নিচের নাম এবং পাসওয়ার্ড ব্যবহার করে একটি নতুন জিমেইল খুলুন। খোলা হয়ে গেলে 'জমা দিন' বাটনে ক্লিক করুন।</p>
+                </div>
+
+                <!-- Task Rate Card -->
+                <div class="rate-display-card">
+                    <h3><i class="fas fa-coins"></i> প্রতিটি জিমেইলের মূল্য:</h3>
+                    <div class="amount" id="taskRateAmount"><i class="fas fa-spinner fa-spin"></i></div>
+                </div>
+
+                <!-- টাস্ক কার্ড -->
+                <div class="task-card">
+                    <button class="manual-btn" onclick="openModal()"><i class="fas fa-plus"></i> ম্যানুয়াল জমা</button>
+
+                    <div class="data-group" style="margin-top: 15px;">
+                        <label>ফার্স্ট নেম (First Name)</label>
+                        <div class="data-box">
+                            <span id="fNameDisplay">Load হচ্ছে...</span>
+                            <i class="fas fa-copy copy-icon" onclick="copyText('fNameDisplay')"></i>
+                        </div>
+                    </div>
+
+                    <div class="data-group">
+                        <label>জিমেইল ইউজারনেম (Username)</label>
+                        <div class="data-box">
+                            <span id="emailDisplay">Load হচ্ছে...</span>
+                            <i class="fas fa-copy copy-icon" onclick="copyText('emailDisplay')"></i>
+                        </div>
+                    </div>
+
+                    <div class="data-group">
+                        <label>পাসওয়ার্ড (Password)</label>
+                        <div class="data-box">
+                            <span id="passDisplay">Send@@##</span>
+                            <i class="fas fa-copy copy-icon" onclick="copyText('passDisplay')"></i>
+                        </div>
+                    </div>
+
+                    <button class="generate-btn" onclick="generateNewData()">
+                        <i class="fas fa-sync-alt"></i> নতুন নাম ও জিমেইল নিন
+                    </button>
+
+                    <button class="submit-btn" id="submitAutoBtn" onclick="submitGmail()">
+                        <i class="fas fa-upload"></i> তৈরি করেছি, জমা দিন
+                    </button>
+                </div>
             </div>
 
-            <!-- টাস্ক কার্ড -->
-            <div class="task-card">
-                <button class="manual-btn" onclick="openModal()"><i class="fas fa-plus"></i> ম্যানুয়াল জমা</button>
-
-                <div class="data-group" style="margin-top: 10px;">
-                    <label>ফার্স্ট নেম (First Name)</label>
-                    <div class="data-box">
-                        <span id="fNameDisplay">Load হচ্ছে...</span>
-                        <i class="fas fa-copy copy-icon" onclick="copyText('fNameDisplay')"></i>
-                    </div>
-                </div>
-
-                <div class="data-group">
-                    <label>জিমেইল ইউজারনেম (Username)</label>
-                    <div class="data-box">
-                        <span id="emailDisplay">Load হচ্ছে...</span>
-                        <i class="fas fa-copy copy-icon" onclick="copyText('emailDisplay')"></i>
-                    </div>
-                </div>
-
-                <div class="data-group">
-                    <label>পাসওয়ার্ড (Password)</label>
-                    <div class="data-box">
-                        <span id="passDisplay">Send@@##</span>
-                        <i class="fas fa-copy copy-icon" onclick="copyText('passDisplay')"></i>
-                    </div>
-                </div>
-
-                <button class="generate-btn" onclick="generateNewData()">
-                    <i class="fas fa-sync-alt"></i> নতুন নাম ও জিমেইল নিন
-                </button>
-
-                <button class="submit-btn" id="submitAutoBtn" onclick="submitGmail()">তৈরি করেছি, জমা দিন</button>
-            </div>
-
-            <!-- হিস্ট্রি সেকশন -->
-            <div class="history-section">
-                <div class="history-title">Gmail জমার হিস্ট্রি</div>
-                <div id="historyList">
-                    <p style="text-align:center; color:#888; font-size:12px;"><i class="fas fa-spinner fa-spin"></i> ডাটা লোড হচ্ছে...</p>
+            <!-- History View -->
+            <div id="historyView" style="display: none;">
+                <div id="historyGridContainer">
+                    <p style="text-align:center; color:#888; padding:30px;"><i class="fas fa-spinner fa-spin"></i> হিস্ট্রি লোড হচ্ছে...</p>
                 </div>
             </div>
+
         </div>
 
         <div class="bottom-nav">
@@ -223,7 +266,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
-        import { getFirestore, collection, addDoc, onSnapshot, query, where, doc, updateDoc, increment, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, where, doc, getDoc, updateDoc, increment, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
@@ -248,31 +291,48 @@
         window.increment = increment;
         window.serverTimestamp = serverTimestamp;
 
+        let currentUserUid = null;
+
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 window.currentUser = user;
-                loadTaskHistory();
+                currentUserUid = user.uid;
+                
+                // ভেরিফিকেশন চেক
+                getDoc(doc(db, "users", user.uid)).then(docSnap => {
+                    if(docSnap.exists() && docSnap.data().isVerified !== true) {
+                        alert("আপনাকে প্রথমে অ্যাকাউন্ট ভেরিফাই করতে হবে!");
+                        window.location.href = "verification.html";
+                    } else {
+                        loadTaskRate();
+                        loadUserHistory();
+                    }
+                });
             } else {
                 window.location.href = "login.html";
             }
         });
 
-        // হিস্ট্রি লোড ফাংশন (Client-side sorting দিয়ে Index Error ફিক্স করা হয়েছে)
-        function loadTaskHistory() {
-            if(!window.currentUser) return;
-            
-            const q = query(
-                collection(db, "tasks"), 
-                where("userId", "==", window.currentUser.uid),
-                where("platform", "==", "Gmail")
-            );
-            
+        // রেট লোড করা (অ্যাডমিন ড্যাশবোর্ড থেকে)
+        function loadTaskRate() {
+            onSnapshot(doc(db, "admin_settings", "task_rates"), (docSnap) => {
+                if (docSnap.exists() && docSnap.data().gmail) {
+                    document.getElementById('taskRateAmount').innerText = `৳ ${parseFloat(docSnap.data().gmail).toFixed(2)}`;
+                } else {
+                    document.getElementById('taskRateAmount').innerText = `৳ 7.50`; 
+                }
+            });
+        }
+
+        // ইউজারের কাজের হিস্ট্রি লোড (Client-side sorting দিয়ে Index Error ফিক্স)
+        function loadUserHistory() {
+            const q = query(collection(db, "tasks"), where("userId", "==", currentUserUid), where("platform", "==", "Gmail"));
             onSnapshot(q, (snapshot) => {
-                const historyList = document.getElementById('historyList');
-                historyList.innerHTML = ''; 
+                const grid = document.getElementById('historyGridContainer');
+                grid.innerHTML = '';
 
                 if(snapshot.empty) {
-                    historyList.innerHTML = '<p style="text-align:center; color:#888; font-size:12px;">কোনো হিস্ট্রি পাওয়া যায়নি।</p>';
+                    grid.innerHTML = '<p style="text-align:center; color:#888; padding:30px;">কোনো কাজের হিস্ট্রি পাওয়া যায়নি।</p>';
                     return;
                 }
 
@@ -281,36 +341,35 @@
                     taskList.push(docSnap.data());
                 });
 
-                // নতুন কাজগুলো আগে দেখানোর জন্য সর্টিং
+                // Client-side sorting (নতুন কাজগুলো আগে দেখানোর জন্য)
                 taskList.sort((a, b) => {
                     let timeA = a.timestamp ? a.timestamp.toDate().getTime() : 0;
                     let timeB = b.timestamp ? b.timestamp.toDate().getTime() : 0;
                     return timeB - timeA;
                 });
 
-                taskList.forEach(item => {
-                    let statusClass, statusText;
-                    
-                    if(item.status === 'pending') {
-                        statusClass = 'status-pending'; statusText = 'Pending';
-                    } else if(item.status === 'approved') {
-                        statusClass = 'status-approved'; statusText = 'Approved';
-                    } else {
-                        statusClass = 'status-rejected'; statusText = 'Rejected';
-                    }
+                taskList.forEach(data => {
+                    const dateObj = data.timestamp ? data.timestamp.toDate() : new Date();
+                    const dateStr = dateObj.toLocaleDateString('bn-BD') + ", " + dateObj.toLocaleTimeString('bn-BD', {hour: '2-digit', minute:'2-digit'});
 
-                    const dateObj = item.timestamp ? item.timestamp.toDate() : new Date();
-                    const dateStr = dateObj.toLocaleDateString('bn-BD', {hour: '2-digit', minute:'2-digit'});
+                    let statusBadge = '';
+                    if(data.status === 'pending') statusBadge = '<span class="status-badge pending">Pending</span>';
+                    else if(data.status === 'approved') statusBadge = '<span class="status-badge approved">Approved</span>';
+                    else if(data.status === 'rejected') statusBadge = '<span class="status-badge rejected">Rejected</span>';
 
-                    let displayInfo = item.details.includes('Email:') ? item.details.split(',')[1] || item.details : item.details;
+                    // ডিটেইলস থেকে ইমেইল বের করে সুন্দরভাবে দেখানো
+                    let displayInfo = data.details.includes('Email:') ? data.details.split(',')[1] || data.details : data.details;
 
-                    historyList.innerHTML += `
+                    grid.innerHTML += `
                         <div class="history-card">
-                            <div class="history-info">
-                                <p style="font-size:12px; font-weight: bold; color: var(--main-pink);">${displayInfo.trim()}</p>
-                                <small>তারিখ: ${dateStr}</small>
+                            <div class="hi-header">
+                                <div class="hi-date">${dateStr}</div>
+                                ${statusBadge}
                             </div>
-                            <div class="status-badge ${statusClass}">${statusText}</div>
+                            <div class="hi-details">
+                                <i class="far fa-envelope" style="color:var(--main-pink); margin-right:5px;"></i> ${displayInfo.trim()}
+                            </div>
+                            ${data.status === 'rejected' && data.rejectReason ? `<span class="hi-reason">কারণ: ${data.rejectReason}</span>` : ''}
                         </div>
                     `;
                 });
@@ -326,12 +385,12 @@
 
         function showToast(message, isError = false) {
             const toast = document.getElementById("toastBox");
-            toast.innerText = message;
+            document.getElementById("toastText").innerText = message;
             if(isError) toast.classList.add("toast-error");
             else toast.classList.remove("toast-error");
             
             toast.classList.add("show");
-            setTimeout(() => { toast.classList.remove("show"); }, 2500);
+            setTimeout(() => { toast.classList.remove("show"); }, 3000);
         }
 
         window.generateNewData = function() {
@@ -356,6 +415,30 @@
         window.openModal = function() { document.getElementById('manualModal').style.display = 'flex'; }
         window.closeModal = function() { document.getElementById('manualModal').style.display = 'none'; }
 
+        // হিস্ট্রি টগল ফাংশন
+        let isHistoryVisible = false;
+        window.toggleHistoryView = function() {
+            isHistoryVisible = !isHistoryVisible;
+            if(isHistoryVisible) {
+                document.getElementById('mainSubmitView').style.display = 'none';
+                document.getElementById('historyView').style.display = 'block';
+                document.getElementById('pageTitle').innerText = 'কাজের হিস্ট্রি';
+            } else {
+                document.getElementById('mainSubmitView').style.display = 'block';
+                document.getElementById('historyView').style.display = 'none';
+                document.getElementById('pageTitle').innerText = 'Gmail Account';
+            }
+        }
+
+        // ডাইনামিক ব্যাক বাটন
+        window.handleBackBtn = function() {
+            if(isHistoryVisible) {
+                toggleHistoryView(); // হিস্ট্রি থেকে ফর্মে
+            } else {
+                window.location.href = "index.html"; // ফর্ম থেকে হোমে
+            }
+        }
+
         window.submitGmail = async function() {
             if(!currentEmail || !window.currentUser) {
                 showToast("দয়া করে অপেক্ষা করুন বা আবার লগইন করুন।", true);
@@ -371,27 +454,29 @@
             const detailsText = `Name: ${fName}, Email: ${currentEmail}, Pass: ${pass}`;
             
             try {
-                // ১. ফায়ারবেসে টাস্ক সেভ করা
                 await window.addDoc(window.collection(window.db, "tasks"), {
                     userId: window.currentUser.uid,
                     platform: "Gmail",
                     details: detailsText,
                     status: "pending",
+                    rejectReason: "",
                     timestamp: window.serverTimestamp()
                 });
                 
-                // ২. ইউজারের totalTasks আপডেট করা
                 await window.updateDoc(window.doc(window.db, "users", window.currentUser.uid), {
                     totalTasks: window.increment(1)
                 });
                 
                 showToast("সফলভাবে কাজ জমা দেওয়া হয়েছে!");
                 generateNewData(); 
+                
+                if(!isHistoryVisible) toggleHistoryView();
+
             } catch(e) {
                 console.error(e);
                 showToast("জমা দিতে সমস্যা হয়েছে!", true);
             } finally {
-                btn.innerText = "তৈরি করেছি, জমা দিন";
+                btn.innerHTML = '<i class="fas fa-upload"></i> তৈরি করেছি, জমা দিন';
                 btn.disabled = false;
             }
         }
@@ -419,6 +504,7 @@
                     platform: "Gmail",
                     details: detailsText,
                     status: "pending",
+                    rejectReason: "",
                     timestamp: window.serverTimestamp()
                 });
                 
@@ -430,6 +516,9 @@
                 document.getElementById('customEmail').value = '';
                 document.getElementById('customPass').value = '';
                 closeModal();
+
+                if(!isHistoryVisible) toggleHistoryView();
+
             } catch(e) {
                 console.error(e);
                 showToast("জমা দিতে সমস্যা হয়েছে!", true);
