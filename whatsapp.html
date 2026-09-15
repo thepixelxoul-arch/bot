@@ -90,23 +90,22 @@
             color: var(--dark-blue); font-weight: bold;
         }
         .form-control:focus { border-color: var(--main-pink); box-shadow: 0 0 0 2px rgba(226, 0, 90, 0.1); }
-        
-        /* OTP Box Layout */
-        .otp-input-wrapper { display: flex; gap: 10px; }
-        .otp-input-wrapper input { flex: 1; }
+
+        /* Full Width Get Code Button */
         .btn-get-code {
-            background-color: var(--dark-blue); color: white; border: none;
-            padding: 0 15px; border-radius: 8px; font-size: 13px; font-weight: bold;
-            cursor: pointer; transition: 0.2s; white-space: nowrap; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            background-color: var(--dark-blue); color: white; border: none; width: 100%;
+            padding: 14px; border-radius: 8px; font-size: 15px; font-weight: bold;
+            cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 15px; margin-top: 20px;
         }
-        .btn-get-code:hover { background-color: #1a252f; transform: translateY(-1px); }
+        .btn-get-code:hover { background-color: #1a252f; transform: translateY(-2px); }
         .btn-get-code:disabled { background-color: #95a5a6; cursor: not-allowed; box-shadow: none; transform: none; }
 
         .btn-submit {
             background-color: var(--main-pink); color: white; border: none; width: 100%;
             padding: 14px; border-radius: 8px; font-size: 15px; font-weight: bold;
             cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
-            box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2); margin-top: 10px;
+            box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2);
         }
         .btn-submit:hover { background-color: #c4004e; transform: translateY(-2px); }
 
@@ -193,14 +192,14 @@
                         <input type="text" id="waNumber" class="form-control" placeholder="যেমন: +8801700000000">
                     </div>
 
-                    <!-- OTP Code Box with Button -->
                     <div class="input-group">
                         <label>ভেরিফিকেশন কোড</label>
-                        <div class="otp-input-wrapper">
-                            <input type="text" id="waCode" class="form-control" placeholder="হোয়াটসঅ্যাপের কোড লিখুন...">
-                            <button class="btn-get-code" id="btnGetCode" onclick="sendWhatsAppCode()">কোড পাঠান</button>
-                        </div>
+                        <input type="text" id="waCode" class="form-control" placeholder="হোয়াটসঅ্যাপের কোড লিখুন...">
                     </div>
+
+                    <button class="btn-get-code" id="btnGetCode" onclick="sendWhatsAppCode()">
+                        <i class="fas fa-paper-plane"></i> কোড পাঠান
+                    </button>
 
                     <button class="btn-submit" id="btnSubmitTask" onclick="submitTask()">
                         <i class="fas fa-upload"></i> জমা দিন
@@ -284,7 +283,6 @@
             }
         });
 
-        // রেট লোড করা (অ্যাডমিন ড্যাশবোর্ড থেকে)
         function loadTaskRate() {
             onSnapshot(doc(db, "admin_settings", "task_rates"), (docSnap) => {
                 if (docSnap.exists() && docSnap.data().whatsapp) {
@@ -295,7 +293,6 @@
             });
         }
 
-        // নিয়মাবলী লোড করা
         function loadTaskRules() {
             const q = query(collection(db, "task_rules"), where("platform", "==", "WhatsApp Account"));
             onSnapshot(q, (snapshot) => {
@@ -316,7 +313,6 @@
             });
         }
 
-        // ইউজারের কাজের হিস্ট্রি লোড
         function loadUserHistory() {
             const q = query(collection(db, "tasks"), where("userId", "==", currentUserUid), where("platform", "==", "WhatsApp Account"));
             onSnapshot(q, (snapshot) => {
@@ -364,7 +360,6 @@
             });
         }
 
-        // ডাটাবেসে কাজ জমা দেওয়া
         window.submitTask = async function() {
             const number = document.getElementById("waNumber").value.trim();
             const code = document.getElementById("waCode").value.trim();
@@ -418,7 +413,6 @@
             setTimeout(() => { toast.classList.remove("show"); }, 3000);
         }
 
-        // হোয়াটসঅ্যাপে কোড পাঠানোর ফাংশন (টাইমার সহ)
         window.sendWhatsAppCode = function() {
             const number = document.getElementById("waNumber").value.trim();
             if(number === "") {
@@ -430,18 +424,17 @@
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
             btn.disabled = true;
 
-            // সিমুলেশন: ১.৫ সেকেন্ড পর মেসেজ দেখাবে এবং টাইমার শুরু হবে
             setTimeout(() => {
                 showToast("আপনার হোয়াটসঅ্যাপে কোড পাঠানো হয়েছে!");
                 
                 let timeLeft = 60;
                 const timer = setInterval(() => {
-                    btn.innerHTML = `${timeLeft}s`;
+                    btn.innerHTML = `অপেক্ষা করুন (${timeLeft}s)`;
                     timeLeft--;
                     
                     if(timeLeft < 0) {
                         clearInterval(timer);
-                        btn.innerHTML = 'আবার পাঠান';
+                        btn.innerHTML = '<i class="fas fa-paper-plane"></i> কোড পাঠান';
                         btn.disabled = false;
                     }
                 }, 1000);
