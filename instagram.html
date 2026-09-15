@@ -54,11 +54,21 @@
         /* Notice Box */
         .notice-box {
             background-color: #fff3cd; border-left: 4px solid #ffc107; border-radius: 4px;
-            padding: 15px; margin-bottom: 20px; display: flex; gap: 10px; align-items: flex-start;
+            padding: 15px; margin-bottom: 15px; display: flex; gap: 10px; align-items: flex-start;
             box-shadow: 0 2px 5px rgba(0,0,0,0.02);
         }
         .notice-box i { color: #856404; font-size: 16px; margin-top: 2px; }
         .notice-box p { margin: 0; font-size: 13px; color: #856404; line-height: 1.5; font-weight: bold;}
+
+        /* Task Rate Card */
+        .rate-display-card {
+            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
+            color: white; border-radius: 12px; padding: 15px 20px; display: flex;
+            justify-content: space-between; align-items: center; margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.2);
+        }
+        .rate-display-card h3 { margin: 0; font-size: 15px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
+        .rate-display-card .amount { font-size: 20px; font-weight: 900; background: rgba(255,255,255,0.2); padding: 5px 12px; border-radius: 8px; }
 
         /* Form Card */
         .submit-card {
@@ -161,6 +171,12 @@
                     <p>সঠিক ইউজারনেম এবং পাসওয়ার্ড দিয়ে ইনস্টাগ্রাম অ্যাকাউন্ট জমা দিন। অ্যাকাউন্ট চেক করার পর আপনার ব্যালেন্সে টাকা যোগ করা হবে। ভুল তথ্য দিলে অ্যাকাউন্ট বাতিল করা হবে।</p>
                 </div>
 
+                <!-- Task Rate Card -->
+                <div class="rate-display-card">
+                    <h3><i class="fas fa-coins"></i> প্রতিটি অ্যাকাউন্টের মূল্য:</h3>
+                    <div class="amount" id="taskRateAmount"><i class="fas fa-spinner fa-spin"></i></div>
+                </div>
+
                 <!-- Form Card -->
                 <div class="submit-card">
                     <h3><i class="far fa-paper-plane" style="color: var(--main-pink);"></i> আপনার অ্যাকাউন্ট জমা দিন</h3>
@@ -252,6 +268,7 @@
                         alert("আপনাকে প্রথমে অ্যাকাউন্ট ভেরিফাই করতে হবে!");
                         window.location.href = "verification.html";
                     } else {
+                        loadTaskRate();
                         loadTaskRules();
                         loadUserHistory();
                     }
@@ -260,6 +277,17 @@
                 window.location.href = "login.html";
             }
         });
+
+        // রেট লোড করা (অ্যাডমিন ড্যাশবোর্ড থেকে)
+        function loadTaskRate() {
+            onSnapshot(doc(db, "admin_settings", "task_rates"), (docSnap) => {
+                if (docSnap.exists() && docSnap.data().instagram) {
+                    document.getElementById('taskRateAmount').innerText = `৳ ${parseFloat(docSnap.data().instagram).toFixed(2)}`;
+                } else {
+                    document.getElementById('taskRateAmount').innerText = `৳ 10.00`; 
+                }
+            });
+        }
 
         // নিয়মাবলী লোড করা (অ্যাডমিন ড্যাশবোর্ড থেকে)
         function loadTaskRules() {
