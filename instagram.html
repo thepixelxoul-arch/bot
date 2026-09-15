@@ -39,7 +39,7 @@
         }
         
         .header-left { display: flex; align-items: center; gap: 15px; }
-        .back-btn { color: white; text-decoration: none; font-size: 20px; }
+        .back-btn { color: white; text-decoration: none; font-size: 20px; cursor: pointer; }
         .header-title { font-size: 18px; font-weight: bold; }
         
         .history-btn {
@@ -144,10 +144,11 @@
     <div class="app-container">
         <div class="header">
             <div class="header-left">
-                <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+                <!-- ডাইনামিক ব্যাক বাটন -->
+                <a class="back-btn" onclick="handleBackBtn()"><i class="fas fa-arrow-left"></i></a>
                 <div class="header-title" id="pageTitle">Instagram Account</div>
             </div>
-            <!-- History Icon Added Here -->
+            <!-- History Icon -->
             <a class="history-btn" onclick="toggleHistoryView()"><i class="fas fa-history"></i></a>
         </div>
 
@@ -215,7 +216,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
-        import { getFirestore, collection, addDoc, onSnapshot, query, where, doc, getDoc, updateDoc, increment, serverTimestamp, orderBy } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, where, doc, getDoc, updateDoc, increment, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
@@ -281,9 +282,9 @@
             });
         }
 
-        // ইউজারের কাজের হিস্ট্রি লোড
+        // ইউজারের কাজের হিস্ট্রি লোড (Without orderBy to prevent composite index error)
         function loadUserHistory() {
-            const q = query(collection(db, "tasks"), where("userId", "==", currentUserUid), where("platform", "==", "Instagram Account"), orderBy("timestamp", "desc"));
+            const q = query(collection(db, "tasks"), where("userId", "==", currentUserUid), where("platform", "==", "Instagram Account"));
             onSnapshot(q, (snapshot) => {
                 const grid = document.getElementById('historyGridContainer');
                 grid.innerHTML = '';
@@ -293,8 +294,19 @@
                     return;
                 }
 
+                let taskList = [];
                 snapshot.forEach(docSnap => {
-                    const data = docSnap.data();
+                    taskList.push(docSnap.data());
+                });
+
+                // Client-side sorting (নতুন কাজগুলো আগে দেখানোর জন্য)
+                taskList.sort((a, b) => {
+                    let timeA = a.timestamp ? a.timestamp.toDate().getTime() : 0;
+                    let timeB = b.timestamp ? b.timestamp.toDate().getTime() : 0;
+                    return timeB - timeA;
+                });
+
+                taskList.forEach(data => {
                     const dateObj = data.timestamp ? data.timestamp.toDate() : new Date();
                     const dateStr = dateObj.toLocaleDateString('bn-BD') + ", " + dateObj.toLocaleTimeString('bn-BD', {hour: '2-digit', minute:'2-digit'});
 
@@ -337,7 +349,6 @@
             const details = `Username: ${username}\nPassword: ${password}\n2FA/Recovery: ${twoFA}`;
 
             try {
-                // tasks কালেকশনে যোগ করা (যাতে অ্যাডমিন প্যানেলে যায়)
                 await window.addDoc(window.collection(window.db, "tasks"), {
                     userId: currentUserUid,
                     platform: "Instagram Account",
@@ -347,19 +358,16 @@
                     timestamp: window.serverTimestamp()
                 });
 
-                // ইউজারের totalTasks কাউন্ট বাড়ানো
                 await window.updateDoc(window.doc(window.db, "users", currentUserUid), {
                     totalTasks: window.increment(1)
                 });
 
                 showToast("আপনার ইনস্টাগ্রাম অ্যাকাউন্ট সফলভাবে জমা হয়েছে!");
                 
-                // ইনপুট ক্লিয়ার
                 document.getElementById("igUsername").value = "";
                 document.getElementById("igPassword").value = "";
                 document.getElementById("ig2fa").value = "";
 
-                // অটোমেটিক হিস্ট্রি পেজে নিয়ে যাওয়া
                 if(!isHistoryVisible) toggleHistoryView();
 
             } catch (error) {
@@ -382,6 +390,7 @@
         }
 
         let isHistoryVisible = false;
+        
         window.toggleHistoryView = function() {
             isHistoryVisible = !isHistoryVisible;
             if(isHistoryVisible) {
@@ -392,6 +401,17 @@
                 document.getElementById('mainSubmitView').style.display = 'block';
                 document.getElementById('historyView').style.display = 'none';
                 document.getElementById('pageTitle').innerText = 'Instagram Account';
+            }
+        }
+
+        // ডাইনামিক ব্যাক বাটন
+        window.handleBackBtn = function() {
+            if(isHistoryVisible) {
+                // হিস্ট্রি পেজে থাকলে ফর্ম পেজে ফেরত আনবে
+                toggleHistoryView();
+            } else {
+                // ফর্ম পেজে থাকলে হোম পেজে (index.html) নিয়ে যাবে
+                window.location.href = "index.html";
             }
         }
     </script>
