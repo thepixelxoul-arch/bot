@@ -223,7 +223,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
-        import { getFirestore, collection, addDoc, onSnapshot, query, where, orderBy, doc, updateDoc, increment, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, where, doc, updateDoc, increment, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
@@ -257,14 +257,14 @@
             }
         });
 
+        // হিস্ট্রি লোড ফাংশন (Client-side sorting দিয়ে Index Error ફিক্স করা হয়েছে)
         function loadTaskHistory() {
             if(!window.currentUser) return;
             
             const q = query(
                 collection(db, "tasks"), 
                 where("userId", "==", window.currentUser.uid),
-                where("platform", "==", "Gmail"),
-                orderBy("timestamp", "desc")
+                where("platform", "==", "Gmail")
             );
             
             onSnapshot(q, (snapshot) => {
@@ -276,8 +276,19 @@
                     return;
                 }
 
+                let taskList = [];
                 snapshot.forEach(docSnap => {
-                    const item = docSnap.data();
+                    taskList.push(docSnap.data());
+                });
+
+                // নতুন কাজগুলো আগে দেখানোর জন্য সর্টিং
+                taskList.sort((a, b) => {
+                    let timeA = a.timestamp ? a.timestamp.toDate().getTime() : 0;
+                    let timeB = b.timestamp ? b.timestamp.toDate().getTime() : 0;
+                    return timeB - timeA;
+                });
+
+                taskList.forEach(item => {
                     let statusClass, statusText;
                     
                     if(item.status === 'pending') {
@@ -291,13 +302,12 @@
                     const dateObj = item.timestamp ? item.timestamp.toDate() : new Date();
                     const dateStr = dateObj.toLocaleDateString('bn-BD', {hour: '2-digit', minute:'2-digit'});
 
-                    // ডিটেইলস থেকে ইমেইল বের করে দেখানো (যদি থাকে)
                     let displayInfo = item.details.includes('Email:') ? item.details.split(',')[1] || item.details : item.details;
 
                     historyList.innerHTML += `
                         <div class="history-card">
                             <div class="history-info">
-                                <p style="font-size:12px; font-weight: bold; color: var(--main-pink);">${displayInfo}</p>
+                                <p style="font-size:12px; font-weight: bold; color: var(--main-pink);">${displayInfo.trim()}</p>
                                 <small>তারিখ: ${dateStr}</small>
                             </div>
                             <div class="status-badge ${statusClass}">${statusText}</div>
@@ -310,7 +320,8 @@
 
     <!-- UI Scripts -->
     <script>
-        const firstNames = ["Rahim", "Karim", "Jamal", "Kamal", "Hasan", "Tariq", "Sadia", "Nusrat", "Farhana", "Ayesha"];
+        // বিদেশি (English) নাম ব্যবহার করা হয়েছে
+        const firstNames = ["William", "James", "Oliver", "Benjamin", "Lucas", "Henry", "Alexander", "Michael", "Daniel", "Matthew", "Sophia", "Emma", "Isabella", "Mia", "Amelia", "Charlotte", "Harper", "Evelyn", "Abigail", "Emily"];
         let currentEmail = "";
 
         function showToast(message, isError = false) {
@@ -325,7 +336,10 @@
 
         window.generateNewData = function() {
             const randomName = firstNames[Math.floor(Math.random() * firstNames.length)];
-            const randomNum = Math.floor(10000 + Math.random() * 90000); 
+            
+            // ৭-ডিজিটের র‍্যান্ডম নাম্বার যোগ করা হলো যাতে আগের কোনো জিমেইলের সাথে না মিলে
+            const randomNum = Math.floor(1000000 + Math.random() * 9000000); 
+            
             const generatedEmail = `${randomName.toLowerCase()}${randomNum}@gmail.com`;
             currentEmail = generatedEmail;
 
