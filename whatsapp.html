@@ -9,9 +9,12 @@
     <style>
         :root { 
             --main-pink: #e2005a; 
+            --light-pink: #ff3377;
             --main-white: #ffffff; 
             --text-grey: #888888; 
             --bg-light: #f4f6f9; 
+            --dark-blue: #2c3e50;
+            --success-green: #27ae60;
         }
 
         body { 
@@ -19,60 +22,200 @@
             background-color: #e9ecef; 
             font-family: 'Segoe UI', Tahoma, sans-serif; 
             display: flex; justify-content: center; 
+            height: 100vh; overflow: hidden;
         }
 
         .app-container { 
-            width: 100%; max-width: 450px; min-height: 100vh; 
-            background-color: var(--bg-light); color: var(--main-pink); 
+            width: 100%; max-width: 450px; height: 100vh; 
+            background-color: var(--bg-light); color: var(--dark-blue); 
             box-shadow: 0 0 25px rgba(0,0,0,0.1); 
             display: flex; flex-direction: column; position: relative; 
         }
 
         .header { 
             background-color: var(--main-pink); padding: 15px 20px; 
-            display: flex; justify-content: space-between; align-items: center; 
-            color: var(--main-white); box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); z-index: 10; 
+            display: flex; align-items: center; justify-content: space-between;
+            color: var(--main-white); box-shadow: 0 4px 12px rgba(226, 0, 90, 0.2); z-index: 10; flex-shrink: 0;
         }
-        .header-title { font-size: 20px; font-weight: bold; display: flex; align-items: center; }
-        .back-btn { color: white; text-decoration: none; margin-right: 15px; font-size: 22px; }
+        
+        .header-left { display: flex; align-items: center; gap: 15px; }
+        .back-btn { color: white; text-decoration: none; font-size: 20px; cursor: pointer; }
+        .header-title { font-size: 18px; font-weight: bold; }
+        
+        .history-btn {
+            color: white; text-decoration: none; font-size: 20px; cursor: pointer; transition: 0.2s;
+        }
+        .history-btn:hover { transform: scale(1.1); color: #ffe6f0; }
 
         .content { 
-            flex-grow: 1; padding: 30px 20px; display: flex; 
-            flex-direction: column; align-items: center; justify-content: center; text-align: center; 
+            flex-grow: 1; padding: 20px; overflow-y: auto; padding-bottom: 80px; 
         }
 
-        .off-box {
-            background-color: var(--main-white); border-radius: 12px; padding: 30px 20px;
-            border: 1px solid #eaeaea; box-shadow: 0 4px 15px rgba(0,0,0,0.05); width: 100%; box-sizing: border-box;
+        /* Notice Box */
+        .notice-box {
+            background-color: #fff3cd; border-left: 4px solid #ffc107; border-radius: 4px;
+            padding: 15px; margin-bottom: 20px; display: flex; gap: 10px; align-items: flex-start;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+        .notice-box i { color: #856404; font-size: 16px; margin-top: 2px; }
+        .notice-box p { margin: 0; font-size: 13px; color: #856404; line-height: 1.5; font-weight: bold;}
+
+        /* Task Rate Card */
+        .rate-display-card {
+            background: linear-gradient(135deg, var(--main-pink), var(--light-pink));
+            color: white; border-radius: 12px; padding: 15px 20px; display: flex;
+            justify-content: space-between; align-items: center; margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(226, 0, 90, 0.2);
+        }
+        .rate-display-card h3 { margin: 0; font-size: 15px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
+        .rate-display-card .amount { font-size: 20px; font-weight: 900; background: rgba(255,255,255,0.2); padding: 5px 12px; border-radius: 8px; }
+
+        /* Form Card */
+        .submit-card {
+            background-color: #fff; border: 1px solid #eaeaea; border-radius: 12px;
+            padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+        .submit-card h3 {
+            margin: 0 0 20px 0; font-size: 16px; font-weight: bold; color: var(--dark-blue);
+            display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #f0f0f0; padding-bottom: 10px;
         }
 
-        .off-box i { font-size: 50px; color: #e74c3c; margin-bottom: 15px; }
-        .off-box h3 { color: #2c3e50; margin: 0 0 10px 0; font-size: 20px; }
-        .off-box p { color: var(--text-grey); font-size: 14px; margin: 0; line-height: 1.5; }
+        .input-group { margin-bottom: 15px; }
+        .input-group label {
+            display: block; font-size: 13px; font-weight: bold; color: #555; margin-bottom: 8px;
+        }
+        .form-control {
+            width: 100%; border: 1px solid #dcdde1; border-radius: 8px; padding: 12px;
+            font-size: 14px; outline: none; transition: 0.3s; box-sizing: border-box; font-family: inherit;
+            color: var(--dark-blue); font-weight: bold;
+        }
+        .form-control:focus { border-color: var(--main-pink); box-shadow: 0 0 0 2px rgba(226, 0, 90, 0.1); }
+        
+        .btn-submit {
+            background-color: var(--main-pink); color: white; border: none; width: 100%;
+            padding: 14px; border-radius: 8px; font-size: 15px; font-weight: bold;
+            cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
+            box-shadow: 0 4px 10px rgba(226, 0, 90, 0.2); margin-top: 10px;
+        }
+        .btn-submit:hover { background-color: #c4004e; transform: translateY(-2px); }
 
-        /* বটম নেভবার */
-        .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: sticky; bottom: 0; z-index: 100; }
+        /* Rules Card */
+        .rules-card {
+            background-color: #fff; border: 1px solid #eaeaea; border-radius: 12px;
+            padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+        .rules-card h3 {
+            margin: 0 0 15px 0; font-size: 16px; font-weight: bold; color: var(--dark-blue);
+            display: flex; align-items: center; gap: 8px;
+        }
+        .rules-card p { font-size: 13px; color: #555; line-height: 1.6; margin: 0; }
+        
+        .video-box {
+            width: 100%; height: 180px; background-color: #000; border-radius: 8px;
+            margin-bottom: 15px; overflow: hidden; display: none;
+        }
+        .video-box iframe { width: 100%; height: 100%; border: none; }
+
+        /* History Card */
+        .history-card {
+            background: #fff; border: 1px solid #eaeaea; border-radius: 10px; padding: 15px;
+            margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+        .hi-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #f0f0f0; padding-bottom: 8px;}
+        .hi-date { font-size: 12px; color: var(--text-grey); font-weight: bold; }
+        
+        .status-badge { padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: bold; }
+        .status-badge.pending { background-color: #fff3cd; color: #856404; }
+        .status-badge.approved { background-color: #e8f8f5; color: var(--success-green); }
+        .status-badge.rejected { background-color: #ffe0e9; color: var(--main-pink); }
+
+        .hi-details { font-size: 13px; color: var(--dark-blue); font-weight: bold; line-height: 1.5; background: #f8f9fa; padding: 10px; border-radius: 6px;}
+        .hi-reason { font-size: 11px; color: var(--main-pink); font-weight: bold; margin-top: 8px; display: block; }
+
+        /* Bottom Nav */
+        .bottom-nav { background-color: var(--main-white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; position: absolute; bottom: 0; width: 100%; z-index: 100; }
         .nav-item { text-align: center; font-size: 11px; color: var(--text-grey); text-decoration: none; flex: 1; }
         .nav-item i { font-size: 18px; margin-bottom: 4px; display: block; }
         .nav-item.active { color: var(--main-pink); font-weight: bold; }
+
+        /* Toast */
+        .toast-msg {
+            visibility: hidden; background-color: var(--main-pink); color: #fff; text-align: center; border-radius: 8px; padding: 12px 20px; position: fixed; z-index: 9999; top: 20px; left: 50%; transform: translateX(-50%); font-size: 13px; font-weight: bold; box-shadow: 0 4px 15px rgba(226, 0, 90, 0.3); opacity: 0; transition: opacity 0.3s, top 0.3s; min-width: 250px;
+        }
+        .toast-msg.show { visibility: visible; opacity: 1; top: 40px; }
     </style>
 </head>
 <body>
 
+    <div id="toastBox" class="toast-msg"><i class="fas fa-check-circle"></i> <span id="toastText">সফল হয়েছে!</span></div>
+
     <div class="app-container">
         <div class="header">
-            <div class="header-title">
-                <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
-                WhatsApp Account
+            <div class="header-left">
+                <!-- ডাইনামিক ব্যাক বাটন -->
+                <a class="back-btn" onclick="handleBackBtn()"><i class="fas fa-arrow-left"></i></a>
+                <div class="header-title" id="pageTitle">WhatsApp Account</div>
             </div>
+            <!-- History Icon -->
+            <a class="history-btn" onclick="toggleHistoryView()"><i class="fas fa-history"></i></a>
         </div>
 
         <div class="content">
-            <div class="off-box">
-                <i class="fas fa-ban"></i>
-                <h3>কাজ সাময়িকভাবে বন্ধ আছে!</h3>
-                <p>বর্তমানে হোয়াটসঅ্যাপ টাস্ক বন্ধ রয়েছে। নতুন কাজ চালু হলে নোটিশ বোর্ডে জানিয়ে দেওয়া হবে। দয়া করে অন্য কাজগুলো করুন।</p>
+            
+            <!-- Main Submit View -->
+            <div id="mainSubmitView">
+                <div class="notice-box">
+                    <i class="fas fa-info-circle"></i>
+                    <p>সঠিক হোয়াটসঅ্যাপ নাম্বার এবং নাম দিয়ে অ্যাকাউন্ট জমা দিন। অ্যাকাউন্ট চেক করার পর আপনার ব্যালেন্সে টাকা যোগ করা হবে। ভুল তথ্য দিলে অ্যাকাউন্ট বাতিল করা হবে।</p>
+                </div>
+
+                <!-- Task Rate Card -->
+                <div class="rate-display-card">
+                    <h3><i class="fas fa-coins"></i> প্রতিটি অ্যাকাউন্টের মূল্য:</h3>
+                    <div class="amount" id="taskRateAmount"><i class="fas fa-spinner fa-spin"></i></div>
+                </div>
+
+                <!-- Form Card -->
+                <div class="submit-card">
+                    <h3><i class="fab fa-whatsapp" style="color: var(--main-pink);"></i> আপনার অ্যাকাউন্ট জমা দিন</h3>
+                    
+                    <div class="input-group">
+                        <label>হোয়াটসঅ্যাপ নাম্বার</label>
+                        <input type="text" id="waNumber" class="form-control" placeholder="যেমন: +8801700000000">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>অ্যাকাউন্টের নাম</label>
+                        <input type="text" id="waName" class="form-control" placeholder="যেমন: John Doe">
+                    </div>
+
+                    <div class="input-group">
+                        <label>টু-স্টেপ পিন (2FA PIN) - যদি থাকে</label>
+                        <input type="text" id="wa2fa" class="form-control" placeholder="যেমন: 123456">
+                    </div>
+
+                    <button class="btn-submit" id="btnSubmitTask" onclick="submitTask()">
+                        <i class="fas fa-upload"></i> জমা দিন
+                    </button>
+                </div>
+
+                <!-- Rules Card -->
+                <div class="rules-card" id="rulesCardBox" style="display: none;">
+                    <h3><i class="fas fa-list-alt" style="color: var(--main-pink);"></i> কাজের নিয়মাবলী</h3>
+                    <div class="video-box" id="ruleVideoBox">
+                        <iframe id="ruleVideo" src="" allowfullscreen></iframe>
+                    </div>
+                    <p id="ruleText">লোড হচ্ছে...</p>
+                </div>
             </div>
+
+            <!-- History View -->
+            <div id="historyView" style="display: none;">
+                <div id="historyGridContainer">
+                    <p style="text-align:center; color:#888; padding:30px;"><i class="fas fa-spinner fa-spin"></i> হিস্ট্রি লোড হচ্ছে...</p>
+                </div>
+            </div>
+
         </div>
 
         <div class="bottom-nav">
@@ -83,5 +226,216 @@
         </div>
     </div>
 
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, where, doc, getDoc, updateDoc, increment, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAzfS5v-5tKZZU0b94UllLDm_qQoumo5Bk",
+            authDomain: "send-bkash.firebaseapp.com",
+            projectId: "send-bkash",
+            storageBucket: "send-bkash.firebasestorage.app",
+            messagingSenderId: "306247423891",
+            appId: "1:306247423891:web:bb4fb6634043e6755afa66"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        window.db = db;
+        window.auth = auth;
+        window.addDoc = addDoc;
+        window.collection = collection;
+        window.doc = doc;
+        window.updateDoc = updateDoc;
+        window.increment = increment;
+        window.serverTimestamp = serverTimestamp;
+
+        let currentUserUid = null;
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                currentUserUid = user.uid;
+                
+                // ভেরিফিকেশন চেক
+                getDoc(doc(db, "users", user.uid)).then(docSnap => {
+                    if(docSnap.exists() && docSnap.data().isVerified !== true) {
+                        alert("আপনাকে প্রথমে অ্যাকাউন্ট ভেরিফাই করতে হবে!");
+                        window.location.href = "verification.html";
+                    } else {
+                        loadTaskRate();
+                        loadTaskRules();
+                        loadUserHistory();
+                    }
+                });
+            } else {
+                window.location.href = "login.html";
+            }
+        });
+
+        // রেট লোড করা (অ্যাডমিন ড্যাশবোর্ড থেকে)
+        function loadTaskRate() {
+            onSnapshot(doc(db, "admin_settings", "task_rates"), (docSnap) => {
+                if (docSnap.exists() && docSnap.data().whatsapp) {
+                    document.getElementById('taskRateAmount').innerText = `৳ ${parseFloat(docSnap.data().whatsapp).toFixed(2)}`;
+                } else {
+                    document.getElementById('taskRateAmount').innerText = `৳ 15.00`; 
+                }
+            });
+        }
+
+        // নিয়মাবলী লোড করা
+        function loadTaskRules() {
+            const q = query(collection(db, "task_rules"), where("platform", "==", "WhatsApp Account"));
+            onSnapshot(q, (snapshot) => {
+                if (!snapshot.empty) {
+                    document.getElementById('rulesCardBox').style.display = 'block';
+                    snapshot.forEach((docSnap) => {
+                        const data = docSnap.data();
+                        document.getElementById('ruleText').innerHTML = data.rulesText.replace(/\n/g, '<br>');
+                        
+                        if(data.videoUrl && data.videoUrl.trim() !== "") {
+                            document.getElementById('ruleVideoBox').style.display = 'block';
+                            document.getElementById('ruleVideo').src = data.videoUrl;
+                        } else {
+                            document.getElementById('ruleVideoBox').style.display = 'none';
+                        }
+                    });
+                }
+            });
+        }
+
+        // ইউজারের কাজের হিস্ট্রি লোড
+        function loadUserHistory() {
+            const q = query(collection(db, "tasks"), where("userId", "==", currentUserUid), where("platform", "==", "WhatsApp Account"));
+            onSnapshot(q, (snapshot) => {
+                const grid = document.getElementById('historyGridContainer');
+                grid.innerHTML = '';
+
+                if(snapshot.empty) {
+                    grid.innerHTML = '<p style="text-align:center; color:#888; padding:30px;">কোনো কাজের হিস্ট্রি পাওয়া যায়নি।</p>';
+                    return;
+                }
+
+                let taskList = [];
+                snapshot.forEach(docSnap => {
+                    taskList.push(docSnap.data());
+                });
+
+                taskList.sort((a, b) => {
+                    let timeA = a.timestamp ? a.timestamp.toDate().getTime() : 0;
+                    let timeB = b.timestamp ? b.timestamp.toDate().getTime() : 0;
+                    return timeB - timeA;
+                });
+
+                taskList.forEach(data => {
+                    const dateObj = data.timestamp ? data.timestamp.toDate() : new Date();
+                    const dateStr = dateObj.toLocaleDateString('bn-BD') + ", " + dateObj.toLocaleTimeString('bn-BD', {hour: '2-digit', minute:'2-digit'});
+
+                    let statusBadge = '';
+                    if(data.status === 'pending') statusBadge = '<span class="status-badge pending">Pending</span>';
+                    else if(data.status === 'approved') statusBadge = '<span class="status-badge approved">Approved</span>';
+                    else if(data.status === 'rejected') statusBadge = '<span class="status-badge rejected">Rejected</span>';
+
+                    grid.innerHTML += `
+                        <div class="history-card">
+                            <div class="hi-header">
+                                <div class="hi-date">${dateStr}</div>
+                                ${statusBadge}
+                            </div>
+                            <div class="hi-details">
+                                <i class="fab fa-whatsapp" style="color:var(--main-pink); margin-right:5px;"></i> ${data.details.replace(/\n/g, '<br>')}
+                            </div>
+                            ${data.status === 'rejected' && data.rejectReason ? `<span class="hi-reason">কারণ: ${data.rejectReason}</span>` : ''}
+                        </div>
+                    `;
+                });
+            });
+        }
+
+        // ডাটাবেসে কাজ জমা দেওয়া
+        window.submitTask = async function() {
+            const number = document.getElementById("waNumber").value.trim();
+            const name = document.getElementById("waName").value.trim();
+            const twoFA = document.getElementById("wa2fa").value.trim() || "N/A";
+            
+            if (number === "" || name === "") {
+                showToast("দয়া করে নাম্বার এবং নাম প্রদান করুন!");
+                return;
+            }
+
+            const btn = document.getElementById("btnSubmitTask");
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> জমা হচ্ছে...';
+            btn.disabled = true;
+
+            const details = `Number: ${number}\nName: ${name}\n2FA PIN: ${twoFA}`;
+
+            try {
+                await window.addDoc(window.collection(window.db, "tasks"), {
+                    userId: currentUserUid,
+                    platform: "WhatsApp Account",
+                    details: details,
+                    status: "pending",
+                    rejectReason: "",
+                    timestamp: window.serverTimestamp()
+                });
+
+                await window.updateDoc(window.doc(window.db, "users", currentUserUid), {
+                    totalTasks: window.increment(1)
+                });
+
+                showToast("আপনার হোয়াটসঅ্যাপ অ্যাকাউন্ট সফলভাবে জমা হয়েছে!");
+                
+                document.getElementById("waNumber").value = "";
+                document.getElementById("waName").value = "";
+                document.getElementById("wa2fa").value = "";
+
+                if(!isHistoryVisible) toggleHistoryView();
+
+            } catch (error) {
+                console.error(error);
+                alert("জমা দিতে সমস্যা হয়েছে! আবার চেষ্টা করুন।");
+            } finally {
+                btn.innerHTML = '<i class="fas fa-upload"></i> জমা দিন';
+                btn.disabled = false;
+            }
+        }
+    </script>
+
+    <!-- UI Scripts -->
+    <script>
+        function showToast(message) {
+            const toast = document.getElementById("toastBox");
+            document.getElementById("toastText").innerText = message;
+            toast.classList.add("show");
+            setTimeout(() => { toast.classList.remove("show"); }, 3000);
+        }
+
+        let isHistoryVisible = false;
+        
+        window.toggleHistoryView = function() {
+            isHistoryVisible = !isHistoryVisible;
+            if(isHistoryVisible) {
+                document.getElementById('mainSubmitView').style.display = 'none';
+                document.getElementById('historyView').style.display = 'block';
+                document.getElementById('pageTitle').innerText = 'কাজের হিস্ট্রি';
+            } else {
+                document.getElementById('mainSubmitView').style.display = 'block';
+                document.getElementById('historyView').style.display = 'none';
+                document.getElementById('pageTitle').innerText = 'WhatsApp Account';
+            }
+        }
+
+        window.handleBackBtn = function() {
+            if(isHistoryVisible) {
+                toggleHistoryView();
+            } else {
+                window.location.href = "index.html";
+            }
+        }
+    </script>
 </body>
 </html>
