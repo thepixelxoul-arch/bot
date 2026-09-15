@@ -265,16 +265,23 @@
                 
                 const urlParams = new URLSearchParams(window.location.search);
                 const paymentStatus = urlParams.get('payment');
+                
+                // ১. প্রথমে ডাটাবেস থেকে চেক করবে ইউজার আসলেই ভেরিফাইড কি না!
+                const userRef = doc(db, "users", user.uid);
+                const docSnap = await getDoc(userRef);
+                let dbIsVerified = false;
+                
+                if (docSnap.exists() && docSnap.data().isVerified === true) {
+                    dbIsVerified = true;
+                }
 
-                // পেমেন্ট সফল হলে ডাটাবেসে সেভ করা এবং UI আপডেট করা
-                if((paymentStatus === 'success' || localStorage.getItem('isVerified') === 'true')) {
+                // ২. পেমেন্ট সফল হলে অথবা ডাটাবেসে ভেরিফাইড থাকলে UI আপডেট হবে
+                if(paymentStatus === 'success' || dbIsVerified) {
                     
-                    // ডাটাবেস আপডেট (যাতে বারবার ডাটাবেসে হিট না করে, sessionStorage ব্যবহার করা হলো)
-                    if(paymentStatus === 'success' && !sessionStorage.getItem('verifyLogged')) {
-                        sessionStorage.setItem('verifyLogged', 'true');
-                        
+                    // যদি পেমেন্ট পেজ থেকে কেবল ফিরে আসে এবং ডাটাবেসে আপডেট না হয়ে থাকে
+                    if(paymentStatus === 'success' && !dbIsVerified) {
                         try {
-                            await window.updateDoc(window.doc(window.db, "users", user.uid), {
+                            await window.updateDoc(userRef, {
                                 isVerified: true
                             });
 
@@ -291,7 +298,6 @@
                         }
                     }
 
-                    localStorage.setItem('isVerified', 'true'); 
                     window.isFaceScanned = true;
 
                     // UI আপডেট
