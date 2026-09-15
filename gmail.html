@@ -325,7 +325,7 @@
             });
         }
 
-        // ইউজারের কাজের হিস্ট্রি লোড (Client-side sorting দিয়ে Index Error ফিক্স)
+        // ইউজারের কাজের হিস্ট্রি লোড
         function loadUserHistory() {
             const q = query(collection(db, "tasks"), where("userId", "==", currentUserUid), where("platform", "==", "Gmail"));
             onSnapshot(q, (snapshot) => {
@@ -342,7 +342,7 @@
                     taskList.push(docSnap.data());
                 });
 
-                // Client-side sorting (নতুন কাজগুলো আগে দেখানোর জন্য)
+                // Client-side sorting
                 taskList.sort((a, b) => {
                     let timeA = a.timestamp ? a.timestamp.toDate().getTime() : 0;
                     let timeB = b.timestamp ? b.timestamp.toDate().getTime() : 0;
@@ -358,7 +358,6 @@
                     else if(data.status === 'approved') statusBadge = '<span class="status-badge approved">Approved</span>';
                     else if(data.status === 'rejected') statusBadge = '<span class="status-badge rejected">Rejected</span>';
 
-                    // ডিটেইলস থেকে ইমেইল বের করে সুন্দরভাবে দেখানো
                     let displayInfo = data.details.includes('Email:') ? data.details.split(',')[1] || data.details : data.details;
 
                     grid.innerHTML += `
@@ -380,7 +379,6 @@
 
     <!-- UI Scripts -->
     <script>
-        // বিদেশি (English) নাম ব্যবহার করা হয়েছে
         const firstNames = ["William", "James", "Oliver", "Benjamin", "Lucas", "Henry", "Alexander", "Michael", "Daniel", "Matthew", "Sophia", "Emma", "Isabella", "Mia", "Amelia", "Charlotte", "Harper", "Evelyn", "Abigail", "Emily"];
         let currentEmail = "";
 
@@ -396,8 +394,6 @@
 
         window.generateNewData = function() {
             const randomName = firstNames[Math.floor(Math.random() * firstNames.length)];
-            
-            // ৭-ডিজিটের র‍্যান্ডম নাম্বার যোগ করা হলো যাতে আগের কোনো জিমেইলের সাথে না মিলে
             const randomNum = Math.floor(1000000 + Math.random() * 9000000); 
             
             const generatedEmail = `${randomName.toLowerCase()}${randomNum}@gmail.com`;
@@ -471,8 +467,6 @@
                 showToast("সফলভাবে কাজ জমা দেওয়া হয়েছে!");
                 generateNewData(); 
                 
-                if(!isHistoryVisible) toggleHistoryView();
-
             } catch(e) {
                 console.error(e);
                 showToast("জমা দিতে সমস্যা হয়েছে!", true);
@@ -517,8 +511,6 @@
                 document.getElementById('customEmail').value = '';
                 document.getElementById('customPass').value = '';
                 closeModal();
-
-                if(!isHistoryVisible) toggleHistoryView();
 
             } catch(e) {
                 console.error(e);
